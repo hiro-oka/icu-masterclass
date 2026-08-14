@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIV / NPPV in the ICU — ICU Masterclass 2026</title>
+<meta name="description" content="集中治療における非侵襲的換気（NIV / NPPV）の実践教材。定義・適応/禁忌・長所/短所・マスク・モード・リーク・管理・エビデンス。">
+<style>
+:root{
+  --ink:#1d1d1f;
+  --ink2:#6e6e73;
+  --ink3:#86868b;
+  --line:#d2d2d7;
+  --line2:#e8e8ed;
+  --tile:#f5f5f7;
+  --blue:#0071e3;
+  --blue-t:#eaf3fd;
+  --green:#1c8c4e;
+  --green-t:#e8f6ee;
+  --orange:#c96a00;
+  --orange-t:#fdf1e3;
+  --red:#c9261c;
+  --red-t:#fdecea;
+  --purple:#5e51c9;
+  --purple-t:#eeecfb;
+  --r:20px;
+  --f: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:#fff;color:var(--ink);
+  font-family:var(--f);font-size:17px;line-height:1.78;letter-spacing:.01em;
+  font-feature-settings:"palt" 1;-webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+
+/* ---------- nav ---------- */
+nav.bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line2)}
+.bar-in{display:flex;align-items:center;gap:18px;height:48px;overflow-x:auto;scrollbar-width:none}
+.bar-in::-webkit-scrollbar{display:none}
+.bar-in .logo{font-size:14px;font-weight:600;white-space:nowrap;letter-spacing:-.01em}
+.bar-in a{font-size:12.5px;color:var(--ink2);text-decoration:none;white-space:nowrap;transition:color .2s}
+.bar-in a:hover{color:var(--ink)}
+.bar-in a.on{color:var(--blue)}
+.prog{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--blue)}
+
+/* ---------- hero ---------- */
+.hero{text-align:center;padding:88px 0 56px}
+.eyebrow{color:var(--blue);font-size:19px;font-weight:600;letter-spacing:0;margin:0 0 10px}
+h1{font-size:clamp(38px,7.2vw,76px);font-weight:700;letter-spacing:-.028em;line-height:1.06;margin:0}
+h1 .g{background:linear-gradient(95deg,#0071e3,#5e51c9 55%,#c9261c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:clamp(17px,2.3vw,22px);line-height:1.55;color:var(--ink2);max-width:640px;margin:26px auto 0;letter-spacing:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:30px 0 0}
+.chip{font-size:13px;color:var(--ink2);background:var(--tile);border-radius:100px;padding:6px 14px;line-height:1.4}
+.tools{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 0}
+.btn{font:inherit;font-size:14px;font-weight:600;text-decoration:none;border-radius:100px;padding:10px 22px;border:0;cursor:pointer;line-height:1.4;transition:.18s}
+.btn.pri{background:var(--blue);color:#fff}
+.btn.pri:hover{background:#0060c0}
+.btn.sec{background:var(--tile);color:var(--ink)}
+.btn.sec:hover{background:#ebebef}
+
+/* ---------- sections ---------- */
+section{padding:76px 0;scroll-margin-top:56px}
+section.band{background:var(--tile)}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0 0 12px}
+h2{font-size:clamp(27px,4.4vw,44px);font-weight:700;letter-spacing:-.022em;line-height:1.18;margin:0 0 18px}
+h3{font-size:clamp(19px,2.4vw,24px);font-weight:600;letter-spacing:-.012em;line-height:1.4;margin:52px 0 14px}
+h4{font-size:16px;font-weight:600;margin:0 0 8px;letter-spacing:-.005em}
+.lead{font-size:clamp(17px,2vw,20px);line-height:1.65;color:var(--ink2);margin:0 0 26px;letter-spacing:0}
+p{margin:0 0 20px}
+p:last-child{margin-bottom:0}
+strong{font-weight:600}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.94em}
+a{color:var(--blue)}
+
+/* ---------- figures ---------- */
+figure{margin:34px 0;background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:clamp(18px,3vw,30px);overflow:hidden}
+section.band figure{border-color:transparent;box-shadow:0 1px 3px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.05)}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:13.5px;line-height:1.65;color:var(--ink3);margin-top:16px;letter-spacing:0}
+figcaption b{color:var(--ink2);font-weight:600}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scrollx>svg{min-width:660px}
+
+/* ---------- tiles ---------- */
+.grid{display:grid;gap:16px;margin:30px 0}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.tile{background:var(--tile);border-radius:var(--r);padding:24px}
+section.band .tile{background:#fff}
+.tile .big{font-size:clamp(30px,5vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1.05;display:block;margin-bottom:6px}
+.tile p{font-size:14.5px;line-height:1.65;color:var(--ink2);margin:0}
+.tile .lbl{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:10px}
+
+/* ---------- callouts ---------- */
+.cal{border-radius:18px;padding:20px 24px;margin:26px 0;font-size:15.5px;line-height:1.75}
+.cal h4{display:flex;align-items:center;gap:9px;font-size:15px}
+.cal .dot{width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;line-height:1}
+.cal.b{background:var(--blue-t);color:#0b4a86}.cal.b .dot{background:var(--blue)}
+.cal.g{background:var(--green-t);color:#145c34}.cal.g .dot{background:var(--green)}
+.cal.o{background:var(--orange-t);color:#8a4a00}.cal.o .dot{background:var(--orange)}
+.cal.r{background:var(--red-t);color:#8f1a13}.cal.r .dot{background:var(--red)}
+.cal.p{background:var(--purple-t);color:#3d3390}.cal.p .dot{background:var(--purple)}
+.cal p:last-child{margin-bottom:0}
+section.band .cal.n{background:#fff;color:var(--ink2)}
+.pull{font-size:clamp(20px,3vw,30px);font-weight:600;letter-spacing:-.02em;line-height:1.45;margin:44px 0;max-width:820px}
+.pull span{color:var(--ink3)}
+
+/* ---------- tables ---------- */
+.tw{border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;margin:28px 0;background:#fff}
+section.band .tw{border-color:transparent;box-shadow:0 1px 3px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.05)}
+.tw .in{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px;line-height:1.65}
+thead th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding:14px 20px;background:#fafafd;border-bottom:1px solid var(--line2);white-space:nowrap}
+tbody td{padding:14px 20px;border-bottom:1px solid var(--line2);vertical-align:top;color:var(--ink2)}
+tbody tr:last-child td{border-bottom:0}
+tbody td:first-child{color:var(--ink);font-weight:500}
+.split thead th:first-child{color:var(--green)}
+.split thead th:last-child{color:var(--red)}
+.split tbody td:last-child{background:#fffafa;color:#8f1a13}
+.wide table{min-width:760px}
+
+/* ---------- checklist grid ---------- */
+.ck{border-radius:var(--r);overflow:hidden;border:1px solid var(--line2);margin:28px 0;background:#fff}
+.ck .row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:18px 22px;border-bottom:1px solid var(--line2)}
+.ck .row:last-child{border-bottom:0}
+@media (max-width:600px){.ck .row{grid-template-columns:1fr;gap:8px}}
+.ck .t{font-size:14px;font-weight:600;color:var(--blue)}
+.ck .row.stop{background:var(--red-t)}
+.ck .row.stop .t{color:var(--red)}
+.ck ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 10px}
+.ck li{font-size:14px;color:var(--ink2);background:var(--tile);border-radius:8px;padding:3px 10px;line-height:1.6}
+.ck .row.stop li{background:#fff;color:#8f1a13}
+
+/* ---------- numbered steps ---------- */
+.ol{counter-reset:s;list-style:none;margin:28px 0;padding:0}
+.ol li{counter-increment:s;position:relative;padding:0 0 0 46px;margin:0 0 20px;font-size:15.5px;line-height:1.7;color:var(--ink2)}
+.ol li:last-child{margin-bottom:0}
+.ol li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:var(--blue-t);color:var(--blue);font-size:13px;font-weight:700;display:grid;place-items:center;line-height:1}
+.ol li b{color:var(--ink);font-weight:600;display:block;margin-bottom:1px}
+section.band .ol li::before{background:#fff}
+
+/* ---------- HACOR calculator ---------- */
+.calc{border-radius:var(--r);background:#fff;border:1px solid var(--line2);overflow:hidden;margin:30px 0;box-shadow:0 1px 3px rgba(0,0,0,.05),0 10px 30px rgba(0,0,0,.06)}
+.calc-h{padding:22px 26px;border-bottom:1px solid var(--line2)}
+.calc-h h4{margin:0 0 2px;font-size:17px}
+.calc-h span{font-size:13.5px;color:var(--ink3)}
+.calc-b{padding:22px 26px}
+.crow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px 20px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line2)}
+.crow:last-of-type{border-bottom:0}
+@media (max-width:640px){.crow{grid-template-columns:1fr;gap:8px}}
+.crow>span{font-size:14.5px;color:var(--ink2);font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opts button{font:inherit;font-size:13.5px;padding:6px 13px;border-radius:100px;border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;transition:.16s;line-height:1.4}
+.opts button:hover{border-color:var(--blue);color:var(--blue)}
+.opts button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.opts button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.calc-out{display:flex;flex-wrap:wrap;gap:16px 26px;align-items:center;padding:22px 26px;background:var(--tile);border-top:1px solid var(--line2)}
+.gauge{flex:none}
+.calc-score{font-size:46px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--blue)}
+.calc-score small{font-size:15px;font-weight:500;color:var(--ink3);margin-left:4px;letter-spacing:0}
+.calc-msg{flex:1;min-width:220px;font-size:14.5px;line-height:1.7;color:var(--ink2)}
+.calc.hot .calc-out{background:var(--red-t)}
+.calc.hot .calc-score{color:var(--red)}
+.calc.hot .calc-msg{color:#8f1a13}
+.reset{font:inherit;font-size:13px;background:none;border:0;color:var(--blue);cursor:pointer;padding:4px 0}
+
+/* ---------- bars ---------- */
+.bar-row{display:grid;grid-template-columns:minmax(140px,210px) minmax(0,1fr) 54px;gap:14px;align-items:center;margin:0 0 14px}
+@media (max-width:560px){.bar-row{grid-template-columns:minmax(0,1fr) 54px;grid-template-areas:"l l" "b v"}.bar-row .bl{grid-area:l}.bar-row .bt{grid-area:b}.bar-row .bv{grid-area:v}}
+.bl{font-size:14.5px;line-height:1.45;color:var(--ink)}
+.bl small{display:block;font-size:12.5px;color:var(--ink3)}
+.bt{height:16px;border-radius:100px;background:var(--line2);overflow:hidden}
+.bt i{display:block;height:100%;width:0;border-radius:100px;background:var(--red);transition:width 1.2s cubic-bezier(.25,1,.3,1)}
+.bt i.ok{background:var(--blue)}
+.bv{font-size:15px;font-weight:600;text-align:right;color:var(--red)}
+.bv.ok{color:var(--blue)}
+
+/* ---------- take-home ---------- */
+.th{counter-reset:t;list-style:none;margin:28px 0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:700px){.th{grid-template-columns:1fr}}
+.th li{counter-increment:t;background:#fff;border-radius:16px;padding:18px 20px 18px 56px;position:relative;font-size:15px;line-height:1.65;color:var(--ink2)}
+.th li::before{content:counter(t);position:absolute;left:18px;top:18px;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-size:13px;font-weight:600;display:grid;place-items:center;line-height:1}
+
+/* refs */
+.refs{list-style:none;margin:20px 0;padding:0;columns:2;column-gap:34px}
+@media (max-width:800px){.refs{columns:1}}
+.refs li{font-size:13.5px;line-height:1.7;color:var(--ink2);margin:0 0 12px;break-inside:avoid;padding-left:14px;text-indent:-14px}
+.refs li i{font-style:normal;color:var(--ink)}
+
+footer{border-top:1px solid var(--line2);padding:34px 0 60px;font-size:13px;line-height:1.7;color:var(--ink3)}
+footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rev.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}.trace{stroke-dashoffset:0!important;animation:none!important}html{scroll-behavior:auto}}
+.trace{stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 2.6s cubic-bezier(.35,0,.15,1) .35s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+@page{size:A4;margin:12mm 11mm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  nav.bar,.tools{display:none}
+  body{font-size:14.5px;line-height:1.7}
+  .wrap{max-width:none;padding:0}
+  section{padding:18px 0}
+  .hero{padding:20px 0 14px}
+  h1{font-size:42px}h2{font-size:25px}h3{font-size:18px;margin:26px 0 10px}
+  h1 .g{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--blue)}
+  .lead{font-size:15.5px;margin-bottom:16px}
+  .pull{font-size:19px;margin:24px 0}
+  figure{margin:20px 0;padding:14px}
+  .grid,.tw,.ck,.calc,.th{margin:18px 0}
+  .scrollx{overflow:visible}
+  .scrollx>svg{min-width:0}
+  table{min-width:0!important;font-size:13px}
+  thead th,tbody td{padding:9px 12px}
+  .rev{opacity:1;transform:none;transition:none}
+  figure,.tw,.calc,.cal,.ck,.th li,.tile,.ol li{break-inside:avoid}
+  h2,h3,h4{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap bar-in">
+    <span class="logo">NIV / NPPV</span>
+    <a href="#map">1枚で</a>
+    <a href="#what">とは</a>
+    <a href="#indication">適応・禁忌</a>
+    <a href="#proscons">長所・短所</a>
+    <a href="#mask">マスク</a>
+    <a href="#mode">モード</a>
+    <a href="#leak">リーク</a>
+    <a href="#care">管理</a>
+    <a href="#evidence">エビデンス</a>
+    <a href="#take">まとめ</a>
+  </div>
+  <div class="prog" id="prog"></div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="wrap hero">
+  <p class="eyebrow">ICU Masterclass · 2026</p>
+  <h1>NIVは、<br><span class="g">助けているのか、<br>傷つけているのか。</span></h1>
+  <p>設定値の話ではありません。病態・呼吸努力・ガス交換・時間経過を同時に追い、<strong>失敗を早く見つけて挿管を遅らせない</strong>ための資料です。</p>
+  <div class="chips">
+    <span class="chip">定義と生理</span><span class="chip">適応・禁忌</span><span class="chip">長所・短所</span>
+    <span class="chip">マスク</span><span class="chip">モード</span><span class="chip">リーク</span>
+    <span class="chip">管理</span><span class="chip">エビデンス</span>
+  </div>
+  <div class="tools">
+    <a class="btn pri" href="NIV_NPPV_ICU_Masterclass_2026.pdf">⬇︎ PDF版をダウンロード</a>
+    <button class="btn sec" type="button" id="copy">🔗 リンクをコピー</button>
+  </div>
+</header>
+
+<!-- ================= MASTER MAP ================= -->
+<section id="map" class="band">
+<div class="wrap">
+  <p class="kicker">この1枚</p>
+  <h2>レジデントのためのNIVマスターマップ</h2>
+  <p class="lead">迷ったらここに戻る。左から右へ、上から下へ。赤い線に触れたら挿管へ進む。</p>
+
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 960 560" role="img" aria-label="NIV全体アルゴリズム：病態分類からモダリティ選択、30分・1時間評価、failure判定、挿管まで">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#86868b"/></marker>
+        <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#c9261c"/></marker>
+        <marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1c8c4e"/></marker>
+      </defs>
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+
+      <!-- step labels -->
+      <g font-size="11" font-weight="600" fill="#86868b" letter-spacing="1">
+        <text x="20" y="26">① 病態を分ける</text>
+        <text x="20" y="176">② モダリティ</text>
+        <text x="20" y="300">③ 30分</text>
+        <text x="20" y="380">④ 1時間</text>
+        <text x="20" y="500">⑤ 判定</text>
+      </g>
+
+      <!-- row 1: phenotypes -->
+      <g>
+        <rect x="20" y="38" width="290" height="66" rx="14" fill="#eaf3fd" stroke="#bcdcfa"/>
+        <text x="38" y="66" font-size="15" font-weight="600" fill="#0b4a86">高CO₂ / COPD急性増悪</text>
+        <text x="38" y="88" font-size="12.5" fill="#0b4a86">PaCO₂ &gt;45・pH &lt;7.35</text>
+
+        <rect x="330" y="38" width="290" height="66" rx="14" fill="#eeecfb" stroke="#d3cdf6"/>
+        <text x="348" y="66" font-size="15" font-weight="600" fill="#3d3390">心原性肺水腫</text>
+        <text x="348" y="88" font-size="12.5" fill="#3d3390">起坐呼吸・湿性ラ音・BNP↑</text>
+
+        <rect x="640" y="38" width="300" height="66" rx="14" fill="#fdf1e3" stroke="#f6dcbc"/>
+        <text x="658" y="66" font-size="15" font-weight="600" fill="#8a4a00">de novo 低酸素ARF / ARDS</text>
+        <text x="658" y="88" font-size="12.5" fill="#8a4a00">肺炎・ARDS・免疫不全</text>
+      </g>
+      <g stroke="#86868b" stroke-width="1.4" marker-end="url(#ar)" fill="none">
+        <path d="M165 104 V 140"/><path d="M475 104 V 140"/><path d="M790 104 V 140"/>
+      </g>
+
+      <!-- row 2: modality -->
+      <g>
+        <rect x="20" y="146" width="290" height="72" rx="14" fill="#0071e3"/>
+        <text x="38" y="177" font-size="16" font-weight="700" fill="#fff">bilevel NIV が第一選択</text>
+        <text x="38" y="200" font-size="12.5" fill="#cfe6fb">IPAP 10 / EPAP 5 から開始</text>
+
+        <rect x="330" y="146" width="290" height="72" rx="14" fill="#5e51c9"/>
+        <text x="348" y="177" font-size="16" font-weight="700" fill="#fff">CPAP（または bilevel）</text>
+        <text x="348" y="200" font-size="12.5" fill="#ded9fb">CPAP 5–10 を 2 ずつ滴定</text>
+
+        <rect x="640" y="146" width="300" height="72" rx="14" fill="#c96a00"/>
+        <text x="658" y="177" font-size="16" font-weight="700" fill="#fff">まず HFNC を検討</text>
+        <text x="658" y="200" font-size="12.5" fill="#fae6cd">NIVなら監視を強化 / helmetは専門施設</text>
+      </g>
+
+      <!-- converge -->
+      <g stroke="#86868b" stroke-width="1.4" fill="none">
+        <path d="M165 218 V 244 H 480"/><path d="M475 218 V 244"/><path d="M790 218 V 244 H 480"/>
+        <path d="M480 244 V 262" marker-end="url(#ar)"/>
+      </g>
+
+      <!-- step3 -->
+      <rect x="150" y="268" width="660" height="52" rx="14" fill="#fff" stroke="#d2d2d7"/>
+      <text x="176" y="291" font-size="14.5" font-weight="600" fill="#1d1d1f">30分：機械の問題か、病態の問題か</text>
+      <text x="176" y="311" font-size="12.5" fill="#6e6e73">リーク・mask位置・comfort・同期 → RR↓ / 補助筋↓ / BP安定を確認</text>
+      <path d="M480 320 V 344" stroke="#86868b" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+
+      <!-- step4 critical -->
+      <rect x="100" y="350" width="760" height="96" rx="16" fill="#fff" stroke="#0071e3" stroke-width="2"/>
+      <text x="126" y="378" font-size="15" font-weight="700" fill="#0071e3">1時間：この6つを同時に見る</text>
+      <g font-size="13" fill="#1d1d1f">
+        <rect x="126" y="392" width="106" height="30" rx="8" fill="#f5f5f7"/><text x="146" y="412">HACOR</text>
+        <rect x="242" y="392" width="106" height="30" rx="8" fill="#f5f5f7"/><text x="272" y="412">P/F</text>
+        <rect x="358" y="392" width="106" height="30" rx="8" fill="#f5f5f7"/><text x="386" y="412">VT</text>
+        <rect x="474" y="392" width="106" height="30" rx="8" fill="#f5f5f7"/><text x="502" y="412">RR・努力</text>
+        <rect x="590" y="392" width="120" height="30" rx="8" fill="#f5f5f7"/><text x="612" y="412">pH / PaCO₂</text>
+        <rect x="720" y="392" width="106" height="30" rx="8" fill="#f5f5f7"/><text x="752" y="412">GCS</text>
+      </g>
+      <text x="126" y="438" font-size="12" fill="#6e6e73">すべてが同じ方向に改善しているか？ 1つでも逆行していれば「改善」とは呼ばない</text>
+
+      <!-- branches -->
+      <g stroke-width="1.6" fill="none">
+        <path d="M300 446 V 476 H 220 V 496" stroke="#1c8c4e" marker-end="url(#arG)"/>
+        <path d="M660 446 V 476 H 740 V 496" stroke="#c9261c" marker-end="url(#arR)"/>
+      </g>
+      <rect x="40" y="500" width="360" height="46" rx="12" fill="#e8f6ee"/>
+      <text x="62" y="529" font-size="14.5" font-weight="600" fill="#145c34">改善 → 継続・6時間で再評価・weaning</text>
+
+      <rect x="560" y="500" width="380" height="46" rx="12" fill="#c9261c"/>
+      <text x="582" y="529" font-size="14.5" font-weight="700" fill="#fff">HACOR &gt;5 / 悪化 → 挿管準備を完了させる</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>使い方：</b>①で病態を1つに決め、②で機器を選び、③④で「効いているか」を確認する。⑤で赤に入った時点で、NIVの継続ではなく挿管の実行に判断を切り替える。</figcaption>
+  </figure>
+
+  <div class="grid g4">
+    <div class="tile"><span class="lbl">Critical window</span><span class="big">1<small style="font-size:18px">時間</small></span><p>開始1時間の評価が予後を分ける。ここで拾えない悪化は6時間後さらに拾いにくい。</p></div>
+    <div class="tile"><span class="lbl">HACOR cut‑off</span><span class="big">&gt;5</span><p>1時間時点で5点超なら high‑risk。感度73%・特異度90%。</p></div>
+    <div class="tile"><span class="lbl">危険なVT</span><span class="big">&gt;9</span><p>mL/kg 予測体重。頻呼吸と併存すればP‑SILIを疑う。</p></div>
+    <div class="tile"><span class="lbl">最も危険な領域</span><span class="big">&lt;150</span><p>PaO₂/FiO₂。face‑mask NIVのfailure・死亡リスクが高い。</p></div>
+  </div>
+
+  <div class="cal b">
+    <h4><span class="dot">i</span>この資料の中心命題</h4>
+    <p>NIVは「設定値」ではなく、<strong>病態・呼吸努力・ガス交換・時間経過を同時に追う治療戦略</strong>である。問うべきは「NIVを続けられるか」ではなく「NIVを続けることで患者に利益があるか」。</p>
+  </div>
+</div>
+</section>
+
+<!-- ================= 01 NIV/NPPVとは ================= -->
+<section id="what">
+<div class="wrap">
+  <p class="kicker">01 — NIV / NPPVとは</p>
+  <h2>気道に陽圧を届ける。<br>ただし、気道は預からない。</h2>
+  <p class="lead">NIV（non‑invasive ventilation）は、気管挿管や気管切開を行わず、マスクなどのインターフェースを介して換気補助を行う方法。臨床で使うNIVはほぼすべて陽圧式であり、<strong>NPPV</strong>（noninvasive positive pressure ventilation）とほぼ同義に扱われます。侵襲的換気との決定的な差は、<strong>気道を確保していないこと</strong>です。</p>
+
+  <div class="grid g3">
+    <div class="tile"><span class="lbl">やっていること</span><p style="font-size:16px;color:var(--ink)">気道に<strong>陽圧</strong>をかけ、吸気を助け、呼気終末に肺胞を開いたままにする。</p></div>
+    <div class="tile"><span class="lbl">やっていないこと</span><p style="font-size:16px;color:var(--ink)">気道の<strong>確保・保護</strong>、確実な換気量の保証、分泌物の除去。</p></div>
+    <div class="tile"><span class="lbl">だから決まること</span><p style="font-size:16px;color:var(--ink)">適応・禁忌・監視の密度は、すべて「気道を預かっていない」ことから導かれる。</p></div>
+  </div>
+
+  <h3>2つのダイヤルしかない</h3>
+  <p>NIVの圧設定は、突き詰めると2つです。<strong>EPAP</strong>（呼気終末陽圧＝PEEPに相当）と、<strong>IPAP</strong>（吸気圧）。そして換気補助の実体は、その差である <strong>PS（プレッシャーサポート）= IPAP − EPAP</strong> です。IPAPの絶対値ではなく差が仕事をする、という理解がすべての設定判断の土台になります。</p>
+
+  <figure class="rev">
+    <svg viewBox="0 0 900 320" role="img" aria-label="bilevel NIVの圧-時間波形。EPAPが基線、IPAPが吸気圧、その差がプレッシャーサポート">
+      <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+        <path d="M30 0H0V30" fill="none" stroke="#e8e8ed" stroke-width="1"/></pattern></defs>
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <rect x="80" y="30" width="740" height="200" fill="url(#grid)" rx="6"/>
+      <line x1="80" y1="230" x2="820" y2="230" stroke="#d2d2d7"/>
+      <line x1="80" y1="30" x2="80" y2="230" stroke="#d2d2d7"/>
+      <line x1="80" y1="185" x2="820" y2="185" stroke="#5e51c9" stroke-dasharray="5 6" stroke-width="1.6"/>
+      <path class="trace" d="M80 185 L140 185 L150 80 L235 80 L245 185 L340 185 L350 80 L435 80 L445 185 L540 185 L550 80 L635 80 L645 185 L740 185 L750 80 L820 80"
+            fill="none" stroke="#0071e3" stroke-width="3" stroke-linejoin="round"/>
+      <g font-size="13" fill="#6e6e73">
+        <text x="20" y="85" font-weight="600" fill="#0071e3">IPAP</text>
+        <text x="20" y="190" font-weight="600" fill="#5e51c9">EPAP</text>
+        <text x="30" y="45">cmH₂O</text>
+        <text x="770" y="252">time</text>
+      </g>
+      <g stroke="#c9261c" stroke-width="1.8">
+        <line x1="700" y1="80" x2="700" y2="185"/><line x1="693" y1="80" x2="707" y2="80"/><line x1="693" y1="185" x2="707" y2="185"/>
+      </g>
+      <rect x="470" y="112" width="216" height="42" rx="10" fill="#fdecea"/>
+      <text x="486" y="139" font-size="15" font-weight="700" fill="#c9261c">PS = IPAP − EPAP</text>
+
+      <rect x="80" y="266" width="360" height="42" rx="10" fill="#eeecfb"/>
+      <text x="100" y="293" font-size="13.5" fill="#3d3390"><tspan font-weight="700">EPAP ↑</tspan> → recruitment・上気道開存・酸素化</text>
+      <rect x="460" y="266" width="360" height="42" rx="10" fill="#eaf3fd"/>
+      <text x="480" y="293" font-size="13.5" fill="#0b4a86"><tspan font-weight="700">PS ↑</tspan> → VT・PaCO₂低下・呼吸仕事量の軽減</text>
+      </g>
+    </svg>
+    <figcaption>肺胞換気は <span class="mono">V̇A = (VT − VD) × RR</span>。PaCO₂を下げるには圧を上げるだけでなく、実効VT・dead space・RR・リーク・患者努力・auto‑PEEPを読む。<b>CPAPはこの図の段差がない状態</b>＝一定圧のみで、吸気補助（PS）は行っていない。</figcaption>
+  </figure>
+
+  <h3>体の中で何が起きているか</h3>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>作用</th><th>機序</th><th>臨床的な意味</th></tr></thead>
+      <tbody>
+        <tr><td>酸素化の改善</td><td>EPAPが虚脱肺胞をrecruitし、FRCを増やしshuntを減らす</td><td>同じFiO₂でSpO₂・P/Fが上がる</td></tr>
+        <tr><td>換気の改善</td><td>PSがVTを増やし、肺胞換気量が増える</td><td>PaCO₂低下・アシドーシス是正</td></tr>
+        <tr><td>呼吸仕事量の軽減</td><td>吸気筋の負担をPSが肩代わり。EPAPがauto‑PEEPを相殺しtrigger仕事を減らす</td><td>COPD増悪で疲弊を止める中核</td></tr>
+        <tr><td>血行動態</td><td>胸腔内圧上昇 → 静脈還流（前負荷）低下、左室transmural圧（後負荷）低下</td><td>心原性肺水腫に有利／前負荷依存・RV不全には不利</td></tr>
+        <tr><td>上気道の開存</td><td>気道内陽圧が上気道の虚脱を防ぐ</td><td>肥満低換気・OSA合併例で効く</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>NIVはどこに位置するのか</h3>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th></th><th>HFNC</th><th>NIV / NPPV</th><th>侵襲的換気（IMV）</th></tr></thead>
+      <tbody>
+        <tr><td>気道確保</td><td>なし</td><td>なし</td><td>あり</td></tr>
+        <tr><td>気道内圧</td><td>小さい（数cmH₂O程度・口を閉じた時のみ）</td><td>EPAP・IPAPで処方できる</td><td>完全に処方できる</td></tr>
+        <tr><td>換気補助</td><td>ほぼなし（dead space洗い出しが主）</td><td>PSで補助（量は保証されない）</td><td>確実</td></tr>
+        <tr><td>呼吸努力の制御</td><td>できない</td><td>限定的（P‑SILIは残る）</td><td>鎮静・筋弛緩で制御可能</td></tr>
+        <tr><td>会話・食事・喀痰</td><td>可能</td><td>中断すれば可能</td><td>不可</td></tr>
+        <tr><td>主な代償</td><td>効果が足りない可能性</td><td>リーク・皮膚障害・failureの見逃し</td><td>鎮静・VAP・ICU‑AW</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="cal b">
+    <h4><span class="dot">i</span>用語の整理</h4>
+    <p><strong>NIV</strong>＝非侵襲的換気の総称（歴史的には陰圧式も含む）／<strong>NPPV</strong>＝そのうち陽圧式／<strong>CPAP</strong>＝持続的な一定陽圧で吸気補助なし／<strong>bilevel（BiPAP®等）</strong>＝IPAPとEPAPの2相／<strong>NRS</strong>（noninvasive respiratory support）＝HFNCを含めた非侵襲的呼吸補助全体。文献ではNRSとNIVが使い分けられているので、読むときに区別する。</p>
+  </div>
+</div>
+</section>
+
+<!-- ================= 02 適応と禁忌 ================= -->
+<section id="indication" class="band">
+<div class="wrap">
+  <p class="kicker">02 — 適応と禁忌</p>
+  <h2>開始前に「failure plan」を作る。</h2>
+  <p class="lead">適応判断は「NIVを付けられるか」ではなく「NIVが利益をもたらす病態か」。そして禁忌のほとんどは、<strong>気道を預かっていない</strong>という一点から導かれます。</p>
+
+  <div class="grid g2">
+    <div class="tile" style="background:var(--green-t)">
+      <h4 style="color:var(--green)">✓ 適応 — 試す価値がある</h4>
+      <p style="color:#145c34">
+        <strong>COPD急性増悪</strong>：挿管率・死亡率を減らす最も強固な適応<br>
+        <strong>急性高CO₂血症性呼吸不全</strong>（PaCO₂ &gt;45、pH &lt;7.35）：bilevelが第一選択<br>
+        <strong>心原性肺水腫</strong>：CPAPまたはbilevel。胸腔内圧上昇による血行動態的利益<br>
+        <strong>高リスク抜管後</strong>：LV不全・高CO₂・COPD・体液過剰・BNP高値・抜管後喘鳴・65歳超<br>
+        <strong>免疫不全</strong>：従来よりエビデンスが弱く慎重に<br>
+        <strong>神経筋疾患・胸部外傷・緩和ケア</strong>：症例ごとに目的を明確化
+      </p>
+    </div>
+    <div class="tile" style="background:var(--red-t)">
+      <h4 style="color:var(--red)">✕ 禁忌に近い状態 — なぜ危険か</h4>
+      <p style="color:#8f1a13">
+        <strong>気道防御不能・無呼吸・心停止・痙攣</strong>：NIVではairwayを確保できない<br>
+        <strong>非協力的／重度意識障害</strong>：interface維持・気道防御が困難<br>
+        <strong>嘔吐・分泌物管理不能</strong>：誤嚥・気道閉塞<br>
+        <strong>血行動態不安定</strong>：陽圧が循環を悪化させ得る<br>
+        <strong>顔面変形・外傷・術後</strong>：interfaceが成立しない<br>
+        <strong>上気道／消化管術後早期</strong>：圧・誤嚥などのリスク
+      </p>
+    </div>
+  </div>
+
+  <h3>病態別に、最初の一手を決める</h3>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>病態</th><th>第一に考える</th><th>NIVの位置づけ</th><th>最重要の落とし穴</th></tr></thead>
+      <tbody>
+        <tr><td>COPD急性増悪＋高CO₂／アシドーシス</td><td>bilevel NIV</td><td>第一選択</td><td>疲弊・意識低下・分泌物</td></tr>
+        <tr><td>心原性肺水腫</td><td>CPAP / bilevel NIV</td><td>強い適応</td><td>shock / RV failure / preload依存</td></tr>
+        <tr><td>de novo低酸素ARF</td><td>HFNCを強く検討</td><td>NIV/CPAPは選択的</td><td>重症低酸素＋高driveでfailure</td></tr>
+        <tr><td>高リスク抜管後</td><td>予防的NIV</td><td>再挿管予防</td><td>気道防御不良をNIVで隠す</td></tr>
+        <tr><td>免疫不全</td><td>個別判断</td><td>従来より慎重</td><td>挿管遅延</td></tr>
+        <tr><td>緩和ケア</td><td>症状緩和目的</td><td>goalsに合わせる</td><td>治療目標との不一致</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>設定を触る前に、問いの順序を固定する</h3>
+  <p>この6つは並列ではなく、上から順に通過するゲートです。</p>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th style="width:34px">#</th><th>問い</th><th>見るもの</th><th>次の行動</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>この患者にNIVを試す価値があるか？</td><td>病態・airway・循環・意識・分泌物</td><td>適応／禁忌を判定</td></tr>
+        <tr><td>2</td><td>何を改善したいのか？</td><td>酸素化 / CO₂ / work of breathing</td><td>CPAPかbilevelか、HFNCか</td></tr>
+        <tr><td>3</td><td>最初の30–60分で効いているか？</td><td>RR・努力・SpO₂/FiO₂・P/F・VT・pH/PaCO₂</td><td>設定調整 or failure判定</td></tr>
+        <tr><td>4</td><td>患者自身が肺を傷つけていないか？</td><td>大VT・頻呼吸・補助筋・dyssynchrony</td><td>P‑SILIを疑う</td></tr>
+        <tr><td>5</td><td>NIVを続けることが利益か？</td><td>trajectory・HACOR・臨床像</td><td>継続 / HFNC / 挿管</td></tr>
+        <tr><td>6</td><td>失敗なら安全に挿管できるか？</td><td>循環・前酸素化・挿管困難・RV/PEEP dependence</td><td>挿管準備を先行</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="cal r">
+    <h4><span class="dot">!</span>開始前に必ず決めておく2つ</h4>
+    <p>「<strong>どの条件ならNIVを失敗とするか</strong>」「<strong>挿管するなら誰が・どこで・どの方法で行うか</strong>」。NIV開始は挿管準備の代替ではありません。</p>
+  </div>
+</div>
+</section>
+
+<!-- ================= 03 長所と短所 ================= -->
+<section id="proscons">
+<div class="wrap">
+  <p class="kicker">03 — 長所と短所</p>
+  <h2>長所と短所は、<br>同じ一つの事実から出ている。</h2>
+  <p class="lead">「気管チューブを入れない」——長所も短所も、すべてここから派生します。だから長所だけを取ることはできません。</p>
+
+  <div class="tw"><div class="in">
+    <table class="split">
+      <thead><tr><th>長所 — チューブを入れないから得られるもの</th><th>短所 — チューブを入れないから失うもの</th></tr></thead>
+      <tbody>
+        <tr><td>挿管と深い鎮静を回避できる（せん妄・ICU‑AW・鎮静合併症を避けうる）</td><td>気道が保護されない。誤嚥・突然の無呼吸・気道閉塞に対応できない</td></tr>
+        <tr><td>人工気道関連肺炎のリスクを避けられる</td><td>換気量が保証されない。リーク・患者努力・病態で実効VTが変わる</td></tr>
+        <tr><td>咳嗽・嚥下・会話・経口摂取が保たれる</td><td>分泌物を自力で出せない患者では、痰が溜まり続ける</td></tr>
+        <tr><td>間欠使用ができる（食事・吸入・休憩・リハビリ）</td><td>外している間は治療がゼロになる。中断が多いと効果が出ない</td></tr>
+        <tr><td>開始も中止も容易。ER・一般病棟でも導入できる</td><td>導入が容易なぶん、<b>監視が伴わないまま時間が過ぎる</b></td></tr>
+        <tr><td>COPD増悪・心原性肺水腫では挿管率・死亡率を下げる（強いエビデンス）</td><td>de novo低酸素ARFでは利益が不確実で、害が上回る場面がある</td></tr>
+        <tr><td>患者の意識が保たれ、意思疎通・意思決定ができる</td><td>不快・閉塞感・不眠。忍容性そのものが治療の律速になる</td></tr>
+        <tr><td>—</td><td>皮膚障害（鼻根部潰瘍）・胃膨満・眼刺激・口渇</td></tr>
+        <tr><td>—</td><td><b>強い自発呼吸努力を止められない</b> → P‑SILI が進行しうる</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <p class="pull">NIV最大の短所は、副作用ではない。<br><span>「効いていないのに、続けられてしまう」ことそのもの。</span></p>
+
+  <div class="grid g2">
+    <div class="cal g" style="margin:0">
+      <h4><span class="dot">✓</span>長所が最大化される条件</h4>
+      <p>①病態がNIVに反応する（高CO₂・心原性肺水腫）②意識と気道防御が保たれている ③経験あるチームが監視している ④失敗基準と挿管planが最初から決まっている。この4つが揃って初めて「侵襲的換気より優れた選択」になります。</p>
+    </div>
+    <div class="cal r" style="margin:0">
+      <h4><span class="dot">!</span>短所が最大化される条件</h4>
+      <p>①de novo低酸素ARF・重症ARDS ②強い呼吸ドライブが続いている ③監視の薄い場所（一般病棟・夜間）④「もう少し様子を見よう」が繰り返される。この4つが揃うと、NIVは<strong>挿管を遅らせるだけの装置</strong>になります。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ================= 04 マスクの違い ================= -->
+<section id="mask" class="band">
+<div class="wrap">
+  <p class="kicker">04 — マスクの違い</p>
+  <h2>maskを当てることは、<br>手技ではなく治療そのもの。</h2>
+  <p class="lead">同じ設定でも、インターフェースが変われば実際に肺に届く圧も、患者が耐えられる時間も変わります。<strong>覆う範囲が広いほど圧は確実に届き、そのぶん死腔・閉塞感・皮膚への負担が増える</strong>——これが選択の基本軸です。</p>
+
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 900 270" role="img" aria-label="鼻マスク・鼻口マスク・トータルフェイスマスク・ヘルメットの4種類のインターフェース模式図">
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+
+      <!-- ===== 鼻マスク ===== -->
+      <g transform="translate(6,0)">
+        <rect x="0" y="0" width="216" height="262" rx="18" fill="#e8f6ee"/>
+        <g transform="translate(22,8)" fill="none" stroke="#145c34" stroke-width="2.2" stroke-linecap="round">
+          <ellipse cx="86" cy="86" rx="48" ry="58" fill="#fff"/>
+          <ellipse cx="34" cy="88" rx="7" ry="12" fill="#fff"/><ellipse cx="138" cy="88" rx="7" ry="12" fill="#fff"/>
+          <circle cx="68" cy="48" r="3" fill="#145c34"/><circle cx="104" cy="48" r="3" fill="#145c34"/>
+          <path d="M74 120 q12 7 24 0"/>
+          <path d="M86 62 C 70 66, 64 84, 70 96 C 76 106, 96 106, 102 96 C 108 84, 102 66, 86 62 Z"
+                fill="#c8ecd8" stroke="#1c8c4e" stroke-width="2.6"/>
+          <path d="M70 80 H 30 M102 80 H 142" stroke="#1c8c4e" stroke-width="3"/>
+          <path d="M72 98 C 46 110, 34 126, 34 142" stroke="#1c8c4e" stroke-width="6"/>
+        </g>
+        <text x="22" y="196" font-size="16" font-weight="700" fill="#145c34">鼻マスク</text>
+        <text x="22" y="219" font-size="12.5" fill="#145c34">死腔が小さく閉塞感が少ない</text>
+        <text x="22" y="238" font-size="12.5" fill="#145c34">口が開くとリーク＝急性期に不利</text>
+      </g>
+
+      <!-- ===== 鼻口マスク ===== -->
+      <g transform="translate(230,0)">
+        <rect x="0" y="0" width="216" height="262" rx="18" fill="#eaf3fd"/>
+        <g transform="translate(22,8)" fill="none" stroke="#0b4a86" stroke-width="2.2" stroke-linecap="round">
+          <ellipse cx="86" cy="86" rx="48" ry="58" fill="#fff"/>
+          <ellipse cx="34" cy="88" rx="7" ry="12" fill="#fff"/><ellipse cx="138" cy="88" rx="7" ry="12" fill="#fff"/>
+          <circle cx="68" cy="58" r="3" fill="#0b4a86"/><circle cx="104" cy="58" r="3" fill="#0b4a86"/>
+          <path d="M86 62 C 62 66, 54 92, 60 114 C 68 134, 104 134, 112 114 C 118 92, 110 66, 86 62 Z"
+                fill="#cfe6fb" stroke="#0071e3" stroke-width="2.6"/>
+          <path d="M60 86 H 26 M112 86 H 146" stroke="#0071e3" stroke-width="3"/>
+          <circle cx="86" cy="122" r="9" fill="#fff" stroke="#0071e3" stroke-width="2.6"/>
+          <path d="M86 131 V 152" stroke="#0071e3" stroke-width="6"/>
+        </g>
+        <text x="22" y="196" font-size="16" font-weight="700" fill="#0b4a86">鼻口マスク（oronasal）</text>
+        <text x="22" y="219" font-size="12.5" fill="#0b4a86">急性期ICUの標準。確実に換気できる</text>
+        <text x="22" y="238" font-size="12.5" fill="#0b4a86">鼻根部の圧迫・嘔吐時の誤嚥に注意</text>
+      </g>
+
+      <!-- ===== トータルフェイス ===== -->
+      <g transform="translate(454,0)">
+        <rect x="0" y="0" width="216" height="262" rx="18" fill="#fdf1e3"/>
+        <g transform="translate(22,8)" fill="none" stroke="#8a4a00" stroke-width="2.2" stroke-linecap="round">
+          <ellipse cx="86" cy="86" rx="48" ry="58" fill="#fff"/>
+          <ellipse cx="34" cy="88" rx="7" ry="12" fill="#fff"/><ellipse cx="138" cy="88" rx="7" ry="12" fill="#fff"/>
+          <circle cx="68" cy="64" r="3" fill="#8a4a00"/><circle cx="104" cy="64" r="3" fill="#8a4a00"/>
+          <path d="M86 74 v12"/><path d="M74 108 q12 7 24 0"/>
+          <path d="M86 12 C 36 14, 16 58, 18 100 C 20 138, 50 162, 86 162 C 122 162, 152 138, 154 100 C 156 58, 136 12, 86 12 Z"
+                fill="#f6d3a6" opacity=".5" stroke="#c96a00" stroke-width="2.8"/>
+          <path d="M18 84 H 2 M154 84 H 170" stroke="#c96a00" stroke-width="3"/>
+          <circle cx="86" cy="150" r="9" fill="#fff" stroke="#c96a00" stroke-width="2.6"/>
+          <path d="M86 159 V 172" stroke="#c96a00" stroke-width="6"/>
+        </g>
+        <text x="22" y="196" font-size="16" font-weight="700" fill="#8a4a00">トータルフェイス</text>
+        <text x="22" y="219" font-size="12.5" fill="#8a4a00">圧が分散し鼻根部の潰瘍が少ない</text>
+        <text x="22" y="238" font-size="12.5" fill="#8a4a00">死腔が大きい・口渇・眼が乾く</text>
+      </g>
+
+      <!-- ===== ヘルメット ===== -->
+      <g transform="translate(678,0)">
+        <rect x="0" y="0" width="216" height="262" rx="18" fill="#eeecfb"/>
+        <g transform="translate(22,8)" fill="none" stroke="#3d3390" stroke-width="2.2" stroke-linecap="round">
+          <path d="M28 150 V 82 C 28 34, 144 34, 144 82 V 150 Z" fill="#ded9fb" opacity=".7"/>
+          <path d="M28 150 V 82 C 28 34, 144 34, 144 82 V 150" stroke="#5e51c9" stroke-width="2.8"/>
+          <ellipse cx="86" cy="150" rx="64" ry="13" fill="#fff" stroke="#5e51c9" stroke-width="2.8"/>
+          <ellipse cx="86" cy="90" rx="38" ry="46" fill="#fff"/>
+          <circle cx="72" cy="78" r="3" fill="#3d3390"/><circle cx="100" cy="78" r="3" fill="#3d3390"/>
+          <path d="M86 92 v10 M76 116 q10 7 20 0"/>
+          <path d="M28 96 H 6" stroke="#5e51c9" stroke-width="6"/>
+          <path d="M144 96 H 166" stroke="#5e51c9" stroke-width="6"/>
+        </g>
+        <text x="22" y="196" font-size="16" font-weight="700" fill="#3d3390">ヘルメット</text>
+        <text x="22" y="219" font-size="12.5" fill="#3d3390">高PEEPを保ちやすく皮膚障害が少ない</text>
+        <text x="22" y="238" font-size="12.5" fill="#3d3390">CO₂再呼吸・非同調・高流量が必要</text>
+      </g>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>覆う範囲が広くなるほど、圧は確実になり、死腔と閉塞感は増える。</b>急性期ICUの標準は鼻口マスク。皮膚障害や不耐が問題になったとき、トータルフェイスやヘルメットへ「逃がす」選択肢を最初から想定しておく。</figcaption>
+  </figure>
+
+  <h3>種類別に、何を得て何を失うか</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>インターフェース</th><th>覆う範囲</th><th>長所</th><th>短所</th><th>主な使いどころ</th></tr></thead>
+      <tbody>
+        <tr><td>鼻マスク</td><td>鼻のみ</td><td>死腔が小さい・会話・喀痰・飲水が可能・閉塞感が少ない</td><td>開口でリークが大きい・鼻閉で効かない</td><td>慢性期・在宅・忍容性を優先する場面</td></tr>
+        <tr><td>鼻口マスク<br><span style="font-weight:400;color:var(--ink3)">oronasal / face mask</span></td><td>鼻と口</td><td>リークが少なく換気補助が確実。急性期の標準</td><td>鼻根部の圧迫・嘔吐時の誤嚥・会話や喀痰がしにくい</td><td><b>急性呼吸不全のNIV（第一選択）</b></td></tr>
+        <tr><td>トータルフェイス</td><td>眼を含む顔面全体</td><td>圧が広く分散し鼻根部潰瘍が起こりにくい・サイズ選択が容易</td><td>死腔が大きい・口渇・眼刺激・視野の違和感</td><td>皮膚障害が出た時／鼻口マスクが合わない顔面</td></tr>
+        <tr><td>ヘルメット</td><td>頭部全体（頸部でシール）</td><td>高PEEPを保持しやすい・顔面の皮膚障害がほぼない・長時間使用に耐える</td><td>内部容積が大きくCO₂再呼吸・トリガー/サイクリング遅延・騒音・腋窩ストラップの圧迫</td><td>中等症〜重症低酸素（専門施設）</td></tr>
+        <tr><td>マウスピース</td><td>口のみ・間欠</td><td>会話・食事の合間に使える</td><td>持続使用に向かない</td><td>神経筋疾患の日中換気補助</td></tr>
+        <tr><td><span style="color:var(--ink3)">（参考）HFNC</span></td><td>鼻カニュラ</td><td>忍容性が高い・会話・食事が可能・加温加湿が確実</td><td>気道内圧は小さく換気補助はほぼ期待できない</td><td>de novo低酸素ARFの第一選択</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="grid g2">
+    <div class="cal b" style="margin:0">
+      <h4><span class="dot">i</span>サイズは「迷ったら小さめ」</h4>
+      <p>鼻口マスクは<strong>鼻根部のすぐ下から下口唇の下まで</strong>が目安。大きすぎるマスクは、リークを増やし、それを止めようとストラップを締めることで皮膚障害を増やします。専用のサイズゲージがあるなら必ず使う。</p>
+    </div>
+    <div class="cal o" style="margin:0">
+      <h4><span class="dot">!</span>ローテーションを設計に入れる</h4>
+      <p>同じマスクを当て続ける限り、同じ場所に圧がかかり続けます。長時間になるなら<strong>鼻口マスク ↔ トータルフェイス／ヘルメット</strong>を数時間ごとに替える計画を、開始時点で立てておく。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ================= 05 モードの違い ================= -->
+<section id="mode">
+<div class="wrap">
+  <p class="kicker">05 — モードの違い</p>
+  <h2>モードが決めているのは、<br>「誰が吸気を始め、誰が終わらせるか」。</h2>
+  <p class="lead">名称は機種ごとに違いますが、本質は2つの問いに還元できます。<strong>吸気を始めるのは患者か機械か（trigger）</strong>、<strong>吸気を終わらせるのは何か（cycling）</strong>。</p>
+
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 900 330" role="img" aria-label="CPAP・Sモード・Tモード・S/Tモードの圧波形の比較">
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <defs>
+        <marker id="tri" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="8" markerHeight="8" orient="0">
+          <path d="M0 10 L5 0 L10 10 z" fill="#c96a00"/></marker>
+      </defs>
+
+      <!-- CPAP -->
+      <g transform="translate(16,14)">
+        <rect x="0" y="0" width="418" height="140" rx="14" fill="#f5f5f7"/>
+        <text x="20" y="28" font-size="15" font-weight="700" fill="#5e51c9">CPAP</text>
+        <text x="86" y="28" font-size="12.5" fill="#6e6e73">一定圧・吸気補助なし</text>
+        <line x1="20" y1="118" x2="400" y2="118" stroke="#d2d2d7"/>
+        <line x1="20" y1="78" x2="400" y2="78" stroke="#5e51c9" stroke-width="3" stroke-linecap="round"/>
+        <text x="20" y="70" font-size="11.5" fill="#5e51c9">CPAP 8</text>
+        <text x="240" y="108" font-size="11.5" fill="#86868b">段差がない＝PS 0。CO₂は下がらない</text>
+      </g>
+
+      <!-- S -->
+      <g transform="translate(466,14)">
+        <rect x="0" y="0" width="418" height="140" rx="14" fill="#f5f5f7"/>
+        <text x="20" y="28" font-size="15" font-weight="700" fill="#0071e3">S（spontaneous）</text>
+        <text x="160" y="28" font-size="12.5" fill="#6e6e73">患者が吸うたびに補助</text>
+        <line x1="20" y1="118" x2="400" y2="118" stroke="#d2d2d7"/>
+        <path d="M20 100 L48 100 L52 50 L96 50 L100 100 L156 100 L160 50 L200 50 L204 100 L276 100 L280 50 L322 50 L326 100 L400 100"
+              fill="none" stroke="#0071e3" stroke-width="2.8" stroke-linejoin="round"/>
+        <g stroke="#c96a00" stroke-width="1.6" marker-end="url(#tri)" fill="none">
+          <path d="M48 116 V 108"/><path d="M156 116 V 108"/><path d="M276 116 V 108"/>
+        </g>
+        <text x="20" y="134" font-size="11.5" fill="#c96a00">▲ 患者のトリガー — 無呼吸には無力</text>
+      </g>
+
+      <!-- T -->
+      <g transform="translate(16,176)">
+        <rect x="0" y="0" width="418" height="140" rx="14" fill="#f5f5f7"/>
+        <text x="20" y="28" font-size="15" font-weight="700" fill="#c9261c">T（timed）</text>
+        <text x="112" y="28" font-size="12.5" fill="#6e6e73">設定回数で強制的に送る</text>
+        <line x1="20" y1="118" x2="400" y2="118" stroke="#d2d2d7"/>
+        <path d="M20 100 L56 100 L60 50 L108 50 L112 100 L164 100 L168 50 L216 50 L220 100 L272 100 L276 50 L324 50 L328 100 L400 100"
+              fill="none" stroke="#c9261c" stroke-width="2.8" stroke-linejoin="round"/>
+        <g fill="#86868b" font-size="11">
+          <text x="60" y="44">⏱</text><text x="168" y="44">⏱</text><text x="276" y="44">⏱</text>
+        </g>
+        <text x="20" y="134" font-size="11.5" fill="#86868b">等間隔＝患者と無関係。単独ではほぼ使わない</text>
+      </g>
+
+      <!-- S/T -->
+      <g transform="translate(466,176)">
+        <rect x="0" y="0" width="418" height="140" rx="14" fill="#eaf3fd"/>
+        <text x="20" y="28" font-size="15" font-weight="700" fill="#0071e3">S/T</text>
+        <text x="60" y="28" font-size="12.5" fill="#0b4a86">自発があればS、なければバックアップ</text>
+        <line x1="20" y1="118" x2="400" y2="118" stroke="#bcdcfa"/>
+        <path d="M20 100 L44 100 L48 50 L92 50 L96 100 L140 100 L144 50 L188 50 L192 100 L288 100"
+              fill="none" stroke="#0071e3" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M288 100 L292 50 L336 50 L340 100 L400 100"
+              fill="none" stroke="#c96a00" stroke-width="2.8" stroke-linejoin="round"/>
+        <g stroke="#c96a00" stroke-width="1.6" marker-end="url(#tri)" fill="none">
+          <path d="M44 116 V 108"/><path d="M140 116 V 108"/>
+        </g>
+        <text x="290" y="42" font-size="11.5" font-weight="700" fill="#c96a00">バックアップ換気</text>
+        <text x="20" y="134" font-size="11.5" fill="#0b4a86">自発が途切れた区間だけ機械が埋める＝急性期の標準</text>
+      </g>
+      </g>
+    </svg>
+    </div>
+    <figcaption>同じ「bilevel」でも、S・T・S/Tで<b>誰が吸気を始めるか</b>が違う。急性期は自発を活かしつつ無呼吸に備えるS/Tが基本。CPAPだけは段差がなく、換気補助（PS）を行っていない点に注意。</figcaption>
+  </figure>
+
+  <h3>モード早見表</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>モード</th><th>何をするか</th><th>吸気の開始 / 終了</th><th>主な使いどころ</th><th>注意点</th></tr></thead>
+      <tbody>
+        <tr><td>CPAP</td><td>一定の持続陽圧のみ。吸気補助なし</td><td>—（圧は常に一定）</td><td>心原性肺水腫・OSA・軽〜中等度の低酸素</td><td><b>換気補助ではないのでPaCO₂は下がらない</b></td></tr>
+        <tr><td>S（spontaneous）</td><td>患者が吸うたびにIPAPを与える</td><td>患者がtrigger / フロー低下でcycle</td><td>呼吸ドライブが保たれた患者</td><td>無呼吸・徐呼吸に無力</td></tr>
+        <tr><td>T（timed）</td><td>設定回数・設定吸気時間で強制送気</td><td>時間でtrigger / 時間でcycle</td><td>自発がほぼない場合</td><td>非同調と不快。単独使用はまれ</td></tr>
+        <tr><td>S/T</td><td>自発があればS、なければバックアップ回数でT</td><td>患者 or 時間 / フロー or 時間</td><td><b>急性呼吸不全の標準</b>（COPD増悪・神経筋）</td><td>バックアップ回数の設定を忘れない</td></tr>
+        <tr><td>PC（pressure control）</td><td>S/Tに吸気時間の固定を加える</td><td>患者 or 時間 / <b>時間で確実にcycle</b></td><td>リークで吸気が終わらない時・神経筋</td><td>患者の吸気時間と合わないと苦しい</td></tr>
+        <tr><td>AVAPS / iVAPS<br><span style="font-weight:400;color:var(--ink3)">volume‑targeted PS</span></td><td>目標VTに届くようPSを自動で増減</td><td>S/Tと同じ</td><td>肥満低換気・神経筋・在宅</td><td>リークをVT不足と誤認してPSが上がり続けうる。急性期の標準ではない</td></tr>
+        <tr><td><span style="color:var(--ink3)">（参考）HFNC</span></td><td>高流量で死腔を洗い出す。圧は副次的</td><td>—</td><td>de novo低酸素ARF</td><td>換気補助を期待しない</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>モードの次に効く、3つのつまみ</h3>
+  <div class="grid g3">
+    <div class="tile">
+      <span class="lbl">Trigger 感度</span>
+      <p style="font-size:15px"><b style="color:var(--ink)">吸気の始まりを拾う閾値。</b>鈍いとミストリガー（努力しても入らない＝疲弊）、鋭すぎるとオートトリガー（リークを吸気と誤認）。<b>リークがある状態で感度だけをいじらない。</b></p>
+    </div>
+    <div class="tile">
+      <span class="lbl">Cycling（呼気移行）</span>
+      <p style="font-size:15px"><b style="color:var(--ink)">吸気を終わらせる基準。</b>通常は吸気フローがピークの一定割合（例：25%）まで落ちた時点。リークがあるとフローが落ちず<b>吸気が終わらない</b>。cycling基準を上げるか、最大吸気時間を設定する。</p>
+    </div>
+    <div class="tile">
+      <span class="lbl">Rise time</span>
+      <p style="font-size:15px"><b style="color:var(--ink)">設定圧に到達するまでの速さ。</b>強い呼吸ドライブには速く、閉塞感や不快が強い患者にはやや遅く。COPDでは速めが合うことが多い。</p>
+    </div>
+  </div>
+
+  <h3>開始設定</h3>
+  <div class="grid g2">
+    <div class="cal b" style="margin:0">
+      <h4><span class="dot">i</span>標準的な開始点</h4>
+      <p><strong>CPAP</strong>：5–10 cmH₂O から 2 cmH₂O ずつ滴定。<br><strong>bilevel</strong>：IPAP 10 / EPAP 5 から、IPAPを 2–3 cmH₂O ずつ調整。<br><strong>FiO₂</strong>：SpO₂ 94–98% に滴定し 98% 超は避ける（COPDなど病態別目標は施設protocolを優先）。<br>いずれも<strong>低い圧で数分慣らしてから</strong>目標値へ上げる。</p>
+    </div>
+    <div class="cal o" style="margin:0">
+      <h4><span class="dot">!</span>「IPAP &gt;20は避ける」を鵜呑みにしない</h4>
+      <p>COPDのHAPPEN試験では<strong>高強度NPPV</strong>（IPAP最大 20–30 cmH₂O、目標VT 10–15 mL/kg）が低強度より挿管回避に優れる可能性が示された。一般論と試験protocolは同じ意味で扱わず、病態・目的・protocol別に読む。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ================= 06 リークの扱い ================= -->
+<section id="leak" class="band">
+<div class="wrap">
+  <p class="kicker">06 — リークの扱い</p>
+  <h2>リークはゼロにしない。<br>ゼロにすると再呼吸する。</h2>
+  <p class="lead">NIVには<strong>意図されたリーク</strong>と<strong>意図しないリーク</strong>があります。前者は消してはいけないもの、後者は治療を静かに壊すもの。この2つを混同したまま「漏れているから締める」をやると、皮膚障害だけが増えます。</p>
+
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 900 330" role="img" aria-label="単一回路NIVにおける意図的リーク（呼気ポート）と意図しないリーク（マスク辺縁）の模式図">
+      <defs>
+        <marker id="agr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1c8c4e"/></marker>
+        <marker id="ard" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#c9261c"/></marker>
+      </defs>
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+
+      <text x="16" y="26" font-size="13" font-weight="700" fill="#1d1d1f">単一回路（single‑limb）＋呼気ポート</text>
+
+      <!-- intentional leak label -->
+      <rect x="70" y="54" width="250" height="52" rx="10" fill="#e8f6ee"/>
+      <text x="86" y="76" font-size="12.5" font-weight="700" fill="#145c34">意図的リーク＝呼気ポート</text>
+      <text x="86" y="96" font-size="11.5" fill="#145c34">CO₂の洗い出し。塞いではいけない</text>
+
+      <!-- ventilator -->
+      <rect x="14" y="164" width="98" height="80" rx="12" fill="#fff" stroke="#d2d2d7"/>
+      <text x="63" y="198" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle">人工呼吸器</text>
+      <text x="63" y="218" font-size="11.5" fill="#86868b" text-anchor="middle">単一回路</text>
+
+      <!-- circuit -->
+      <path d="M112 202 C 148 202, 168 210, 196 216" stroke="#86868b" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <path d="M228 222 C 254 228, 276 236, 296 242" stroke="#86868b" stroke-width="11" fill="none" stroke-linecap="round"/>
+
+      <!-- exhalation port -->
+      <circle cx="212" cy="219" r="12" fill="#fff" stroke="#1c8c4e" stroke-width="2.8"/>
+      <g stroke="#1c8c4e" stroke-width="2.4" fill="none" marker-end="url(#agr)">
+        <path d="M206 208 L188 172"/><path d="M218 207 L232 174"/>
+      </g>
+
+      <!-- face -->
+      <g fill="none" stroke="#1d1d1f" stroke-width="2.2" stroke-linecap="round">
+        <ellipse cx="374" cy="196" rx="54" ry="68" fill="#fafafd"/>
+        <ellipse cx="318" cy="198" rx="8" ry="13" fill="#fafafd"/>
+        <circle cx="358" cy="160" r="3.2" fill="#1d1d1f"/><circle cx="392" cy="160" r="3.2" fill="#1d1d1f"/>
+      </g>
+      <path d="M374 178 C 352 182, 344 206, 350 224 C 358 242, 392 242, 398 224 C 404 206, 396 182, 374 178 Z"
+            fill="#cfe6fb" stroke="#0071e3" stroke-width="2.6"/>
+      <path d="M350 202 H 320 M398 202 H 430" stroke="#0071e3" stroke-width="3.4" fill="none"/>
+      <circle cx="374" cy="232" r="9" fill="#fff" stroke="#0071e3" stroke-width="2.6"/>
+      <path d="M365 234 C 344 240, 322 244, 300 242" stroke="#0071e3" stroke-width="6" fill="none"/>
+
+      <!-- unintentional leaks -->
+      <g stroke="#c9261c" stroke-width="2.4" fill="none" marker-end="url(#ard)">
+        <path d="M352 182 C 340 166, 330 156, 320 148"/>
+        <path d="M398 216 C 414 226, 424 236, 432 248"/>
+      </g>
+      <text x="312" y="140" font-size="12.5" font-weight="700" fill="#c9261c" text-anchor="end">眼へ漏れる</text>
+      <rect x="272" y="286" width="180" height="28" rx="8" fill="#fdecea"/>
+      <text x="288" y="305" font-size="12.5" font-weight="700" fill="#8f1a13">意図しないリーク</text>
+
+      <!-- right panel -->
+      <rect x="470" y="20" width="414" height="290" rx="16" fill="#fff"/>
+      <text x="494" y="54" font-size="14" font-weight="700" fill="#1d1d1f">意図しないリークが壊すもの</text>
+      <g font-size="12.5">
+        <circle cx="502" cy="86" r="5" fill="#0071e3"/>
+        <text x="520" y="82" fill="#1d1d1f" font-weight="600">トリガー</text>
+        <text x="520" y="101" fill="#6e6e73">オートトリガー／努力しても入らない</text>
+
+        <circle cx="502" cy="130" r="5" fill="#5e51c9"/>
+        <text x="520" y="126" fill="#1d1d1f" font-weight="600">サイクリング</text>
+        <text x="520" y="145" fill="#6e6e73">フローが落ちず吸気が終わらない</text>
+
+        <circle cx="502" cy="174" r="5" fill="#c9261c"/>
+        <text x="520" y="170" fill="#1d1d1f" font-weight="600">表示VTの過大評価</text>
+        <text x="520" y="189" fill="#6e6e73">「換気できている」という誤解を生む</text>
+
+        <circle cx="502" cy="218" r="5" fill="#c96a00"/>
+        <text x="520" y="214" fill="#1d1d1f" font-weight="600">加湿の低下</text>
+        <text x="520" y="233" fill="#6e6e73">粘膜乾燥・分泌物の固化</text>
+
+        <circle cx="502" cy="262" r="5" fill="#1c8c4e"/>
+        <text x="520" y="258" fill="#1d1d1f" font-weight="600">眼への漏れ・騒音</text>
+        <text x="520" y="277" fill="#6e6e73">結膜炎・角膜乾燥・不眠・不耐</text>
+      </g>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>単一回路では、呼気ポートからの連続的な流出が唯一のCO₂排出経路。</b>ここを塞げば再呼吸になる。一方、マスク辺縁からの漏れは圧・トリガー・サイクリング・加湿のすべてを同時に劣化させる。</figcaption>
+  </figure>
+
+  <div class="cal r">
+    <h4><span class="dot">!</span>回路とマスクの組み合わせを間違えない</h4>
+    <p><strong>呼気孔つき（vented）マスク</strong>は、呼気ポートを持たない<strong>単一回路</strong>とセットで使う。<strong>呼気孔なし（non‑vented）マスク</strong>は、呼気弁つき回路（ICU人工呼吸器の二回路など）または回路側に呼気ポートを付けて使う。<strong>この組み合わせを取り違えると、CO₂の再呼吸か、圧が保てない状態のどちらかが起きます。</strong>マスク交換のたびに「このマスクは穴があるか」「回路のどこから呼気が出るか」を確認する。</p>
+  </div>
+
+  <h3>リークを見つけたら、この順番で</h3>
+  <ol class="ol">
+    <li><b>マスクの位置を直す</b>一度ストラップを緩め、鼻根部に載せ直してから当て直す。多くのリークはこれで消えます。</li>
+    <li><b>サイズを疑う</b>大きすぎませんか。サイズが合っていないリークは、締めても消えません。</li>
+    <li><b>ストラップは左右対称・指2本</b>締めるのは最後の手段。<b>締めるほど漏れが増えることがある</b>（クッションが変形して密着が壊れる）。</li>
+    <li><b>回路とコネクタ、呼気ポートを確認</b>接続の緩み、加湿器の蓋、NGTの通り道、フィルタの装着。</li>
+    <li><b>体位と頸部の角度</b>枕が高すぎる／頸部が屈曲していると下顎が引けて漏れます。頭部挙上30–45度。</li>
+    <li><b>口が開いていないか</b>鼻マスクなら、チンストラップか鼻口マスクへの変更を検討。</li>
+    <li><b>設定を調整する</b>EPAPを上げれば漏れは増えます。サイクリング基準を上げる、最大吸気時間を設定する、rise timeを調整する。</li>
+    <li><b>それでもだめならインターフェースを替える</b>トータルフェイス、ヘルメット。設定を粘るより早いことが多い。</li>
+  </ol>
+
+  <div class="cal b">
+    <h4><span class="dot">i</span>「何L/分まで許容か」ではない</h4>
+    <p>許容できるリークかどうかは数値だけでは決まりません。判断は3点：<strong>①目標圧に到達しているか ②トリガーとサイクリングが患者の呼吸と合っているか ③眼・皮膚・加湿に害が出ていないか</strong>。この3つが保たれていれば、表示上のリークが多くても治療は成立します。逆に、リークが少なくても非同調があれば失敗しています。</p>
+  </div>
+</div>
+</section>
+
+<!-- ================= 07 管理上の注意点 ================= -->
+<section id="care">
+<div class="wrap">
+  <p class="kicker">07 — 管理上の注意点</p>
+  <h2>最初の10分と、<br>最初の1時間で決まる。</h2>
+  <p class="lead">NIVが失敗する理由の多くは、圧設定ではなく<strong>装着・皮膚・加湿・不快・監視</strong>です。ここは医師よりも看護師・呼吸療法士の手が結果を決める領域です。</p>
+
+  <h3>装着 — 最初の10分の手順</h3>
+  <ol class="ol">
+    <li><b>説明してから当てる</b>「機械に合わせて息をしなくていい」「最初は手で軽く当てるだけ」。数分間は<b>手でマスクを保持</b>し、ストラップは付けない。ここを飛ばすと、その後どんな設定でも耐えられません。</li>
+    <li><b>サイズを測る</b>専用ゲージで。鼻口マスクは鼻根部のすぐ下から下口唇の下まで。迷ったら小さめ。</li>
+    <li><b>低い圧から始める</b>CPAP 4–5、bilevelならIPAP 8–10 / EPAP 4–5 程度で慣らしてから、目標値へ滴定する。</li>
+    <li><b>予防的に皮膚を守る</b>装着前に鼻根部へ薄い被覆材（ハイドロコロイド／シリコン）。潰瘍ができてからでは遅い。</li>
+    <li><b>ストラップは最後・左右対称・指2本</b>締めるほど密着するわけではありません。</li>
+    <li><b>30分後に必ず見に行く</b>圧痕・発赤・リーク・同調・comfort・体位。ここで直せるものを直す。</li>
+  </ol>
+
+  <figure class="rev">
+    <svg viewBox="0 0 900 340" role="img" aria-label="フェイスマスクによる圧迫の好発部位と、皮膚障害を防ぐ4つの対策">
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <!-- face -->
+      <g transform="translate(60,30)" fill="none" stroke="#1d1d1f" stroke-width="2.4" stroke-linecap="round">
+        <ellipse cx="130" cy="130" rx="88" ry="106" fill="#fafafd"/>
+        <ellipse cx="38" cy="132" rx="13" ry="22" fill="#fafafd"/><ellipse cx="222" cy="132" rx="13" ry="22" fill="#fafafd"/>
+        <circle cx="100" cy="98" r="4.5" fill="#1d1d1f"/><circle cx="160" cy="98" r="4.5" fill="#1d1d1f"/>
+        <path d="M130 108 v22"/>
+        <path d="M130 118 C 82 124, 68 172, 78 202 C 88 232, 172 232, 182 202 C 192 172, 178 124, 130 118 Z"
+              fill="#cfe6fb" opacity=".75" stroke="#0071e3" stroke-width="2.8"/>
+        <path d="M78 150 H 20 M182 150 H 240" stroke="#0071e3" stroke-width="4"/>
+        <circle cx="130" cy="214" r="15" fill="#fff" stroke="#0071e3" stroke-width="2.8"/>
+        <path d="M130 229 V 258" stroke="#0071e3" stroke-width="8"/>
+      </g>
+      <!-- pressure points -->
+      <g>
+        <circle cx="190" cy="148" r="9" fill="#c9261c" opacity=".9"/>
+        <circle cx="128" cy="222" r="9" fill="#c9261c" opacity=".9"/>
+        <circle cx="290" cy="222" r="9" fill="#c9261c" opacity=".9"/>
+        <circle cx="98" cy="162" r="9" fill="#c9261c" opacity=".9"/>
+        <g stroke="#c9261c" stroke-width="1.4" fill="none">
+          <path d="M190 139 V 62 H 132"/><path d="M98 162 H 44"/>
+          <path d="M128 231 V 268 H 62"/><path d="M290 231 V 268 H 360"/>
+        </g>
+        <g font-size="12.5" fill="#c9261c" font-weight="600">
+          <text x="130" y="50">鼻根部 — 最も潰瘍化しやすい</text>
+          <text x="2" y="158">耳介</text>
+          <text x="6" y="286">頬</text>
+          <text x="366" y="272">頬</text>
+        </g>
+      </g>
+      <!-- right list -->
+      <g transform="translate(430,26)">
+        <rect x="0" y="0" width="440" height="286" rx="16" fill="#f5f5f7"/>
+        <text x="24" y="34" font-size="14" font-weight="700" fill="#1d1d1f">皮膚障害を防ぐ4つ</text>
+        <g font-size="13.5" fill="#6e6e73">
+          <text x="24" y="70"><tspan font-weight="700" fill="#0071e3">① サイズ　</tspan>大きいマスクは「点」で当たる</text>
+          <text x="24" y="106"><tspan font-weight="700" fill="#0071e3">② 締め方　</tspan>指2本・左右対称。締めない</text>
+          <text x="24" y="142"><tspan font-weight="700" fill="#0071e3">③ 予防材　</tspan>装着前に鼻根部へ薄い被覆材</text>
+          <text x="24" y="178"><tspan font-weight="700" fill="#0071e3">④ 交代　　</tspan>数時間ごとにinterfaceを替える</text>
+        </g>
+        <rect x="24" y="200" width="392" height="34" rx="10" fill="#fdecea"/>
+        <text x="42" y="222" font-size="13" fill="#8f1a13">発赤が消えない時点で対応する。潰瘍を待たない</text>
+        <rect x="24" y="242" width="392" height="34" rx="10" fill="#e8f6ee"/>
+        <text x="42" y="264" font-size="13" fill="#145c34">1日1回は必ずマスクを外して皮膚を直接見る</text>
+      </g>
+      </g>
+    </svg>
+    <figcaption><b>圧は必ずどこかに集中する。</b>鼻根部・頬・耳介が好発部位。リークを止めようとストラップを締めることが、そのまま皮膚障害の原因になる——この悪循環を断つのが管理の要点。</figcaption>
+  </figure>
+
+  <h3>体に起きる、その他の問題</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>問題</th><th>なぜ起きるか</th><th>対応</th></tr></thead>
+      <tbody>
+        <tr><td>乾燥・分泌物の固化</td><td>高流量のガス＋リークで気道が乾く</td><td><b>加温加湿器を標準で使う</b>。HMEは死腔を増やすためNIVでは不利</td></tr>
+        <tr><td>胃膨満・嘔気</td><td>高いIPAPで食道括約筋圧を超え、空気が胃へ流入</td><td>IPAPを見直す。腹部膨満が強ければ胃管を考慮（胃管自体がリーク源になるためシール材を併用）</td></tr>
+        <tr><td>眼の刺激・結膜炎</td><td>マスク上縁からのリークが眼に当たる</td><td>位置とサイズを直す。人工涙液。改善しなければinterface変更</td></tr>
+        <tr><td>口渇・口腔汚染</td><td>開口・乾燥・経口摂取の中断</td><td>計画的な口腔ケア。可能なら短時間の中断を作る</td></tr>
+        <tr><td>不眠・せん妄・閉塞感</td><td>騒音・不快・拘束感・昼夜の喪失</td><td>説明と付き添い、体位、間欠使用。夜間の中断計画</td></tr>
+        <tr><td>栄養が入らない</td><td>マスクで経口摂取ができない</td><td>短時間の計画的中断で食事、長期化するなら経腸栄養を検討</td></tr>
+        <tr><td>誤嚥</td><td>嘔吐＋密着マスク＋陽圧</td><td>頭部挙上30–45度。嘔気が続く時点で継続の可否を再検討</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="cal o">
+    <h4><span class="dot">!</span>鎮静で「耐えさせる」ことの危うさ</h4>
+    <p>不耐に対して低用量の鎮静（例：dexmedetomidine）は選択肢になり得ますが、<strong>気道防御を損なわない範囲</strong>に限られます。そして最も重要なのは、<strong>鎮静で耐えさせることが failure の隠蔽になりうる</strong>という点。「鎮静を足さないと続けられないNIV」は、多くの場合すでに答えが出ています。</p>
+  </div>
+
+  <h3>監視 — 開始後1時間を最重要windowにする</h3>
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 900 260" role="img" aria-label="NIV開始からのモニタリング・タイムライン。T0、15-30分、1時間、6時間、以降">
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <rect x="70" y="96" width="770" height="4" rx="2" fill="#d2d2d7"/>
+      <rect x="70" y="96" width="360" height="4" rx="2" fill="#0071e3"/>
+      <rect x="255" y="60" width="180" height="76" rx="12" fill="#eaf3fd"/>
+      <text x="266" y="80" font-size="11.5" font-weight="700" fill="#0071e3">CRITICAL WINDOW</text>
+
+      <g>
+        <circle cx="70" cy="98" r="9" fill="#0071e3"/>
+        <circle cx="255" cy="98" r="9" fill="#0071e3"/>
+        <circle cx="430" cy="98" r="13" fill="#c9261c"/>
+        <circle cx="620" cy="98" r="9" fill="#6e6e73"/>
+        <circle cx="810" cy="98" r="9" fill="#6e6e73"/>
+      </g>
+
+      <g font-size="14" font-weight="700" fill="#1d1d1f" text-anchor="middle">
+        <text x="70" y="150">T0</text><text x="255" y="150">15–30分</text>
+        <text x="430" y="150" fill="#c9261c">1時間</text><text x="620" y="150">6時間</text><text x="810" y="150">以後</text>
+      </g>
+      <g font-size="12" fill="#6e6e73" text-anchor="middle">
+        <text x="70" y="172">GCS・RR・HR・BP</text><text x="70" y="188">SpO₂/FiO₂・P/F</text><text x="70" y="204">pH/PaCO₂・分泌物</text>
+        <text x="255" y="172">comfort・leak</text><text x="255" y="188">RR・努力・同期</text><text x="255" y="204">SpO₂・BP</text>
+        <text x="430" y="172" fill="#c9261c">HACOR・P/F・VT</text><text x="430" y="188" fill="#c9261c">RR・pH/PaCO₂</text><text x="430" y="204" fill="#c9261c">GCS・努力</text>
+        <text x="620" y="172">support requirement</text><text x="620" y="188">P/F・VT・努力</text><text x="620" y="204">循環・分泌物</text>
+        <text x="810" y="172">trendを継続</text><text x="810" y="188">利益があるか</text>
+      </g>
+      <g font-size="12" fill="#86868b" text-anchor="middle" font-style="italic">
+        <text x="70" y="42">trialは安全か？</text>
+        <text x="255" y="42">機械の問題か、病態の問題か？</text>
+        <text x="620" y="42">遅れているfailureを拾えているか？</text>
+      </g>
+      </g>
+    </svg>
+    </div>
+    <figcaption>経験ある医師・呼吸療法士・看護師のチームがICUまたはstep‑downで管理し、設定調整・failure認識・緊急挿管判断を担うことが重要とされる。</figcaption>
+  </figure>
+
+  <p class="pull">「数値が少し改善した」ではなく、<br><span>RR・努力・P/F・VT・pH・意識が同じ方向に改善しているか</span>を見る。</p>
+
+  <h3>HACOR — 1時間時点で計算する</h3>
+  <p class="lead">1時間時点の <strong>HACOR &gt;5</strong> は high‑risk signal（感度73%・特異度90%）。各項目をタップすると合計が出ます。</p>
+
+  <div class="calc" id="calc">
+    <div class="calc-h">
+      <h4>HACOR score — 開始1時間で計算する</h4>
+      <span>Heart rate · Acidosis · Consciousness · Oxygenation · Respiratory rate</span>
+    </div>
+    <div class="calc-b">
+      <div class="crow" data-item="hr"><span>Heart rate</span><div class="opts">
+        <button type="button" data-v="0">≤120 · 0</button><button type="button" data-v="1">≥121 · 1</button></div></div>
+      <div class="crow" data-item="ph"><span>Acidosis（pH）</span><div class="opts">
+        <button type="button" data-v="0">≥7.35 · 0</button><button type="button" data-v="2">7.30–7.34 · 2</button>
+        <button type="button" data-v="3">7.25–7.29 · 3</button><button type="button" data-v="4">&lt;7.25 · 4</button></div></div>
+      <div class="crow" data-item="gcs"><span>Consciousness（GCS）</span><div class="opts">
+        <button type="button" data-v="0">15 · 0</button><button type="button" data-v="2">13–14 · 2</button>
+        <button type="button" data-v="5">11–12 · 5</button><button type="button" data-v="10">≤10 · 10</button></div></div>
+      <div class="crow" data-item="pf"><span>Oxygenation（P/F）</span><div class="opts">
+        <button type="button" data-v="0">≥201 · 0</button><button type="button" data-v="2">176–200 · 2</button>
+        <button type="button" data-v="3">151–175 · 3</button><button type="button" data-v="4">126–150 · 4</button>
+        <button type="button" data-v="5">101–125 · 5</button><button type="button" data-v="6">≤100 · 6</button></div></div>
+      <div class="crow" data-item="rr"><span>Respiratory rate</span><div class="opts">
+        <button type="button" data-v="0">≤30 · 0</button><button type="button" data-v="1">31–35 · 1</button>
+        <button type="button" data-v="2">36–40 · 2</button><button type="button" data-v="3">41–45 · 3</button>
+        <button type="button" data-v="4">≥46 · 4</button></div></div>
+    </div>
+    <div class="calc-out">
+      <svg class="gauge" width="92" height="92" viewBox="0 0 92 92" aria-hidden="true">
+        <circle cx="46" cy="46" r="38" fill="none" stroke="#e8e8ed" stroke-width="9"/>
+        <circle id="gring" cx="46" cy="46" r="38" fill="none" stroke="#0071e3" stroke-width="9"
+                stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="239"
+                transform="rotate(-90 46 46)" style="transition:stroke-dashoffset .5s ease, stroke .3s"/>
+      </svg>
+      <div><div class="calc-score" id="score">0<small>/ 25</small></div></div>
+      <div class="calc-msg" id="msg">5項目を選ぶと合計が出ます。カットオフは &gt;5。</div>
+      <button class="reset" type="button" id="reset">リセット</button>
+    </div>
+  </div>
+
+  <div class="cal b">
+    <h4><span class="dot">i</span>HACOR以外の指標</h4>
+    <p>HFNCでは <strong>ROX index</strong>、低酸素NIVでは P/F の trajectory・VT・RR、severe ARDSでは lung ultrasound score。食道内圧は吸気努力を直接評価できるが普及は限定的。<strong>スコアが低くても、VT・呼吸努力・分泌物・意識は別に評価する。</strong></p>
+  </div>
+
+  <h3>当直で使うチェックリスト</h3>
+  <div class="ck">
+    <div class="row"><span class="t">T0</span><ul>
+      <li>病態はNIVに適している</li><li>airway保護可能</li><li>shockなし</li><li>分泌物処理可能</li><li>挿管planあり</li></ul></div>
+    <div class="row"><span class="t">T+15–30分</span><ul>
+      <li>RR↓</li><li>補助筋↓</li><li>comfort↑</li><li>leak許容</li><li>SpO₂/FiO₂改善</li><li>BP安定</li></ul></div>
+    <div class="row"><span class="t">T+1時間</span><ul>
+      <li>HACOR</li><li>P/F</li><li>VT</li><li>pH/PaCO₂</li><li>GCS</li><li>dyssynchrony</li><li>P‑SILI signs</li></ul></div>
+    <div class="row"><span class="t">T+6時間</span><ul>
+      <li>trajectory良好</li><li>FiO₂/support低下</li><li>effort低下</li><li>failureなし</li></ul></div>
+    <div class="row stop"><span class="t">いつでも → 挿管</span><ul>
+      <li>GCS低下</li><li>shock</li><li>SpO₂維持不能</li><li>pH悪化</li><li>分泌物管理不能</li><li>強い努力／大VT</li></ul></div>
+  </div>
+
+  <p class="pull">「もう少しNIVで様子を見よう」が最も危険になるのは、<br><span>改善trajectoryがないのに時間だけが進んでいる患者。</span></p>
+
+  <h3>続ける条件と、諦める所見</h3>
+  <div class="tw"><div class="in">
+    <table class="split">
+      <thead><tr><th>NIVを続けてよい</th><th>NIVを諦める方向へ傾く</th></tr></thead>
+      <tbody>
+        <tr><td>協力可能、気道防御可能</td><td>GCS低下 / airway protection不良</td></tr>
+        <tr><td>呼吸努力が低下している</td><td>RR高値が持続、補助筋、paradoxical breathing</td></tr>
+        <tr><td>P/Fが改善trajectory</td><td>P/F低下・FiO₂要求増加</td></tr>
+        <tr><td>VTが許容範囲</td><td>VT &gt;9–9.5 mL/kg が持続</td></tr>
+        <tr><td>pH/PaCO₂が改善</td><td>アシドーシス進行 / PaCO₂上昇</td></tr>
+        <tr><td>循環安定</td><td>shock / BP低下</td></tr>
+        <tr><td>分泌物を処理できる</td><td>吸引頻回・咳嗽力低下・嘔吐</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>看護師・呼吸療法士との共通言語</h3>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>項目</th><th>良い報告の例</th></tr></thead>
+      <tbody>
+        <tr><td>患者</td><td>「RR 38→34だが補助筋使用は不変、会話は2語、発汗あり」</td></tr>
+        <tr><td>酸素化</td><td>「FiO₂ 0.8でSpO₂ 94%、開始時0.6で92%、P/Fは改善していない」</td></tr>
+        <tr><td>換気</td><td>「VT 10.2 mL/kg、PaCO₂ 58→61、pH 7.29→7.25」</td></tr>
+        <tr><td>機械</td><td>「リーク増加、double‑triggerあり、mask位置変更でも改善しない」</td></tr>
+        <tr><td>気道</td><td>「30分で吸引3回、咳嗽弱く分泌物増加」</td></tr>
+        <tr><td>循環</td><td>「NIV開始後MAP 72→58、昇圧薬が必要」</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+  <div class="cal g">
+    <h4><span class="dot">✓</span>報告のフォーマット</h4>
+    <p>「苦しそうです」ではなく、<strong>RR・努力・SpO₂/FiO₂・VT・leak・意識・前回との差</strong>をセットで共有する。</p>
+  </div>
+
+  <h3>やめ方（weaning）</h3>
+  <p>改善したら、<strong>まずFiO₂、次にPS、最後にEPAP</strong>を下げるのが基本。次に<strong>装着時間を削る</strong>——日中の中断を作り、夜間だけ残し、最後に中止する。COPDや肥満低換気では夜間のみ継続する形で退室することもあります。中止後も、<strong>数時間はRR・努力・PaCO₂を追う</strong>（NIVをやめた直後の再増悪は珍しくありません）。</p>
+</div>
+</section>
+
+<!-- ================= 08 エビデンス ================= -->
+<section id="evidence" class="band">
+<div class="wrap">
+  <p class="kicker">08 — エビデンス</p>
+  <h2>「NIVは有効か」ではなく、<br>「どの病態で、どこまで」。</h2>
+  <p class="lead">NIVのエビデンスは病態ごとにまったく強度が違います。高CO₂血症性呼吸不全での成績を、そのまま de novo 低酸素ARFに持ち込まないこと——これが読み方の中心です。</p>
+
+  <div class="cal b">
+    <h4><span class="dot">i</span>2026 ATS guidelineの現在地</h4>
+    <p>急性低酸素性呼吸不全ではHFNCを<strong>強く推奨</strong>、NIV/CPAPは条件付き推奨。急性高CO₂血症性呼吸不全ではNIVを<strong>強く推奨</strong>。挿管前酸素化ではHFNCまたはNIVを推奨。</p>
+  </div>
+
+  <h3>病態別に、どこまで言えるか</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>病態</th><th>エビデンスの強さ</th><th>主な根拠</th><th>実務での意味</th></tr></thead>
+      <tbody>
+        <tr><td>COPD急性増悪（高CO₂・アシドーシス）</td><td><b style="color:var(--green)">強い</b></td><td>挿管率・死亡率の低下。ATS 2026で強い推奨。HAPPEN試験では高強度NPPVがさらに挿管を減らす可能性</td><td>第一選択。ためらう理由がない</td></tr>
+        <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>CPAP／bilevelで挿管率低下。胸腔内圧上昇による前負荷・後負荷の改善という機序が明確</td><td>CPAPから開始してよい</td></tr>
+        <tr><td>高リスク抜管後</td><td><b style="color:var(--blue)">中等度</b></td><td>再挿管予防としての予防的NIV</td><td>対象を絞って予防的に使う</td></tr>
+        <tr><td>de novo 低酸素ARF</td><td><b style="color:var(--orange)">弱い／条件付き</b></td><td>ネットワークメタ解析ではHFNCが有利。RENOVATEはHFNCの非劣性を報告</td><td>まずHFNC。NIVを使うなら監視を厚く</td></tr>
+        <tr><td>ARDS（特にP/F &lt;150）</td><td><b style="color:var(--red)">害の懸念あり</b></td><td>重症度が上がるほどfailure率が上昇。failure後の死亡が高い</td><td>NIVで粘らない領域</td></tr>
+        <tr><td>免疫不全</td><td><b style="color:var(--orange)">弱い</b></td><td>かつての強い推奨は後退</td><td>個別判断。挿管遅延を避ける</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>ARDSが重いほど、face‑mask NIVは失敗する</h3>
+  <figure class="rev" id="bars">
+    <div class="bar-row"><div class="bl">Mild ARDS<small>PaO₂/FiO₂ &gt;200–300</small></div><div class="bt"><i data-w="44"></i></div><div class="bv">22%</div></div>
+    <div class="bar-row"><div class="bl">Moderate ARDS<small>PaO₂/FiO₂ 100–200</small></div><div class="bt"><i data-w="84"></i></div><div class="bv">42%</div></div>
+    <div class="bar-row"><div class="bl">Severe ARDS<small>PaO₂/FiO₂ &lt;100</small></div><div class="bt"><i data-w="94"></i></div><div class="bv">47%</div></div>
+    <div style="height:14px"></div>
+    <div class="bar-row"><div class="bl" style="color:var(--ink2)">実際のNIV使用率<small>mild / moderate / severe</small></div>
+      <div class="bt"><i class="ok" data-w="28"></i></div><div class="bv ok">14–17%</div></div>
+    <figcaption><b>NIV failure率（NEJM 2022のデータを再構成）。</b>重症度が上がるほどfailureは増えるのに、使用率はほとんど変わらない。特に <strong>PaO₂/FiO₂ &lt;150</strong> ではfailure・死亡リスクが高く、「NIV trialの質」と「failure recognitionの速度」が結果を決める。</figcaption>
+  </figure>
+
+  <h3>P‑SILI — 患者自身の呼吸努力が肺を壊していく</h3>
+  <p>Patient self‑inflicted lung injury。高いrespiratory driveと強い自発吸気努力によって生じる肺傷害で、<strong>NIVでは自発努力を止められない</strong>ことが、低酸素ARFでNIVが不利になる生理学的な理由です。</p>
+
+  <figure class="rev">
+    <div class="scrollx">
+    <svg viewBox="0 0 900 360" role="img" aria-label="P-SILIの機序図。強い陰圧胸膜圧、pendelluft、血管transmural pressure上昇による肺傷害">
+      <defs>
+        <marker id="arO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#c96a00"/></marker>
+        <marker id="arP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#5e51c9"/></marker>
+      </defs>
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <!-- lungs -->
+      <g transform="translate(40,40)">
+        <path d="M150 10 v54" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round"/>
+        <path d="M150 64 L108 96 M150 64 L192 96" stroke="#1d1d1f" stroke-width="6" stroke-linecap="round"/>
+        <path d="M108 92 C 62 104, 34 152, 40 208 C 45 254, 74 274, 100 262 C 122 252, 128 214, 128 176 C 128 138, 124 108, 108 92 Z"
+              fill="#eaf3fd" stroke="#0071e3" stroke-width="2.6"/>
+        <path d="M192 92 C 238 104, 266 152, 260 208 C 255 254, 226 274, 200 262 C 178 252, 172 214, 172 176 C 172 138, 176 108, 192 92 Z"
+              fill="#fdecea" stroke="#c9261c" stroke-width="2.6"/>
+        <g fill="#c9261c" opacity=".5">
+          <circle cx="216" cy="228" r="13"/><circle cx="238" cy="205" r="10"/><circle cx="208" cy="252" r="9"/>
+        </g>
+        <path d="M126 168 C 150 148, 172 148, 176 200" fill="none" stroke="#c96a00" stroke-width="3.2" marker-end="url(#arO)"/>
+        <text x="120" y="140" font-size="12.5" font-weight="700" fill="#c96a00">Pendelluft</text>
+        <g stroke="#5e51c9" stroke-width="3" fill="none" marker-end="url(#arP)">
+          <path d="M4 150 H 34"/><path d="M296 150 H 266"/>
+          <path d="M150 300 V 276"/>
+        </g>
+        <text x="0" y="306" font-size="12.5" font-weight="700" fill="#5e51c9">強い陰圧胸膜圧 → transpulmonary pressure ↑</text>
+      </g>
+
+      <!-- right panel -->
+      <g transform="translate(400,30)">
+        <rect x="0" y="0" width="470" height="300" rx="16" fill="#fff"/>
+        <text x="26" y="36" font-size="14" font-weight="700" fill="#1d1d1f">機序とベッドサイドの手がかり</text>
+        <g font-size="13">
+          <circle cx="34" cy="70" r="5" fill="#5e51c9"/>
+          <text x="52" y="66" fill="#1d1d1f" font-weight="600">強い陰圧胸膜圧</text>
+          <text x="52" y="86" fill="#6e6e73">regional overdistension → 大VT・強い吸気努力</text>
+
+          <circle cx="34" cy="122" r="5" fill="#c96a00"/>
+          <text x="52" y="118" fill="#1d1d1f" font-weight="600">Pendelluft</text>
+          <text x="52" y="138" fill="#6e6e73">dependent lungの局所過伸展 → 奇異性運動</text>
+
+          <circle cx="34" cy="174" r="5" fill="#c9261c"/>
+          <text x="52" y="170" fill="#1d1d1f" font-weight="600">血管transmural pressure ↑</text>
+          <text x="52" y="190" fill="#6e6e73">filtration増加・肺水腫悪化 → 酸素化悪化</text>
+
+          <circle cx="34" cy="226" r="5" fill="#0071e3"/>
+          <text x="52" y="222" fill="#1d1d1f" font-weight="600">Patient–ventilator asynchrony</text>
+          <text x="52" y="242" fill="#6e6e73">double‑trigger・ineffective effort → waveformで確認</text>
+        </g>
+        <rect x="26" y="258" width="418" height="30" rx="9" fill="#fdecea"/>
+        <text x="42" y="278" font-size="12.5" fill="#8f1a13">反復すると既存の肺傷害を悪化させ、failureへ向かう</text>
+      </g>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>NIV中の臨床サイン：</b>VT &gt;9–9.5 mL/kg、頻呼吸、補助筋使用、paradoxical abdominal movement、dyssynchrony。食道内圧は吸気努力とtranspulmonary pressureの直接評価に有用だが、expert / research centerに限られる。</figcaption>
+  </figure>
+
+  <p class="pull">「SpO₂が上がった」だけでは成功ではない。<br><span>酸素化が改善しても努力とVTが高ければ、P‑SILIは止まっていない。</span></p>
+
+  <h3>PEEPは、高ければ良いわけではない</h3>
+  <p>helmet CPAPで食道内圧swingと分時換気量が低下する生理学的データがある一方、<strong>PEEP 5→10 cmH₂O では努力はそれ以上下がらず、mechanical powerだけが増えました</strong>。</p>
+
+  <figure class="rev">
+    <svg viewBox="0 0 900 320" role="img" aria-label="PEEPを上げたときの呼吸努力低下の頭打ちとmechanical powerの上昇を示すグラフ">
+      <g font-family="-apple-system, Hiragino Sans, sans-serif">
+      <line x1="90" y1="250" x2="840" y2="250" stroke="#d2d2d7" stroke-width="1.5"/>
+      <line x1="90" y1="40" x2="90" y2="250" stroke="#d2d2d7" stroke-width="1.5"/>
+      <g font-size="12.5" fill="#86868b" text-anchor="middle">
+        <text x="150" y="274">PEEP 0</text><text x="340" y="274">5</text><text x="530" y="274">10</text><text x="720" y="274">15</text>
+        <text x="465" y="300" font-size="13" fill="#6e6e73">PEEP（cmH₂O）</text>
+      </g>
+      <rect x="530" y="40" width="310" height="210" fill="#fdecea" opacity=".6"/>
+      <text x="540" y="66" font-size="13" font-weight="700" fill="#c9261c">ceiling effect</text>
+      <text x="540" y="88" font-size="12.5" fill="#c9261c">努力は下がらず、害だけ増える</text>
+      <path d="M150 92 C 250 118, 300 176, 340 186 C 420 202, 620 206, 800 208"
+            fill="none" stroke="#0071e3" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M150 226 C 260 222, 330 214, 400 200 C 520 176, 640 128, 800 70"
+            fill="none" stroke="#c9261c" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="8 7"/>
+      <circle cx="530" cy="200" r="7" fill="#fff" stroke="#0071e3" stroke-width="3"/>
+      <circle cx="530" cy="150" r="7" fill="#fff" stroke="#c9261c" stroke-width="3"/>
+      <g font-size="13.5" font-weight="600">
+        <rect x="150" y="52" width="200" height="28" rx="8" fill="#eaf3fd"/>
+        <text x="166" y="72" fill="#0071e3">呼吸努力・食道内圧swing</text>
+        <rect x="640" y="42" width="196" height="28" rx="8" fill="#fdecea"/>
+        <text x="656" y="62" fill="#c9261c">mechanical power</text>
+      </g>
+      <line x1="530" y1="40" x2="530" y2="250" stroke="#c9261c" stroke-width="1.4" stroke-dasharray="4 5"/>
+      </g>
+    </svg>
+    <figcaption>PEEPを上げる目的は「酸素化の数字」ではなく<b>努力を下げること</b>。努力が下がらないPEEPは、overdistensionとmechanical powerだけを増やす。</figcaption>
+  </figure>
+
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>介入</th><th>狙い</th><th>注意点</th></tr></thead>
+      <tbody>
+        <tr><td>recruitmentに見合うPEEP</td><td>肺胞虚脱を減らし努力を下げる</td><td>overdistension / mechanical power</td></tr>
+        <tr><td>適切なPS</td><td>換気補助・努力軽減</td><td>VT過大、P‑SILI</td></tr>
+        <tr><td>interface最適化</td><td>comfort・leak・同期改善</td><td>皮膚障害・再呼吸</td></tr>
+        <tr><td>sedation（例：dexmedetomidine）</td><td>不耐・driveの補助的制御</td><td>airway protectionを損なわない</td></tr>
+        <tr><td>早期挿管</td><td>injurious effortを止める</td><td>挿管自体の循環・低酸素リスク</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h3>Helmet NIV — もう一段強い非侵襲戦略</h3>
+  <p>systematic review / meta‑analysisでは、helmetはface‑mask NIVよりintubationや一部の有害事象を減らす可能性があります。ただし確実性はlowで、hypercapnic failureではface‑maskの方がPaCO₂低下に優れる可能性があります。</p>
+
+  <div class="grid g3">
+    <div class="tile"><span class="lbl">Helmet vs face‑mask · mortality</span><span class="big" style="color:var(--purple)">RR 0.56</span><p>16 RCT, n=949。ただし certainty は low。</p></div>
+    <div class="tile"><span class="lbl">Helmet vs face‑mask · intubation</span><span class="big" style="color:var(--purple)">RR 0.35</span><p>有望だが、一律の標準とは言えない。</p></div>
+    <div class="tile"><span class="lbl">恩恵が注目される層</span><span class="big" style="color:var(--purple)">P/F ≤200</span><p>moderate–severe hypoxemia。</p></div>
+  </div>
+
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>試験・比較</th><th>結果</th><th>解釈</th></tr></thead>
+      <tbody>
+        <tr><td>Helmet vs HFNC</td><td>intubation低下の可能性、mortalityは不確実</td><td>expert centerで選択</td></tr>
+        <tr><td>HENIVOT</td><td>酸素化・dyspnea改善、intubation低下、28日ventilator‑free days増加</td><td>support duration自体は短縮せず</td></tr>
+        <tr><td>HELMET‑COVID</td><td>usual respiratory supportとのmortality差なし</td><td>trial間の結果は一貫しない</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>Trial</th><th>初期設定</th><th>titration / target</th><th>上限・weaning</th></tr></thead>
+      <tbody>
+        <tr><td>HELMET‑COVID</td><td>PS 8–10、PEEP 10、FiO₂ 1.0、flow 50 L/min</td><td>PEEP +2 cmH₂O q3min → SpO₂ ≥90% on FiO₂ ≤0.6／PS +2 q3min → RR ≤25・補助筋消失</td><td>PS+PEEP ≤30</td></tr>
+        <tr><td>HENIVOT</td><td>PS 10–12、PEEP 10–12、FiO₂はSpO₂ 92–98%</td><td>peak inspiratory flow ≥100 L/min、PEEP ≥10を維持</td><td>FiO₂ ≤40% かつ RR ≤25 で PEEP/PS を ≤8へ</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+  <p>両protocolとも、特に最初の48時間は中断を最小化し、comfortを最適化しながらfailure criteriaを厳密に監視することを強調しています。</p>
+
+  <div class="cal o">
+    <h4><span class="dot">!</span>helmetの前提</h4>
+    <p>「高PEEPをかけられる＝安全」ではありません。大きな内部容積、<strong>CO₂再呼吸</strong>、trigger / cycling、flow、回路構成を理解できるスタッフが必要です。</p>
+  </div>
+
+  <h3>Failureを、いつ挿管に変えるか</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>Evidence</th><th>主要結果</th><th>読み方</th></tr></thead>
+      <tbody>
+        <tr><td>HACOR validation</td><td>1h HACOR &gt;5 で 12h以内挿管の死亡66% vs 12h超79%（p=0.03）</td><td>failure認識後のdelayを避ける。「12時間待ってよい」ではない</td></tr>
+        <tr><td>NRS failure after 6h</td><td>6h以降のfailureはICU／30日死亡↑、weaning率↓</td><td>6h windowも重要</td></tr>
+        <tr><td>COVID multicenter（n=280）</td><td>NIV failure後挿管の院内死亡43%。ICU入室前のNIV期間が死亡と関連</td><td>ward / pre‑ICUのdelayが重要</td></tr>
+        <tr><td>French ED/EMS study</td><td>1hでGCS&lt;14 / HR&gt;115 / WOB増加が41%、7日死亡 HR 4.1</td><td>最初の1hで悪化を拾う</td></tr>
+        <tr><td>Frat post hoc</td><td>1h P/F ≤200＋VT &gt;9 mL/kg が挿管を予測、VT &gt;9 は90日死亡と独立関連</td><td>P‑SILIという生理学的説明</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <h4 style="margin-top:34px">「早期挿管が良い」はどこまで言えるか</h4>
+  <div class="tw"><div class="in">
+    <table class="split">
+      <thead><tr><th>早期挿管を支持する方向</th><th>慎重な解釈が必要な点</th></tr></thead>
+      <tbody>
+        <tr><td>P‑SILI：強い努力が続くと肺傷害が進む</td><td>mechanistic rationaleであり、全患者で「早期挿管が死亡を下げる」と証明したわけではない</td></tr>
+        <tr><td>HACOR高値でdelayと死亡が関連</td><td>観察研究では severity confounding</td></tr>
+        <tr><td>6h以降のNRS failureで死亡が高い</td><td>failureする患者自体が重症</td></tr>
+        <tr><td>早期1hの悪化が死亡と関連</td><td>association であり因果ではない</td></tr>
+        <tr><td>prompt escalationでprimary intubationと同等だったcohort</td><td>適切に監視されたNIV trial自体は必ずしも有害ではない</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+  <p>Bourkeらのレビューでは、acute‑on‑chronic lung / heart diseaseではNIV failureに伴う過剰死亡が明確でなかった一方、hypoxemic ARF、特にARDSではdelay‑related harmと患者自身の予後不良が混在すると整理されています。</p>
+
+  <p class="pull">目標は「早く挿管する」ではない。<br><span>適切なNIV trialを行い、failureを早く見つけ、failure後は遅らせない。</span></p>
+
+  <h4 style="margin-top:34px">挿管に踏み切る基準（RENOVATEのpragmatic criteria）</h4>
+  <div class="grid g4">
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Neurologic</span><p style="color:#8f1a13;font-size:16px"><strong>GCS &lt;11</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Oxygenation</span><p style="color:#8f1a13;font-size:16px"><strong>FiO₂ ≥60% でも SpO₂ &lt;92%</strong>（COPD &lt;88%）</p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Acidosis</span><p style="color:#8f1a13;font-size:16px"><strong>最適治療60分後も pH &lt;7.2</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Airway</span><p style="color:#8f1a13;font-size:16px"><strong>管理不能な分泌物</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Cardiorespiratory</span><p style="color:#8f1a13;font-size:16px"><strong>心肺停止</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Hemodynamics</span><p style="color:#8f1a13;font-size:16px"><strong>血行動態不安定</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Ventilation</span><p style="color:#8f1a13;font-size:16px"><strong>PaCO₂上昇＋アシドーシス</strong></p></div>
+    <div class="tile" style="background:var(--red-t)"><span class="lbl" style="color:var(--red)">Tolerance</span><p style="color:#8f1a13;font-size:16px"><strong>NRS不耐</strong></p></div>
+  </div>
+  <div class="cal r">
+    <h4><span class="dot">!</span>絶対基準ではない</h4>
+    <p>これはRENOVATEの標準化criteriaです。臨床的に明らかなfailureがあれば、HACORや時間基準を待たず挿管へ。<strong>HACOR &gt;5 at 1h ＋ high‑risk physiology なら、挿管準備は「開始」ではなく「完了」させる。</strong></p>
+  </div>
+
+  <h4 style="margin-top:34px">NIV failure後の挿管は、それ自体がハイリスク手技</h4>
+  <div class="tw"><div class="in">
+    <table>
+      <thead><tr><th>挿管前に再確認</th><th>目的</th></tr></thead>
+      <tbody>
+        <tr><td>循環</td><td>陽圧導入でpreload低下・RV/LV interactionが悪化しないか</td></tr>
+        <tr><td>前酸素化</td><td>HFNC/NIVを活用し、periprocedural hypoxemiaを最小化</td></tr>
+        <tr><td>挿管薬・昇圧薬</td><td>shock‑prone patientとして準備</td></tr>
+        <tr><td>挿管後PEEP</td><td>NIVで得ていたPEEP/recruitmentを急に失わない</td></tr>
+        <tr><td>P‑SILI</td><td>強い自発努力を制御しつつ、ventilator‑induced injuryを避ける</td></tr>
+        <tr><td>原因治療</td><td>肺水腫・COPD・肺炎・PE・shockなど原疾患を同時に治療</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+</div>
+</section>
+
+<!-- ================= take home ================= -->
+<section id="take">
+<div class="wrap">
+  <p class="kicker">Take‑home</p>
+  <h2>持ち帰る10個。</h2>
+  <ol class="th">
+    <li>NIVは病態選択がすべて。COPD／高CO₂と de novo 低酸素ARFを同じに扱わない。</li>
+    <li>気道は預かっていない。適応・禁忌・監視の密度は、すべてそこから決まる。</li>
+    <li>PS = IPAP − EPAP。酸素化（EPAP）と換気（PS）は別のダイヤルで処方する。CPAPはCO₂を下げない。</li>
+    <li>急性期のマスクは鼻口マスクが標準。サイズは迷ったら小さめ、締めるのは最後の手段。</li>
+    <li>急性期のモードはS/T。トリガーとサイクリングが患者と合っているかを波形で確かめる。</li>
+    <li>リークはゼロにしない。呼気ポートは塞がない。マスクと回路の組み合わせを毎回確認する。</li>
+    <li>NIV開始と同時に、失敗基準と挿管planを決める。NIV開始は挿管準備の代替ではない。</li>
+    <li>1時間はcritical window。HACOR・P/F・VT・RR・努力・pHをセットで見る。SpO₂改善＝成功ではない。</li>
+    <li>VT &gt;9–9.5 mL/kg ＋ 頻呼吸 ＋ P/F低下は P‑SILI／failure を疑う。HACOR &gt;5 は高リスクsignal。</li>
+    <li>failureを認識したら無益な継続を避け、速やかに侵襲的換気へ。</li>
+  </ol>
+  <div class="cal b">
+    <h4><span class="dot">i</span>結語</h4>
+    <p>NIVの成功とは「挿管しなかったこと」ではありません。<strong>呼吸仕事量・ガス交換・肺傷害を改善し、必要なら適切なタイミングで挿管へ移行できたこと</strong>です。</p>
+  </div>
+</div>
+</section>
+
+<!-- ================= refs ================= -->
+<section id="refs" class="band">
+<div class="wrap">
+  <p class="kicker">Appendix</p>
+  <h2>主要参考文献</h2>
+  <ul class="refs">
+    <li><i>Goel NN, Ferreyro BL, Pitre T, et al.</i> Noninvasive Respiratory Support for Adult Patients With Acute Respiratory Failure. An Official ATS Clinical Practice Guideline. Am J Respir Crit Care Med. 2026.</li>
+    <li><i>Rezoagli E, Nova A, Carteaux G, et al.</i> A Clinical Guide to Non‑Invasive Respiratory Support in Acute Respiratory Failure. Critical Care. 2025.</li>
+    <li><i>Nava S, Hill N.</i> Non‑Invasive Ventilation in Acute Respiratory Failure. Lancet. 2009.</li>
+    <li><i>Fordyce CB, Katz JN, Alviar CL, et al.</i> Prevention of Complications in the Cardiac Intensive Care Unit. Circulation. 2020.</li>
+    <li><i>Alviar CL, Miller PE, McAreavey D, et al.</i> Positive Pressure Ventilation in the Cardiac Intensive Care Unit. JACC. 2018.</li>
+    <li><i>Bourke SC, Piraino T, Pisani L, Brochard L, Elliott MW.</i> Beyond the Guidelines for Non‑Invasive Ventilation in Acute Respiratory Failure. Lancet Respir Med. 2018.</li>
+    <li><i>Munshi L, Mancebo J, Brochard LJ.</i> Noninvasive Respiratory Support for Adults with Acute Respiratory Failure. N Engl J Med. 2022.</li>
+    <li><i>Luo Z, Li Y, Li W, et al.</i> Effect of High‑Intensity vs Low‑Intensity NPPV on Need for Endotracheal Intubation in COPD Exacerbation. JAMA. 2024.</li>
+    <li><i>Chaudhuri D, Jinah R, Burns KEA, et al.</i> Helmet NIV Compared With Facemask NIV and HFNC. Eur Respir J. 2022.</li>
+    <li><i>Cesarano M, Grieco DL, Michi T, et al.</i> Helmet Noninvasive Support for Acute Hypoxemic Respiratory Failure. Ann Intensive Care. 2022.</li>
+    <li><i>Hong S, Wang H, Tian Y, Qiao L.</i> The Roles of Noninvasive Mechanical Ventilation With Helmet in Acute Respiratory Failure. PLoS One. 2021.</li>
+    <li><i>Pitre T, Zeraatkar D, Kachkovski GV, et al.</i> Noninvasive Oxygenation Strategies in Adult Patients With Acute Hypoxemic Respiratory Failure. Chest. 2023.</li>
+    <li><i>Grieco DL, Menga LS, Cesarano M, et al.</i> Helmet NIV vs HFNO in COVID‑19 Hypoxemic Respiratory Failure. JAMA. 2021.</li>
+    <li><i>Arabi YM, Aldekhyl S, Al Qahtani S, et al.</i> Helmet NIV vs Usual Respiratory Support in COVID‑19 Hypoxemic Failure. JAMA. 2022.</li>
+    <li><i>Coppola S, Pelliccia M, Pozzi T, et al.</i> Effects of HFNC and Helmet CPAP in Acute Hypoxemic Respiratory Failure. Crit Care Med. 2026.</li>
+    <li><i>Ferreyro BL, Angriman F, Munshi L, et al.</i> Association of Noninvasive Oxygenation Strategies With All‑Cause Mortality in Acute Hypoxemic Respiratory Failure. JAMA. 2020.</li>
+    <li><i>Duan J, Han X, Bai L, Zhou L, Huang S.</i> HACOR Score for NIV Failure in Hypoxemic Patients. Intensive Care Med. 2017.</li>
+    <li><i>Nishikimi M, Nishida K, Shindo Y, et al.</i> Failure of Non‑Invasive Respiratory Support After 6 Hours From Initiation Is Associated With ICU Mortality. PLoS One. 2021.</li>
+    <li><i>Boscolo A, Pasin L, Sella N, et al.</i> Outcomes of COVID‑19 Patients Intubated After Failure of Non‑Invasive Ventilation. Sci Rep. 2021.</li>
+    <li><i>Marjanovic N, Lestienne J, Balen F, et al.</i> Early Clinical Deterioration Under NIV in Emergency Department Patients. Critical Care. 2025.</li>
+    <li><i>Frat JP, Ragot S, Coudroy R, et al.</i> Predictors of Intubation in Acute Hypoxemic Respiratory Failure Treated With a Noninvasive Oxygenation Strategy. Crit Care Med. 2018.</li>
+    <li><i>Meeder AM, Tjan DH, van Zanten AR.</i> Noninvasive and Invasive Positive Pressure Ventilation for Acute Respiratory Failure in Critically Ill Patients. J Thorac Dis. 2016.</li>
+    <li><i>RENOVATE Investigators; Maia IS, Kawano‑Dourado L, et al.</i> High‑Flow Nasal Oxygen vs Noninvasive Ventilation in Acute Respiratory Failure. JAMA. 2025.</li>
+  </ul>
+  <div class="cal n">
+    <h4><span class="dot" style="background:var(--blue)">i</span>この資料について</h4>
+    <p>教育目的。OpenEvidenceの回答と引用文献を統合し、臨床上の順番（定義 → 適応 → 長所短所 → マスク → モード → リーク → 管理 → エビデンス）に再構成したものです。<strong>「マスクの違い」「モードの違い」「リークの扱い」「管理上の注意点」の各章には、上記の文献に直接対応しない標準的な実務知識・機器の一般原則を含みます</strong>（機器の名称・仕様は製品ごとに異なるため、必ず各施設の機種の取扱説明書とprotocolを優先してください）。患者個別の挿管判断や施設protocolの代替ではありません。挿管timingの観察研究は association として解釈してください。図はすべて本資料のために作図した模式図です。</p>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="wrap fin">
+    <span>NIV / NPPV · ICU Masterclass 2026 · 聖路加国際病院 集中治療科</span>
+    <span>教育目的の資料です。臨床判断は患者背景と施設protocolを優先してください。</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var prog=document.getElementById('prog');
+  function sc(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+'%';}
+  document.addEventListener('scroll',sc,{passive:true});sc();
+
+  // copy link
+  var cp=document.getElementById('copy');
+  if(cp){cp.addEventListener('click',function(){
+    var t=location.href.split('#')[0];
+    function done(){cp.textContent='✓ コピーしました';setTimeout(function(){cp.textContent='🔗 リンクをコピー';},1800);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){prompt('このURLをコピーしてください',t);});}
+    else{prompt('このURLをコピーしてください',t);}
+  });}
+
+  // nav active
+  var links=[].slice.call(document.querySelectorAll('.bar-in a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on');});var a=map[e.target.id];if(a)a.classList.add('on');}
+    });},{rootMargin:'-15% 0px -75% 0px'});
+    [].slice.call(document.querySelectorAll('section[id]')).forEach(function(s){if(map[s.id])io.observe(s);});
+
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.12});
+    [].slice.call(document.querySelectorAll('.rev')).forEach(function(el){ro.observe(el);});
+
+    var bars=document.getElementById('bars');
+    if(bars){
+      var bo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fillBars();bo.disconnect();}});},{threshold:.25});
+      bo.observe(bars);
+    }
+  } else {
+    [].slice.call(document.querySelectorAll('.rev')).forEach(function(e){e.classList.add('in');});
+    fillBars();
+  }
+  function fillBars(){
+    [].slice.call(document.querySelectorAll('#bars i')).forEach(function(i){i.style.width=i.dataset.w+'%';});
+  }
+  // 印刷・PDF化でも棒が空にならないように
+  window.addEventListener('beforeprint',fillBars);
+  setTimeout(fillBars,6000);
+
+  // HACOR
+  var calc=document.getElementById('calc'),scoreEl=document.getElementById('score'),
+      msgEl=document.getElementById('msg'),ring=document.getElementById('gring');
+  var items=['hr','ph','gcs','pf','rr'],state={};
+  [].slice.call(calc.querySelectorAll('.crow')).forEach(function(row){
+    var k=row.dataset.item;
+    [].slice.call(row.querySelectorAll('button')).forEach(function(b){
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){
+        [].slice.call(row.querySelectorAll('button')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+        b.setAttribute('aria-pressed','true');state[k]=parseInt(b.dataset.v,10);render();
+      });
+    });
+  });
+  function render(){
+    var t=0,f=0;items.forEach(function(k){if(k in state){t+=state[k];f++;}});
+    scoreEl.innerHTML=t+'<small>/ 25</small>';
+    var C=239, frac=Math.min(t/12,1);
+    ring.setAttribute('stroke-dashoffset',String(C-C*frac));
+    if(t>5){
+      calc.classList.add('hot');ring.setAttribute('stroke','#c9261c');
+      msgEl.innerHTML='<strong>HACOR &gt;5 — high‑risk signal.</strong> 1時間時点でこの値なら failure として扱い、挿管準備を完了させる。スコアの再計算に時間を使わない。';
+    }else{
+      calc.classList.remove('hot');ring.setAttribute('stroke','#0071e3');
+      msgEl.textContent = (f===items.length)
+        ? 'HACOR ≤5。ただしスコアが低くても VT・呼吸努力・分泌物・意識は別に評価する。trajectory を追い続ける。'
+        : (f? (items.length-f)+'項目が未選択です。' : '5項目を選ぶと合計が出ます。カットオフは >5。');
+    }
+  }
+  document.getElementById('reset').addEventListener('click',function(){
+    state={};[].slice.call(calc.querySelectorAll('.opts button')).forEach(function(b){b.setAttribute('aria-pressed','false');});render();});
+  render();
+})();
+</script>
+</body>
+</html>

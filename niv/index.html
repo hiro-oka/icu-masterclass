@@ -477,8 +477,9 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
         <strong>COPD急性増悪</strong>：挿管率・死亡率を減らす最も強固な適応<br>
         <strong>急性高CO₂血症性呼吸不全</strong>（PaCO₂ &gt;45、pH &lt;7.35）：bilevelが第一選択<br>
         <strong>心原性肺水腫</strong>：CPAPまたはbilevel。胸腔内圧上昇による血行動態的利益<br>
-        <strong>高リスク抜管後</strong>：LV不全・高CO₂・COPD・体液過剰・BNP高値・抜管後喘鳴・65歳超<br>
-        <strong>免疫不全</strong>：従来よりエビデンスが弱く慎重に<br>
+        <strong>挿管前酸素化</strong>：HFNCまたはNIVが強い推奨。頭対頭ではNIVが低酸素をより減らす<br>
+        <strong>高リスク抜管後の「予防的」使用</strong>：LV不全・高CO₂・COPD・体液過剰・BNP高値・抜管後喘鳴・65歳超。悪化を待たず装着する（呼吸不全が起きてからの救援使用は別物）<br>
+        <strong>免疫不全</strong>：非免疫不全と別戦略を採る根拠はなく、低酸素性の枠組みで扱う<br>
         <strong>神経筋疾患・胸部外傷・緩和ケア</strong>：症例ごとに目的を明確化
       </p>
     </div>
@@ -502,9 +503,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <tbody>
         <tr><td>COPD急性増悪＋高CO₂／アシドーシス</td><td>bilevel NIV</td><td>第一選択</td><td>疲弊・意識低下・分泌物</td></tr>
         <tr><td>心原性肺水腫</td><td>CPAP / bilevel NIV</td><td>強い適応</td><td>shock / RV failure / preload依存</td></tr>
-        <tr><td>de novo低酸素ARF</td><td>HFNCを強く検討</td><td>NIV/CPAPは選択的</td><td>重症低酸素＋高driveでfailure</td></tr>
-        <tr><td>高リスク抜管後</td><td>予防的NIV</td><td>再挿管予防</td><td>気道防御不良をNIVで隠す</td></tr>
-        <tr><td>免疫不全</td><td>個別判断</td><td>従来より慎重</td><td>挿管遅延</td></tr>
+        <tr><td>de novo低酸素ARF</td><td>まずHFNC（強い推奨・挿管 RR 0.76）</td><td>NIV/CPAPは条件付き。<b>HFNC対NIVの優劣は未決着</b></td><td>重症低酸素＋高driveでfailure</td></tr>
+        <tr><td>挿管前酸素化</td><td>HFNCまたはNIV（強い推奨）</td><td>頭対頭ではNIVが低酸素をより減らす（RR 0.73）</td><td>準備が緊急挿管を遅らせる</td></tr>
+        <tr><td>高リスク抜管後 —— <b>予防的</b></td><td>予防的NIV（再挿管 RR 0.75）／HFNC（RR 0.80）</td><td>高リスクではNIV優先（交互作用 p=0.006）</td><td>気道防御不良をNIVで隠す</td></tr>
+        <tr><td>抜管後に呼吸不全が起きてから —— <b style="color:var(--red)">救援的</b></td><td>非侵襲補助を主役にしない</td><td>救援目的のHFNC単独は再挿管を増やす（p=0.001）</td><td>「救援として使う」こと自体が害</td></tr>
+        <tr><td>免疫不全</td><td>個別判断</td><td>非免疫不全と別扱いする根拠はなく、低酸素性の枠組みで扱う</td><td>挿管遅延</td></tr>
         <tr><td>緩和ケア</td><td>症状緩和目的</td><td>goalsに合わせる</td><td>治療目標との不一致</td></tr>
       </tbody>
     </table>
@@ -529,6 +532,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <div class="cal r">
     <h4><span class="dot">!</span>開始前に必ず決めておく2つ</h4>
     <p>「<strong>どの条件ならNIVを失敗とするか</strong>」「<strong>挿管するなら誰が・どこで・どの方法で行うか</strong>」。NIV開始は挿管準備の代替ではありません。</p>
+  </div>
+
+  <div class="cal o">
+    <h4><span class="dot">!</span>「予防的」と「救援的」を言葉のうえで分ける</h4>
+    <p>抜管後の非侵襲補助は、<strong>抜管失敗の高リスク例に悪化を待たず装着する（予防的）</strong>のと、<strong>呼吸不全が起きてから当てる（救援的）</strong>のとで意味がまったく違います。害シグナルが出ているのは後者だけで、しかも<strong>デバイスを問いません</strong>。当院の運用は、救援に該当したと判断した時点でNIVか再挿管へ直行する——非侵襲補助で様子を見る時間を作らない、と決めておきます。</p>
   </div>
 </div>
 </section>
@@ -1172,6 +1180,16 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <p>疾患名ではなく<strong>病態</strong>で選ぶ、初の包括的ATSガイドライン（GRADE＋ネットワークメタ解析）。<strong>低酸素性 → HFNC</strong>（標準酸素比で強い推奨・中等度／挿管 RR 0.76。NIV・CPAPは条件付き）、<strong>高CO₂血症性 → フェイスマスクNIV</strong>（強い推奨・中等度／死亡 RR 0.47・挿管 RR 0.43）、<strong>挿管前酸素化 → HFNCまたはNIV</strong>（強い推奨／低酸素 NIV RR 0.51・HFNC RR 0.69、頭対頭ではNIVが優る RR 0.73）、<strong>抜管後の高リスク → NIV</strong>。共通原則は<strong>早期開始・綿密な監視・不成功時の速やかなエスカレーション</strong>。</p>
   </div>
 
+  <div class="cal p">
+    <h4><span class="dot">i</span>この4年で何が動いたか — NEJM 2022総説 → ATS 2026ガイドライン</h4>
+    <p>ATS 2026が引用するBrochard／Munshiらの総説（NEJM 2022）と並べると、変化の輪郭がはっきりします。<br>
+    ① <strong>挿管前酸素化が最大の変化点</strong>。2022年は「不確実」のマス1つで本文記述すら無かった領域が、2026年には独立PICOとして<strong>HFNCまたはNIVの強い推奨</strong>になりました（低酸素低減は NIV RR 0.51・HFNC RR 0.69、いずれも確実性 高）。PREOXI試験の登場によるものです。<br>
+    ② <strong>de novo低酸素性ARFの第一手が確定</strong>。2022年の「選び分ける基準は文献上明確でない、チームが慣れた方式で」から、2026年の「<strong>まずHFNC</strong>（標準酸素比で挿管 RR 0.76）」へ。<strong>ただしHFNC対NIVの優劣は2022年も2026年も未決着</strong>で、ここは4年で埋まらなかった穴です。<br>
+    ③ <strong>警告の向きが反転</strong>。2022年の警告は「抜管後の<strong>救援フェイスマスクNIV</strong>が挿管を遅らせ死亡を増やす」、2026年の警告は「<strong>救援目的のHFNC単独</strong>が再挿管を増やす（交互作用 p=0.001）」。<strong>危険なのはデバイスではなく「救援として使う」使い方そのもの</strong>、という整理に変わりました。<br>
+    ④ <strong>COPD×HFNC</strong>が「エビデンス不十分」から「<strong>pH 7.25超の軽度アシデミアに限り条件付き代替</strong>」へ。<br>
+    ⑤ <strong>免疫不全が独立論点として消滅</strong>。「非免疫不全と異なる戦略を採る根拠は無い」という総説の主張が前提化され、ATS 2026は独立カテゴリを立てず低酸素性PICOに吸収しました。</p>
+  </div>
+
   <div class="cal b">
     <h4><span class="dot">i</span>どこで始めるか — ICU入室前の早期NIV（ICM 2026）</h4>
     <p>論点は「効くか」から<strong>実装</strong>へ移りました。ICU入室<strong>前</strong>（病院前・救急外来・一般病棟）で早期にNIVを始めると、挿管は <strong>10.8%→5.2%（RR 0.49・95%CI 0.36–0.66・I² 0%・NNT 18）</strong>、ICU入室は <strong>19.2%→15.5%（RR 0.78・NNT 27）</strong>。実装の要点は<strong>10分以内の開始／10〜15分での7項目再評価／事前に決めた失敗基準／搬送前の物流チェック</strong>の4つです。ただし<strong>効果量は3つの設定を混ぜた値で、死亡についての記載はありません</strong>。<br>なお<strong>日本では救急救命士の処置範囲にNIVが含まれず、通常の救急搬送では実施できません</strong>。当院にとってこれは「病院前」ではなく、<strong>救急外来・一般病棟での前倒し</strong>として読む知見です。</p>
@@ -1182,17 +1200,20 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <table>
       <thead><tr><th>病態</th><th>エビデンスの強さ</th><th>主な根拠</th><th>実務での意味</th></tr></thead>
       <tbody>
-        <tr><td>COPD急性増悪（高CO₂・アシドーシス）</td><td><b style="color:var(--green)">強い</b></td><td>挿管率・死亡率の低下。ATS 2026で強い推奨。HAPPEN試験では高強度NPPVがさらに挿管を減らす可能性</td><td>第一選択。ためらう理由がない</td></tr>
+        <tr><td>COPD急性増悪（高CO₂・アシドーシス）</td><td><b style="color:var(--green)">強い</b></td><td>ATS 2026でフェイスマスクNIVを強い推奨（死亡 RR 0.47・挿管 RR 0.43）。HAPPEN試験では高強度NPPVがさらに挿管を減らす可能性。HFNCは<b>pH 7.25超の軽度アシデミアに限り条件付き代替</b>（2022年は「COPDでのHFNCはエビデンス不十分」だった）</td><td>第一選択。ためらう理由がない</td></tr>
         <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>Cochrane 2019（24 RCT・2664例）：院内死亡 RR 0.65（NNTB 17・確実性 低）、挿管 RR 0.49（NNTB 13・中等度）。心筋梗塞は増えない（RR 1.03）</td><td>CPAPでもbilevelでも差はない（機器と習熟で選ぶ）。害はほぼマスク不快感</td></tr>
-        <tr><td>高リスク抜管後</td><td><b style="color:var(--blue)">中等度</b></td><td>再挿管予防としての予防的NIV。COPDではCHEST Crit Care 2025レビューも抜管後のNIV/HFNCを「悪化を待たず即時装着」と推奨</td><td>対象を絞って予防的に使う</td></tr>
-        <tr><td>de novo 低酸素ARF</td><td><b style="color:var(--orange)">弱い／条件付き</b></td><td>ネットワークメタ解析ではHFNCが有利。RENOVATEはHFNCの非劣性を報告</td><td>まずHFNC。NIVを使うなら監視を厚く</td></tr>
+        <tr><td>高リスク抜管後 —— <b>予防的</b></td><td><b style="color:var(--blue)">中等度</b></td><td>ATS 2026：予防的NIVまたはHFNC（条件付き・中等度／再挿管 <b>NIV RR 0.75・HFNC RR 0.80</b>）。高リスクではNIV優先（<b>交互作用 p=0.006</b>）。COPDではCHEST Crit Care 2025レビューも抜管後のNIV/HFNCを「悪化を待たず即時装着」と推奨</td><td>対象を絞って、悪化を待たずに使う</td></tr>
+        <tr><td>抜管後 —— <b style="color:var(--red)">救援的</b></td><td><b style="color:var(--red)">害の懸念あり</b></td><td>2022年の総説：救援フェイスマスクNIVが挿管を遅らせ死亡を増やす。2026年のATS：<b>救援目的のHFNC単独が再挿管を増やす</b>（対標準酸素で交互作用 <b>p=0.001</b>、対NIVで <b>p=0.03</b>）。4年で警告の対象デバイスが入れ替わった</td><td><b>害はデバイスではなく「救援として使う」使い方に付いている</b>。救援に該当したらNIVか再挿管へ直行する</td></tr>
+        <tr><td>de novo 低酸素ARF</td><td><b style="color:var(--green)">強い（HFNC）</b> ／ <b style="color:var(--orange)">条件付き（NIV）</b></td><td>ATS 2026：HFNCを標準酸素より強い推奨（<b>挿管 RR 0.76</b>）。NIV/CPAPは条件付きで確実性は低い。RENOVATEはHFNCの非劣性を報告。<b>HFNC対NIVの優劣は2022年の総説でも2026年のガイドラインでも未決着</b></td><td>まずHFNC。NIVを使うなら監視を厚く。「どちらが上か」より失敗基準と引き上げ役の明文化</td></tr>
         <tr><td>ARDS（特にP/F &lt;150）</td><td><b style="color:var(--red)">害の懸念あり</b></td><td>重症度が上がるほどfailure率が上昇。failure後の死亡が高い</td><td>NIVで粘らない領域</td></tr>
-        <tr><td>免疫不全</td><td><b style="color:var(--orange)">弱い</b></td><td>かつての強い推奨は後退</td><td>個別判断。挿管遅延を避ける</td></tr>
-        <tr><td>挿管前酸素化</td><td><b style="color:var(--green)">強い</b></td><td>ATS 2026で強い推奨（低酸素 NIV RR 0.51・HFNC RR 0.69、頭対頭ではNIVが優る RR 0.73）。アウトカムで利益が証明された陽圧戦略はNIVのみ</td><td>使えるならNIV。ただし忍容・禁忌なし・挿管を遅らせないことが条件</td></tr>
+        <tr><td>免疫不全</td><td><b style="color:var(--orange)">弱い</b></td><td>かつての強い推奨は後退。<b>独立した論点としては消えた</b>——2022年の総説が「非免疫不全と異なる戦略を採る根拠は無い」と明言し、ATS 2026は独立カテゴリを立てず低酸素性PICOに吸収した</td><td>個別判断。挿管遅延を避ける</td></tr>
+        <tr><td>挿管前酸素化</td><td><b style="color:var(--green)">強い</b></td><td>ATS 2026で強い推奨（低酸素低減 <b>NIV RR 0.51・HFNC RR 0.69、いずれも確実性 高</b>、頭対頭ではNIVが優る RR 0.73）。アウトカムで利益が証明された陽圧戦略はNIVのみ。<b>2022年の総説では「不確実」の1マスで本文記述すら無く、この4年で最も動いた論点</b>（PREOXIの登場による）</td><td>使えるならNIV。手順として標準化し、古い記憶のまま運用しない。ただし忍容・禁忌なし・挿管を遅らせないことが条件</td></tr>
         <tr><td>挿管前酸素化（NIVが使えない場面）</td><td><b style="color:var(--orange)">弱い／未確立</b></td><td>PEEPバルブ付きBVMはリザーバーマスクの妥当な代替。ただしBVM＋PEEPの臨床アウトカムデータは存在せず、支持データは健常肺ボランティア53名の生理学的試験（15 L/分・3分、補助換気なし、実効PEEPは未測定）にとどまる</td><td>NRM全開流量とBVM＋PEEPは並列。どちらかを上位に置く根拠はない</td></tr>
       </tbody>
     </table>
   </div></div>
+
+  <p class="pull">危険なのはデバイスではない。<br><span>「救援として使う」という使い方そのものが害を連れてくる。</span></p>
 
   <div class="cal r">
     <h4><span class="dot">!</span>NIVが手元にない場所での前酸素化（ICM 2026 著者回答）</h4>
@@ -1425,7 +1446,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
 <section id="take">
 <div class="wrap">
   <p class="kicker">Take‑home</p>
-  <h2>持ち帰る10個。</h2>
+  <h2>持ち帰る13個。</h2>
   <ol class="th">
     <li>NIVは病態選択がすべて。COPD／高CO₂と de novo 低酸素ARFを同じに扱わない。</li>
     <li>気道は預かっていない。適応・禁忌・監視の密度は、すべてそこから決まる。</li>
@@ -1437,6 +1458,9 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <li>1時間はcritical window。HACOR・P/F・VT・RR・努力・pHをセットで見る。SpO₂改善＝成功ではない。</li>
     <li>VT &gt;9–9.5 mL/kg ＋ 頻呼吸 ＋ P/F低下は P‑SILI／failure を疑う。HACOR &gt;5 は高リスクsignal。</li>
     <li>failureを認識したら無益な継続を避け、速やかに侵襲的換気へ。</li>
+    <li><strong>予防的に使うのはよい。救援として使うのはデバイスを問わず避ける。</strong>抜管後に呼吸不全が起きてからのフェイスマスクNIV（2022年）もHFNC単独（2026年）も害シグナルが出ている。害はデバイスではなく「救援として使う」使い方に付いている。</li>
+    <li>HFNC対NIVの優劣は、2022年の総説でも2026年のガイドラインでも決着していない。「どちらが上か」を議論するより、<strong>失敗基準と誰が引き上げるかを明文化する</strong>ほうが患者アウトカムを動かす。</li>
+    <li>前酸素化でアウトカムが証明された陽圧戦略はNIVだけ。<strong>4年前には「不確実」だった領域が強い推奨に変わった</strong>ので、ここは古い記憶のまま運用しない。NIVが無い場所ではNRM全開でもBVM＋PEEPでもよいが、BVMのPEEPは二人法の密着シールと十分な新鮮ガス流量がなければ存在しない。</li>
   </ol>
   <div class="cal b">
     <h4><span class="dot">i</span>結語</h4>

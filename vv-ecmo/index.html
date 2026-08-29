@@ -216,7 +216,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 今すぐ見る（1画面サマリー）</a>
@@ -285,6 +285,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 
 
+
+
 <main>
 
 <p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
@@ -299,6 +301,28 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
 
+
+<div class="box good">
+<span class="label">はじめに — この装置が何をしているか（ここだけは読んでください）</span>
+<p><strong>VV-ECMO は肺を治す装置ではありません。肺が治るまでの時間を買う装置です。</strong></p>
+<p>やっていること自体は単純です。太い管で静脈から血液を抜き（<strong>脱血</strong>）、ポンプで人工肺に送り、そこで酸素をつけて二酸化炭素を捨て、また静脈に戻す（<strong>送血</strong>）。それだけです。</p>
+<p>大事なのはその先です。<u>血液の酸素化を機械が肩代わりしてくれるので、人工呼吸器を弱めることができる</u>——というより、<strong>弱めなければいけない</strong>。高い圧で硬い肺を膨らませ続けたことが肺をさらに痛めていたのだから、その手を止めるために ECMO を回しています。</p>
+<p>だから ECMO 管理の目的は「SaO₂ を上げること」ではなく、<strong>「肺を休ませたまま、患者さんが生きていられる状態を保つこと」</strong>です。<u>この一点が分かると、以降の話はすべてつながります。</u></p>
+<ul>
+<li><strong>SaO₂ 80% でも許容するのはなぜか</strong> → 肺を休ませることのほうが優先だから（§4-3）</li>
+<li><strong>SaO₂ が下がっても呼吸器の設定を上げてはいけないのはなぜか</strong> → 同じ理由。上げた瞬間に ECMO を回している意味が消える（§2-2・§5）</li>
+<li><strong>回路の圧を毎日3か所も見るのはなぜか</strong> → 肩代わりしてくれている機械が壊れかけていないかを、毎日確認する必要があるから（§6）</li>
+<li><strong>出血と血栓を同時に心配するのはなぜか</strong> → 血液を体の外に出すと固まる。だから抗凝固する。すると今度は出血する。この綱引きが管理の本体です（§4-6・§7）</li>
+</ul>
+</div>
+
+<div class="box plain">
+<span class="label">この資料の歩き方</span>
+<p><strong>朝のラウンドで上から順に使える並びにしてあります。</strong>通して読むなら次の流れです。</p>
+<p><strong>「⚡今すぐ見る」で当直をしのぐ</strong>　→　<strong>§1〜§2 で何が起きているかを理解する</strong>　→　<strong>§3〜§5 で毎日の型と目標を決める</strong>　→　<strong>§6 に困ったときに戻ってくる</strong>　→　<strong>§7〜§8 で合併症と出口を見る</strong>。</p>
+<p><u>看護師・臨床工学技士の方へ</u>：日々のケアで直接使うのは <strong>§3（毎日のラウンド・チェックリスト）</strong>、<strong>§6（トラブルシューティング）</strong>、<strong>§7-1（出血の観察部位）</strong> です。<u>§2 の生理は「なぜその値を見るのか」の説明なので、後から読んでも構いません。</u></p>
+<p><u>研修医の方へ</u>：<strong>§2 を飛ばさないでください。</strong>ECMO 中の判断で迷うことのほとんどは、§2 の「酸素は掛け算・SaO₂ は分数」の2つで説明がつきます。</p>
+</div>
 
 <div class="toc">
 <span class="label">目次 — 朝のラウンドで上から使う</span>
@@ -331,6 +355,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b1">目標値・基準値 早見表</h3>
+
+<p>まずは<strong>今夜の数字</strong>です。この表は「調べれば分かること」ではなく、<u>アラームを設定し、指示簿に書き込むための値</u>を並べています。根拠が気になる項目は §4 に飛んでください。<strong>迷ったら厳しい方の値を採る</strong>——それが当直の原則です。</p>
+
 
 <div class="tablewrap">
 <table class="wide">
@@ -368,6 +395,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b2">回路内圧 × 異常部位（当直での一次鑑別）</h3>
 
+<p>ECMO のトラブルで最初に手が伸びるのが、この表です。<u>回路には圧の測定点が3つ（P1・P2・P3）あり、どこが詰まったかによって3つの動き方が変わります</u>。<strong>「圧の組み合わせ」を見れば、回路を開けなくても異常部位が当たります。</strong>詳しい解説は §6-1 にありますが、当直中はこの表だけで一次鑑別ができます。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表2｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span>（数値例は <span class="src jp">岡山5 p22</span>）</caption>
@@ -384,6 +414,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p><strong>基準値：P1 &gt; −120 mmHg（過度の陰圧は危険）／ P2 &lt; 300 mmHg（溶血リスク）／ P2 − P3 &lt; 50 mmHg（人工肺の血栓？）</strong>　<span class="src in">当院 講義1 p29</span></p>
 
 <h3 id="rs-b3">症状 → 最初の一手（30秒版）</h3>
+
+<p>次は<strong>「目に入ったもの」から引く表</strong>です。原因を考える前に、まず何をするか。<u>ECMO の急変は分単位で進むので、初動を迷わないことが最優先</u>です。ここで方向が決まったら §6 で裏を取ってください。</p>
+
 
 <div class="tablewrap">
 <table class="wide">
@@ -404,6 +437,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b4">緊急連絡（院内資料に記載のある範囲）</h3>
+
+<p>最後に連絡先です。<strong>ECMO のトラブルは1人では収まりません。</strong>迷ったら呼ぶ、が正解です。</p>
+
 
 <div class="tablewrap">
 <table>
@@ -502,6 +538,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </figure>
 <h3 id="rs-b5">1-1. 当院の導入手順（＝院内資料の全文）</h3>
 
+<p>すでに導入は済んでいるはずですが、<u>「何がどこまで済んでいるか」を朝いちで確認する</u>ために院内資料の手順をそのまま載せます。<strong>同意書の取得漏れ・関係各科への連絡漏れは後から効いてきます。</strong></p>
+
+
 <div class="tablewrap">
 <table>
 <caption>表5｜ECMO導入準備　<span class="src in">当院 ★導入手順 スライド1 ／ ICU_ECMO スライド1</span></caption>
@@ -518,6 +557,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 
 <h3 id="rs-b6">1-2. カニュラ位置と間隔 — 朝いちで胸部X線を見る目的</h3>
+
+<p>ここからが本題です。<strong>導入翌朝の胸部X線には、はっきりした目的が2つあります。</strong>①カニュラの先端がどこにあるか　②送血と脱血のカニュラがどれだけ離れているか。<u>とくに②は、この後ずっと悩まされる「再循環」を左右します</u>（§2-3）。「なんとなく肺を見る」ためのX線ではありません。</p>
+
 
 <div class="box danger">
 <span class="label">最優先で確認する1点</span>
@@ -631,6 +673,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b7">1-3. 導入直後〜24時間のチェック</h3>
 
+<p>導入から24時間は、その後の数週間の土台になります。<u>ここで見落とすと後から取り返しがつかない項目</u>を、モダリティ別に並べました。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表8｜胸部X線・エコー・血ガスで見るもの</caption>
@@ -668,6 +713,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b8">1-4. 適応・禁忌（既に導入済みだが、家族説明と方針決定で使う）</h3>
 
+<p>すでに ECMO は回っているので、いまさら適応を議論する場面ではありません。<strong>この表を使うのは、家族への説明と、今後の方針決定のときです。</strong>「どのくらい厳しい状態でこの装置を選んだのか」を自分の言葉で説明できるようにしておくと、その後の話し合いが楽になります。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表10｜VV-ECMO の適応基準</caption>
@@ -702,6 +750,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b9">2-1. 酸素供給の決定因子</h3>
 
+<p>まず<strong>「酸素は掛け算で決まる」</strong>という話からです。<u>ECMO 中に酸素を届ける量は、SaO₂ だけでは決まりません</u>。Hb と心拍出量を掛け合わせたものが体に届く酸素で、しかもそれが「消費する量」を上回っていれば足りている——というだけの話です。<strong>SaO₂ が低くても慌てなくていい理由が、この式に全部入っています。</strong></p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表11｜計算式と目標量</caption>
@@ -718,6 +769,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b10">2-2. 「SaO₂ が上がらない」を分数で理解する ★ここが本丸</h3>
+
+<p>ここが本丸です。<strong>「ECMO を回しているのに SaO₂ が上がらない」</strong>——ECMO 管理でいちばんよく聞かれる質問への答えがここにあります。</p>
+<p>結論を先に言うと、<u>VV-ECMO の SaO₂ は「分数」で決まります</u>。ECMO を通って酸素化された血液と、肺を素通りしてきた酸素の低い血液が、心臓の手前で混ざる。その<strong>混ざり方の比率</strong>が SaO₂ です。だから <u>100% にはそもそもならないし、上げようとして呼吸器を強くするのは筋が違う</u>ということになります。</p>
+
 
 <div class="box good">
 <span class="label">原理</span>
@@ -838,6 +893,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
+<p>寄与度が分かったところで、<strong>実際にベッドサイドで何ができるか</strong>に落とします。<u>上の4因子のうち、いま手元で動かせるのはごく一部</u>——そこを見極めるための表です。</p>
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表14｜再循環：当院の対処　<span class="src in">当院 講義1 p62-64</span></caption>
@@ -852,6 +909,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b12">2-4. CO₂ は sweep gas で決まる</h3>
+
+<p>酸素の話が済んだので、次は二酸化炭素です。<strong>こちらは驚くほど単純で、sweep gas の流量ひとつでほぼ決まります。</strong><u>酸素と CO₂ は別々のつまみで動く</u>——これを押さえておくと、血液ガスを見たときに手が迷いません。</p>
+
 
 <div class="tablewrap">
 <table class="wide">
@@ -876,7 +936,14 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 <h2 id="s3"><span class="no">§3</span>毎日のラウンド</h2>
 
+<p><strong>導入から24時間が過ぎると、ECMO 管理は「毎日、同じことを同じ順で確認する」仕事に変わります。</strong>そしてここが肝心なのですが、<u>ECMO の事故の多くは珍しい病態で起きるのではなく、決まった確認を飛ばしたときに起きます</u>。回路の中で静かに血栓が育っていた、カニュラが数cm抜けかけていた、といった類です。</p>
+<p>この章は当院の1日の型をそのまま並べたものです。<strong>順番そのものに意味がある</strong>ので、慣れるまでは上から順になぞってください。医師のルーチン（3-1）→ 記録の型（3-2）→ 看護・CE の安全チェック（3-3）→ 採血（3-4）→ ラウンドで声に出す項目（3-5）、最後に「今日は経過のどのあたりか」を全員で言語化します（3-6）。</p>
+
+
 <h3 id="rs-b13">3-1. ECMO担当医のルーチンワーク（＝当院の1日の型）</h3>
+
+<p>まず<strong>医師の1日</strong>から。<u>「いつ・何を・どのくらいの頻度で見るか」が決まっていれば、当直が替わっても管理の質が落ちません</u>。逆にここが人によって違うと、夜のうちに方針がぶれます。</p>
+
 
 <div class="tablewrap">
 <table class="wide">
@@ -896,6 +963,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b14">3-2. ECMOチャート（当院フォーマット・記録の型）</h3>
+
+<p>次に<strong>記録の型</strong>です。ECMO チャートは書類仕事ではなく、<u>「昨日と比べてどう変わったか」を1枚で見るための道具</u>です。とくに回路の圧と抗凝固は、単発の値より<strong>推移のほうが情報量が多い</strong>ので、毎回同じ場所に同じ形で残すことに意味があります。</p>
+
 
 <div class="box">
 <span class="label">運用ルール　<span class="src in">当院 講義1日目 p44</span></span>
@@ -951,6 +1021,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b16">3-4. 採血項目・頻度・輸血閾値</h3>
 
+<p>採血の話です。<strong>ECMO 中の採血が多いのには理由があります。</strong><u>抗凝固は「効きすぎても効かなさすぎても事故になる」ため、他の場面より短い間隔で追いかける必要がある</u>からです。溶血（LDH・間接ビリルビン）は機械の劣化を映す鏡でもあります。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表19｜血液・凝固チェック（間隔と閾値は当院の値）　<span class="src in">当院 講義1日目 p35</span></caption>
@@ -972,6 +1045,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b17">3-5. ラウンドで口に出す項目（当院の管理項目に沿って）</h3>
+
+<p>最後に、<strong>ラウンドで実際に声に出す項目</strong>です。頭の中で確認するのではなく、<u>口に出してチームで共有する</u>ことに意味があります。ここに挙げたのは、黙っていると抜けやすい順です。</p>
+
 
 <ul class="chk">
 <li><strong>神経</strong>：瞳孔径・意識レベル・麻痺（＝頭蓋内出血の観察）。<u>意識変化を「鎮静のせい」で片付けない</u> <span class="src vault">ドイツ剖検登録</span></li>
@@ -1065,6 +1141,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 
 <h2 id="s4"><span class="no">§4</span>目標値と設定</h2>
+
+<p>ここまでで<strong>「何が起きているか」（§2）と「毎日何を見るか」（§3）</strong>が揃いました。次はその値を<strong>どこに置くか</strong>です。</p>
+<p>ただ、正直に言うと<u>ECMO の目標値には「みんなが合意している唯一の正解」がほとんどありません</u>。だから本ガイドでは、<strong>基準を ELSO と ECMOnet に固定したうえで、1項目につき1つの値だけを示す</strong>ことにしました。表を見比べて迷う時間をなくすためです。</p>
 
 <div class="box good">
 <span class="label">この章の読み方</span>
@@ -1170,6 +1249,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="anticoag">4-6. 抗凝固 ★まだ決着していない点②</h3>
+
+<p>ここが ECMO 管理でいちばん施設差が大きく、いちばん議論が続いている領域です。</p>
+<p>理由ははっきりしていて、<u><strong>「正しい抗凝固の強さ」を決めた質の高い試験が存在しない</strong></u>からです。ELSO が示している値でさえ、ECMO 集団で検証されたものではありません。<strong>だからこそ、施設として1つの値を決めて、それを全員が共有していることのほうが、値そのものの正しさより大事になります。</strong></p>
+
 
 <div class="box good">
 <span class="label">まずこれで動く（ELSO / ECMOnet の値）</span>
@@ -1379,6 +1462,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b24">5-1. 経過の見通し（当院の型）</h3>
 
+<p>設定の話が済んだところで、<strong>「この先どうなっていくのか」の見通し</strong>を持っておきます。<u>ECMO は数日で終わるものではないので、いつ気管切開を考え、いつ覚醒させ始めるのか、大まかな地図があると家族にも説明しやすくなります。</u></p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表28｜通常の ECMO の経過　<span class="src in">当院 講義1日目 p82</span></caption>
@@ -1404,6 +1490,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 
 <h2 id="s6"><span class="no">§6</span>トラブルシューティング ★本ガイドの中核</h2>
+
+<p><strong>ここが本ガイドの中核です。</strong>当直で開くのはたいていこの章になります。</p>
+<p>ECMO のトラブルは、原因を頭で当てにいこうとすると間に合いません。速いのは逆で、<u><strong>見えているもの（回路の圧・流量・SaO₂）から、機械のどこが悪いかを機械的に絞り込む</strong></u>やり方です。幸い VV-ECMO は構造が単純なので、これがよく効きます。</p>
+<p>そこでこの章は、<strong>「回路の圧の組み合わせで異常部位を当てる 4×4 の表」（6-1）を軸</strong>に置きました。まずこれで場所を絞り、次に症状別の対応（6-2）へ、酸素化が上がらないときは当院のアルゴリズム（6-3）へ進みます。最後に、急変時にチーム内で言葉が食い違わないための用語集（6-4）を置いています。</p>
+
 
 <h3 id="rs-b25">6-1. 回路内圧 × 異常部位（軸になる4×4表）</h3>
 
@@ -1504,6 +1595,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </tbody>
 </table>
 </div>
+
+<p>同じ考え方を、<strong>院内勉強会ではもっと簡単な3点（流量・脱血圧・送血圧）に絞った形</strong>でも教えています。<u>4×4 の表が頭に入るまでは、まずこちらで十分</u>です。</p>
 
 <div class="tablewrap">
 <table class="wide">
@@ -1748,6 +1841,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b27">6-3. 当院の低酸素アルゴリズム（講義1日目 p87）★必ずこの順で</h3>
 
+<p><strong>酸素化が上がらないときに、順番を守ることがなぜ重要か。</strong></p>
+<p><u>いちばんやりがちな失敗が、「SaO₂ が低い → とりあえず ECMO の流量を上げる」</u>です。ところが再循環が原因だった場合、流量を上げると<strong>かえって SaO₂ が下がります</strong>（§2-3）。人工肺が劣化していた場合も、流量を上げても酸素はつきません。</p>
+<p>だから<strong>「流量を上げる」は後半のステップ</strong>で、先に再循環と人工肺を潰します。<u>このアルゴリズムは、その順番を固定するためにあります。</u></p>
+
+
 <div class="box">
 <span class="label">大原則（当院 p87 の注記そのまま）</span>
 <p><strong>緊急時なら → 緊急時呼吸器設定に → ECMO流量アップ → 原因探求</strong>／<strong>余裕あるなら → アルゴリズムの通り</strong>／<strong>いずれにせよ、Cxpオーダー、ABG、脱送血ABG採取し評価を行う</strong></p>
@@ -1778,6 +1876,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b28">6-4. 緊急時の共通言語（院内で用語を統一しておく）</h3>
 
+<p>最後に<strong>言葉の話</strong>です。地味に見えますが重要で、<u>急変時に「クランプして」「止めて」が人によって違う意味だと、それ自体が事故になります</u>。<strong>導入するなら、平時のうちに院内で用語を1つに決めておいてください。</strong></p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表33｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（<u>当院資料には対応する定義がないため、導入するなら院内で決める</u>）</caption>
@@ -1794,6 +1895,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </tbody>
 </table>
 </div>
+
+<p>言葉が揃ったら、次は<strong>「その言葉が出たときに、クランプするのかしないのか」</strong>です。<u>ここを取り違えると事故が大きくなります。</u></p>
 
 <div class="tablewrap">
 <table class="wide">
@@ -1821,6 +1924,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 <h2 id="s7"><span class="no">§7</span>合併症の監視</h2>
 
+<p>ECMO を回している間、患者さんの体の中では<strong>2つの逆向きの力が同時に働いています</strong>。回路に血液が触れると固まろうとするので抗凝固をかける。すると今度は出血する。<u>この綱引きをどちらにも振り切らせないことが、合併症管理のほぼすべて</u>です。そのうえで、頻度が高いのは明らかに出血のほうです。</p>
 <p>当院講義の一言：<strong>「ECMO 中は出血合併症が最多。出血を制すものは ECMO を制す」</strong><span class="src in">講義1 p37</span></p>
 
 <div class="tablewrap">
@@ -1842,6 +1946,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b29">7-1. 出血 — 日々のケアでの観察部位</h3>
 
+<p><strong>出血は「探しにいかないと見つからない」</strong>のが厄介なところです。<u>ECMO 中の出血は派手に始まるとは限らず、刺入部のじわじわした滲みや、口腔・鼻腔からの少量出血として現れます</u>。だからこそ観察部位を決めて、毎日同じ場所を見ます。<strong>ここは看護記録がいちばん力を発揮する場面です。</strong></p>
+
+
 <div class="tablewrap">
 <table>
 <caption>表36｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
@@ -1859,6 +1966,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b30">7-2. 頭蓋内出血・胸腔ドレーン — 2つの「やらかしやすい」ポイント</h3>
+
+<p>出血のなかでも、<strong>この2つは「起こしてしまいがち」かつ「起きると重い」</strong>ので独立させました。<u>片方は見逃しやすく、もう片方はこちらから作ってしまう合併症</u>です。</p>
+
 
 <div class="box danger">
 <span class="label">① 頭蓋内出血</span>
@@ -1880,6 +1990,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b31">7-3. 血栓・溶血</h3>
 
+<p>抗凝固の綱引きの、<strong>反対側</strong>です。<u>血栓は回路の中で静かに育つので、毎日ペンライトで見ないと気づけません。</u>溶血は「機械が血球を壊している」サインで、回路交換を考える入口になります。</p>
+
+
 <ul>
 <li><strong>回路内血栓は人工肺・コネクタ・ルアーに多い。</strong>白色光のペンライトで確認し、認めたら○で囲んで長さを計測。<span class="src jp">岡山5 p49</span></li>
 <li><strong>定期的な回路交換は行わない。</strong>交換を考えるのは：人工肺の劣化／血栓／凝固障害（フィブリノゲンの消耗など）／フローに見合ったチューブ径でない・回路を短くしたい／感染のコントロールがつかない時。<span class="src in">講義1 p43</span></li>
@@ -1890,6 +2003,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 
 <h3 id="rs-b32">7-4. 感染 — 時期で狙う病原体が変わる</h3>
+
+<p>感染は<strong>「いつ起きたか」で狙う菌が変わります。</strong>そしてもう一つ厄介なのが、<u>ECMO 患者は熱交換器で体温が調整されているため、発熱に気づけないこと</u>です。だから体温より、培養と局所所見で拾いにいきます。</p>
+
 
 <div class="tablewrap">
 <table class="wide">
@@ -1924,6 +2040,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h2 id="s8"><span class="no">§8</span>離脱</h2>
 
+<p><strong>ECMO を始めた瞬間から、ゴールは「どうやって終わるか」です。</strong>そして離脱の判断は、多くの人が思っているより早い段階から始まります。<u>肺が回復してきたサインは、SaO₂ より先に「一回換気量が戻ってくる」ことに現れる</u>からです（§2-2）。</p>
+<p>この章では、まず離脱手順そのものが施設によって設計思想から違うという話（表38）をしてから、<strong>「抜いていいか」をどう判断するか</strong>（8-1）、<strong>抜くときの段取り</strong>（8-2）へ進みます。</p>
+
 <div class="box warn">
 <p><strong>当院には2系統の離脱手順が並記されています</strong>（講義1日目 p89 と p90）。さらに ELSO2021 は<u>血流量を高く保ったままガス流量を減らす</u>という逆方向の設計です。<span class="split">3つ併記します。</span></p>
 </div>
@@ -1943,6 +2062,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
+<p>手順が3つあることは分かりました。では<strong>そもそも、いつ離脱を試してよいのか。</strong><u>ELSO は開始条件を明示しています</u>ので、まずこれを満たすかどうかから入ります。</p>
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表39｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
@@ -1957,6 +2078,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b33">8-1. SGOT 中に何を見るか — 4指標と閾値　<span class="src vault">CHEST2021</span></h3>
+
+<p>離脱トライアル（SGOT）を始めたら、<strong>次は「抜いていいかどうか」を何で判断するか</strong>です。</p>
+<p>従来は「血液ガスが保てているか」で見ていましたが、<u>それだけでは足りないことが分かってきました</u>。ガス交換が保てていても、患者さんが強い呼吸努力でそれを達成しているなら、抜いた後に力尽きます。<strong>そこで「ガスが保てるか」に加えて「どれくらい無理をして保っているか」を測ります。</strong></p>
+
 
 <div class="box danger">
 <span class="label">🚨 明日の離脱判断で使う4つの数字</span>
@@ -2090,6 +2215,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b34">8-2. 脱カニュレーションの準備</h3>
 
+<p>離脱の判断がついたら、次は<strong>抜くときの段取り</strong>です。<u>ここで資料ごとに食い違うのが「ヘパリンをいつ止めるか」</u>なので、そこを中心に並べています。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表40｜脱カニュレーションの準備（<span class="split">ヘパリン中止のタイミングが違います</span>）</caption>
@@ -2115,7 +2243,14 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h2 id="s9"><span class="no">§9</span>特殊状況</h2>
 
+<p>最後に、<strong>頻度は低いけれど、判断を間違えると取り返しがつかない場面</strong>を5つまとめます。心停止・腹臥位・早期離床・CRRT・搬送です。</p>
+<p><u>とくに最初の1つは要注意です。</u>VA-ECMO の知識をそのまま持ち込むと逆のことをしてしまいます。</p>
+
+
 <h3 id="rs-b35">9-1. VV-ECMO 中の心停止 ★VA と違う</h3>
+
+<p><strong>ここは VA-ECMO の知識をそのまま持ち込むと、確実に間違えます。</strong></p>
+
 
 <div class="box danger">
 <p><strong>VA-ECMO 中の心停止に胸骨圧迫は不要だが、VV-ECMO 中は必要。</strong>VV は肺機能のみの補助であり、血行動態は酸素化改善を介して間接的に支持されるにすぎないため。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
@@ -2154,6 +2289,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b36">9-2. 腹臥位 — 当院は実施している</h3>
 
+<p>ECMO 中に腹臥位をやってよいのか——<u>やっている施設とやらない施設が分かれる</u>領域です。当院は実施しています。</p>
+
+
 <div class="tablewrap">
 <table class="wide">
 <caption>表41｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
@@ -2182,6 +2320,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b37">9-3. 早期離床</h3>
 
+<p><strong>「カニュラが入っているから動かせない」は誤解です。</strong><u>カニュレーション部位そのものは離床の禁忌ではありません。</u>実際に制限になるのは低酸素・鎮静・循環の不安定さのほうです。</p>
+
+
 <ul>
 <li><strong>カニュレーション部位は離床の禁忌ではない。</strong>ただし早期離床・リハは<strong>低酸素血症・鎮静・血行動態不安定</strong>により制限されうる。リハ中の補助レベルは心肺動態を見て調整する。<span class="src ext">Compl.2022 p6</span></li>
 <li>観察研究では <strong>100例中35例が参加し、そのうち18例（51%）が歩行できた</strong>。<u>「安全に見えるが RCT はない」</u>。実施時は <strong>ECMO 訓練を受けた理学療法士・看護師・臨床工学技士の3職種</strong>で。<span class="src vault">ICM2016</span></li>
@@ -2192,6 +2333,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b38">9-4. CRRT 併用</h3>
 
+<p>ECMO 中は水分バランスの調整が難しく、<u>CRRT を併用する場面がしばしばあります</u>。<strong>問題は「どこに繋ぐか」で、繋ぎ方を間違えると空気や血栓を人工肺の先へ送ってしまいます。</strong></p>
+
+
 <ul>
 <li>当院の型：導入期に「水分バランスの調整（CHDF）」。<span class="src in">講義1 p82／講義2 p55</span></li>
 <li><strong>遠心ポンプ使用時は空気の巻き込みを避けるため CRRT 装置はポンプの下流に置き、CRRT からの返血は人工肺の手前に戻す</strong>（空気・凝血塊を人工肺で捕捉するため）。<span class="src vault">ICM2016</span></li>
@@ -2200,6 +2344,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 
 <h3 id="rs-b39">9-5. 搬送</h3>
+
+<p>最後に搬送です。<u>院内資料に ECMO 搬送のプロトコルはありません</u>が、ハンズオンの想定に含まれているので、最低限の備えだけ書いておきます。</p>
+
 
 <ul>
 <li>院内資料に ECMO 搬送のプロトコルはありません。ハンズオンの想定に<strong>「ECMO 搬送中にバッテリーが切れてコンソールが突然停止」</strong>があり、対応は §6-2 のポンプ停止の行（送血クランプ → ハンドクランク）。<span class="src in">ハンズオン②</span></li>
@@ -2211,6 +2358,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h2 id="s10"><span class="no">§10</span>明日の朝いちで確認すること</h2>
 
+<p>最後に、<strong>この資料を読んだあと、明日の朝いちで実際に手を動かす項目</strong>だけを集めました。</p>
+<p><u>ここに挙げたものの多くは、医学的に難しい判断ではありません。</u>「決めていなかった」「共有していなかった」というだけで事故になる類のものです。<strong>だから朝のうちに潰します。</strong></p>
+
 <div class="box danger">
 <span class="label">🚨 最優先の3つ（これだけは朝のうちに）</span>
 <ol>
@@ -2221,6 +2371,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <h3 id="rs-b40">チェックリスト（上から順に潰す）</h3>
+
+<p>上から順に潰していってください。<u>全部埋まれば、少なくとも「決めていなかったせいで起きる事故」は防げます。</u></p>
+
 
 <h4>設定・目標値</h4>
 <ul class="chk">

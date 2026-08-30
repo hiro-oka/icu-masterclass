@@ -193,6 +193,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -283,7 +284,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -349,6 +350,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -916,6 +918,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>広がってきた適応</strong></td><td><strong>肺移植へのブリッジ</strong>／<strong>bridge to decision</strong>（回復するか移植かを決めるまでの時間を買う）／免疫抑制患者／造血細胞移植後／敗血症性心筋症</td></tr>
 <tr><td><strong>絶対禁忌</strong></td><td><u>「脱カニュレーションまでに回復が見込めないこと」の1つだけ</u></td></tr>
 <tr><td><strong>相対禁忌</strong></td><td>年齢・免疫抑制・人工呼吸7日超 などはすべて<strong>相対</strong>。単独で除外理由にしない</td></tr>
+<tr><td><strong>禁忌ではないもの</strong></td><td><strong>高度肥満（BMI &gt; 40）は禁忌になりません。</strong>むしろ<u>肥満患者のほうが死亡率が低い傾向</u>が報告されています（obesity paradox）。<u>体格を理由に相談をためらわない</u> <span class="src vault">UpToDate 2026</span></td></tr>
 </tbody>
 </table>
 </div>
@@ -1246,7 +1249,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>圧</strong></td><td>P1 脱血圧／当院P2（＝肺後圧）／<u>アラームの設定値</u></td><td>絶対値より<strong>推移</strong>。当院P2 がじわじわ上がっていれば人工肺か送血側（§7-1）</td></tr>
 <tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td><u>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標</u>（§7-1 表10）。毎日書く価値がある</td></tr>
 <tr><td><strong>抗凝固</strong></td><td>ヘパリン量[U/kg/hr]／APTT／ACT／血小板／フィブリノゲン／AT-III／D-ダイマー</td><td>D-ダイマーは<strong>単発値では読まない</strong>。上昇＋血小板低下の組み合わせで回路血栓を疑う</td></tr>
-<tr><td><strong>溶血</strong></td><td>LDH／間接ビリルビン／遊離Hb／<strong>尿の色</strong></td><td>閾値ではなく変化で読む。<u>尿の色は数値化できないぶん、記載しておく意味が大きい</u></td></tr>
+<tr><td><strong>溶血</strong></td><td>LDH／間接ビリルビン／遊離Hb（目安 <strong>&lt; 50 mg/dL</strong>）／<strong>尿の色</strong></td><td>基本は変化で読む。<u>尿の色は数値化できないぶん、記載しておく意味が大きい</u></td></tr>
 <tr><td><strong>回路の目視</strong></td><td>人工肺・コネクタ・ルアーの血栓（<u>あれば部位と長さ</u>）／刺入部の出血・腫脹・発赤</td><td>「血栓なし」も記録する。<strong>翌日「増えたか」を判断できるのは、前日の記載があるときだけ</strong></td></tr>
 <tr><td><strong>相と方針</strong></td><td>今日は6相のどこか／Cstat／その日に決めたこと</td><td>チームで方針を共有する（§4-6）</td></tr>
 </tbody>
@@ -1585,6 +1588,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tbody>
 <tr><td><strong><span class="src jp">ECMOnet p17</span>（ELSO抗凝固GL由来）　★標準</strong></td><td class="num"><strong>20–50 U/kg/hr</strong></td><td class="num"><strong>正常の1.5–2倍</strong><br>（ACT 180–220 秒）</td><td>記載なし</td></tr>
 <tr><td><span class="src vault">NEJM Evid 2022</span>（総説・Munshi/Brodie/Fan）</td><td class="num">用量の記載なし</td><td class="num"><strong>aPTT 40–55 秒</strong></td><td class="num">抗Xa 0.2–0.3 IU/mL</td></tr>
+<tr><td><span class="src vault">UpToDate 2026</span></td><td class="num">未分画ヘパリン</td><td class="num"><strong>aPTT 40–60 秒</strong><br>（low-level strategy）</td><td>記載なし</td></tr>
 <tr><td><span class="src vault">Fan ICM2016</span>（ELSO抗凝固GL経由）</td><td class="num"><strong>5–20 IU/kg/時</strong></td><td class="num">基線の2.0–2.5倍</td><td class="num">anti-Xa 0.3–0.5</td></tr>
 </tbody>
 </table>
@@ -1785,7 +1789,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box good">
 <span class="label">提案 — 肺前圧の測定を追加できないか</span>
-<p><u>人工肺の前に圧ラインを1本足すだけで、P2−P3 が使えるようになります。</u>ELSO・ECMOnet がそろって <strong>P2−P3 &lt; 50 mmHg</strong> を基準に挙げているのは、これが<strong>人工肺交換のタイミングを最も早く教えてくれる指標</strong>だからです。</p>
+<p><u>人工肺の前に圧ラインを1本足すだけで、P2−P3 が使えるようになります。</u>なお<u>閾値そのものは資料間で幅があり、<strong>ELSO・ECMOnet は 50 mmHg</strong>、<strong>UpToDate は 60 mmHg</strong> を挙げています</u><span class="src vault">UpToDate 2026</span>——いずれにせよ<strong>絶対値より「開いてきたか」を追うほうが実用的</strong>です。ELSO・ECMOnet がそろって <strong>P2−P3 &lt; 50 mmHg</strong> を基準に挙げているのは、これが<strong>人工肺交換のタイミングを最も早く教えてくれる指標</strong>だからです。</p>
 <p>現状は送血側 SaO₂ が下がるまで気づけず、<u>「ガス交換が落ちてから」の発見</u>になります。<strong>CEと相談する価値のある項目</strong>として挙げておきます。</p>
 </div>
 
@@ -2149,6 +2153,13 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b27">7-3. 低酸素アルゴリズム</h3>
 
+<div class="box plain">
+<span class="label">アルゴリズムを尽くしても上がらないとき — 最後に残る一手</span>
+<p>再循環を潰し、流量を上げ（必要なら<strong>脱血カニュラを追加して V-V-V 構成にし</strong>）、Hb を上げ、VO₂ を下げてもなお SaO₂ が保てない——という状況が稀にあります。</p>
+<p>そのとき最後に残るのが<strong>心拍出量を下げる</strong>という一手です。§1-2 の分数を思い出してください——<u>分母（心拍出量）が小さくなれば、同じ ECMO 流量でも比率が上がります</u>。実際に <strong>β遮断薬で心拍出量を落として自己肺へ流れる血液を減らす</strong>という方法が記載されています。<span class="src vault">UpToDate 2026</span></p>
+<p><span class="split">ただしこれは極めて慎重に扱う手段です。</span><u>心拍出量は DO₂ の掛け算の一項でもあるので、下げすぎれば酸素運搬そのものが減ります</u>（§1-1）。<strong>SaO₂ の数字は良くなったのに乳酸が上がる</strong>——という結果になりうるので、<u>やるなら乳酸と組織灌流を見ながら、上級医と相談のうえで</u>。</p>
+</div>
+
 <p>酸素化が上がらないときに、順番を守ることがなぜ重要か。</p>
 <p>いちばんやりがちな失敗が、「SaO₂ が低い → とりあえず ECMO の流量を上げる」です。ところが再循環が原因だった場合、流量を上げると<strong>かえって SaO₂ が下がります</strong>（§1-3）。人工肺が劣化していた場合も、流量を上げても酸素はつきません。</p>
 <p>だから<strong>「流量を上げる」は後半のステップ</strong>で、先に再循環と人工肺を潰します。このアルゴリズムは、その順番を固定するためにあります。</p>
@@ -2309,7 +2320,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <ul>
 <li><strong>回路内血栓は人工肺・コネクタ・ルアーに多い。</strong>白色光のペンライトで確認し、認めたら○で囲んで長さを計測。<span class="src jp">岡山5 p49</span></li>
 <li><strong>定期的な回路交換は行わない。</strong>交換を考えるのは：人工肺の劣化／血栓／凝固障害（フィブリノゲンの消耗など）／フローに見合ったチューブ径でない・回路を短くしたい／感染のコントロールがつかない時。<span class="src in">講義1 p43</span></li>
-<li><strong>溶血のモニタ</strong>：LDH・間接ビリルビン・遊離Hb・破砕赤血球、そして尿の色。数値閾値ではなく経時的な変化で読む。</li>
+<li><strong>溶血のモニタ</strong>：LDH・間接ビリルビン・遊離Hb・破砕赤血球、そして尿の色。基本は経時的な変化で読みますが、<u>目安として <strong>遊離Hb &lt; 50 mg/dL</strong> を挙げる資料があります</u><span class="src vault">UpToDate 2026</span>。<u>この値は抗Xa が偽低値になる閾値（遊離Hb 50–70 mg/dL 以上）とも重なる</u>ので、超えているときは<strong>溶血の評価と、抗凝固モニタの信頼性の両方を疑ってください</strong>（§5-6）。</li>
 <li><strong>血小板減少は多因子性</strong>（敗血症・薬剤・回路）。ECMO 日数は血小板数低下と関連しない—規定するのは APACHE II スコアとカニュレーション時血小板数（100例のコホートで22%が ≤5万を発症）。<span class="src vault">Abrams 2016</span></li>
 <li>カニュラ関連DVT は ECMO 施行患者の約20%で、過小診断の可能性。脱カニュレーション後24時間で DVT をチェックする。<span class="src ext">ELSO2021 Table 7</span><span class="src jp">ECMOnet p37</span></li>
 <li>ECMO 回路への吸着カラム（血液吸着）のルーチン追加は行わない（13研究8151例のメタ解析で死亡減少なし、RCT 3本に限ると死亡増）。<span class="src vault">CritCare2026</span></li>
@@ -2911,6 +2922,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b44">Vault 内の論文ノート（<span class="src vault">文献</span>）— 著者・誌・年・DOI</h3>
 <ul class="refs">
+<li><strong>UpToDate 2026</strong>：Extracorporeal life support in adults: Management of venovenous extracorporeal membrane oxygenation (VV ECMO). UpToDate（literature review current through Dec 2025）— <u>本ガイドでは肥満パラドックス・難治性低酸素での心拍出量抑制・遊離Hb 50 mg/dL・aPTT 40–60秒・差圧 60 mmHg の5点を参照</u>。<strong>商用の二次資料のため図表は転載していません</strong>（本ページは公開リポジトリで配信しているため）</li>
 <li><strong>Breathe 2025</strong>：Mortimer Ocean N, Patel BV, Garfield B. Extracorporeal membrane oxygenation for adults with respiratory failure secondary to cardiorespiratory disease: evolving indications and clinical practice. <em>Breathe</em> 2025. DOI 10.1183/20734735.0119-2024 —（§2）適応の拡大（移植ブリッジ・bridge to decision・免疫抑制・敗血症性心筋症）</li>
 <li><strong>AJEM 2025</strong>：Condella A, Lentz S, et al. Extracorporeal membrane oxygenation (ECMO): A narrative review for the emergency clinician. <em>Am J Emerg Med</em> 2025;96:6-14. DOI 10.1016/j.ajem.2025.06.007 — <u>本ガイドでは数値を採用していない</u>。EOLIA の群が入れ替わっている疑いがあり、VV-ECMO の閾値が本文・表・図で3種類併存するため</li>
 <li>本ガイドの図12 に原図を再掲した1本と、内容を日本語の表にまとめた1本（いずれも CC BY-NC-ND 4.0。出典明示のうえ非営利の院内教育目的で使用）

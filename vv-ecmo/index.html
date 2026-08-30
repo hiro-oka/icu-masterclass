@@ -230,6 +230,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -320,7 +321,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -392,6 +393,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -531,7 +533,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td colspan="4" class="grp"><strong>回路の圧　※当院は2点しか測っていません（§7-1）</strong></td></tr>
 <tr><td><strong>P1 脱血圧</strong></td><td class="num"><strong>&gt; −100 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム下限に設定</span></td><td><span class="src jp">ECMOnet p22</span><span class="src in">当院 講義1</span></td><td>回転数を下げる。陰圧が強いほど溶血・チャタリング</td></tr>
 <tr><td><strong>当院P2</strong>（＝肺後圧）</td><td class="num"><strong>&lt; 300 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム上限に設定</span></td><td><span class="src jp">ECMOnet p22</span></td><td>上がったら<strong>人工肺か送血側</strong>。圧では区別できないので<u>送血側 SaO₂ を採血</u>（§7-1）</td></tr>
-<tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg</td><td><span class="src jp">ECMOnet p22</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表10）</td></tr>
+<tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">正常はおよそ 25 mmHg</span></td><td><span class="src jp">ECMOnet p22</span><span class="src vault">JCM2024</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表10）</td></tr>
 <tr><td colspan="4" class="grp">回路の設定</td></tr>
 <tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 2（導入時）〜 5–6（カニュラ径の上限）<br>低酸素の緊急時は 6–7 まで／カニュラあたり 1 超を厳守</span></td><td><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
 <tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 <strong>1〜9+ L/min</strong>（下限1）<br>0 は離脱試験のみ・日常では 0 にしない</span></td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）<br><u>0 にしない理由</u>：①人工肺に結露がたまりガス交換能が落ちる ②酸素化の寄与も一緒に落ちる ③送血側 SaO₂ で人工肺の異常を検知できなくなる（§5-8 Q1）</td></tr>
@@ -719,7 +721,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>全身の酸素運搬 DO₂</td><td><code>DO₂ = (SaO₂/100) × Hb[g/L] × 1.36 × 心拍出量[L/min]</code>（ELSOは係数 1.39 を採用）</td><td><span class="src jp">市場2016 p725／岡山1 p7</span></td></tr>
 <tr><td>ECMO が足している酸素量</td><td><code>Hb × (送血側SO₂ − 脱血側SO₂) × 1.36 × ECMO流量</code>　→ 脱血の飽和度が低いほど ECMO の酸素化効率は上がる（脱血 60% なら 304 mL/分、80% なら 152 mL/分＝半分）</td><td><span class="src jp">岡山7 p5／市場2016 p725</span></td></tr>
 <tr><td>安静時 VO₂</td><td>成人 <strong>3–4 mL/kg/分</strong>（平均的成人男性 200 mL/分）。当院講義は 60kg で <strong>210 mL/min</strong> として計算</td><td><span class="src jp">岡山1 p8</span><span class="src in">講義1 p77</span></td></tr>
-<tr><td>DO₂/VO₂</td><td>正常安静時は <strong>4〜5倍</strong>。2 を下回ると嫌気性代謝 → 臓器維持には DO₂/VO₂ ≥ 2 が必須</td><td><span class="src jp">市場2016 p725／岡山1 p22</span><span class="src ext">ELSO2021 p3</span></td></tr>
+<tr><td>DO₂/VO₂</td><td>正常安静時は <strong>4〜5倍</strong>。2 を下回ると嫌気性代謝 → 臓器維持には DO₂/VO₂ ≥ 2 が必須。<u>2 は下限ぎりぎりなので、<strong>余裕をみて ≥ 3 を目標に置く</strong>という立場もある</u></td><td><span class="src jp">市場2016 p725／岡山1 p22</span><span class="src ext">ELSO2021 p3</span><span class="src vault">JCM2024</span></td></tr>
 <tr><td>ELSO の量的目標</td><td>回路は「<strong>酸素供給 240 mL/m²/分以上</strong>」かつ「<strong>全身酸素運搬 300 mL/m²/分以上</strong>」になるよう設計。例：80kg・Hb 12 g/dL → <strong>約4 L/min</strong></td><td><span class="src ext">ELSO2021 p2-3</span></td></tr>
 <tr><td>膜性能（Rated flow）</td><td>Hb 12 g/dL・人工肺前 SO₂ 75%・人工肺後 SO₂ ≥95% を満たす最大血液流量。Rated flow 2 L/min の人工肺は 65 mL/min の酸素付加しか担保しない</td><td><span class="src jp">岡山7 p6-7</span></td></tr>
 </tbody>
@@ -892,6 +894,17 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </tbody>
 </table>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">当院講義の R率の目安は <strong>0.3〜0.5</strong>（講義1 p64）。計算には脱血回路採血ポートの SO₂／送血回路の SO₂（≒1.0）／SvO₂（CVカテのSO₂で代用）を使う。</p>
+</div>
+
+<div class="box">
+<span class="label">再循環しているかを、数字で判定する</span>
+<p>R率を計算しなくても、<strong>脱血側の採血1本でおおよそ判ります</strong>。<span class="src vault">JCM2024</span></p>
+<ul>
+<li><strong>脱血側 SO₂ &gt; 75%</strong> — 静脈血のはずなのに高い＝送った血を吸い戻している</li>
+<li><strong>SaO₂ −（脱血側 SO₂）&lt; 10%</strong> — 動脈血との差が小さい＝同じ血を回している</li>
+<li><strong>カニュラ間隔が 8〜10 cm 未満で、送血側と脱血側の血の色に差がない</strong></li>
+</ul>
+<p><u>いずれも「流量を上げたのに SaO₂ が下がる」より早く気づけます。</u>当院は肺前圧を測っていないぶん（§7-1）、こうした<strong>飽和度ベースの指標が相対的に重要</strong>になります。</p>
 </div>
 
 <h3 id="rs-b12">1-4. CO₂ と sweep gas</h3>
@@ -1509,7 +1522,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>圧</strong></td><td>P1 脱血圧／当院P2（＝肺後圧）／<u>アラームの設定値</u></td><td>絶対値より<strong>推移</strong>。当院P2 がじわじわ上がっていれば人工肺か送血側（§7-1）</td></tr>
 <tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td><u>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標</u>（§7-1 表10）。毎日書く価値がある</td></tr>
 <tr><td><strong>抗凝固</strong></td><td>ヘパリン量[U/kg/hr]／APTT／ACT／血小板／フィブリノゲン／AT-III／D-ダイマー</td><td>D-ダイマーは<strong>単発値では読まない</strong>。上昇＋血小板低下の組み合わせで回路血栓を疑う</td></tr>
-<tr><td><strong>溶血</strong></td><td>LDH／間接ビリルビン／遊離Hb（目安 <strong>&lt; 50 mg/dL</strong>）／<strong>尿の色</strong></td><td>基本は変化で読む。<u>尿の色は数値化できないぶん、記載しておく意味が大きい</u></td></tr>
+<tr><td><strong>溶血</strong></td><td>LDH（<strong>&gt; 2000 U/L</strong> なら溶血を疑う <span class="src vault">JCM2024</span>）／間接ビリルビン／遊離Hb（目安 <strong>&lt; 50 mg/dL</strong>）／<strong>尿の色</strong></td><td>基本は変化で読む。<u>尿の色は数値化できないぶん、記載しておく意味が大きい</u></td></tr>
 <tr><td><strong>回路の目視</strong></td><td>人工肺・コネクタ・ルアーの血栓（<u>あれば部位と長さ</u>）／刺入部の出血・腫脹・発赤</td><td>「血栓なし」も記録する。<strong>翌日「増えたか」を判断できるのは、前日の記載があるときだけ</strong></td></tr>
 <tr><td><strong>相と方針</strong></td><td>今日は6相のどこか／Cstat／その日に決めたこと</td><td>チームで方針を共有する（§4-6）</td></tr>
 </tbody>
@@ -2116,6 +2129,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>酸素化の寄与も一緒に落ちる</strong>。sweep は CO₂ を運び出すだけでなく、気相の酸素分圧を保つ役目もあります</li>
 <li><strong>人工肺の異常に気づけなくなる</strong>。ガス交換をしていない状態では、送血側 SaO₂ が下がっても劣化なのか設定なのか区別がつきません（§7-1）</li>
 </ul>
+
+<div class="box good">
+<span class="label">結露がたまってしまったら — sweep で飛ばせる</span>
+<p><u>人工肺にたまった結露は、<strong>sweep gas を一時的に 9〜10 L/min まで上げて約30秒流す</strong>と除去できます</u>（人工肺に「ため息をつかせる」＝ sigh）。<span class="src vault">JCM2024</span> ラウンドで人工肺を目視して結露が見えたら、その場でできる手技です。<span class="split">終わったら必ず元の流量に戻すこと</span>——30秒でも PaCO₂ は動きます。</p>
+</div>
 
 <div class="box good">
 <span class="label">そもそも「CO₂ が下がりすぎる」のは何のサインか</span>
@@ -3176,7 +3194,14 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box warn">
 <p><strong>当院には2系統の離脱手順が並記されています</strong>（講義1日目 p89 と p90）。さらに ELSO2021 は血流量を高く保ったままガス流量を減らすという逆方向の設計です。<span class="split">3つ併記します。</span></p>
-<p><u>観察時間も資料によって違います</u>。ELSO の総論（2017）は<strong>60分</strong>、ELSO2021 の VV 各論は<strong>2〜3時間</strong>、スコーピングレビューが集めた実際の運用は<strong>30分〜24時間</strong>と幅があります。<strong>当院で1つ決めておいてください</strong>——短すぎると自己肺が持ちこたえられるかを見誤り、長すぎると回路血栓のリスクを上げます。<span class="src vault">ELSO2017</span><span class="src ext">ELSO2021</span></p>
+<p><u>観察時間も資料によって違います</u>。ELSO の総論（2017）は<strong>60分</strong>、ELSO2021 の VV 各論は<strong>2〜3時間</strong>、スコーピングレビューが集めた実際の運用は<strong>30分〜24時間</strong>、米国の実践レビューは<strong>2〜24時間</strong>と幅があります。<strong>当院で1つ決めておいてください</strong>——短すぎると自己肺が持ちこたえられるかを見誤り、長すぎると回路血栓のリスクを上げます。<span class="src vault">ELSO2017</span><span class="src ext">ELSO2021</span><span class="src vault">JCM2024</span></p>
+</div>
+
+<div class="box good">
+<span class="label">3系統の違いに悩みすぎなくてよい理由</span>
+<p><u><strong>FDO₂ は下げず、sweep gas だけを落としていく施設もあります。</strong>どちらの流儀でも到達点は同じ</u>——「自己肺だけでガス交換が成り立つか」を見る、という一点だからです。<span class="src vault">JCM2024</span> <span class="split">大事なのは順番より、1段ごとに血ガスを取って判断すること</span>です。</p>
+<p><strong>始める前に整えておくもの：</strong>できるだけ <u>euvolemic に近づけておきます</u>（利尿薬、必要なら透析による除水）。溢水のまま試験に入ると、自己肺の限界なのか水の問題なのかが分からなくなります。</p>
+<p><strong>手順を決めて紙にしておく価値：</strong>医師以外が主導できる形にプロトコル化した施設で、<u>ECMO 日数が短縮し、離脱と抜去が早まった</u>と報告されています。人工呼吸器の SBT と同じ構図です。</p>
 </div>
 
 <div class="tablewrap">
@@ -3687,6 +3712,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <ul class="refs">
 <li><strong>UpToDate 2026</strong>：Extracorporeal life support in adults: Management of venovenous extracorporeal membrane oxygenation (VV ECMO). UpToDate（literature review current through Dec 2025）— <u>本ガイドでは肥満パラドックス・難治性低酸素での心拍出量抑制・遊離Hb 50 mg/dL・aPTT 40–60秒・差圧 60 mmHg の5点を参照</u>。<strong>商用の二次資料のため図表は転載していません</strong>（本ページは公開リポジトリで配信しているため）</li>
 <li><strong>Breathe 2025</strong>：Mortimer Ocean N, Patel BV, Garfield B. Extracorporeal membrane oxygenation for adults with respiratory failure secondary to cardiorespiratory disease: evolving indications and clinical practice. <em>Breathe</em> 2025. DOI 10.1183/20734735.0119-2024 —（§2）適応の拡大（移植ブリッジ・bridge to decision・免疫抑制・敗血症性心筋症）</li>
+<li><strong>JCM 2024</strong>：Grotberg JC, Reynolds D, Kraft BD. Extracorporeal Membrane Oxygenation for Respiratory Failure: A Narrative Review. <em>J Clin Med</em> 2024;13(13):3795. DOI 10.3390/jcm13133795（CC BY 4.0）— <u>本ガイドでは6点を参照</u>：結露を飛ばす sweep 9〜10 L/min×30秒（§5-8 Q1）／再循環の定量判定 脱血側SO₂&gt;75%・SaO₂との差&lt;10%（§1-3）／人工肺の圧較差の正常値 約25 mmHg（表1）／溶血の LDH &gt;2000 U/L（§4-4）／DO₂:VO₂ は余裕をみて ≥3（表2）／離脱は FDO₂ を落とさず sweep だけでもよい・euvolemic にしてから・プロトコル化が有効（§10-1）</li>
 <li><strong>AJEM 2025</strong>：Condella A, Lentz S, et al. Extracorporeal membrane oxygenation (ECMO): A narrative review for the emergency clinician. <em>Am J Emerg Med</em> 2025;96:6-14. DOI 10.1016/j.ajem.2025.06.007 — <u>本ガイドでは数値を採用していない</u>。EOLIA の群が入れ替わっている疑いがあり、VV-ECMO の閾値が本文・表・図で3種類併存するため</li>
 <li>本ガイドの図15 に原図を再掲した1本と、内容を日本語の表にまとめた1本（いずれも CC BY-NC-ND 4.0。出典明示のうえ非営利の院内教育目的で使用）
   <ul>

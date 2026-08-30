@@ -187,6 +187,10 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -277,7 +281,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 今すぐ見る（1画面サマリー）</a>
@@ -345,6 +349,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
+
+
 
 
 
@@ -457,16 +465,16 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>P2 肺前圧</strong></td><td class="num"><strong>&lt; 300 mmHg</strong></td><td><span class="src jp">ECMOnet p22</span></td><td>送血側の閉塞・人工肺を疑う（§7）</td></tr>
 <tr><td><strong>P2 − P3</strong></td><td class="num"><strong>&lt; 50 mmHg</strong></td><td><span class="src jp">ECMOnet p22</span></td><td>人工肺の血栓。送血側 SaO₂ を採血し交換を準備</td></tr>
 <tr><td colspan="4" class="grp">回路の設定</td></tr>
-<tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）</td><td><span class="src ext">ELSO2021</span><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
+<tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）</td><td><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
 <tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整</td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）</td></tr>
 <tr><td>FDO₂（人工肺）</td><td class="num"><strong>1.0 で開始</strong></td><td><span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span></td><td>安定したら自己肺の FiO₂ と揃えていく（§6）</td></tr>
 <tr><td colspan="4" class="grp">ガス交換の目標</td></tr>
-<tr><td>SaO₂</td><td class="num"><strong>80–90%</strong><br>70%台も許容（心拍出量正常・Hb保持が前提）</td><td><span class="src ext">ELSO2021</span><span class="src jp">ECMOnet p9</span></td><td>呼吸器設定を上げない・VAに変えない。乳酸・心拍出量・Hb を並べて見る</td></tr>
-<tr><td>PaCO₂</td><td class="num"><strong>35–45 mmHg</strong><br>導入24h は下げる速度を優先</td><td><span class="src ext">ELSO2021</span><span class="src vault">CritCare2026</span></td><td>最初の24時間で excess CO₂ を50%超下げない（§3-3）</td></tr>
+<tr><td>SaO₂</td><td class="num"><strong>80–90%</strong><br>70%台も許容（心拍出量正常・Hb保持が前提）</td><td><span class="src jp">ECMOnet p9</span><span class="src in">当院 講義1</span></td><td>呼吸器設定を上げない・VAに変えない。乳酸・心拍出量・Hb を並べて見る</td></tr>
+<tr><td>PaCO₂</td><td class="num"><strong>35–45 mmHg</strong><br>導入24h は下げる速度を優先</td><td><span class="src jp">ECMOnet</span><span class="src vault">CritCare2026</span></td><td>最初の24時間で excess CO₂ を50%超下げない（§3-3）</td></tr>
 <tr><td>脱血側 SvO₂</td><td>毎回記録する（数値目標は置かない）</td><td><span class="src in">当院 ECMOチャート</span></td><td>低下＝需給の悪化。ただし再循環が多いと指標にならない → CV から採血</td></tr>
 <tr><td colspan="4" class="grp">抗凝固・輸血</td></tr>
-<tr><td>ヘパリン</td><td class="num"><strong>20–50 U/kg/hr</strong><br>ボーラス 50–100 U/kg</td><td><span class="src ext">ELSO</span><span class="src jp">ECMOnet p16-17</span></td><td>出血時は持続を止める判断を先に（ボーラスと持続は別物）</td></tr>
-<tr><td>ACT / APTT</td><td class="num"><strong>ACT 180–220 秒</strong><br><strong>APTT 正常の1.5–2倍</strong></td><td><span class="src ext">ELSO</span><span class="src jp">ECMOnet p17</span></td><td>ACT はトレンド指標。判断は APTT で（当院 講義1 p35）</td></tr>
+<tr><td>ヘパリン</td><td class="num"><strong>20–50 U/kg/hr</strong><br>ボーラス 50–100 U/kg</td><td><span class="src jp">ECMOnet p16-17</span></td><td>出血時は持続を止める判断を先に（ボーラスと持続は別物）</td></tr>
+<tr><td>ACT / APTT</td><td class="num"><strong>ACT 180–220 秒</strong><br><strong>APTT 正常の1.5–2倍</strong></td><td><span class="src jp">ECMOnet p17</span></td><td>ACT はトレンド指標。判断は APTT で（当院 講義1 p35）</td></tr>
 <tr><td>Hb</td><td class="num"><strong>&lt; 10 g/dL で輸血</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>ELSO は 7〜12 で統一見解なし。当院の値として運用する</td></tr>
 <tr><td>血小板</td><td class="num"><strong>&lt; 8万/µL で輸血</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>出血があれば早めに。ECMO 日数とは相関しない</td></tr>
 <tr><td>フィブリノゲン</td><td class="num"><strong>&lt; 200 mg/dL で補充</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>出血が続くときは閾値を上げる</td></tr>
@@ -474,7 +482,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td colspan="4" class="grp">人工呼吸器（lung rest）</td></tr>
 <tr><td>プラトー圧</td><td class="num"><strong>&lt; 25 cmH₂O</strong></td><td><span class="src ext">ELSO2021 Table 3</span></td><td>離脱判定の「≤28」とは別物。混ぜない（§6）</td></tr>
 <tr><td>PEEP</td><td class="num"><strong>≥ 10 cmH₂O</strong></td><td><span class="src ext">ELSO2021 Table 3</span></td><td>下げすぎると無気肺。ECMOnet は「&lt;10」で向きが逆（§6）</td></tr>
-<tr><td>呼吸回数</td><td class="num"><strong>4–10 回/分</strong></td><td><span class="src ext">ELSO2021 Table 3</span></td><td>決めた rest 設定を超えない</td></tr>
+<tr><td>呼吸回数</td><td class="num"><strong>4–10 回/分</strong></td><td><span class="src vault">NEJM Evid 2022</span></td><td>ELSO Table 3 の設定値は 4–15（許容 4–30）。決めた rest 設定を超えない</td></tr>
 <tr><td>FiO₂（自己肺）</td><td class="num"><strong>30–50%</strong></td><td><span class="src ext">ELSO2021 Table 3</span></td><td>酸素化が悪くてもまず回路側で調整する</td></tr>
 </tbody>
 </table>
@@ -683,10 +691,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </figure>
 
 <div class="box danger">
-<span class="label">ELSO が名指しした2つの誤り　<span class="src ext">ELSO2021 p8-9</span></span>
+<span class="label">ELSO が名指しした4つの誤り　<span class="src ext">ELSO2021 p8-9</span></span>
 <ol>
 <li>低い SaO₂ に過剰反応して人工呼吸器設定を上げること — VV-ECMO の最大の便益（lung rest）を放棄することになる</li>
 <li>低い SaO₂ を理由に VV から VA へ転換すること — ECMO が送る酸素量は「Hb × 血流量」で決まり、動脈系に返しても全身酸素運搬はほとんど増えず、合併症だけが増える</li>
+<li><strong>カニュレーションを待ちすぎること</strong> — 導入が遅れるほど不可逆的な肺傷害と多臓器不全が進む</li>
+<li><strong>VV で足りる患者に VA を始めること</strong> — 循環が保たれているなら VV。VA は動脈カニュレーションの合併症を上乗せする</li>
 </ol>
 <p>「酸素化の評価は動脈血飽和度%ではなく、組織灌流の客観的指標（Hb・SVR・心拍出量＝酸素運搬）に接地させよ。飽和度不十分と酸素運搬不十分はしばしば別物」</p>
 </div>
@@ -873,6 +883,32 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>喘息・COPD の高CO₂血症（ARDS を伴わないもの） — RCT がゼロで、ANZ 2026 は「賛成・反対いずれの推奨も出せない」と明言しました。ただし「推奨なし」を「使うな」と読まないこと——専門家意見として near-fatal asthma には症例ごとに考慮、COPD はさらに限定的、とされています。使うなら症例登録と振り返りを前提に。</li>
 <li><strong>臓器不全の数</strong> — IPD メタ解析で臓器不全2つ以下なら RR 0.53、3つ以上なら RR 1.00（利益が見えない）。導入可否のカンファで「今この患者は臓器不全がいくつか」を口に出す価値はありますが、著者ら自身が rescue クロスオーバーによる交絡を明示しており、仮説生成的な所見です。除外基準に昇格させてはいけません。</li>
 </ul>
+</div>
+
+
+<h4>EOLIA 基準の「外側」にいる患者をどう考えるか</h4>
+
+<p>ここまでは<strong>「基準を満たすか」</strong>の話でした。しかし実際に相談を受ける患者の多くは、どこかが基準から外れています。挿管10日目だったり、免疫抑制下だったり、そもそも ARDS ではなかったり。</p>
+
+<p><u>2025年の総説がこの点を整理しています。</u><strong>入口の閾値（P/F &lt; 80・pH &lt; 7.25・Murray ≧ 3）は EOLIA・CESAR から動いていない</strong>一方で、<u>出口——つまり「何のために回すか」——が広がってきた、という捉え方です。</u><span class="src vault">Breathe 2025</span></p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表11｜「相談してよい患者」として挙げられるようになったもの　<span class="src vault">Breathe 2025</span></caption>
+<thead><tr><th>区分</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td><strong>確立した適応</strong></td><td>重症 ARDS（EOLIA 基準）／高CO₂血症性呼吸不全</td></tr>
+<tr><td><strong>広がってきた適応</strong></td><td><strong>肺移植へのブリッジ</strong>／<strong>bridge to decision</strong>（回復するか移植かを決めるまでの時間を買う）／免疫抑制患者／造血細胞移植後／敗血症性心筋症</td></tr>
+<tr><td><strong>絶対禁忌</strong></td><td><u>「脱カニュレーションまでに回復が見込めないこと」の1つだけ</u></td></tr>
+<tr><td><strong>相対禁忌</strong></td><td>年齢・免疫抑制・人工呼吸7日超 などはすべて<strong>相対</strong>。単独で除外理由にしない</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box good">
+<span class="label">2つのガイドラインの読み分け</span>
+<p><strong>豪州・NZ 2026 が「条件付きで推奨できる」と言っているのは、あくまで EOLIA 基準を満たす患者</strong>です。<u>それ以外の患者に ECMO を回してはいけない、という意味ではありません</u>——推奨を出せるだけのエビデンスがその範囲にしかない、というだけです。</p>
+<p>実務では<strong>「推奨できる範囲」と「相談を検討してよい範囲」は別物</strong>として扱ってください。基準の外にいる患者を回すこと自体は否定されていませんが、<u>そのときは「エビデンスが支持する範囲の外で判断している」ことをカンファで言語化し、記録に残す</u>のが誠実です。</p>
 </div>
 
 <h4>Murray score（肺傷害スコア）を実際に計算してみる</h4>
@@ -1064,7 +1100,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表11｜カニュラ構成と再循環　<span class="src in">当院 講義1日目 p66-70</span></caption>
+<caption>表12｜カニュラ構成と再循環　<span class="src in">当院 講義1日目 p66-70</span></caption>
 <thead><tr><th>経路</th><th>脱血</th><th>送血</th><th>利点</th><th>欠点</th><th>位置づけ</th></tr></thead>
 <tbody>
 <tr><td>①</td><td>大腿静脈（下大静脈）</td><td>内頸静脈（上大静脈）</td><td>再循環が少ない</td><td>脱血困難、下肢静脈血栓が多い</td><td>ELSO ガイドライン推奨。効率良いが血流量を増やせない</td></tr>
@@ -1080,7 +1116,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>ただし<strong>太ければ良いわけではありません。</strong>ELSO は「過大なカニュラは静脈うっ滞・血管損傷・DVT を招く」と明記しています。そこで実務ではELSO の目安（180cm 男性なら 25Fr、重症呼吸不全では〜29Fr）と、ECMOnet の体表面積ベースの選択を突き合わせ、最後は必ずエコーで実際の血管径を確認してから決めます。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表12｜カニュラサイズの選び方</caption>
+<caption>表13｜カニュラサイズの選び方</caption>
 <thead><tr><th>出典</th><th>脱血</th><th>送血</th><th>考え方</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 p3-4</span></td><td><strong>25Fr</strong>（180cm男性ならこれで足りることが多い）<br>重症呼吸不全では <strong>〜29Fr</strong> が流量・酸素化に有利</td><td>—</td><td>VV の流量は通常カニュラ径で <strong>5–6 L/min</strong> に制限される。過大なカニュラは静脈うっ滞・血管損傷・DVT</td></tr>
@@ -1102,7 +1138,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表13｜胸部X線・エコー・血ガスで見るもの</caption>
+<caption>表14｜胸部X線・エコー・血ガスで見るもの</caption>
 <thead><tr><th>いつ</th><th>何を</th><th>見るポイント</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td>導入直後</td><td>胸部X線</td><td>カニュラ先端位置／送脱血カニュラの間隔（10cm以上、資料により10–13cm以上）／気胸の有無／刺入長の記録（以後「線のズレ」で追う）</td><td><span class="src in">講義1 p45,64,87</span></td></tr>
@@ -1120,12 +1156,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <span class="label">🚨 導入後24時間の CO₂ の下げすぎは脳を壊す</span>
 <p>最初の24時間で excess CO₂ を 50% を超えて下げない。48〜72時間かけて正常化する。脳血管トーヌスの急激な変化を介して、痙攣・頭蓋内出血・脳死を含む神経学的合併症の増加と関連します。<span class="src vault">CritCare2026</span></p>
-<p>具体的な手順：スイープガスは 2 L/min で開始し、CO₂ と pH が緩徐に補正されるよう滴定する（ELSO ガイドラインの推奨として引用）。<span class="src vault">CritCare2026</span><span class="src ext">ELSO2021 p3</span><br>導入前に高CO₂血症だった患者ほど過剰補正しやすい（表13）。「PaCO₂ がまだ高い」という理由で夜間に sweep を上げないことを申し送る。<span class="src ext">Compl.2022 p4-5</span></p>
+<p>具体的な手順：スイープガスは 2 L/min で開始し、CO₂ と pH が緩徐に補正されるよう滴定する（ELSO ガイドラインの推奨として引用）。<span class="src vault">CritCare2026</span><span class="src ext">ELSO2021 p3</span><br>導入前に高CO₂血症だった患者ほど過剰補正しやすい（表14）。「PaCO₂ がまだ高い」という理由で夜間に sweep を上げないことを申し送る。<span class="src ext">Compl.2022 p4-5</span></p>
 </div>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表14｜導入直後のバイタル変化と備え　<span class="src jp">岡山3 p21-23</span></caption>
+<caption>表15｜導入直後のバイタル変化と備え　<span class="src jp">岡山3 p21-23</span></caption>
 <thead><tr><th>起こりうること</th><th>対応</th></tr></thead>
 <tbody>
 <tr><td>血圧低下</td><td>赤血球輸血／カルチコール／カテコラミン／エコーで出血確認／血液ガスを見てアシドーシス補正</td></tr>
@@ -1151,7 +1187,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表15｜ECMO担当医のルーチンワーク　<span class="src in">当院 講義1日目 p91</span></caption>
+<caption>表16｜ECMO担当医のルーチンワーク　<span class="src in">当院 講義1日目 p91</span></caption>
 <thead><tr><th>Assessment</th><th>頻度</th><th>Plan</th></tr></thead>
 <tbody>
 <tr><td>血算</td><td class="num"><strong>2–3回/day</strong></td><td>RCC, FFP, PC 輸血</td></tr>
@@ -1184,7 +1220,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表16｜ECMOチャートの記入項目（テンプレート例）　<span class="src in">当院 講義1日目 p44</span></caption>
+<caption>表17｜ECMOチャートの記入項目（テンプレート例）　<span class="src in">当院 講義1日目 p44</span></caption>
 <thead><tr><th>ブロック</th><th>誰が</th><th>項目</th></tr></thead>
 <tbody>
 <tr><td>設定</td><td>Dr（変更は赤字）</td><td>遠心ポンプ回転数[rpm] ／ ECMO流量[L/min] ／ Sweep gas 流量[L/min] ／ Sweep gas の FiO₂[%] ／ 熱交換器設定温度[℃]</td></tr>
@@ -1201,7 +1237,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表17｜ECMO定期安全管理チェックリスト　<span class="src in">当院 講義1 p45</span><span class="src jp">ECMOnet p25</span></caption>
+<caption>表18｜ECMO定期安全管理チェックリスト　<span class="src in">当院 講義1 p45</span><span class="src jp">ECMOnet p25</span></caption>
 <thead><tr><th>区分</th><th>チェック項目</th></tr></thead>
 <tbody>
 <tr><td>配線</td><td>電源は単独使用である（赤コンセント使用）／酸素・圧縮空気の配管の接続に緩みはない／ガスチューブの接続が適切である</td></tr>
@@ -1230,7 +1266,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表18｜血液・凝固チェック（間隔と閾値は当院の値）　<span class="src in">当院 講義1日目 p35</span></caption>
+<caption>表19｜血液・凝固チェック（間隔と閾値は当院の値）　<span class="src in">当院 講義1日目 p35</span></caption>
 <thead><tr><th>検査項目</th><th>当院：間隔の目安</th><th>当院：輸血/補充閾値</th><th>外部標準の頻度</th></tr></thead>
 <tbody>
 <tr><td>ACT</td><td class="num">1〜4時間ごと</td><td>—</td><td class="num">1〜2時間ごと <span class="src jp">ECMOnet p19</span></td></tr>
@@ -1258,8 +1294,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>呼吸</strong>：Lung rest 設定を守れているか（§6）／VT・コンプライアンスの推移＝自己肺の回復</li>
 <li><strong>循環</strong>：MAP ≥ 65、CI &gt; 2.2 L/min/m²、乳酸正常 <span class="src ext">ELSO2021 p4</span>／循環は SaO₂ よりはるかに重要 <span class="src jp">岡山4 p27</span>／10–30日後の肺高血圧・右心不全に注意（腹水・肝機能障害・不整脈・心嚢水・低血圧）</li>
 <li><strong>腎・電解質</strong>：蘇生期を過ぎたら 血行動態が許す限り negative balance へ <span class="src ext">ELSO2021 p6</span>／利尿剤に反応しなければ回路に CRRT <span class="src jp">岡山4 p21</span></li>
-<li><strong>血液・凝固</strong>：表18 ＋ D-dimer・AT3・血小板の推移（単発値でなく）</li>
-<li><strong>相の判定</strong>：今日は6相のどこか（§4-6 表19）。Cstat を毎日記録したか（20 前後で肺保護相へ、25 超で自発呼吸の検討へ）</li>
+<li><strong>血液・凝固</strong>：表19 ＋ D-dimer・AT3・血小板の推移（単発値でなく）</li>
+<li><strong>相の判定</strong>：今日は6相のどこか（§4-6 表20）。Cstat を毎日記録したか（20 前後で肺保護相へ、25 超で自発呼吸の検討へ）</li>
 <li><strong>腹部・栄養</strong>：Day 3–5 で経腸栄養の確立 <span class="src in">講義1 p82</span>。ECMO 患者の栄養必要量は未定義、蛋白投与が不十分な可能性 <span class="src ext">Compl.2022</span></li>
 <li><strong>感染</strong>：熱交換器で体温調整されているため発熱に気づけない <span class="src jp">岡山3 p39</span>／時期別の狙う病原体（§8-4）</li>
 <li><strong>鎮痛鎮静</strong>：普段の2倍必要かも <span class="src in">講義1 p46</span></li>
@@ -1322,7 +1358,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表19｜長期 VV-ECMO 支持の6相（概念フレームワーク）　<span class="src vault">CritCare2026</span></caption>
+<caption>表20｜長期 VV-ECMO 支持の6相（概念フレームワーク）　<span class="src vault">CritCare2026</span></caption>
 <thead><tr><th>相</th><th>優先事項</th><th>患者側の目安</th><th>病態</th><th>鎮静</th><th>人工呼吸</th><th>ECMO</th></tr></thead>
 <tbody>
 <tr><td>①超肺保護</td><td>VILI の予防／安全な ECMO で病態の改善を待つ</td><td>高度の肺内シャントと死腔分画／<strong>Cstat 20 mL/cmH₂O 未満</strong>／換気不良／高度の両側性浸潤影</td><td>過剰な炎症性浸潤／毛細血管漏出</td><td><strong>深鎮静 RASS −4〜−5</strong>／筋弛緩の併用がしばしば必要</td><td>超肺保護換気または無呼吸換気／<strong>駆動圧を最小化（10 cmH₂O 以下）</strong>／permissive hypercapnia／<strong>PEEP 10 以上</strong>で肺を開いたまま保つ</td><td><strong>高血流（5 L/min 以上）</strong>／SGF は <strong>2 L/min から開始</strong>／最初の24時間で excess CO₂ を50%超下げない、48〜72時間で正常化</td></tr>
@@ -1366,11 +1402,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表20｜血流量は場面で変わる</caption>
+<caption>表21｜血流量は場面で変わる</caption>
 <thead><tr><th>場面</th><th>流量</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td>導入時（最初の数時間）</td><td class="num">2 L/min から開始し漸増</td><td>PaCO₂・pH をゆっくり動かすため <span class="src ext">ELSO2021 p3</span></td></tr>
-<tr><td>維持期 ★これが目標</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）</td><td>酸素供給 240 mL/m²/分・酸素運搬 300 mL/m²/分 を満たす量。80kg・Hb 12 でおよそ 4 L/min <span class="src ext">ELSO2021 p2-3</span><span class="src in">当院 講義1 p71</span></td></tr>
+<tr><td>維持期 ★これが目標</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）</td><td><span class="src in">当院 講義1 p71</span> の値。<u>ELSO2021 が書いているのは範囲ではなく設計目標</u>で、酸素供給 240 mL/m²/分・全身酸素運搬 300 mL/m²/分 を満たす流量（80kg・Hb 12 でおよそ 4 L/min）、上限はカニュラ径により 5–6 L/min <span class="src ext">ELSO2021 p2-3</span></td></tr>
 <tr><td>低酸素の緊急時</td><td class="num">6–7 L/min まで上げる</td><td>低酸素アルゴリズムの後半。先に再循環と人工肺を潰してから <span class="src in">当院 講義1 p87</span></td></tr>
 </tbody>
 </table>
@@ -1383,7 +1419,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表21｜Sweep gas の開始と調整</caption>
+<caption>表22｜Sweep gas の開始と調整</caption>
 <thead><tr><th>項目</th><th>設定</th><th>根拠・注意</th></tr></thead>
 <tbody>
 <tr><td>導入時の sweep</td><td class="num"><strong>2 L/min から開始</strong>し漸増</td><td>PaCO₂ と pH のゆっくりした変化を担保する <span class="src ext">ELSO2021 p3</span>。当院講義は「血流量と同じ流量で開始」（講義1 p22）だが、導入前に高CO₂だった患者では ELSO の漸増方式のほうが安全</td></tr>
@@ -1404,10 +1440,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表22｜許容 SaO₂ は2つの立場に分かれる</caption>
+<caption>表23｜許容 SaO₂ は2つの立場に分かれる</caption>
 <thead><tr><th>立場</th><th>値</th><th>根拠</th></tr></thead>
 <tbody>
-<tr><td>高めに置く</td><td class="num"><strong>80–90%</strong><br>（通常 80–85%、時に 75–80%）</td><td><span class="src ext">ELSO2021 p3</span>／多くのセンターは SpO₂ &gt; 80–85% を目標にしている <span class="src ext">Compl.2022 p6</span>。ただし ELSO 自身「心機能が正常で Hb が保たれる限り 75–80% で十分」とも書いている</td></tr>
+<tr><td>高めに置く</td><td class="num"><strong>80–85% 超</strong></td><td>多くのセンターは SpO₂ &gt; 80–85% を目標にしている <span class="src ext">Compl.2022 p6</span>。<u>なお ELSO2021 の「典型的に 80–90%」は<strong>目標ではなく「そうなる」という生理の記述</strong></u>で、原文は「飽和度%ではなく組織灌流の客観的指標に接地させよ」と書いている（原文で唯一の数値目標は離脱 Step 1 の SpO₂ &gt; 92%）<span class="src ext">ELSO2021 p3, p8-9</span></td></tr>
 <tr><td>低めまで許容する</td><td class="num"><strong>70–80%</strong><br>（極論 70% でもよい）</td><td><span class="src jp">ECMOnet p9</span>「SaO₂ の改善は必須ではない」。当院講義も同じ立場で、Rest Lung 時の管理目標 80% 前後・70% まで許容（講義1 p72/p79）。前提は①心拍出量が正常 ②Hb が保たれていること</td></tr>
 </tbody>
 </table>
@@ -1429,7 +1465,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表23｜SvO₂ が動いたら何を疑うか（目標値ではなく解釈の表）</caption>
+<caption>表24｜SvO₂ が動いたら何を疑うか（目標値ではなく解釈の表）</caption>
 <thead><tr><th>動き</th><th>疑うこと</th><th>次の一手</th></tr></thead>
 <tbody>
 <tr><td>下がった</td><td>自己肺の悪化／循環血液量の増加／VO₂ の上昇（発熱・シバリング・不穏）／酸素供給不足</td><td>まず VO₂ を下げる（解熱・鎮静・シバリング対策）。流量を上げるのはその後</td></tr>
@@ -1451,7 +1487,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表24｜Hb 閾値に「標準」が存在しない理由</caption>
+<caption>表25｜Hb 閾値に「標準」が存在しない理由</caption>
 <thead><tr><th>出典</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 p5</span></td><td>「Hb &gt; 7 g/dL を目標にする施設もあれば、酸素運搬最適化のため Hb 12 g/dL を推奨する施設もある」＝統一見解を示していない。急性期を過ぎたら制限輸血も考慮してよい</td></tr>
@@ -1470,19 +1506,20 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 
 <div class="box good">
-<span class="label">まずこれで動く（ELSO / ECMOnet の値）</span>
+<span class="label">まずこれで動く（ECMOnet の値）</span>
 <p>ボーラス：ヘパリン 50–100 U/kg をカニュレーション時に静注（ここは全資料が一致）<br>
 持続：20–50 U/kg/hr　ACT 180–220 秒　APTT 正常の1.5–2倍<br>
-測定：ACT 1–2時間ごと／APTT 6–12時間ごと　<span class="src ext">ELSO</span><span class="src jp">ECMOnet p16-17</span><span class="src in">当院 講義1 p34 も同じ値を引用</span></p>
+測定：ACT 1–2時間ごと／APTT 6–12時間ごと　<span class="src jp">ECMOnet p16-17</span><span class="src in">当院 講義1 p34 も同じ値を引用</span></p>
+<p style="font-size:.85rem;color:var(--muted)"><u>出典の注意</u>：これらの数値は<strong>ELSO2021 本文には書かれていません</strong>。同ガイドラインは抗凝固を一行で「別ガイドラインで扱う」とし、ELSO Anticoagulation Guideline（2014）と Red Book 第7章へ委譲しています。上の値はそちら由来で、ECMOnet と当院講義が引用しているものです。</p>
 <p>判断は APTT で、ACT はベッドサイドのトレンド指標として使う（当院 講義1 p35／講義2 p59「抗凝固は APTT で管理」）。</p>
 </div>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表25｜これに対して「もっと弱く」という流れがある</caption>
+<caption>表26｜これに対して「もっと弱く」という流れがある</caption>
 <thead><tr><th>出典</th><th>ヘパリン持続</th><th>APTT 目標</th><th>抗Xa</th></tr></thead>
 <tbody>
-<tr><td><strong><span class="src ext">ELSO</span><span class="src jp">ECMOnet p17</span>　★標準</strong></td><td class="num"><strong>20–50 U/kg/hr</strong></td><td class="num"><strong>正常の1.5–2倍</strong><br>（ACT 180–220 秒）</td><td>記載なし</td></tr>
+<tr><td><strong><span class="src jp">ECMOnet p17</span>（ELSO抗凝固GL由来）　★標準</strong></td><td class="num"><strong>20–50 U/kg/hr</strong></td><td class="num"><strong>正常の1.5–2倍</strong><br>（ACT 180–220 秒）</td><td>記載なし</td></tr>
 <tr><td><span class="src vault">NEJM Evid 2022</span>（総説・Munshi/Brodie/Fan）</td><td class="num">用量の記載なし</td><td class="num"><strong>aPTT 40–55 秒</strong></td><td class="num">抗Xa 0.2–0.3 IU/mL</td></tr>
 <tr><td><span class="src vault">Fan ICM2016</span>（ELSO抗凝固GL経由）</td><td class="num"><strong>5–20 IU/kg/時</strong></td><td class="num">基線の2.0–2.5倍</td><td class="num">anti-Xa 0.3–0.5</td></tr>
 </tbody>
@@ -1546,7 +1583,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="593" y="360" font-size="18" font-weight="700">Pplat&lt;25／PEEP≥10／RR 4-10<tspan x="643" y="148" font-size="16" font-weight="600">ガス交換を肩代わり</tspan></text>
   </g>
 </svg>
-<figcaption>図6. ECMO 導入前後の換気設定の対比。導入前（左）は高い圧・大きな換気量で肺を無理に膨らませている。導入後（右）は人工肺がガス交換を肩代わりするため、肺は小さく休ませたまま Pplat &lt; 25／PEEP ≥ 10／呼吸回数 4–10 回/分 の設定に切り替える。具体値は資料ごとに割れているので、採用する値は表26 で確認する。</figcaption>
+<figcaption>図6. ECMO 導入前後の換気設定の対比。導入前（左）は高い圧・大きな換気量で肺を無理に膨らませている。導入後（右）は人工肺がガス交換を肩代わりするため、肺は小さく休ませたまま Pplat &lt; 25／PEEP ≥ 10／呼吸回数 4–10 回/分 の設定に切り替える。具体値は資料ごとに割れているので、採用する値は表27 で確認する。</figcaption>
 </figure>
 <p>具体的な数字に入ります。<strong>指示簿に書くのは実質4行です。</strong></p>
 <p><strong>プラトー圧 25 cmH₂O 未満</strong>——これが lung rest の本体です。20 を下回るとさらに予後がよい可能性が示唆されており、上限として許容できるのは 30 まで。ICM2026 はさらに踏み込んで「PEEP 10 の下で駆動圧 15 cmH₂O 以下」という目標を追加しています。</p>
@@ -1556,7 +1593,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表26｜Lung rest の設定 — <span class="ok">この4行を指示簿に書く</span></caption>
+<caption>表27｜Lung rest の設定 — <span class="ok">この4行を指示簿に書く</span></caption>
 <thead><tr><th>項目</th><th>目標</th><th>根拠・許容範囲</th></tr></thead>
 <tbody>
 <tr><td>プラトー圧</td><td class="num"><strong>&lt; 25 cmH₂O</strong></td><td>&lt;20 でさらに予後改善の可能性、許容は ≤30 <span class="src ext">ELSO2021 Table 3</span>。ICM2026 はさらに「PEEP 10 下で駆動圧 &lt; 15」を上乗せ</td></tr>
@@ -1584,7 +1621,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box warn">
 <span class="label">自己肺と人工肺で同じ FiO₂ を使う</span>
 <p>人工肺だけ 100% 酸素にすると、窒素が肺胞から抜けて吸収性無気肺を招く。<span class="src vault">Fan ICM2016</span>／ECMO Home 3行まとめでも「人工肺だけ100%酸素にしない」と明記。</p>
-<p>ただし当院講義と ECMOnet は「FDO₂ 1.0 で開始」としており（表21）、この点は<span class="split">立場が割れています</span>。低換気量（&lt;4 mL/kg）では PEEP 5 で無気肺が増え換気血流ミスマッチが深刻化し、EIT 研究での至適 PEEP は10程度・Pplat 20–25 とされます。<span class="src vault">ECMO weaning ノート</span></p>
+<p>ただし当院講義と ECMOnet は「FDO₂ 1.0 で開始」としており（表22）、この点は<span class="split">立場が割れています</span>。低換気量（&lt;4 mL/kg）では PEEP 5 で無気肺が増え換気血流ミスマッチが深刻化し、EIT 研究での至適 PEEP は10程度・Pplat 20–25 とされます。<span class="src vault">ECMO weaning ノート</span></p>
 <p style="margin-bottom:0">起きることは<strong>図7</strong>のとおりです。</p>
 </div>
 
@@ -1651,7 +1688,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="627" y="181" font-size="22" font-weight="700">50%</text>
   </g>
 </svg>
-<figcaption>図7. 自己肺と人工肺の FiO₂ を揃える。左（誤り）＝人工肺だけ 100% にすると、自己肺側の FiO₂ が低いまま窒素が肺胞から抜け、<b>吸収性無気肺</b>を招く。右（正しい）＝両方を同じ FiO₂ に揃えると肺胞が均一に開いたまま保たれる。ただし当院講義と ECMOnet は「FDO₂ 1.0 で開始」としており（表21）、開始時点の立場は割れている。</figcaption>
+<figcaption>図7. 自己肺と人工肺の FiO₂ を揃える。左（誤り）＝人工肺だけ 100% にすると、自己肺側の FiO₂ が低いまま窒素が肺胞から抜け、<b>吸収性無気肺</b>を招く。右（正しい）＝両方を同じ FiO₂ に揃えると肺胞が均一に開いたまま保たれる。ただし当院講義と ECMOnet は「FDO₂ 1.0 で開始」としており（表22）、開始時点の立場は割れている。</figcaption>
 </figure>
 
 <div class="box good">
@@ -1665,7 +1702,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表27｜国際コホートの実データ（350例・生存退院61%）　<span class="src vault">AJRCCM 2019</span></caption>
+<caption>表28｜国際コホートの実データ（350例・生存退院61%）　<span class="src vault">AJRCCM 2019</span></caption>
 <thead><tr><th>項目</th><th>ECMO 開始前</th><th>ECMO 開始後（1日後）</th></tr></thead>
 <tbody>
 <tr><td>FiO₂ (%)</td><td class="num">100（中央値）</td><td class="num"><strong>50</strong></td></tr>
@@ -1688,7 +1725,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表28｜通常の ECMO の経過　<span class="src in">当院 講義1日目 p82</span></caption>
+<caption>表29｜通常の ECMO の経過　<span class="src in">当院 講義1日目 p82</span></caption>
 <thead><tr><th>時期</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td>導入〜</td><td>FiO₂ 40%, PEEP 10, PIP 20, f 10 ／ 深い鎮静 ／ 凝固系の安定化 ／ 水分バランスの調整（CHDF）</td></tr>
@@ -1722,7 +1759,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>圧測定部位：P1 = 脱血圧（ポンプ前・陰圧）／ P2 = 肺前圧（ポンプ後・人工肺前・陽圧++）／ P3 = 肺後圧（人工肺後・陽圧+）。<span class="src in">講義1 p25,p28</span>　正常時の実例：流量 4 L/min で P1 −10、P2 240、P3 200 mmHg。<span class="src jp">岡山5 p22</span></p>
 
-<p><strong>これを1枚にしたのが図8です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表29）。</p>
+<p><strong>これを1枚にしたのが図8です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表30）。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="860" height="450" viewBox="0 0 860 450" role="img" style="width:100%;height:auto;max-width:860px">
@@ -1801,7 +1838,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="722" y="419" font-size="18" font-weight="600">P3</text>
   </g>
 </svg>
-<figcaption>図8. 回路内圧の4象限（表29 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。<b>左上 脱血不良</b>＝P1 が大きな陰圧へ振れ、P2・P3 も下がる（P1 だけが際立って落ちるのが決め手）。右上 ポンプ不全＝P1 が上がり、P2・P3 がともに下がる。左下 人工肺の目詰まり＝P2 が上がり P3 が下がる（P2−P3 が開く）。右下 送血不良＝P2 も P3 も上がる（P2−P3 は開かない）。流量はいずれも低下する。</figcaption>
+<figcaption>図8. 回路内圧の4象限（表30 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。<b>左上 脱血不良</b>＝P1 が大きな陰圧へ振れ、P2・P3 も下がる（P1 だけが際立って落ちるのが決め手）。右上 ポンプ不全＝P1 が上がり、P2・P3 がともに下がる。左下 人工肺の目詰まり＝P2 が上がり P3 が下がる（P2−P3 が開く）。右下 送血不良＝P2 も P3 も上がる（P2−P3 は開かない）。流量はいずれも低下する。</figcaption>
 </figure>
 <p>覚え方は「P1 と、P2−P3 の2つだけ見る」で足ります。</p>
 <p><strong>まず P1（脱血圧）を見ます。</strong>ここが大きな陰圧に振れていて、他の圧はすべて下がっているなら脱血不良です。血液を吸い出せていないので、その先の圧はどこも上がりようがない——理屈で覚えられます。</p>
@@ -1811,7 +1848,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表29｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
+<caption>表30｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
 <thead><tr><th>病態</th><th>ECMO流量</th><th>P1 脱血圧</th><th>P2 肺前圧</th><th>P3 肺後圧</th><th>決め手</th></tr></thead>
 <tbody>
 <tr><td>脱血不良</td><td class="num">↓↓</td><td class="num">↓↓↓</td><td class="num">↓</td><td class="num">↓</td><td><strong>P1 だけが大きな陰圧に振れる</strong>（他はすべて下がる）</td></tr>
@@ -1826,7 +1863,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表30｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
+<caption>表31｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
 <thead><tr><th>流量</th><th>脱血圧</th><th>送血圧</th><th>原因</th></tr></thead>
 <tbody>
 <tr><td class="num">↓</td><td class="num">↑</td><td class="num">↑</td><td>送血不良</td></tr>
@@ -1840,7 +1877,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b26">7-2. 症状別トラブルシューティング</h3>
 
-<p>表31 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図9）と人工肺の劣化（図10）</strong>——の「形」を掴んでおきます。</p>
+<p>表32 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図9）と人工肺の劣化（図10）</strong>——の「形」を掴んでおきます。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="780" height="390" viewBox="0 0 780 390" role="img" style="width:100%;height:auto;max-width:780px">
@@ -1911,7 +1948,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <rect x="438" y="314" width="310" height="50" rx="18" fill="#0084B5" fill-opacity="0.1" stroke="#0084B5" stroke-width="6"/>
   <text x="593" y="346" fill="#0084B5" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18" font-weight="700" text-anchor="middle">脱血圧が大きく陰圧へ振れる</text>
 </svg>
-<figcaption><b>図9. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表31）。</figcaption>
+<figcaption><b>図9. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表32）。</figcaption>
 </figure>
 
 <figure class="fig">
@@ -1963,7 +2000,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="597.5" y="375" fill="#0084B5" stroke="none" text-anchor="middle" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18" font-weight="700">P2−P3 が開く／D-ダイマー上昇</text>
   </g>
 </svg>
-<figcaption><b>図10. 人工肺の劣化と P2−P3。</b>左（正常）＝中空糸が均一で、人工肺の入口（P2）と出口（P3）の圧較差は小さい（下の両矢印が短い）。右（劣化）＝フィブリン沈着で中空糸が目詰まりし、P2−P3 が開く（両矢印が長い）。手がかりは P2−P3 &gt; 50 mmHg／送血側 SaO₂ &lt; 98%／D-ダイマー上昇。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表29・表31）。</figcaption>
+<figcaption><b>図10. 人工肺の劣化と P2−P3。</b>左（正常）＝中空糸が均一で、人工肺の入口（P2）と出口（P3）の圧較差は小さい（下の両矢印が短い）。右（劣化）＝フィブリン沈着で中空糸が目詰まりし、P2−P3 が開く（両矢印が長い）。手がかりは P2−P3 &gt; 50 mmHg／送血側 SaO₂ &lt; 98%／D-ダイマー上昇。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表30・表32）。</figcaption>
 </figure>
 <p>ではいよいよ症状別です。この表には8つの状況が並んでいますが、丸暗記する必要はありません。実は3つのグループに分かれていて、グループごとに「やってはいけないこと」が決まっているからです。</p>
 
@@ -1977,7 +2014,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表31｜症状別の動き方</caption>
+<caption>表32｜症状別の動き方</caption>
 <thead><tr><th>症状</th><th>鑑別</th><th>最初の一手</th><th>次の一手</th><th>出典</th></tr></thead>
 <tbody>
 <tr>
@@ -1997,7 +2034,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>ECMO 中の低酸素</td>
 <td>①回路トラブル（緊急度・重症度とも最高）②人工肺不良 ③再循環 ④自己肺悪化 ⑤末梢組織酸素消費増加 ⑥設定変更（緊急度・重症度とも低）</td>
-<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表32）</strong></td>
+<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表33）</strong></td>
 <td>いずれにせよ、Cxpオーダー・ABG・脱送血ABG を採取して評価する／呼吸器設定を上げてはならない・VA へ変えてはならない</td>
 <td><span class="src in">講義1 p86-87</span><span class="src ext">ELSO2021 p8-9</span></td>
 </tr>
@@ -2053,7 +2090,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>患者の出血</td>
 <td>ECMO 中は出血合併症が最多（外科的創部 19.0%／カニュレ刺入部 17.1%／気管内・肺胞 8.1%／消化管 5.1%／頭蓋内 3.8%）</td>
-<td>観察部位（表35）を系統的に見る。極力新たな静脈ライン挿入を避ける／粘膜に接する処置（気管吸引・口腔ケア・胃管）に注意</td>
+<td>観察部位（表36）を系統的に見る。極力新たな静脈ライン挿入を避ける／粘膜に接する処置（気管吸引・口腔ケア・胃管）に注意</td>
 <td>外科的介入の適応でなければヘパリンを一時的に止める、血小板・FFP を投与／胸腔ドレーンは極力避ける（§8-2）／後腹膜出血は IVR による止血／内出血が疑わしければエコー・CT</td>
 <td><span class="src in">講義1 p36-37</span><span class="src jp">市場2016／岡山6 p23-24</span></td>
 </tr>
@@ -2089,7 +2126,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表32｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
+<caption>表33｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
 <thead><tr><th>順</th><th>分岐（Yes/No）</th><th>Yes の対応</th><th>当院注記</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>SaO₂ &lt; 88% → CXR/ABG でカニュレ位置異常 and/or 再循環を示唆？</td><td>Reposition cannulae</td><td><strong>再灌流の是正：カニュレ間は 10–13cm 以上離す</strong></td></tr>
@@ -2122,7 +2159,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表33｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
+<caption>表34｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
 <thead><tr><th>用語</th><th>定義</th></tr></thead>
 <tbody>
 <tr><td>緊急の呼吸器設定</td><td>調節呼吸（CMV, AC等）、<strong>FiO₂ 100%、f 12回、PC 25 cmH₂O</strong>（症例により異なる）　※当院 TS資料2 は「FiO₂ を100%に。Rest Lung 設定なら一回換気量と呼吸回数の設定変更も必要」</td></tr>
@@ -2141,7 +2178,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表34｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
+<caption>表35｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
 <thead><tr><th>トラブル</th><th>回路クランプ</th></tr></thead>
 <tbody>
 <tr><td>送血・脱血カニュラの壁の引き込み</td><td>× しない</td></tr>
@@ -2170,7 +2207,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表35｜合併症の頻度（背景データ・家族説明用）</caption>
+<caption>表36｜合併症の頻度（背景データ・家族説明用）</caption>
 <thead><tr><th colspan="2">患者関連　<span class="src in">講義1 p37,p85</span><span class="src jp">ECMOnet p26-27</span>（Brodie NEJM 2011）</th><th colspan="2">機器関連　<span class="src in">講義1 p84</span><span class="src jp">ECMOnet p23</span>（Kolla Ann Surg 1997）</th></tr></thead>
 <tbody>
 <tr><td>培養陽性の感染症</td><td class="num">21.3%</td><td>人工肺異常（酸素化不良）</td><td class="num"><strong>32%</strong></td></tr>
@@ -2192,7 +2229,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table>
-<caption>表36｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
+<caption>表37｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
 <thead><tr><th>出血部位</th><th>point</th></tr></thead>
 <tbody>
 <tr><td>気道粘膜出血・肺胞出血</td><td>愛護的な処置</td></tr>
@@ -2250,7 +2287,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表37｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
+<caption>表38｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
 <thead><tr><th>時期</th><th>想定する感染・病原体</th><th>薬剤</th></tr></thead>
 <tbody>
 <tr><td><strong>開始から1週間以内</strong></td><td>VAP・尿路感染 … SPACE などGNR</td><td>3世代セフェム、PIPC/TAZ、MEPM</td></tr>
@@ -2293,7 +2330,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <p>VA-ECMO 中の心停止に胸骨圧迫は不要だが、VV-ECMO 中は必要。VV は肺機能のみの補助であり、血行動態は酸素化改善を介して間接的に支持されるにすぎないため。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
 <p>同ガイドラインの焦点3点：①<strong>心停止の認識</strong>（ECMO 流量・脈圧・波形が消えたとき何をもって心停止とするかを文書化する）②チーム内の優先順位づけ ③救命介入に直結する初期の ECMO トラブルシューティング。「ALS を回す前に ECMO 回路を見る」という順序転換が要点で、ガイドライン単独では機能せずトレーニングと一体で運用することが明記されています。</p>
-<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表33下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
+<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表34下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
 </div>
 
 <figure class="fig">
@@ -2338,7 +2375,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表38｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
+<caption>表39｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
 <thead><tr><th>出典</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><strong><span class="src in">当院 講義2 p53,p55-56</span></strong></td><td>当院は ECMO 中の腹臥位を実施している（治療内容にも「腹臥位療法」を明記）。離脱後も 腹臥位 → 側臥位 → 端座位 と段階的に進める</td></tr>
@@ -2366,14 +2403,76 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>「カニュラが入っているから動かせない」は誤解です。カニュレーション部位そのものは離床の禁忌ではありません。実際に制限になるのは低酸素・鎮静・循環の不安定さのほうです。</p>
 
+<p>そして2024年、<strong>ELSO が ECMO 中の早期リハビリ・離床について初めて専用のガイドラインを出しました</strong>。それまで「安全そうだが RCT はない」で止まっていた領域に、<u>段階の定義・進行条件・停止基準・職種の役割分担という実装のかたちが与えられた</u>のが大きな変化です。<span class="src vault">ELSO 2024</span></p>
 
-<ul>
-<li><strong>カニュレーション部位は離床の禁忌ではない。</strong>ただし早期離床・リハは低酸素血症・鎮静・血行動態不安定により制限されうる。リハ中の補助レベルは心肺動態を見て調整する。<span class="src ext">Compl.2022 p6</span></li>
-<li>観察研究では 100例中35例が参加し、そのうち18例（51%）が歩行できた。「安全に見えるが RCT はない」。実施時は ECMO 訓練を受けた理学療法士・看護師・臨床工学技士の3職種で。<span class="src vault">ICM2016</span></li>
-<li>当院の型では Day 7 覚醒の準備（最初は1時間だけ、日々延長）→ Day 14 完全覚醒。<span class="src in">講義1 p82</span>　覚醒の利点＝肺のリンパ灌流改善・自発呼吸で一回換気量改善・感染に強くなる・コミュニケーション。ポイント＝昼夜のリズムを作る・過密スケジュールを避ける。<span class="src jp">岡山6 p11</span></li>
-<li>看護配置：<strong>看護師:ECMO患者 = 1:2〜1:1</strong>（ポジションペーパー）。<span class="src vault">ICM2016</span></li>
-<li>離脱後は<strong>腹臥位 → 側臥位 → 端座位</strong>と段階的に進める。<span class="src in">講義2 p54</span></li>
-</ul>
+<div class="box warn">
+<span class="label">先に但し書き — このガイドラインには格付けがない</span>
+<p><u>ELSO 2024 は推奨に GRADE などのエビデンスの確実性を一切与えていません</u>。全編が専門家合意による実装マニュアルです。<strong>有害事象の頻度も数値では示されておらず</strong>、"generally uncommon"（概して稀）という記述と major／minor の分類にとどまります。</p>
+<p>したがってこれは<strong>「やるかどうか」を決めるエビデンスではなく、「やると決めた施設が、どう安全にやるか」の手順書</strong>として読むのが正しい使い方です。</p>
+</div>
+
+<h4>Stage 0〜4 — 段階と、次に進んでよい条件</h4>
+
+<p>いちばん実務的なのがこの段階づけです。<u>「離床できたか／できないか」の二択をやめ、5段階に分けて、それぞれ次へ進む条件を秒数で決めてあります。</u></p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表40｜ECMO 中の離床 Stage 0〜4 と進行条件　<span class="src vault">ELSO 2024 Figure 1</span></caption>
+<thead><tr><th>Stage</th><th>内容</th><th>次の段階へ進んでよい条件</th></tr></thead>
+<tbody>
+<tr><td><strong>0</strong></td><td>受動（ベッド上での他動運動／受動立位）</td><td>—</td></tr>
+<tr><td><strong>1</strong></td><td>能動座位</td><td><strong>支持なしの座位を10秒超</strong>保てる</td></tr>
+<tr><td><strong>2</strong></td><td>静的立位</td><td><strong>立位を10秒超</strong>保てる（補助具の有無は問わない）</td></tr>
+<tr><td><strong>3</strong></td><td>動的立位</td><td><strong>歩行前活動を30秒超</strong>続けられる</td></tr>
+<tr><td><strong>4</strong></td><td>歩行</td><td>—</td></tr>
+</tbody>
+</table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">耐えられなかったときは<strong>24時間後に再評価するか、1段階後退する</strong>。<u>指示に従えない患者でも、チルトテーブルやスタンディングベッドによる垂直化療法でリハビリは続ける</u>——「協力できない＝中止」にしないのがこのガイドラインの立場です。</p>
+</div>
+
+<h4>誰が付くか — 3職種ではなく5職種</h4>
+
+<p>本ガイドは<strong>理学療法士／医師／ECMOスペシャリスト／看護師／呼吸療法士の5職種</strong>を挙げ、それぞれの役割を職種別に規定しています。ここで意外なのは指揮者で、<u><strong>セッションのリーダーは医師ではなく理学療法士</strong></u>です。役割割当・タイムアウト・患者への説明を担当します。医師の役割は適応判断・緊急時の資源確保・心肺補助の最適化に置かれています。</p>
+
+<p><strong>必要人数の数値規定はありません。</strong>報告されている実例は看護師2名＋必要時追加から、6名体制（ECMO看護師2＋理学療法士＋作業療法士＋呼吸療法士＋灌流技士）まで幅があります。<u>なお「看護師：患者＝1:2〜1:1」（ICM2016）は<strong>配置比であってセッションの動員数ではありません</strong></u>——ここは混同されやすい点です。</p>
+
+<h4>カニュレーション部位ごとの備え</h4>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表41｜部位別に事前確認すること　<span class="src vault">ELSO 2024</span></caption>
+<thead><tr><th>部位</th><th>離床前・離床中にすること</th></tr></thead>
+<tbody>
+<tr><td><strong>大腿</strong></td><td>離床前に<strong>仰臥位で患側の股関節を用手的に90°屈曲</strong>させ、カニューレ位置・ECMO血流の安定・末梢灌流を確認する。<u>皮膚にマーキングして移動量を評価</u>。<strong>肥満例ではカニューレ先端が血管内に浅くしか入っていないことがある</strong></td></tr>
+<tr><td><strong>頸部</strong></td><td>上体挙上・離床時は<strong>ヘッドバンドかストラップで固定</strong>、または<strong>カニューレの固定と監視だけを担当する専任者を1名</strong>置く。<u>ダブルルーメンカテーテルは離床を容易にする一方、逸脱・位置異常のリスクは上がる</u></td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>停止プロトコル — チームの誰でも止められるようにする</h4>
+
+<p>ここは文書化しておく価値があります。<strong>停止の判断を医師に一本化せず、その場にいる誰でも発動できる形にする</strong>のがガイドラインの求めるところです。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表42｜離床を中止する基準　<span class="src vault">ELSO 2024</span></caption>
+<thead><tr><th>種類</th><th>基準</th></tr></thead>
+<tbody>
+<tr><td><strong>客観的</strong></td><td>回路アラーム／アンカー・縫合の破綻／刺入部の破綻／出血・血腫／キンク・逸脱</td></tr>
+<tr><td><strong>主観的</strong></td><td>めまい・前失神／悪心／活動性の胸痛／<strong>呼吸困難が10段階で7超</strong>／<strong>刺入部痛が10段階で7超</strong>／意識レベルの変化</td></tr>
+</tbody>
+</table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>開始前の備え</strong>：カニュレーションを行った医師が離床の実施を把握して待機していること。回路側は<u>クランプを4個</u>用意し、コードカート・搬送用人工呼吸器・搬送バッグに即座に手が届く状態にしておく。<strong>終了後</strong>は壁電源・ガスライン・人工肺の酸素ライン・血流/sweep gas/FDO₂ の復帰と、加温冷却水回路の再接続を必ず確認する。</p>
+</div>
+
+<div class="box plain">
+<span class="label">現実にはどれくらい達成できているか</span>
+<p>国際コホートで、<strong>VV-ECMO 患者のうち身体的な離床に到達したのは 22%</strong> にとどまります。到達しやすい因子は<u>肺移植前のカニュレーション・人工呼吸を回避できていること・症例数の多いセンター・ダブルルーメンカテーテル</u>でした。</p>
+<p>そのうえで本ガイドは <strong>TEAM 試験</strong>を引き、<u>高用量の早期離床はかえって有害事象と関連しうる</u>と釘を刺しています。<strong>目指すのは最大量ではなく、その日に安全に耐えられる最高レベル</strong>です。</p>
+<p><u>指標として置くもの</u>：最高到達レベル（IMS）／セッションの成功比率／カニュレーションから離床評価までの時間／チェックリストの遵守率／合併症。</p>
+</div>
+
+<p>覚醒そのものの進め方については、当院の型では Day 7 に覚醒の準備（最初は1時間だけ、日々延長）、Day 14 で完全覚醒。<span class="src in">講義1 p82</span>　覚醒の利点は肺のリンパ灌流の改善・自発呼吸による一回換気量の改善・感染に強くなること・コミュニケーションが取れること。進めるコツは昼夜のリズムを作ることと、過密なスケジュールを避けることです。<span class="src jp">岡山6 p11</span></p>
 
 <h3 id="rs-b38">9-4. CRRT 併用</h3>
 
@@ -2406,15 +2505,16 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h2 id="s10"><span class="no">§10</span>離脱</h2>
 
 <p>ECMO を始めた瞬間から、ゴールは「どうやって終わるか」です。そして離脱の判断は、多くの人が思っているより早い段階から始まります。肺が回復してきたサインは、SaO₂ より先に「一回換気量が戻ってくる」ことに現れるからです（§1-2）。</p>
-<p>この章では、まず離脱手順そのものが施設によって設計思想から違うという話（表39）をしてから、<strong>「抜いていいか」をどう判断するか</strong>（10-1）、抜くときの段取り（10-2）へ進みます。</p>
+<p>この章では、まず離脱手順そのものが施設によって設計思想から違うという話（表43）をしてから、<strong>「抜いていいか」をどう判断するか</strong>（10-1）、抜くときの段取り（10-2）へ進みます。</p>
 
 <div class="box warn">
 <p><strong>当院には2系統の離脱手順が並記されています</strong>（講義1日目 p89 と p90）。さらに ELSO2021 は血流量を高く保ったままガス流量を減らすという逆方向の設計です。<span class="split">3つ併記します。</span></p>
+<p><u>観察時間も資料によって違います</u>。ELSO の総論（2017）は<strong>60分</strong>、ELSO2021 の VV 各論は<strong>2〜3時間</strong>、スコーピングレビューが集めた実際の運用は<strong>30分〜24時間</strong>と幅があります。<strong>当院で1つ決めておいてください</strong>——短すぎると自己肺が持ちこたえられるかを見誤り、長すぎると回路血栓のリスクを上げます。<span class="src vault">ELSO2017</span><span class="src ext">ELSO2021</span></p>
 </div>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表39｜離脱手順の3系統併記</caption>
+<caption>表43｜離脱手順の3系統併記</caption>
 <thead><tr><th></th><th><span class="src in">当院① FDO₂ weaning 講義1 p89</span></th><th><span class="src in">当院② Blood flow weaning 講義1 p90</span><span class="src jp">≒ECMOnet p33-36</span></th><th><span class="src ext">ELSO2021 Table 7</span></th></tr></thead>
 <tbody>
 <tr><td>血流量</td><td>維持（記載なし）</td><td><strong>徐々に 2.0 L/min まで下げる</strong>（血栓ができやすい症例では下げず、Sweep gas の FIO₂ を下げる）</td><td>高い血流を保ったままガス流量を減らす（"with Preserved Higher Blood Flows"）。予備能評価時のみ一時的に 1–1.5 L/min まで下げる</td></tr>
@@ -2431,7 +2531,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表40｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
+<caption>表44｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
 <thead><tr><th></th><th>挿管患者</th><th>非挿管患者</th></tr></thead>
 <tbody>
 <tr><td>酸素化</td><td>FiO₂ が一貫して <strong>≤60%</strong>／<strong>PEEP ≤10</strong>／<strong>PaO₂ ≥70 mmHg</strong></td><td>PaO₂ ≥70 mmHg（経鼻カニュラ/マスク ≤6 L/min、または HFNC ≤40 L/min かつ FiO₂ ≤0.3）</td></tr>
@@ -2450,7 +2550,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box danger">
 <span class="label">🚨 明日の離脱判断で使う4つの数字</span>
-<p>表39 の3系統はいずれも <strong>「sweep gas off で◯時間観察」</strong>までは決めていますが、その間に何を見て合格とするかを数値で示していません（当院①②の中止基準は脱血 SvO₂ &lt; 60% のみ、ELSO2021 は PaO₂ ≥70・許容できる pH・過剰な呼吸仕事なし）。ここを埋めるのが CHEST2021 です。</p>
+<p>表43 の3系統はいずれも <strong>「sweep gas off で◯時間観察」</strong>までは決めていますが、その間に何を見て合格とするかを数値で示していません（当院①②の中止基準は脱血 SvO₂ &lt; 60% のみ、ELSO2021 は PaO₂ ≥70・許容できる pH・過剰な呼吸仕事なし）。ここを埋めるのが CHEST2021 です。</p>
 <p>SGOT 中に次の4条件を 4時間 すべて保てるなら、安全に脱カニュレーションできる可能性が高い。1つでも外れたら sweep gas を戻す。</p>
 <ol>
 <li><strong>VT/PBW &lt; 8 mL/kg</strong>（ROC の最適カットオフは 7.8。著者らのアルゴリズムは 8 に丸めている）</li>
@@ -2515,7 +2615,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表41｜SGOT 中の4指標の閾値と診断性能（前向きコホート n=28、非安全離脱7件）　<span class="src vault">CHEST2021</span></caption>
+<caption>表45｜SGOT 中の4指標の閾値と診断性能（前向きコホート n=28、非安全離脱7件）　<span class="src vault">CHEST2021</span></caption>
 <thead><tr><th>指標</th><th>最適カットオフ</th><th>Youden 指数</th><th>感度</th><th>特異度</th><th>AUC</th><th>正確度</th><th>ベッドサイドでの性格</th></tr></thead>
 <tbody>
 <tr><td>VT/PBW（予測体重あたり一回換気量）</td><td class="num"><strong>7.8 mL/kg</strong></td><td class="num">71.4</td><td class="num"><strong>100%</strong></td><td class="num">71.4%</td><td class="num">0.813</td><td class="num">78.6%</td><td>除外に強い（下回っていれば失敗はまず起きない）</td></tr>
@@ -2553,7 +2653,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表42｜SGOT 中の呼吸メカニクス・努力の指標（前向きコホート n=28、安全21例 vs 非安全7例）　<span class="src vault">CHEST2021</span></caption>
+<caption>表46｜SGOT 中の呼吸メカニクス・努力の指標（前向きコホート n=28、安全21例 vs 非安全7例）　<span class="src vault">CHEST2021</span></caption>
 <thead><tr><th>指標</th><th>安全群</th><th>非安全群</th><th>P値</th><th>備考</th></tr></thead>
 <tbody>
 <tr><td><strong>P0.1</strong>（気道閉塞圧・吸気開始100ミリ秒）</td><td class="num">3.1 cmH₂O<br>［2.5–4.0］</td><td class="num"><strong>4.7 cmH₂O</strong><br>［4.1–5.3］</td><td class="num">.03</td><td>当院の人工呼吸器で測れる。ただし本研究ではカットオフが算出されていない</td></tr>
@@ -2581,7 +2681,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>アウトカム定義に循環性の疑い</strong>。「人工呼吸のエスカレーション」に動的DP ≥16 cmH₂O が含まれる一方、予測因子側に静的DP・VT・MP が並ぶ。再カニュレーションは後ろ向き0例・前向き2例で、大半は主治医の裁量に依存するソフトアウトカム。</li>
 <li><strong>予測因子か、単なる重症度マーカーか区別できない</strong>。非安全群は ECMO 前の人工呼吸 120時間（vs 36）、ECMO 装着 30日（vs 9）と、そもそも回復が乏しい集団。</li>
 </ul>
-<p><strong>だから使い方はこう決める</strong>：「満たさない＝抜かない」の側に厳しく使い、「満たす＝必ず安全」とは読まない。既存の当院プロトコル（表39）を置き換えるものではなく、離脱を渋る／急ぐ判断に客観的な物差しを1本足すものとして扱う。ECMO 長期例ではとくに慎重に。</p>
+<p><strong>だから使い方はこう決める</strong>：「満たさない＝抜かない」の側に厳しく使い、「満たす＝必ず安全」とは読まない。既存の当院プロトコル（表43）を置き換えるものではなく、離脱を渋る／急ぐ判断に客観的な物差しを1本足すものとして扱う。ECMO 長期例ではとくに慎重に。</p>
 </div>
 
 <h3 id="rs-b34">10-2. 脱カニュレーションの準備</h3>
@@ -2595,7 +2695,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表43｜脱カニュレーションの準備（<span class="split">ヘパリン中止のタイミングが違います</span>）</caption>
+<caption>表47｜脱カニュレーションの準備（<span class="split">ヘパリン中止のタイミングが違います</span>）</caption>
 <thead><tr><th>項目</th><th>ELSO2021 Table 7</th><th>ECMOnet p36</th></tr></thead>
 <tbody>
 <tr><td>ヘパリン中止</td><td class="num"><strong>脱カニュレーションの少なくとも1時間前</strong></td><td class="num"><strong>多くの施設で 2〜6時間前</strong>（APTT の正常化）。抜去前の APTT 延長は離脱後合併症のリスク</td></tr>
@@ -2625,7 +2725,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b4">11-1. 抜いた直後（〜数日）</h3>
 
-<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§10-2 表43）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
+<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§10-2 表47）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
 
 <p><strong>次に刺入部の出血</strong>。抗凝固を止めてから抜いているとはいえ、凝固系はまだ元に戻っていません。縫合と軽い圧迫ドレッシングを当てたうえで、注意深く観察を続けます。</p>
 
@@ -2650,7 +2750,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表44｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表48｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>
@@ -2684,7 +2784,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <span class="label">🚨 最優先の3つ（これだけは朝のうちに）</span>
 <ol>
-<li><strong>抗凝固の目標をチームで共有する。</strong>ACT 180–220 ／ APTT 正常の1.5–2倍 ／ ヘパリン 20–50 U/kg/hr（ELSO / ECMOnet・当院講義 p34 も同じ）。出血リスクが高い症例で弱めるなら、その判断と値を明記する。決めた値は紙に書いて回路に貼る（§5-6）</li>
+<li><strong>抗凝固の目標をチームで共有する。</strong>ACT 180–220 ／ APTT 正常の1.5–2倍 ／ ヘパリン 20–50 U/kg/hr（ECMOnet・当院講義 p34）。出血リスクが高い症例で弱めるなら、その判断と値を明記する。決めた値は紙に書いて回路に貼る（§5-6）</li>
 <li>P1 のアラームを −100 mmHg に設定する。院内資料には −120 と −100 の2つが出てくるので、厳しい方を運用閾値にする。アラーム設定値に直結する（§7-1）</li>
 <li><strong>SaO₂ の許容下限をチームで共有する。</strong>目標 80–90%、心拍出量と Hb が保たれていれば 70%台も許容——これを共有しないと、夜間に誰かが呼吸器設定を上げます（§1-2・§5-3）</li>
 </ol>
@@ -2701,7 +2801,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>P1 下限・P2 上限のアラーム設定値を決め、指示医サインを入れた</li>
 <li>ECMO 流量の目標を 3.0–4.0 L/min（60–80 mL/kg/min）で指示した</li>
 <li>Sweep gas と FDO₂ の指示を出した（<strong>FDO₂ 1.0 で開始</strong>、sweep は PaCO₂ で調整）。PaCO₂ を急に下げない方針を共有した</li>
-<li>Lung rest の4行を指示簿に書いた（Pplat &lt;25 ／ PEEP ≥10 ／ RR 4–10 ／ FiO₂ 30–50%）（§6 表26）</li>
+<li>Lung rest の4行を指示簿に書いた（Pplat &lt;25 ／ PEEP ≥10 ／ RR 4–10 ／ FiO₂ 30–50%）（§6 表27）</li>
 <li>Hb・血小板・フィブリノゲン・AT-III の輸血/補充閾値を決めた（当院＝Hb&lt;10, PLT&lt;8万, Fib&lt;200, AT&lt;50%）</li>
 <li>鎮静薬を<strong>2倍</strong>必要とする前提で処方を見直した（鎮痛はモルヒネを検討）</li>
 <li><strong>抗Xa を測れるかを確認した</strong>（測定系・所要時間・24時間対応）。測れないなら aPTT で代用すると明記した（§5-6）</li>
@@ -2717,7 +2817,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>P1 / P2 / P3 の現在値を記録し、<strong>P2−P3 &lt; 50</strong> を確認した</li>
 <li>安全管理チェックリスト23項目を回した（6時・14時・22時）</li>
 <li>ECMOチャートの運用（Ns 0/6/14/22時、ME 各勤務帯、Dr 変更は赤字）が回っているか確認した</li>
-<li><strong>今日が6相のどこかをチームで言語化した</strong>（§4-6 表19）。Cstat ＝ VT ÷（Pplat − PEEP）を記録した（受動条件で測る。20 前後で肺保護相へ・25 超で自発呼吸の検討へ。ただしこの数字は著者自身が「恣意的」と明記）</li>
+<li><strong>今日が6相のどこかをチームで言語化した</strong>（§4-6 表20）。Cstat ＝ VT ÷（Pplat − PEEP）を記録した（受動条件で測る。20 前後で肺保護相へ・25 超で自発呼吸の検討へ。ただしこの数字は著者自身が「恣意的」と明記）</li>
 <li><strong>離脱を試すなら、4指標のどれを測るか決めた</strong>（§10-1 表41）。VT/PBW・HR・VR は今日から測れる／ΔPes を測るなら食道内圧バルーンを入れるかを朝のうちに決める（ΔPes 16 cmH₂O は特異度100%＝「抜かない」を確定させる唯一の指標）</li>
 <li>食道内圧を入れないなら<strong>代替を決めた</strong>（P0.1・静的DP・静的MP。いずれもカットオフは算出されていない＝推移で見る）。SGOT 中は EtCO₂/PaCO₂ 比も併せて記録する（0.84 以上で LR+ 4.6）</li>
 </ul>
@@ -2761,6 +2861,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>ELSO 2021</strong>：Tonna JE, et al. Management of Adult Patients Supported with Venovenous Extracorporeal Membrane Oxygenation (VV ECMO): Guideline from the Extracorporeal Life Support Organization (ELSO). <em>ASAIO J</em> 2021;67(6):601-610. DOI 10.1097/MAT.0000000000001432（Table 1 適応・Table 2 構成・Table 3 lung rest・Table 4 試験設定・Table 5-7 離脱）</li>
 <li><strong>Complications 2022</strong>：Teijeiro-Paradis R, Gannon WD, Fan E. Complications Associated With Venovenous Extracorporeal Membrane Oxygenation—What Can Go Wrong? <em>Crit Care Med</em> 2022;50(12):1809-1818. DOI 10.1097/CCM.0000000000005673</li>
 <li>※ELSO 2021 本体は<strong>抗凝固の目標値を本文に載せていません</strong>（ELSO Anticoagulation Guideline 2014／Red Book 5th 第7章に委譲）。「ELSOの値」として流通する数値はそちら経由です。</li>
+<li><strong>ELSO2021（原本を照合済み）</strong>：Tonna JE, Abrams D, Brodie D, Greenwood JC, Rubio Mateo-Sidron JA, Usman A, Fan E. Management of Adult Patients Supported with Venovenous Extracorporeal Membrane Oxygenation (VV ECMO): Guideline from the ELSO. <em>ASAIO J</em> 2021;67(6):601-610. DOI 10.1097/MAT.0000000000001432<br>2026-08-30 に原本PDFで全表を照合し、<u>本ガイドが「ELSO」として引用していた6点の誤帰属を修正した</u>（呼吸回数・目標SaO₂・抗凝固の数値・血流量の範囲・PaCO₂目標・PITFALLSの数）</li>
+<li><strong>ELSO 2024（早期リハビリ）</strong>：Ramsey S, Labib Shehatta A, Ramanathan K, et al. Extracorporeal Life Support Organization 2024 Guideline for Early Rehabilitation or Mobilization of Adult Patients on ECMO. <em>ASAIO J</em> 2025;71:187-. DOI 10.1097/MAT.0000000000002375 —（§9-3）<u>推奨に GRADE 等の格付けは無く、専門家合意による実装マニュアル</u></li>
+<li><strong>ELSO2017（総論）</strong>：Extracorporeal Life Support Organization. General Guidelines for all ECLS Cases. Version 1.4. August 2017. <u>DOIを持たない機関文書</u>。全ECLS共通の総論で、適応の具体値・輸血目標・抗凝固・離脱時間は2021以降の各論で上書きして使う</li>
 </ul>
 
 <h3 id="rs-b43">日本の実務標準（<span class="src jp">日本</span>）</h3>
@@ -2773,9 +2876,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b44">Vault 内の論文ノート（<span class="src vault">文献</span>）— 著者・誌・年・DOI</h3>
 <ul class="refs">
+<li><strong>Breathe 2025</strong>：Mortimer Ocean N, Patel BV, Garfield B. Extracorporeal membrane oxygenation for adults with respiratory failure secondary to cardiorespiratory disease: evolving indications and clinical practice. <em>Breathe</em> 2025. DOI 10.1183/20734735.0119-2024 —（§2）適応の拡大（移植ブリッジ・bridge to decision・免疫抑制・敗血症性心筋症）</li>
+<li><strong>AJEM 2025</strong>：Condella A, Lentz S, et al. Extracorporeal membrane oxygenation (ECMO): A narrative review for the emergency clinician. <em>Am J Emerg Med</em> 2025;96:6-14. DOI 10.1016/j.ajem.2025.06.007 — <u>本ガイドでは数値を採用していない</u>。EOLIA の群が入れ替わっている疑いがあり、VV-ECMO の閾値が本文・表・図で3種類併存するため</li>
 <li>本ガイドの図13 に原図を再掲した1本と、内容を日本語の表にまとめた1本（いずれも CC BY-NC-ND 4.0。出典明示のうえ非営利の院内教育目的で使用）
   <ul>
-  <li>Hoffman KR, Diehl A, Nixon P, Yong SA, Fan E, Hodgson C, Burrell AJC. The six phases of prolonged veno-venous extracorporeal membrane oxygenator support: a conceptual framework. <em>Crit Care</em> 2026;30:314. DOI 10.1186/s13054-026-06065-y —（§3-3・§4-6 表19・図5・§10-1。原図 Figure 1 は英語のため、表19 として日本語の表に作り直した）相の移行閾値は著者自身が「恣意的」と明記</li>
+  <li>Hoffman KR, Diehl A, Nixon P, Yong SA, Fan E, Hodgson C, Burrell AJC. The six phases of prolonged veno-venous extracorporeal membrane oxygenator support: a conceptual framework. <em>Crit Care</em> 2026;30:314. DOI 10.1186/s13054-026-06065-y —（§3-3・§4-6 表20・図5・§10-1。原図 Figure 1 は英語のため、表20 として日本語の表に作り直した）相の移行閾値は著者自身が「恣意的」と明記</li>
   <li>Al-Fares AA, Ferguson ND, Ma J, Cypel M, Keshavjee S, Fan E, Del Sorbo L. Achieving Safe Liberation During Weaning From VV-ECMO in Patients With Severe ARDS: The Role of Tidal Volume and Inspiratory Effort. <em>CHEST</em> 2021;160(5):1704-1713. DOI 10.1016/j.chest.2021.05.068 —（§10-1 表41・表42・図12・図13）単施設の観察研究2本（後ろ向き55例＋前向き28例、計83例）。RCT ではない</li>
   </ul>
 </li>
@@ -2789,12 +2894,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <ul>
   <li>Conrad SA, Wang D. Evaluation of Recirculation During Venovenous Extracorporeal Membrane Oxygenation Using Computational Fluid Dynamics Incorporating Fluid-Structure Interaction. <em>ASAIO J</em> 2021;67:943-953. DOI 10.1097/MAT.0000000000001314 —（§1-3 表6・図3）</li>
   <li>Carvalho LT, Mendes PV, Besen BAMP, Park M. The hemoglobin level impact on arterial oxygen saturation during venous-venous-ECMO support of ARDS patients: a mathematical marginal approach. <em>Rev Bras Ter Intensiva</em> 2022;34(3):393-395. DOI 10.5935/0103-507X.20220465-en —（§1-2 表5・§7-3）</li>
-  <li>Fan E, Gattinoni L, Combes A, Schmidt M, Peek G, Brodie D, et al. Venovenous extracorporeal membrane oxygenation for acute respiratory failure. <em>Intensive Care Med</em> 2016;42(5):712-724. DOI 10.1007/s00134-016-4314-7 —（§3-2 表12・§6 表26）</li>
+  <li>Fan E, Gattinoni L, Combes A, Schmidt M, Peek G, Brodie D, et al. Venovenous extracorporeal membrane oxygenation for acute respiratory failure. <em>Intensive Care Med</em> 2016;42(5):712-724. DOI 10.1007/s00134-016-4314-7 —（§3-2 表13・§6 表27）</li>
   </ul>
 </li>
 <li><strong>人工呼吸・ECMO 総説</strong>
   <ul>
-  <li>Munshi L, Brodie D, Fan E. Extracorporeal Support for Acute Respiratory Distress Syndrome in Adults. <em>NEJM Evid</em> 2022;1(10):EVIDra2200128. DOI 10.1056/EVIDra2200128 —（§5-6 表25・§6 表26・図6）総説。数値は Figure 4 の "current recommendations and common practices" で確実性評価はない</li>
+  <li>Munshi L, Brodie D, Fan E. Extracorporeal Support for Acute Respiratory Distress Syndrome in Adults. <em>NEJM Evid</em> 2022;1(10):EVIDra2200128. DOI 10.1056/EVIDra2200128 —（§5-6 表26・§6 表27・図6）総説。数値は Figure 4 の "current recommendations and common practices" で確実性評価はない</li>
   <li>Fernando SM, Brodie D, Slutsky AS, et al. 60 years of ARDS and the evolution of extracorporeal lung support – from ECMO to ECCO2R. <em>Intensive Care Med</em> 2026. DOI 10.1007/s00134-026-08533-z —（§6・§10 表40、本文中の「ICM2026」）</li>
   <li>Newman SF, Burrell A, Buscher H, et al. Australian and New Zealand guideline on venovenous ECMO (Part 1). <em>Crit Care Resusc</em> 2026;28:100163. DOI 10.1016/j.ccrj.2026.100163 —（§9-2 腹臥位）</li>
   </ul>

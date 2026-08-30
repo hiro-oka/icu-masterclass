@@ -216,6 +216,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -306,7 +308,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -361,8 +363,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b39">9-6. 搬送</a>
 <a class="lv2" href="#p4">第4部離脱に向けて</a>
 <a class="lv2" href="#s10">§10離脱</a>
-<a class="lv3" href="#rs-b33">10-1. SGOT 中に何を見るか — 4指標と閾値 CHEST2021</a>
-<a class="lv3" href="#rs-b34">10-2. 脱カニュレーションの準備</a>
+<a class="lv3" href="#rs-b46">10-1. 離脱を始めてよいか — 開始条件と、手順の設計思想</a>
+<a class="lv3" href="#rs-b33">10-2. 離脱の実際 — トライアル中に何を見るか CHEST2021</a>
+<a class="lv3" href="#rs-b34">10-3. 抜く前の準備 — ヘパリンをいつ止めるか</a>
+<a class="lv3" href="#rs-b47">10-4. 抜くときの実際 — 手技と、抜いた直後の注意点</a>
 <a class="lv2" href="#p5">第5部離脱後 — 抜いたあとに続くもの</a>
 <a class="lv2" href="#s11">§11離脱後の管理</a>
 <a class="lv3" href="#rs-b4">11-1. 抜いた直後（〜数日）</a>
@@ -375,6 +379,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -2956,7 +2962,15 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h2 id="s10"><span class="no">§10</span>離脱</h2>
 
 <p>ECMO を始めた瞬間から、ゴールは「どうやって終わるか」です。そして離脱の判断は、多くの人が思っているより早い段階から始まります。肺が回復してきたサインは、SaO₂ より先に「一回換気量が戻ってくる」ことに現れるからです（§1-2）。</p>
-<p>この章では、まず離脱手順そのものが施設によって設計思想から違うという話（表49）をしてから、<strong>「抜いていいか」をどう判断するか</strong>（10-1）、抜くときの段取り（10-2）へ進みます。</p>
+<p>この章は<strong>3段階</strong>に分けてあります。</p>
+<ol>
+<li><strong>10-1 離脱を始めてよいか</strong> — 開始条件を満たすか。手順そのものが施設で設計思想から違う点も、ここで整理します</li>
+<li><strong>10-2 離脱の実際</strong> — トライアル中に何を見て「抜いてよい」と判断するか</li>
+<li><strong>10-3 抜くときの実際</strong> — 手技と、抜いた直後の注意点</li>
+</ol>
+<p style="font-size:.9rem;color:var(--muted)"><u>下げていく順番（FDO₂ → sweep、血流量は下げない）は §5-7 Q4 に置いてあります</u>——ここでは繰り返しません。</p>
+
+<h3 id="rs-b46">10-1. 離脱を始めてよいか — 開始条件と、手順の設計思想</h3>
 
 <div class="box warn">
 <p><strong>当院には2系統の離脱手順が並記されています</strong>（講義1日目 p89 と p90）。さらに ELSO2021 は血流量を高く保ったままガス流量を減らすという逆方向の設計です。<span class="split">3つ併記します。</span></p>
@@ -2993,7 +3007,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">予備能の確認（ELSO2021 p6-7 本文）：ECMO 流量を 1〜1.5 L/min まで下げて十分な酸素化を保てるか／低い sweep（&lt;2 L/min）を許容できる PaCO₂ と呼吸仕事で耐えられるか／最後に FiO₂ 100% を15分間かけて ABG を取り PaO₂ のバッファを評価。<br>Vault の別出典：抜去の目安＝FiO₂ 0.6以下・一回換気量 6 mL/kg PBW以下・駆動圧 15 cmH₂O以下（<span class="src vault">ICM2026</span>）／サポートが 30%未満なら離脱をトライ（<span class="src vault">ELSO weaning ノート</span>）。</p>
 </div>
 
-<h3 id="rs-b33">10-1. SGOT 中に何を見るか — 4指標と閾値　<span class="src vault">CHEST2021</span></h3>
+<h3 id="rs-b33">10-2. 離脱の実際 — トライアル中に何を見るか　<span class="src vault">CHEST2021</span></h3>
 
 <p>離脱トライアル（SGOT）を始めたら、<strong>次は「抜いていいかどうか」を何で判断するか</strong>です。</p>
 <p>従来は「血液ガスが保てているか」で見ていましたが、それだけでは足りないことが分かってきました。ガス交換が保てていても、患者さんが強い呼吸努力でそれを達成しているなら、抜いた後に力尽きます。そこで「ガスが保てるか」に加えて「どれくらい無理をして保っているか」を測ります。</p>
@@ -3135,7 +3149,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p><strong>だから使い方はこう決める</strong>：「満たさない＝抜かない」の側に厳しく使い、「満たす＝必ず安全」とは読まない。既存の当院プロトコル（表49）を置き換えるものではなく、離脱を渋る／急ぐ判断に客観的な物差しを1本足すものとして扱う。ECMO 長期例ではとくに慎重に。</p>
 </div>
 
-<h3 id="rs-b34">10-2. 脱カニュレーションの準備</h3>
+<h3 id="rs-b34">10-3. 抜く前の準備 — ヘパリンをいつ止めるか</h3>
 
 <p>離脱の判断がついたら、次は<strong>抜くときの段取り</strong>です。ここで資料ごとに食い違うのが「ヘパリンをいつ止めるか」なので、そこを中心に並べています。</p>
 
@@ -3159,6 +3173,59 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">その他（ELSO2021 p7）：<strong>離脱は数時間〜数日かけて行う</strong>／大きな調整のたびに ABG／人工肺の結露が除去されていること、血栓予防のためカニュラ1本あたり血流 &gt; 1 L/min が維持されていることを確認。<br>Vault：「成功した脱カニュレーション」の普遍的な定義は存在しない。早すぎる離脱は臨床的悪化、遅すぎる離脱は不必要な合併症への曝露延長。<span class="src ext">Compl.2022 p4</span></p>
 </div>
+
+<h3 id="rs-b47">10-4. 抜くときの実際 — 手技と、抜いた直後の注意点</h3>
+
+<p>判定が済んだら、いよいよ抜きます。<u>ここは短い手技ですが、<strong>VV-ECMO ならではの落とし穴が2つ</strong></u>あります。</p>
+
+<h4>落とし穴① 静脈カニュラを抜くとき、空気が引き込まれる</h4>
+
+<div class="box danger">
+<span class="label">🚨 自発呼吸があると、側孔から空気が入ります</span>
+<p>ELSO の総論が明記しています——<u><strong>「静脈カニュラを抜くとき、患者に自発呼吸があると、側孔から静脈血中に空気が入りうる」</strong></u>。<span class="src vault">ELSO2017</span></p>
+<p>理由は単純で、<strong>吸気時に胸腔内圧が陰圧になり、静脈系が陰圧に引かれる</strong>からです。<u>ちょうど中心静脈カテーテルを抜くときと同じ理屈</u>ですが、ECMO のカニュラは太く側孔も多いので、入る量が違います。</p>
+<p><strong>防ぐ方法は2つ</strong>——<u>①人工呼吸器で Valsalva（陽圧をかけて息を止める）　②短時間の筋弛緩薬</u>。<span class="split">抜く瞬間に自発呼吸をさせない、というのが要点です。</span></p>
+<p>頸静脈カニュラならこれに加えて <strong>Trendelenburg 体位</strong>（頭低位）にします。<u>刺入部を心臓より低くして、静脈圧を陽圧側に振る</u>ためです。<span class="src ext">ELSO2021 Table 7</span></p>
+</div>
+
+<h4>落とし穴② 圧迫だけで済ませるか、縫合するか</h4>
+
+<p>ここがご質問の点です。<strong>先に結論を言うと、ガイドラインは「圧迫時間◯分」という書き方をしていません。</strong>推奨されているのは<u><strong>縫合で閉じること</strong></u>です。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表54｜抜去部の止血 — 資料が書いていること</caption>
+<thead><tr><th>出典</th><th>記載</th></tr></thead>
+<tbody>
+<tr><td><span class="src ext">ELSO2021 Table 7</span></td><td><strong>縫合で閉鎖</strong>し、<strong>軽い圧迫ドレッシング</strong>を当てて注意深く観察する。<u>時間の指定はなし</u></td></tr>
+<tr><td><span class="src vault">ELSO2017（総論）</span></td><td>経皮的に入れたカニュラは<strong>直接抜いて、局所の圧迫で出血をコントロールする</strong>。<u>やはり時間の指定はなし</u>。カットダウンで入れたものはカットダウンで抜き、血管は結紮する</td></tr>
+<tr><td><span class="src jp">ECMOnet p36</span></td><td>抜去前の抗凝固中止（2〜6時間前・APTT の正常化）についてのみ記載。<u>止血手技の記載なし</u></td></tr>
+</tbody>
+</table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><span class="split">調べた範囲では、VV-ECMO の抜去部を「何分圧迫するか」を数字で示した資料は見つかりませんでした。</span></p>
+</div>
+
+<div class="box good">
+<span class="label">では実際どう考えるか</span>
+<p><u><strong>「10分程度で足りるはず」というお見立ては、静脈という点では理にかなっています。</strong></u>VV-ECMO の抜去部は<strong>すべて静脈</strong>で、動脈のような拍動圧がかかりません。動脈穿刺後に20〜30分の用手圧迫が要るのは動脈圧に抗するためで、<u>静脈にはその必要がない</u>——ここまでは物理の話です。</p>
+<p><strong>ただし、圧迫時間を決める前に確認すべきことが3つ</strong>あります。</p>
+<ul>
+<li><strong>抗凝固が本当に切れているか</strong>。ELSO は抜去1時間前、ECMOnet は2〜6時間前（APTT 正常化）——<u>ここを守れていないなら、圧迫時間の議論は意味がありません</u>（表53）</li>
+<li><strong>血小板とフィブリノゲンはどうか</strong>。ECMO 中は消耗しています。<u>Plt 5万台・Fib 150台で抜くなら、10分では足りません</u></li>
+<li><strong>穿刺孔の大きさ</strong>。<u>脱血は 23〜29Fr</u>——中心静脈カテーテルとは比べものにならない太さです</li>
+</ul>
+<p><strong>そのうえで ELSO が「縫合」を推している理由</strong>は、<u>太い静脈孔を圧迫だけで閉じようとすると、圧迫をやめた後に再出血しやすく、皮下に血腫を作るから</u>だと考えるのが自然です。<span class="split">院内で「何分」を決めるより、「縫合するかどうか」を先に決めるほうが本質的です。</span></p>
+<p style="font-size:.88rem"><u>院内でプロトコル化するなら</u>：<strong>①縫合で閉じる（ELSO 準拠）</strong>を既定とし、<strong>②圧迫のみで済ませる場合は、抗凝固が切れていること・Plt とフィブリノゲンが確保されていることを条件</strong>にし、<strong>③時間は施設の経験値として決めて明文化する</strong>——<u>ガイドラインに数字がない以上、これは「決めた値」として扱うしかありません</u>（Hb 閾値と同じ扱いです）。</p>
+</div>
+
+<h4>抜いた直後にすること</h4>
+
+<ul>
+<li><strong>刺入部を注意深く観察する</strong>（ELSO2021）。<u>凝固系はまだ完全には戻っていません</u></li>
+<li><strong>大量出血に備えた準備を解かない</strong> — 血液型と抗体スクリーニングは有効なままに（表53）</li>
+<li><u><strong>24時間後に深部静脈血栓症を評価する</strong></u>。<span class="split">これがいちばん忘れられます。</span>太いカニュラが長期間入っていた血管なので、<strong>抜いた後に血栓が見つかること自体は珍しくありません</strong>（§11-1）</li>
+<li><strong>肺保護換気は続ける</strong>。抜いた翌日に呼吸が悪化したとき、<u>「二次的侵襲」と「早すぎた抜去」を切り分ける</u>必要があります（§11-1）</li>
+</ul>
 
 <div class="box plain">
 <span class="label">中断・中止の判断</span>
@@ -3201,7 +3268,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表54｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表55｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>

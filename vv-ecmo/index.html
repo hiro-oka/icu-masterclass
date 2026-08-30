@@ -237,6 +237,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -327,7 +329,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -399,6 +401,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -749,6 +753,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </tbody>
 </table>
 </div>
+
+<p style="font-size:.9rem;color:var(--muted)">表2 で補足を2つ。<strong>係数 1.36</strong> は「Hb 1 g が結合できる酸素の mL 数」で、物理定数のようなものです（ELSO は 1.39 を使いますが実務上の差はありません）。もうひとつ、<strong>Rated flow</strong> は人工肺のカタログ値ですが、<u>Rated flow 2 L/min の人工肺が担保する酸素付加は 65 mL/分にすぎません</u>——成人の VO₂ が 200 mL/分であることを思い出すと、<span class="split">成人には大きな人工肺が要る</span>という話につながります。</p>
 
 <h3 id="rs-b10">1-2. SaO₂ は分数で決まる</h3>
 
@@ -1166,28 +1172,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-<h4>この表を、上から順に読み解く</h4>
-
-<p><strong>1行目：全身の酸素運搬（DO₂）</strong>——<code>DO₂ = SaO₂ × Hb × 1.36 × 心拍出量</code>。<u>1.36 という係数は「Hb 1g が結合できる酸素の mL 数」</u>で、物理定数のようなものです（ELSO は 1.39 を使いますが、実務上の差はありません）。大事なのは<strong>3つの掛け算だという構造</strong>で、<u>どれか1つが半分になれば全体も半分になる</u>し、逆に1つが下がってもほかで補えます。</p>
-
-<p><strong>2行目：ECMO が足している酸素量</strong>——ここは少し込み入っていますが、実務で効きます。<code>Hb ×（送血側SO₂ − 脱血側SO₂）× 1.36 × ECMO流量</code>。<u>ポイントは括弧の中身で、「人工肺に入る前と後で、どれだけ酸素を積めたか」</u>です。</p>
-<p>だから<strong>脱血の飽和度が低いほど、ECMO はたくさん酸素を積める</strong>——同じ流量でも、脱血 SO₂ 60% なら 304 mL/分、80% なら 152 mL/分と<u>倍半分の差</u>がつきます。<span class="split">これが「再循環が起きると ECMO の効率が落ちる」ことの正体です</span>。再循環＝すでに酸素化された血液を吸い戻すこと＝脱血の飽和度が上がること、だからです（§1-3）。</p>
-
-<p><strong>3行目：安静時の酸素消費量（VO₂）</strong>——成人で 3–4 mL/kg/分、体格の平均的な成人男性でおよそ 200 mL/分。<u>これは「体が使う量」</u>で、発熱・シバリング・不穏があれば増えます。</p>
-
-<p><strong>4行目：DO₂/VO₂ 比</strong>——ここが<strong>この表でいちばん実務的な行</strong>です。健常な安静時は<strong>4〜5倍</strong>の余裕があり、<u><strong>2倍を下回ると嫌気性代謝に入って乳酸が上がります</strong></u>。つまり臓器を守るには <strong>DO₂/VO₂ ≥ 2</strong> を保てばよい。</p>
-<p><span class="split">ここから、ECMO 中に本当に見るべきものが決まります。</span><u>SaO₂ の数字そのものではなく、「乳酸が上がっていないか」</u>です。SaO₂ 80% でも、Hb と心拍出量が保たれていて乳酸が正常なら、酸素は足りています。逆に SaO₂ 90% でも貧血と低心拍出があれば足りません。</p>
-
-<p><strong>5行目：ELSO の量的目標</strong>——回路の設計目標です。<u>体格で割った値（mL/m²/分）で書かれているのは、体格によって必要量が違うから</u>。80kg・Hb 12 g/dL なら約 4 L/min という例示が付いています。</p>
-
-<p><strong>6行目：膜性能（Rated flow）</strong>——<u>人工肺のカタログに書いてある「この流量まで保証します」という値</u>です。注意すべきは、<strong>Rated flow 2 L/min の人工肺は 65 mL/min の酸素付加しか担保しない</strong>という点。<u>成人の VO₂ が 200 mL/分であることを思い出すと、これでは全然足りません</u>——だから成人には大きな人工肺が要る、という話につながります。</p>
-
-<div class="box good">
-<span class="label">2つのガイドラインの読み分け</span>
-<p><strong>豪州・NZ 2026 が「条件付きで推奨できる」と言っているのは、あくまで EOLIA 基準を満たす患者</strong>です。<u>それ以外の患者に ECMO を回してはいけない、という意味ではありません</u>——推奨を出せるだけのエビデンスがその範囲にしかない、というだけです。</p>
-<p>実務では<strong>「推奨できる範囲」と「相談を検討してよい範囲」は別物</strong>として扱ってください。基準の外にいる患者を回すこと自体は否定されていませんが、<u>そのときは「エビデンスが支持する範囲の外で判断している」ことをカンファで言語化し、記録に残す</u>のが誠実です。</p>
-</div>
-
 <h4>Murray score（肺傷害スコア）を実際に計算してみる</h4>
 
 <p>上の表に 「Murray 2–3点」「Murray 3–4点」 という数字が出てきました。これは <span class="src vault">Murray JF et al. Am Rev Respir Dis 1988;138:720-723</span> の 肺傷害スコア（Lung Injury Score）のことで、ARDS の重症度を4つの項目で点数化したものです。ECMO の適応を語るときに、P/F と並んで必ず出てきます。</p>
@@ -1247,9 +1231,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">家族説明に使える数字（初日に伝えておく）</span>
 <ul>
 <li>ECMOは「時間を区切った試行（time-limited trial）」として紹介し、意味のある転帰への希望を継続的に再評価する。無益性による中止の可能性は ECMO 開始「前」に説明しておく。<span class="src ext">ELSO2021 p6／Compl.2022 p6</span></li>
-<li>重症ARDSに ECMO を行った近年のコホートの院内死亡率 <strong>29–43%</strong>。<span class="src vault">Fan ICM2016</span></li>
-<li>豪州23 ICUの前向きコホート：VV-ECMO を受けた患者の54%が6か月時点で死亡または中等度〜重度の障害、生存者の25%が復職できていない。<span class="src vault">ANZ 2026</span></li>
-<li>ECMO 支持を受けた重症呼吸不全生存者は健康関連QOLの低下を経験しうる。<strong>復職するのは半数</strong>。<span class="src ext">Compl.2022 p6</span></li>
+<li><strong>転帰の数字</strong>：重症ARDS の院内死亡率 <strong>29–43%</strong>／6か月時点で <strong>54%</strong> が死亡または中等度〜重度の障害／生存者の<strong>復職は約半数</strong>。<span style="font-size:.9em;color:var(--muted)">出典と内訳は §11-2 表59 にまとめてあります（数字はそちらが正本）</span></li>
 <li>ECMO 中の出血合併症は 10–30%（現代コホートでは約30–65%との報告も）。<span class="src vault">JThoracDis2020／ICM2026</span></li>
 <li>支持期間の見込み：多くの患者は <strong>9–14日</strong>、一部は4週以上。<span class="src ext">ELSO2021 p6</span></li>
 </ul>
@@ -1853,7 +1835,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>FDO₂</strong><br>（人工肺の酸素濃度）</td><td>人工肺を出る血液の酸素化</td><td><u>基本は動かしません</u>。1.0 のまま維持し、<strong>下げるのは離脱の第1ステップだけ</strong></td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>酸素と CO₂ が別のつまみで動く</strong>のがこの装置の要点です（§1-4）。<u>血液ガスを見たときに、この対応を取り違えないこと</u>——それだけで対応の半分は決まります。</p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>酸素と CO₂ が別のつまみで動く</strong>のがこの装置の要点です。なぜそうなるかは §1-4。</p>
 </div>
 
 <p style="font-size:.9rem;color:var(--muted)"><strong>具体的な数値と管理範囲は、冒頭の表1 にまとめてあります</strong>（当直で開くのはそちらなので、数値は一箇所に集約しました）。<u>ここでは動かし方の原則だけ</u>を書きます。</p>
@@ -1931,7 +1913,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box danger">
 <span class="label">🚨 sweep で一番危ないのは「上げすぎ」ではなく「下げるのが速すぎる」</span>
-<p>導入24時間は、目標値より下げる速度を管理してください。最初の24時間で excess CO₂ を 50%を超えて下げない、正常化は 48〜72時間かけて。<span class="src vault">CritCare2026</span>　急激な PaCO₂ 低下は脳血管の収縮・けいれん・頭蓋内出血と関連します（§3-3）。</p>
+<p>導入24時間は、目標値より<u>下げる速度</u>を管理してください——<strong>excess CO₂ を50%超下げない／正常化は 48〜72時間かけて</strong>。<span class="src vault">CritCare2026</span> <span class="split">なぜそこまで慎重にするのかは §3-3 に書いてあります。</span></p>
 </div>
 
 <h3 id="rs-b21">5-4. 目標 SaO₂</h3>
@@ -2235,12 +2217,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">試験の前に<strong>人工肺の結露が除かれていることを確認</strong>する。<u>離脱は数時間〜数日かけて進めてよい</u>（患者の状態次第）。</p>
 </div>
 
-<div class="box danger">
-<span class="label">🚨 血流量は下げない — カニュラあたり 1 L/min 超を保つ</span>
-<p>ELSO は明記しています——<u><strong>「血栓を避けるため、血流量はカニュラあたり 1 L/min 超に維持すること」</strong></u>。<span class="src ext">ELSO2021</span></p>
-<p><u>血流量を下げると回路内の血流が遅くなり、血栓ができます</u>——そして<span class="split">離脱に失敗して戻すときには、血栓のできた回路で再開することになります。</span></p>
-<p>当院の手順も<strong>血流量は維持する設計</strong>です（§10-2）。症例によって一時的に 2 L/min まで落とすことはありますが、<u>それは「低流量に耐えるか」を短時間だけ見るため</u>で、下げたまま観察するためではありません。</p>
-</div>
+<p style="font-size:.9rem;color:var(--muted)"><u><strong>血流量は下げません</strong></u>（カニュラあたり 1 L/min 超を保つ）。<span class="src ext">ELSO2021</span> 理由と当院の運用は §10-2 に置いてあります——ここでは繰り返しません。</p>
 
 <p><strong>なぜ FDO₂ が先で sweep が後なのか</strong>——順序にも理屈があります。<u>FDO₂ を下げるのは「ECMO の酸素化の寄与を切る」こと、sweep を下げるのは「CO₂ 除去の寄与を切る」こと</u>です。<strong>酸素化のほうが先に切れる（＝自己肺が酸素化を引き受けられるか先に見る）</strong>のは、<u>低酸素はすぐに現れて可逆的だが、CO₂ の貯留はゆっくり効いてきて呼吸仕事の増大として現れる</u>ためです。<strong>先に速く現れるほうから試す</strong>、という順序になっています。</p>
 
@@ -2445,7 +2422,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>基準値を先に。P1 &gt; −120 mmHg（過度の陰圧は危険）／ P2 &lt; 300 mmHg（溶血リスクを避ける）／ P2 − P3 &lt; 50 mmHg（人工肺の血栓？）<span class="src in">当院 講義1 p29</span><span class="src jp">ECMOnet p22</span></p>
 
-<p>圧測定部位：P1 = 脱血圧（ポンプ前・陰圧）／ P2 = 肺前圧（ポンプ後・人工肺前・陽圧++）／ P3 = 肺後圧（人工肺後・陽圧+）。<span class="src in">講義1 p25,p28</span>　正常時の実例：流量 4 L/min で P1 −10、P2 240、P3 200 mmHg。<span class="src jp">岡山5 p22</span></p>
+<p>圧の向きは <u>P1 が陰圧、P2 が陽圧++、P3 が陽圧+</u>。<span class="src in">講義1 p25,p28</span>　<strong>正常時の実例</strong>：流量 4 L/min で P1 −10、P2 240、P3 200 mmHg。<span class="src jp">岡山5 p22</span></p>
 
 <p><strong>これを1枚にしたのが図10です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表37）。</p>
 
@@ -2764,7 +2741,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>回路内血栓</td>
 <td>発生しやすい場所は人工肺・コネクタ・ルアー</td>
-<td>白色光のペンライトで確認し、血栓を認めたら○で囲んで長さを計測</td>
+<td>白色光のペンライトで確認（記録の仕方は §8-3）</td>
 <td>トリミングするかは状況次第（剥がれて塞栓を起こす確率は低い）／凝固異常の原因となりうる → 回路交換を考慮／トリミング手技＝5–10cm の範囲をクランプ4本（両側2本ずつ）で挟み、両端をカットしてコネクタで接続</td>
 <td><span class="src jp">岡山5 p49,p52</span><span class="src in">講義1 p43</span></td>
 </tr>
@@ -2778,7 +2755,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>患者の出血</td>
 <td>ECMO 中は出血合併症が最多（外科的創部 19.0%／カニュラ刺入部 17.1%／気管内・肺胞 8.1%／消化管 5.1%／頭蓋内 3.8%）</td>
-<td>観察部位（表43）を系統的に見る。極力新たな静脈ライン挿入を避ける／粘膜に接する処置（気管吸引・口腔ケア・胃管）に注意</td>
+<td>観察部位を系統的に見る（表43）。予防的な注意点は §8-1</td>
 <td>外科的介入の適応でなければヘパリンを一時的に止める、血小板・FFP を投与／胸腔ドレーンは極力避ける（§8-2）／後腹膜出血は IVR による止血／内出血が疑わしければエコー・CT</td>
 <td><span class="src in">講義1 p36-37</span><span class="src jp">市場2016／岡山6 p23-24</span></td>
 </tr>
@@ -3190,7 +3167,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>当院の型：導入期に「水分バランスの調整（CHDF）」。<span class="src in">講義1 p82／講義2 p55</span></li>
 <li>遠心ポンプ使用時は空気の巻き込みを避けるため CRRT 装置はポンプの下流に置き、CRRT からの返血は人工肺の手前に戻す（空気・凝血塊を人工肺で捕捉するため）。<span class="src vault">ICM2016</span></li>
 <li>ECMO 中の RRT の方法（3通り）：①回路にインラインの血液濾過器を追加 ②並行透析システム（独立した血管アクセス）③統合システム。<strong>透析中の低血圧を防ぐことが腎回復に寄与</strong>。AKI は ECMO 患者の最大60%。<span class="src ext">Compl.2022</span></li>
-<li>緊急時の共通言語「<strong>CHDF を中断</strong>」＝返血せずに終了・クランプ → 回路の三方活栓を閉める → 回路から CHDF を外す。<span class="src jp">岡山5</span></li>
+<li>急変時に「<strong>CHDF を中断</strong>」と言われたときの手順は §7-4 表41 に定義してあります</li>
 </ul>
 
 <h3 id="rs-b39">9-6. 搬送</h3>
@@ -3207,7 +3184,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 
 <h2 class="part" id="p4"><span class="pn">第4部</span>離脱に向けて</h2>
-<p class="partlead">ECMO を始めた瞬間から、ゴールは「どうやって終わるか」です。肺が回復してきたサインの拾い方から、抜くときの段取りまで。</p>
+<p class="partlead">肺が回復してきたサインの拾い方から、離脱トライアル、抜くときの段取りまで。<strong>ここまでの管理は、すべてこの章に着地するためのものです。</strong></p>
 
 <h2 id="s10"><span class="no">§10</span>離脱</h2>
 
@@ -3494,18 +3471,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 
-<h4>抜いた直後にすること</h4>
-
-<ul>
-<li><strong>刺入部を注意深く観察する</strong>（ELSO2021）。<u>凝固系はまだ完全には戻っていません</u></li>
-<li><strong>大量出血に備えた準備を解かない</strong> — 血液型と抗体スクリーニングは有効なままに（表53）</li>
-<li><u><strong>24時間後に深部静脈血栓症を評価する</strong></u>。<span class="split">これがいちばん忘れられます。</span>太いカニュラが長期間入っていた血管なので、<strong>抜いた後に血栓が見つかること自体は珍しくありません</strong>（§11-1）</li>
-<li><strong>肺保護換気は続ける</strong>。抜いた翌日に呼吸が悪化したとき、<u>「二次的侵襲」と「早すぎた抜去」を切り分ける</u>必要があります（§11-1）</li>
-</ul>
+<p><strong>抜いた直後にやることは §11-1 にまとめてあります</strong>——刺入部の観察、24時間後の DVT 評価、呼吸悪化の切り分け、肺保護換気の継続の4つです。<u>ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong></u>（血液型と抗体スクリーニングは有効なままにしておく・表53）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
 
 <div class="box plain">
 <span class="label">中断・中止の判断</span>
-<p>ECMO を中断すべき状況：①安定して継続することが不可能 ②<strong>離脱しても社会生活が不可能</strong> ③心臓・肺機能の改善の見込みがない。<span class="src jp">岡山6 p29</span><br>無益性による中止の可能性は、ECMO 開始「前」に家族に説明しておく。「ECMO のコースの早い段階で期待値を明確に設定することが重要」。<span class="src ext">ELSO2021 p6</span></p>
+<p>ECMO を中断すべき状況：①安定して継続することが不可能 ②<strong>離脱しても社会生活が不可能</strong> ③心臓・肺機能の改善の見込みがない。<span class="src jp">岡山6 p29</span><br><u>この判断は、開始前に説明しておいた「時間を区切った試行」という枠組みの上に乗ります</u>（§2）。<span class="src ext">ELSO2021 p6</span></p>
 </div>
 
 <p class="top"><a href="#now">▲ 目次へ</a></p>

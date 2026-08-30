@@ -191,7 +191,22 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 .calc.hot .calc-score{color:var(--danger)}
 .calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
   border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
-@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
 
 
 
@@ -1461,9 +1476,20 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <ul>
 <li><strong>脱血側SO₂</strong>（人工肺に入る前）… 当院は<u>インラインモニタに連続表示されています</u>（図8）。回路の脱血ポートからの採血でも可</li>
 <li><strong>送血側SO₂</strong>（人工肺を出た後）… FDO₂ 100% で人工肺が健全なら<strong>ほぼ 100%</strong></li>
-<li><strong>SvO₂</strong> … <u><strong>患者の本当の混合静脈血</strong></u>。肺動脈カテーテルから採る。無ければ CV カテの ScvO₂ で代用する <span class="src in">当院 講義1 p64</span><br><span style="font-size:.85rem;color:var(--muted)">代用した場合は上半身の静脈血だけを見ていることになるので、R率は近似値になります</span></li>
+<li><strong>SvO₂</strong> … <u><strong>ECMO 回路に入る直前の静脈血</strong></u>の飽和度。<span class="split">ここがこの計算のいちばんの弱点で、すぐ下の囲みで扱います</span></li>
 </ul>
-<p style="font-size:.88rem;color:var(--muted);margin:.4rem 0 0">SO₂ は % のまま入れても、小数（0.80 など）に直しても、分子と分母で約分されるので<u>同じ答えになります</u>。</p>
+<p style="font-size:.88rem;color:var(--muted);margin:.4rem 0 0">SO₂ は % のまま入れても、小数（0.80 など）に直しても、分子と分母で約分されるので<u>同じ答えになります</u>。脱血側SO₂ ＝ SvO₂ なら R＝0%、脱血側SO₂ ＝ 送血側SO₂ なら R＝100% です。 <span class="src vault">Medicina2024</span></p>
+</div>
+
+<div class="box warn">
+<span class="label">SvO₂ をどこから採るか — この計算の弱点はここです</span>
+<p><strong>肺動脈カテーテルの混合静脈血は、そのままでは使えません。</strong><u>VV-ECMO は右房に酸素化血を返しているので、肺動脈まで来た血にはすでに ECMO が送った血が混ざっています</u> <span class="src vault">Medicina2024</span>。一般 ICU の「混合静脈血＝SvO₂」の感覚のまま代入すると、<span class="split">分子が小さくなり R率を過小評価します</span>。</p>
+<p>実際に使われている方法は2つです。</p>
+<ul>
+<li><strong>CVL 法 — 当院はこちら</strong>… <u>上大静脈または下大静脈に留置した CV カテから採血する</u> <span class="src in">当院 講義1 p64</span>。簡便ですが真の混合静脈血ではなく、<span class="split">SVC と IVC の酸素含量の差を拾えません</span>——R率は近似値になります <span class="src vault">Medicina2024</span></li>
+<li><strong>SvO₂ 法（Van Heijst 法）</strong>… <u>sweep gas を一時的に止め</u>、人工呼吸器で ECMO 使用時と同等の SaO₂ を保ったうえで脱血カニュラの血を測ります。ガス交換が止まっていれば<u>脱血された血がそのまま真の静脈血</u>になるという理屈です。正確ですが、<strong>ECMO 依存度の高い患者では危険で実施しにくい</strong> <span class="src vault">Medicina2024</span></li>
+</ul>
+<p style="font-size:.88rem;color:var(--muted)">式を使わず直接測る方法（超音波希釈法・熱希釈法・リチウム希釈法／ELSA モニタなど）も報告されていますが、<u>いずれも普及しておらず当院にはありません</u> <span class="src vault">Medicina2024</span>。</p>
 </div>
 
 <div class="box plain">
@@ -1498,11 +1524,104 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box warn">
 <span class="label">計算で間違えやすい3点</span>
 <ul>
-<li><strong>SvO₂ に脱血側の血を使わない。</strong><u>脱血回路の血は、すでに再循環で酸素化血が混ざっています</u>。取り違えると分子がゼロになり、<span class="split">R率は何があっても 0% と出てしまいます</span>——試験でも実務でも、いちばん多い間違いです</li>
+<li><strong>SvO₂ に脱血側の血を使わない。</strong><u>脱血回路の血は、すでに再循環で酸素化血が混ざっています</u>。取り違えると分子がゼロになり、<span class="split">R率は何があっても 0% と出てしまいます</span>——いちばん多い間違いです。<u>例外は sweep gas を止めているとき（上の Van Heijst 法）だけ</u>で、そのときに限り脱血血＝真の静脈血です</li>
 <li><strong>送血側SO₂ を 100% と置いてよいのは、人工肺が健全なときだけ。</strong>劣化を疑う場面（図13）では実測した値を入れます</li>
 <li><strong>SvO₂ が高いと計算が不安定になる。</strong>SvO₂ 85% なら分母は <code>100 − 85 ＝ 15</code> しかなく、<u>脱血側SO₂ の測定誤差 ±2% が R率では ±13% に増幅されます</u>。敗血症合併などで SvO₂ が高い患者では、計算値を鵜呑みにせず表11 の所見と合わせて判断してください</li>
 </ul>
 </div>
+
+<div class="calc" id="recirc">
+  <div class="calc-h">
+    <b>再循環率（R率）計算機</b>
+    <span>飽和度3つを入れると R率と有効流量が出ます。数値を書き換えるとその場で再計算されます</span>
+  </div>
+  <div class="calc-b">
+    <div class="calc-in">
+      <label><b>脱血側 SO₂</b>人工肺に入る前（%）<input type="number" id="rcPre" value="80" min="0" max="100" step="0.1"></label>
+      <label><b>送血側 SO₂</b>人工肺を出た後（%）<input type="number" id="rcPost" value="100" min="0" max="100" step="0.1"></label>
+      <label><b>SvO₂</b>回路に入る前の静脈血（%）<input type="number" id="rcSv" value="65" min="0" max="100" step="0.1"></label>
+      <label><b>ECMO 血流量</b>有効流量の計算用（L/min）<input type="number" id="rcFlow" value="4.0" min="0" max="10" step="0.1"></label>
+    </div>
+    <div class="calc-pre">
+      <span>表12 の例を入れる：</span>
+      <button type="button" data-p="70,100,65,4.0">① 落ち着いている</button>
+      <button type="button" data-p="80,100,65,4.0">② 再循環している</button>
+      <button type="button" data-p="88,100,62,5.0">③ 流量を上げた</button>
+    </div>
+  </div>
+  <div class="calc-out">
+    <div class="calc-score" id="rcScore">—<small>%</small></div>
+    <div class="calc-msg" id="rcMsg">飽和度3つを入れると判定が出ます。</div>
+    <button class="reset" type="button" id="rcReset">リセット</button>
+  </div>
+</div>
+
+<p style="font-size:.85rem;color:var(--muted)">式は <code>R ＝ (脱血側SO₂ − SvO₂) ÷ (送血側SO₂ − SvO₂)</code>。<u>許容される再循環はおおよそ 10〜30% とされますが、標準化された閾値は定義されていません</u> <span class="src vault">Medicina2024</span>——報告されている実測値は 2〜57% と幅があり、ある報告では中央値 14〜16%、35% を超えたのは全測定の 13〜14% でした。<span class="split">当院講義が挙げる目安 0.3〜0.5 は、この許容範囲よりやや高め</span>です。</p>
+
+<script>
+(function(){
+  var c=document.getElementById('recirc'); if(!c) return;
+  var pre=document.getElementById('rcPre'), post=document.getElementById('rcPost'),
+      sv=document.getElementById('rcSv'), fl=document.getElementById('rcFlow'),
+      score=document.getElementById('rcScore'), msg=document.getElementById('rcMsg');
+  var DEF=['80','100','65','4.0'];
+  function num(e){ var v=parseFloat(e.value); return isFinite(v)?v:null; }
+  function calc(){
+    var a=num(pre), b=num(post), s=num(sv), f=num(fl), out=[];
+    c.classList.remove('hot');
+    if(a===null||b===null||s===null){
+      score.innerHTML='—<small>%</small>';
+      msg.textContent='飽和度3つを入れると判定が出ます。'; return;
+    }
+    if(b===s){
+      score.innerHTML='—<small>%</small>'; c.classList.add('hot');
+      msg.innerHTML='<b>送血側SO₂ と SvO₂ が同じ値です。</b>分母がゼロになるため計算できません。';
+      return;
+    }
+    var R=(a-s)/(b-s);
+    score.innerHTML=(R*100).toFixed(1)+'<small>%</small>';
+    var bad=(R<0||R>1);
+    if(!bad && f!==null && f>0){
+      out.push('有効流量 ＝ '+f.toFixed(1)+' × (1 − '+R.toFixed(2)+') ＝ <b>'+(f*(1-R)).toFixed(1)
+        +' L/min</b>　<span style="color:var(--muted)">（再循環している分 '+(f*R).toFixed(1)+' L/min）</span>');
+    }
+    if(R<0){
+      c.classList.add('hot');
+      out.push('<b>R率が負の値です。</b>脱血側SO₂ が SvO₂ を下回っており、通常は起こりません——採血部位と測定値を確認してください。');
+    } else if(R>1){
+      c.classList.add('hot');
+      out.push('<b>R率が 100% を超えています。</b>SvO₂ に脱血側の血を使っていないか確認してください。');
+    } else if(R>=1){
+      c.classList.add('hot');
+      out.push('<b>R率 100% — 脱血側と送血側の飽和度が同じです。</b>送った血をそのまま全部吸い戻している状態で、患者に届く分はゼロになります。');
+    } else if(R>0.30){
+      c.classList.add('hot');
+      out.push('<b>30% 超 — 許容範囲（おおよそ 10〜30%）を上回ります。</b>体外循環での酸素運搬が明らかに削られている水準です。対処は表11 へ。');
+    } else if(R>0.10){
+      out.push('許容範囲とされる <b>10〜30% の中</b>です。ただし標準化された閾値はなく、有効流量が足りているかで判断してください。');
+    } else {
+      out.push('<b>10% 未満。</b>有意な再循環は考えにくい水準です。');
+    }
+    if(!bad && a<75) out.push('脱血側SO₂ が 75% 未満 — この所見自体も「有意な再循環は考えにくい」ことを示します。');
+    if(!bad && b>s){
+      var amp=2/(b-s)*100;
+      if(amp>10) out.push('<b>注意：</b>分母が '+(b-s).toFixed(0)+' しかないため、脱血側SO₂ の測定誤差 ±2% が R率では <b>±'+amp.toFixed(0)+'ポイント</b>に増幅されます。計算値を鵜呑みにしないでください。');
+    }
+    msg.innerHTML=out.join('<br>');
+  }
+  [pre,post,sv,fl].forEach(function(e){ e.addEventListener('input',calc); });
+  [].slice.call(c.querySelectorAll('.calc-pre button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.getAttribute('data-p').split(',');
+      pre.value=v[0]; post.value=v[1]; sv.value=v[2]; fl.value=v[3]; calc();
+    });
+  });
+  document.getElementById('rcReset').addEventListener('click',function(){
+    pre.value=DEF[0]; post.value=DEF[1]; sv.value=DEF[2]; fl.value=DEF[3]; calc();
+  });
+  calc();
+})();
+</script>
 
 <div class="box">
 <span class="label">再循環しているかを、数字で判定する</span>

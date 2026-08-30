@@ -235,6 +235,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -325,7 +326,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -397,6 +398,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -591,7 +593,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h2 id="s1"><span class="no">§1</span>VV-ECMO とは</h2>
 
-<p>最初に回路の全体像を頭に入れておきます。<strong>脱血 → 遠心ポンプ → 人工肺 → 送血</strong>の順に血液が流れ、圧は3点で測ります（図1のとおり）。この3点の読み方が §7 の中核になります。</p>
+<p>最初に回路の全体像を頭に入れておきます。<strong>脱血 → 遠心ポンプ → 人工肺 → 送血</strong>の順に血液が流れ、圧は<u>教科書では3点</u>で測ります（図1のとおり）。この読み方が §7 の中核になります。</p>
+<div class="box danger">
+<span class="label">🚨 当院が測っているのは2点だけです — 図1 は読み替えて見てください</span>
+<p>当院のモニタにあるのは <strong>P1 脱血圧</strong>と、もうひとつ<strong>「P2」と表示されている圧</strong>の2つです。ところが<u>この「P2」は、図1 の <strong>P3（肺後圧）</strong>にあたります</u>——<span class="split">当院は人工肺の手前の圧（図1 の P2＝肺前圧）を測っていません。</span></p>
+<p>そのため、外部資料でいちばん強力な手がかりである <strong>P2−P3（人工肺の前後差圧）が当院では算出できません</strong>。代わりに何を見るかは §7-1 にまとめてあります。<u>圧の話に入る前に、そこを一度読んでおいてください。</u></p>
+</div>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="820" height="420" viewBox="0 0 820 420" role="img" style="width:100%;height:auto;max-width:820px">
@@ -656,6 +663,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <path d="M576 392 L576 352" marker-end="url(#vve1-arrow)"/>
   </g>
 
+  <g fill="#0084B5" stroke="none" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="13" opacity=".78">
+    <text x="164" y="166">当院も P1</text>
+    <text x="407" y="166">当院は未測定</text>
+    <text x="630" y="166">当院では「P2」</text>
+  </g>
   <g fill="#0084B5" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18">
     <text x="164" y="190">P1 脱血圧</text>
     <text x="407" y="190">P2 肺前圧</text>
@@ -664,7 +676,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="595" y="390">sweep gas</text>
   </g>
 </svg>
-<figcaption>図1. VV-ECMO 回路の全体像と圧の測定点。患者から脱血した血液が遠心ポンプで送られ、人工肺でガス交換されて患者に戻る。P1＝脱血圧（ポンプ前・陰圧）／P2＝肺前圧（ポンプ後・人工肺前）／P3＝肺後圧（人工肺後）。sweep gas は人工肺の気相側に入る。基準値（P1 &gt; −120／P2 &lt; 300／P2−P3 &lt; 50 mmHg）は §7-1。</figcaption>
+<figcaption>図1. VV-ECMO 回路の全体像と圧の測定点。患者から脱血した血液が遠心ポンプで送られ、人工肺でガス交換されて患者に戻る。P1＝脱血圧（ポンプ前・陰圧）／P2＝肺前圧（ポンプ後・人工肺前）／P3＝肺後圧（人工肺後）。sweep gas は人工肺の気相側に入る。基準値（P1 &gt; −120<span style="font-size:.92em">（当院の運用閾値は −100）</span>／P2 &lt; 300／P2−P3 &lt; 50 mmHg）は §7-1。<b>当院はこの3点のうち P1 と P3 の2点しか測っていない</b>——モニタの「P2」表示は図の <b>P3（肺後圧）</b>で、<u>肺前圧を測っていないため P2−P3 は算出できない</u>（§7-1）。</figcaption>
 </figure>
 <p>ただし回路図と実機は見え方が違います。ベッドサイドでどれがポンプでどれが人工肺かを、図2 で対応づけておいてください。</p>
 

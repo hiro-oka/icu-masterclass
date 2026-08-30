@@ -234,6 +234,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -324,7 +325,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -396,6 +397,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -787,8 +789,13 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box warn">
 <span class="label">混ぜるのは「分圧」ではなく「飽和度」</span>
-<p>ここは間違えやすいところです。<u>PaO₂ を平均してはいけません</u>。飽和度で混ぜてから、あとで分圧に読み替えます。</p>
-<p>上の例なら、飽和度 100% と 70% を混ぜて 85%。<strong>これを PaO₂ に直すと 55 mmHg 程度</strong>です。<u>もし分圧のほうを平均してしまうと（300 + 40）÷ 2 ＝ 170 mmHg となり、まったく違う答えになります</u>。ヘモグロビン酸素解離曲線がS字だからです。</p>
+<p><u>PaO₂ を平均してはいけません</u>。理由を「解離曲線が S 字だから」で止めずに、もう一段だけ掘っておくと忘れません。</p>
+<p><strong>血液が合流したときに保存されるのは、酸素の「量」だけです。</strong>2本の流れが混ざっても酸素分子は増えも減りもしないので、<u>足し算してよいのは含量（血液 1 dL に酸素が何 mL 入っているか）</u>——ここが出発点になります。</p>
+<p>その含量は <code>CaO₂ = 1.34 × Hb × SaO₂ + 0.003 × PaO₂</code>。<strong>ほぼ全部が「Hb に載っている分」</strong>で、しかも <u>Hb は同じ患者の血なので2本とも共通</u>です。つまり<strong>含量は SaO₂ にほぼ比例する</strong>——だから SaO₂ は流量で重みづけて平均できます。</p>
+<p><strong>一方 PaO₂ は含量に比例しません。</strong>解離曲線が S 字なので、<u>同じ「1 mmHg」が、場所によってまったく違う酸素量に対応します</u>。PaO₂ 300 と 100 は含量がほとんど変わらない（どちらも SaO₂ ≒ 100%）のに、60 と 40 では大きく変わる。<span class="split">目盛が場所によって伸び縮みする物差しなので、平均という操作にそもそも意味がありません。</span></p>
+<p><strong>pH とまったく同じ話</strong>だと思ってください。pH 3 の液と pH 5 の液を等量混ぜても <u>pH 4 にはなりません</u>（実際は約 3.3）。平均してよいのは<strong>水素イオンの「数」</strong>であって、それを対数目盛に直した pH ではない——PaO₂ も同じ立場にいます。</p>
+<p>上の例なら、飽和度 100% と 70% を混ぜて 85%。<strong>これを PaO₂ に直すと 55 mmHg 程度</strong>です。<u>分圧のほうを平均すると（300 + 40）÷ 2 ＝ 170 mmHg</u>になりますが、170 mmHg は飽和度でいえばほぼ 100%——<span class="split">「混ぜたのに、混ぜる前のいいほうと同じになる」という、ありえない答えです。</span></p>
+<p style="font-size:.88rem;color:var(--muted)">厳密には、人工肺を出た直後の血液は PaO₂ &gt; 500 mmHg で、<u>溶存酸素（0.003 × PaO₂）が酸素含量の最大10%を占めます</u>。飽和度だけで混ぜると、そのぶんわずかに過小評価になります。<span class="src vault">JCM2024</span></p>
 </div>
 
 <p>では<strong>SaO₂ を上げたいとき、どこを動かせるか</strong>。分数なので3通りしかありません。</p>
@@ -1868,6 +1875,28 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </tbody>
 </table>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>下げる判断より、下げない判断のほうが多い。</strong>脱血圧が保てているなら流量は維持したほうが血栓ができにくい。下げるのは脱血不良か再循環が問題になっているときです。VV の流量はカニュラ径により通常 5–6 L/min が上限。</p>
+</div>
+
+<div class="box good">
+<span class="label">なぜ 4 L/min なのか — 逆算すると出てくる数字です</span>
+<p>ELSO が示しているのは流量そのものではなく、<u><strong>「全身の酸素運搬が 300 mL/m²/分以上になるように回路を設計せよ」</strong></u>という条件です。<span class="src ext">ELSO2021 p2-3</span> ここから逆算します。</p>
+<ol>
+<li><strong>必要な酸素運搬</strong>：80kg 成人（体表面積およそ 1.95 m²）なら <code>300 × 1.95 ≒ 585 mL/分</code></li>
+<li><strong>血液1 L が運べる酸素</strong>：Hb 12 g/dL・飽和度100% なら <code>1.34 × 12 × 10 ≒ 161 mL/L</code></li>
+<li><strong>必要な流量</strong>：<code>585 ÷ 161 ≒ 3.6 L/分</code> → <strong>およそ 4 L/min</strong></li>
+</ol>
+<p>つまり 4 L/min は<u>「Hb 12 の患者で、酸素運搬の設計目標をちょうど満たす流量」</u>であって、天から降ってきた数字ではありません。<span class="split">だから Hb が下がれば、必要な流量は上がります</span>——Hb 10 なら 4.9、Hb 8 なら 6.1 L/min。Hb 7 では 6.9 L/min となり、<strong>カニュラ径の上限（5–6 L/min）を超えて到達できなくなります</strong>（§5-6）。</p>
+</div>
+
+<div class="box warn">
+<span class="label">「3.0–4.0 L/min」と「60–80 mL/kg/分」は、同じことを言っていません</span>
+<p>この2つが一致するのは<u><strong>体重 50kg のときだけ</strong></u>です（50 × 60 = 3.0、50 × 80 = 4.0）。体重が変われば当然ずれます。</p>
+<ul>
+<li>60kg → <strong>3.6–4.8 L/min</strong></li>
+<li>70kg → <strong>4.2–5.6 L/min</strong></li>
+<li>80kg → <strong>4.8–6.4 L/min</strong>（すでにカニュラ径の上限に届く）</li>
+</ul>
+<p><strong>本体は mL/kg/分 のほうです。</strong>「3.0–4.0 L/min」は平均的な体格を想定した言い換えなので、<u>受け持ちの患者では必ず体重から計算し直してください</u>。<span class="split">体格の大きい患者に 3.5 L/min を指示して「目標どおり」と思っている、というのがいちばんありがちな取り違えです。</span></p>
 </div>
 
 <h3 id="rs-b20">5-3. Sweep gas と FDO₂</h3>

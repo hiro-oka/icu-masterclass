@@ -220,6 +220,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -310,7 +312,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -381,6 +383,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -3192,7 +3196,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">🚨 自発呼吸があると、側孔から空気が入ります</span>
 <p>ELSO の総論が明記しています——<u><strong>「静脈カニュラを抜くとき、患者に自発呼吸があると、側孔から静脈血中に空気が入りうる」</strong></u>。<span class="src vault">ELSO2017</span></p>
 <p>理由は単純で、<strong>吸気時に胸腔内圧が陰圧になり、静脈系が陰圧に引かれる</strong>からです。<u>ちょうど中心静脈カテーテルを抜くときと同じ理屈</u>ですが、ECMO のカニュラは太く側孔も多いので、入る量が違います。</p>
-<p><strong>防ぐ方法は2つ</strong>——<u>①人工呼吸器で Valsalva（陽圧をかけて息を止める）　②短時間の筋弛緩薬</u>。<span class="split">抜く瞬間に自発呼吸をさせない、というのが要点です。</span></p>
+<p><strong>当院は人工呼吸中に抜くので、対処は単純です</strong>——<u>抜く瞬間に<strong>人工呼吸器で陽圧をかけて保持する</strong></u>（吸気ホールド）。<span class="split">要点は「抜く瞬間に胸腔内を陰圧にしない」ことだけです。</span></p>
+<p style="font-size:.88rem;color:var(--muted)"><u>抜管後で自発呼吸のある患者から抜く場合</u>は、息を止めてもらうか、短時間の筋弛緩薬を使います。<strong>覚醒 ECMO（§9-4）を運用するなら、この場面が出てきます。</strong></p>
 <p>頸静脈カニュラならこれに加えて <strong>Trendelenburg 体位</strong>（頭低位）にします。<u>刺入部を心臓より低くして、静脈圧を陽圧側に振る</u>ためです。<span class="src ext">ELSO2021 Table 7</span></p>
 </div>
 
@@ -3234,9 +3239,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <caption>表55｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
 <thead><tr><th>段階</th><th>やること</th><th>理由</th></tr></thead>
 <tbody>
-<tr><td><strong>抜く前</strong></td><td><strong>2〜6時間前に抗凝固を止め、APTT が戻っていることを確認</strong>／Plt・フィブリノゲンを確認／人員を集める（圧迫する人・呼吸器を操作する人）</td><td>止血を圧迫だけに任せるので、凝固能が前提条件になる</td></tr>
+<tr><td><strong>抜く前</strong></td><td><strong>2〜6時間前に抗凝固を止め、APTT が戻っていることを確認</strong>／Plt・フィブリノゲンを確認／人員を集める（<u>抜く人・圧迫する人・呼吸器を操作する人</u>）</td><td>止血を圧迫だけに任せるので、凝固能が前提条件になる</td></tr>
 <tr><td><strong>体位</strong></td><td><u>頸静脈：Trendelenburg（頭低位）</u>／<u>大腿：水平</u></td><td>刺入部の静脈圧を陽圧側に振り、空気の引き込みを防ぐ</td></tr>
-<tr><td><strong>抜く瞬間</strong></td><td><strong>Valsalva（人工呼吸器で陽圧をかけて保持）または短時間の筋弛緩</strong>。<u>抜きながら同時に圧迫を始める</u></td><td>自発呼吸があると側孔から空気が入る（落とし穴①）</td></tr>
+<tr><td><strong>抜く瞬間</strong></td><td><strong>人工呼吸器で陽圧をかけて保持</strong>し、<u>抜きながら同時に圧迫を始める</u></td><td>胸腔内が陰圧だと側孔から空気が入る（落とし穴①）。<u>圧迫の開始が遅れると、その間に出血する</u></td></tr>
 <tr><td><strong>圧迫</strong></td><td><u><strong>手を離さず連続して圧迫する</strong></u>。<span class="split">途中で「止まったか」を確認するために覗かない</span></td><td><strong>いちばん多い失敗がこれ</strong>。固まりかけた血栓を剥がして振り出しに戻る</td></tr>
 <tr><td><strong>圧迫後</strong></td><td>圧迫ドレッシングを当て、<u>大腿なら下肢を伸展位で安静</u>。<strong>刺入部を繰り返し観察</strong></td><td>圧迫をやめた直後に再出血しやすい</td></tr>
 <tr><td><strong>その後</strong></td><td><u>大腿は<strong>後腹膜出血</strong>も疑う</u>（刺入部が高位だった場合）／<strong>24時間後に DVT を評価</strong></td><td>皮膚の所見が出ないまま出血していることがある</td></tr>
@@ -3245,13 +3250,69 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <div class="box good">
-<span class="label">残り、院内で決めておく2つ</span>
-<p><strong>抗凝固の中止時間は決まりました（2〜6時間前・APTT 正常化）。</strong>残りは<u>ガイドラインに数字がないので「決めた値」として扱うしかありません</u>（Hb 閾値と同じです）。</p>
-<ol>
-<li><strong>用手圧迫を何分続けるか</strong> — 施設の経験値で決めて明文化する。<u>「止まるまで」ではなく時間を決めておくほうが、担当者が替わってもぶれません</u></li>
-<li><strong>圧迫後の安静時間と観察間隔</strong> — とくに大腿</li>
-</ol>
+<span class="label">当院の抜去プロトコル（決定事項）</span>
+<p><strong>①抗凝固：抜去の 2〜6時間前に中止し、APTT の正常化を確認する</strong>（§10-3）<br>
+<strong>②用手圧迫：15分間、連続して行う</strong><br>
+<strong>③圧迫後の安静：2時間</strong>（大腿。頸部は下記）</p>
+<p style="font-size:.88rem;color:var(--muted)"><u>ECMO の資料に分数の記載がないため、これらは当院で決めた値です。</u>根拠は「静脈であること」と、同じ太さの静脈シースを抜くときの一般的な作法。<strong>妥当な範囲ですが、下の3つの条件とセットで初めて成立します。</strong></p>
 </div>
+
+<h4>15分を成立させる3つの条件</h4>
+
+<p><u>失敗するときの原因は「15分か20分か」ではありません。</u>ほぼ次の3つです。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表56｜圧迫が失敗する3つの原因と、その対策</caption>
+<thead><tr><th>失敗の原因</th><th>対策</th></tr></thead>
+<tbody>
+<tr><td><strong>① 途中で覗く</strong><br><span style="font-size:.82rem;color:var(--muted)">最も多い</span></td><td><u><strong>15分間、手を離さない</strong></u>。「止まったか」を確認するために圧迫を緩めると、<strong>固まりかけた血栓を剥がして振り出しに戻ります</strong>。時計を見て15分測る——<u>体感で判断しない</u></td></tr>
+<tr><td><strong>② 皮膚の穴を押さえている</strong></td><td><u>カニュラの経路は斜めなので、<strong>血管の穴は皮膚の穴より頭側（中枢側）にあります</strong></u>。皮膚の刺入部だけを押さえると血管孔が押さえられておらず、<strong>皮下に血液が溜まり続けます</strong>。<u>皮膚の穴と、その1〜2cm頭側の両方を含めて圧迫する</u></td></tr>
+<tr><td><strong>③ 凝固能が戻っていない</strong></td><td>APTT・血小板・フィブリノゲンを<strong>抜く前に確認する</strong>。<u>下の条件を満たさないなら、圧迫だけで抜かない</u></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box warn">
+<span class="label">圧迫のみで抜いてよい条件 — 満たさないときは方法を変える</span>
+<ul>
+<li><strong>APTT が正常化している</strong>（抗凝固を2〜6時間前に中止できている）</li>
+<li><strong>血小板・フィブリノゲンが確保されている</strong>（<u>当院の輸血/補充閾値：Plt 8万・Fib 200 — §5-5</u>）</li>
+<li><strong>刺入部に活動性の出血・血腫がない</strong></li>
+</ul>
+<p><span class="split">これらを満たさない状態で「とりあえず15分押さえる」のがいちばん危険です。</span><u>抜く日を1日ずらすか、止血の方法を変える（下記）ほうが安全です。</u></p>
+</div>
+
+<h4>15分で止まらなかったときの手順を決めておく</h4>
+
+<p><strong>「止まらなかったらどうするか」を決めていないプロトコルは、現場で必ず迷います。</strong>段階を決めておいてください。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表57｜止まらないときのエスカレーション</caption>
+<thead><tr><th>段階</th><th>対応</th></tr></thead>
+<tbody>
+<tr><td><strong>15分で止まらない</strong></td><td><u>さらに 10〜15分、連続で圧迫を続ける</u>。<strong>この時点で人を呼ぶ</strong>（1人で押さえ続けない——集中力が切れて圧が緩みます）</td></tr>
+<tr><td><strong>30分前後でも止まらない</strong></td><td><u>凝固能を疑い、血算・凝固を再検</u>。必要なら血小板・フィブリノゲンを補充しながら圧迫を継続</td></tr>
+<tr><td><strong>それでも止まらない／血腫が拡大する</strong></td><td><strong>皮下の8の字縫合（figure-of-eight suture）</strong>を検討。<u>血管を修復するのではなく、皮下組織を寄せて穴を塞ぐ簡便な方法</u>で、循環器のインターベンション領域では<strong>大口径の静脈シース抜去に広く使われています</strong>。それでも制御できなければ外科的止血へ<br><span style="font-size:.8rem;color:var(--muted)">※これはECMOの資料ではなく、同等径の静脈アクセスの一般的な手技です</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>安静2時間 — 部位で分けてください</h4>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表58｜圧迫後の安静</caption>
+<thead><tr><th>部位</th><th>安静</th><th>観察</th></tr></thead>
+<tbody>
+<tr><td><strong>大腿</strong></td><td><strong>2時間</strong>、<u>下肢を伸展位で保つ</u>（股関節を曲げない）</td><td>刺入部の出血・血腫／<u>大腿は<strong>後腹膜出血</strong>もありうる</u>——刺入部が高位だった場合、<strong>皮膚には何も出ないまま出血します</strong>。血圧低下・Hb低下・腹部/背部痛に注意</td></tr>
+<tr><td><strong>頸部</strong></td><td><u>臥床時間より<strong>観察と体位</strong>が本質</u>。頭部を大きく動かさない・Valsalva を避ける</td><td>頸部の腫脹・嗄声・呼吸苦（<strong>気道を圧迫する血腫は緊急</strong>）</td></tr>
+</tbody>
+</table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>大腿の2時間は妥当な設定です。</strong><u>動脈なら4〜6時間が必要ですが、静脈で凝固能が戻っていれば2時間で足ります。</u>ただし<u>安静も無料ではありません</u>——ECMO 後の患者は<strong>DVT のリスクが高い</strong>ので、<span class="split">2時間を過ぎたら早期離床に戻してください</span>（§9-3・§11-1）。<strong>「念のため長めに」が最も避けたい判断です。</strong></p>
+</div>
+
 
 <h4>抜いた直後にすること</h4>
 
@@ -3303,7 +3364,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表56｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表59｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>

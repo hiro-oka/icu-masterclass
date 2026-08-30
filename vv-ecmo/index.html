@@ -242,6 +242,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -332,7 +333,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -404,6 +405,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -3264,8 +3266,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="129" y="128" font-size="13">最後まで下げない</text>
 
     <text x="397" y="68" font-size="14" font-weight="600">Step 2</text>
-    <text x="397" y="98" font-size="18">FDO₂ を 21% へ</text>
-    <text x="397" y="128" font-size="13">15分以上みて血ガス</text>
+    <text x="397" y="96" font-size="18">FDO₂ を 21% へ</text>
+    <text x="397" y="120" font-size="13">20% ずつ・5分おき</text>
+    <text x="397" y="138" font-size="13">→ 0.21 で15分みて血ガス</text>
 
     <text x="665" y="68" font-size="14" font-weight="600">Step 3</text>
     <text x="665" y="98" font-size="18">sweep gas を off</text>
@@ -3280,7 +3283,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="420" y="404" font-size="15">途中で SpO₂ &lt; 90% ／ 脱血 SvO₂ &lt; 60% になれば、2時間を待たずに中止</text>
   </g>
 </svg>
-<figcaption>図14. 当院の VV-ECMO 離脱手順。<b>血流量は下げずに保ったまま</b>、人工肺側のガスだけを段階的に切っていく。まず FDO₂ を 21% に落として15分以上、次に sweep gas を off にして2時間観察し、その間の<b>酸素化・pH・呼吸努力</b>で判定する。<b>血流量は最後まで下げません</b>——理由は回路血栓の予防（下の🚨）。判定の具体的な数値は表53。<b>途中で SpO₂ &lt; 90% か脱血 SvO₂ &lt; 60% になったら、2時間を待たずに中止</b>して sweep を戻す。</figcaption>
+<figcaption>図14. 当院の VV-ECMO 離脱手順。<b>血流量は下げずに保ったまま</b>、人工肺側のガスだけを段階的に切っていく。まず FDO₂ を <b>20% ずつ 5分おき</b>に落として 0.21 とし（1.0→0.8→0.6→0.4→0.21）、そこで15分以上、次に sweep gas を off にして2時間観察し、その間の<b>酸素化・pH・呼吸努力</b>で判定する。<b>血流量は最後まで下げません</b>——理由は回路血栓の予防（下の🚨）。判定の具体的な数値は表53。<b>途中で SpO₂ &lt; 90% か脱血 SvO₂ &lt; 60% になったら、2時間を待たずに中止</b>して sweep を戻す。</figcaption>
 </figure>
 
 <div class="tablewrap">
@@ -3289,11 +3292,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>順</th><th>やること</th><th>観察と注意</th></tr></thead>
 <tbody>
 <tr><td><strong>Step 1</strong></td><td><strong>血流量は維持する</strong><br><span style="font-size:.82rem;color:var(--muted)">最後まで下げない</span></td><td>低流量は回路血栓を作るため、<strong>カニュラあたり 1 L/min 超</strong>を保つ。<u>sweep を切ったあとも下げません</u>（理由は下の2つのボックス）</td></tr>
-<tr><td><strong>Step 2</strong></td><td><strong>FDO₂ を 21% に下げる</strong><br><span style="font-size:.82rem;color:var(--muted)"><u>1.0 → 0.21 へ一気に落としてよい</u></span></td><td><strong>15分以上</strong>観察して血ガス。SpO₂ &gt; 92% または PaO₂ ≥70 mmHg を維持できるか。<u>SpO₂ が落ちるようなら 0.5 → 0.21 と刻む</u>（ELSO は20%刻みを推奨）</td></tr>
+<tr><td><strong>Step 2</strong></td><td><strong>FDO₂ を 20% ずつ下げて 0.21 へ</strong><br><span style="font-size:.82rem;color:var(--muted)"><u>1.0 → 0.8 → 0.6 → 0.4 → 0.21</u><br><strong>5分おき</strong>に1段（4段で約20分）</span></td><td>各段で <strong>SpO₂ &gt; 92% または PaO₂ ≥70 mmHg</strong> を維持できるか確認。<u>0.21 に到達したら、そこで <strong>15分以上</strong>観察して血ガス</u><br><span style="font-size:.82rem;color:var(--muted)">血ガスは 0.21 到達時が必須。途中は SpO₂ で追い、落ちた段があればその場で採る</span></td></tr>
 <tr><td><strong>Step 3</strong></td><td><strong>sweep gas を off にする</strong><br><span style="font-size:.82rem;color:var(--muted)">ガス供給チューブをクランプ</span></td><td><strong>2時間</strong>観察して血ガス。この間が実質の「自己肺だけで回せるか」の試験</td></tr>
 <tr><td><strong>判定</strong></td><td colspan="2"><strong>酸素化・pH・呼吸努力がいずれも許容範囲なら離脱</strong>（数値は表53）。1つでも外れたら sweep を戻し、状態を立て直してから日を改める</td></tr>
 </tbody>
 </table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>「5分おき」は当院で決めた間隔です。</strong><u>ELSO が書いているのは刻み幅（約20%ずつ）だけで、各段を何分見るかは書かれていません</u>（「血ガスは適宜」）。<span class="src ext">ELSO2021 Table 7</span><br>5分にした理由：FDO₂ を変えると<u>人工肺の気相は数秒で入れ替わり、回路の通過も数秒</u>です。律速は<strong>体を1周する時間（循環時間 30〜60秒）</strong>で、動脈血が新しい定常状態に落ち着くにはその3〜5倍——つまり<strong>3〜5分</strong>かかります。<span class="split">それより早く次の段へ進むと、まだ動いている途中の値を見て判断することになります。</span></p>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">人工呼吸器は<strong>基本的に lung rest 設定から変更しません</strong>（当院 講義1 p89）。ELSO2021 は挿管患者に「人工呼吸器チャレンジ」（一回換気量を 6 mL/kg まで開放して耐えられるか見る）を併記していますが、当院はこれを行わず、上の3ステップで判断します。</p>
 </div>
 

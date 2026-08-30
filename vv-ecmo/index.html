@@ -240,6 +240,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -330,7 +331,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -402,6 +403,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -2827,7 +2829,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 
 <p>用語集というと地味ですが、ここに挙げた言葉はすべて「言った人と聞いた人で意味が違うと事故になる」ものです。</p>
-<p>たとえば<strong>「ポンプ・オフ」</strong>。これは単に電源を切ることではなく、回転数を 1000 まで下げる → 送血・脱血カニュラ近傍とポンプの後をクランプ → そのうえで回転数を 0 にする、という順序のある手順の名前です。順序を飛ばして先に止めると逆流します。「ポンプ・オン」も同様で、1500 回転まで上げてから、逆流がないことを確認しながらデクランプします。</p>
+<p>たとえば<strong>「ポンプ・オフ」</strong>。これは単に電源を切ることではなく、回転数を 1000 まで下げる → 送血・脱血カニュラ近傍とポンプの後をクランプ → そのうえで回転数を 0 にする、という順序のある手順の名前です。順序を飛ばして先に止めると逆流します。「ポンプ・オン」も同様で、1500 回転まで上げてから、逆流がないことを確認しながらデクランプします。<u>ただしこの回転数の下限は VA 由来の数字です</u>——VV での扱いは表の下に書きました。</p>
 <p><strong>「フロー・ダウン」</strong>も、ただ流量を下げることではなく約10〜15秒かけてゆっくり下げ、患者のバイタルを見ながら流量を逐一声に出して報告することまでを含みます。「ハーフフロー／フルフロー」は体表面積あたりの値（1.2／2.4 L/min/m²）なので、患者ごとに実際の L/min が違う——ここも認識がずれやすい点です。</p>
 <p><strong>当院資料にはこれらの定義がありません。</strong>導入するなら、平時のうちに院内で言葉を1つに決めておいてください。</p>
 
@@ -2846,6 +2848,18 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>CHDFを中断</td><td>返血せずに終了・クランプ → 回路の三方活栓を閉める → 回路から CHDF を外す</td></tr>
 </tbody>
 </table>
+</div>
+
+<div class="box warn">
+<span class="label">⚠️ 「1500回転まで上げてからデクランプ」は、もともと VA の理屈です</span>
+<p>上の用語集は<u>VA も含む一般の ECMO 用語</u>（岡山大セミナー）なので、そのまま VV に持ち込むと厳しすぎます。<strong>なぜ回転数の下限があるのかを先に押さえてください。</strong></p>
+<p><u>遠心ポンプは非閉塞式で、後負荷に依存します。</u>ポンプが作る圧が<strong>「送血側と脱血側の圧の差」を下回ると、血液は逆向きに流れます</strong>。この差がどれくらいかが、VA と VV でまったく違います。</p>
+<ul>
+<li><strong>VA</strong>：送血先は<u>動脈</u>（MAP 65〜80 mmHg）。脱血は静脈（CVP 10 前後）なので、ポンプは<strong>60〜70 mmHg の差に打ち勝つ</strong>必要があります。低回転でデクランプすると<span class="split">動脈血が一気に静脈側へ逆流します</span>——だから下限がきつい。</li>
+<li><strong>VV</strong>：送血先も<u>静脈</u>（右房・上大静脈、CVP 5〜15 mmHg）で、脱血も静脈。ポンプが越えるべきなのは<strong>ほぼ回路抵抗だけ</strong>（人工肺の圧較差は正常で約25 mmHg・表1）。<u>逆流の駆動圧がけた違いに小さい</u>ので、同じ余裕は要りません。</li>
+</ul>
+<p><strong>VV で回転数を落としすぎてはいけない本当の理由は、逆流ではなく血栓です。</strong>閾値も回転数ではなく流量で決まっていて、<u>カニュラあたり 1 L/min 超</u>（§10-2）。<span class="split">「1500回転」を VV の下限として覚えないでください。</span></p>
+<p style="font-size:.88rem;color:var(--muted)"><u>1000/1500 という数字自体も機種・回路によって変わります</u>ので、当院の機種での値は CE と確認して決めてください。なお<strong>手順の順序（回転を上げてからデクランプ／下げてからクランプ）は VV でも守ります</strong>——必要な余裕の幅が違うだけです。</p>
 </div>
 
 <p>言葉が揃ったら、次は「その言葉が出たときに、クランプするのかしないのか」です。ここを取り違えると事故が大きくなります。</p>

@@ -254,6 +254,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -344,7 +345,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -416,6 +417,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -577,9 +579,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>項目</th><th>目標／<span style="font-weight:400">管理範囲</span></th><th>根拠</th><th>備考</th></tr></thead>
 <tbody>
 <tr><td colspan="4" class="grp"><strong>回路の圧　※当院は2点しか測っていません（§7-1）</strong></td></tr>
-<tr><td><strong>当院P2</strong>（＝脱血圧）</td><td class="num"><strong>&gt; −100 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム下限に設定</span></td><td><span class="src jp">ECMOnet p22</span><span class="src in">当院 講義1</span></td><td>回転数を下げる。陰圧が強いほど溶血・チャタリング</td></tr>
-<tr><td><strong>当院P1</strong>（＝肺後圧）</td><td class="num"><strong>&lt; 300 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム上限に設定</span></td><td><span class="src jp">ECMOnet p22</span></td><td>上がったら<strong>人工肺か送血側</strong>。圧では区別できないので<u>送血側 SaO₂ を採血</u>（§7-1）</td></tr>
-<tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">正常はおよそ 25 mmHg</span></td><td><span class="src jp">ECMOnet p22</span><span class="src vault">JCM2024</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表36）</td></tr>
+<tr><td><strong>脱血圧</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">モニタ表示は「P2」</span></td><td class="num"><strong>&gt; −100 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム下限に設定</span></td><td><span class="src jp">ECMOnet p22</span><span class="src in">当院 講義1</span></td><td>回転数を下げる。陰圧が強いほど溶血・チャタリング</td></tr>
+<tr><td><strong>肺後圧</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">モニタ表示は「P1」</span></td><td class="num"><strong>&lt; 300 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム上限に設定</span></td><td><span class="src jp">ECMOnet p22</span></td><td>上がったら<strong>人工肺か送血側</strong>。圧では区別できないので<u>送血側 SaO₂ を採血</u>（§7-1）</td></tr>
+<tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">正常はおよそ 25 mmHg</span></td><td><span class="src jp">ECMOnet p22</span><span class="src vault">JCM2024</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表37）</td></tr>
 <tr><td colspan="4" class="grp">回路の設定</td></tr>
 <tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 2（導入時）〜 5–6（カニュラ径の上限）<br>低酸素の緊急時は 6–7 まで／カニュラあたり 1 超を厳守</span></td><td><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
 <tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 <strong>1〜9+ L/min</strong>（下限1）<br>0 は離脱試験のみ・日常では 0 にしない</span></td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）<br><u>0 にしない理由</u>：①人工肺に結露がたまりガス交換能が落ちる ②酸素化の寄与も一緒に落ちる ③送血側 SaO₂ で人工肺の異常を検知できなくなる（§5-8 Q1）</td></tr>
@@ -609,7 +611,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">困ったときの入口 — 全部 §7 にあります</span>
 <p><u>トラブル対応をこのカードに載せると、§7 と二重管理になって必ず片方が古くなります。</u>そこで<strong>入口だけ置きます</strong>。</p>
 <ul>
-<li><strong>圧や流量の数字がおかしい</strong>（当院P2＝脱血圧が深い陰圧／当院P1＝肺後圧が上がった／回転数の割に流量が出ない）→ <a href="#s7">§7-1 回路内圧 × 異常部位</a></li>
+<li><strong>圧や流量の数字がおかしい</strong>（<strong>脱血圧</strong>が深い陰圧／<strong>肺後圧</strong>が上がった／回転数の割に流量が出ない）→ <a href="#s7">§7-1 回路内圧 × 異常部位</a></li>
 <li><strong>目に入った症状から引きたい</strong>（回路が振れる・泡が出る・異音・出血）→ <a href="#s7">§7-2 症状別トラブルシューティング</a></li>
 <li><strong>SaO₂ が上がらない</strong> → <a href="#s7">§7-3 低酸素アルゴリズム</a>（<span class="split">流量を上げるのは後半のステップ</span>。先に再循環と人工肺を潰す）</li>
 <li><strong>急変して人を集めた</strong> → <a href="#s7">§7-4 緊急時の共通言語</a>（「ポンプ・オフ」等の手順の定義）</li>
@@ -632,12 +634,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>最初に回路の全体像を頭に入れておきます。<strong>脱血 → 遠心ポンプ → 人工肺 → 送血</strong>の順に血液が流れ、圧は<u>教科書では3点</u>で測ります（図1のとおり）。この読み方が §7 の中核になります。</p>
 <div class="box danger">
 <span class="label">🚨 当院が測っているのは2点だけです — 図1 は読み替えて見てください</span>
-<p>当院のモニタにある2つは、<u><strong>番号が図と入れ替わっています</strong></u>。</p>
-<ul>
-<li>モニタの<strong>「P1」＝ 肺後圧</strong>（陽圧・例 249 mmHg）＝ 図1 の <strong>P3</strong></li>
-<li>モニタの<strong>「P2」＝ 脱血圧</strong>（陰圧・例 −35 mmHg）＝ 図1 の <strong>P1</strong></li>
-</ul>
-<p><span class="split">見分け方は符号です</span>——<u>陰圧なら脱血、陽圧なら送血側</u>。番号ではなく符号で判断してください。そして<strong>当院は人工肺の手前の圧（図1 の P2＝肺前圧）を測っていません</strong>。</p>
+<p>当院で見ているのは <strong>脱血圧</strong>（陰圧）と <strong>肺後圧</strong>（陽圧）の2つで、<u><strong>人工肺の手前の圧（肺前圧）は測っていません</strong></u>。</p>
+<p><span class="split">本ガイドは、この2つを一貫して「脱血圧」「肺後圧」という日本語で書きます。</span>モニタには P1・P2 という番号で表示されますが、<u>その番号は教科書の図とは対応していません</u>——<strong>対応表は §7-1 に置いてあります</strong>。<span class="split">番号ではなく符号（陰圧か陽圧か）で見分けるのが確実です。</span></p>
 <p>そのため、外部資料でいちばん強力な手がかりである <strong>P2−P3（人工肺の前後差圧）が当院では算出できません</strong>。代わりに何を見るかは §7-1 にまとめてあります。<u>圧の話に入る前に、そこを一度読んでおいてください。</u></p>
 </div>
 
@@ -705,9 +703,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   </g>
 
   <g fill="#0084B5" stroke="none" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="13" opacity=".78">
-    <text x="164" y="166">当院では「P2」</text>
+    <text x="164" y="166">当院で測定</text>
     <text x="407" y="166">当院は未測定</text>
-    <text x="630" y="166">当院では「P1」</text>
+    <text x="630" y="166">当院で測定</text>
   </g>
   <g fill="#0084B5" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18">
     <text x="164" y="190">P1 脱血圧</text>
@@ -717,7 +715,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="595" y="390">sweep gas</text>
   </g>
 </svg>
-<figcaption>図1. VV-ECMO 回路の全体像と圧の測定点。患者から脱血した血液が遠心ポンプで送られ、人工肺でガス交換されて患者に戻る。P1＝脱血圧（ポンプ前・陰圧）／P2＝肺前圧（ポンプ後・人工肺前）／P3＝肺後圧（人工肺後）。sweep gas は人工肺の気相側に入る。基準値（P1 &gt; −120<span style="font-size:.92em">（当院の運用閾値は −100）</span>／P2 &lt; 300／P2−P3 &lt; 50 mmHg）は §7-1。<b>当院が測っているのは図の P1（脱血圧）と P3（肺後圧）の2点</b>だが、<u>モニタ上の番号は図と入れ替わっている</u>——<b>図の P1 が当院の「P2」、図の P3 が当院の「P1」</b>と表示される。肺前圧（図の P2）は測っていないため P2−P3 は算出できない（§7-1）。</figcaption>
+<figcaption>図1. VV-ECMO 回路の全体像と圧の測定点。患者から脱血した血液が遠心ポンプで送られ、人工肺でガス交換されて患者に戻る。P1＝脱血圧（ポンプ前・陰圧）／P2＝肺前圧（ポンプ後・人工肺前）／P3＝肺後圧（人工肺後）。sweep gas は人工肺の気相側に入る。基準値（P1 &gt; −120<span style="font-size:.92em">（当院の運用閾値は −100）</span>／P2 &lt; 300／P2−P3 &lt; 50 mmHg）は §7-1。<b>当院が測っているのは脱血圧と肺後圧の2点</b>で、<u>肺前圧を測っていないため P2−P3 は算出できない</u>。モニタ上の番号と図の番号は対応していないので、<b>対応表は §7-1</b> を見ること。</figcaption>
 </figure>
 <p>ただし回路図と実機は見え方が違います。ベッドサイドでどれがポンプでどれが人工肺かを、図2 で対応づけておいてください。</p>
 
@@ -1266,7 +1264,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">家族説明に使える数字（初日に伝えておく）</span>
 <ul>
 <li>ECMOは「時間を区切った試行（time-limited trial）」として紹介し、意味のある転帰への希望を継続的に再評価する。無益性による中止の可能性は ECMO 開始「前」に説明しておく。<span class="src ext">ELSO2021 p6／Compl.2022 p6</span></li>
-<li><strong>転帰の数字</strong>：重症ARDS の院内死亡率 <strong>29–43%</strong>／6か月時点で <strong>54%</strong> が死亡または中等度〜重度の障害／生存者の<strong>復職は約半数</strong>。<span style="font-size:.9em;color:var(--muted)">出典と内訳は §11-2 表58 にまとめてあります（数字はそちらが正本）</span></li>
+<li><strong>転帰の数字</strong>：重症ARDS の院内死亡率 <strong>29–43%</strong>／6か月時点で <strong>54%</strong> が死亡または中等度〜重度の障害／生存者の<strong>復職は約半数</strong>。<span style="font-size:.9em;color:var(--muted)">出典と内訳は §11-2 表59 にまとめてあります（数字はそちらが正本）</span></li>
 <li>ECMO 中の出血合併症は 10–30%（現代コホートでは約30–65%との報告も）。<span class="src vault">JThoracDis2020／ICM2026</span></li>
 <li>支持期間の見込み：多くの患者は <strong>9–14日</strong>、一部は4週以上。<span class="src ext">ELSO2021 p6</span></li>
 </ul>
@@ -1563,8 +1561,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>区分</th><th>残す項目</th><th>なぜ残すか</th></tr></thead>
 <tbody>
 <tr><td><strong>設定</strong></td><td>回転数[rpm]／ECMO血流量[L/min]／sweep gas 流量[L/min]／FDO₂[%]／熱交換器の設定温度</td><td><u>設定を変えた日を後から特定できるようにする</u>。「いつから流量を下げたか」が離脱判断の材料になる</td></tr>
-<tr><td><strong>圧</strong></td><td><strong>当院P2</strong>（＝脱血圧）／<strong>当院P1</strong>（＝肺後圧）／<u>アラームの設定値</u><br><span style="font-size:.82rem;color:var(--muted)">モニタの番号は教科書と逆。符号で判断する</span></td><td>絶対値より<strong>推移</strong>。<u>当院P1 がじわじわ上がっていれば人工肺か送血側</u>（§7-1）</td></tr>
-<tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td><u>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標</u>（§7-1 表36）。毎日書く価値がある</td></tr>
+<tr><td><strong>圧</strong></td><td><strong>脱血圧</strong>／<strong>肺後圧</strong>／<u>アラームの設定値</u><br><span style="font-size:.82rem;color:var(--muted)">モニタ上の表示はそれぞれ「P2」「P1」（§7-1）</span></td><td>絶対値より<strong>推移</strong>。<u>肺後圧がじわじわ上がっていれば人工肺か送血側</u>（§7-1）</td></tr>
+<tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td><u>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標</u>（§7-1 表37）。毎日書く価値がある</td></tr>
 <tr><td><strong>抗凝固</strong></td><td>ヘパリン量[U/kg/hr]／APTT／ACT／血小板／フィブリノゲン／AT-III／D-ダイマー</td><td>D-ダイマーは<strong>単発値では読まない</strong>。上昇＋血小板低下の組み合わせで回路血栓を疑う</td></tr>
 <tr><td><strong>溶血</strong></td><td>LDH（<strong>&gt; 2000 U/L</strong> なら溶血を疑う <span class="src vault">JCM2024</span>）／間接ビリルビン／遊離Hb（目安 <strong>&lt; 50 mg/dL</strong>）／<strong>尿の色</strong></td><td>基本は変化で読む。<u>尿の色は数値化できないぶん、記載しておく意味が大きい</u></td></tr>
 <tr><td><strong>回路の目視</strong></td><td>人工肺・コネクタ・ルアーの血栓（<u>あれば部位と長さ</u>）／刺入部の出血・腫脹・発赤</td><td>「血栓なし」も記録する。<strong>翌日「増えたか」を判断できるのは、前日の記載があるときだけ</strong></td></tr>
@@ -1581,7 +1579,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="tpl-h"><b>空欄テンプレート（まずこれを貼る）</b><span style="font-size:.78rem;color:var(--muted)">毎日の経過記録用</span><button class="cp" type="button" data-tpl="tpl1">📋 コピー</button></div>
 <pre id="tpl1">【ECMO Day ○】
 設定  回転数 ____ rpm／血流 ____ L/min／sweep ____ L/min／FDO2 ____ %
-圧    当院P2 脱血 ____ mmHg（前日 ____）／当院P1 肺後 ____ mmHg（前日 ____）
+圧    脱血圧 ____ mmHg（前日 ____）／肺後圧 ____ mmHg（前日 ____）
 抗凝固 ヘパリン ____ U/kg/hr（変更：なし／____）／APTT ____ 秒／ACT ____ 秒
       Plt ____ 万（前日 ____）／Fib ____／AT-III ____ %／D-dimer ____（前日 ____）
 溶血  LDH ____（前日 ____）／T-Bil ____／遊離Hb ____ mg/dL（目安 &lt;50）／尿：____
@@ -1599,7 +1597,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="tpl-h"><b>記載例① 安定している日</b><span style="font-size:.78rem;color:var(--muted)">テンプレートのまま</span><button class="cp" type="button" data-tpl="tpl2">📋 コピー</button></div>
 <pre id="tpl2">【ECMO Day 6】
 設定  回転数 3200 rpm／血流 3.8 L/min／sweep 3.5 L/min／FDO2 100%
-圧    当院P2 脱血 −62 mmHg（前日 −58）／当院P1 肺後 218 mmHg（前日 210）
+圧    脱血圧 −62 mmHg（前日 −58）／肺後圧 218 mmHg（前日 210）
 抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 58 秒／ACT 192 秒
       Plt 9.8万（前日 10.2万）／Fib 265／AT-III 68%／D-dimer 12.4（前日 11.8）
 溶血  LDH 340（前日 352）／T-Bil 1.1／遊離Hb 未測定／尿：淡黄色・清
@@ -1613,7 +1611,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <pre id="tpl3">【ECMO Day 14】
 設定  回転数 3600 rpm（前日 3400）／血流 3.6 L/min／sweep 4.0 L/min／FDO2 100%
       ※回転数を上げても流量が伸びない（前日 3400 rpm で 3.7 L/min）
-圧    当院P2 脱血 −70 mmHg（前日 −66）／当院P1 肺後 268 mmHg（前日 235、3日前 210）→ 漸増傾向
+圧    脱血圧 −70 mmHg（前日 −66）／肺後圧 268 mmHg（前日 235、3日前 210）→ 漸増傾向
 抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 56 秒／ACT 188 秒
       Plt 6.1万（前日 8.0万）／Fib 198／AT-III 61%／D-dimer 38.2（前日 24.1、3日前 14.0）
 溶血  LDH 620（前日 430）／T-Bil 1.8／遊離Hb 62 mg/dL（目安 &lt;50 を超過）／尿：やや褐色
@@ -1622,7 +1620,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 呼吸器 PCV／FiO2 50%／PEEP 12／ΔP 11／f 12／Pplat 23／VT 3.0 mL/kg PBW
       Cstat 15 mL/cmH2O（前日 17）
 ガス  送血側 SaO2 97.4%（前日 98.9、3日前 99.6）→ 98% を下回った
-評価  当院P1（肺後圧）の漸増＋送血側 SaO2 98%未満＋D-dimer 上昇＋血小板低下＋目視の血栓
+評価  肺後圧の漸増＋送血側 SaO2 98%未満＋D-dimer 上昇＋血小板低下＋目視の血栓
       ＋溶血（遊離Hb 62、LDH 上昇、褐色尿）。人工肺の劣化と判断。
       当院は肺前圧を測定していないため P2−P3 は算出できないが、上記が揃っており
       差圧に頼らず判断可能と考える。
@@ -1631,7 +1629,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
       抗凝固は現行を継続（弱めない）。交換後に再評価。</pre>
 </div>
 
-<p>例②のポイントは、<strong>すべての項目に「前日」「3日前」が併記されている</strong>ことです。<u>当院P1 268 mmHg という数字だけを見れば基準内（&lt;300）ですが、210→235→268 という動きを見れば異常</u>だと分かります。<strong>差圧が使えない当院では、この「並べて書く」ことが人工肺の劣化を早く拾う唯一の方法</strong>になります。</p>
+<p>例②のポイントは、<strong>すべての項目に「前日」「3日前」が併記されている</strong>ことです。<u>肺後圧 268 mmHg という数字だけを見れば基準内（&lt;300）ですが、210→235→268 という動きを見れば異常</u>だと分かります。<strong>差圧が使えない当院では、この「並べて書く」ことが人工肺の劣化を早く拾う唯一の方法</strong>になります。</p>
 <p>もう一点、<u>例②には定型にない「ガス」「評価」「方針」の3行が足してあります</u>。<strong>毎日の記録は最小セットで回し、何かが動いた日だけ、追加で測ったものと、それをどう解釈したかを書き足す</strong>——これがあると、夜間に急変したときの当直医が判断の経緯を追えます。</p>
 
 <h3 id="rs-b15">4-3. 安全管理チェックリスト</h3>
@@ -1888,7 +1886,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box good">
 <span class="label">アラームも設定の一部です</span>
 <p>つまみと一緒に<u>アラームの設定値も決めて、指示医のサインを残します</u>（§4-2）。</p>
-<p><strong>流量の下限</strong>／<strong>当院P2（＝脱血圧）の下限 −100 mmHg</strong>／<strong>当院P1（＝肺後圧）の上限 300 mmHg</strong>。<u>アラームが鳴らない設定にしてしまうと、圧の変化に気づく唯一の仕組みが失われます</u>（§7-1）。</p>
+<p><strong>流量の下限</strong>／<strong>脱血圧の下限 −100 mmHg</strong>／<strong>肺後圧の上限 300 mmHg</strong>。<u>アラームが鳴らない設定にしてしまうと、圧の変化に気づく唯一の仕組みが失われます</u>（§7-1）。</p>
 </div>
 
 <h3 id="rs-b19">5-2. 血流量</h3>
@@ -2338,7 +2336,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box danger">
 <span class="label">🚨 「Pplat 25未満」と「Pplat 28以下」は別物 — 混ぜない</span>
-<p>ECMO 中の lung rest 目標＝吸気プラトー圧 &lt; 25 cmH₂O（肺を守るための目標）。<br>離脱の準備性を判定する条件＝プラトー圧 ≤ 28 cmH₂O（自己肺が引き受けられるかを見る試験条件。VT ≤6 mL/kg PBW・RR ≤28/分・許容できる pH と PaCO₂ とセット。§10-1 表50 ＝ ELSO2021 Table 5 と同じ数値）。</p>
+<p>ECMO 中の lung rest 目標＝吸気プラトー圧 &lt; 25 cmH₂O（肺を守るための目標）。<br>離脱の準備性を判定する条件＝プラトー圧 ≤ 28 cmH₂O（自己肺が引き受けられるかを見る試験条件。VT ≤6 mL/kg PBW・RR ≤28/分・許容できる pH と PaCO₂ とセット。§10-1 表51 ＝ ELSO2021 Table 5 と同じ数値）。</p>
 <p>この2つを混同すると、「Pplat 28 までは出していい」と読んで ECMO 中の rest 設定を緩めることになります。導入中は25未満、離脱判定は28以下。<span class="src vault">NEJM Evid 2022</span><br>なおICM2026 はさらに踏み込んで「PEEP 10 下で駆動圧 15 cmH₂O 以下」まで示しており、実務では新しい駆動圧目標を上乗せして使うのが妥当です。<span class="src vault">ICM2026</span></p>
 </div>
 
@@ -2416,13 +2414,20 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <span class="label">🚨 当院は圧を2点しか測っていません — この章の読み替えが必要です</span>
 <p>教科書や外部資料は<strong>圧の測定点を3つ</strong>置く前提で書かれています。<u>P1＝脱血圧（ポンプ前・陰圧）／P2＝<strong>肺前圧</strong>（ポンプ後・人工肺の手前）／P3＝<strong>肺後圧</strong>（人工肺の出口）</u>。人工肺を挟んで前後の圧を測るので、<strong>その差（P2−P3）が人工肺の詰まり具合そのもの</strong>になります。</p>
-<p><strong>ところが当院が測っているのは2点だけで、しかも番号が入れ替わっています。</strong></p>
-<ul>
-<li>当院の<strong>「P1」＝ 肺後圧</strong>（陽圧）＝ 外部資料の <strong>P3</strong></li>
-<li>当院の<strong>「P2」＝ 脱血圧</strong>（陰圧）＝ 外部資料の <strong>P1</strong></li>
-</ul>
-<p><u>番号ではなく符号で判断してください</u>——<span class="split">陰圧なら脱血、陽圧なら送血側</span>。そして<strong>人工肺の手前の圧（外部資料の P2＝肺前圧）は測っていません</strong>。</p>
-<p><span class="split">結果として、外部資料の「P2−P3 が開いたら人工肺の目詰まり」という最も強力な手がかりが、当院では計算できません。</span></p>
+<p><strong>ところが当院が測っているのは2点だけで、しかも番号の付き方が違います。</strong>ここが本ガイドで唯一、番号を突き合わせる場所です。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表36｜番号の対応表 — 当院のモニタと外部資料</caption>
+<thead><tr><th>当院で呼ぶ名前</th><th>モニタの表示</th><th>外部資料での番号</th><th>符号</th></tr></thead>
+<tbody>
+<tr><td><strong>脱血圧</strong></td><td class="num">P2</td><td class="num">P1</td><td>陰圧（例 −35 mmHg）</td></tr>
+<tr><td>（肺前圧）</td><td class="num">—</td><td class="num">P2</td><td><span class="split">当院は測っていない</span></td></tr>
+<tr><td><strong>肺後圧</strong></td><td class="num">P1</td><td class="num">P3</td><td>陽圧（例 249 mmHg）</td></tr>
+</tbody>
+</table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>番号ではなく符号で見分けてください</strong>——<u>陰圧なら脱血、陽圧なら送血側</u>。これなら機種が変わっても間違えません。</p>
+</div>
+<p><span class="split">そして人工肺の手前の圧を測っていないので、</span><strong>外部資料の「P2−P3 が開いたら人工肺の目詰まり」という最も強力な手がかりが、当院では計算できません。</strong></p>
 </div>
 
 <h4>では当院では何を見るか</h4>
@@ -2431,7 +2436,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表36｜人工肺の目詰まりを、差圧なしで見つける方法</caption>
+<caption>表37｜人工肺の目詰まりを、差圧なしで見つける方法</caption>
 <thead><tr><th>手がかり</th><th>見方</th><th>なぜ効くか</th></tr></thead>
 <tbody>
 <tr><td><strong>送血側の血液ガス</strong>（最重要）</td><td><strong>送血側 SaO₂ &lt; 98%</strong> なら人工肺の異常</td><td>人工肺を出た直後の血液は本来ほぼ100%。<u>ここが下がる＝ガス交換ができていない</u>。差圧の代わりになる唯一の直接的な指標</td></tr>
@@ -2447,9 +2452,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>以降の 4×4 表や症状別の表には、外部資料に合わせて <strong>P1・P2（肺前）・P3（肺後）</strong>の3点で書いてあります。<u><strong>当院のモニタは番号が入れ替わっています</strong></u>——モニタの<strong>「P1」は表の P3（肺後圧）</strong>、<strong>「P2」は表の P1（脱血圧）</strong>。<span class="split">表を読むたびに置き換えてください。</span></p>
 <p>そのうえで、当院で実際に区別できるのは次の3つです。</p>
 <ul>
-<li><strong>脱血不良</strong> — <u>当院P2（脱血圧）が大きな陰圧に振れ</u>、他が下がる。これは2点でも判断できます</li>
-<li><strong>ポンプ不全</strong> — <u>当院P2（脱血圧）が上がり、当院P1（肺後圧）が下がる</u>。これも2点で判断できます</li>
-<li><strong>人工肺の目詰まり と 送血不良</strong> — <span class="split">この2つを圧だけで見分けることは当院ではできません</span>。どちらも「<strong>当院P1（肺後圧）が上がる</strong>」形になります。<u>切り分けは上の表36（送血側 SaO₂）で行ってください</u>——SaO₂ が下がっていれば人工肺、保たれていれば送血側の問題です</li>
+<li><strong>脱血不良</strong> — <u>脱血圧が大きな陰圧に振れ</u>、他が下がる。これは2点でも判断できます</li>
+<li><strong>ポンプ不全</strong> — <u>脱血圧が上がり、肺後圧が下がる</u>。これも2点で判断できます</li>
+<li><strong>人工肺の目詰まり と 送血不良</strong> — <span class="split">この2つを圧だけで見分けることは当院ではできません</span>。どちらも「<strong>肺後圧が上がる</strong>」形になります。<u>切り分けは上の表37（送血側 SaO₂）で行ってください</u>——SaO₂ が下がっていれば人工肺、保たれていれば送血側の問題です</li>
 </ul>
 </div>
 
@@ -2464,7 +2469,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>圧の向きは <u>P1 が陰圧、P2 が陽圧++、P3 が陽圧+</u>。<span class="src in">講義1 p25,p28</span>　<strong>正常時の実例</strong>：流量 4 L/min で P1 −10、P2 240、P3 200 mmHg。<span class="src jp">岡山5 p22</span></p>
 
-<p><strong>これを1枚にしたのが図10です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表37）。</p>
+<p><strong>これを1枚にしたのが図10です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表38）。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="860" height="450" viewBox="0 0 860 450" role="img" style="width:100%;height:auto;max-width:860px">
@@ -2543,7 +2548,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="722" y="419" font-size="18" font-weight="600">P3</text>
   </g>
 </svg>
-<figcaption>図10. 回路内圧の4象限（表37 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。<b>左上 脱血不良</b>＝P1 が大きな陰圧へ振れ、P2・P3 も下がる（P1 だけが際立って落ちるのが決め手）。右上 ポンプ不全＝P1 が上がり、P2・P3 がともに下がる。左下 人工肺の目詰まり＝P2 が上がり P3 が下がる（P2−P3 が開く）。右下 送血不良＝P2 も P3 も上がる（P2−P3 は開かない）。流量はいずれも低下する。</figcaption>
+<figcaption>図10. 回路内圧の4象限（表38 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。<b>左上 脱血不良</b>＝P1 が大きな陰圧へ振れ、P2・P3 も下がる（P1 だけが際立って落ちるのが決め手）。右上 ポンプ不全＝P1 が上がり、P2・P3 がともに下がる。左下 人工肺の目詰まり＝P2 が上がり P3 が下がる（P2−P3 が開く）。右下 送血不良＝P2 も P3 も上がる（P2−P3 は開かない）。流量はいずれも低下する。</figcaption>
 </figure>
 <p>覚え方は「P1 と、P2−P3 の2つだけ見る」で足ります。</p>
 <p><strong>まず P1（脱血圧）を見ます。</strong>ここが大きな陰圧に振れていて、他の圧はすべて下がっているなら脱血不良です。血液を吸い出せていないので、その先の圧はどこも上がりようがない——理屈で覚えられます。</p>
@@ -2553,7 +2558,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表37｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
+<caption>表38｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
 <thead><tr><th>病態</th><th>ECMO流量</th><th>P1 脱血圧</th><th>P2 肺前圧</th><th>P3 肺後圧</th><th>決め手</th></tr></thead>
 <tbody>
 <tr><td>脱血不良</td><td class="num">↓↓</td><td class="num">↓↓↓</td><td class="num">↓</td><td class="num">↓</td><td><strong>P1 だけが大きな陰圧に振れる</strong>（他はすべて下がる）</td></tr>
@@ -2568,7 +2573,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表38｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
+<caption>表39｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
 <thead><tr><th>流量</th><th>脱血圧</th><th>送血圧</th><th>原因</th></tr></thead>
 <tbody>
 <tr><td class="num">↓</td><td class="num">↑</td><td class="num">↑</td><td>送血不良</td></tr>
@@ -2582,7 +2587,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b26">7-2. 症状から引く</h3>
 
-<p>表39 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図11）と人工肺の劣化（図12）</strong>——の「形」を掴んでおきます。</p>
+<p>表40 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図11）と人工肺の劣化（図12）</strong>——の「形」を掴んでおきます。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="780" height="390" viewBox="0 0 780 390" role="img" style="width:100%;height:auto;max-width:780px">
@@ -2653,7 +2658,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <rect x="438" y="314" width="310" height="50" rx="18" fill="#0084B5" fill-opacity="0.1" stroke="#0084B5" stroke-width="6"/>
   <text x="593" y="346" fill="#0084B5" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18" font-weight="700" text-anchor="middle">脱血圧が大きく陰圧へ振れる</text>
 </svg>
-<figcaption><b>図11. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表39）。</figcaption>
+<figcaption><b>図11. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表40）。</figcaption>
 </figure>
 
 <figure class="fig">
@@ -2705,7 +2710,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="597.5" y="375" fill="#0084B5" stroke="none" text-anchor="middle" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18" font-weight="700">P2−P3 が開く／D-ダイマー上昇</text>
   </g>
 </svg>
-<figcaption><b>図12. 人工肺の劣化と P2−P3。</b>左（正常）＝中空糸が均一で、人工肺の入口（P2）と出口（P3）の圧較差は小さい（下の両矢印が短い）。右（劣化）＝フィブリン沈着で中空糸が目詰まりし、P2−P3 が開く（両矢印が長い）。手がかりは P2−P3 &gt; 50 mmHg／送血側 SaO₂ &lt; 98%／D-ダイマー上昇。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表37・表39）。</figcaption>
+<figcaption><b>図12. 人工肺の劣化と P2−P3。</b>左（正常）＝中空糸が均一で、人工肺の入口（P2）と出口（P3）の圧較差は小さい（下の両矢印が短い）。右（劣化）＝フィブリン沈着で中空糸が目詰まりし、P2−P3 が開く（両矢印が長い）。手がかりは P2−P3 &gt; 50 mmHg／送血側 SaO₂ &lt; 98%／D-ダイマー上昇。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表38・表40）。</figcaption>
 </figure>
 <p>ではいよいよ症状別です。この表には8つの状況が並んでいますが、丸暗記する必要はありません。実は3つのグループに分かれていて、グループごとに「やってはいけないこと」が決まっているからです。</p>
 
@@ -2719,7 +2724,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表39｜症状別の動き方</caption>
+<caption>表40｜症状別の動き方</caption>
 <thead><tr><th>症状</th><th>鑑別</th><th>最初の一手</th><th>次の一手</th><th>出典</th></tr></thead>
 <tbody>
 <tr>
@@ -2739,7 +2744,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>ECMO 中の低酸素</td>
 <td>①回路トラブル（緊急度・重症度とも最高）②人工肺不良 ③再循環 ④自己肺悪化 ⑤末梢組織酸素消費増加 ⑥設定変更（緊急度・重症度とも低）</td>
-<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表40）</strong></td>
+<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表41）</strong></td>
 <td>いずれにせよ、Cxpオーダー・ABG・脱送血ABG を採取して評価する／呼吸器設定を上げてはならない・VA へ変えてはならない</td>
 <td><span class="src in">講義1 p86-87</span><span class="src ext">ELSO2021 p8-9</span></td>
 </tr>
@@ -2795,7 +2800,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>患者の出血</td>
 <td>ECMO 中は出血合併症が最多（外科的創部 19.0%／カニュラ刺入部 17.1%／気管内・肺胞 8.1%／消化管 5.1%／頭蓋内 3.8%）</td>
-<td>観察部位を系統的に見る（表43）。予防的な注意点は §8-1</td>
+<td>観察部位を系統的に見る（表44）。予防的な注意点は §8-1</td>
 <td>外科的介入の適応でなければヘパリンを一時的に止める、血小板・FFP を投与／胸腔ドレーンは極力避ける（§8-2）／後腹膜出血は IVR による止血／内出血が疑わしければエコー・CT</td>
 <td><span class="src in">講義1 p36-37</span><span class="src jp">市場2016／岡山6 p23-24</span></td>
 </tr>
@@ -2838,7 +2843,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表40｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
+<caption>表41｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
 <thead><tr><th>順</th><th>分岐（Yes/No）</th><th>Yes の対応</th><th>当院注記</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>SaO₂ &lt; 88% → CXR/ABG でカニュラ位置異常 and/or 再循環を示唆？</td><td>Reposition cannulae</td><td><strong>再循環の是正：カニュラ間は 10–13cm 以上離す</strong></td></tr>
@@ -2871,7 +2876,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表41｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
+<caption>表42｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
 <thead><tr><th>用語</th><th>定義</th></tr></thead>
 <tbody>
 <tr><td>緊急の呼吸器設定</td><td>調節呼吸（CMV, AC等）、<strong>FiO₂ 100%、f 12回、PC 25 cmH₂O</strong>（症例により異なる）　※当院 TS資料2 は「FiO₂ を100%に。Rest Lung 設定なら一回換気量と呼吸回数の設定変更も必要」</td></tr>
@@ -2902,7 +2907,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表42｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
+<caption>表43｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
 <thead><tr><th>トラブル</th><th>回路クランプ</th></tr></thead>
 <tbody>
 <tr><td>送血・脱血カニュラの壁の引き込み</td><td>× しない</td></tr>
@@ -2931,7 +2936,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表43｜合併症の頻度（背景データ・家族説明用）</caption>
+<caption>表44｜合併症の頻度（背景データ・家族説明用）</caption>
 <thead><tr><th colspan="2">患者関連　<span class="src in">講義1 p37,p85</span><span class="src jp">ECMOnet p26-27</span>（Brodie NEJM 2011）</th><th colspan="2">機器関連　<span class="src in">講義1 p84</span><span class="src jp">ECMOnet p23</span>（Kolla Ann Surg 1997）</th></tr></thead>
 <tbody>
 <tr><td>培養陽性の感染症</td><td class="num">21.3%</td><td>人工肺異常（酸素化不良）</td><td class="num"><strong>32%</strong></td></tr>
@@ -2953,7 +2958,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table>
-<caption>表44｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
+<caption>表45｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
 <thead><tr><th>出血部位</th><th>point</th></tr></thead>
 <tbody>
 <tr><td>気道粘膜出血・肺胞出血</td><td>愛護的な処置</td></tr>
@@ -3011,7 +3016,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表45｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
+<caption>表46｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
 <thead><tr><th>時期</th><th>想定する感染・病原体</th><th>薬剤</th></tr></thead>
 <tbody>
 <tr><td><strong>開始から1週間以内</strong></td><td>VAP・尿路感染 … SPACE などGNR</td><td>3世代セフェム、PIPC/TAZ、MEPM</td></tr>
@@ -3054,7 +3059,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <p>VA-ECMO 中の心停止に胸骨圧迫は不要だが、VV-ECMO 中は必要。VV は肺機能のみの補助であり、血行動態は酸素化改善を介して間接的に支持されるにすぎないため。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
 <p>同ガイドラインの焦点3点：①<strong>心停止の認識</strong>（ECMO 流量・脈圧・波形が消えたとき何をもって心停止とするかを文書化する）②チーム内の優先順位づけ ③救命介入に直結する初期の ECMO トラブルシューティング。「ALS を回す前に ECMO 回路を見る」という順序転換が要点で、ガイドライン単独では機能せずトレーニングと一体で運用することが明記されています。</p>
-<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表42下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
+<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表43下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
 </div>
 
 <figure class="fig">
@@ -3096,7 +3101,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表46｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
+<caption>表47｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
 <thead><tr><th>出典</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><strong><span class="src in">当院 講義2 p53,p55-56</span></strong></td><td>当院は ECMO 中の腹臥位を実施している（治療内容にも「腹臥位療法」を明記）。離脱後も 腹臥位 → 側臥位 → 端座位 と段階的に進める</td></tr>
@@ -3139,7 +3144,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表47｜ECMO 中の離床 Stage 0〜4 と進行条件　<span class="src vault">ELSO 2024 Figure 1</span></caption>
+<caption>表48｜ECMO 中の離床 Stage 0〜4 と進行条件　<span class="src vault">ELSO 2024 Figure 1</span></caption>
 <thead><tr><th>Stage</th><th>内容</th><th>次の段階へ進んでよい条件</th></tr></thead>
 <tbody>
 <tr><td><strong>0</strong></td><td>受動（ベッド上での他動運動／受動立位）</td><td>—</td></tr>
@@ -3162,7 +3167,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表48｜部位別に事前確認すること　<span class="src vault">ELSO 2024</span></caption>
+<caption>表49｜部位別に事前確認すること　<span class="src vault">ELSO 2024</span></caption>
 <thead><tr><th>部位</th><th>離床前・離床中にすること</th></tr></thead>
 <tbody>
 <tr><td><strong>大腿</strong></td><td>離床前に<strong>仰臥位で患側の股関節を用手的に90°屈曲</strong>させ、カニューレ位置・ECMO血流の安定・末梢灌流を確認する。<u>皮膚にマーキングして移動量を評価</u>。<strong>肥満例ではカニューレ先端が血管内に浅くしか入っていないことがある</strong></td></tr>
@@ -3177,7 +3182,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表49｜離床を中止する基準　<span class="src vault">ELSO 2024</span></caption>
+<caption>表50｜離床を中止する基準　<span class="src vault">ELSO 2024</span></caption>
 <thead><tr><th>種類</th><th>基準</th></tr></thead>
 <tbody>
 <tr><td><strong>客観的</strong></td><td>回路アラーム／アンカー・縫合の破綻／刺入部の破綻／出血・血腫／キンク・逸脱</td></tr>
@@ -3219,7 +3224,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>当院の型：導入期に「水分バランスの調整（CHDF）」。<span class="src in">講義1 p82／講義2 p55</span></li>
 <li>遠心ポンプ使用時は空気の巻き込みを避けるため CRRT 装置はポンプの下流に置き、CRRT からの返血は人工肺の手前に戻す（空気・凝血塊を人工肺で捕捉するため）。<span class="src vault">ICM2016</span></li>
 <li>ECMO 中の RRT の方法（3通り）：①回路にインラインの血液濾過器を追加 ②並行透析システム（独立した血管アクセス）③統合システム。<strong>透析中の低血圧を防ぐことが腎回復に寄与</strong>。AKI は ECMO 患者の最大60%。<span class="src ext">Compl.2022</span></li>
-<li>急変時に「<strong>CHDF を中断</strong>」と言われたときの手順は §7-4 表41 に定義してあります</li>
+<li>急変時に「<strong>CHDF を中断</strong>」と言われたときの手順は §7-4 表42 に定義してあります</li>
 </ul>
 
 <h3 id="rs-b39">9-6. 搬送</h3>
@@ -3255,7 +3260,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表50｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
+<caption>表51｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
 <thead><tr><th></th><th>条件</th></tr></thead>
 <tbody>
 <tr><td><strong>酸素化</strong></td><td>FiO₂ が一貫して <strong>≤60%</strong>／<strong>PEEP ≤10 cmH₂O</strong>／<strong>PaO₂ ≥70 mmHg</strong></td></tr>
@@ -3363,11 +3368,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p><strong>ご指摘のとおり、この酸素化は「sweep gas を吹き付けている」ことで成り立っています。</strong>吹き付けをやめれば止まります——ただし<u>止まる理由は「酸素が薄いから」ではなく<strong>「分圧の差が消えるから」</strong></u>です。ガスの流れが止まると、気相の酸素は血液に吸われて PO₂ が下がり、血液から出た CO₂ で PCO₂ が上がる。<span class="split">気相の容量はごく小さいのに血液は毎分3〜4 L 流れてくるので、十数秒のオーダーで血液と平衡に達し、そこで正味の移動はゼロになります。</span></p>
 
-<p>つまり sweep gas の役割は、酸素を供給することであると同時に<u><strong>分圧の差を絶えず作り直すこと</strong></u>です。<strong>Step 2（FDO₂ 0.21）では差はまだ 110 mmHg あり、Step 3（sweep off）で初めて差がゼロになる</strong>——<span class="split">この2つはまったく違う状態です。</span>失われるのは<strong>溶存酸素のバッファだけ（約7%）</strong>で、表51 のとおりです。</p>
+<p>つまり sweep gas の役割は、酸素を供給することであると同時に<u><strong>分圧の差を絶えず作り直すこと</strong></u>です。<strong>Step 2（FDO₂ 0.21）では差はまだ 110 mmHg あり、Step 3（sweep off）で初めて差がゼロになる</strong>——<span class="split">この2つはまったく違う状態です。</span>失われるのは<strong>溶存酸素のバッファだけ（約7%）</strong>で、表52 のとおりです。</p>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表51｜人工肺を出た直後の血液（Hb 12 g/dL で計算）</caption>
+<caption>表52｜人工肺を出た直後の血液（Hb 12 g/dL で計算）</caption>
 <thead><tr><th>状態</th><th>人工肺後 PO₂</th><th>SO₂</th><th>酸素含量</th><th>維持期との差</th></tr></thead>
 <tbody>
 <tr><td>FDO₂ 1.0（維持期）</td><td class="num">約 500 mmHg</td><td class="num">100%</td><td class="num">17.6 mL/dL</td><td class="num">—</td></tr>
@@ -3416,7 +3421,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表52｜脱カニュレーションの準備（<span class="ok">当院は ECMOnet 側を採用</span>）</caption>
+<caption>表53｜脱カニュレーションの準備（<span class="ok">当院は ECMOnet 側を採用</span>）</caption>
 <thead><tr><th>項目</th><th>ELSO2021 Table 7</th><th>ECMOnet p36</th></tr></thead>
 <tbody>
 <tr><td><strong>ヘパリン中止</strong></td><td class="num">少なくとも1時間前<br><span style="font-size:.8rem;color:var(--muted)">（縫合で閉じる前提の数字）</span></td><td class="num"><strong>2〜6時間前</strong>（APTT の正常化）<br>抜去前の APTT 延長は離脱後合併症のリスク<br><span class="ok">★当院はこちら</span></td></tr>
@@ -3452,7 +3457,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表53｜抜去部の止血 — 資料が書いていること</caption>
+<caption>表54｜抜去部の止血 — 資料が書いていること</caption>
 <thead><tr><th>出典</th><th>記載</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 Table 7</span></td><td><strong>縫合で閉鎖</strong>し、軽い圧迫ドレッシングを当てて注意深く観察する</td></tr>
@@ -3481,7 +3486,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表54｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
+<caption>表55｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
 <thead><tr><th>段階</th><th>やること</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td><strong>抜く前</strong></td><td><strong>2〜6時間前に抗凝固を止め、APTT が戻っていることを確認</strong>／Plt・フィブリノゲンを確認／人員を集める（<u>抜く人・圧迫する人・呼吸器を操作する人</u>）</td><td>止血を圧迫だけに任せるので、凝固能が前提条件になる</td></tr>
@@ -3509,7 +3514,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表55｜圧迫が失敗する3つの原因と、その対策</caption>
+<caption>表56｜圧迫が失敗する3つの原因と、その対策</caption>
 <thead><tr><th>失敗の原因</th><th>対策</th></tr></thead>
 <tbody>
 <tr><td><strong>① 途中で覗く</strong><br><span style="font-size:.82rem;color:var(--muted)">最も多い</span></td><td><u><strong>15分間、手を離さない</strong></u>。「止まったか」を確認するために圧迫を緩めると、<strong>固まりかけた血栓を剥がして振り出しに戻ります</strong>。時計を見て15分測る——<u>体感で判断しない</u></td></tr>
@@ -3535,7 +3540,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表56｜止まらないときのエスカレーション</caption>
+<caption>表57｜止まらないときのエスカレーション</caption>
 <thead><tr><th>段階</th><th>対応</th></tr></thead>
 <tbody>
 <tr><td><strong>15分で止まらない</strong></td><td><u>さらに 10〜15分、連続で圧迫を続ける</u>。<strong>この時点で人を呼ぶ</strong>（1人で押さえ続けない——集中力が切れて圧が緩みます）</td></tr>
@@ -3549,7 +3554,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表57｜圧迫後の安静</caption>
+<caption>表58｜圧迫後の安静</caption>
 <thead><tr><th>部位</th><th>安静</th><th>観察</th></tr></thead>
 <tbody>
 <tr><td><strong>大腿</strong></td><td><strong>抜去後2時間はベッドフラット</strong>、<u>下肢を伸展位で保つ</u>（股関節を曲げない）<br><span style="font-size:.82rem;color:var(--muted)">用手圧迫15分のあと、アンギオ綿による圧迫は翌朝まで継続する</span></td><td>刺入部の出血・血腫／<u>大腿は<strong>後腹膜出血</strong>もありうる</u>——刺入部が高位だった場合、<strong>皮膚には何も出ないまま出血します</strong>。血圧低下・Hb低下・腹部/背部痛に注意</td></tr>
@@ -3560,7 +3565,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 
-<p><strong>抜いた直後にやることは §11-1 にまとめてあります</strong>——刺入部の観察、24時間後の DVT 評価、呼吸悪化の切り分け、肺保護換気の継続の4つです。<u>ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong></u>（血液型と抗体スクリーニングは有効なままにしておく・表52）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
+<p><strong>抜いた直後にやることは §11-1 にまとめてあります</strong>——刺入部の観察、24時間後の DVT 評価、呼吸悪化の切り分け、肺保護換気の継続の4つです。<u>ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong></u>（血液型と抗体スクリーニングは有効なままにしておく・表53）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
 
 <div class="box plain">
 <span class="label">中断・中止の判断</span>
@@ -3578,7 +3583,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b4">11-1. 抜いた直後</h3>
 
-<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§10-3 表52）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
+<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§10-3 表53）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
 
 <p><strong>次に刺入部の出血</strong>。抗凝固を止めてから抜いているとはいえ、凝固系はまだ元に戻っていません。縫合と軽い圧迫ドレッシングを当てたうえで、注意深く観察を続けます。</p>
 
@@ -3603,7 +3608,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表58｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表59｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>
@@ -3638,7 +3643,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">🚨 最優先の3つ（これだけは朝のうちに）</span>
 <ol>
 <li><strong>抗凝固の目標をチームで共有する。</strong>ACT 180–220 ／ APTT 正常の1.5–2倍 ／ ヘパリン 20–50 U/kg/hr（ECMOnet・当院講義 p34）。出血リスクが高い症例で弱めるなら、その判断と値を明記する。決めた値は紙に書いて回路に貼る（§5-7）</li>
-<li><strong>当院P2（＝脱血圧）</strong>のアラームを −100 mmHg に設定する。<u>当院のモニタは番号が教科書と逆</u>（P2 が脱血圧・P1 が肺後圧）なので、設定前に符号で確かめる。院内資料には −120 と −100 の2つが出てくるので厳しい方を採る（§7-1）</li>
+<li><strong>脱血圧</strong>のアラームを −100 mmHg に設定する。<u>モニタでは「P2」と表示される</u>ので、設定前に符号（陰圧か）で確かめる。院内資料には −120 と −100 の2つが出てくるので厳しい方を採る（§7-1）</li>
 <li><strong>SaO₂ の許容下限をチームで共有する。</strong>目標 80–90%、心拍出量と Hb が保たれていれば 70%台も許容——これを共有しないと、夜間に誰かが呼吸器設定を上げます（§1-2・§5-3）</li>
 </ol>
 </div>
@@ -3651,7 +3656,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h4>設定・目標値</h4>
 <ul class="chk">
 <li>抗凝固の目標レンジを決めて、カルテと指示簿に明記した</li>
-<li>当院P2（脱血圧）の下限・当院P1（肺後圧）の上限のアラーム設定値を決め、指示医サインを入れた</li>
+<li>脱血圧の下限・肺後圧の上限のアラーム設定値を決め、指示医サインを入れた</li>
 <li>ECMO 流量の目標を 3.0–4.0 L/min（60–80 mL/kg/min）で指示した</li>
 <li>Sweep gas と FDO₂ の指示を出した（<strong>FDO₂ 1.0 で開始</strong>、sweep は PaCO₂ で調整）。PaCO₂ を急に下げない方針を共有した</li>
 <li>Lung rest の4行を指示簿に書いた（Pplat &lt;25 ／ PEEP ≥10 ／ RR 4–10 ／ FiO₂ 30–50%）（§6 表32）</li>
@@ -3659,7 +3664,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>鎮静薬を<strong>2倍</strong>必要とする前提で処方を見直した（鎮痛はモルヒネを検討）</li>
 <li><strong>抗Xa を測れるかを確認した</strong>（測定系・所要時間・24時間対応）。測れないなら aPTT で代用すると明記した（§5-7）</li>
 <li><strong>PaCO₂ の下げ方の上限を指示に書いた</strong>（導入24時間以内なら excess CO₂ を50%超下げない・48〜72時間で正常化。sweep は 2 L/min から）（§3-3）</li>
-<li>Pplat の目標を「25未満（ECMO中）」で共有した。離脱判定の「28以下」と混同していない（§6・§10-1 表50）</li>
+<li>Pplat の目標を「25未満（ECMO中）」で共有した。離脱判定の「28以下」と混同していない（§6・§10-1 表51）</li>
 </ul>
 
 <h4>患者・回路</h4>
@@ -3667,11 +3672,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>胸部X線でカニュラ先端位置とカニュラ間隔（13cm以上を目安）を確認した</li>
 <li>刺入長（cm）を記録し、以後「線のズレ」で追える状態にした</li>
 <li>脱血側・送血側の血ガスを採った（送血側 SaO₂ &lt; 98% なら人工肺異常）</li>
-<li>当院P1（肺後圧）と 当院P2（脱血圧）の現在値を記録し、<u>送血側 SaO₂</u> も併せて採血した（当院は差圧が使えないため・§7-1）</li>
+<li>脱血圧と肺後圧の現在値を記録し、<u>送血側 SaO₂</u> も併せて採血した（当院は差圧が使えないため・§7-1）</li>
 <li>安全管理チェックリスト23項目を回した（6時・14時・22時）</li>
 <li>カルテに残す項目（§4-2 表15）が毎日そろって記載されているか確認した</li>
 <li><strong>今日が6相のどこかをチームで言語化した</strong>（§4-6 表18）。Cstat ＝ VT ÷（Pplat − PEEP）を記録した（受動条件で測る。20 前後で肺保護相へ・25 超で自発呼吸の検討へ。ただしこの数字は著者自身が「恣意的」と明記）</li>
-<li><strong>離脱の開始条件を満たすか確認した</strong>（§10-1 表50：FiO₂ ≤60%・PEEP ≤10・PaO₂ ≥70／VT ≤6 mL/kg PBW・Pplat ≤28・RR ≤28／X線の改善）</li>
+<li><strong>離脱の開始条件を満たすか確認した</strong>（§10-1 表51：FiO₂ ≤60%・PEEP ≤10・PaO₂ ≥70／VT ≤6 mL/kg PBW・Pplat ≤28・RR ≤28／X線の改善）</li>
 <li><strong>離脱を試すなら、3ステップと判定基準をチームで共有した</strong>（§10-2）。血流量は下げない／FDO₂ 21% で15分／sweep off で2時間／判定は<u>酸素化・pH・呼吸努力</u>の3つ</li>
 </ul>
 
@@ -3757,7 +3762,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>人工呼吸・ECMO 総説</strong>
   <ul>
   <li>Munshi L, Brodie D, Fan E. Extracorporeal Support for Acute Respiratory Distress Syndrome in Adults. <em>NEJM Evid</em> 2022;1(10):EVIDra2200128. DOI 10.1056/EVIDra2200128 —（§5-7 表29・§6 表32・図9）総説。数値は Figure 4 の "current recommendations and common practices" で確実性評価はない</li>
-  <li>Fernando SM, Brodie D, Slutsky AS, et al. 60 years of ARDS and the evolution of extracorporeal lung support – from ECMO to ECCO2R. <em>Intensive Care Med</em> 2026. DOI 10.1007/s00134-026-08533-z —（§6・§10 表47、本文中の「ICM2026」）</li>
+  <li>Fernando SM, Brodie D, Slutsky AS, et al. 60 years of ARDS and the evolution of extracorporeal lung support – from ECMO to ECCO2R. <em>Intensive Care Med</em> 2026. DOI 10.1007/s00134-026-08533-z —（§6・§10 表48、本文中の「ICM2026」）</li>
   <li>Newman SF, Burrell A, Buscher H, et al. Australian and New Zealand guideline on venovenous ECMO (Part 1). <em>Crit Care Resusc</em> 2026;28:100163. DOI 10.1016/j.ccrj.2026.100163 —（§9-2 腹臥位）</li>
   </ul>
 </li>

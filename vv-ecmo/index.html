@@ -1434,10 +1434,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </svg>
 <figcaption>図6. 再循環の少ない配置（左）と多い配置（右）。図の読み方 — 左は、送血カニュラの先端と脱血カニュラの先端が十分に離れている。上から入った送血は心臓の方向へ向かい、脱血は下方から戻ってきた静脈血を吸うので、両者が交わらない。右は2本の先端が近接しており、送血した酸素化血がそのまま脱血口へ回り込んで吸われる（下向きの太い矢印がその U ターン）。右の状態では、流量を上げるほど吸い戻す量が増えるため、流量を上げたのに SaO₂ が下がるという逆説が起きる。</figcaption>
 </figure>
-<p>再循環を減らしたいとき、<strong>手を出す順番があります。</strong>CFD（流体シミュレーション）研究が、どの因子がどれくらい効くかを定量化しています。</p>
-<p><strong>効きが大きいのは4つ</strong>（それぞれ20%超）。心拍出量に対する体外血流量の比、上大静脈と下大静脈の血流比、腔房接合部に対する SVC カニュラの位置、そして返血カニュラが三尖弁のほうを向いているかどうかです。このうち、ベッドサイドで最も介入しやすいのは最後の「返血カニュラの向き」——ここから手をつけます。カニュラ位置は X 線とエコーで確認します。</p>
-<p><strong>中くらいなのが心拍数</strong>（5〜20%）。頻脈を是正することが再循環対策にもなる、というのはあまり知られていない点です。</p>
-<p><strong>そして効かないもの</strong>（5%未満）に血液粘度＝ Hbが入っています。これは実務上そこそこ重要で、「再循環を減らすために輸血する」という根拠はありません。輸血には別の理由が必要です。</p>
+<p>再循環を減らしたいとき、<strong>手を出す順番があります。</strong>CFD（流体シミュレーション）研究が、どの因子がどれくらい効くかを定量化しました。<u>寄与の大きい4つから順に潰す</u>のが基本です。</p>
 
 <div class="tablewrap">
 <table class="wide">
@@ -1451,7 +1448,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-<p>寄与度が分かったところで、<strong>実際にベッドサイドで何ができるか</strong>に落とします。上の4因子のうち、いま手元で動かせるのはごく一部——そこを見極めるための表です。</p>
+<p>このうち<strong>いま手元で動かせるものだけ</strong>を取り出したのが次の表です。</p>
 
 <div class="tablewrap">
 <table class="wide">
@@ -1463,22 +1460,33 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>心拍出量低下</td><td>VA-ECMO への Conversion を考慮　※ただし「低酸素を理由にVAへ転換するな」（ELSO2021）とは別の文脈（心拍出量低下が原因の場合）</td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">当院講義が挙げる R率の目安は <strong>0.3〜0.5</strong>（講義1 p64）。<u>その R率をどう計算するかは次の項</u>。</p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">では、その「R率が上がっている」をどう見つけるか——<u>気づく方法と、測る方法を順に</u>。</p>
 </div>
 
-<h5>再循環率（R率）を計算する</h5>
+<div class="box">
+<span class="label">まず、採血1本で「起きているか」を判定する</span>
+<p>R率を計算しなくても、<strong>脱血側の採血1本でおおよそ判ります</strong>。<span class="src vault">JCM2024</span></p>
+<ul>
+<li><strong>脱血側 SO₂ &gt; 75%</strong> — 静脈血のはずなのに高い＝送った血を吸い戻している</li>
+<li><strong>SaO₂ −（脱血側 SO₂）&lt; 10%</strong> — 動脈血との差が小さい＝同じ血を回している</li>
+<li><strong>カニュラ間隔が 8〜10 cm 未満で、送血側と脱血側の血の色に差がない</strong></li>
+</ul>
+<p><u>いずれも、酸素化が落ちてから気づくより早く拾えます。</u>当院は肺前圧を測っていないぶん（§9-1）、こうした<strong>飽和度ベースの指標が相対的に重要</strong>になります。</p>
+</div>
 
-<p>ここまでは「再循環しているかどうか」でした。<u>どれくらい再循環しているかは、飽和度を3つ揃えれば数値で出せます</u>。<span class="split">麻酔科専門医試験で問われたのもこの計算です。</span></p>
+<h5>どれくらい再循環しているか — R率を計算する</h5>
+
+<p>上の3つは「起きているかどうか」でした。<u>どれくらい起きているかは、飽和度を3つ揃えれば数値で出せます</u>。<span class="split">麻酔科専門医試験で問われたのもこの計算です。</span></p>
 
 <div class="box good">
 <span class="label">式 — 飽和度3つから出す</span>
 <p style="text-align:center;font-size:1.02rem;margin:.7rem 0"><code><strong>R ＝ (脱血側SO₂ − SvO₂) ÷ (送血側SO₂ − SvO₂)</strong></code></p>
 <ul>
-<li><strong>脱血側SO₂</strong>（人工肺に入る前）… 当院は<u>インラインモニタに連続表示されています</u>（図8）。回路の脱血ポートからの採血でも可</li>
-<li><strong>送血側SO₂</strong>（人工肺を出た後）… FDO₂ 100% で人工肺が健全なら<strong>ほぼ 100%</strong></li>
-<li><strong>SvO₂</strong> … <u><strong>ECMO 回路に入る直前の静脈血</strong></u>の飽和度。<span class="split">ここがこの計算のいちばんの弱点で、すぐ下の囲みで扱います</span></li>
+<li><strong>脱血側SO₂</strong>（人工肺に入る前）… 当院は<u>インラインモニタに連続表示</u>されています（図8）。回路の脱血ポートからの採血でも可</li>
+<li><strong>送血側SO₂</strong>（人工肺を出た後）… FDO₂ 100% なら<strong>ほぼ 100%</strong>。<u>ただし人工肺が健全なときの前提</u>で、劣化を疑う場面（図13）では実測した値を入れます</li>
+<li><strong>SvO₂</strong> … <u>ECMO 回路に入る直前の静脈血</u>。<span class="split">ここがこの計算の弱点で、すぐ下の囲みで扱います</span></li>
 </ul>
-<p style="font-size:.88rem;color:var(--muted);margin:.4rem 0 0">SO₂ は % のまま入れても、小数（0.80 など）に直しても、分子と分母で約分されるので<u>同じ答えになります</u>。脱血側SO₂ ＝ SvO₂ なら R＝0%、脱血側SO₂ ＝ 送血側SO₂ なら R＝100% です。 <span class="src vault">Medicina2024</span></p>
+<p style="font-size:.9rem;color:var(--muted)"><strong>なぜこの式になるか</strong>：脱血カニュラが吸っているのは、<u>体を一周して戻った本物の静脈血（割合 1−R・飽和度 SvO₂）</u>と<u>送血口から吸い戻した酸素化血（割合 R・飽和度 送血側SO₂）</u>の混合です。だから <code>脱血側SO₂ ＝ (1−R)×SvO₂ ＋ R×送血側SO₂</code>。<u>これを R について解いただけ</u>——<span class="split">飽和度をそのまま混ぜてよい理由は §4-2</span>（飽和度は「席が何%埋まっているか」という量の割合なので、加重平均になります）。だから <strong>脱血側SO₂ ＝ SvO₂ なら 0%、脱血側SO₂ ＝ 送血側SO₂ なら 100%</strong> です。 <span class="src vault">Medicina2024</span></p>
 </div>
 
 <div class="box warn">
@@ -1489,17 +1497,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>CVL 法 — 当院はこちら</strong>… <u>上大静脈または下大静脈に留置した CV カテから採血する</u> <span class="src in">当院 講義1 p64</span>。簡便ですが真の混合静脈血ではなく、<span class="split">SVC と IVC の酸素含量の差を拾えません</span>——R率は近似値になります <span class="src vault">Medicina2024</span></li>
 <li><strong>SvO₂ 法（Van Heijst 法）</strong>… <u>sweep gas を一時的に止め</u>、人工呼吸器で ECMO 使用時と同等の SaO₂ を保ったうえで脱血カニュラの血を測ります。ガス交換が止まっていれば<u>脱血された血がそのまま真の静脈血</u>になるという理屈です。正確ですが、<strong>ECMO 依存度の高い患者では危険で実施しにくい</strong> <span class="src vault">Medicina2024</span></li>
 </ul>
+<p style="font-size:.9rem;color:var(--muted)"><strong>いちばん多い間違いは、SvO₂ に脱血回路の血をそのまま使うこと</strong>です。<u>それでは分子がゼロになり、R率は何があっても 0% と出ます</u>。<span class="split">脱血血が真の静脈血になるのは、上の sweep gas を止める方法のときだけ</span>です。</p>
 <p style="font-size:.88rem;color:var(--muted)">式を使わず直接測る方法（超音波希釈法・熱希釈法・リチウム希釈法／ELSA モニタなど）も報告されていますが、<u>いずれも普及しておらず当院にはありません</u> <span class="src vault">Medicina2024</span>。</p>
-</div>
-
-<div class="box plain">
-<span class="label">なぜこの式になるのか — 2種類の血を混ぜているだけです</span>
-<p>脱血カニュラが吸い込んでいる血は、<u>2つの由来の血の混合物</u>です。</p>
-<ul>
-<li>患者の体を一周して戻ってきた<strong>本物の静脈血</strong> … 割合 <code>1 − R</code>、飽和度は <code>SvO₂</code></li>
-<li>送血カニュラを出た直後に吸い戻された<strong>酸素化血</strong> … 割合 <code>R</code>、飽和度は <code>送血側SO₂</code></li>
-</ul>
-<p>混ざった結果が脱血側SO₂ なので、<code>脱血側SO₂ ＝ (1−R) × SvO₂ ＋ R × 送血側SO₂</code>。<u>これを R について解いたものが上の式</u>です。<span class="split">分圧ではなく飽和度をそのまま混ぜてよい理由は §4-2</span>——飽和度は「ヘモグロビンの席が何%埋まっているか」という<u>量の割合</u>なので、混ぜれば加重平均になります。</p>
 </div>
 
 <div class="tablewrap">
@@ -1512,22 +1511,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>③ ②で低酸素のため<br><u>流量を上げた</u><br><span style="font-size:.8rem;color:var(--muted)">血流量 5.0 L/min</span></td><td class="num">88%</td><td class="num">62%</td><td class="num">100%</td><td class="num">(88−62) ÷ (100−62)<br>＝ 26 ÷ 38 ＝ <strong>68%</strong></td><td class="num">5.0 × 0.32<br>＝ <strong>1.6 L/min</strong></td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>有効流量 ＝ 血流量 ×（1 − R）</strong>。<u>再循環したぶんを差し引いた、実際に患者の酸素化に効いている流量</u>です。① 14% は低く良好。② 43% は当院講義が挙げる目安（0.3〜0.5）の中、③ 68% はそれを超えます。<u>ただし R率そのものより、有効流量がどこまで落ちたかを見るほうが実務的</u>です。</p>
-</div>
-
-<div class="box danger">
-<span class="label">③ が「流量を上げたのに SaO₂ が下がる」の正体です</span>
-<p>②→③ で血流量を <strong>4.0 → 5.0 L/min</strong> と <u>1 L/min 増やした</u>のに、有効流量は <strong>2.3 → 1.6 L/min</strong> へ<u><strong>むしろ減っています</strong></u>。脱血の陰圧が強まったぶん、送ったばかりの血をより多く吸い戻したからです（図6 右）。</p>
-<p><span class="split">コンソールの流量表示は増えているのに、患者に届く酸素は減っている</span>——数字だけ見ていると気づけません。だから低酸素のときに反射的に流量を上げるのは危険で、<u>先に再循環を潰してから流量を上げる</u>順番になっています（§9-3）。</p>
-</div>
-
-<div class="box warn">
-<span class="label">計算で間違えやすい3点</span>
-<ul>
-<li><strong>SvO₂ に脱血側の血を使わない。</strong><u>脱血回路の血は、すでに再循環で酸素化血が混ざっています</u>。取り違えると分子がゼロになり、<span class="split">R率は何があっても 0% と出てしまいます</span>——いちばん多い間違いです。<u>例外は sweep gas を止めているとき（上の Van Heijst 法）だけ</u>で、そのときに限り脱血血＝真の静脈血です</li>
-<li><strong>送血側SO₂ を 100% と置いてよいのは、人工肺が健全なときだけ。</strong>劣化を疑う場面（図13）では実測した値を入れます</li>
-<li><strong>SvO₂ が高いと計算が不安定になる。</strong>SvO₂ 85% なら分母は <code>100 − 85 ＝ 15</code> しかなく、<u>脱血側SO₂ の測定誤差 ±2% が R率では ±13% に増幅されます</u>。敗血症合併などで SvO₂ が高い患者では、計算値を鵜呑みにせず表11 の所見と合わせて判断してください</li>
-</ul>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>有効流量 ＝ 血流量 ×（1 − R）</strong>＝ 実際に患者の酸素化に効いている流量です。<u>③に注目してください</u>——②→③ で血流量を <strong>1 L/min 増やしたのに、有効流量は 2.3 → 1.6 L/min へ減っています</strong>。<span class="split">コンソールの表示は増えているのに、患者に届く酸素は減っている</span>——これが「流量を上げたのに SaO₂ が下がる」の正体で、<u>低酸素のときに先に再循環を潰す理由</u>です（§9-3）。</p>
 </div>
 
 <div class="calc" id="recirc">
@@ -1556,7 +1540,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   </div>
 </div>
 
-<p style="font-size:.85rem;color:var(--muted)">式は <code>R ＝ (脱血側SO₂ − SvO₂) ÷ (送血側SO₂ − SvO₂)</code>。<u>許容される再循環はおおよそ 10〜30% とされますが、標準化された閾値は定義されていません</u> <span class="src vault">Medicina2024</span>——報告されている実測値は 2〜57% と幅があり、ある報告では中央値 14〜16%、35% を超えたのは全測定の 13〜14% でした。<span class="split">当院講義が挙げる目安 0.3〜0.5 は、この許容範囲よりやや高め</span>です。</p>
 
 <script>
 (function(){
@@ -1623,16 +1606,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 })();
 </script>
 
-<div class="box">
-<span class="label">再循環しているかを、数字で判定する</span>
-<p>R率を計算しなくても、<strong>脱血側の採血1本でおおよそ判ります</strong>。<span class="src vault">JCM2024</span></p>
-<ul>
-<li><strong>脱血側 SO₂ &gt; 75%</strong> — 静脈血のはずなのに高い＝送った血を吸い戻している</li>
-<li><strong>SaO₂ −（脱血側 SO₂）&lt; 10%</strong> — 動脈血との差が小さい＝同じ血を回している</li>
-<li><strong>カニュラ間隔が 8〜10 cm 未満で、送血側と脱血側の血の色に差がない</strong></li>
-</ul>
-<p><u>いずれも「流量を上げたのに SaO₂ が下がる」より早く気づけます。</u>当院は肺前圧を測っていないぶん（§9-1）、こうした<strong>飽和度ベースの指標が相対的に重要</strong>になります。</p>
-</div>
+<p style="font-size:.85rem;color:var(--muted)"><u>許容される再循環はおおよそ 10〜30% とされますが、標準化された閾値は定義されていません</u> <span class="src vault">Medicina2024</span>——報告されている実測値は 2〜57% と幅があり、ある報告では中央値 14〜16%、35% を超えたのは全測定の 13〜14% でした。<span class="split">当院講義が挙げる目安 0.3〜0.5 は、この許容範囲よりやや高め</span>です。<strong>R率の絶対値より、有効流量が足りているかで判断してください。</strong><br>なお <u>SvO₂ が高いと分母が小さくなり、計算が不安定になります</u>（SvO₂ 85% なら分母は 15）。<span class="split">その場合は上の計算機が自動で警告を出します。</span></p>
 
 <h3 id="rs-b12">4-4. CO₂ と sweep gas</h3>
 

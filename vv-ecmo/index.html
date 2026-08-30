@@ -236,6 +236,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -326,7 +327,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -398,6 +399,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -1114,7 +1116,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h4>ELSO と ECMOnet はどう位置づくか</h4>
 
-<p>基準としている <strong>ELSO2021</strong> と ECMOnet も、実質的には同じ枠組みを別の粒度で書いたものです。時間の条件が明示されていないぶん、EOLIA 基準のほうが実務では使いやすいので、迷ったら上の表に戻ってください。</p>
+<p><u><strong>どれも「ECMO の適応基準」です。</strong></u>違うのは粒度と厳しさで、<span class="split">ECMOnet（＝ELSO の呼吸不全版）だけは死亡リスクで2段階に分ける書き方をしています。</span>ここを取り違えると「まだ相談する段階じゃない」と読んでしまうので、先に整理しておきます。</p>
 
 <div class="tablewrap">
 <table class="wide">
@@ -1122,10 +1124,10 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>出典</th><th>低酸素の閾値</th><th>高CO₂の閾値</th><th>位置づけ</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 Table 1</span></td><td class="num"><strong>P/F &lt; 80 mmHg</strong><br>（腹臥位の試行を含む最適管理後）</td><td class="num">pH &lt; 7.25 かつ PaCO₂ ≥ 60 mmHg<br>（呼吸数35・プラトー圧 ≤30 でも達成できないとき）</td><td>EOLIA の数値と一致するが持続時間の条件が書かれていない</td></tr>
-<tr><td><span class="src jp">ECMOnet p5</span><br>（日本語版ELSO基準）</td><td class="num">死亡リスク50%＝FiO₂&gt;90% で <strong>P/F &lt; 150</strong> and/or Murray 2-3点<br>死亡リスク80%＝<strong>P/F &lt; 100</strong> and/or Murray 3-4点</td><td>Pplat &gt; 30 でも CO₂ 高値</td><td>導入の決断ではなく「相談を始める入口」のライン</td></tr>
+<tr><td><span class="src jp">ECMOnet p5</span><br>（日本語版ELSO基準）</td><td class="num">死亡リスク50%＝FiO₂&gt;90% で <strong>P/F &lt; 150</strong> and/or Murray 2-3点<br>死亡リスク80%＝<strong>P/F &lt; 100</strong> and/or Murray 3-4点</td><td>Pplat &gt; 30 でも CO₂ 高値</td><td><strong>これ自体が適応基準</strong>。<u>死亡リスク50%で「考慮する」、<strong>80%で「ほとんどの状況で適応となる」</strong></u>という2段階<br><span style="font-size:.82rem;color:var(--muted)">この言い回しは ELSO 総論2017 の原則で、P/F 値への翻訳は呼吸不全版（＝ECMOnet が載せているもの）</span> <span class="src vault">ELSO2017</span></td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>3つの関係</strong>：ECMOnet の P/F 150〜100 は「そろそろ相談を始める」、ELSO の P/F &lt; 80 は「導入を決める最終ライン」、EOLIA はそれに「何時間続いたか」を足して組み入れ可否を判定できる形にしたもの。矛盾ではなく、使う場面が違います。</p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>3つの関係</strong>：<u>後のものほど厳しく、判定しやすくなっている</u>と読みます。ECMOnet（ELSO 呼吸不全版）は <strong>P/F &lt; 150 で「考慮」・P/F &lt; 100 で「適応」</strong>という2段階。ELSO2021 はそれを <strong>P/F &lt; 80</strong> の1本に絞り、EOLIA はさらに「何時間続いたか」を足して機械的に判定できる形にしました。<span class="split">矛盾ではなく、古いものほど緩い</span>——だから<u>実務の判定は EOLIA 基準（表7）で行い</u>、ECMOnet の P/F &lt; 150 は「<strong>まだ ECMO を考えてよい段階</strong>」の目印として、相談を早めるのに使います。</p>
 </div>
 
 <div class="box good">
@@ -3828,7 +3830,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     } else {
       c.classList.remove('hot'); out.textContent='未達';
       msg.innerHTML='前提条件は満たしていますが、<b>生理学的基準にまだ届いていません</b>。'
-        +'ただし ECMOnet は <b>P/F &lt; 150〜100</b> を「相談を始める入口」としています——'
+        +'ただし ECMOnet（ELSO 呼吸不全版）は <b>P/F &lt; 150</b> を「ECMO を考慮する」水準としています——'
         +'<u>基準に届いてから連絡するのでは遅いことがある</u>ので、この時点で ECMO センターに一報を入れておく価値があります。';
     }
   }

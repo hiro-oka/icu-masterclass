@@ -228,6 +228,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -318,7 +319,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -390,6 +391,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -516,13 +518,13 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b1">VV-ECMO 設定・目標値 早見表</h3>
 
 <p>この表は「調べれば分かること」を並べたものではなく、そのままアラームに設定し、指示簿に書き込むための値です。本来なら1項目ずつ根拠を説明すべきところですが、当直で最初に開くページに長い説明があっても読まれません。そこでここは結論だけを1枚に集め、根拠と例外はすべて §5 以降の本文で解説するという分担にしました。気になった項目は必ず §5 の該当節を読んでください——とくに SaO₂（§5-3）と抗凝固（§5-6）は、値だけ見て動くと危ない2項目です。</p>
-<p>読み方のコツは<strong>「外したらどうする」の列を先に読むこと</strong>。目標値そのものより、外れたときに何をするかが決まっているほうが、夜間は役に立ちます。そして原則がひとつ——院内資料の中で値が割れている項目は、厳しい方を採ってあります（P1 は −120 ではなく −100、カニュラ間隔は 10cm ではなく 13cm）。</p>
+<p>読み方のコツは<strong>「備考」の列を先に読むこと</strong>。目標値そのものより、外れたときに何をするかが決まっているほうが、夜間は役に立ちます。そして原則がひとつ——院内資料の中で値が割れている項目は、厳しい方を採ってあります（P1 は −120 ではなく −100、カニュラ間隔は 10cm ではなく 13cm）。</p>
 
 
 <div class="tablewrap">
 <table class="wide">
 <caption>表1｜VV-ECMO 設定・目標値 早見表 — <span class="ok">目標と、動かしてよい範囲</span>（根拠と例外は §5）</caption>
-<thead><tr><th>項目</th><th>目標／<span style="font-weight:400">管理範囲</span></th><th>根拠</th><th>外したらどうする</th></tr></thead>
+<thead><tr><th>項目</th><th>目標／<span style="font-weight:400">管理範囲</span></th><th>根拠</th><th>備考</th></tr></thead>
 <tbody>
 <tr><td colspan="4" class="grp"><strong>回路の圧　※当院は2点しか測っていません（§7-1）</strong></td></tr>
 <tr><td><strong>P1 脱血圧</strong></td><td class="num"><strong>&gt; −100 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム下限に設定</span></td><td><span class="src jp">ECMOnet p22</span><span class="src in">当院 講義1</span></td><td>回転数を下げる。陰圧が強いほど溶血・チャタリング</td></tr>
@@ -530,7 +532,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg</td><td><span class="src jp">ECMOnet p22</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表10）</td></tr>
 <tr><td colspan="4" class="grp">回路の設定</td></tr>
 <tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 2（導入時）〜 5–6（カニュラ径の上限）<br>低酸素の緊急時は 6–7 まで／カニュラあたり 1 超を厳守</span></td><td><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
-<tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 <strong>1〜9+ L/min</strong>（下限1）<br>0 は離脱試験のみ・日常では 0 にしない</span></td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）</td></tr>
+<tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 <strong>1〜9+ L/min</strong>（下限1）<br>0 は離脱試験のみ・日常では 0 にしない</span></td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）<br><u>0 にしない理由</u>：①人工肺に結露がたまりガス交換能が落ちる ②酸素化の寄与も一緒に落ちる ③送血側 SaO₂ で人工肺の異常を検知できなくなる（§5-8 Q1）</td></tr>
 <tr><td>FDO₂（人工肺）</td><td class="num"><strong>1.0 で開始</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">維持期は 1.0 のまま動かさない<br>下げるのは離脱の第1ステップ（→0.21）</span></td><td><span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span></td><td>VV では通常このまま維持する</td></tr>
 <tr><td colspan="4" class="grp">ガス交換の目標</td></tr>
 <tr><td>SaO₂</td><td class="num"><strong>80–90%</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">70%台も許容（心拍出量正常・Hb保持が前提）<br>Hb が低いほど許容できる下限は上がる（§5-6）</span></td><td><span class="src jp">ECMOnet p9</span><span class="src in">当院 講義1</span></td><td>呼吸器設定を上げない・VAに変えない。乳酸・心拍出量・Hb を並べて見る</td></tr>

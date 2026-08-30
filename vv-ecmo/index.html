@@ -249,6 +249,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -339,7 +341,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -411,6 +413,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -3315,7 +3319,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </div>
 
 <div class="box danger">
-<span class="label">🚨 血流量は下げない — カニュラあたり 1 L/min 超を保つ</span>
+<span class="label">🚨 血流量は下げない</span>
 <p><strong>血流量を下げると回路内の血流が遅くなり、血栓ができます</strong>——そして<span class="split">離脱に失敗して戻すときには、血栓のできた回路で再開することになります。</span><u>Step 1 から Step 3 まで、流量は一度も下げません。</u><span class="src ext">ELSO2021</span></p>
 </div>
 
@@ -3324,7 +3328,19 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>離脱を進めると、Step 2 でも Step 3 でも同じ疑問が出ます。<u>人工肺が酸素を足さなくなるのなら、ECMO の流量が多いほど「酸素化されていない血」を送り込むことになる。<strong>だったら流量を下げて、自己肺に頼る割合を増やした方が酸素化には有利ではないか</strong></u>——という筋道です。</p>
 <p><strong>結論から言うと、どちらの場面でも流量を下げる利得はありません。</strong>ただし<span class="split">つまずいている場所が2つの場面で違います</span>——<u>Step 2 は<strong>前提そのものが成り立たず</strong>、Step 3 は<strong>前提は正しいが、そこから導いた結論が飛んでいます</strong></u>。順に見ます。</p>
 
-<p><strong>Step 2 — 前提が成り立ちません。FDO₂ 0.21 は「静脈血を返している」状態ではないからです。</strong>室内空気でも人工肺の気相の酸素分圧は <code>0.21 × 713 ≒ 150 mmHg</code> あり、人工肺はシャントのない完璧なガス交換器なので<u>出口の血液はほぼ 100% に飽和します</u>。失われるのは<strong>溶存酸素のバッファだけ（約7%）</strong>です。</p>
+<p><strong>Step 2 — 前提が成り立ちません。FDO₂ 0.21 は「静脈血を返している」状態ではないからです。</strong></p>
+
+<p>まず<u>人工肺で酸素化が起きる仕組み</u>から。中空糸膜を挟んで片側に血液、片側に sweep gas が流れていて、<strong>ガスは分圧の高い方から低い方へ拡散するだけ</strong>です（§1-4 図5）。押し込む仕組みはありません。</p>
+<ul>
+<li>入ってくる血液：<strong>PO₂ 約 40 mmHg</strong>（静脈血）</li>
+<li>室内空気の気相：<code>0.21 × 713 ≒ 150 mmHg</code></li>
+<li><strong>差は約 110 mmHg</strong> — これが酸素を血液側へ押し込む力になります</li>
+</ul>
+<p>膜の面積は 2 m² 前後と大きく血液の層は薄いので、通過するあいだにほぼ平衡に達します。そして<u><strong>ヘモグロビンは PO₂ 100 mmHg 前後で飽和しきる</strong></u>ので、150 mmHg もあれば<strong>出口はほぼ 100% 飽和</strong>。<span class="split">FDO₂ を 1.0 にして気相を 700 mmHg 超にしても、増えるのは溶存酸素だけです。</span></p>
+
+<p><strong>ご指摘のとおり、この酸素化は「sweep gas を吹き付けている」ことで成り立っています。</strong>吹き付けをやめれば止まります——ただし<u>止まる理由は「酸素が薄いから」ではなく<strong>「分圧の差が消えるから」</strong></u>です。ガスの流れが止まると、気相の酸素は血液に吸われて PO₂ が下がり、血液から出た CO₂ で PCO₂ が上がる。<span class="split">気相の容量はごく小さいのに血液は毎分3〜4 L 流れてくるので、十数秒のオーダーで血液と平衡に達し、そこで正味の移動はゼロになります。</span></p>
+
+<p>つまり sweep gas の役割は、酸素を供給することであると同時に<u><strong>分圧の差を絶えず作り直すこと</strong></u>です。<strong>Step 2（FDO₂ 0.21）では差はまだ 110 mmHg あり、Step 3（sweep off）で初めて差がゼロになる</strong>——<span class="split">この2つはまったく違う状態です。</span>失われるのは<strong>溶存酸素のバッファだけ（約7%）</strong>で、表51 のとおりです。</p>
 
 <div class="tablewrap">
 <table class="wide">

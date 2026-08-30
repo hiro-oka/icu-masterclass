@@ -140,6 +140,20 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 .toc li.p a{color:var(--accent)}
 @media print{h2.part{background:none; color:var(--fg); border-left:5px solid var(--fg); border-radius:0}}
 
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
 /* ===== 共有ツール（リンクコピー / PDF） ===== */
 .tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
 .tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
@@ -178,6 +192,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 .calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
   border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
 @media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}}
+
+
 
 
 
@@ -284,7 +300,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -350,6 +366,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -501,6 +519,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>目に入った症状から引きたい</strong>（回路が振れる・泡が出る・異音・出血）→ <a href="#s7">§7-2 症状別トラブルシューティング</a></li>
 <li><strong>SaO₂ が上がらない</strong> → <a href="#s7">§7-3 低酸素アルゴリズム</a>（<span class="split">流量を上げるのは後半のステップ</span>。先に再循環と人工肺を潰す）</li>
 <li><strong>急変して人を集めた</strong> → <a href="#s7">§7-4 緊急時の共通言語</a>（「ポンプ・オフ」等の手順の定義）</li>
+<li><strong>まだ導入していない患者の相談を受けた</strong> → <a href="#indication">§2 EOLIA 基準チェッカー</a>（6項目を選ぶとその場で判定できます。<u>まず聞くのは「挿管して何日目か」</u>）</li>
 </ul>
 <p><strong>どの入口にも共通する原則が2つ</strong>あります。<u>①流量を上げて解決しようとしない</u>（脱血不良でも再循環でも悪化します）　<u>②迷ったら Dr と CE を同時に呼ぶ</u>。</p>
 </div>
@@ -864,6 +883,59 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>高CO₂・アシドーシス</td><td>pH &lt; 7.25 かつ PaCO₂ ≥ 60 mmHg</td><td class="num">肺保護換気の結果として <strong>6時間を超えて持続</strong>（呼吸数は35/分まで増やしたうえで）</td></tr>
 </tbody>
 </table>
+</div>
+
+
+<h4 id="indication">この患者は適応か — その場で判定する</h4>
+
+<div class="calc" id="eolia">
+  <div class="calc-h">
+    <b>EOLIA 基準チェッカー — この患者は適応か</b>
+    <span>前提条件を3つとも満たし、かつ生理学的基準のいずれか1つを満たせば「基準内」です</span>
+  </div>
+  <div class="calc-b">
+    <div class="crow" data-item="d" data-grp="pre">
+      <span class="cl">前提① 人工呼吸の期間<small>いちばん見落とされる項目</small></span>
+      <div class="opts">
+        <button type="button" data-v="1">挿管から <b>7日未満</b></button><button type="button" data-v="0">7日以上たっている</button>
+      </div>
+    </div>
+    <div class="crow" data-item="v" data-grp="pre">
+      <span class="cl">前提② 換気の最適化<small>FiO₂ ≥ 80%／Vt 6 mL/kg PBW／PEEP ≥ 10</small></span>
+      <div class="opts">
+        <button type="button" data-v="1">3つとも満たす</button><button type="button" data-v="0">まだ最適化できていない</button>
+      </div>
+    </div>
+    <div class="crow" data-item="a" data-grp="pre">
+      <span class="cl">前提③ 補助療法<small>腹臥位療法と筋弛緩薬のトライアル</small></span>
+      <div class="opts">
+        <button type="button" data-v="1">両方とも実施済み</button><button type="button" data-v="0">まだ試していない</button>
+      </div>
+    </div>
+    <div class="crow" data-item="h1" data-grp="phys">
+      <span class="cl">生理① 重度の低酸素<small>人工呼吸を最適化しても</small></span>
+      <div class="opts">
+        <button type="button" data-v="1">P/F &lt; 50 が <b>3時間超</b> 持続</button><button type="button" data-v="0">該当しない</button>
+      </div>
+    </div>
+    <div class="crow" data-item="h2" data-grp="phys">
+      <span class="cl">生理② 中等度の低酸素が持続</span>
+      <div class="opts">
+        <button type="button" data-v="1">P/F &lt; 80 が <b>6時間超</b> 持続</button><button type="button" data-v="0">該当しない</button>
+      </div>
+    </div>
+    <div class="crow" data-item="h3" data-grp="phys">
+      <span class="cl">生理③ 高CO₂・アシドーシス<small>呼吸数を35/分まで増やしたうえで</small></span>
+      <div class="opts">
+        <button type="button" data-v="1">pH &lt; 7.25 かつ PaCO₂ ≥ 60 が <b>6時間超</b></button><button type="button" data-v="0">該当しない</button>
+      </div>
+    </div>
+  </div>
+  <div class="calc-out">
+    <div class="calc-score" id="escore">—</div>
+    <div class="calc-msg" id="emsg">6項目を選ぶと判定が出ます。</div>
+    <button class="reset" type="button" id="ereset">リセット</button>
+  </div>
 </div>
 
 <div class="box warn">
@@ -1256,48 +1328,82 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-<h4>記載例（そのまま使える形）</h4>
+<h4>記載例 — カルテにそのまま貼れます</h4>
 
-<p>毎日の経過記録に貼る形の例です。<u>数字が埋まらない項目は「未測定」と書く</u>——空欄だと「測っていない」のか「書き忘れた」のか分からなくなります。</p>
+<p>下の枠は<strong>コピーボタンを押すとそのままクリップボードに入ります</strong>。まず<u>空欄テンプレートを貼って値を埋める</u>のが基本の使い方です。<span class="split">数字が埋まらない項目は「未測定」と書いてください</span>——空欄だと「測っていない」のか「書き忘れた」のか、翌日の担当者に分かりません。</p>
 
-<div class="box plain">
-<span class="label">例1：安定している日</span>
-<pre style="white-space:pre-wrap;font-size:.85rem;line-height:1.8;margin:0">【ECMO Day 6／相：②肺保護】
+<div class="tpl">
+<div class="tpl-h"><b>空欄テンプレート（まずこれを貼る）</b><span style="font-size:.78rem;color:var(--muted)">毎日の経過記録用</span><button class="cp" type="button" data-tpl="tpl1">📋 コピー</button></div>
+<pre id="tpl1">【ECMO Day ○／相：○】
+設定  回転数 ____ rpm／血流 ____ L/min／sweep ____ L/min／FDO2 ____ %／熱交換器 ____ ℃
+      設定変更：（なし／内容）
+圧    P1 ____ mmHg（前日 ____）／当院P2 ____ mmHg（前日 ____）
+      アラーム：流量下限 ____／P1下限 ____／P2上限 ____
+ガス  患者 pH ____ / PaCO2 ____ / PaO2 ____ / SaO2 ____ %
+      送血側 SaO2 ____ %（前日 ____）→ 人工肺の評価：
+      脱血側 SvO2 ____ %
+抗凝固 ヘパリン ____ U/kg/hr（変更：なし／____）／APTT ____ 秒／ACT ____ 秒
+      Plt ____ 万（前日 ____）／Fib ____／AT-III ____ %／D-dimer ____（前日 ____）
+溶血  LDH ____（前日 ____）／T-Bil ____／遊離Hb ____ mg/dL（目安 &lt;50）／尿：____
+目視  人工肺・コネクタ・ルアーの血栓：（なし／部位・長さ ____ mm）
+      刺入部（____・____）出血/腫脹/発赤：（なし／____）
+呼吸器 モード ____／FiO2 ____ %／PEEP ____／ΔP ____／f ____／Pplat ____／VT ____ mL/kg PBW
+      Cstat ____ mL/cmH2O（前日 ____）
+リハ  到達 Stage ____（0受動/1座位/2静的立位/3動的立位/4歩行）／中止の有無：
+方針  </pre>
+</div>
+
+<p style="font-size:.9rem;color:var(--muted)">以下は実際に埋めた例です。<u>書き方の粒度と、「前日」を併記する形</u>を見てください。</p>
+
+<div class="tpl">
+<div class="tpl-h"><b>記載例① 安定している日</b><button class="cp" type="button" data-tpl="tpl2">📋 コピー</button></div>
+<pre id="tpl2">【ECMO Day 6／相：②肺保護】
 設定  回転数 3200 rpm／血流 3.8 L/min／sweep 3.5 L/min／FDO2 100%／熱交換器 36.5℃
-      （設定変更なし）
+      設定変更：なし
 圧    P1 −62 mmHg（前日 −58）／当院P2 218 mmHg（前日 210）
       アラーム：流量下限 3.0／P1下限 −100／P2上限 300
 ガス  患者 pH 7.41 / PaCO2 42 / PaO2 68 / SaO2 92%
-      送血側 SaO2 99.6%（前日 99.7）→ 人工肺の劣化なし
+      送血側 SaO2 99.6%（前日 99.7）→ 人工肺の評価：劣化なし
       脱血側 SvO2 74%
-抗凝固 ヘパリン 18 U/kg/hr（変更なし）／APTT 58 秒／ACT 192 秒
+抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 58 秒／ACT 192 秒
       Plt 9.8万（前日 10.2万）／Fib 265／AT-III 68%／D-dimer 12.4（前日 11.8）
 溶血  LDH 340（前日 352）／T-Bil 1.1／遊離Hb 未測定／尿：淡黄色・清
-目視  人工肺・コネクタ・ルアーに血栓なし。刺入部（右内頸・左大腿）出血/腫脹/発赤なし
+目視  人工肺・コネクタ・ルアーの血栓：なし
+      刺入部（右内頸・左大腿）出血/腫脹/発赤：なし
 呼吸器 PCV／FiO2 40%／PEEP 12／ΔP 10／f 10／Pplat 22／VT 3.2 mL/kg PBW
       Cstat 18 mL/cmH2O（前日 16）
-方針  lung rest 継続。Cstat 20 前後で③移行相を検討。抗凝固は現行維持。</pre>
+リハ  到達 Stage 1（能動座位・10秒超保持可）／中止の有無：なし
+方針  lung rest 継続。Cstat 20 前後で③移行相を検討。抗凝固は現行維持。
+      明日 Stage 2（静的立位）を試みる。</pre>
 </div>
-
-<div class="box warn">
-<span class="label">例2：人工肺の劣化を疑い始めた日（変化を書く）</span>
-<pre style="white-space:pre-wrap;font-size:.85rem;line-height:1.8;margin:0">【ECMO Day 14／相：②肺保護】
-設定  回転数 3600 rpm（前日 3400 に増）／血流 3.6 L/min
-      ※回転数を上げているのに流量が伸びない（前日 3400 rpm で 3.7 L/min）
-圧    P1 −70 mmHg／当院P2 268 mmHg（前日 235、3日前 210）→ 漸増傾向
-ガス  送血側 SaO2 97.4%（前日 98.9、3日前 99.6）→ 98% を下回った
-抗凝固 D-dimer 38.2（前日 24.1、3日前 14.0）→ 上昇／Plt 6.1万（前日 8.0万）→ 低下
-溶血  LDH 620（前日 430）／尿：やや褐色
-目視  人工肺の下縁に血栓を認める。長さ約 8 mm（前日は指摘なし）。写真をカルテに添付
-評価  送血側 SaO2 98% 未満＋D-dimer 上昇＋血小板低下＋目視の血栓＋溶血所見。
-      人工肺の劣化と判断。当院は肺前圧を測っていないため P2−P3 は算出できないが、
-      上記4所見が揃っており差圧に頼らず判断可能と考える。
+<div class="tpl">
+<div class="tpl-h"><b>記載例② 人工肺の劣化を疑い始めた日</b><span style="font-size:.78rem;color:var(--muted)">評価欄の書き方の見本</span><button class="cp" type="button" data-tpl="tpl3">📋 コピー</button></div>
+<pre id="tpl3">【ECMO Day 14／相：②肺保護】
+設定  回転数 3600 rpm（前日 3400）／血流 3.6 L/min／sweep 4.0 L/min／FDO2 100%／熱交換器 36.5℃
+      設定変更：回転数 3400→3600。※上げても流量が伸びない（前日 3400 rpm で 3.7 L/min）
+圧    P1 −70 mmHg（前日 −66）／当院P2 268 mmHg（前日 235、3日前 210）→ 漸増傾向
+      アラーム：流量下限 3.0／P1下限 −100／P2上限 300
+ガス  患者 pH 7.36 / PaCO2 48 / PaO2 61 / SaO2 89%
+      送血側 SaO2 97.4%（前日 98.9、3日前 99.6）→ 人工肺の評価：98%を下回った
+      脱血側 SvO2 68%
+抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 56 秒／ACT 188 秒
+      Plt 6.1万（前日 8.0万）／Fib 198／AT-III 61%／D-dimer 38.2（前日 24.1、3日前 14.0）
+溶血  LDH 620（前日 430）／T-Bil 1.8／遊離Hb 62 mg/dL（目安&lt;50 を超過）／尿：やや褐色
+目視  人工肺・コネクタ・ルアーの血栓：人工肺の下縁に約 8 mm（前日は指摘なし）。写真を添付
+      刺入部（右内頸・左大腿）出血/腫脹/発赤：なし
+呼吸器 PCV／FiO2 50%／PEEP 12／ΔP 11／f 12／Pplat 23／VT 3.0 mL/kg PBW
+      Cstat 15 mL/cmH2O（前日 17）
+リハ  本日は中止（回路所見の評価を優先）
+評価  送血側 SaO2 98%未満＋D-dimer 上昇＋血小板低下＋目視の血栓＋溶血（遊離Hb 62、LDH 上昇、褐色尿）。
+      人工肺の劣化と判断。当院は肺前圧を測定していないため P2−P3 は算出できないが、
+      上記5所見が揃っており差圧に頼らず判断可能と考える。
+      遊離Hb が 50 mg/dL を超えているため、抗Xa を測る場合は偽低値に注意。
 方針  CE に連絡し人工肺／回路交換の準備。交換までは血流量を落とさず維持。
-      抗凝固は現行を継続（弱めない）。</pre>
+      抗凝固は現行を継続（弱めない）。交換後に再評価。</pre>
 </div>
 
-<p style="font-size:.9rem;color:var(--muted)">例2のポイントは、<strong>すべての項目に「前日」「3日前」が併記されている</strong>ことです。<u>当院P2 268 mmHg という数字だけを見れば基準内（&lt;300）ですが、210→235→268 という動きを見れば異常</u>だと分かります。<strong>差圧が使えない当院では、この「並べて書く」ことが人工肺の劣化を早く拾う唯一の方法</strong>になります。</p>
-
+<p>例②のポイントは、<strong>すべての項目に「前日」「3日前」が併記されている</strong>ことです。<u>当院P2 268 mmHg という数字だけを見れば基準内（&lt;300）ですが、210→235→268 という動きを見れば異常</u>だと分かります。<strong>差圧が使えない当院では、この「並べて書く」ことが人工肺の劣化を早く拾う唯一の方法</strong>になります。</p>
+<p>もう一点、<u>例②には「評価」の欄を立ててあります</u>。<strong>所見を並べただけで終わらせず、それをどう解釈したかを一段落で書く</strong>——これがあると、夜間に急変したときの当直医が判断の経緯を追えます。</p>
 <h3 id="rs-b15">4-3. 安全管理チェックリスト（23項目・1日3回）</h3>
 
 <p>当院講義は「<strong>安全管理チェックリストも必須</strong>」として済生会宇都宮ICU版を提示しています（＝他施設の様式を例示。聖路加版のチェックリストは院内資料に含まれていません）。<span class="src in">講義1 p45</span>　同じリストが <span class="src jp">ECMOnet p25</span> にも掲載されています。運用注記：チェックにかかるときはすぐに医師へ報告／導入時は ME がリストに沿ってチェックし、その後または同時に看護師がチェック／移動後（検査など）は翌日欄を使用。</p>
@@ -3039,7 +3145,75 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     st={}; [].slice.call(c.querySelectorAll('.opts button')).forEach(function(b){b.setAttribute('aria-pressed','false');}); render();
   });
 })();
-</script><button id="rs-top" aria-label="先頭へ">↑</button>
+</script><script id="rs-eolia-js">
+(function(){
+  var c=document.getElementById('eolia'); if(!c) return;
+  var out=document.getElementById('escore'), msg=document.getElementById('emsg'), st={};
+  var PRE={d:'挿管から7日未満',v:'換気の最適化（FiO₂ ≥80%／Vt 6 mL/kg／PEEP ≥10）',a:'腹臥位と筋弛緩のトライアル'};
+  [].slice.call(c.querySelectorAll('.crow')).forEach(function(row){
+    var k=row.dataset.item;
+    [].slice.call(row.querySelectorAll('button')).forEach(function(b){
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){
+        var on=b.getAttribute('aria-pressed')==='true';
+        [].slice.call(row.querySelectorAll('button')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+        if(on){delete st[k];}else{b.setAttribute('aria-pressed','true'); st[k]=parseInt(b.dataset.v,10);}
+        render();
+      });
+    });
+  });
+  function render(){
+    var pre=['d','v','a'], phys=['h1','h2','h3'];
+    var answered=pre.concat(phys).filter(function(k){return k in st;}).length;
+    if(!answered){ c.classList.remove('hot'); out.textContent='—';
+      msg.textContent='6項目を選ぶと判定が出ます。'; return; }
+    var missPre=pre.filter(function(k){return st[k]===0;});
+    var preUnknown=pre.filter(function(k){return !(k in st);});
+    var physOK=phys.filter(function(k){return st[k]===1;}).length;
+    var physUnknown=phys.filter(function(k){return !(k in st);}).length;
+    if(preUnknown.length||physUnknown){ c.classList.remove('hot'); out.textContent='…';
+      msg.innerHTML='残り <b>'+(preUnknown.length+physUnknown)+'項目</b> が未選択です。'; return; }
+    if(!missPre.length && physOK>=1){
+      c.classList.remove('hot'); out.textContent='適応';
+      msg.innerHTML='<b>EOLIA 基準を満たします。</b>前提条件3つすべてと、生理学的基準を'+physOK+'つ満たしています。'
+        +'豪州・NZ 2026 はこの範囲に対して VV-ECMO を<b>条件付きで推奨</b>しています。ECMO センターへ相談してください。';
+    } else if(missPre.length){
+      c.classList.add('hot'); out.textContent='基準外';
+      msg.innerHTML='<b>前提条件を満たしていません</b>：'+missPre.map(function(k){return PRE[k];}).join('／')
+        +'。<u>「だからやらない」ではありません</u>——エビデンスが支持する範囲の外で判断することになるので、'
+        +'その旨をカンファで言語化し、記録に残してください（§2 の「基準の外側の患者」）。'
+        +(missPre.indexOf('a')>=0?'<br><b>腹臥位と筋弛緩がまだなら、先にそれを試すのが順序です。</b>':'');
+    } else {
+      c.classList.remove('hot'); out.textContent='未達';
+      msg.innerHTML='前提条件は満たしていますが、<b>生理学的基準にまだ届いていません</b>。'
+        +'ただし ECMOnet は <b>P/F &lt; 150〜100</b> を「相談を始める入口」としています——'
+        +'<u>基準に届いてから連絡するのでは遅いことがある</u>ので、この時点で ECMO センターに一報を入れておく価値があります。';
+    }
+  }
+  document.getElementById('ereset').addEventListener('click',function(){
+    st={}; [].slice.call(c.querySelectorAll('.opts button')).forEach(function(b){b.setAttribute('aria-pressed','false');}); render();
+  });
+})();
+</script><script id="rs-tpl-js">
+(function(){
+  [].slice.call(document.querySelectorAll('.tpl-h .cp')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.dataset.tpl); if(!pre) return;
+      var t=pre.innerText, old=b.textContent;
+      function done(){b.textContent='✓ コピーしました'; b.classList.add('done');
+        setTimeout(function(){b.textContent=old; b.classList.remove('done');},1800);}
+      function fb(){
+        try{ var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly','');
+          ta.style.cssText='position:fixed;top:-9999px'; document.body.appendChild(ta); ta.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(ta); if(ok){done();return;} }catch(e){}
+        window.prompt('この内容をコピーしてください', t);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+  });
+})();
+</script>
+<button id="rs-top" aria-label="先頭へ">↑</button>
 <script id="rs-js">
 (function(){
   var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),

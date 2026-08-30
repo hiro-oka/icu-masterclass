@@ -233,6 +233,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -323,7 +324,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -395,6 +396,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -1539,76 +1541,61 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tpl">
 <div class="tpl-h"><b>空欄テンプレート（まずこれを貼る）</b><span style="font-size:.78rem;color:var(--muted)">毎日の経過記録用</span><button class="cp" type="button" data-tpl="tpl1">📋 コピー</button></div>
-<pre id="tpl1">【ECMO Day ○／相：○】
-設定  回転数 ____ rpm／血流 ____ L/min／sweep ____ L/min／FDO2 ____ %／熱交換器 ____ ℃
-      設定変更：（なし／内容）
+<pre id="tpl1">【ECMO Day ○】
+設定  回転数 ____ rpm／血流 ____ L/min／sweep ____ L/min／FDO2 ____ %
 圧    P1 ____ mmHg（前日 ____）／当院P2 ____ mmHg（前日 ____）
-      アラーム：流量下限 ____／P1下限 ____／P2上限 ____
-ガス  患者 pH ____ / PaCO2 ____ / PaO2 ____ / SaO2 ____ %
-      送血側 SaO2 ____ %（前日 ____）→ 人工肺の評価：
-      脱血側 SvO2 ____ %
 抗凝固 ヘパリン ____ U/kg/hr（変更：なし／____）／APTT ____ 秒／ACT ____ 秒
       Plt ____ 万（前日 ____）／Fib ____／AT-III ____ %／D-dimer ____（前日 ____）
 溶血  LDH ____（前日 ____）／T-Bil ____／遊離Hb ____ mg/dL（目安 &lt;50）／尿：____
-目視  人工肺・コネクタ・ルアーの血栓：（なし／部位・長さ ____ mm）
-      刺入部（____・____）出血/腫脹/発赤：（なし／____）
+目視  人工肺・コネクタなどの血栓：（なし／ありの場合部位：____）
+      刺入部出血/腫脹/発赤：（なし／____）
 呼吸器 モード ____／FiO2 ____ %／PEEP ____／ΔP ____／f ____／Pplat ____／VT ____ mL/kg PBW
-      Cstat ____ mL/cmH2O（前日 ____）
-リハ  到達 Stage ____（0受動/1座位/2静的立位/3動的立位/4歩行）／中止の有無：
-方針  </pre>
+      Cstat ____ mL/cmH2O（前日 ____）</pre>
 </div>
+
+<p style="font-size:.85rem;color:var(--muted)">これは<u>毎日の最小セット</u>です。表15 のうち<strong>ガス交換</strong>（送血側 SaO₂・脱血側 SvO₂）と<strong>相・方針</strong>は定型から外してあるので、必要な日は行を足してください。<span class="split">とくに送血側 SaO₂ は、当院で人工肺の劣化を見つけられる唯一の直接指標です（§7-1）。</span></p>
 
 <p style="font-size:.9rem;color:var(--muted)">以下は実際に埋めた例です。<u>書き方の粒度と、「前日」を併記する形</u>を見てください。</p>
 
 <div class="tpl">
-<div class="tpl-h"><b>記載例① 安定している日</b><button class="cp" type="button" data-tpl="tpl2">📋 コピー</button></div>
-<pre id="tpl2">【ECMO Day 6／相：②肺保護】
-設定  回転数 3200 rpm／血流 3.8 L/min／sweep 3.5 L/min／FDO2 100%／熱交換器 36.5℃
-      設定変更：なし
+<div class="tpl-h"><b>記載例① 安定している日</b><span style="font-size:.78rem;color:var(--muted)">テンプレートのまま</span><button class="cp" type="button" data-tpl="tpl2">📋 コピー</button></div>
+<pre id="tpl2">【ECMO Day 6】
+設定  回転数 3200 rpm／血流 3.8 L/min／sweep 3.5 L/min／FDO2 100%
 圧    P1 −62 mmHg（前日 −58）／当院P2 218 mmHg（前日 210）
-      アラーム：流量下限 3.0／P1下限 −100／P2上限 300
-ガス  患者 pH 7.41 / PaCO2 42 / PaO2 68 / SaO2 92%
-      送血側 SaO2 99.6%（前日 99.7）→ 人工肺の評価：劣化なし
-      脱血側 SvO2 74%
 抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 58 秒／ACT 192 秒
       Plt 9.8万（前日 10.2万）／Fib 265／AT-III 68%／D-dimer 12.4（前日 11.8）
 溶血  LDH 340（前日 352）／T-Bil 1.1／遊離Hb 未測定／尿：淡黄色・清
-目視  人工肺・コネクタ・ルアーの血栓：なし
-      刺入部（右内頸・左大腿）出血/腫脹/発赤：なし
+目視  人工肺・コネクタなどの血栓：なし
+      刺入部出血/腫脹/発赤：なし
 呼吸器 PCV／FiO2 40%／PEEP 12／ΔP 10／f 10／Pplat 22／VT 3.2 mL/kg PBW
-      Cstat 18 mL/cmH2O（前日 16）
-リハ  到達 Stage 1（能動座位・10秒超保持可）／中止の有無：なし
-方針  lung rest 継続。Cstat 20 前後で③移行相を検討。抗凝固は現行維持。
-      明日 Stage 2（静的立位）を試みる。</pre>
+      Cstat 18 mL/cmH2O（前日 16）</pre>
 </div>
 <div class="tpl">
-<div class="tpl-h"><b>記載例② 人工肺の劣化を疑い始めた日</b><span style="font-size:.78rem;color:var(--muted)">評価欄の書き方の見本</span><button class="cp" type="button" data-tpl="tpl3">📋 コピー</button></div>
-<pre id="tpl3">【ECMO Day 14／相：②肺保護】
-設定  回転数 3600 rpm（前日 3400）／血流 3.6 L/min／sweep 4.0 L/min／FDO2 100%／熱交換器 36.5℃
-      設定変更：回転数 3400→3600。※上げても流量が伸びない（前日 3400 rpm で 3.7 L/min）
+<div class="tpl-h"><b>記載例② 人工肺の劣化を疑い始めた日</b><span style="font-size:.78rem;color:var(--muted)">「評価」「方針」を足す</span><button class="cp" type="button" data-tpl="tpl3">📋 コピー</button></div>
+<pre id="tpl3">【ECMO Day 14】
+設定  回転数 3600 rpm（前日 3400）／血流 3.6 L/min／sweep 4.0 L/min／FDO2 100%
+      ※回転数を上げても流量が伸びない（前日 3400 rpm で 3.7 L/min）
 圧    P1 −70 mmHg（前日 −66）／当院P2 268 mmHg（前日 235、3日前 210）→ 漸増傾向
-      アラーム：流量下限 3.0／P1下限 −100／P2上限 300
-ガス  患者 pH 7.36 / PaCO2 48 / PaO2 61 / SaO2 89%
-      送血側 SaO2 97.4%（前日 98.9、3日前 99.6）→ 人工肺の評価：98%を下回った
-      脱血側 SvO2 68%
 抗凝固 ヘパリン 18 U/kg/hr（変更：なし）／APTT 56 秒／ACT 188 秒
       Plt 6.1万（前日 8.0万）／Fib 198／AT-III 61%／D-dimer 38.2（前日 24.1、3日前 14.0）
-溶血  LDH 620（前日 430）／T-Bil 1.8／遊離Hb 62 mg/dL（目安&lt;50 を超過）／尿：やや褐色
-目視  人工肺・コネクタ・ルアーの血栓：人工肺の下縁に約 8 mm（前日は指摘なし）。写真を添付
-      刺入部（右内頸・左大腿）出血/腫脹/発赤：なし
+溶血  LDH 620（前日 430）／T-Bil 1.8／遊離Hb 62 mg/dL（目安 &lt;50 を超過）／尿：やや褐色
+目視  人工肺・コネクタなどの血栓：ありの場合部位：人工肺の下縁に約 8 mm（前日は指摘なし）
+      刺入部出血/腫脹/発赤：なし
 呼吸器 PCV／FiO2 50%／PEEP 12／ΔP 11／f 12／Pplat 23／VT 3.0 mL/kg PBW
       Cstat 15 mL/cmH2O（前日 17）
-リハ  本日は中止（回路所見の評価を優先）
-評価  送血側 SaO2 98%未満＋D-dimer 上昇＋血小板低下＋目視の血栓＋溶血（遊離Hb 62、LDH 上昇、褐色尿）。
-      人工肺の劣化と判断。当院は肺前圧を測定していないため P2−P3 は算出できないが、
-      上記5所見が揃っており差圧に頼らず判断可能と考える。
+ガス  送血側 SaO2 97.4%（前日 98.9、3日前 99.6）→ 98% を下回った
+評価  当院P2 の漸増＋送血側 SaO2 98%未満＋D-dimer 上昇＋血小板低下＋目視の血栓
+      ＋溶血（遊離Hb 62、LDH 上昇、褐色尿）。人工肺の劣化と判断。
+      当院は肺前圧を測定していないため P2−P3 は算出できないが、上記が揃っており
+      差圧に頼らず判断可能と考える。
       遊離Hb が 50 mg/dL を超えているため、抗Xa を測る場合は偽低値に注意。
 方針  CE に連絡し人工肺／回路交換の準備。交換までは血流量を落とさず維持。
       抗凝固は現行を継続（弱めない）。交換後に再評価。</pre>
 </div>
 
 <p>例②のポイントは、<strong>すべての項目に「前日」「3日前」が併記されている</strong>ことです。<u>当院P2 268 mmHg という数字だけを見れば基準内（&lt;300）ですが、210→235→268 という動きを見れば異常</u>だと分かります。<strong>差圧が使えない当院では、この「並べて書く」ことが人工肺の劣化を早く拾う唯一の方法</strong>になります。</p>
-<p>もう一点、<u>例②には「評価」の欄を立ててあります</u>。<strong>所見を並べただけで終わらせず、それをどう解釈したかを一段落で書く</strong>——これがあると、夜間に急変したときの当直医が判断の経緯を追えます。</p>
+<p>もう一点、<u>例②には定型にない「ガス」「評価」「方針」の3行が足してあります</u>。<strong>毎日の記録は最小セットで回し、何かが動いた日だけ、追加で測ったものと、それをどう解釈したかを書き足す</strong>——これがあると、夜間に急変したときの当直医が判断の経緯を追えます。</p>
+
 <h3 id="rs-b15">4-3. 安全管理チェックリスト</h3>
 
 <p>当院講義は「<strong>安全管理チェックリストも必須</strong>」として済生会宇都宮ICU版を提示しています（＝他施設の様式を例示。聖路加版のチェックリストは院内資料に含まれていません）。<span class="src in">講義1 p45</span>　同じリストが <span class="src jp">ECMOnet p25</span> にも掲載されています。運用注記：チェックにかかるときはすぐに医師へ報告／導入時は ME がリストに沿ってチェックし、その後または同時に看護師がチェック／移動後（検査など）は翌日欄を使用。</p>

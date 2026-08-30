@@ -218,6 +218,8 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -308,7 +310,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -379,6 +381,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
+
 
 
 
@@ -3151,19 +3155,23 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b34">10-3. 抜く前の準備 — ヘパリンをいつ止めるか</h3>
 
-<p>離脱の判断がついたら、次は<strong>抜くときの段取り</strong>です。ここで資料ごとに食い違うのが「ヘパリンをいつ止めるか」なので、そこを中心に並べています。</p>
+<p>離脱の判断がついたら、次は<strong>抜くときの段取り</strong>です。ここで資料が食い違うのが「ヘパリンをいつ止めるか」——<u>ELSO は1時間前、ECMOnet は2〜6時間前と5倍の開き</u>があります。</p>
+<div class="box good">
+<span class="label">当院の方針：ECMOnet 側を採ります — 抜去の 2〜6時間前に中止し、APTT の正常化を確認する</span>
+<p>理由は<u><strong>当院が縫合せずに抜いているから</strong></u>です（§10-4）。<strong>止血を圧迫だけに任せるので、抜く時点で凝固能が戻っていることが前提条件になります。</strong></p>
+<p>ELSO の「1時間前」は<u>縫合で閉じることとセットの数字</u>——縫合するなら、抜くぎりぎりまで抗凝固を効かせて回路の血栓を防ぐほうが合理的です。<span class="split">手技が違えば、止める時間も変わります。</span></p>
+</div>
 
 
-<p>ここで資料が割れるのは<strong>「ヘパリンをいつ止めるか」</strong>の1点です。ELSO は「抜去の少なくとも1時間前」、ECMOnet は「多くの施設で2〜6時間前（APTT の正常化を待つ）」——実質5倍の開きがあります。</p>
-<p>考え方の違いははっきりしていて、ELSO は「抜くまで回路の血栓を防ぐこと」を、ECMOnet は「抜いた後の出血を防ぐこと」を優先しているだけです。ECMOnet 側には「抜去前の APTT 延長は離脱後合併症のリスク」という根拠があります。当院でどちらを採るかは、あらかじめ決めて手順書に書いておいてください——抜く当日に議論する話ではありません。</p>
+<p>考え方の違いははっきりしていて、ELSO は「抜くまで回路の血栓を防ぐこと」を、ECMOnet は「抜いた後の出血を防ぐこと」を優先しているだけです。ECMOnet 側には「抜去前の APTT 延長は離脱後合併症のリスク」という根拠があります。</p>
 <p>それ以外は概ね一致しています。<strong>抜く前に</strong>：sweep off の血液ガスで PaO₂ ≥70 と許容できる pH、過剰な呼吸仕事がないことを確認し（血液ガスは 60分以上経ってから評価する）、絶食にして、大量出血に備えて血液型と抗体スクリーニングを有効にしておく。抜くとき：頸静脈カニュラなら Trendelenburg 体位（空気を引き込まないため）、縫合で閉鎖し軽い圧迫。抜いた後：24時間後に DVT をチェック——ここは忘れられがちです。</p>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表53｜脱カニュレーションの準備（<span class="split">ヘパリン中止のタイミングが違います</span>）</caption>
+<caption>表53｜脱カニュレーションの準備（<span class="ok">当院は ECMOnet 側を採用</span>）</caption>
 <thead><tr><th>項目</th><th>ELSO2021 Table 7</th><th>ECMOnet p36</th></tr></thead>
 <tbody>
-<tr><td>ヘパリン中止</td><td class="num"><strong>脱カニュレーションの少なくとも1時間前</strong></td><td class="num"><strong>多くの施設で 2〜6時間前</strong>（APTT の正常化）。抜去前の APTT 延長は離脱後合併症のリスク</td></tr>
+<tr><td><strong>ヘパリン中止</strong></td><td class="num">少なくとも1時間前<br><span style="font-size:.8rem;color:var(--muted)">（縫合で閉じる前提の数字）</span></td><td class="num"><strong>2〜6時間前</strong>（APTT の正常化）<br>抜去前の APTT 延長は離脱後合併症のリスク<br><span class="ok">★当院はこちら</span></td></tr>
 <tr><td>連絡</td><td>脱カニュレーション担当（外科医等）に連絡</td><td>—</td></tr>
 <tr><td>確認</td><td>sweep off の ABG で <strong>PaO₂ ≥70 かつ許容できる pH、過剰な呼吸仕事なし</strong></td><td>酸素化能だけでなく CO₂ クリアランスも評価／<strong>血液ガスは60分以上経過してから評価</strong>／呼吸数や呼吸様式も評価</td></tr>
 <tr><td>準備</td><td>絶食（NPO）／ABO 血液型と抗体スクリーニングを有効化（大量出血に備え）／鎮静の準備</td><td>CO₂ が貯留する病態では、離脱後の急激な変化を回避するため、テスト前に PaCO₂ を上げておく</td></tr>
@@ -3188,34 +3196,61 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>頸静脈カニュラならこれに加えて <strong>Trendelenburg 体位</strong>（頭低位）にします。<u>刺入部を心臓より低くして、静脈圧を陽圧側に振る</u>ためです。<span class="src ext">ELSO2021 Table 7</span></p>
 </div>
 
-<h4>落とし穴② 圧迫だけで済ませるか、縫合するか</h4>
+<h4>落とし穴② 縫合せずに抜くなら、止血の主役は圧迫になる</h4>
 
-<p>ここがご質問の点です。<strong>先に結論を言うと、ガイドラインは「圧迫時間◯分」という書き方をしていません。</strong>推奨されているのは<u><strong>縫合で閉じること</strong></u>です。</p>
+<p><strong>ELSO は2つの方法を書いており、どちらも ELSO です。</strong>先に整理しておきます。</p>
 
 <div class="tablewrap">
 <table class="wide">
 <caption>表54｜抜去部の止血 — 資料が書いていること</caption>
 <thead><tr><th>出典</th><th>記載</th></tr></thead>
 <tbody>
-<tr><td><span class="src ext">ELSO2021 Table 7</span></td><td><strong>縫合で閉鎖</strong>し、<strong>軽い圧迫ドレッシング</strong>を当てて注意深く観察する。<u>時間の指定はなし</u></td></tr>
-<tr><td><span class="src vault">ELSO2017（総論）</span></td><td>経皮的に入れたカニュラは<strong>直接抜いて、局所の圧迫で出血をコントロールする</strong>。<u>やはり時間の指定はなし</u>。カットダウンで入れたものはカットダウンで抜き、血管は結紮する</td></tr>
-<tr><td><span class="src jp">ECMOnet p36</span></td><td>抜去前の抗凝固中止（2〜6時間前・APTT の正常化）についてのみ記載。<u>止血手技の記載なし</u></td></tr>
+<tr><td><span class="src ext">ELSO2021 Table 7</span></td><td><strong>縫合で閉鎖</strong>し、軽い圧迫ドレッシングを当てて注意深く観察する</td></tr>
+<tr><td><span class="src vault">ELSO2017（総論）</span></td><td><u><strong>経皮的に入れたカニュラは、直接抜いて局所の圧迫で出血をコントロールしてよい</strong></u>（カットダウンで入れたものはカットダウンで抜き、血管を結紮する）</td></tr>
+<tr><td><span class="src jp">ECMOnet p36</span></td><td>抜去前の抗凝固中止（2〜6時間前・APTT の正常化）のみ。止血手技の記載なし</td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><span class="split">調べた範囲では、VV-ECMO の抜去部を「何分圧迫するか」を数字で示した資料は見つかりませんでした。</span></p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><u>経皮的に入れたカニュラを縫合せずに抜き、圧迫で止めるのは <strong>ELSO 総論が明示的に認めている方法</strong></u>です。<span class="split">ただし、どちらの文書も「何分圧迫するか」は書いていません。</span></p>
+</div>
+
+<div class="box warn">
+<span class="label">縫合しないなら、圧迫が唯一の止血手段になります</span>
+<p>縫合する場合、圧迫は<u>「縫合部を保護するドレッシング」</u>にすぎません。<strong>縫合しないなら、圧迫そのものが血管孔を閉じる仕事を担います</strong>——<span class="split">同じ「圧迫」でも意味がまったく違います。</span></p>
+<p><u><strong>「10分程度」というお見立ては、静脈という点では理にかなっています。</strong></u>VV-ECMO の抜去部はすべて静脈で、動脈のような拍動圧がかかりません。<strong>動脈穿刺後に20〜30分の用手圧迫が要るのは動脈圧に抗するため</strong>で、静脈にその必要はない——ここまでは物理の話です。</p>
+<p>ただし<u>圧迫時間より先に効く変数が3つ</u>あります。</p>
+<ul>
+<li><strong>抗凝固が本当に切れているか</strong>。<u>ここを守れていないなら、何分圧迫しても足りません</u>（§10-3）。<strong>当院は縫合しないので、ECMOnet の「2〜6時間前・APTT 正常化」を採ります</strong>（§10-3）——止血を圧迫だけに任せるからです</li>
+<li><strong>血小板とフィブリノゲン</strong>。ECMO 中は消耗しています。<u>Plt 5万台・Fib 150台で抜くなら、10分では止まりません</u></li>
+<li><strong>穿刺孔の太さ</strong>。<u>脱血 23〜29Fr は外径およそ 8〜10 mm</u>——中心静脈カテーテルとは別物です</li>
+</ul>
+</div>
+
+<h4>圧迫だけで抜くときの実際</h4>
+
+<p><span class="split">ECMO の資料に分数の記載がないため、以下は「太い静脈シースを圧迫で抜くとき」の一般的な作法からの外挿です。</span><u>ガイドラインの推奨ではありません</u>——院内で決めて明文化してください。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表55｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
+<thead><tr><th>段階</th><th>やること</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td><strong>抜く前</strong></td><td><strong>2〜6時間前に抗凝固を止め、APTT が戻っていることを確認</strong>／Plt・フィブリノゲンを確認／人員を集める（圧迫する人・呼吸器を操作する人）</td><td>止血を圧迫だけに任せるので、凝固能が前提条件になる</td></tr>
+<tr><td><strong>体位</strong></td><td><u>頸静脈：Trendelenburg（頭低位）</u>／<u>大腿：水平</u></td><td>刺入部の静脈圧を陽圧側に振り、空気の引き込みを防ぐ</td></tr>
+<tr><td><strong>抜く瞬間</strong></td><td><strong>Valsalva（人工呼吸器で陽圧をかけて保持）または短時間の筋弛緩</strong>。<u>抜きながら同時に圧迫を始める</u></td><td>自発呼吸があると側孔から空気が入る（落とし穴①）</td></tr>
+<tr><td><strong>圧迫</strong></td><td><u><strong>手を離さず連続して圧迫する</strong></u>。<span class="split">途中で「止まったか」を確認するために覗かない</span></td><td><strong>いちばん多い失敗がこれ</strong>。固まりかけた血栓を剥がして振り出しに戻る</td></tr>
+<tr><td><strong>圧迫後</strong></td><td>圧迫ドレッシングを当て、<u>大腿なら下肢を伸展位で安静</u>。<strong>刺入部を繰り返し観察</strong></td><td>圧迫をやめた直後に再出血しやすい</td></tr>
+<tr><td><strong>その後</strong></td><td><u>大腿は<strong>後腹膜出血</strong>も疑う</u>（刺入部が高位だった場合）／<strong>24時間後に DVT を評価</strong></td><td>皮膚の所見が出ないまま出血していることがある</td></tr>
+</tbody>
+</table>
 </div>
 
 <div class="box good">
-<span class="label">では実際どう考えるか</span>
-<p><u><strong>「10分程度で足りるはず」というお見立ては、静脈という点では理にかなっています。</strong></u>VV-ECMO の抜去部は<strong>すべて静脈</strong>で、動脈のような拍動圧がかかりません。動脈穿刺後に20〜30分の用手圧迫が要るのは動脈圧に抗するためで、<u>静脈にはその必要がない</u>——ここまでは物理の話です。</p>
-<p><strong>ただし、圧迫時間を決める前に確認すべきことが3つ</strong>あります。</p>
-<ul>
-<li><strong>抗凝固が本当に切れているか</strong>。ELSO は抜去1時間前、ECMOnet は2〜6時間前（APTT 正常化）——<u>ここを守れていないなら、圧迫時間の議論は意味がありません</u>（表53）</li>
-<li><strong>血小板とフィブリノゲンはどうか</strong>。ECMO 中は消耗しています。<u>Plt 5万台・Fib 150台で抜くなら、10分では足りません</u></li>
-<li><strong>穿刺孔の大きさ</strong>。<u>脱血は 23〜29Fr</u>——中心静脈カテーテルとは比べものにならない太さです</li>
-</ul>
-<p><strong>そのうえで ELSO が「縫合」を推している理由</strong>は、<u>太い静脈孔を圧迫だけで閉じようとすると、圧迫をやめた後に再出血しやすく、皮下に血腫を作るから</u>だと考えるのが自然です。<span class="split">院内で「何分」を決めるより、「縫合するかどうか」を先に決めるほうが本質的です。</span></p>
-<p style="font-size:.88rem"><u>院内でプロトコル化するなら</u>：<strong>①縫合で閉じる（ELSO 準拠）</strong>を既定とし、<strong>②圧迫のみで済ませる場合は、抗凝固が切れていること・Plt とフィブリノゲンが確保されていることを条件</strong>にし、<strong>③時間は施設の経験値として決めて明文化する</strong>——<u>ガイドラインに数字がない以上、これは「決めた値」として扱うしかありません</u>（Hb 閾値と同じ扱いです）。</p>
+<span class="label">残り、院内で決めておく2つ</span>
+<p><strong>抗凝固の中止時間は決まりました（2〜6時間前・APTT 正常化）。</strong>残りは<u>ガイドラインに数字がないので「決めた値」として扱うしかありません</u>（Hb 閾値と同じです）。</p>
+<ol>
+<li><strong>用手圧迫を何分続けるか</strong> — 施設の経験値で決めて明文化する。<u>「止まるまで」ではなく時間を決めておくほうが、担当者が替わってもぶれません</u></li>
+<li><strong>圧迫後の安静時間と観察間隔</strong> — とくに大腿</li>
+</ol>
 </div>
 
 <h4>抜いた直後にすること</h4>
@@ -3268,7 +3303,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表55｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表56｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>

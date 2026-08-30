@@ -222,6 +222,7 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 
 
 
+
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
 *{box-sizing:border-box}
@@ -312,7 +313,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 </style>
 </head>
-<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
+<body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
@@ -383,6 +384,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b43">日本の実務標準（日本）</a>
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート（文献）— 著者・誌・年・DOI</a></nav></aside>
 <div id="rs-scrim"></div>
+
 
 
 
@@ -1682,8 +1684,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>項目</th><th>設定</th><th>根拠・注意</th></tr></thead>
 <tbody>
 <tr><td>導入時の sweep</td><td class="num"><strong>2 L/min から開始</strong>し漸増</td><td>PaCO₂ と pH のゆっくりした変化を担保する <span class="src ext">ELSO2021 p3</span>。当院講義は「血流量と同じ流量で開始」（講義1 p22）だが、導入前に高CO₂だった患者では ELSO の漸増方式のほうが安全</td></tr>
-<tr><td>維持期の sweep</td><td class="num">PaCO₂ 35–45 mmHg を目安に調整</td><td>可動域は 1〜9+ L/min。VV ではあまり動かす必要がない</td></tr>
-<tr><td>FDO₂</td><td class="num"><strong>1.0 で開始</strong></td><td>VV では通常 100% O₂ <span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span>。安定したら自己肺の FiO₂ と揃えていく（§6・吸収性無気肺の回避）</td></tr>
+<tr><td>維持期の sweep</td><td class="num">PaCO₂ 35–45 mmHg を目安に調整<br><strong>下限は 1 L/min</strong></td><td>可動域は <strong>1〜9+ L/min</strong> <span class="src ext">ELSO2021 p3</span>。VV ではあまり動かす必要がない。<u><strong>日常管理で 0 にはしません</strong></u>——<span class="split">0 は離脱試験（off-sweep challenge）だけの設定です</span>（§5-7 Q1）</td></tr>
+<tr><td>FDO₂</td><td class="num"><strong>1.0 で開始</strong></td><td>VV では通常 100% O₂ <span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span>。<u>離脱に向かうまでは 1.0 のまま維持する</u>（下げるのは離脱の第1ステップ・§5-7 Q4）</td></tr>
 </tbody>
 </table>
 </div>
@@ -2043,7 +2045,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>具体的な数字に入ります。<strong>指示簿に書くのは実質4行です。</strong></p>
 <p><strong>プラトー圧 25 cmH₂O 未満</strong>——これが lung rest の本体です。20 を下回るとさらに予後がよい可能性が示唆されており、上限として許容できるのは 30 まで。ICM2026 はさらに踏み込んで「PEEP 10 の下で駆動圧 15 cmH₂O 以下」という目標を追加しています。</p>
 <p><strong>PEEP 10 cmH₂O 以上</strong>——ここは間違えやすいところで、10 は「下限」であって「上限」ではありません。圧も換気量も下げていくと、十分な PEEP がないと肺胞がつぶれて無気肺になります。ELSO の許容範囲は 10〜24 と幅広く、「休ませる＝しぼませる」ではないということです。</p>
-<p><strong>呼吸回数 4〜10 回/分</strong>と自己肺の FiO₂ 30〜50%。CO₂ は回路が引き受けているので、呼吸数はここまで落とせます。FiO₂ は酸素化を保てる範囲でできるだけ低く——人工肺だけを 100% にして自己肺を低い FiO₂ のままにすると、窒素が肺胞から抜けて吸収性無気肺を招きます（後述）。</p>
+<p><strong>呼吸回数 4〜10 回/分</strong>と自己肺の FiO₂ 30〜50%。CO₂ は回路が引き受けているので、呼吸数はここまで落とせます。FiO₂ は<strong>酸素化を保てる範囲でできるだけ低く</strong>——<u>下げるのは自己肺側で、人工肺（FDO₂）は 1.0 のまま維持します</u>（§5-2）。</p>
 <p>一回換気量については目標として設定しません。上の4項目を守っていれば、結果として 3〜4 mL/kg PBW 程度に落ち着きます。逆に、「換気量が少なすぎる」と感じて圧を上げにいくのが最もありがちな失敗です。</p>
 
 <div class="tablewrap">
@@ -2054,7 +2056,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>プラトー圧</td><td class="num"><strong>&lt; 25 cmH₂O</strong></td><td>&lt;20 でさらに予後改善の可能性、許容は ≤30 <span class="src ext">ELSO2021 Table 3</span>。ICM2026 はさらに「PEEP 10 下で駆動圧 &lt; 15」を上乗せ</td></tr>
 <tr><td>PEEP</td><td class="num"><strong>≥ 10 cmH₂O</strong></td><td>範囲 10–24 <span class="src ext">ELSO2021 Table 3</span>。10 は下限であって上限ではない（下記の注意）</td></tr>
 <tr><td>呼吸回数</td><td class="num"><strong>4–10 回/分</strong></td><td>ELSO の許容は 4–30、実務の推奨は 4–15 <span class="src ext">ELSO2021</span><span class="src vault">NEJM Evid 2022</span></td></tr>
-<tr><td>FiO₂（自己肺）</td><td class="num"><strong>30–50%</strong><br>（保てる範囲で最低）</td><td><span class="src ext">ELSO2021 Table 3</span>。人工肺だけ 100% にしない（吸収性無気肺・下記）</td></tr>
+<tr><td>FiO₂（自己肺）</td><td class="num"><strong>30–50%</strong><br>（保てる範囲で最低）</td><td><span class="src ext">ELSO2021 Table 3</span>。<u>下げるのは自己肺側。人工肺（FDO₂）は 1.0 のまま</u></td></tr>
 <tr><td>一回換気量</td><td class="num">結果として <strong>3–4 mL/kg PBW</strong> 程度</td><td>上の4項目を守れば自然にこうなる。換気量を目標にして圧を上げない <span class="src in">当院 講義1 p60-61</span></td></tr>
 <tr><td>モード</td><td>圧制御（PCV）が基本</td><td>初期は筋弛緩＋調節呼吸、可能になれば自発サポートへ <span class="src in">当院 講義1 p60-61</span></td></tr>
 </tbody>

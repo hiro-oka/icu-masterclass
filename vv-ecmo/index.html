@@ -1717,6 +1717,15 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>FDO₂</td><td class="num"><strong>1.0 で開始</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">維持期は 1.0 のまま動かさない<br>下げるのは離脱の第1ステップ（→0.21）</span></td><td>VV では通常 100% O₂ <span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span>。<u>離脱に向かうまでは 1.0 のまま維持する</u>（下げるのは離脱の第1ステップ・§5-9 Q4）</td></tr>
 </tbody>
 </table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>sweep の初期値は「血流量と同じ」でも大きく外れません。</strong>当院講義の「血流量と同じ流量で開始」（講義1 p22）は、<u>sweep は血流量の 50〜100% が目安・迷ったら 1:1</u> という一般的な運用と一致します <span class="src ext">Deranged Physiology</span>。<span class="split">それでも導入前に高CO₂だった患者では、ELSO の 2 L/min から漸増するほうが安全です</span>（急速な CO₂ 低下を避けるため・§3-3）。</p>
+</div>
+
+<div class="box warn">
+<span class="label">ブレンダー実機で気をつける2点</span>
+<ul>
+<li><strong>流量計が2つある機種では、2つの値は足し算になります。</strong>細かい調整用（100 mL/min 刻み）と粗い調整用（L/min 刻み）が<u>直列ではなく並列</u>に入っているためで、<span class="split">片方に 0.5 L/min、もう片方に 2 L/min を入れていれば、実際に流れているのは 2.5 L/min</span> <span class="src ext">Deranged Physiology</span>。<u>「片方をゼロにしたつもり」が最も危ない</u>ので、sweep を読むときは<b>両方の目盛りを見ます</b></li>
+<li><strong>ブレンダーが鳴いたら、まず酸素と空気の両方がつながっているかを見ます。</strong>片側のガス供給圧がもう一方を大きく上回るとアラームが鳴る設計で、<u>原因はたいてい配管の外れ</u>です <span class="src ext">Deranged Physiology</span></li>
+</ul>
 </div>
 
 <div class="box danger">
@@ -2398,6 +2407,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <thead><tr><th>手がかり</th><th>見方</th><th>なぜ効くか</th></tr></thead>
 <tbody>
 <tr><td><strong>送血側の血液ガス</strong>（最重要）</td><td><strong>送血側 SaO₂ &lt; 98%</strong> なら人工肺の異常</td><td>人工肺を出た直後の血液は本来ほぼ100%。<u>ここが下がる＝ガス交換ができていない</u>。差圧の代わりになる唯一の直接的な指標</td></tr>
+<tr><td><strong>膜の性能テスト</strong><br><span style="font-size:.8rem;color:var(--muted)">sweep を変えても CO₂ が動かないとき</span></td><td><u>FDO₂ を 1.0 にして、脱血側と送血側の血液ガスを対で採る</u>。<strong>PaO₂ の差が 200 mmHg 超</strong>あれば<u>膜は健全</u> <span class="src ext">Deranged Physiology</span></td><td><span class="split">「sweep を 1〜2 L 変えたのに PaCO₂ が動かない」ときの犯人は、ブレンダーではなく<b>血流量が低すぎる</b>か<b>人工肺の劣化</b></span>。この対採血で<u>どちらかを切り分けられます</u>——膜が健全なら、原因は血流量のほう</td></tr>
 <tr><td><strong>D-ダイマー</strong>の上昇</td><td>経時的に追う（単発値では判断しない）</td><td>人工肺の中で血栓が育つと上がる</td></tr>
 <tr><td><strong>目視</strong></td><td>白色光のペンライトで人工肺・コネクタ・ルアーを照らす。血栓を認めたら○で囲んで長さを記録</td><td>フィブリン沈着は肉眼で見える。<u>毎日同じ場所を見て「増えているか」で判断する</u></td></tr>
 </tbody>
@@ -3215,7 +3225,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.92rem;color:var(--muted)"><strong>図に入りきらない実務の細部</strong>　<span class="src in">当院 講義1 p90</span><span class="src jp">≒ECMOnet p33-36</span><span class="src ext">ELSO2021 Table 7</span></p>
 <ul>
 <li><strong>Step 2 の各段</strong>では <strong>SpO₂ &gt; 92%（または PaO₂ ≥70 mmHg）</strong>を保てるかを見ます。<u>血ガスは 0.21 に到達したときが必須</u>で、途中は SpO₂ で追い、落ちた段があればその場で採ります</li>
-<li><strong>Step 3 の sweep off は、酸素流量計をゼロにし、同時にガス供給チューブをクランプします</strong> <span class="src in">当院 講義1 p90</span>。<u>流量計をゼロにすればガス交換は実質的に止まります</u>（気相が血液と平衡に達するため）が、<strong>クランプはそれを物理的に担保する</strong>ものです——<span class="split">つまみが不用意に動いても、ガスが流れ出すことはありません</span>。<u>4時間という長さのあいだ「確実に off である」ことを保証する</u>意味があります<br><span style="font-size:.88rem;color:var(--muted)">クランプするのは<u>ガスの供給側</u>です。<strong>人工肺の排気口（出口側）は塞ぎません</strong>——出口を塞ぐと気相が逃げ場を失って加圧され、膜を越えて血液側にガスが入りうるためです</span></li>
+<li><strong>Step 3 の sweep off は、酸素流量計をゼロにし、同時にガス供給チューブをクランプします</strong> <span class="src in">当院 講義1 p90</span>。<u>流量計をゼロにすればガス交換は実質的に止まります</u>（気相が血液と平衡に達するため）が、<strong>クランプはそれを物理的に担保する</strong>ものです。<span class="split">ガスブレンダーは、ダイヤルを 21% にしても微量の酸素を送り続けることがある</span>と報告されており、<u>だから離脱テストや脳死判定の無呼吸試験では「ダイヤルを回す」ではなく物理的に切り離せ</u>、という指摘があります <span class="src ext">Deranged Physiology</span>。<span style="font-size:.88rem;color:var(--muted)">（単著の教育サイトによる指摘で、著者自身が<u>漏れの量は機種ごとに異なる</u>と断っています。当院はもともとクランプする運用なので実務は変わりませんが、<b>クランプにはこの意味がある</b>と理解しておいてください。）</span><u>4時間という長さのあいだ「確実に off である」ことを保証する</u>意味もあります<br><span style="font-size:.88rem;color:var(--muted)">クランプするのは<u>ガスの供給側</u>です。<strong>人工肺の排気口（出口側）は塞ぎません</strong>——出口を塞ぐと気相が逃げ場を失って加圧され、膜を越えて血液側にガスが入りうるためです</span></li>
 </ul>
 
 <div class="tablewrap">
@@ -3841,7 +3851,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h2 id="refs">出典一覧</h2>
 
-<p>本文中の出典バッジは4分類です。<span class="src in">当院</span> 院内資料（講義1日目/2日目・導入手順・トラブルシューティング資料・ハンズオン）／<span class="src ext">ELSO</span> ELSO 2021・Complications 2022／<span class="src jp">日本</span> ECMOnet・岡山大セミナー2020・市場2016／<span class="src vault">文献</span> Vault 内の論文ノート（下記に著者・誌・年・DOI）。</p>
+<p>本文中の出典バッジは4分類です。<span class="src in">当院</span> 院内資料（講義1日目/2日目・導入手順・トラブルシューティング資料・ハンズオン）／<span class="src ext">ELSO</span> ELSO 2021・Complications 2022 ほか海外資料／<span class="src jp">日本</span> ECMOnet・岡山大セミナー2020・市場2016／<span class="src vault">文献</span> Vault 内の論文ノート（下記に著者・誌・年・DOI）。</p>
 
 <h3 id="rs-b41">院内資料</h3>
 <ul class="refs">
@@ -3862,6 +3872,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>ELSO 2024（早期リハビリ）</strong>：Ramsey S, Labib Shehatta A, Ramanathan K, et al. Extracorporeal Life Support Organization 2024 Guideline for Early Rehabilitation or Mobilization of Adult Patients on ECMO. <em>ASAIO J</em> 2025;71:187-. DOI 10.1097/MAT.0000000000002375 —（§8）<u>推奨に GRADE 等の格付けは無く、専門家合意による実装マニュアル</u></li>
 <li><strong>ELSO2017（総論）</strong>：Extracorporeal Life Support Organization. General Guidelines for all ECLS Cases. Version 1.4. August 2017. <u>DOIを持たない機関文書</u>。全ECLS共通の総論で、適応の具体値・輸血目標・抗凝固・離脱時間は2021以降の各論で上書きして使う</li>
 <li><strong>ELSO 栄養 2026</strong>：Bear DE, Ridley EJ, Daly K, De Waele E, Al Dabbous T, Karpasiti T, Stoppe C, Barrett NA. 2025 ELSO Consensus Statement for the Provision and Management of Nutrition Therapy in Critically Ill Adult Patients Requiring ECMO. <em>ASAIO J</em> 2026;72(1):99-110. DOI 10.1097/MAT.0000000000002657 —（§7）<u>16推奨を支える RCT はゼロ。投票者8名・単一ラウンド・GRADE なし</u>の専門家合意</li>
+<li><strong>Deranged Physiology</strong>：Yartsev A. "Sweep", fresh gas supply to the ECMO oxygenator. <em>Deranged Physiology — Cardiovascular Intensive Care</em>, Chapter 649（最終更新 2025-08-07）—（§5-3・§9-2・§12-2）<u>単著の教育サイトで査読はありません</u>。ブレンダーの機構と実機の癖（<b>流量計2つは加算</b>／<b>21% でも微量の酸素が漏れうる</b>／<b>sweep を変えても CO₂ が動かないときの膜性能テスト</b>）は他の資料に記載が乏しく、本ガイドではこの3点に限って引用しています。著者自身が漏れの量に<u>機種差がある</u>と断っており、当院の機種で確かめる価値があります</li>
 </ul>
 
 <h3 id="rs-b43">日本の実務標準</h3>

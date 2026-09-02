@@ -300,9 +300,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <body data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1" data-refstyle="1">
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VV-ECMO 実戦管理ガイド</span></div>
-<aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#now">⚡ 当直カード</a>
-<a class="lv3" href="#rs-b1">VV-ECMO 設定・目標値 早見表</a>
-<a class="lv2" href="#s1">§1 VV-ECMO とは</a>
+<aside id="rs-side"><div class="hd"><div class="ttl">VV-ECMO 実戦管理ガイド</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む（例: チャタリング）" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav"><a class="lv2" href="#s1">§1 VV-ECMO とは</a>
 <a class="lv3" href="#rs-s1-1">1-1. 回路の流れと圧の測定点</a>
 <a class="lv3" href="#rs-s1-2">1-2. ベッドサイドの実機</a>
 <a class="lv2" href="#s2">§2 適応と禁忌</a>
@@ -384,7 +382,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
 <h1>VV-ECMO 実戦管理ガイド</h1>
-<p class="sub">VV-ECMO を<strong>導入前から離脱後まで、時間の順に一本で追える資料</strong>です。「この装置は何をしているのか」から始めて、適応・導入・毎日の管理・トラブル対応・離脱・離脱後まで。すでに患者さんが乗っている場合は、冒頭の「⚡当直カード」だけで当直が回るようにしてあります。</p>
+<p class="sub">VV-ECMO を<strong>導入前から離脱後まで、時間の順に一本で追える資料</strong>です。「この装置は何をしているのか」から始めて、適応・導入・毎日の管理・トラブル対応・離脱・離脱後まで。</p>
 
 <p class="meta"><span>聖路加国際病院 集中治療科</span><span>作成：岡本洋史（集中治療科）</span><span>対象：研修医・専攻医・看護師・臨床工学技士</span><span>最終更新 2026-09-02</span></p>
 
@@ -394,10 +392,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
 
-<div class="toc">
+<div class="toc" id="toc">
 <span class="label">目次 — 導入前から離脱後まで、上から順に読める並びです</span>
 <ol>
-<li><a href="#now">⚡ 当直カード</a></li>
 <li><a href="#s1">§1 VV-ECMO とは</a></li>
 <li><a href="#s2">§2 適応と禁忌</a></li>
 <li><a href="#s3">§3 カニュレーションと導入直後</a></li>
@@ -416,54 +413,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ol>
 </div>
 
-<h2 id="now">⚡ 当直カード</h2>
-
-<div class="tablewrap">
-<table class="wide">
-<caption>表1｜VV-ECMO 設定・目標値 早見表 — <span class="ok">目標と、動かしてよい範囲</span>（根拠と例外は §5）</caption>
-<thead><tr><th>項目</th><th>目標／<span style="font-weight:400">管理範囲</span></th><th>根拠</th><th>備考</th></tr></thead>
-<tbody>
-<tr><td colspan="4" class="grp">回路の圧　※当院は2点しか測っていません（§9-1）</td></tr>
-<tr><td><strong>脱血圧</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">モニタ表示は「P1」</span></td><td class="num"><strong>&gt; −100 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム下限に設定</span></td><td><span class="src jp">ECMOnet p22</span><span class="src in">当院 講義1</span></td><td>回転数を下げる。陰圧が強いほど溶血・チャタリング</td></tr>
-<tr><td><strong>肺後圧</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">モニタ表示は「P2」</span></td><td class="num"><strong>&lt; 300 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">アラーム上限に設定</span></td><td><span class="src jp">ECMOnet p22</span></td><td>上がったら<strong>人工肺か送血側</strong>。圧では区別できないので<u>送血側 SaO₂ を採血</u>（§9-1）</td></tr>
-<tr><td>P2−P3（肺前−肺後）</td><td class="num">&lt; 50 mmHg<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">正常はおよそ 25 mmHg</span></td><td><span class="src jp">ECMOnet p22</span><span class="src vault">JCM2024</span></td><td><span class="split">当院は肺前圧を測っていないため算出できません</span>。代わりに <u>送血側 SaO₂ &lt; 98%・D-ダイマー・目視</u>で人工肺を見る（表37）</td></tr>
-<tr><td colspan="4" class="grp">回路の設定</td></tr>
-<tr><td>血流量</td><td class="num"><strong>3.0–4.0 L/min</strong><br>（60–80 mL/kg/min）<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 2（導入時）〜 5–6（カニュラ径の上限）<br>低酸素の緊急時は 6–7 まで</span></td><td><span class="src in">当院 講義1 p71</span></td><td>脱血圧が保てるなら下げない（低流量は血栓を作る）</td></tr>
-<tr><td>Sweep gas</td><td class="num"><strong>導入時 2 L/min から漸増</strong><br>以後は PaCO₂ で調整<br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">範囲 <strong>1〜9+ L/min</strong>（下限1）<br>0 は離脱試験のみ・日常では 0 にしない</span></td><td><span class="src ext">ELSO2021 p3</span></td><td>PaCO₂ を急に下げない（脳出血・けいれん）<br><u>0 にしない理由</u>：①人工肺に結露がたまりガス交換能が落ちる ②酸素化の寄与も一緒に落ちる ③送血側 SaO₂ で人工肺の異常を検知できなくなる（§5-3）</td></tr>
-<tr><td>FDO₂（人工肺）</td><td class="num"><strong>1.0 で開始</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">維持期は 1.0 のまま動かさない<br>下げるのは離脱の第1ステップ（→0.21）</span></td><td><span class="src ext">ELSO2021</span><span class="src jp">ECMOnet</span></td><td>VV では通常このまま維持する</td></tr>
-<tr><td colspan="4" class="grp">ガス交換の目標</td></tr>
-<tr><td>SaO₂</td><td class="num"><strong>80–90%</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">70%台も許容（心拍出量正常・Hb保持が前提）<br>Hb が低いほど許容できる下限は上がる（§5-6）</span></td><td><span class="src jp">ECMOnet p9</span><span class="src in">当院 講義1</span></td><td>呼吸器設定を上げない・VAに変えない。乳酸・心拍出量・Hb を並べて見る</td></tr>
-<tr><td>PaCO₂</td><td class="num"><strong>35–45 mmHg</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">導入24h は目標値より「下げる速度」を優先</span></td><td><span class="src jp">ECMOnet</span><span class="src vault">CritCare2026</span></td><td>最初の24時間で excess CO₂ を50%超下げない（§3-3）</td></tr>
-<tr><td>脱血側 SvO₂</td><td>毎回記録する（数値目標は置かない）</td><td><span class="src in">当院</span></td><td>低下＝需給の悪化。ただし再循環が多いと指標にならない → CV から採血</td></tr>
-<tr><td colspan="4" class="grp">抗凝固・輸血</td></tr>
-<tr><td>ヘパリン</td><td class="num"><strong>20–50 U/kg/hr</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">ボーラス 50–100 U/kg（カニュレーション時）</span></td><td><span class="src jp">ECMOnet p16-17</span></td><td>出血時は持続を止める判断を先に（ボーラスと持続は別物）</td></tr>
-<tr><td>ACT / APTT</td><td class="num"><strong>ACT 180–220 秒</strong><br><strong>APTT 正常の1.5–2倍</strong></td><td><span class="src jp">ECMOnet p17</span></td><td>ACT はトレンド指標。判断は APTT で（当院 講義1 p35）</td></tr>
-<tr><td>Hb</td><td class="num"><strong>&lt; 10 g/dL で輸血</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>ELSO は 7〜12 で統一見解なし。当院の値として運用する</td></tr>
-<tr><td>血小板</td><td class="num"><strong>&lt; 8万/µL で輸血</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>出血があれば早めに。ECMO 日数とは相関しない</td></tr>
-<tr><td>フィブリノゲン</td><td class="num"><strong>&lt; 200 mg/dL で補充</strong>（当院の値）</td><td><span class="src in">当院 講義1 p35</span></td><td>出血が続くときは閾値を上げる</td></tr>
-<tr><td>AT-III</td><td class="num"><strong>&gt; 50% を維持</strong></td><td><span class="src jp">ECMOnet p18</span><span class="src in">当院 講義1 p35</span></td><td>AT投与時はヘパリンを一時減量。低下だけを理由に反射的に補充しない</td></tr>
-<tr><td colspan="4" class="grp">人工呼吸器 — lung rest</td></tr>
-<tr><td>モード・設定</td><td class="num"><strong>PCV／PEEP 10／Pi 10／呼吸回数 10／FiO₂ 40%</strong><br><span style="font-size:.78rem;font-weight:400;color:var(--muted)">一回換気量は設定しない（結果 3–4 mL/kg PBW 前後）</span></td><td><span class="src in">当院 講義1 p82</span></td><td>当院標準。外部基準との対応は §6-1 表28</td></tr>
-<tr><td>上限</td><td class="num">駆動圧 ≤ 15／Pplat &lt; 25 cmH₂O</td><td><span class="src vault">ICM2026</span><span class="src ext">ELSO2021 Table 3</span></td><td>決めた rest 設定を超えない。離脱判定の「Pplat ≤28」とは別物（§6-1）</td></tr>
-<tr><td>下限</td><td class="num">PEEP 10 を下回らない</td><td><span class="src ext">ELSO2021 Table 3</span></td><td>圧も換気量も小さいので PEEP が足りないと無気肺になる。酸素化が悪くてもまず回路側で調整する</td></tr>
-</tbody>
-</table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>まだ結論が出ていないのは2つだけ</strong>：①SaO₂ をどこまで下げて許容するか（70%台か80%台か）　②抗凝固をどこまで強くするか（APTT 正常1.5–2倍か、40–55秒か）。この2つは §5-4 と §5-7 で両論を並べています。それ以外は上の値で動いてかまいません。</p>
-</div>
-
-<div class="box plain">
-<span class="label">困ったときの入口</span>
-<ul>
-<li><strong>圧や流量の数字がおかしい</strong>（脱血圧が深い陰圧／肺後圧が上がった／回転数の割に流量が出ない）→ <a href="#s9">§9-1 回路内圧 × 異常部位</a></li>
-<li><strong>目に入った症状から引きたい</strong>（回路が振れる・泡が出る・異音・出血）→ <a href="#s9">§9-2 症状別トラブルシューティング</a></li>
-<li><strong>SaO₂ が上がらない</strong> → <a href="#s9">§9-3 低酸素アルゴリズム</a>（<span class="split">流量を上げるのは後半のステップ</span>。先に再循環と人工肺を潰す）</li>
-<li><strong>急変して人を集めた</strong> → <a href="#s9">§9-4 緊急時の共通言語</a>（「ポンプ・オフ」等の手順の定義）</li>
-<li><strong>まだ導入していない患者の相談を受けた</strong> → <a href="#indication">§2 EOLIA 基準チェッカー</a>（6項目を選ぶとその場で判定できます。<u>まず聞くのは「挿管して何日目か」</u>）</li>
-</ul>
-<p><strong>どの入口にも共通する原則が2つ</strong>あります。①流量を上げて解決しようとしない（脱血不良でも再循環でも悪化します）　②迷ったら Dr と CE を同時に呼ぶ。</p>
-</div>
-
-<p class="top"><a href="#now">▲ 目次へ</a></p>
 <h2 id="s1"><span class="no">§1</span>VV-ECMO とは</h2>
 
 <h3 id="rs-s1-1">1-1. 回路の流れと圧の測定点</h3>
@@ -568,7 +517,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>装置の姿はこれで足ります。次は「誰に使うのか」（§2）と「どう入れるのか」（§3）へ進みます。<span class="split">この装置がなぜその値で動くのかという生理は、管理の話に入る §4 でまとめて扱います。</span></p>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 <h2 id="s2"><span class="no">§2</span>適応と禁忌</h2>
 
 <p>装置の理屈が分かったところで、<strong>「では、誰に使うのか」</strong>です。</p>
@@ -584,7 +533,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表2｜VV-ECMO の適応 — EOLIA 基準　<span class="src vault">ANZ 2026 Table 3</span>（EOLIA 試験の組み入れ基準）</caption>
+<caption>表1｜VV-ECMO の適応 — EOLIA 基準　<span class="src vault">ANZ 2026 Table 3</span>（EOLIA 試験の組み入れ基準）</caption>
 <thead><tr><th>区分</th><th>項目</th><th>基準</th></tr></thead>
 <tbody>
 <tr><td colspan="3" class="grp"><strong>前提条件 — 3つすべて満たすこと</strong></td></tr>
@@ -597,7 +546,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>高CO₂・アシドーシス</td><td>pH &lt; 7.25 かつ PaCO₂ ≥ 60 mmHg</td><td class="num">肺保護換気の結果として <strong>6時間を超えて持続</strong>（呼吸数は35/分まで増やしたうえで）</td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">当院講義（ECMOnet）の <strong>P/F &lt; 150 で考慮・&lt; 100 で適応</strong>は同じ基準の粗い版です。判定は表2 で行い、P/F &lt; 150 は相談を早める目印に使います。</p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">当院講義（ECMOnet）の <strong>P/F &lt; 150 で考慮・&lt; 100 で適応</strong>は同じ基準の粗い版です。判定は表1 で行い、P/F &lt; 150 は相談を早める目印に使います。</p>
 </div>
 
 <h3 id="indication">2-2. この患者は適応か — チェッカー</h3>
@@ -665,7 +614,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表3｜「相談してよい患者」として挙げられるようになったもの　<span class="src vault">Breathe 2025</span></caption>
+<caption>表2｜「相談してよい患者」として挙げられるようになったもの　<span class="src vault">Breathe 2025</span></caption>
 <thead><tr><th>区分</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><strong>確立した適応</strong></td><td>重症 ARDS（EOLIA 基準）／高CO₂血症性呼吸不全</td></tr>
@@ -733,13 +682,13 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">家族説明に使える数字（初日に伝えておく）</span>
 <ul>
 <li>ECMOは「時間を区切った試行（time-limited trial）」として紹介し、意味のある転帰への希望を継続的に再評価する。無益性による中止の可能性は ECMO 開始「前」に説明しておく。<span class="src ext">ELSO2021 p6／Compl.2022 p6</span></li>
-<li><strong>転帰の数字</strong>：重症ARDS の院内死亡率 29–43%／6か月時点で 54% が死亡または中等度〜重度の障害／生存者の復職は約半数。<span style="font-size:.9em;color:var(--muted)">内訳は §13-2 表55</span></li>
+<li><strong>転帰の数字</strong>：重症ARDS の院内死亡率 29–43%／6か月時点で 54% が死亡または中等度〜重度の障害／生存者の復職は約半数。<span style="font-size:.9em;color:var(--muted)">内訳は §13-2 表54</span></li>
 <li>ECMO 中の出血合併症は 10–30%（現代コホートでは約30–65%との報告も）。<span class="src vault">JThoracDis2020／ICM2026</span></li>
 <li>支持期間の見込み：多くの患者は <strong>9–14日</strong>、一部は4週以上。<span class="src ext">ELSO2021 p6</span></li>
 </ul>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s3"><span class="no">§3</span>カニュレーションと導入直後</h2>
 
@@ -849,7 +798,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="640" y="268">カニュラ間距離</text>
   </g>
 </svg>
-<figcaption>図4. カニュラ配置2通りとカニュラ間距離。左＝<b>大腿静脈から脱血し、内頸静脈から送血</b>（表4 の経路①相当）。2本の先端が上下に離れるため再循環が少ない。右＝大腿脱血・大腿送血。先端どうしが近接するため再循環が増える。両図とも縦の両矢印が「カニュラ間距離」で、当院資料の目安は10cm 以上（講義1 p87 は 10–13cm 以上）。</figcaption>
+<figcaption>図4. カニュラ配置2通りとカニュラ間距離。左＝<b>大腿静脈から脱血し、内頸静脈から送血</b>（表3 の経路①相当）。2本の先端が上下に離れるため再循環が少ない。右＝大腿脱血・大腿送血。先端どうしが近接するため再循環が増える。両図とも縦の両矢印が「カニュラ間距離」で、当院資料の目安は10cm 以上（講義1 p87 は 10–13cm 以上）。</figcaption>
 </figure>
 
 <p>カニュラをどこに入れるかで、この後ずっと付き合う「再循環の起きやすさ」が決まります。組み合わせは大きく3通りです。</p>
@@ -859,7 +808,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表4｜カニュラ構成と再循環　<span class="src in">当院 講義1日目 p66-70</span></caption>
+<caption>表3｜カニュラ構成と再循環　<span class="src in">当院 講義1日目 p66-70</span></caption>
 <thead><tr><th>経路</th><th>脱血</th><th>送血</th><th>利点</th><th>欠点</th><th>位置づけ</th></tr></thead>
 <tbody>
 <tr><td>①</td><td>大腿静脈（下大静脈）</td><td>内頸静脈（上大静脈）</td><td>再循環が少ない</td><td>脱血困難、下肢静脈血栓が多い</td><td>ELSO ガイドライン推奨。効率良いが血流量を増やせない</td></tr>
@@ -875,7 +824,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>ただし<strong>太ければ良いわけではありません。</strong>ELSO は「過大なカニュラは静脈うっ滞・血管損傷・DVT を招く」と明記しています。そこで実務ではELSO の目安（180cm 男性なら 25Fr、重症呼吸不全では〜29Fr）と、ECMOnet の体表面積ベースの選択を突き合わせ、最後は必ずエコーで実際の血管径を確認してから決めます。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表5｜カニュラサイズの選び方</caption>
+<caption>表4｜カニュラサイズの選び方</caption>
 <thead><tr><th>出典</th><th>脱血</th><th>送血</th><th>考え方</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 p3-4</span></td><td><strong>25Fr</strong>（180cm男性ならこれで足りることが多い）<br>重症呼吸不全では <strong>〜29Fr</strong> が流量・酸素化に有利</td><td>—</td><td>VV の流量は通常カニュラ径で <strong>5–6 L/min</strong> に制限される。過大なカニュラは静脈うっ滞・血管損傷・DVT</td></tr>
@@ -896,7 +845,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表6｜胸部X線・エコー・血ガスで見るもの</caption>
+<caption>表5｜胸部X線・エコー・血ガスで見るもの</caption>
 <thead><tr><th>いつ</th><th>何を</th><th>見るポイント</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td>導入直後</td><td>胸部X線</td><td>カニュラ先端位置／送脱血カニュラの間隔（10cm以上、資料により10–13cm以上）／気胸の有無／刺入長の記録（以後「線のズレ」で追う）</td><td><span class="src in">講義1 p45,64,87</span></td></tr>
@@ -914,12 +863,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <span class="label">🚨 導入後24時間の CO₂ の下げすぎは脳を壊す</span>
 <p>最初の24時間で excess CO₂ を 50% を超えて下げない。48〜72時間かけて正常化する。脳血管トーヌスの急激な変化を介して、痙攣・頭蓋内出血・脳死を含む神経学的合併症の増加と関連します。<span class="src vault">CritCare2026</span></p>
-<p>具体的な手順：sweep gas は 2 L/min で開始し、CO₂ と pH が緩徐に補正されるよう滴定する（ELSO ガイドラインの推奨として引用）。<span class="src vault">CritCare2026</span><span class="src ext">ELSO2021 p3</span><br>導入前に高CO₂血症だった患者ほど過剰補正しやすい（表6）。「PaCO₂ がまだ高い」という理由で夜間に sweep を上げないことを申し送る。<span class="src ext">Compl.2022 p4-5</span></p>
+<p>具体的な手順：sweep gas は 2 L/min で開始し、CO₂ と pH が緩徐に補正されるよう滴定する（ELSO ガイドラインの推奨として引用）。<span class="src vault">CritCare2026</span><span class="src ext">ELSO2021 p3</span><br>導入前に高CO₂血症だった患者ほど過剰補正しやすい（表5）。「PaCO₂ がまだ高い」という理由で夜間に sweep を上げないことを申し送る。<span class="src ext">Compl.2022 p4-5</span></p>
 </div>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表7｜導入直後のバイタル変化と備え　<span class="src jp">岡山3 p21-23</span></caption>
+<caption>表6｜導入直後のバイタル変化と備え　<span class="src jp">岡山3 p21-23</span></caption>
 <thead><tr><th>起こりうること</th><th>対応</th></tr></thead>
 <tbody>
 <tr><td>血圧低下</td><td>赤血球輸血／カルチコール／カテコラミン／エコーで出血確認／血液ガスを見てアシドーシス補正</td></tr>
@@ -932,7 +881,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h2 id="s4"><span class="no">§4</span>生理 — なぜその値になるのか</h2>
 
 <p>ここからは<strong>生理の話</strong>です。3つだけ押さえれば、ECMO 中の判断のほとんどが説明できます——①酸素供給は掛け算　②SaO₂ は分数　③CO₂ は sweep gas で決まる。</p>
-<p style="font-size:.9rem;color:var(--muted)">数値だけ要るなら、この章は飛ばして表1 と §5 へ進んで構いません。</p>
+<p style="font-size:.9rem;color:var(--muted)">数値だけ要るなら、この章は飛ばして §5 へ進んで構いません。</p>
 
 <h3 id="rs-b9">4-1. 酸素供給の決定因子</h3>
 
@@ -947,7 +896,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表8｜計算式と目標量</caption>
+<caption>表7｜計算式と目標量</caption>
 <thead><tr><th>式・目標</th><th>内容</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td>全身の酸素運搬 DO₂</td><td><code>DO₂ = (SaO₂/100) × Hb[g/L] × 1.36 × 心拍出量[L/min]</code>（ELSOは係数 1.39 を採用）</td><td><span class="src jp">市場2016 p725／岡山1 p7</span></td></tr>
@@ -960,7 +909,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-<p style="font-size:.9rem;color:var(--muted)">表8 で補足を2つ。<strong>係数 1.36</strong> は「Hb 1 g が結合できる酸素の mL 数」で、物理定数のようなものです（ELSO は 1.39 を使いますが実務上の差はありません）。もうひとつ、Rated flow は人工肺のカタログ値ですが、Rated flow 2 L/min の人工肺が担保する酸素付加は 65 mL/分にすぎません——成人の VO₂ が 200 mL/分であることを思い出すと、<span class="split">成人には大きな人工肺が要る</span>という話につながります。</p>
+<p style="font-size:.9rem;color:var(--muted)">表7 で補足を2つ。<strong>係数 1.36</strong> は「Hb 1 g が結合できる酸素の mL 数」で、物理定数のようなものです（ELSO は 1.39 を使いますが実務上の差はありません）。もうひとつ、Rated flow は人工肺のカタログ値ですが、Rated flow 2 L/min の人工肺が担保する酸素付加は 65 mL/分にすぎません——成人の VO₂ が 200 mL/分であることを思い出すと、<span class="split">成人には大きな人工肺が要る</span>という話につながります。</p>
 
 <h3 id="rs-b10">4-2. SaO₂ は分数で決まる</h3>
 
@@ -1026,7 +975,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表9｜SaO₂ が上がらないときの鑑別と、動かす変数</caption>
+<caption>表8｜SaO₂ が上がらないときの鑑別と、動かす変数</caption>
 <thead><tr><th>#</th><th>原因</th><th>気づき方</th><th>動かす変数</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>VO₂ の増大（敗血症・発熱・不穏・体動・シバリング）</td><td>体温・不穏・シバリング</td><td>VO₂ を下げる（解熱・鎮静・シバリング対策）。<span class="src vault">数理モデル：同じHbでも VO₂ が高いほど低酸素は重くなる</span></td></tr>
@@ -1055,7 +1004,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表10｜再循環への寄与度　<span class="src vault">CFD研究 ASAIO J 2021</span></caption>
+<caption>表9｜再循環への寄与度　<span class="src vault">CFD研究 ASAIO J 2021</span></caption>
 <thead><tr><th>影響</th><th>因子</th><th>明日の読み替え</th></tr></thead>
 <tbody>
 <tr><td><strong>大（&gt;20%）</strong></td><td>①心拍出量に対する体外血流量　②SVC血流とIVC血流の比　③腔房接合部に対する SVC カニュラの位置　④三尖弁に対する返血カニュラの向き</td><td>この4つから順に潰す。返血カニュラの向きを三尖弁に向けるのが最も介入しやすい／脱血カニュラ位置は X線・エコーで確認</td></tr>
@@ -1069,7 +1018,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表11｜再循環：当院の対処　<span class="src in">当院 講義1 p62-64</span></caption>
+<caption>表10｜再循環：当院の対処　<span class="src in">当院 講義1 p62-64</span></caption>
 <thead><tr><th>R率上昇の原因</th><th>対処</th></tr></thead>
 <tbody>
 <tr><td>ECMO flow 上昇に伴う上昇</td><td>Flow を落としてみる</td></tr>
@@ -1120,7 +1069,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表12｜計算例 — 同じ患者、同じ人工肺で3場面</caption>
+<caption>表11｜計算例 — 同じ患者、同じ人工肺で3場面</caption>
 <thead><tr><th>場面</th><th>脱血側<br>SO₂</th><th>SvO₂</th><th>送血側<br>SO₂</th><th>R率の計算</th><th>有効流量</th></tr></thead>
 <tbody>
 <tr><td>① 落ち着いている<br><span style="font-size:.8rem;color:var(--muted)">血流量 4.0 L/min</span></td><td class="num">70%</td><td class="num">65%</td><td class="num">100%</td><td class="num">(70−65) ÷ (100−65)<br>＝ 5 ÷ 35 ＝ <strong>14%</strong></td><td class="num">4.0 × 0.86<br>＝ <strong>3.4 L/min</strong></td></tr>
@@ -1144,7 +1093,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
       <label><b>ECMO 血流量</b>有効流量の計算用（L/min）<input type="number" id="rcFlow" value="4.0" min="0" max="10" step="0.1"></label>
     </div>
     <div class="calc-pre">
-      <span>表12 の例を入れる：</span>
+      <span>表11 の例を入れる：</span>
       <button type="button" data-p="70,100,65,4.0">① 落ち着いている</button>
       <button type="button" data-p="80,100,65,4.0">② 再循環している</button>
       <button type="button" data-p="88,100,62,5.0">③ 流量を上げた</button>
@@ -1232,7 +1181,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表13｜CO₂ 除去の原理と操作</caption>
+<caption>表12｜CO₂ 除去の原理と操作</caption>
 <thead><tr><th>項目</th><th>内容</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td>原理</td><td>フィックの拡散則 <code>CO₂拡散スピード = ΔCO₂分圧 × 膜面積</code>。sweep gas 流量↑＝気相の CO₂ 分圧を下げる／血液流量↑＝血液相の CO₂ 分圧を上げる</td><td><span class="src in">講義1 p23</span><span class="src jp">岡山7 p11</span></td></tr>
@@ -1286,7 +1235,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </svg>
 <figcaption>図7. 人工肺のガス交換と sweep gas。人工肺の中は<b>気相</b>（sweep gas が流れる側）と<b>血液相</b>が中空糸膜で仕切られている。</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — O₂ は気相から血液へ、CO₂ は血液から気相へ、いずれも<b>分圧の高い方から低い方へ拡散するだけ</b>で、押し込んでいるわけではない。sweep gas の役割は<b>気相を絶えず洗い流して CO₂ 分圧をゼロ近くに保つこと</b>で、これが血液との分圧差を作る。だから sweep gas 流量が CO₂ 除去量をほぼ決め（表13）、酸素化を決める FDO₂ とは別のつまみになる。sweep を 0 にすると気相が洗われず、分圧差が消えるうえ結露がたまるので、日常では 0 にしない（§5-3）。</p>
+<p class="figread"><strong>図の読み方</strong> — O₂ は気相から血液へ、CO₂ は血液から気相へ、いずれも<b>分圧の高い方から低い方へ拡散するだけ</b>で、押し込んでいるわけではない。sweep gas の役割は<b>気相を絶えず洗い流して CO₂ 分圧をゼロ近くに保つこと</b>で、これが血液との分圧差を作る。だから sweep gas 流量が CO₂ 除去量をほぼ決め（表12）、酸素化を決める FDO₂ とは別のつまみになる。sweep を 0 にすると気相が洗われず、分圧差が消えるうえ結露がたまるので、日常では 0 にしない（§5-3）。</p>
 
 <h4>なぜ CO₂ は酸素と別のつまみで動くのか</h4>
 
@@ -1316,13 +1265,13 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>「1時間あたり何 mmHg まで」という上限値はなく、「漸増的に（gradually）」という定性的な指示です。</p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s5"><span class="no">§5</span>目標値と設定</h2>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表14｜「いくつにするか」と「なぜそうなるのか」の対応</caption>
+<caption>表13｜「いくつにするか」と「なぜそうなるのか」の対応</caption>
 <thead><tr><th>決めたい値（この章）</th><th>その理屈（§4）</th><th>ひとことで言うと</th></tr></thead>
 <tbody>
 <tr><td><strong>5-2 血流量</strong></td><td>4-2 SaO₂ は分数で決まる／4-3 再循環</td><td>流量は分数の分子。ただし上げるほど再循環も増える</td></tr>
@@ -1332,7 +1281,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>5-5 SvO₂／5-7 抗凝固</td><td colspan="2"><span class="split">§4 に対応する生理はありません</span>（この章だけで完結します）</td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>読む順の目安</strong>：はじめて読むなら §4 →§5 と続けて通しで。当直で値だけ引きたいなら表1 だけ、<span class="split">「なぜその値なのか」が要るときにこの表から §4 へ戻ってください。</span></p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>読む順の目安</strong>：はじめて読むなら §4 →§5 と続けて通しで。当直で値だけ引きたいなら §5 の表だけ、<span class="split">「なぜその値なのか」が要るときにこの表から §4 へ戻ってください。</span></p>
 </div>
 
 <p>次はその値をどこに置くかです。</p>
@@ -1342,7 +1291,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表15｜3つのつまみ — 何を決めているか</caption>
+<caption>表14｜3つのつまみ — 何を決めているか</caption>
 <thead><tr><th>つまみ</th><th>決まるもの</th><th>動かす場面</th></tr></thead>
 <tbody>
 <tr><td><strong>血流量</strong><br>（回転数で調整）</td><td><strong>酸素化</strong></td><td>SaO₂ が足りないとき。ただし上げる前に再循環と人工肺を確認（§9-3）</td></tr>
@@ -1353,7 +1302,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>酸素と CO₂ が別のつまみで動く</strong>のがこの装置の要点です。なぜそうなるかは §4-4。</p>
 </div>
 
-<p style="font-size:.9rem;color:var(--muted)">数値と管理範囲は冒頭の表1。ここは動かし方の原則です。</p>
+<p style="font-size:.9rem;color:var(--muted)">数値と管理範囲は各項の表にあります。ここは動かし方の原則です。</p>
 
 <div class="box warn">
 <span class="label">設定を変えるときの共通ルール</span>
@@ -1379,7 +1328,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表16｜血流量は場面で変わる</caption>
+<caption>表15｜血流量は場面で変わる</caption>
 <thead><tr><th>場面</th><th>流量</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td>導入時（最初の数時間）</td><td class="num">2 L/min から開始し漸増</td><td>PaCO₂・pH をゆっくり動かすため <span class="src ext">ELSO2021 p3</span></td></tr>
@@ -1423,11 +1372,11 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <img src="data:image/jpeg;base64,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fva8L0oPZV0C6zJnJdE03+oOkqkXoY9GP81Nbnj0ugzgF/GFB2Pt93lKzN807GUD1T08EJYnUcPEIMldyebodq7j+arrb00WizFX7VIGNHtYJ0Hk7RBwdKfkmWaztL3OOH5lMs0eNMXu9p3Ms/E5TaIG/oshw+4ehXmYje06kLt1svsvN1w796wkeztsWM9eyxVnc2N3S86XcEbPZwYoPWO9/wDnQhGKthZ6R/QPzTIYm3WMFGhfxhQdj7fLXAFpwIKdP5LxbrzJOI4IxTxuY9usHArzNrezqqQqG3y07ZVXvfJxKFyPNwe24Ub/AHV2EXpHbch1nm2ficropmNexwoWlOn8n1mi13PWb+aLXgghUit0kYG6+QvOW+WnW8rCryhNaQbNB0kUJ4BCz2aMMYPHJ/GFB2P/AIG7abPHL2mqrWSxdh6xktJ/jH5IGOxsc4es/SPPjzRbVlda+lfzr6V/OvpX86+lfzq9aRDKely+j2ZfR7Mr8DII3dIX0r+dfSv519K/nV2ScPb0F6jiJqWtp9m//8QAKhABAAIBAgUEAgMBAQEAAAAAAQARITFBEFFhcfCBkaGxwdEgUPHhQGD/2gAIAQEAAT8h7j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce0q33aJ6lyp+5/nf3PhObnce07j2nce07j2nce07j2nce07j2nce0+b4H5n+P/cUoR6H9wVLEnce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce07j2nce3/mBV2uckvUzXaMlmHsptSnYqyJAKxR0vbEwMbQAesd6wGEcqjJbGi05/yMX9uKNWNmRKT65bTYyfn94PQN+tHtcR6jKDK2QZ/e4fxEDbKLUP/wAMbwc9itRWxBNqu6nm1zfCG8FQathlWetTH89Vj8QyMzot/JECSoQ9Ltj3lkuXLOcuMDklqLe5iGYBbSG5QrMpWKxknq1CCuOuK+oSWzqH4l+a0CB6ZJpk5LNlzZzX/wADqnlIwDCyQr7xdaUaNv7nJNlnu3gc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XVBWBiqgwGjB/nOg8uk6Dy6ToPLpOk8uk6Dy6ToPLpOk8uk6Dy6ToPLpKEW9w+0ZV/mqPV6FP1Kl6hH3KAN5UDvoOHZ0E6Dy6ToPLpOk8uk6Dy6ToPLpOg8uk6Ty6TpPLpOk8ukNotWLK3a4/oiraKIc6T6Y6YB983J8kRxpl67zMWtCEREEoYdLaMd5bRxTusPygsAYDLawsiXvOiAaQV2wO52fSDCxpzhuDm1ljYfLKVsAPph+ybCg89JUPQQnePTgtEotVuDdbUOsB6j6oyUBOhN0KPliy46rFS+xeYROthR/eiNZ+XB66esw6yLkomHxV9x2Zz53jNb2imqb7TWi2itYFfQmE+TouShBOveex+fT+Hm9pp9ozS2g3D9LmtU7rmbkqupDiOW8hz/EeQHXCnvNe3kFhioOm73hlqIrGUbNzlYmfFFTub+qUybCu+s+/wBTU8cz4r+/sdv43t8M0QSR03hNyBo0hafjpFe7ZobD6keuzsYa6lF09tWWyG0VTo2JVzP1c+QTOO7gav8ADze00+0AESxj5HT/AHPTlMLXeeQAstr0Bo8Yh/n4e5L2bpdiZtwFfh0m8od80YQWaPS7oCY0uwTU8cz4r+/AutBYnKZ2rL3B37MVnGBT6McetB8YlVH5Gbdq8wPnMe81tjtuo8YbD9PodP4+b2mn24V7XLYk9u9t05PmaMLIlJ6RaINPwtJaZDb8GZAa6uL/ADNY0cF8tvu/M5Ot9VzXd4anjmfFf/A0J+1CnZ1iOzbLXzcunS6I8kIS4AABQfyqWJYda/5PK/1PK/1PK/1PK/1AYPu2+9T/AEP+T/Q/5OpN/PvU8r/U8r/U8r/UzPS7SfUI8Ek/rf/aAAwDAQACAAMAAAAQMMMMMMMMMMIhdAMMOgtpMMMMMMMMMMMMMMMMMMMMMMMM888888886wkuyrFJTzkF4x0888888888888888888888888888886ssji7+gCyocXQ188888888888888888888888888888LlLtIeEFEySdNt1888888888888888888888888888887x0RzrMBJpb3lS926y2+6+2+y2608888888888888888B1JpZDFjPfRYmFMOidoC6R3pNHUi8888888888888888pdUNX3j3HTIzsyFOWPlZqGhPwOeW8888888888888888Vz87UDp2QY8oUGBKfKFrCA47JanW8888888888888888tFUDbwhgMwAoYYJCJWaqaxTQ08xW8888888888888888J7Y3kXkoc0D0sW12G+zEDOtzFsP28888888888888888dvB383Xs0w3UcKBaS26rHmIa2use8888888888888888JXwnArDEVc+R4Wd626S6iu4iYAku8888888888888888tNxNcwMIRgbE4aZeWO84kEEQC+ky8w48888888888888NRxzszXMxYa9M6RI6Sc0gsIo8sAaIUmZ+888888888889lF+4/nEJ8qJFU5iRC+q0Imcuj8O8jx0388888888888xxknYUzVHY795cp+MVya6GW02j5ohz69288888888888JJAX03TCxUyA8S9e79x7ddLbfgAQMnNs888888888888phAPNfDgdwiQVYMxua+mayOKq2W9qTBI088888888888Z5kXO60CV4WJxqfQuUOiaGyAQsA1GCGKW88888888888F5hk4BTklEuAhqPUGuiqWYui8osnMEtt188888888888ZNEEvGMKBQsM1qL4KOAsuwSSkoIfIknc888888888888B1Iu+5Bm5IAwxiHQCKNsMXiaWeIH2pd8888888888888Fhi37dzC5GrS0C/AaSdjuDjt2IsP88888888888888885FyxFuhijVA6QCvYiiUZn4pDtY4r8888888888888888OmqqMMI30wYNtPrUUiZgUq7472e/8888888888888888SnGb+Km55YLQ8Bvy8SXhFAmejIkL8888888888888888YdW4wYVFZ4gVexzuKcGaXLIJUuwn8888888888888888Q0KPniOmebiTWeuuwGuFGC3NMm6r8888888888888888qL/7pzgHCWNuMCGd8cs8ccM8c8MP88888888888888888oD9QU8AC3xsIB8888888888888888888888888888888MZ5E88O9awW9A8888888888888888888888/8QAKhEAAgECAwYHAQEAAAAAAAAAAREAITFBUWEQIDCh0fBAcYGRseHxwVD/2gAIAQMBAT8Q4aihptNIooQv8Q5AxARgQ16wmIZBwGKBY8qSkS9KQ4AcOA8CiqIGEvYv8BRTmB8ytKyaAAWKoGr6/scRYAvkKwVSVEbs4Fi5l4C9nXHXKHuBMGNXgcT6widkiAyVLDwJxhT3iDDEdg8cIYkCogyAjoRrj8RDox/hs69iDeCYvyp8wsgAKnT0MAHLc0rrpePpKINRi/Myh1jpLuDsMwgKp7QovNch/gCGcv8A2GrEEPSlC8ehhFSFACxoc8WMs4WtBTur+tVZX84PEEoXxAJPpYVxgImlLP288YcgroY+8HnJBbNkcmchAUDcamGAveRZl/z/AINg8cNgM0R5xX3PWUes9YMfnPWd0nrO2T1nZJ6ztk9YD/c9Zi+c9YoCEUW0YKzDv9S1VUOhdPQSkImbdqApQJ1xyvhKpYxev1AE4A6/Uvrnf6l4R5n6hMPwYh3wNg33p3Q+TCxGtgaIU6UhTDcl8H0jGyEmZpcJok59BAfTvdNYAOWACpokK3AbmH4OIWGhhEOCBkSb6nylrwY3HowVru03XBi4yPOGMvQD3ajyAAAQwNd3jHQPDTHSAaa7jY5H2LDjyAK1sMlT0gSN8EOQmDoNMCKYaQfXAyAF8/uAAMdqwaIXghDtPg4IN103b/lCACFSBtZDP+RYkltCpprUEZVhCNmdfb5Y+kpgKEVBOTxJ8y4R+TmNPqCFCKDCvrV74ZwyJEXwFKV0hsTAHOrryWMQltR+vqPSC1vZCQNBzLwlW2l4IbTBKwcEWCIDAvGzv/kOgqJq9LdiGhK+dA+q+5V+qFzqoCkAQxstawjeOGB9Ld6yvJQztBt0esKAhFa8a6Pgg3BxwyAYSYd6ZQlCVPf5hVGOtfnww3B/kDaYIoNxf4Q3BvKLwAS6Yw14yNwR7p3lwVugqFAARCEeINwRcMgYyhcAq8OxdtPijcHEcAWwH8H+ypAq4QIboJJJKoiK4lQ8TElGQqrWp0BAFTYHACCgwAQuBJbzD9xGIRJSZAqRAuoyIu1gYKAQl2CsHnVj2DuTChA1JQAEFg5o2TvW2EBgDVBaoiwHksUBZ4KuVkB81/Lem1cJjMOMNwcILjImh8jACuY6z9h1n7DrP2HWfsOs/YdZ+w6z9h1n7DrP2HWfsOs/YdYYCcIIII1PnLhsw4w3BFBte7zJ+DL3FYumcFoDEN+INy/AbcLmT8GXuKxcJidhmDiDanAaCODcIFW5zJ+DL3FYu2HjBtce8dznT8GXt1x77BLLjjouMOGNvOn4Mvbp2CJ+F4e69pai6VXhohe5IxgGY14ZA/BFL+xgslK1Gut6Gl6TNBaoxqMaMWd4PQmGO8PXZzp+DL20bFsAgMPhuKSuzZkNi9j/AGloYgKMb5LW9bSwcD3iduKDoMbFYGFa4Or5uLesbMLeLEv5JrcYRpF9yzsRzZm+sUCWNQqzZNsPoQEGALVRvOOIKp4mc6fgy9uMbQNh8Jw8pvdk6mi0HrAEIB3qbvOosdFWrpBRoDkQu0L/ABiIjABda1ulc2FdGJoInAghIwDJ0y508xnavzWKehS89ndaISo49gLnMo5w/Bl7aodrjh8LxeaoplGxzu9GwCMWFILzmUc4fgy9tLDa6+I4BB7EoK7e60QBmUU2CkIrOdRzh+DL24D4rgapSEwaQ1iMDtZJRMaLYKKnMoulZp2/rO/9Z3/rO/8AWd/6zvfWd76zufWd/wCs7/1nf+s7/wBYFQV1A55+CYhDCFGENo7LRsSUaYhUbwkkszn3+CUW4DRWoF4lidyek/dPSdiek/dPSdyekAb3TTJLw/8A/8QAKhEAAgECAwYHAQEAAAAAAAAAAREAITEQQVEgQGFxoeEwkbHB0fDxgVD/2gAIAQIBAT8Q8NiUgriA5TAF/wCCA4oBAAyJ1hAtBTztEijIMwjM5HUMQFIqiGOUEkkBeBpuvGMJHDAP+ABUEMT1npAqECpJLYdSQ7XQ18oUioTJC1o8qclDlFMRZCxOpCzgbQSAdbqmR01lh4IUaCizGQztADVgglAOEULgZf2B1kEXgKiRzJvxtBaPqYOR4QkN5A8Mn52j1smWVRdU+mXkDRt17QU2SotUcx9yhkLlQK04caCLiDBDGi5CI1OQQqfyD1SoofeMAA18+0DmpOvMw7+NoJ1/sJQBAr+iwubzGsDpMZUILGmRBs3aJSIoNCbU0Yd3bKghsmASbGxAC+ZqaWEIMXJVTzWmQpBCgBnLy8oYCAhAVYGaCuYb2kUD1HteAMIcSgheQ9TiUUUUUURiMRiiiO5G0EJkAeA94EP0D4lT4D4hyOgfE+4D4j+wfE+4D4g/IPiAdg+InQvIfErmG0cdFiU4KirPIcYL4Aiiwq6VMBQQIqKD9DKLAqZs7ZwgCCsoa9YaBkMlp/ZZG6t3j9ZWgfvGCMDfchgDSE7BOBLO2pRhm3IQxFoEAFmtALu4/wAFo6WgCQGa+c4IBAWKoVsWmANPk3h1DV3s2gMMEIkWqrtnQSkjWHTuyES1bh0iAEE0LAFuApnLuBvuQxSRDsuuyghp4PNDcKpNQrANawqEkSSbCnTL0gDiaZk1FcftIYwcWChGo8wAVEApkCmerZ/sEbSpYviy7SrbIZdQam7zhKwWpJto6eUPPoaWjLFWS0hvuQwEKy2lV7PURxVNAi92dKeceAChkoVGlCCr0GnKCmEUM0P7zWos7wQo0CGA1AyWZQIvAL0FdOLX+8oQ8sMs6F6UeWekZgNRYmtUOK5QFADASip1eR6SgB+x9GJSIxSyqAE1ua2sFnBoE37Q33EwYDxEBhKcSleLFWONa8c/7DhpsB2rd94IgGhVKv5PtACmG0X0o/KUSYHK74IPtLK82Yrrf7wjoJtKntCZMs6QSDBdasVNQb7iYMBD4Y2DjMIFIK/C/NX/ALCDBr5eijwUaCnpsm+4mDAQ7ub7iZlgIY4/FURMWIxO4mDAQ+GMTFKxRRbB1ls0gyw8WELxDiIYtkbTxMRigxYwvlkNhCTQgjYB8cQx+GCXDZO2YCbCWy+WTIYC0IW4HxC0MUIWlH6koGimetrWhIqhZ9IGj6uXOFEbSoC7l9H7lChvUwBS+WzIbkCHwiEIvBrPOftT9qftT9qfsT9ifsR+5H7k/Yn6ECjF6y2ZDcw+GhbxfZMhgEBjYG4AiBlDsvZQttPa9dLJkMKBvuAlCFBjOLZBExsoW8T18tmm5U4toCuyhbB4gPAcXh13tAEFhm/HHjIWxJUbjRyqArBYdVuKg2CMVoxWcBrGA3MCyxQtibwRxmEwiFTHqvbc64ZVhwrqIAJM4YN3lxhKWeqDI65VGjjGSXUJUh1QhUPPBC0W0dgp1W4iW4wgmcLBaaQMhffvGK1FuEBKv7ph6T0gMwCLBVoLuXvgBbF7C2XVe24iBARjaEF4HwRnpvSCoAR9IGlQgu5e+CFsAhG0BgJ1XtuIhMrANAMA0ig9L0hKEqrheFRQX8vefZzgNMHDgMFgI4xOq9txBjQwKBKnOErxdJUOXpKpaQHAmHAa+XvAkLOJ3IncidyJ3IncidyJ3IneidyJ3IncidyBDErU7kUQirhAzi/TekEaSEdTAbNBEAEJd5f4IIRo8WpiCpxc4+cVOPnFxwaBbv8A/8QAKxABAAICAQIGAgMBAQEBAQAAAQARITFBUWFxgZGhsfDR4RBQwUDxIDBg/9oACAEBAAE/EK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+Y/+l+YNDOuHyxAgOFW+kYLwyLA28H8GfSvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/ZfmKBUw6r8y9v/uXAunmEvHCGAgB5C/9lfsvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvzK/dfmV+6/Mr91+ZX7r8yv3X5lfuvz/zDbcGnbVhUQCLDtQx1aRou4gHwMQcNK7gDSLk81K1pycMIXixgrBfv6SmhKhhcoovtVxTf4BlEpBrNnl/9X+SLbFi4vQeLHLJbgKFAislsj3mWrK60JPWWoahbOPAButSxCQoLVXsuXVOWxCWrgodQDUtFICsgtjfk/wD8JcWUOMXC+hIqVTjjNGazldF1kl1sVdSgYKhUT0LV82WxjYse4I34EsF8XQyBZs54lj6VPnS68XWuY9/3BKi+LRS+C3XHcPWA6nrKdT1nYesR1PWBF6GZhA4AEBvymwB5Q5Amiudy44IdgrZgecBBqUcd5q7DXjFJKoG45wCsJaHwe1xW62kvxgFOGh2GSGANVfN1f/8AApmDy8IQvYASSWq129u0VwOYgTlvSBTBsQorB2CTuCK6Dat50Yza5hkslDSYrsY84GTka9nV0OmJSkvwRYclc8yu2SjRbosxdDOAR1t/kdYAmkAVQtH4lYyRzUheWCChEZHAiDkpIicoi+fu1GWgRce6zl7RqeyMFWjnvHYnFTC6LHMd7sYg9RlqzChoUyXzVkvgqKMaU5qEtmLqKGP2RKnnYc1zYvyuCyhVha8dzHp5P5lABe36YIouYaW85vU1BThVabNL1mGMaOWmhOb4fX+8Fn96jTviWciFkZwgmNlO+8peBRVX/rEPohXMoBo8aOYFxSFMubfCXXbBgqu7B7XAbBszE5Sgq0VWWpYhC6FxViXRMKjiKmyTYGG3hu5kj+AusaN46wWu9Q0CWNOxODJr+rFympfHRAGjY7CCUyZdAKepMg8+IEtWdK0CpYLW9QFy8uwsqA3gtwR3RwVIctaGliyawhg0+kaOsRnEGvCZ0twNwbRfiuXKtDZOHVfiGSVC0XxrLy88zAoRMAN94VAsieMr4qEcrXpMm2H4w/uy0w74VmFQNvqIc968uWaqyxqvObG2BS2qhLFLzo9IEKeeB9mAGAra8F1HQ9HI0xrpXXgDt4QtQaHA4VeG7XWiZ0lwhktOG0OhWYNVI6KP1eXwYW3ZuunblXFU8SsFZ6qkaMK4zD8uivbMoL827IPhozGsrJ58MzLdiCsS5RBtxqmNXW1Wzbblz0xuCbunoM+KtvnLJe00W4e5K62NwNJRpGIW75cy6S7OQKfM5mTMtOmDWnnBOe3OeM39dR+Sq2o5yRLw9IUQD1VFK1dRLQpGBgdChnlrFnFS7ou1X3hs0zBbzS/e4f3arpF90TiFdX2wEUr2SBRZRL984pIWttvFC8eEXIZY1FRGsDp35QVHRQuvW4V3YIHLfFy74ACwOnwlDPMQLJsMt1vTAmQowFqcmGmvIl6yGhBVh21p2Wsw44bHkd4PN5ywTkSIUIg1Sgrsi8wDs820G+NRRHCigil1tWnBfaKW5s9FWmzw12mMcyrKKt2BnFbb4I3bfyHmu7beFzUtHoAoPaFjz4eKDBr8sQFWmDasUM66Io2lACXrF59YyhB5rnpkPE3yYtCLsVCv1Il1dJQOWz4xktGlHvmWvd2yf3f2vVA9MfFhcrlPrwh7J37kSywX7oQFUbkiD5biN2Fha1aVlfOpUnfYGNqkF3fTEriAm7BsEZW7cjKEx05qrBWSQ65hZVjjDBkeDrAbdU1cAC5FHygGsgBQEDFDkpqiO42mOhQkvLwDHc6xGFq3PyKXXA9SClY2O9bXetdriBVy4r6mIqG2pX076uUTIRjOzwWqgOerjib+TZIFWMHD2qF6fOMurwbVKso8THez4iqMqYURq57VO2FkpfbXrh/d/S9UZwaE9MR3AkDTLU9igVNW/aIu3h+IxulQRDbZRTwe8NG6wGsjpwKvK0aGOmXmpV4CdZvIalme1yNhDld840wF9Cow0mUOTR1WhA8Uj83qAmnKZ604caxVVjlkRpnOon8n5Xj5OmO24wGKW9LtUraym8ZJSDfJApxRWPKPswLQ3W6a31Y+pBkbCFsY+ZZ6jQ0WEXFl0d88R1WkS2Vc5K815lsChLiV0OH0mKN/6orSRqYnVflRlmFQMD1+sYA4XzCIh/d9xj90rIwn7IF8RU+0JZBACC18cRPhTCQ72U8YsHDWblGYMtnUXVIiWizGSZcLG0MnTC2w0pdTMvlubEjSW0W5rE5adGCy7OWCvOWbaP0BdWgrFg50zCJSREAjLAVtS1TNUNFLIpTgNuowG3LMrUqywhY27KhAxV0WyVoZ9Y0cAdvji4NwPTNdSUoW0C+rELOZpFt0nMYkpzM36LpCQtTdZC8ptdYgkRNgqt2pzAs7a0gDPhhCsilO5aXmU3oxLlRxLuGRDNKuR95reyNHkVRvE3+spnRGBlADvn906Q/TmIHPIJu77cwotjNrU5xBpx6lN5B6W/7LHFXW3/YXU2ffmV5a/vzFINv35hcGd/zyiqzp+2Azgiab+r4ziV9P3wdoLx/PHK+/4xTrJhKcb1wwvqeMVvS7TIX1GQL2GeE5P6IWHX4pcK0XsgIqr/3lmCZQ6iFsc1ZcXwJ7SDZXpGkii5be6dutPWMa6to2IcnrWoXeH2dqZd6jaYqFXzg5+RLvQrIIyQSUVcW4zDgQfXeWGR9+MwYB2MkzvO4V2mJjVNQ3hD76zcDu/eMbXW06PY9YxmYGE3t4q8PKZIWche9DVIeNxSIJAXkb54V2mf8AYsapQvg4uuI0N6p3K7WlXwdJakE2NrNrdektZUoXtG/JEaTdyuEgVWKYToPkhXh7RME1cA5EWgiDaHZhQGT6RAWs3OgZ8Ll3Oa4LBJEWkWINAQNhPKGXbxTECY9yF3+UeR/KYHN4QW1BfSEQWeESoSnYgMOhqLdUdalhhLdZlksMVyxA8XWNsUYhXtLMRp/Qiw+tS67/ABI6wy/6xtrmSaYbkN+0RgIOO52g1kdE2pIoVNvLVtHukuA4Wqeu0UsiyseA/wBYJiAhrUy6gMGanohg+t5cw3AmY1tqeA9O0qaVRSTLOsG4VD0DfJxh9pc3KTwb7SsNHu03PWGAABiVECGXsmeFY8CGClKBu0iXd43rUKLQLG7OTSdt+ULgqHrnMszVSiqjf/cLzLCxzV9SAvzZXSJvMuAz5pTIXZAE0dEgWj8PxxZu5aK2ls6tqaiyOgpbF010NxygpAQXhrfSEihX20KK8L2lc7qiILc6zLIi5FYGy7VmVl9RhRXSnEa2u6QaRxBV/UK+7voUesxGD68QYKKwjpEiyt5vSAq90VuLVA56wsNdeYc7N5Y0/ofr+kJxf+BEKvssGJJEVAkm37MuYOaHrGv9ifCQKzbEPD8gKClrggotailRAMm3XLljcqzpDfXRd6zV7I0YdT0HslfU/wBcZH8I+kEWlj+JpatG2WHQDzNv1L8huHVXQWAaC0mC8tbxDCUmzh2AAswhsla8ZlgjBbiKnxRfaMEsv/ZAneuMwrmFMDL3iN7ucLNh8kVVW6tWZwjKQYCByLLEy0ObejDkitUhJvNBlWau2Oz2rdKuc1wQ4RAYIDXOOsWhTTbdcNujdcd4pX0AtZWttXe4AJf2U96yHKa4thq1cB4w413mwIrbqyznLA9ZqNmyTKgYqpetiyCphUxTPWaDV9z1gq3TKWZuDgRSt2xHecgcgGEBC8N+BMsVUDD85g5EdEVUBo/ofu+kuD2PggCWH5GKJzpHNthLdsAJhtu7gSFZbSuB2jravdFDSVxL0e24aL0+IwhBaAjLbLLjUGtHgLFtVXNtBRqZ+i4phAPFecV+31F0+E4N5aiKqpLZU3fe5g3SX5qG2y2z5pprMXpL1UOU0xS03mDTzwYGvwS+Dvthe3sZc9oA8hFXoTS3fSXltt0oKGgs5hqimrNpni13Hbnk+g4Vzq4moPEzhllRA7PPEJH439IBjNtzCFccVMBrHaIoKlwBdPkijhlKLkoytXRzqLRPthUKMKqUYLCWu/WhF6KjWqwiOrEu7U+6ywFAW6gGmndaldp6NweCOtdIF6wDbqx2vJxzCMBZaKwNYVtGoSzTumbOovZcXve2hzZrLYj0o6h6NuHW3cLAHul2jGZS4M5tV2mdrgyqEo33uczeAm2FHmuYoM7mS7/AgtFqmvKIAr8x1jiNf0P0fSC08D4In0tsKNdfx9V0gP4PiCw5ii2vMRDQBIcZsle2yZBMBK404zEb+MzwdAUbEwms2CJZjUarBgCgOpZMmd6wpQ5c7zAAylAqVQUwwYMYIzbm3cMHY4ux6/0xMYnYlZDSZP8AMoTdQslDV6vrvAPCoFVzkEAFdgFJVVAtwk4Fq0qqaMrwTpEjpzDpePlATZzLJOLzBrbB7PgVgDF/gjpAhgbczNEkfRBDVDxyyJnMO6rwZpBgGDfSMhFGItAAWALYb9i67uBwbfU4VOpzF1zfxU9qKhyhtaklKhpzUrFBNAxQVG2hlXxiJxBcdkrLE1dUSx0BTA6bquDQ8WE0iNyxi4Qt2h4QlIJ1NRRyGAa30h4qoIa7xYedEI0yINewlClXlXMQMSg4nB3mSebWF1d1lkDd30hUc4/hDX9D9P0mT4HwTUC7+Rlr3r+LrBMQam8CwcuboYl5yXwJykKtbYYCkyeRpmLUnbNlUp8S31l7kpp2cEZ0gziZcRq2uf1f7K9+j/WWViYp2Y2FhkFoWAlVg3y4xCbcryBh16sywkqMB0Ay7zgmIszBU0lYlAfwSUzo+CGkK3HzgJluFFZxb7M6pvro504K94kKBUVyrA4OHpFiGyweRIsqHlekbFoIChQ9g9cS7yGHCawvbrDrpltJRRlXl6kUspELveys456kox8NR5Aeh3sxAS4JuSjhlY4w4lgEo2PAGQ2zxLMpBAR/CJY7MBXJV3gvXaGFwrSU5FnMEAQsFquAHKuiZR6Qfp2gUpFFLI2HCczLYWDSbcFTu0SjVxQLtOMK6ntG6gn1Opd5mXvQeFQPLfPfpGGeOrKXTWLjJOiyvAjuvMRr+h+n6S1fRgm99sxW2bkwUS0ylFDuwB6YSoTRBArbmOaFTofGHOpVnzkIChd7QNBGi7DLC2/OK+d6VlTswwlVOg+J8xyisTHqBrUKjbHwQhRGlB6KfOHY3a8Yr61HxDX8Kmea4Qhe3V7EYGnP3EuowQN0NdLwlVB57BIy4N56IKs8rVdJapTRaDPLwvQ3CxyA8+LFqWjpbMeVMlyhclLjvAU1jabZpbyOeeNRPRUHKotWqL8suY7FELDNtMlXXJhplMOOJaPJdZu9wtlBcapfHV72zNWjgLLTWOEABFdl8rwr1don1kqNgdWaMblguQEEELccgc6iob8pF3XNVd+sUiESLKqYurWtLXEF8KDlEDwA13hU0dqCugeC5bb/ANVYE0nw8JSoha5trunKnwgXN5z4wad18BKCcIQa/oWjn3I/R2IfpcsxpUk5gEyQ0dTCcuyWu6o1UXTQB+YHKvHSBkIN7AqYUOAJZAQ8IQK4hBggah2QVNUYs8dmvEPhHcNuhjDAe70iqmMFGjHsja0yiy4LvNXrERuM8FsVTi3GYspChFG0u4Ub3f8AI6Q0vV+X+NrnGj0JnmKbcDVORcdIEP8ACOrMGfywCcS1saB5N2mJbO7FUQCsCrXbbsjx1UEFAXeEKueCHLQLwnQaBoyhpgdr49DCjIMhQxggJSooS0C4tcHHhZP72gl10Q9GUbRpDJzVDjoYEeIW2oSru+ZmcgDQDNwZszBDFt5l1eNVxVXeK5hxlsGK9owp21rNQVArpqpk76POFUYqWuiPV87nOkSLAN4nmS6rI7ZQXxlHpUqgiJgBbzVTsRUiUTeAK56+BLU7iWtEZaAPPrMqCehnt0KvzhdVq8iNBvsQa/ofs+kr6OhK1/W2DJD3ihlOIPzQ0FqxTXN3zGIvYsL2YLhloCBssVTGzO5TJGziKUs5yes6lslCEB0VHIszeTQ0scVhmsVUEHzzIBshSxu4dU3DXyR6qyhJgMSqIcPsQEJIfTKBXRyEYXWtwKacPMP9nuX5w68Yjd0B6EfQuR6whFud0MKudHhC1ZBw9BZCZEaGhsMKvhvEsVoKSXXNoOVw6JlnR9M2hQLWaMWcwqbMgiDTxeL1mSRKl2plR6hIAKiLqJnFYbU4XgIGQiTG2CkRy21LaHylvOoBd+ty7DfSkNjgFFnjcuQY5VpaUBbzh1LpvjN6YdqlaobyO8go4usc3KJS5Rk0iZE6kyps2p65Q1547jlb2q8uYtwABTtsIL2qKr2tL1RN/BGjt0J8qZTFdKi4xZTNg04aIpEF2UtpyxtOq+Igpr4INf0KpD7kcv0YIn0uWBOl/EghppZFL1NKHphGA4SRw2t2y/RnfsmKVxBYks7gWiecBui01IByrAcdYOglxWigQKbE5iJhWsF7qImWIWkWStOWwEFBuYEtbn/eC+ezVDhKxCAR2/QbJwrJXMOT2QHL7k9ppkiJS+i3ogekhmyFtrl4ShhXrbKaAVOXOl5lhLMaAK2vr+z+DndXFt+cqfinwRAEAWNb8wEECF7HZBCv3O8Xuj3/ACiwnuflLFmD65iFEsORXg3c559QDwbz5zPjvcWuuWq76gBoXPFJrHgNTjoLMXqNF5EqgurFR2Hk2PJT1iFDetQaUxrbuCwFoAKOGHzXg8SJAl6graL2pYjLjZHoq1Dsh3YXcMAHndPlcp08EnlefP0lh+r1ih+j1gBN/f8AKGXFf1zGxAxbrP5mKQBQBgIra9TGv6H6PpOPowRon3uNSX+EDyAx58ABlEa7ttvS+0BSgBAb3n+I9SmhW6vCXijfaVQMQIErET5L7wBmNTVOJmBn/AnAxxQqi6n2zJNYPiOxI3t2IoJ5jMB0loxflCsYvVSZSPCvsQODqjg5CVZUswvvHLbUoZFq4104gpX3qWwGURgCsSL0v0dno/mNBnJrdzJfcphu3FvRB1Cq2Nr8RbEIxQqFnXF68oyG0GByDqXtW/iXz4QhGj0hI09L8Ne0u0XgMHSNaq47SyjtnhcTAe9dJQjyxH8Dxr+h+/6TR9mCKn+9y7/GSsLsWRLOOH+EY65uASsiw5dRwlQBFxI6nr11e8qzhxAlRMRgPtcH34LJgEcqMCblRgDrFkkiopqE+9k9/IZI/F8Y6FvhRAopGVQ0saun0f5Opcx1bnslbOIDYalCVszjRRpAxd+8SXvfMVwuIWQNV2mbStELyVZ0ZPjGnPgSxWS5g5hTedx4RLVm+svhKRzqONRVsGPB1OTR4R5DiUNAf7MNO25kOoBr+h+/6Tj6ME0OvysrXMeYjCG2gbvFQBX37SjHWo0rKBlMXEy1t68yIi4ldrqL10hYW7H1K0it4rg6zWH8Op951k0HdmhBgjAvEUtiOE7MDd0AoVRGv+ke2HZ2lwPtVEXdZR8FFZPDF0L276whOJfzWQqE4B/lKTEnYy8WG2llYsYOLnIyiWzFxB0gsvEvRUMGTBAmfaKGHpqLat14MOrecXFrCYSIhnLEJk5qZM8y0BEvOoMpeOsRdh6wp6LPpiqg1/QsHfuTCh9Alc/1uAxTNoBWYzQLDjATJlvLziXM+rsQ4fJHIIguhwznGSZl0shGnElqoQE1MBfMZV5HDZNUZkTb0mtYWC9VUyMNmuZxGWD/ANpXqM4TQnENtapWGCcB+8X4cryT2L4huEdQnmsYdRj5pAnvCjRou02CXUBMqx5wXzcR5T3iSgV4ogOWCqivgQFpO7ErBTDqpYXbqAKqtXX+x6V0BW4pUDrjE0wngRL28zmFoBL2IEE2BnGoACc6alxSq4YgYQczBhwEdMsy474/EGv6H6/pCgB9gnT/APux3T/CFQupnnq1hzRRfFVxBsFpKX0IcJEawFS9Gmr4ekvMcgmpQpXd5vkxHSCgBjeV2ct08QrXT12wlB0Cpy/jYHjYtS92fxWjr8kF89nD+KsQyqQc7RgYFesUlVVWtwgDFspamcolCrVPiG/5FR4X5QxGUSqu9I6uKgFTq4jlN1DuskUOMBF0JWrcxGqtI0XAaazdBCiqmZFKk1UFteXIw0fbprB5zk4ceQ896WD+ALTi16wDpxdzimlS7OsRRetExZvLb1jz+VndXaMA6Rv7KWQa7AaCbYOZxKlyrpsOesJObnaUBVnB4w5R2BVLu01w7d4tV2jm1BA6OSAyxOWNnVanhS8UwGtOALusXdy335aFhXO130ir5PKJbqBBl4XHkuyZExieUGv6EWJ9yGafsERV9mG0jZstCjcDulGJ+Y33ddquISoyLYL3ipbrsFwfwG9Z1FSFzMwjGh1SWu5E9o0sV6MLrtcONwAFOrat846mP2MxR8ZOP8VKUCvQI5sG3LoRqBYNoJQV2LohekhlRxCP5o35yFWwLMsMqsIFuliIUMu64jxAHdWFjWLw+IN5dSZErtQuyc6dQ2YlmldSYP7VboiiIhkSKhxYjvYR87McVG0hzW2+GjVbLtaqco5iTCjY2ru1bzH9lXU6wW81zHgVDVWcikDRxCFCAIbKZaDoVIzwIKWbNOCLvU7uViqoUVkxmVXu5tYulLG9tw9aRdYKNFuXrwRwbIomqrGuXZBHItKFKTZxij1g6pGVzJwZG14zjpGxKM8aI7rUXFcdIdk2EUsQjB3bOUMKuz0Y7dKwx8luOGIsEHtTj5wTSrsXzKY2cd8l1zINPIhs9UTSHU/3X/X9X0gUP0ohsftcLac/8EgTDoQrey1dX0COcalDiwWGn3mO34qMaT3ivYOrYsQ27zKCBhWBRBhWDu9YMQR/jUOZvvE4TjDfrSS3tLuSryFRaA5g2HvITR7t43LrrBJkjQ4f5KWbWwnAqDYZ3vrAEmwa5GZUWj2YKHXRQgw0BjF3Nbgz+MeMooeLXlFoWpDzHalhWbcjMUaxLBF6QioiHWEAQvK8d4S44hR2bWrxrT3iGIPhAk7W4OZcbtlzCMTQVdOuSx51BrjMgIDUT1W3qWUM00/q45O0QdWlC8gnBDZgOBcgubKDpO7CLgrBSXCUF5U836CwGS2yUNWrKXqEcmNLmZcNLjZFwCpMuDgU54LzGqxguUtUbikG5QylL56wCqSwTcFYTszI6uDfaOQ6RtqNYCHQViYrXN5xs1URT4isRxqMnQYeFCjuUKZcwC5kMGtNDM530eERE1U0+A1/0/Q9Jv8ARgjqj7sRazBBCToiifHgzTHaqmO8beBdYwCsKalaA3LuuzKn/HD+HUv9nc5B+lzcmsNZiBmDysEMgxVEhFn/ABTPwHxKIYnGesVZLyxds23k16Rm8q8YIkoIAW4gz06TLR4ysd3tCwXVeMNLXABFKkQaXNS1RvCIdopMvNsMILQAIOgGsnpUCuq3BjZQVtSJSUdIoNkdrBZDr3lYRCCWaUTuj821QATO2rTQIlIOkUUGBBU2FWuMZJhn7IWrxB0sv2lY7gUpAJzngNEMngEiXeBsF5xcY8sIUkAJmrVSbjaQahecAYvMqg0YqNaavwh3Qbb4JzrOYQ7rX0IQi9SC2u7nvK27z8EtlL/0TBWagchi+IuMhda4ujLDqfikNnBwJsk0XRXf/o+56TCn0on33WJuO/4aCzpM3DwmnJZbuqdVAPJ4PgGtSgAg3a06FTeu0Vuv/i6jpOKfeVf8Q1mKmahF3a4ZKxWKiqv3qNrdneJ2kBuGMmd5qVKOh8fwTiK/HYEYkbD8RstSC6nYlTO4jp4S0VLvZqcijO1VZlZuvKD0K85VgP4+siNZhTzZmhwnKlR47oWQygglxa0wS0xHpqSWamKut0c5Y725k7ay3Kt4YxE//wC0BcEKhgLubBdK0do5LDHSUEqcLgs37xaCW7EuDqogONeUqoVhVk6ywq1/yQlDoe5C3Kin3gMT/wCEeG5r88yiS7XARUzb5ICSrbAk3ls766QA59T/ANH0/SDY/tRBfbb3mC6ImELYmsEa60sLVmFIqjRkNuecSxSjK5t0fNHz+3fFwGPipllpZVUxfiSorSFwGXBZZ7DmZwyhoEMt2CChZdQchaiioppBdRYzenzxUDunD+LiAt1XxEYOQmYrhr9k1Xo+P4IsQ15sDMG7PiKlS9YNlwpzR3ncVtFrPXtuZLKC5D5v2jGkMDIvTqPiRbLuXviLA7rZKLZzkILM6sEMMjizMcwyYjh1Gim87lSzSVYGxoau75wS3+6JoQpVhV6pcZjNMRsSbA6ETOwlMyaTJDgttHFJEA5xlxl64l3i8wcblVQlK1bcLq7MPU0ZQ64O8HONhAumEPRmMjbCjexNn1zM2pXlAEGIAUoibRKf+R0XeZUVHPyzM8/ieEBv+rjqAUe+LVfiStYJTxseWXiEH4YqVIWoKVYuc4zAK0Q2wy9apTi6cj/0fT9IfW6E1/tcGbiiAgDfHgBUwTFr1lARYC2FG+POOZWVDjLbV5B9BEeoYAmdDe4xVG5jAadUHpCZXYTPAsBbawqoxGB4ZMrQQGW2QzfEmNEq0s4KpuFCouJd/LDVd04zSFBhSSG1iBaLrEsr6oEuiy4CF5AFMrW47zOHBBJ5Vhb6REUDUpGy4DHjfaXBjqIfEg3Fi5/GLdskoM3C2LcQA+b2uBZTa0LYVY5X3WqijrxacD4QShbm1uLSfcsKhgkK6kwFPMEGxlAbnElZt7xs8YYut5mOn3lgV30Y2n3hl/McDd+saNHWL0cxOqawaaDR5DAbUAUChxDFV0qNQHHYsotzWUcF4gHQMgULW3k9NGtKaIkDo9EjJKtvCfiK9G1zIji2/GYm/wDhFcv/AL4EHSgdrRyDCmy+YoGHLjoN470mL0xGZmq20B4AB/0fb9Jl9zBPUB7zFxFItMI9+qeNo9rrPjHj6hcuppp7w1VW3KNCG9N6hSBNmYAcEWJcTj5Y0O6cJpOJc+hqNn4c9YF339BLZOj4/loh8RGTDmrp9iABu6+8K8jf+kqsFUC+svBA6hGS3X4JnvPT4aWBY3Tox4pdCCCjS1jhZZnbSZsuUsTmiFAEa1+uPgVqyLeG5an5ZAeZPZ22QLuHri2yDq1qJ/DMR4OvlHwVFhcHa4FcHtAUzBi3aAHY2woYWELHlA9tBYhCgHWMMsgy7Fy1gTEM2vxKFfKG/wAgbztQWEREpLXDlFJVFmcDXa9BJeRa13ZYvlj3m5zANdUR2MzJV7n0gy3kmO8pA6vmWD+1TDOFfLgFBWVeqMmwJyecQ+zj/wBH0fScfRgirBwe8dEfYTKAKzHQzMt45g5Oc3FJQCEg8NpadqubQETu9YYOP4dR1KD/AHuFa7pw/gdqYudtVgO7GUdy9FUc+CMKrkC7Ucad4m4R0sF3WGJVLzCEFoiFoXF9PTJo6reEQwJjLc7oN0XKR1C/wQUOf0IazTkdYAobzesFCy+ZibkaW9R4fW+SLm7QqTxTfpLjnRtkZLXddCj5j6XX+pKJ05ZkSv2CC+qxRfLjMqgZ+MFltrQuS3UpoOhbqPROMYfCIOJ7giFCbXFKuEW+RtlAVIocbjfjrkgbBCgCjHSO5q6vPXSua0w8AiH8LF0cKJWHLYDZRWAcGiokEiQ8xCSmlV3Q3FvskqAIAs0pSudTGTzRloMDpQ7sf5Qiko1MuTYENxVQq2SmKJHY3OA+Nu+rLIoFLNLZCNvkYYmJF9jiACy9zctXrOSRAdHL0l+xl+YOgX+Zv6w+Iwxjo+OZ2fVsYDBcTIr38P8A6Pp+kOj/AOBMfoZmf8EQnKAkSlOMyY3VdYkIiweUW00e0HoLAjYx/jLYSA6o0AfBEJyaKgNmdy31vpNJx/DqJWt2+N/w5wmkQnAaztGEekW4pGDVYagkvQ5PQ1Ki00BsBvGbJpxHn9si0sGu0pN7tSaogZWdNiGTZCBMVWywvLHUSgpH/YNT6bwSgvVAIL6HeJQtVWcRVQuJVG7xA6EfCU1VA40aIpTpxBikWMRkjdIQh8qtLQ1CrWViM0SUJEybyjgzK0RpXim9m3ZuNS6hu8adWzhGBAkAKtRDQr1AxBFggrTU1k4RF9CKVtBovIcYgmOAVLAPLT0QRQnIpxRyKBVRMxxAbqmoO0G6hVUJEy8AOBVobLUy8D0op1qgpcXiFdSElRTstQDOgCXMBjpWdrbVgCpTAzRNNMYoMKNc5eUZj8xFUuH+S1sDfzKzsN9eMOgrV6Q0n7qMb8YfLG7r/iUW1/j/AOj7vpOPowSh9TLDDDNMCOgx1Mm0H4hc7r3lA3WbF1XCBbthAp2WFXrOo2xWHH8piGsuT5IFDDh/EYIEN0/4QzOkx4Rmz2T2B8fwajqcmAjHG/GHXBVJYIwb4xIDL5wq19P5jodO38yhQPT+Y3aX4fzHMo9P5jqT6fzMunp/MWpWvD+YUUDHb+YirTw/mHQ+n8y/NfT+Y8w9P5lZr6fzE5C6rT8xbaPT+YdN6PzMxj6PzO39H5iso9H5gpzPB+YLR9EVaW8n5nCm2h1Y13lnBeW8VdxlsZp/kVnWF95xtz+ZgWP0RVXgX3xUXGHyzD+OFK/uf+j6fpPodiUs6fJMUa/mIYmiEzHb2Ke95jK0m0Vbd3KHqCgU8gzxZM5lShCtqwb7QR1ETNb1FYcx6ELZOqMKJpcLrEAiljkF4ByvLzR0jHIK3KP7EoAzgQsYMdp7I+P4I6n1eP8AGRda+hFj+lkscqrKrwIWNVKBSJ7Jxmu0QvXvcAc1KFqolOT2hgg67QV4IVVm/CC8hioC5OYgcRrJxFhqKFIC1CttyubZbacQqW3AXQ+LFb0fQiSxVn+wle218xH1tQ4vreH5P5Z4T/E1nX+b/ozu+5Av6GCA+xuG34/hBURyRaspZz6OO9YhyPYRleqNzJ4QXNMFOWXOGIFvoJGhVhKbSt4hBMniBTNBxaDqyjuU0dbcprYNUlRjQyyVL5OTbNxR1qMGe16xo8UOCazSM6Td7Qlw/Yw85fxpgHY+P4JpB9O/8LI5/wAk3ftZKq92fBFvriaBaQPhcTu8MUdAcCG+JS5CSp3wotZwe82u7GOs3RHk/wDCESHAcImE7y84qNJncxdy3ZiVzePKNCjUXe45esad3ABfQm3WokAfEXlQaqBe0VvlOBZodwp4QRddKu6vEhpl1X5JXIu/zFsXj54g+jzhINq+GTKjoDjQFXkDK0UFRdRdmW8LdXgOWt25YKb6EP8An4H1IFHgfBOF9GYOuX+DIOwNeNliikVXHeLIVyFKyXrMNnx1Rmb0p2nRtYN8CBpBVaFEW757TUsCEAkLYty05mSY8640IKWkFLSWAFe0uptZ7WralUQqr6sD1H+TUhxLwSk7QNgUoasNkcTCtKaHBKOqJi3d669vCPx4NBrszzuabOVmnqhpWqf4JVk1ekFQGjRn6Eph+yRePZ8EquNyhRwjXnEXSaseU5NXCbQDKoBRNhVNxhONoZyA0N7sHFy4LaabUraxVVoAtBQTDiIihZXGI4K7auYPaN45JwlDSIHGu88OkuskyzLFzmVeOpk7lKLmS4Nte6DhOhFvxs9Sbj2eEQUvKsd4lZzZvPaV+p2jLKKO3WiParhowC8CPlRBdLqqiQ2MaAhS7gZGrys94JbRXAQ/58/uYnHgfBApn3uVE/wlSsys2o4GjqRZTrO4IKoF16M2R7S8YhSXUACWshcCqJqfxzNIw7/yw/WR6/i4iWVW/QV7EWhN9KmCGkHFlbao2bWyIGzlDa2rTVRHgD4hCaJXFBGVB91BWn9hA4fJ8Ea2LiuI2hZ6wTBslTWqhxc3RVxIBHJ3mjbGtzkpuBPqiwNiHI5uoCIbFB2TDM5zU6kBtuIp0xEwmYskIKl8xZesN0aZR4lSv1WWx9CLOLq31JZdnXyTgefzNl9CIscfKlujF94F52NI7JWowuhoW6a1dR/LRgZXC3/o4P1IaXZ8EWn63L5mQfxOvSgfcJaTnEBOLh1jo/MuZnDKCzQ4ZujmoVv4JjEVh5zeLKrMYE5hCaS1jTT6x79/yHU1I78lcLtPBHg1RLKK8llHpdEKqGaKscOy4GGGnvxBsZrgF5aMKWwJQVjVoecWBs15AQWBeBcyRo+NFMhAO/SOoEs5gjXPf8TT+9kzsRLPgmsU1mGrvxiKYPOIHJBV6QCrWo1RWHjFfriFHMSnUKlTCs1rtSxxqyWs3HaRTVRaApljA5WsYIzqY8DFwrDnmZ7mGHpL9feFVnMytwDKc6ijSs95wX1iBbzFZpzL2RAW2vkI8hOT5JqH7Y6W+GvCZk5+VMqkvaW1fTmJystBHvUO3/mv7EttCJwKDYKtoLz4f9H3vSGvowQ6OPlllGRlFg2TsQpJDCKcQerXhXolqKiLNM2ZFjY3SuaKx0uMg/4owhyF3qSwvuCYHmryPJuKwQ9QYbhmoJyTXzxgfj/keprK00Eh6I4TxizpyOMcQYgQomzDXeDtRcw3uqHrloqk6WDEXiFh6W2L2aboRxzETKi2ChiitTiIWPP+wjo/eCL6fZAcLHwTXF5itc7mGtQDebgH6gSmwDV0VgCLeXiVhWliVBSjSjyxcByjQmyro0vNRtzHYBCRBvwZt0YJBIakUhSqIjmEmehAdgwRGIgdoqhMEVSgDizeekpXWyi+AbLLza8RO7zSQoBFi6ziXWxNSi7mVMxn/kTkhaO7u+SILuQjwPBXiRC0VesdyFGW8/mWs8nntAifRS7ZH5oalH/T9L0hlfpRDY9fm/iACyQ/FMwVBQjlZq4ZPwYGoRn1siptX2jQRdEG8Yxw9IiaMsvW8lX1i3S06SSCwrbxmLHkeiy1KhYq7vFQb0MGADGAEs4uZhYP/tBte/4hmpDUFMPbIu0qRVVv+VweklKbLSvRgQDupzCcSxe/+/wTQ9X+Sj7eScsrXxDbjwl0JSskDmO8HMNDS6NNg02CtisRnbznqU1SVRxnqy9/TRGcr2Wq2y7XpBSWHbU0RkDxje93cUvDbGVnUVgAkBdNYU2HD3izVnSZQQoZjxRFH0Dqgu20BxgiN/7EaUwayywdYXxUHoZ+CWauhFLVvUeZDGA2uPUlyxt8d4QwmnxBWgr/AAZVr+1w0f8AV9z0hj6mCXvPoy7qfyBF8EAjpxN1BGYOQdMLj9wuEhjACwaHNeUoXTosEMR0C5VeIrQK0aL1GIDc2XvGAfeP46w1Ahp1xs4Bed7Y1LAjMLsc3vHlp6WI5Y9q1ETSDUAC1yuNu/4D+Pdf7NoVx90Q19zJMTqmzx0QUA8p8EptC7xqas1qGWOsqmGE1h7g8Bt+J0jNbx9k03cE8pfVHiw+urBfUJSJsxpQFb0ypHnJ/qkOEh1GyV8ygLW0Tm3L2GdcJqqv1MHYRaZrLLRMYiCQsyuY3N1F0JgqbsQjYlFfSH5TE6kO0TXXeAd4N+SUjJWIu3WLwiuGXVuypqGv+r63pLv6GCU+5uHPAMOIzFIFcugEXGTBTmLPPIGGy8kLJnrM22s9ItchuqR7hCqxd5EMELZWqjLXs2uIGrgGpyc5g6TpGFVIPRWH8aQujoesP6diak1IOIwsITFy2aN0elyiSmw7GBu794mYZkaAJq0rtCB2WTCtsKOKf4IzW+7/AIZpfsI7+9kgujVnwTRRRBfpA4M/aqDSYORQNZgWlhj6rFhBhgrM4tYIsILFCyygMqvSO0fgqyhaqi3zxLaiuU98oeQSz7KcempbUDNwSra/AMJuHhW9O/IxyoDBjLo7EABHNTK2AoFImxOGFA2S0Lg8/ME4abBg2FA2HL5QMxqwmyXlUtNjjMJGNpgWjmrVRwDUABQ8GcI4Y2m6g0IKcYxiX5fCTyupUEpi0PZlLUpugfiQSi4N6LAg/o/1VcACgoP+v73pD6nQh+lzD5Ay2lJDUOgQKQGgGI05VBZmUVCiDg1HHGZ0LQbOOgxUa42owq/ANlsiblx0WCBiXUVKLIlcc4bs8uDfP8E0jsq/9IPqfiHBNYall2LcQTMEKIPMMq2wYFfDAUCx2hX0PhrMKlgZLgbWDd7VSuBzCE0gr6c/xuIyW+E+36kY1JVnwRVRQ7gAUwlwc1zK/f1yAKnAMC+EQij+gkvY2pTC7j4PJlLoVwJ0UY8qqjsD4RMJ4SofRbX8B14grMty16D+z2mfBSGwx5X+biGjg0G2ttwAushRtvisU+NQEA2rS+LbqnFPowILFqZ8Sye8d7QkZtTAHVgquMmotSOmyU5TEraejK/0rImElU/ggdVcB4ykUgvcNLZBjNU3K0B5Iloic2TDpKvQuxAVFBClaq4/wMlbRyvK7e7Og56QDaf1R9Hu/ofpeksr7MEOzr5Zk77fl/gdOiF/2XAGyospuB4NCsSMlAC2iJpLaiAHQB2vCduKqmFRGbYDGotGjXZbId3VHdIHdaqIJzZpV81fMP4dS9dPkj3X4hwTSBW/Aa3A4pWlbAINcICuJtDbocUkaJ6hGRA0uxzrMMbWMHR1b3uUhYja5BzlCnF2h1vAA28qxhHJh3zCOoafj/s4SpDIp9kWP62S5Ho47EcFjc3liyMVO5xCgQIgETkR2RxSNuvyja8OGrAm9ckCBo4t6vMRjlERhc2shBO+XhCLalrbTCnJy7jByIVCurB3rjtUbpLQIFt6DtZ2h5gLAoFGq6UdgO5SRTGzRWx4lUF2A8ygqVQVY3ZrTSb3vUCtJy8kPK4nQo4hDFgEAuTT1OnHMBMkce08h6uDi4TAAAUAcBwShoJ4THF4iVm4hpj2nc9Gff7v6GmfX+MBrwPgl6epQEDx/lgXFhBGtA2lRrgt215zYlcHVpNmswsspfqwkBORoOtNX6zq1Q5HojldmDLmkR8DgAJ3/EVEYkoVEKc5gAFZBJswfUUBjIsTbJAawEJbBhXik1jKpmUEw8nIICr1dqsCIRhACQrnkeGO6BMs0CDICyqu6xCMutd/lBklE8n+EeOuf3IzOvJ8EGsxX4p1j3iDbMJfHWD8bgwq2dileBKguTEwYeJHtV3LgHK6svNAI9AZcRq1gwNuHlfSHKSilQUh0VxmdEHqXQWCvAj6VcPsETJwo4ACEVjQoWyju1rRFALuy2qZlBBEOU9D2eeEyS8NU5GUFitWuL4K+p6TA5ml3DDiOqiYzthaPI+GfR7v6HD6uJd9zBMB9Lmfe+PKqM9BlXkDynPh/hC0EOORa+0SjnpBIKtdANv9gOCIPQXfslRJU5dlD3eROPKsOM1+/PCkzGNC0jlQjqMKK1sM/pwSikWytAOQShykQD6AgIqoqN80m5W3H40akChdjEY2utqPcD3qo9aSYk14ohZxe5k5EDhUQsgPa1KEYg5lFFqJQrHGEihMpbTJNJ5aAarpE3ULvgkKgEwcZ3KLAopjxlbV1fmOq8Yc31hM8X/mh4HNnwQVTFt1Udd6TJhlxeh30YVZVBVTZY7jsw8QmUGMxLlMrWb1eR9TKEoCjpTQ9fhjFUeZjV68NWsOgqJNACbEbw+kLQZg+g8E3+tEi66albgjdMdL1zV8rl3K85fshdFmkB3XKa6GnH1g4Y08mTPfsx027BfDftC5QEzHSlJrugtDrlwBB1i63byYAmRcFRgbLFKtWcMfyh7M+j3f0P3fSH7XBCTfqzV+ZBWI4JpU6CEgOBFHEXEOsqXlLLVlKJp3BZK2g62zA0BKKxTLQWt97m5RzwBYK2VUvwkp6w+ZVEQWb6/iOTvjSwnKmgcX9v2hINy8QFKAVz4wN+0dCE/4NtjfUBNOHTE9vdzPhoW3b0lF6o5iOyBHKooe7tyz1TlnUp3ZsYRJQYE0Xlol8ZGmwoVgNlqPRALCrDS8isDtwsim4SZzYayiisLxcXiNzcNi6IUWcxZaxWhWYZWWXk6wckrYP0Jlg/8ANKdwm3sRkMY8UzCNtHGITAi+MMhfZVbpFRLwHjjMNGGjRuHNI6NjQO11XFQVTk7MKugXcrhO6Wh7BCZM3HYY91eUsECWIRuiUAfJCCtXgd9x0PqygrKJDtCVsoVTvEM7yo0axM/aUFxuywOxORMJySprsXUVa0tDhyr5YbHIHzOxUerALFaCVGr62BW7g/BkwsRHCstK5h++F4AYGdFupqLpwuwy12tYLy6+Bn3+7+h+l6Q/a4IW2P8A3mLIaanTmqLl5vgqyhRqWQNLAIvb6IYQ0sdhcO1Bhhpq2HMc6XwdZTgti18+UapPxGQnoXhWTmoEGLAKKIoYocVgXQiixwi0LFOdeMvhCFGsDXlMz7T2gKgBRkA4WKKHNLpWFLUR0AvqwI99cAFVU6wiLIPbSolKsdbormKVYVg+CrUMJjTS/EuJiqLbhzeizq80d5SdZhV0jTu6fR6QWtprJd9yALkdne9dku77Rk7vS184l3dXoS2f6pCuHWL1gisYMOHpDQUVgBb1er3iCgBoABKGXklLGl+NCC2b3HotNM3ZQFcPHpCFh3iDa3FpC0dWJrKsq5hBQzDbNhzGDXbavSE6wZYVXRUAUTVFwucpebE0d09Q6RvEBQDVtaOjU4KgBuaoIOFlmJQ5qEUvJi8o+v3f0IyU46qUQB4GDjXCBYKy2YIt7GXjUAxXknIkhRyiWoLG0i0GiFoUaAIIgmLIwjbCZM10olgXN4puHNoNbtSgmluOUxzGp3fbBOC6gm3F38VBygNmlMNUNjo1JagsgpZhmEvxIsKmGmKjagaw2iuUG/YlrK/YCE7EFfr2JpEGUb7cmg5cajGGrVAC5bBzriAYAIZXZi8YYiwSmpfrxWZm33bz/ss1U5OtVJwDIMlgMt1tcVQgAYFGuc1nH8TUgUQ64Wb/AAR39PCAulWHwSjaUFEXAz4xhV5ncTPJGLSXS1HDBhKHFjeHjG6x0ga02f8AhPdld1DyhIKWGi0K637ew37XAJv2bpLKdDlM4gQpItbAGeVf+ROwAOMVB4ZZtnhcq903zH1cRqrVi29j2j6Pd/QsAXdTrt/ksqyIQzLJYRrlxG9ACyUsQUqtpkLoTErl7YwALRAizRa2oW/AiOuiMEFoAcIgugRuwIoaQC7ShkIATU3WWVzSoEuVBm5cwvCaDQhMSkCppw3mgxNjjLlHrCgcorHWphTlW0HYAc1dVFpjgIEEhCoOGKrK6rdSmdCDLfS1P0+BLNFbjQtKiysN0rS3RrMWgyPStjN8MXMXKQ6FsXGTr0pQ4SPey2tuTExElunD1ZhoCVqlDXpAA/YYwQ9wgb278E5KcloC3G0NJxAVT7D5ZeiVffyTa6KPgiwM3NLuXHVGg3RMgEI5jrTR3od4mY5pOhrnA+ZGYtHGXBWfHjN1EMNFY73HrG10RbDoKeKJQoTnB8tZ1eowELYVbBRTeKLxUY57u5mFRdlm7viZnrQrSF1mt5jFgFATzIeFyza8y4tzc1RlqbZ+Jn1+7+hti3/nKMXWJ1dIAgtKpN7Bho4hUdQpYpYNF3XB8VKap6h3K0XkMVFvct9PIG3dTBtzMlc5FAcuadvWFY4SQKsZDVXlFEgc6ArO0suSWjQZdwXg5mWZLMKNcShH5Q9FZnsdpuSmI2+HmjkyXZZ9Q0y0nS1n4Tmev4IjC2a2AXu7GswkWLnZsUv2i7A3ZgtRdC1S0agiIZ8wU2QC72qkzEbmnjAGSsC1jHjmJFozDyHBcru1950D1G8sViotUwd1IAAzjQgmxQ2j4QNXQp5q0/2Ypx8UICveWFReftbDxzsL2tQR7Y/WMTsfBF0TL17E2KxR1FtuoajShBcqWYVvXDK4xsxXect1C+kJ5OBs+lQOjL4oK2F0F4Cr3KiNqq9846KuQwiO/ElnJHWuQHpUtYhwqrwhQC9xFV9mDxBXraPKO0xcgNxBR/DhXWV8VX+xMgCvDfV4e6JDxlqXvYPSWc40AkrmgpUM1gjiRG5rlLf7HDRANoG02lGlc4jiMeuf6T6Pd/QlR2U+NSqEoCRsaLJSFEMw4lQ5sTahQwDF2xDu8lPS2uoKk1HH3eB4DKACc8nm/BBvEjPpR8wVh/feIDW7AWOEnqzjkeFsest+5MENlOhLCbcOWusRF0v3rqhmK3hQtjhplxUxGldUvXwjrfxv8TBJRoeyCAGUbuqK4gdvoR0OnmIb8kwDYCt7ceVtEGlghPqwWh6GerNEEvbPX17yp0v6dCZV6Xx61EChLOXwH4YkFc5CuFrtAdiysaWojLpWE0YZmdCTDP8AH8y0gsBjdLcCJLIp7x3yNRUmQTOcN8SvGCclNqq9CJgtY+CbSWcyqPUjtGqIgXdUvMe6Q0Fpovx89IndeNS7MgAd+8vQ55jS1AVG0h5OrPYgiiiHxwB1bOmSN0ukXbSA8QDGsGIocssyWSwXAwlOHEOq0Kh5asgyhUNXkt3DT0LfB1lbQ4mFYYIaogvDIwKBfWVQPHkkuhtbM4gERMAAW026DGMRr4RFJwX6M+v3f0JUDeH0hw7WlIANW5LR1i+NiK27cqtKh3WpRjW5BQtXAbZ0rpMwWMYeAdicRUS1hXaOOMN64Ed+s228EHHWw2nnPpi10E4zbbJQeRVuVSOOriHdlO4OV74wPOHlTPaKZXcAIMmjs3zLKFBbGbrPiSx7LmGoy4u6ndjigM8AADlNPM9KS3EeXWQ6cd/CMnO1VxNDR2jHbcolUGzqQhIXlXU69TTEcGpNnQ+TokaKyEAYL1o7dy2DgRnoMJaj/wBYbgr2rdMM1T1q+Ic5YMlcICy+nwS1Gs94UL84B1zB4VMyqguyQV4RWDkTkjPVxcJsruhjxq5Z9yG2uekPcpibgEVwTNDllR1jpb4gF1ESRyG0AAtV4AyvBGK3SmlqtOMADgHKxgK4muYqCZkKTglKFsgKW6vun0e7+h+k6RwOxRLCl4p9G67QmsaubqPePKUu3YOGlXd+AlhAJFNrQOV7ERKHu8X20D1YURmk/wABcAmItmU6jnrlfZ4hp8gzW8Rp5dUDUBRZDCvKhfSZVhssLIOTKzmCo2S+qoAxjxapXNnLurlgb6Nw2OIunhf+iBrm3qJfkC8alWROBRgiPiVXJlWIZzFBgZBAtp6HVPzA/VS11KvwHuw5yNTYGy+lG3lCK+p7p/kRbVD6CxIJAO7mFeKxBOtlBQaCuu/SGYMCrLGxGkZyx5iHgfWG2SjLBgDYx4pYFZhkDmuNDYlU94HCShwJxTI9eeebfiHcKTpyO+nrxLwLSyTgx6F8Jd8ne8tvQLXglU2YsY4ybvybUHoi1xZVzxQWUmJsSA5bwkNQwnRsi8EOIyZCplEYSAtd7CfR7v6EACvERX3eKFl4AV2hybHkg3/ky8EKm3kzClV6KH3z7zLiwQTZPNr0jVFAuVdwfVEtR2Q6AO5nAYOLQD19CVohweC9RR2Cr63Sz1wMKbzibw2dYvClHUpfcjpGkHRJVDI6gGv9hKhG2tYfKE2mb4MVjZlXV8EpaixljWoGU01qnzGlAydPbPvBXoQvqVPvLCEtTkFtPbEVYLhZxCwNnA22tf7XnKOwL67c8vQllWaBrzC4494MIAGkP/yIECDAgQYECBcpt9VS8RvmzMYecoJfJRK2T1DfO0JPPUP1oR2tIGfMtnvTz2MXdwv/APJAgwIECDBgwap7y3caH7/okUdZgKKgxUy4VebSecGZTL+j3Z84KgVkgqCX0cVPORDrjxg5mQxg7kZ9CHlbRyF187EMtVFhCg5bZfiiltAK52tvnNIPWbT1H8xRddBt5sZ1KOXTxlwLX+VzTTd/KBghu+V8HoS7NYBM6E8lCPeHUJw/2Zc7oGkTk6flo85vMC8WLRLFymiI1BZeaYO1lQDVfFO4HZin1gbl6sHi88qcdLqa6vEDyP8A9qlf11IvA6+2FwFBAw7V7InqRiwPfxWG7tPDjjN81TTmXJW840hLDY6o7kDoLq8IjhL25Ob7vLDcKFrxqToUHl3Y2zVoj8/bLOzr/wDIfaviWXSBkCGuc1XUI1F75hik7JZKk/r8ldzLrgqNojV9RN5MBH2g9AzcX2D3gh7I2c0rtwHvAgBVaA5g+wy40cx2LYdF3vBuk3Ycj328zvGvsQZQpdlhP3vVPt+n9+zerLY5p1d/A4opaqtm22ckOgAsI9Gr6HiwZJnNE80fJmOq03B6FsMdHC28H4jxhC0MKTZobzXvMx8xeS5WaMq8HdiJUusAeGYoOAD/AOQ+1fEEsCkSxOkQ+RRsfL0NrdMbMqXsl6mqvs8WeceECrBdXQdIRUvA/qRZ5R42tXp81/yVXAtExeHI968UbJUVl44K6OgxeVasCOgew6oXnJXmuCFpsnBqD98z73qn2/T+/U+kYkUocImKjhiGncufA6IJwupVf6g3uFP3MZk+xq8yu+vEUsqZQ30BZm0xdgrqnbwlJWss65Psr7pCRACMPDpuh525/wDoPtXx/CRmC1uEfpM0FUbem6Ltpw7lw+Zaeiqr2jxKoUR4OSAhORQuu3+o44xKFfS1e0UC0QewAo9AOajJqhMue7Kcr8fx971T7fp//A09Upe0g8mbz6xXwDFNr1A9ofRawW7ruHkENsCgCgOn/wBLq1IWAZEHXygRQpe+l76XvpToFRivqvrP/Vx/6uD4hoQfBNPKd9L30vfS2ngZEGmNd7/1DNdv63//2Q==" alt="当院のガスブレンダー Sechrist 3500 LOW FLOW。左に ml/min の微量計、中央に LPM の流量計、右に FiO₂ ダイヤル" style="max-width:520px;display:block;margin:0 auto">
 <figcaption>図8. 当院のガスブレンダー（Sechrist 3500 LOW FLOW）。<b>右のダイヤルが FDO₂</b>、<b>中央の LPM 流量計が sweep gas</b>。左の ml/min 微量計は基本触らない。</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — sweep を読むときは<b>両方の流量計</b>を見る。左（ml/min）と中央（LPM）は並列で<b>足し算</b>になるため、微量計が開いていると実際の sweep は表示より多い（下の🔶）。装置の貼り紙「初期設定 酸素流量4L・酸素濃度80%」は CE の初期セット値。<b>無視してください</b>——開始値は <b>FDO₂ 1.0</b>（表17）。ガスの出口は側面からミックスガス管（緑）で人工肺へ向かい、<b>sweep off でクランプするのはこの管</b>（§12-2）。</p>
+<p class="figread"><strong>図の読み方</strong> — sweep を読むときは<b>両方の流量計</b>を見る。左（ml/min）と中央（LPM）は並列で<b>足し算</b>になるため、微量計が開いていると実際の sweep は表示より多い（下の🔶）。装置の貼り紙「初期設定 酸素流量4L・酸素濃度80%」は CE の初期セット値。<b>無視してください</b>——開始値は <b>FDO₂ 1.0</b>（表16）。ガスの出口は側面からミックスガス管（緑）で人工肺へ向かい、<b>sweep off でクランプするのはこの管</b>（§12-2）。</p>
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表17｜Sweep gas の開始と調整</caption>
+<caption>表16｜Sweep gas の開始と調整</caption>
 <thead><tr><th>項目</th><th>設定</th><th>根拠・注意</th></tr></thead>
 <tbody>
 <tr><td>導入時の sweep</td><td class="num"><strong>2 L/min から開始</strong>し漸増</td><td>PaCO₂ と pH のゆっくりした変化を担保する <span class="src ext">ELSO2021 p3</span>。当院講義は「血流量と同じ流量で開始」（講義1 p22）だが、導入前に高CO₂だった患者では ELSO の漸増方式のほうが安全</td></tr>
@@ -1461,7 +1410,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表18｜許容 SaO₂ は2つの立場に分かれる</caption>
+<caption>表17｜許容 SaO₂ は2つの立場に分かれる</caption>
 <thead><tr><th>立場</th><th>値</th><th>根拠</th></tr></thead>
 <tbody>
 <tr><td>高めに置く</td><td class="num"><strong>80–85% 超</strong></td><td>多くのセンターは SpO₂ &gt; 80–85% を目標にしている <span class="src ext">Compl.2022 p6</span>。なお ELSO2021 の「典型的に 80–90%」は<strong>目標ではなく「そうなる」という生理の記述</strong>で、原文は「飽和度%ではなく組織灌流の客観的指標に接地させよ」と書いている（原文で唯一の数値目標は離脱 Step 1 の SpO₂ &gt; 92%）<span class="src ext">ELSO2021 p3, p8-9</span></td></tr>
@@ -1492,7 +1441,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表19｜SvO₂ が動いたら何を疑うか（目標値ではなく解釈の表）</caption>
+<caption>表18｜SvO₂ が動いたら何を疑うか（目標値ではなく解釈の表）</caption>
 <thead><tr><th>動き</th><th>疑うこと</th><th>次の一手</th></tr></thead>
 <tbody>
 <tr><td>下がった</td><td>自己肺の悪化／循環血液量の増加／VO₂ の上昇（発熱・シバリング・不穏）／酸素供給不足</td><td>まず VO₂ を下げる（解熱・鎮静・シバリング対策）。流量を上げるのはその後</td></tr>
@@ -1516,7 +1465,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表20｜Hb 閾値に「標準」が存在しない理由</caption>
+<caption>表19｜Hb 閾値に「標準」が存在しない理由</caption>
 <thead><tr><th>出典</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 p5</span></td><td>「Hb &gt; 7 g/dL を目標にする施設もあれば、酸素運搬最適化のため Hb 12 g/dL を推奨する施設もある」＝統一見解を示していない。急性期を過ぎたら制限輸血も考慮してよい</td></tr>
@@ -1539,7 +1488,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表21｜Hb 7・SaO₂ 98% と同じ酸素含量になる組み合わせ</caption>
+<caption>表20｜Hb 7・SaO₂ 98% と同じ酸素含量になる組み合わせ</caption>
 <thead><tr><th>SaO₂</th><th>必要な Hb</th><th>そのときの CaO₂</th></tr></thead>
 <tbody>
 <tr><td>98%（一般ICUの基準）</td><td class="num"><strong>7.0 g/dL</strong></td><td class="num">9.46 mL/dL</td></tr>
@@ -1557,7 +1506,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表22｜Hb 7 を保ったまま SaO₂ を下げた場合（CO 5 L/min）</caption>
+<caption>表21｜Hb 7 を保ったまま SaO₂ を下げた場合（CO 5 L/min）</caption>
 <thead><tr><th>状況</th><th>CaO₂</th><th>基準比</th><th>DO₂</th><th>DO₂/VO₂</th></tr></thead>
 <tbody>
 <tr><td>一般ICU：Hb 7・SaO₂ 98%</td><td class="num">9.46</td><td class="num">100%</td><td class="num">460 mL/min</td><td class="num">2.0</td></tr>
@@ -1585,7 +1534,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表23｜Hb 7 のまま DO₂/VO₂ ≥ 2 を維持するのに必要な心拍出量</caption>
+<caption>表22｜Hb 7 のまま DO₂/VO₂ ≥ 2 を維持するのに必要な心拍出量</caption>
 <thead><tr><th>SaO₂</th><th>必要な CO</th></tr></thead>
 <tbody>
 <tr><td>98%</td><td class="num">5.1 L/min</td></tr>
@@ -1611,7 +1560,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">実務上の結論</span>
 <p>「Hb 7 でよい」と「SaO₂ 70〜80%でよい」を同時に採ってはいけません。どちらも単独では成り立つ主張ですが、<strong>掛け算なので併用すると基準を2〜3割下回ります</strong>。</p>
 <p>ELSO の書き方もこれと整合しています——Hb 12 を推奨する立場を紹介するとき、「酸素運搬を最適化するため（to optimize oxygen delivery）」という理由が添えられているのに対し、Hb 7 の立場にはその但し書きがありません。<span class="src ext">ELSO2021 p5</span></p>
-<p>当院の運用（Hb &lt; 10 で輸血）は、SaO₂ 70%台まで許容する方針とセットで初めて筋が通ります（表21 で SaO₂ 70% に必要な Hb は 9.8）。もし血液温存のために Hb 7〜8 まで下げるなら、そのときは SaO₂ の許容下限も引き上げる（90%前後を狙う）必要があります——<strong>2つはセットで動かしてください。</strong></p>
+<p>当院の運用（Hb &lt; 10 で輸血）は、SaO₂ 70%台まで許容する方針とセットで初めて筋が通ります（表20 で SaO₂ 70% に必要な Hb は 9.8）。もし血液温存のために Hb 7〜8 まで下げるなら、そのときは SaO₂ の許容下限も引き上げる（90%前後を狙う）必要があります——<strong>2つはセットで動かしてください。</strong></p>
 </div>
 
 <p style="font-size:.9rem;color:var(--muted)">なお ELSO の「7〜12 g/dL」という幅そのものが確たる科学的エビデンスに支持されていないことは別に指摘されています。<span class="src vault">AnnBlood2023</span> 上の計算は「何を根拠に決めるか」の道具であって、正解を与えるものではありません。ただしHb と SaO₂ を独立に決めてはいけないことだけは、計算から確実に言えます。</p>
@@ -1632,7 +1581,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表24｜これに対して「もっと弱く」という流れがある</caption>
+<caption>表23｜これに対して「もっと弱く」という流れがある</caption>
 <thead><tr><th>出典</th><th>ヘパリン持続</th><th>APTT 目標</th><th>抗Xa</th></tr></thead>
 <tbody>
 <tr><td><span class="src jp">ECMOnet p17</span>（ELSO抗凝固GL由来）　★標準</td><td class="num"><strong>20–50 U/kg/hr</strong></td><td class="num"><strong>正常の1.5–2倍</strong><br>（ACT 180–220 秒）</td><td>記載なし</td></tr>
@@ -1667,7 +1616,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表25｜血液・凝固チェック（間隔と閾値は当院の値）　<span class="src in">当院 講義1日目 p35</span></caption>
+<caption>表24｜血液・凝固チェック（間隔と閾値は当院の値）　<span class="src in">当院 講義1日目 p35</span></caption>
 <thead><tr><th>検査項目</th><th>当院：間隔の目安</th><th>当院：輸血/補充閾値</th><th>外部標準の頻度</th></tr></thead>
 <tbody>
 <tr><td>ACT</td><td class="num">1〜4時間ごと</td><td>—</td><td class="num">1〜2時間ごと <span class="src jp">ECMOnet p19</span></td></tr>
@@ -1698,8 +1647,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>ELSO2017（総論）には独立した「Sedation」の節がありますが、示されているのは原則だけで数値目標はありません <span class="src vault">ELSO2017</span></li>
 <li>ECMOnet・ELSO2024（早期リハビリ）にも鎮静の数値目標はありません</li>
 </ul>
-<p>数値が出てくるのは §6-3 の表30 だけです。ただしあれは当院の指示ではなく、長期 VV-ECMO の6相フレームワーク（外部の総説）が相ごとに置いている値です。<span class="src vault">CritCare</span></p>
-<p><span class="split">当院の鎮静目標は現時点で未定義です。</span>決まるまでは<strong>表30 の相ごとの RASS を暫定の目安</strong>として使い、指示簿には「今日の目標 RASS」を数値で書く——これだけでも夜間の判断は揃います。</p>
+<p>数値が出てくるのは §6-3 の表29 だけです。ただしあれは当院の指示ではなく、長期 VV-ECMO の6相フレームワーク（外部の総説）が相ごとに置いている値です。<span class="src vault">CritCare</span></p>
+<p><span class="split">当院の鎮静目標は現時点で未定義です。</span>決まるまでは<strong>表29 の相ごとの RASS を暫定の目安</strong>として使い、指示簿には「今日の目標 RASS」を数値で書く——これだけでも夜間の判断は揃います。</p>
 </div>
 
 <h4>ELSO が示しているのは「数値」ではなく「方針」です</h4>
@@ -1734,7 +1683,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表26｜回路への吸着 — 薬によって大きく違う　<span class="src vault">JCM2024</span></caption>
+<caption>表25｜回路への吸着 — 薬によって大きく違う　<span class="src vault">JCM2024</span></caption>
 <thead><tr><th>吸着</th><th>薬剤</th><th>実務での意味</th></tr></thead>
 <tbody>
 <tr><td><strong>多い</strong><br><span style="font-size:.8rem;color:var(--muted)">＝効きが落ちる</span></td><td><strong>フェンタニル</strong>／<strong>ミダゾラム</strong>／<strong>デクスメデトミジン</strong>／<strong>プロポフォール</strong></td><td>当院講義の「MDZ・プロポフォール・DEX・フェンタニルは2倍必要」（講義1 p31-32・§3-3）と<strong>同じ顔ぶれ</strong>です。<span class="split">増量で対応するか、薬を替えるかの二択になります</span></td></tr>
@@ -1754,8 +1703,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表27｜時期ごとに何を狙うか — 当院の型と ELSO の原則を並べる</caption>
-<thead><tr><th>時期</th><th>当院の型 <span class="src in">講義1 p82</span></th><th>ELSO2017 の原則 <span class="src vault">ELSO2017</span></th><th>相と RASS の目安 <span class="src vault">§6-3 表30</span></th></tr></thead>
+<caption>表26｜時期ごとに何を狙うか — 当院の型と ELSO の原則を並べる</caption>
+<thead><tr><th>時期</th><th>当院の型 <span class="src in">講義1 p82</span></th><th>ELSO2017 の原則 <span class="src vault">ELSO2017</span></th><th>相と RASS の目安 <span class="src vault">§6-3 表29</span></th></tr></thead>
 <tbody>
 <tr><td><strong>カニュレーション<br>〜24時間</strong></td><td>深い鎮静</td><td>light anesthesia の水準まで。自発呼吸による空気塞栓を避けるため。筋弛緩は静脈カニュラ留置時のみ</td><td>①超肺保護：<strong>RASS −4〜−5</strong>／筋弛緩の併用がしばしば必要</td></tr>
 <tr><td><strong>安定後</strong></td><td>—</td><td><strong>いったん全部止めて神経学的診察</strong>。以後は必要最小限。<strong>毎日 drug holiday</strong></td><td>②肺保護：<strong>RASS −3〜−5</strong>／筋弛緩を中止</td></tr>
@@ -1764,17 +1713,17 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td><strong>離脱トライアル</strong></td><td>—</td><td>—</td><td>④離脱：<strong>RASS −1〜0</strong> まで覚醒させて sweep off で評価</td></tr>
 </tbody>
 </table>
-<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>当院の型と ELSO の原則には、ずれがあります。</strong>ELSO2017 は「安定したら止めて最小限に」「毎日 drug holiday」と、かなり早く浅くすることを求めています。一方で当院の型は Day 7 まで深い鎮静を置いています。<span class="split">どちらが正しいとは言えません</span>——ELSO2017 は VA も小児も含む総論で、重症 ARDS の超肺保護期には深鎮静と筋弛緩が要る（表30 の第1相）ためです。ただし「Day 7 まで深く」を既定にせず、相が進んだら浅くしていく、という読み方をしてください。</p>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>当院の型と ELSO の原則には、ずれがあります。</strong>ELSO2017 は「安定したら止めて最小限に」「毎日 drug holiday」と、かなり早く浅くすることを求めています。一方で当院の型は Day 7 まで深い鎮静を置いています。<span class="split">どちらが正しいとは言えません</span>——ELSO2017 は VA も小児も含む総論で、重症 ARDS の超肺保護期には深鎮静と筋弛緩が要る（表29 の第1相）ためです。ただし「Day 7 まで深く」を既定にせず、相が進んだら浅くしていく、という読み方をしてください。</p>
 </div>
 
 <div class="box good">
 <span class="label">指示簿に書く3行</span>
-<p><strong>①今日の目標 RASS</strong>（相に合わせて。決まっていなければ表30 を目安に）<br>
+<p><strong>①今日の目標 RASS</strong>（相に合わせて。決まっていなければ表29 を目安に）<br>
 ②使う薬と、吸着を織り込んだ用量（高吸着の薬なら「2倍から」と明記・§3-3）<br>
 ③drug holiday を行う時間帯（神経学的診察の窓・§10-2）</p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 <h2 id="s6"><span class="no">§6</span>人工呼吸器 — lung rest</h2>
 
 <p>VV-ECMO 導入の最大の目的は、傷ついた肺を休めること。<span class="src in">当院 講義1 p60</span>　ここを崩すと ECMO を回している意味がなくなります。導入前後で設定がどう変わるかは図10のとおり。</p>
@@ -1813,7 +1762,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="593" y="359" font-size="15" font-weight="700">PEEP 10／Pi 10／RR 10／FiO₂ 40%<tspan x="643" y="148" font-size="16" font-weight="600">ガス交換を肩代わり</tspan></text>
   </g>
 </svg>
-<figcaption>図10. ECMO 導入前後の換気設定の対比。導入前（左）は高い圧・大きな換気量で肺を無理に膨らませている。導入後（右）は人工肺がガス交換を肩代わりするため、肺は小さく休ませたまま、当院標準の PCV・PEEP 10／Pi 10／呼吸回数 10／FiO₂ 40% に切り替える（表28）。</figcaption>
+<figcaption>図10. ECMO 導入前後の換気設定の対比。導入前（左）は高い圧・大きな換気量で肺を無理に膨らませている。導入後（右）は人工肺がガス交換を肩代わりするため、肺は小さく休ませたまま、当院標準の PCV・PEEP 10／Pi 10／呼吸回数 10／FiO₂ 40% に切り替える（表27）。</figcaption>
 </figure>
 <h3 id="rs-b24a">6-1. lung rest の設定</h3>
 
@@ -1821,7 +1770,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表28｜Lung rest の設定 — <span class="ok">当院標準と、外部基準との対応</span></caption>
+<caption>表27｜Lung rest の設定 — <span class="ok">当院標準と、外部基準との対応</span></caption>
 <thead><tr><th>項目</th><th>当院標準</th><th>外部基準</th><th>動かすときの考え方</th></tr></thead>
 <tbody>
 <tr><td>モード</td><td class="num"><strong>PCV</strong></td><td>圧制御が基本 <span class="src ext">ELSO2021</span></td><td>初期は筋弛緩＋調節呼吸、可能になれば自発サポート換気へ（ASV も可）<span class="src in">当院 講義1 p60-61</span></td></tr>
@@ -1841,7 +1790,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>酸素化や CO₂ が目標に届かないときは、呼吸器ではなく回路側（血流量・sweep）で対応する</strong> <span class="src ext">ELSO2021</span></li>
 <li><strong>肺をリクルートメントしない</strong> <span class="src in">当院 講義1 p60-61</span></li>
 </ol>
-<p>離脱判定に出てくる「Pplat ≤ 28」（§12-1 表48）は自己肺が引き受けられるかを見る試験条件で、rest 中の上限ではありません。混ぜないでください。</p>
+<p>離脱判定に出てくる「Pplat ≤ 28」（§12-1 表47）は自己肺が引き受けられるかを見る試験条件で、rest 中の上限ではありません。混ぜないでください。</p>
 </div>
 
 <h3 id="rs-b24">6-2. 経過の見通し</h3>
@@ -1850,7 +1799,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表29｜通常の ECMO の経過　<span class="src in">当院 講義1日目 p82</span></caption>
+<caption>表28｜通常の ECMO の経過　<span class="src in">当院 講義1日目 p82</span></caption>
 <thead><tr><th>時期</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td>導入〜</td><td>FiO₂ 40%, PEEP 10, PIP 20, f 10 ／ 深い鎮静 ／ 凝固系の安定化 ／ 水分バランスの調整（CHDF）</td></tr>
@@ -1878,7 +1827,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b18">6-3. 今日はどの相か — 6相フレームワーク</h3>
 
-<p>ラウンドで最初に決めるのは「今日はどの相か」です。相が進むほど ECMO と鎮静が引き算され、患者の自発呼吸と自己肺が足し算されていくという一方向の流れとして読みます。当院の経過の型（6-2 表29：Day7 覚醒準備 → Day14 完全覚醒）と衝突はしません。日数ではなく生理で相を決めるための物差しとして併用します。相の並びと移行の目安は図11のとおり。</p>
+<p>ラウンドで最初に決めるのは「今日はどの相か」です。相が進むほど ECMO と鎮静が引き算され、患者の自発呼吸と自己肺が足し算されていくという一方向の流れとして読みます。当院の経過の型（6-2 表28：Day7 覚醒準備 → Day14 完全覚醒）と衝突はしません。日数ではなく生理で相を決めるための物差しとして併用します。相の並びと移行の目安は図11のとおり。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" style="width:100%;height:auto;max-width:880px">
@@ -1933,7 +1882,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表30｜長期 VV-ECMO 支持の6相（概念フレームワーク）　<span class="src vault">CritCare2026</span></caption>
+<caption>表29｜長期 VV-ECMO 支持の6相（概念フレームワーク）　<span class="src vault">CritCare2026</span></caption>
 <thead><tr><th>相</th><th>優先事項</th><th>患者側の目安</th><th>病態</th><th>鎮静</th><th>人工呼吸</th><th>ECMO</th></tr></thead>
 <tbody>
 <tr><td>①超肺保護</td><td>VILI の予防／安全な ECMO で病態の改善を待つ</td><td>高度の肺内シャントと死腔分画／<strong>Cstat 20 mL/cmH₂O 未満</strong>／換気不良／高度の両側性浸潤影</td><td>過剰な炎症性浸潤／毛細血管漏出</td><td><strong>深鎮静 RASS −4〜−5</strong>／筋弛緩の併用がしばしば必要</td><td>超肺保護換気または無呼吸換気／<strong>駆動圧を最小化（10 cmH₂O 以下）</strong>／permissive hypercapnia／<strong>PEEP 10 以上</strong>で肺を開いたまま保つ</td><td><strong>高血流（5 L/min 以上）</strong>／SGF は <strong>2 L/min から開始</strong>／最初の24時間で excess CO₂ を50%超下げない、48〜72時間で正常化</td></tr>
@@ -1958,12 +1907,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表31｜呼吸努力の指標 — 当院で測れる順</caption>
+<caption>表30｜呼吸努力の指標 — 当院で測れる順</caption>
 <thead><tr><th>指標</th><th>測り方</th><th>目安</th><th>注意</th></tr></thead>
 <tbody>
 <tr><td><strong>P0.1</strong></td><td>呼吸器の測定機能（呼気終末閉塞の最初の 0.1 秒の陰圧）。3〜4回の平均をとる</td><td class="num">正常 <strong>2〜4 cmH₂O</strong><br>3.5〜4 超で高ドライブ／1 未満で低すぎ</td><td>「低いから安全」は誤り。高い努力の検出は Pocc に劣る <span class="src vault">AJRCCM2020</span><span class="src vault">ARDS自発呼吸 ICM2026</span></td></tr>
 <tr><td><strong>Pocc</strong>（呼気終末閉塞圧）</td><td>呼気終末ホールド1回で、患者が引く陰圧の深さを読む</td><td class="num"><strong>7〜15 cmH₂O</strong> が安全域<br>予測経肺駆動圧 ＝ (Ppeak − PEEP) − 2/3 × Pocc が <strong>22 未満</strong>なら肺ストレスも安全域</td><td>追加機器なし。当院の第一選択。手技1回で努力と肺ストレスの両方が読める <span class="src vault">Pocc CurrOpin2024</span></td></tr>
-<tr><td><strong>食道内圧スイング</strong>（ΔPes）</td><td>食道バルーン</td><td class="num"><strong>10〜15 cmH₂O 未満</strong><br>（6相の表30 は 3〜8 を目安に挙げる）</td><td>高度肥満・胸郭異常・Pocc と所見が食い違うときに限って入れる <span class="src vault">ARDS自発呼吸 ICM2026</span><span class="src vault">Pocc CurrOpin2024</span></td></tr>
+<tr><td><strong>食道内圧スイング</strong>（ΔPes）</td><td>食道バルーン</td><td class="num"><strong>10〜15 cmH₂O 未満</strong><br>（6相の表29 は 3〜8 を目安に挙げる）</td><td>高度肥満・胸郭異常・Pocc と所見が食い違うときに限って入れる <span class="src vault">ARDS自発呼吸 ICM2026</span><span class="src vault">Pocc CurrOpin2024</span></td></tr>
 <tr><td><strong>臨床所見</strong></td><td>一回換気量・呼吸数・陥没呼吸・補助筋</td><td class="num">VT <strong>8 mL/kg PBW 超</strong>・陥没呼吸・補助筋使用は「高すぎる」</td><td>呼吸数はドライブに鈍感。頻呼吸がないから大丈夫、とは言えない <span class="src vault">CritCare2026</span><span class="src vault">AJRCCM2020</span></td></tr>
 </tbody>
 </table>
@@ -1983,7 +1932,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>逆に、努力がゼロのまま長引くと横隔膜が萎縮します。相②の終わりには設定呼吸回数を下げて患者のリズムを出してください。鎮静だけ切って呼吸回数をそのままにすると、自発呼吸は出てきません。<span class="src vault">LDP ICM2026</span></p>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s7"><span class="no">§7</span>栄養</h2>
 
@@ -1995,7 +1944,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表32｜ECMO 中の栄養 — 主な推奨と合意率　<span class="src vault">ELSO 栄養 2026</span></caption>
+<caption>表31｜ECMO 中の栄養 — 主な推奨と合意率　<span class="src vault">ELSO 栄養 2026</span></caption>
 <thead><tr><th>項目</th><th>推奨</th><th>合意率</th></tr></thead>
 <tbody>
 <tr><td><strong>開始</strong></td><td>禁忌がなければ<strong>早期経腸栄養</strong>を考慮する。非制御の重症ショックでは遅延または低用量で開始し、毎日見直す</td><td class="num">100%</td></tr>
@@ -2031,7 +1980,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>ECMO 中に抜管して経口摂取している患者では、摂取量が目標の50〜75%の状態が72時間続いたら、経腸栄養へのエスカレーションを強く考慮します（合意率100%）。「食べられているから大丈夫」で3日以上放置しない、ということです。§11-3 の覚醒 ECMO を進めるなら、この項目はセットで必要になります。</p>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s8"><span class="no">§8</span>早期離床</h2>
 
@@ -2047,7 +1996,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表33｜ECMO 中の離床 Stage 0〜4 と進行条件　<span class="src vault">ELSO 2024 Figure 1</span></caption>
+<caption>表32｜ECMO 中の離床 Stage 0〜4 と進行条件　<span class="src vault">ELSO 2024 Figure 1</span></caption>
 <thead><tr><th>Stage</th><th>内容</th><th>次の段階へ進んでよい条件</th></tr></thead>
 <tbody>
 <tr><td><strong>0</strong></td><td>受動（ベッド上での他動運動／受動立位）</td><td>—</td></tr>
@@ -2070,7 +2019,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表34｜部位別に事前確認すること　<span class="src vault">ELSO 2024</span></caption>
+<caption>表33｜部位別に事前確認すること　<span class="src vault">ELSO 2024</span></caption>
 <thead><tr><th>部位</th><th>離床前・離床中にすること</th></tr></thead>
 <tbody>
 <tr><td><strong>大腿</strong></td><td>離床前に<strong>仰臥位で患側の股関節を用手的に90°屈曲</strong>させ、カニューレ位置・ECMO血流の安定・末梢灌流を確認する。<u>皮膚にマーキングして移動量を評価</u>。肥満例ではカニューレ先端が血管内に浅くしか入っていないことがある</td></tr>
@@ -2085,7 +2034,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表35｜離床を中止する基準　<span class="src vault">ELSO 2024</span></caption>
+<caption>表34｜離床を中止する基準　<span class="src vault">ELSO 2024</span></caption>
 <thead><tr><th>種類</th><th>基準</th></tr></thead>
 <tbody>
 <tr><td><strong>客観的</strong></td><td>回路アラーム／アンカー・縫合の破綻／刺入部の破綻／出血・血腫／キンク・逸脱</td></tr>
@@ -2097,7 +2046,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>覚醒そのものの進め方については、当院の型では Day 7 に覚醒の準備（最初は1時間だけ、日々延長）、Day 14 で完全覚醒。<span class="src in">講義1 p82</span>　覚醒の利点は肺のリンパ灌流の改善・自発呼吸による一回換気量の改善・感染に強くなること・コミュニケーションが取れること。進めるコツは昼夜のリズムを作ることと、過密なスケジュールを避けることです。<span class="src jp">岡山6 p11</span></p>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s9"><span class="no">§9</span>トラブルシューティング</h2>
 
@@ -2112,7 +2061,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p><strong>ところが当院が測っているのは2点だけです。</strong>脱血圧は外部資料と同じ P1 ですが、肺後圧は当院のモニタでは <strong>P2</strong> と表示されます（外部資料の P3 にあたる）。<span class="split">つまり当院の「P2」は肺前圧ではありません</span>——ここが唯一、番号を突き合わせる必要がある場所です。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表36｜番号の対応表 — 当院のモニタと外部資料</caption>
+<caption>表35｜番号の対応表 — 当院のモニタと外部資料</caption>
 <thead><tr><th>当院で呼ぶ名前</th><th>モニタの表示</th><th>外部資料での番号</th><th>符号</th></tr></thead>
 <tbody>
 <tr><td><strong>脱血圧</strong></td><td class="num"><strong>P1</strong></td><td class="num">P1</td><td>陰圧<br><span style="font-size:.8rem;color:var(--muted)">番号は外部資料と一致</span></td></tr>
@@ -2137,7 +2086,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表37｜人工肺の目詰まりを、差圧なしで見つける方法</caption>
+<caption>表36｜人工肺の目詰まりを、差圧なしで見つける方法</caption>
 <thead><tr><th>手がかり</th><th>見方</th><th>なぜ効くか</th></tr></thead>
 <tbody>
 <tr><td><strong>送血側の血液ガス</strong>（最重要）</td><td><strong>送血側 SaO₂ &lt; 98%</strong> なら人工肺の異常</td><td>人工肺を出た直後の血液は本来ほぼ100%。ここが下がる＝ガス交換ができていない。差圧の代わりになる唯一の直接的な指標</td></tr>
@@ -2156,7 +2105,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <ul>
 <li><strong>脱血不良</strong> — <u>脱血圧が大きな陰圧に振れ</u>、他が下がる。これは2点でも判断できます</li>
 <li><strong>ポンプ不全</strong> — 脱血圧が上がり、肺後圧が下がる。これも2点で判断できます</li>
-<li><strong>人工肺の目詰まり と 送血不良</strong> — <span class="split">この2つを圧だけで見分けることは当院ではできません</span>。どちらも「肺後圧が上がる」形になります。切り分けは上の表37（送血側 SaO₂）で行ってください——SaO₂ が下がっていれば人工肺、保たれていれば送血側の問題です</li>
+<li><strong>人工肺の目詰まり と 送血不良</strong> — <span class="split">この2つを圧だけで見分けることは当院ではできません</span>。どちらも「肺後圧が上がる」形になります。切り分けは上の表36（送血側 SaO₂）で行ってください——SaO₂ が下がっていれば人工肺、保たれていれば送血側の問題です</li>
 </ul>
 </div>
 
@@ -2164,7 +2113,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>圧の向きは P1 が陰圧、P2 が陽圧++、P3 が陽圧+。<span class="src in">講義1 p25,p28</span>　<strong>正常時の実例</strong>：流量 4 L/min で P1 −10、P2 240、P3 200 mmHg。<span class="src jp">岡山5 p22</span></p>
 
-<p><strong>これを1枚にしたのが図13です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表38）。</p>
+<p><strong>これを1枚にしたのが図13です。</strong>4つの病態それぞれで P1・P2・P3 がどちらへ動くかを1枚にしてあります（数値の詳細は表37）。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="860" height="450" viewBox="0 0 860 450" role="img" style="width:100%;height:auto;max-width:860px">
@@ -2243,7 +2192,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
     <text x="722" y="419" font-size="18" font-weight="600">P3</text>
   </g>
 </svg>
-<figcaption>図13. 回路内圧の4象限（表38 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。流量はいずれも低下する。</figcaption>
+<figcaption>図13. 回路内圧の4象限（表37 の図解）。各象限の下の矢印が P1・P2・P3 の動く向き。流量はいずれも低下する。</figcaption>
 </figure>
 <p class="figread"><strong>図の読み方</strong> — <b>左上 脱血不良</b>＝P1 が大きな陰圧へ振れ、P2・P3 も下がる（P1 だけが際立って落ちるのが決め手）。<b>右上 ポンプ不全</b>＝P1 が上がり、P2・P3 がともに下がる。<b>左下 人工肺の目詰まり</b>＝P2 が上がり P3 が下がる（P2−P3 が開く）。<b>右下 送血不良</b>＝P2 も P3 も上がる（P2−P3 は開かない）。</p>
 <p>覚え方は「P1 と、P2−P3 の2つだけ見る」で足ります。</p>
@@ -2254,7 +2203,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表38｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
+<caption>表37｜回路内圧の変化と異常部位　<span class="src in">当院 講義1日目 p29</span></caption>
 <thead><tr><th>病態</th><th>ECMO流量</th><th>P1 脱血圧</th><th>P2 肺前圧</th><th>P3 肺後圧</th><th>決め手</th></tr></thead>
 <tbody>
 <tr><td>脱血不良</td><td class="num">↓↓</td><td class="num">↓↓↓</td><td class="num">↓</td><td class="num">↓</td><td><strong>P1 だけが大きな陰圧に振れる</strong>（他はすべて下がる）</td></tr>
@@ -2269,7 +2218,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表39｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
+<caption>表38｜院内勉強会版（流量／脱血圧／送血圧の3点で見る）　<span class="src in">当院 TS資料2 スライド2</span></caption>
 <thead><tr><th>流量</th><th>脱血圧</th><th>送血圧</th><th>原因</th></tr></thead>
 <tbody>
 <tr><td class="num">↓</td><td class="num">↑</td><td class="num">↑</td><td>送血不良</td></tr>
@@ -2283,7 +2232,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b26">9-2. 症状から引く</h3>
 
-<p>表40 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図14）と人工肺の劣化（図15）</strong>——の「形」を掴んでおきます。</p>
+<p>表39 に入る前に、当直で遭遇頻度の高い2つ——<strong>チャタリング（図14）と人工肺の劣化（図15）</strong>——の「形」を掴んでおきます。</p>
 
 <figure class="fig">
 <svg xmlns="http://www.w3.org/2000/svg" width="780" height="390" viewBox="0 0 780 390" role="img" style="width:100%;height:auto;max-width:780px">
@@ -2354,7 +2303,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <rect x="438" y="314" width="310" height="50" rx="18" fill="#0084B5" fill-opacity="0.1" stroke="#0084B5" stroke-width="6"/>
   <text x="593" y="346" fill="#0084B5" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="18" font-weight="700" text-anchor="middle">脱血圧が大きく陰圧へ振れる</text>
 </svg>
-<figcaption><b>図14. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表40）。</figcaption>
+<figcaption><b>図14. チャタリング。</b>左（正常）＝脱血管は安定し、血流も滑らか。右（チャタリング）＝血管壁が脱血管に吸着し、回路全体が細かく振動して血流が途切れる。このとき脱血圧は大きく陰圧へ振れる。最初の一手はモーター回転数を速やかに下げることで、輸液や体位はその後（表39）。</figcaption>
 </figure>
 
 <figure class="fig">
@@ -2408,7 +2357,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </svg>
 <figcaption><b>図15. 人工肺の劣化と P2−P3。</b>左＝正常（中空糸が均一、圧較差は小さい）、右＝劣化（フィブリン沈着で目詰まりし、P2−P3 が開く）。</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — 下の両矢印が P2−P3。手がかりは <b>P2−P3 &gt; 50 mmHg</b>／<b>送血側 SaO₂ &lt; 98%</b>／<b>D-ダイマー上昇</b>。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表38・表40）。</p>
+<p class="figread"><strong>図の読み方</strong> — 下の両矢印が P2−P3。手がかりは <b>P2−P3 &gt; 50 mmHg</b>／<b>送血側 SaO₂ &lt; 98%</b>／<b>D-ダイマー上昇</b>。定期的な回路交換は行わないが、この所見が揃えば交換を考慮する（表37・表39）。</p>
 <p>ではいよいよ症状別です。この表には8つの状況が並んでいますが、丸暗記する必要はありません。実は3つのグループに分かれていて、グループごとに「やってはいけないこと」が決まっているからです。</p>
 
 <p><strong>第1グループ：脱血がうまくいっていない</strong>（チャタリング・脱血不良・再循環）。回路の入口側の問題です。ここでの禁じ手は「流量を上げること」。脱血不良なら回転数を上げても血液が来ないので陰圧が深まるだけで、溶血や、最悪はポンプ内キャビテーションと空気塞栓を招きます。再循環なら、上げるほど酸素化血を吸い戻すので SaO₂ はかえって下がります。だから第1グループの初手はどれも「まず回転数を下げる／落としてみる」になります。</p>
@@ -2421,7 +2370,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表40｜症状別の動き方</caption>
+<caption>表39｜症状別の動き方</caption>
 <thead><tr><th>症状</th><th>鑑別</th><th>最初の一手</th><th>次の一手</th><th>出典</th></tr></thead>
 <tbody>
 <tr>
@@ -2441,7 +2390,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>ECMO 中の低酸素</td>
 <td>①回路トラブル（緊急度・重症度とも最高）②人工肺不良 ③再循環 ④自己肺悪化 ⑤末梢組織酸素消費増加 ⑥設定変更（緊急度・重症度とも低）</td>
-<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表41）</strong></td>
+<td>緊急時：緊急時呼吸器設定 → ECMO流量アップ → 原因探求<br><strong>余裕あるとき：p87 アルゴリズム（表40）</strong></td>
 <td>いずれにせよ、Cxpオーダー・ABG・脱送血ABG を採取して評価する／呼吸器設定を上げてはならない・VA へ変えてはならない</td>
 <td><span class="src in">講義1 p86-87</span><span class="src ext">ELSO2021 p8-9</span></td>
 </tr>
@@ -2497,7 +2446,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr>
 <td>患者の出血</td>
 <td>ECMO 中は出血合併症が最多（外科的創部 19.0%／カニュラ刺入部 17.1%／気管内・肺胞 8.1%／消化管 5.1%／頭蓋内 3.8%）</td>
-<td>観察部位を系統的に見る（表44）。予防的な注意点は §10-1</td>
+<td>観察部位を系統的に見る（表43）。予防的な注意点は §10-1</td>
 <td>外科的介入の適応でなければヘパリンを一時的に止める、血小板・FFP を投与／胸腔ドレーンは極力避ける（§10-2）／後腹膜出血は IVR による止血／内出血が疑わしければエコー・CT</td>
 <td><span class="src in">講義1 p36-37</span><span class="src jp">市場2016／岡山6 p23-24</span></td>
 </tr>
@@ -2539,7 +2488,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表41｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
+<caption>表40｜SaO₂ が目標値に達成しないときのアルゴリズム　<span class="src in">当院 講義1日目 p87</span>（原典 Levy B, ICM 2015;41:508-510 ＋当院注記）</caption>
 <thead><tr><th>順</th><th>分岐（Yes/No）</th><th>Yes の対応</th><th>当院注記</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>SaO₂ &lt; 88% → CXR/ABG でカニュラ位置異常 and/or 再循環を示唆？</td><td>Reposition cannulae</td><td><strong>再循環の是正：カニュラ間は 10–13cm 以上離す</strong></td></tr>
@@ -2571,7 +2520,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表42｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
+<caption>表41｜緊急時に使う言葉　<span class="src jp">岡山5 p35-42</span>（当院資料には対応する定義がないため、導入するなら院内で決める）</caption>
 <thead><tr><th>用語</th><th>定義</th></tr></thead>
 <tbody>
 <tr><td>緊急の呼吸器設定</td><td>調節呼吸（CMV, AC等）、<strong>FiO₂ 100%、f 12回、PC 25 cmH₂O</strong>（症例により異なる）　※当院 TS資料2 は「FiO₂ を100%に。Rest Lung 設定なら一回換気量と呼吸回数の設定変更も必要」</td></tr>
@@ -2592,7 +2541,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>遠心ポンプは非閉塞式で、後負荷に依存します。ポンプが作る圧が「送血側と脱血側の圧の差」を下回ると、血液は逆向きに流れます。この差がどれくらいかが、VA と VV でまったく違います。</p>
 <ul>
 <li><strong>VA</strong>：送血先は動脈（MAP 65〜80 mmHg）。脱血は静脈（CVP 10 前後）なので、ポンプは60〜70 mmHg の差に打ち勝つ必要があります。低回転でデクランプすると<span class="split">動脈血が一気に静脈側へ逆流します</span>——だから下限がきつい。</li>
-<li><strong>VV</strong>：送血先も静脈（右房・上大静脈、CVP 5〜15 mmHg）で、脱血も静脈。ポンプが越えるべきなのはほぼ回路抵抗だけ（人工肺の圧較差は正常で約25 mmHg・表1）。逆流の駆動圧がけた違いに小さいので、同じ余裕は要りません。</li>
+<li><strong>VV</strong>：送血先も静脈（右房・上大静脈、CVP 5〜15 mmHg）で、脱血も静脈。ポンプが越えるべきなのはほぼ回路抵抗だけ（人工肺の圧較差は正常で約25 mmHg）。逆流の駆動圧がけた違いに小さいので、同じ余裕は要りません。</li>
 </ul>
 <p>VV で回転数を落としすぎてはいけない本当の理由は、逆流ではなく血栓です。閾値も回転数ではなく流量で決まっていて、カニュラあたり 1 L/min 超（§12-2）。<span class="split">「1500回転」を VV の下限として覚えないでください。</span></p>
 <p style="font-size:.88rem;color:var(--muted)">1000/1500 という数字自体も機種・回路によって変わりますので、当院の機種での値は CE と確認して決めてください。なお手順の順序（回転を上げてからデクランプ／下げてからクランプ）は VV でも守ります——必要な余裕の幅が違うだけです。</p>
@@ -2602,7 +2551,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表43｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
+<caption>表42｜クランプする／しない　<span class="src jp">岡山5 p14</span></caption>
 <thead><tr><th>トラブル</th><th>回路クランプ</th></tr></thead>
 <tbody>
 <tr><td>送血・脱血カニュラの壁の引き込み</td><td>× しない</td></tr>
@@ -2623,7 +2572,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="margin-bottom:0">「患者が完全に ECMO に依存している場合、スタッフはたった60秒以内にトラブルを解決しなければならない」（岡山5 p31）</p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 <h2 id="s10"><span class="no">§10</span>合併症の監視</h2>
 
 <p>ECMO を回している間、患者さんの体の中では<strong>2つの逆向きの力が同時に働いています</strong>。回路に血液が触れると固まろうとするので抗凝固をかける。すると今度は出血する。この綱引きをどちらにも振り切らせないことが、合併症管理のほぼすべてです。そのうえで、頻度が高いのは明らかに出血のほうです。</p>
@@ -2631,7 +2580,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表44｜合併症の頻度（背景データ・家族説明用）</caption>
+<caption>表43｜合併症の頻度（背景データ・家族説明用）</caption>
 <thead><tr><th colspan="2">患者関連　<span class="src in">講義1 p37,p85</span><span class="src jp">ECMOnet p26-27</span>（Brodie NEJM 2011）</th><th colspan="2">機器関連　<span class="src in">講義1 p84</span><span class="src jp">ECMOnet p23</span>（Kolla Ann Surg 1997）</th></tr></thead>
 <tbody>
 <tr><td>培養陽性の感染症</td><td class="num">21.3%</td><td>人工肺異常（酸素化不良）</td><td class="num"><strong>32%</strong></td></tr>
@@ -2652,7 +2601,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table>
-<caption>表45｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
+<caption>表44｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
 <thead><tr><th>出血部位</th><th>point</th></tr></thead>
 <tbody>
 <tr><td>気道粘膜出血・肺胞出血</td><td>愛護的な処置</td></tr>
@@ -2707,7 +2656,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表46｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
+<caption>表45｜ECMO 開始後に獲得した院内感染の時期別想定病原体　<span class="src jp">岡山3 p40</span></caption>
 <thead><tr><th>時期</th><th>想定する感染・病原体</th><th>薬剤</th></tr></thead>
 <tbody>
 <tr><td><strong>開始から1週間以内</strong></td><td>VAP・尿路感染 … SPACE などGNR</td><td>3世代セフェム、PIPC/TAZ、MEPM</td></tr>
@@ -2734,7 +2683,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="margin-bottom:0">当院の安全管理チェックリストは「カニューレ刺入部に出血、腫脹、発赤はない」を毎日3回チェックする形になっており、「見るが替えない」という運用と整合します。</p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s11"><span class="no">§11</span>特殊状況</h2>
 
@@ -2748,7 +2697,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <div class="box danger">
 <p>VA-ECMO 中の心停止に胸骨圧迫は不要だが、VV-ECMO 中は必要。VV は肺機能のみの補助であり、血行動態は酸素化改善を介して間接的に支持されるにすぎないため。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
 <p>同ガイドラインの焦点3点：①<strong>心停止の認識</strong>（ECMO 流量・脈圧・波形が消えたとき何をもって心停止とするかを文書化する）②チーム内の優先順位づけ ③救命介入に直結する初期の ECMO トラブルシューティング。「ALS を回す前に ECMO 回路を見る」という順序転換が要点で、ガイドライン単独では機能せずトレーニングと一体で運用することが明記されています。</p>
-<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表43下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
+<p style="margin-bottom:0">当院・外部資料の該当箇所：ECMO 中の蘇生アルゴリズム（表42下の囲み）で「簡易的な ECMO 評価 → 空気混入・カニュラ抜去があればクランプ → なければ人工呼吸器を緊急設定し、必要があれば CPR」という順序になっています。<span class="src jp">岡山5 p28</span></p>
 </div>
 
 <figure class="fig">
@@ -2790,7 +2739,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表47｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
+<caption>表46｜ECMO 中の腹臥位：当院の方針と外部の評価</caption>
 <thead><tr><th>出典</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td><strong><span class="src in">当院 講義2 p53,p55-56</span></strong></td><td>当院は ECMO 中の腹臥位を実施している（治療内容にも「腹臥位療法」を明記）。離脱後も 腹臥位 → 側臥位 → 端座位 と段階的に進める</td></tr>
@@ -2836,7 +2785,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>当院の型：導入期に「水分バランスの調整（CHDF）」。<span class="src in">講義1 p82／講義2 p55</span></li>
 <li>遠心ポンプ使用時は空気の巻き込みを避けるため CRRT 装置はポンプの下流に置き、CRRT からの返血は人工肺の手前に戻す（空気・凝血塊を人工肺で捕捉するため）。<span class="src vault">ICM2016</span></li>
 <li>ECMO 中の RRT の方法（3通り）：①回路にインラインの血液濾過器を追加 ②並行透析システム（独立した血管アクセス）③統合システム。<strong>透析中の低血圧を防ぐことが腎回復に寄与</strong>。AKI は ECMO 患者の最大60%。<span class="src ext">Compl.2022</span></li>
-<li>急変時に「<strong>CHDF を中断</strong>」と言われたときの手順は §9-4 表42 に定義してあります</li>
+<li>急変時に「<strong>CHDF を中断</strong>」と言われたときの手順は §9-4 表41 に定義してあります</li>
 </ul>
 
 <h3 id="rs-b39">11-5. 搬送</h3>
@@ -2849,7 +2798,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li>搬送が安全な患者を ECMO 可能施設に移すこと自体が予後を改善する。<span class="src ext">Compl.2022 p3</span>／導入できない施設では早期搬送の計画を意図的に。<span class="src ext">ELSO2021 p2</span></li>
 </ul>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s12"><span class="no">§12</span>離脱</h2>
 
@@ -2861,7 +2810,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表48｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
+<caption>表47｜離脱トライアルを開始してよい条件　<span class="src ext">ELSO2021 Table 5</span></caption>
 <thead><tr><th></th><th>条件</th></tr></thead>
 <tbody>
 <tr><td><strong>酸素化</strong></td><td>FiO₂ が一貫して <strong>≤60%</strong>／<strong>PEEP ≤10 cmH₂O</strong>／<strong>PaO₂ ≥70 mmHg</strong></td></tr>
@@ -2988,7 +2937,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表49｜脱カニュレーションの準備（<span class="ok">当院は ECMOnet 側を採用</span>）</caption>
+<caption>表48｜脱カニュレーションの準備（<span class="ok">当院は ECMOnet 側を採用</span>）</caption>
 <thead><tr><th>項目</th><th>ELSO2021 Table 7</th><th>ECMOnet p36</th></tr></thead>
 <tbody>
 <tr><td><strong>ヘパリン中止</strong></td><td class="num">少なくとも1時間前<br><span style="font-size:.8rem;color:var(--muted)">（縫合で閉じる前提の数字）</span></td><td class="num"><strong>2〜6時間前</strong>（APTT の正常化）<br>抜去前の APTT 延長は離脱後合併症のリスク<br><span class="ok">★当院はこちら</span></td></tr>
@@ -3009,7 +2958,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="box good">
 <span class="label">誰が抜くか、どの順で抜くか — 当院の実施体制</span>
-<p>抜去は外科に依頼しなければならない手技ではありません。当院では集中治療科と CE（臨床工学技士）で実施してよいことになっています。 <span class="src in">当院</span> 経皮的に入れたカニュラは直接抜いて局所圧迫で止血してよい、という ELSO 総論の記載（下の表50）と対になる運用です。</p>
+<p>抜去は外科に依頼しなければならない手技ではありません。当院では集中治療科と CE（臨床工学技士）で実施してよいことになっています。 <span class="src in">当院</span> 経皮的に入れたカニュラは直接抜いて局所圧迫で止血してよい、という ELSO 総論の記載（下の表49）と対になる運用です。</p>
 <p><strong>手技の骨格は2つだけ</strong>です。</p>
 <ul>
 <li><strong>カニューレをクランプする</strong> — 抜く前に、そのカニュラをクランプします</li>
@@ -3036,7 +2985,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表50｜抜去部の止血 — 資料が書いていること</caption>
+<caption>表49｜抜去部の止血 — 資料が書いていること</caption>
 <thead><tr><th>出典</th><th>記載</th></tr></thead>
 <tbody>
 <tr><td><span class="src ext">ELSO2021 Table 7</span></td><td><strong>縫合で閉鎖</strong>し、軽い圧迫ドレッシングを当てて注意深く観察する</td></tr>
@@ -3055,7 +3004,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表51｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
+<caption>表50｜縫合せずに抜くときの手順（院内で決めるべき項目）</caption>
 <thead><tr><th>段階</th><th>やること</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td><strong>抜く前</strong></td><td>2〜6時間前に抗凝固を止め、APTT が戻っていることを確認／Plt・フィブリノゲンを確認／人員を集める（抜く人・圧迫する人・呼吸器を操作する人）</td><td>止血を圧迫だけに任せるので、凝固能が前提条件になる</td></tr>
@@ -3083,7 +3032,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表52｜圧迫が失敗する3つの原因と、その対策</caption>
+<caption>表51｜圧迫が失敗する3つの原因と、その対策</caption>
 <thead><tr><th>失敗の原因</th><th>対策</th></tr></thead>
 <tbody>
 <tr><td><strong>① 途中で覗く</strong><br><span style="font-size:.82rem;color:var(--muted)">最も多い</span></td><td><strong>15分間、手を離さない</strong>。「止まったか」を確認するために圧迫を緩めると、<strong>固まりかけた血栓を剥がして振り出しに戻ります</strong>。時計を見て15分測る——<u>体感で判断しない</u></td></tr>
@@ -3110,7 +3059,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表53｜止まらないときのエスカレーション</caption>
+<caption>表52｜止まらないときのエスカレーション</caption>
 <thead><tr><th>段階</th><th>対応</th></tr></thead>
 <tbody>
 <tr><td><strong>15分で止まらない</strong></td><td>さらに 10〜15分、連続で圧迫を続ける。<strong>この時点で人を呼ぶ</strong>（1人で押さえ続けない——集中力が切れて圧が緩みます）</td></tr>
@@ -3124,7 +3073,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表54｜圧迫後の安静</caption>
+<caption>表53｜圧迫後の安静</caption>
 <thead><tr><th>部位</th><th>安静</th><th>観察</th></tr></thead>
 <tbody>
 <tr><td><strong>大腿</strong></td><td><strong>抜去後2時間はベッドフラット</strong>、<u>下肢を伸展位で保つ</u>（股関節を曲げない）<br><span style="font-size:.82rem;color:var(--muted)">用手圧迫15分のあと、アンギオ綿による圧迫は翌朝まで継続する</span></td><td>刺入部の出血・血腫／大腿は<strong>後腹膜出血</strong>もありうる——刺入部が高位だった場合、<strong>皮膚には何も出ないまま出血します</strong>。血圧低下・Hb低下・腹部/背部痛に注意</td></tr>
@@ -3134,14 +3083,14 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>大腿の2時間は妥当な設定です。</strong>動脈なら4〜6時間が必要ですが、静脈で凝固能が戻っていれば2時間で足ります。ただし安静も無料ではありません——ECMO 後の患者はDVT のリスクが高いので、<span class="split">2時間を過ぎたら早期離床に戻してください</span>（§8・§13-1）。「念のため長めに」が最も避けたい判断です。</p>
 </div>
 
-<p>抜いた直後にやることは §13-1 に。ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong>（血液型と抗体スクリーニングは有効なままにしておく・表49）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
+<p>抜いた直後にやることは §13-1 に。ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong>（血液型と抗体スクリーニングは有効なままにしておく・表48）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
 
 <div class="box plain">
 <span class="label">中断・中止の判断</span>
 <p>ECMO を中断すべき状況：①安定して継続することが不可能 ②<strong>離脱しても社会生活が不可能</strong> ③心臓・肺機能の改善の見込みがない。<span class="src jp">岡山6 p29</span><br>この判断は、開始前に説明しておいた「時間を区切った試行」という枠組みの上に乗ります（§2）。<span class="src ext">ELSO2021 p6</span></p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s13"><span class="no">§13</span>離脱後の管理</h2>
 
@@ -3149,7 +3098,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <h3 id="rs-b4">13-1. 抜いた直後</h3>
 
-<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§12-3 表49）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
+<p><strong>いちばん忘れられるのが DVT のチェック</strong>です。ELSO は脱カニュレーションの 24時間後に深部静脈血栓症を評価することを明記しています（§12-3 表48）。太いカニュラが長期間入っていた血管なので、抜いた後に血栓が見つかること自体は珍しくありません。「抜けたから終わり」で予定に入れ忘れると、そのまま抜けます。</p>
 
 <p><strong>次に刺入部の出血</strong>。抗凝固を止めてから抜いているとはいえ、凝固系はまだ元に戻っていません。縫合と軽い圧迫ドレッシングを当てたうえで、注意深く観察を続けます。</p>
 
@@ -3174,7 +3123,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表55｜VV-ECMO 生存者の長期アウトカム</caption>
+<caption>表54｜VV-ECMO 生存者の長期アウトカム</caption>
 <thead><tr><th>指標</th><th>数字</th><th>出典</th></tr></thead>
 <tbody>
 <tr><td><strong>6か月時点の死亡または中等度〜重度の障害</strong></td><td class="num"><strong>54%</strong></td><td><span class="src vault">ANZ 2026</span>（豪州23 ICU の前向きコホート）</td></tr>
@@ -3198,7 +3147,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="s14"><span class="no">§14</span>毎日の運用 — ラウンドで回すこと</h2>
 
@@ -3212,7 +3161,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表56｜ECMO担当医のルーチンワーク　<span class="src in">当院 講義1日目 p91</span></caption>
+<caption>表55｜ECMO担当医のルーチンワーク　<span class="src in">当院 講義1日目 p91</span></caption>
 <thead><tr><th>Assessment</th><th>頻度</th><th>Plan</th></tr></thead>
 <tbody>
 <tr><td>血算</td><td class="num"><strong>2–3回/day</strong></td><td>RCC, FFP, PC 輸血</td></tr>
@@ -3234,12 +3183,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表57｜毎日カルテに残す項目</caption>
+<caption>表56｜毎日カルテに残す項目</caption>
 <thead><tr><th>区分</th><th>残す項目</th><th>なぜ残すか</th></tr></thead>
 <tbody>
 <tr><td><strong>設定</strong></td><td>回転数[rpm]／ECMO血流量[L/min]／sweep gas 流量[L/min]／FDO₂[%]／熱交換器の設定温度</td><td>設定を変えた日を後から特定できるようにする。「いつから流量を下げたか」が離脱判断の材料になる</td></tr>
 <tr><td><strong>圧</strong></td><td><strong>脱血圧</strong>／<strong>肺後圧</strong>／<u>アラームの設定値</u><br><span style="font-size:.82rem;color:var(--muted)">モニタ上の表示はそれぞれ「P1」「P2」（§9-1）</span></td><td>絶対値より<strong>推移</strong>。肺後圧がじわじわ上がっていれば人工肺か送血側（§9-1）</td></tr>
-<tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標（§9-1 表37）。毎日書く価値がある</td></tr>
+<tr><td><strong>ガス交換</strong></td><td>患者の血ガス／<strong>送血側 SaO₂</strong>／脱血側 SvO₂</td><td>送血側 SaO₂ は当院で人工肺の劣化を見つける唯一の直接指標（§9-1 表36）。毎日書く価値がある</td></tr>
 <tr><td><strong>抗凝固</strong></td><td>ヘパリン量[U/kg/hr]／APTT／ACT／血小板／フィブリノゲン／AT-III／D-ダイマー</td><td>D-ダイマーは<strong>単発値では読まない</strong>。上昇＋血小板低下の組み合わせで回路血栓を疑う</td></tr>
 <tr><td><strong>溶血</strong></td><td>LDH（<strong>&gt; 2000 U/L</strong> なら溶血を疑う <span class="src vault">JCM2024</span>）／間接ビリルビン／遊離Hb（目安 <strong>&lt; 50 mg/dL</strong>）／<strong>尿の色</strong></td><td>基本は変化で読む。尿の色は数値化できないぶん、記載しておく意味が大きい</td></tr>
 <tr><td><strong>回路の目視</strong></td><td>人工肺・コネクタ・ルアーの血栓（<u>あれば部位と長さ</u>）／刺入部の出血・腫脹・発赤</td><td>「血栓なし」も記録する。翌日「増えたか」を判断できるのは、前日の記載があるときだけ</td></tr>
@@ -3266,7 +3215,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
       Cstat ____ mL/cmH2O（前日 ____）</pre>
 </div>
 
-<p style="font-size:.85rem;color:var(--muted)">これは毎日の最小セットです。表57 のうち<strong>ガス交換</strong>（送血側 SaO₂・脱血側 SvO₂）と相・方針は定型から外してあるので、必要な日は行を足してください。<span class="split">とくに送血側 SaO₂ は、当院で人工肺の劣化を見つけられる唯一の直接指標です（§9-1）。</span></p>
+<p style="font-size:.85rem;color:var(--muted)">これは毎日の最小セットです。表56 のうち<strong>ガス交換</strong>（送血側 SaO₂・脱血側 SvO₂）と相・方針は定型から外してあるので、必要な日は行を足してください。<span class="split">とくに送血側 SaO₂ は、当院で人工肺の劣化を見つけられる唯一の直接指標です（§9-1）。</span></p>
 
 <p style="font-size:.9rem;color:var(--muted)">以下は実際に埋めた例です。書き方の粒度と、「前日」を併記する形を見てください。</p>
 
@@ -3315,7 +3264,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <div class="tablewrap">
 <table class="wide">
-<caption>表58｜ECMO定期安全管理チェックリスト　<span class="src in">当院 講義1 p45</span><span class="src jp">ECMOnet p25</span></caption>
+<caption>表57｜ECMO定期安全管理チェックリスト　<span class="src in">当院 講義1 p45</span><span class="src jp">ECMOnet p25</span></caption>
 <thead><tr><th>区分</th><th>チェック項目</th></tr></thead>
 <tbody>
 <tr><td>配線</td><td>電源は単独使用である（赤コンセント使用）／酸素・圧縮空気の配管の接続に緩みはない／ガスチューブの接続が適切である</td></tr>
@@ -3337,7 +3286,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>本体が動いているか／血液流量／ポンプの音／空気混入・出血／血液の色／回路内圧／回路の震え　— この7つは30秒で見る。<br>時間が必要なもの＝血ガス、回路内血栓（白色光のペンライトで確認）、エコーでの評価。</p>
 </div>
 
-<p class="top"><a href="#now">▲ 目次へ</a></p>
+<p class="top"><a href="#toc">▲ 目次へ</a></p>
 
 <h2 id="refs">出典一覧</h2>
 
@@ -3377,7 +3326,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <ul class="refs">
 <li><strong>UpToDate 2026</strong>：Extracorporeal life support in adults: Management of venovenous extracorporeal membrane oxygenation (VV ECMO). UpToDate（literature review current through Dec 2025）— 本ガイドでは肥満パラドックス・難治性低酸素での心拍出量抑制・遊離Hb 50 mg/dL・aPTT 40–60秒・差圧 60 mmHg の5点を参照。<strong>商用の二次資料のため図表は転載していません</strong>（本ページは公開リポジトリで配信しているため）</li>
 <li><strong>Breathe 2025</strong>：Mortimer Ocean N, Patel BV, Garfield B. Extracorporeal membrane oxygenation for adults with respiratory failure secondary to cardiorespiratory disease: evolving indications and clinical practice. <em>Breathe</em> 2025. DOI 10.1183/20734735.0119-2024</li>
-<li><strong>JCM 2024</strong>：Grotberg JC, Reynolds D, Kraft BD. Extracorporeal Membrane Oxygenation for Respiratory Failure: A Narrative Review. <em>J Clin Med</em> 2024;13(13):3795. DOI 10.3390/jcm13133795（CC BY 4.0）— <u>本ガイドでは6点を参照</u>：結露を飛ばす sweep 9〜10 L/min×30秒（§5-3）／再循環の定量判定 脱血側SO₂&gt;75%・SaO₂との差&lt;10%（§4-3）／人工肺の圧較差の正常値 約25 mmHg（表1）／溶血の LDH &gt;2000 U/L（§5-8）／DO₂:VO₂ は余裕をみて ≥3（表8）／離脱は FDO₂ を落とさず sweep だけでもよい・euvolemic にしてから・プロトコル化が有効（§12-1）</li>
+<li><strong>JCM 2024</strong>：Grotberg JC, Reynolds D, Kraft BD. Extracorporeal Membrane Oxygenation for Respiratory Failure: A Narrative Review. <em>J Clin Med</em> 2024;13(13):3795. DOI 10.3390/jcm13133795（CC BY 4.0）— <u>本ガイドでは6点を参照</u>：結露を飛ばす sweep 9〜10 L/min×30秒（§5-3）／再循環の定量判定 脱血側SO₂&gt;75%・SaO₂との差&lt;10%（§4-3）／人工肺の圧較差の正常値 約25 mmHg（§4-1）／溶血の LDH &gt;2000 U/L（§5-8）／DO₂:VO₂ は余裕をみて ≥3（表7）／離脱は FDO₂ を落とさず sweep だけでもよい・euvolemic にしてから・プロトコル化が有効（§12-1）</li>
 <li><strong>CHEST 2021（Gannon）</strong>：Gannon WD, Stokes JW, Bloom S, Sherrill W, Bacchetta M, Rice TW, Semler MW, Casey JD. Safety and Feasibility of a Protocolized Daily Assessment of Readiness for Liberation From Venovenous Extracorporeal Membrane Oxygenation. <em>Chest</em> 2021;160(5):1693-1703. DOI 10.1016/j.chest.2021.05.066 — 本ガイドでは2点を参照：「いきなり sweep off」で重症低酸素が起きたため FDO₂ を先に落とす段が追加された経緯（§12-2）／30分トライアルの前向きデータ。単施設・26例・385患者日の単群試験で、抜去の判断はプロトコル外（主治医裁量）である点に注意</li>
 <li><strong>AJEM 2025</strong>：Condella A, Lentz S, et al. Extracorporeal membrane oxygenation (ECMO): A narrative review for the emergency clinician. <em>Am J Emerg Med</em> 2025;96:6-14. DOI 10.1016/j.ajem.2025.06.007 — 本ガイドでは数値を採用していない。EOLIA の群が入れ替わっている疑いがあり、VV-ECMO の閾値が本文・表・図で3種類併存するため</li>
 <li>内容を日本語の表にまとめて使用した文献（CC BY-NC-ND 4.0。出典明示のうえ非営利の院内教育目的で使用）

@@ -129,8 +129,6 @@ figure.fig figcaption b{color:var(--fg); font-weight:700}
   figure.fig figcaption{font-size:7.6pt; color:#333}
 }
 
-
-
 /* ===== 部（Part）見出し ===== */
 h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
   background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
@@ -139,7 +137,6 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 .toc li.p{margin-top:.5rem; font-weight:700}
 .toc li.p a{color:var(--accent)}
 @media print{h2.part{background:none; color:var(--fg); border-left:5px solid var(--fg); border-radius:0}}
-
 
 /* ===== コピペ用テンプレート ===== */
 .tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
@@ -209,75 +206,6 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 @media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
   .calc-pre{display:none}
   .calc-in input{border-color:#999}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ===== リファレンスUI（apply-reference-style.py が付与）===== */
 :root{ --sidebar-w: 288px; }
@@ -445,87 +373,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b44">Vault 内の論文ノート</a></nav></aside>
 <div id="rs-scrim"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <main>
 
 <p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
@@ -539,7 +386,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
-
 
 <div class="box good">
 <span class="label">はじめに — この装置が何をしているか（ここだけは読んでください）</span>
@@ -599,7 +445,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>そのままアラームに設定し、指示簿に書き込むための値です。根拠と例外は §5 以降。気になった項目は必ず §5 の該当節を読んでください——とくに SaO₂（§5-4）と抗凝固（§5-7）は、値だけ見て動くと危ない2項目です。</p>
 <p>読み方のコツは<strong>「備考」の列を先に読むこと</strong>。目標値そのものより、外れたときに何をするかが決まっているほうが、夜間は役に立ちます。そして原則がひとつ——院内資料の中で値が割れている項目は、厳しい方を採ってあります（P1 は −120 ではなく −100、カニュラ間隔は 10cm ではなく 13cm）。</p>
 
-
 <div class="tablewrap">
 <table class="wide">
 <caption>表1｜VV-ECMO 設定・目標値 早見表 — <span class="ok">目標と、動かしてよい範囲</span>（根拠と例外は §5）</caption>
@@ -645,11 +490,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 <p><strong>どの入口にも共通する原則が2つ</strong>あります。①流量を上げて解決しようとしない（脱血不良でも再循環でも悪化します）　②迷ったら Dr と CE を同時に呼ぶ。</p>
 </div>
-
-
-
-
-
 
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 <h2 class="part" id="p1"><span class="pn">第1部</span>導入前 — 装置と適応</h2>
@@ -755,10 +595,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>装置の姿はこれで足ります。次は「誰に使うのか」（§2）と「どう入れるのか」（§3）へ進みます。<span class="split">この装置がなぜその値で動くのかという生理は、管理の話に入る §4 でまとめて扱います。</span></p>
 
-
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 <h2 id="s2"><span class="no">§2</span>適応と禁忌</h2>
-
 
 <p>装置の理屈が分かったところで、<strong>「では、誰に使うのか」</strong>です。</p>
 <p>ここは導入を決める場面だけの話ではありません。すでに回っている患者を受け持つときも、「どのくらい厳しい状態でこの装置を選んだのか」を自分の言葉で説明できるかどうかで、その後の家族との話し合いと方針決定の質が変わります。</p>
@@ -786,8 +624,8 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <tr><td>高CO₂・アシドーシス</td><td>pH &lt; 7.25 かつ PaCO₂ ≥ 60 mmHg</td><td class="num">肺保護換気の結果として <strong>6時間を超えて持続</strong>（呼吸数は35/分まで増やしたうえで）</td></tr>
 </tbody>
 </table>
+<p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">当院講義（ECMOnet）の <strong>P/F &lt; 150 で考慮・&lt; 100 で適応</strong>は同じ基準の粗い版です。判定は表2 で行い、P/F &lt; 150 は相談を早める目印に使います。</p>
 </div>
-
 
 <h4 id="indication">この患者は適応か — その場で判定する</h4>
 
@@ -845,37 +683,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">実務でいちばん見落とされるのは「挿管から7日未満」</span>
 <p>前提条件に入っているのに、相談を受けた時点で確認されないことが多い項目です。すでに人工呼吸が10日目に入っている患者は、EOLIA 基準の外側にいます——だから絶対にやらない、という意味ではありませんが、「エビデンスが支持している範囲の外で判断している」ことを自覚したうえで決める必要があります。紹介・相談を受けたら、まず挿管日を聞いてください。</p>
 </div>
-
-<h4>ELSO と ECMOnet はどう位置づくか</h4>
-
-<p><strong>どれも「ECMO の適応基準」です。</strong>違うのは粒度と厳しさで、<span class="split">ECMOnet（＝ELSO の呼吸不全版）だけは死亡リスクで2段階に分ける書き方をしています。</span>ここを取り違えると「まだ相談する段階じゃない」と読んでしまいます。</p>
-
-<div class="box plain">
-<p><strong>低酸素の閾値は、後のものほど厳しい</strong>——裏を返せば<u>古いものほど緩い</u>、というだけの関係です。</p>
-<ul>
-<li><strong>ECMOnet</strong>（日本語版ELSO基準）… 死亡リスク50%＝FiO₂&gt;90% で P/F &lt; 150（Murray 2–3点）＝「考慮する」、リスク80%＝P/F &lt; 100（Murray 3–4点）＝「ほとんどの状況で適応となる」 <span class="src jp">ECMOnet p5</span><br><span style="font-size:.85rem;color:var(--muted)">この2段階の言い回しは ELSO 総論2017 の原則で、P/F 値への翻訳が呼吸不全版にあたります <span class="src vault">ELSO2017</span></span></li>
-<li><strong>ELSO2021</strong> … それを P/F &lt; 80 の1本に絞ったもの。EOLIA と同じ数値ですが、何時間続いたかの条件が書かれていません <span class="src ext">ELSO2021 Table 1</span></li>
-<li><strong>EOLIA</strong>（表2）… さらに<strong>持続時間</strong>を足して、機械的に判定できる形にしたもの</li>
-</ul>
-<p>矛盾ではありません。実務の判定は EOLIA 基準（表2）で行い、ECMOnet の <strong>P/F &lt; 150</strong> は「まだ ECMO を考えてよい段階」の目印として、相談を早めるのに使います。</p>
-<p style="font-size:.88rem;color:var(--muted)"><strong>高CO₂側は3者でほぼ同じ</strong>です——ELSO2021 は <strong>pH &lt; 7.25 かつ PaCO₂ ≥ 60 mmHg</strong>（呼吸数35・プラトー圧 ≤30 でも達成できないとき）で EOLIA と同じ数値、ECMOnet は「プラトー圧 &gt; 30 でも CO₂ 高値」という書き方です。</p>
-</div>
-
-<div class="box good">
-<span class="label">2026年時点のエビデンスの立ち位置（家族説明にも使う）</span>
-<p>推奨の強さは「条件付き推奨（賛成）」、エビデンスの確実性は「非常に低い」。<span class="src vault">ANZ 2026</span></p>
-<p>この一見ちぐはぐな評価には理由があります。短期死亡だけを見れば、2つの RCT（計429例）で <strong>28日死亡 RR 0.57（0.43–0.76）</strong>・90日死亡 RR 0.78（0.61–1.01）と、中等度の確実性で改善が示されています。それでも全体が格下げされたのは、パネルが「生活の質」と「神経学的傷害」を短期死亡と同格の critical アウトカムに置いたためです。</p>
-<p>つまりこの結論は、エビデンスそのものよりも<strong>「何を大事な結果とみなすか」という価値判断</strong>で決まっています。背景には豪州23 ICU のコホートで、VV-ECMO を受けた患者の54%が6か月時点で死亡または中等度〜重度の障害、生存者の25%が復職できていなかったという自国データがあります。家族への説明では、救命の可能性とこの数字を並べて示す準備をしておいてください。</p>
-</div>
-
-<div class="box plain">
-<span class="label">適応の周辺で、まだ決着していないこと</span>
-<ul>
-<li>喘息・COPD の高CO₂血症（ARDS を伴わないもの） — RCT がゼロで、ANZ 2026 は「賛成・反対いずれの推奨も出せない」と明言しました。ただし「推奨なし」を「使うな」と読まないこと——専門家意見として near-fatal asthma には症例ごとに考慮、COPD はさらに限定的、とされています。使うなら症例登録と振り返りを前提に。</li>
-<li><strong>臓器不全の数</strong> — IPD メタ解析で臓器不全2つ以下なら RR 0.53、3つ以上なら RR 1.00（利益が見えない）。導入可否のカンファで「今この患者は臓器不全がいくつか」を口に出す価値はありますが、著者ら自身が rescue クロスオーバーによる交絡を明示しており、仮説生成的な所見です。除外基準に昇格させてはいけません。</li>
-</ul>
-</div>
-
 
 <h4>EOLIA 基準の「外側」にいる患者をどう考えるか</h4>
 
@@ -949,7 +756,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p><strong>実務での使いどころは2つ</strong>です。①他施設や他科と重症度を共有するときの共通言語として　②同じ患者の経時的な推移を追うため。「3点を超えたから ECMO」という使い方はしません——ELSO の適応（表2 と、その下の ELSO・ECMOnet の整理）はあくまで P/F と pH で書かれています。</p>
 </div>
 
-
 <p><strong>禁忌</strong>：絶対禁忌は「ECMO離脱が見込めず回復しないことが予想される」の1つのみ。相対禁忌＝中枢神経系出血／重大なCNS損傷／不可逆的CNS疾患／全身性出血／抗凝固の禁忌／免疫抑制／高齢（年齢設定なし）／Pplat &gt; 30 かつ FiO₂ &gt; 90% で7日以上の人工呼吸。<span class="src in">当院 講義1 p57</span><span class="src ext">ELSO2021 p2</span></p>
 
 <div class="box">
@@ -999,7 +805,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b6">3-2. カニュラ位置と間隔</h3>
 
 <p>ここからが本題です。導入翌朝の胸部X線には、はっきりした目的が2つあります。①カニュラの先端がどこにあるか　②送血と脱血のカニュラがどれだけ離れているか。とくに②は、この後ずっと悩まされる「再循環」を左右します（§4-3）。「なんとなく肺を見る」ためのX線ではありません。</p>
-
 
 <div class="box danger">
 <span class="label">最優先で確認する1点</span>
@@ -1122,7 +927,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>導入から24時間は、その後の数週間の土台になります。ここで見落とすと後から取り返しがつかない項目を、モダリティ別に並べました。</p>
 
-
 <p>ここで見るものは大きく<strong>3つの目的</strong>に分かれます。</p>
 <p><strong>①「入れたものが正しい位置にあるか」</strong>——胸部X線と心エコーです。カニュラの先端位置と、送脱血カニュラの間隔を確認します。このとき刺入長（何cmまで入っているか）を記録しておくと、以後は「線がズレていないか」を見るだけで抜けかけを拾えます。心エコーはガイドワイヤーの誤留置・気胸・右室自由壁穿孔まで拾えるので、可能なら当てておきます。</p>
 <p><strong>②「回路がちゃんと働いているか」</strong>——脱血側と送血側の両方から血液ガスを採ります。送血側の SaO₂ が 98% を下回っていたら、それは患者の問題ではなく人工肺の問題です。ここは初日に基準値を取っておくと、後日の比較に効きます。</p>
@@ -1177,7 +981,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>まず<strong>「酸素は掛け算で決まる」</strong>という話からです。ECMO 中に酸素を届ける量は、SaO₂ だけでは決まりません。Hb と心拍出量を掛け合わせたものが体に届く酸素で、しかもそれが「消費する量」を上回っていれば足りている——というだけの話です。SaO₂ が低くても慌てなくていい理由が、この式に全部入っています。</p>
 
-
 <p>覚えるべき式は実質2つです。</p>
 <p><strong>1つめは「体に届く酸素の量（DO₂）」</strong>で、SaO₂ × Hb × 心拍出量の掛け算です。掛け算だという点が重要で、SaO₂ が 80% に下がっても、Hb と心拍出量が保たれていれば届く酸素の総量はさほど減りません。逆に言えば、SaO₂ が低い患者で貧血を放置したり心拍出量を下げたりすると、3つが同時に効いて一気に足りなくなります。ECMO 中に「Hb は高めに、心拍出量は維持」と言われるのはこのためです。</p>
 <p><strong>2つめは「足りているかどうかの判定」</strong>で、DO₂ が消費量（VO₂）の2倍を上回っていれば足りているとみなします。健常な安静時は4〜5倍あるので、2倍はかなり切り詰めた状態ですが、ここを下回ると嫌気性代謝に入り、乳酸が上がります。だから ECMO 中に本当に見るべきなのは SaO₂ の数字そのものではなく、「乳酸が上がっていないか」ということになります。</p>
@@ -1206,7 +1009,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>ここが本丸です。「ECMO を回しているのに SaO₂ が上がらない」——ECMO 管理でいちばんよく聞かれる質問への答えがここにあります。</p>
 <p>結論を先に言うと、VV-ECMO の SaO₂ は「分数」で決まります。ECMO を通って酸素化された血液と、肺を素通りしてきた酸素の低い血液が、心臓の手前で混ざる。その<strong>混ざり方の比率</strong>が SaO₂ です。だから 100% にはそもそもならないし、上げようとして呼吸器を強くするのは筋が違うということになります。</p>
-
 
 <div class="box good">
 <span class="label">原理</span>
@@ -1396,7 +1198,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   </div>
 </div>
 
-
 <script>
 (function(){
   var c=document.getElementById('recirc'); if(!c) return;
@@ -1469,7 +1270,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.88rem;color:var(--muted)">→ 実際に何 L/min にするかは <strong>§5-3 Sweep gas と FDO₂</strong>。</p>
 
 <p>酸素の話が済んだので、次は二酸化炭素です。こちらは驚くほど単純で、sweep gas の流量ひとつでほぼ決まります。酸素と CO₂ は別々のつまみで動く——これを押さえておくと、血液ガスを見たときに手が迷いません。</p>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -1560,7 +1360,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p class="top"><a href="#now">▲ 目次へ</a></p>
 
 <h2 id="s5"><span class="no">§5</span>目標値と設定</h2>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -1771,7 +1570,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-
 <h4>なぜ ECMO では Hb を高めに保つのか — 計算で確かめる</h4>
 
 <p>結論から言うと、「SaO₂ を低く許容するぶんを Hb で埋めている」という理解で正しいです。酸素含量は掛け算なので、片方を下げたぶんはもう片方で埋めるしかありません。</p>
@@ -1866,7 +1664,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>ここが ECMO 管理でいちばん施設差が大きく、いちばん議論が続いている領域です。</p>
 <p>理由は単純で、「正しい抗凝固の強さ」を決めた質の高い試験が存在しないからです。ELSO が示している値でさえ、ECMO 集団で検証されたものではありません。だからこそ、施設として1つの値を決めて、それを全員が共有していることのほうが、値そのものの正しさより大事になります。</p>
 
-
 <div class="box good">
 <span class="label">まずこれで動く（ECMOnet の値）</span>
 <p>ボーラス：ヘパリン 50–100 U/kg をカニュレーション時に静注（ここは全資料が一致）<br>
@@ -1910,7 +1707,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b16">5-8. 採血と輸血閾値</h3>
 
 <p>採血の話です。<strong>ECMO 中の採血が多いのには理由があります。</strong>抗凝固は「効きすぎても効かなさすぎても事故になる」ため、他の場面より短い間隔で追いかける必要があるからです。溶血（LDH・間接ビリルビン）は機械の劣化を映す鏡でもあります。</p>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -2187,7 +1983,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>当院講義のモデル値</strong>＝FiO₂ 40%・PEEP 10・PIP 20・f 10（講義1 p82）。長期に及ぶ場合は FiO₂ 0.21–0.4・ΔP 5–10 まで落とす（講義1 p83）。いずれも上の枠の内側です。</p>
 </div>
 
-
 <div class="box plain">
 <span class="label">生存利益を示した2つの試験が、実際に使っていた設定</span>
 <p>上の値は各ガイドラインの推奨ですが、<strong>「効果が示された試験で実際に使われた設定」</strong>を知っておくと、迷ったときの拠り所になります</u>。豪州・NZ 2026 が「実践の参考として」挙げているのは次の2つです。<span class="src vault">ANZ 2026</span></p>
@@ -2214,8 +2009,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <span class="label">PEEP の向きが逆になっている点に注意</span>
 <p>ELSO2021 は「PEEP ≥ 10（範囲 10–24）」＝10 を下限として推奨（Pplat・換気量を下げると十分な PEEP なしでは無気肺になるため）。一方 ECMOnet p8 は「PEEP &lt; 10」＝10 を上限として提示。ELSO に従い「10 を下回らない」で運用します。</p>
 </div>
-
-
 
 <div class="box good">
 <span class="label">ELSO2021 が本文で言っている原則（暗記してよい2文）</span>
@@ -2247,7 +2040,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b24">6-2. 経過の見通し</h3>
 
 <p>設定の話が済んだところで、<strong>「この先どうなっていくのか」の見通し</strong>を持っておきます。ECMO は数日で終わるものではないので、いつ気管切開を考え、いつ覚醒させ始めるのか、大まかな地図があると家族にも説明しやすくなります。</p>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -2418,7 +2210,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>ECMO のトラブルは、原因を頭で当てにいこうとすると間に合いません。速いのは逆で、見えているもの（回路の圧・流量・SaO₂）から、機械のどこが悪いかを機械的に絞り込むやり方です。幸い VV-ECMO は構造が単純なので、これがよく効きます。</p>
 <p>まず 9-1 の表で場所を絞り、次に症状別の対応（9-2）へ。酸素化が上がらないときは低酸素アルゴリズム（9-3）、急変時の用語は 9-4 です。</p>
 
-
 <h3 id="rs-b25">9-1. 回路内圧 × 異常部位</h3>
 
 <div class="box danger">
@@ -2480,7 +2271,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>人工肺の前に圧ラインを1本足すだけで、P2−P3 が使えるようになります。なお閾値そのものは資料間で幅があり、<strong>ELSO・ECMOnet は 50 mmHg</strong>、UpToDate は 60 mmHg を挙げています<span class="src vault">UpToDate 2026</span>——いずれにせよ絶対値より「開いてきたか」を追うほうが実用的です。ELSO・ECMOnet がそろって P2−P3 &lt; 50 mmHg を基準に挙げているのは、これが人工肺交換のタイミングを最も早く教えてくれる指標だからです。</p>
 <p>現状は送血側 SaO₂ が下がるまで気づけず、<u>「ガス交換が落ちてから」の発見</u>になります。<strong>CEと相談する価値のある項目</strong>として挙げておきます。</p>
 </div>
-
 
 <p>基準値を先に。P1 &gt; −120 mmHg（過度の陰圧は危険）／ P2 &lt; 300 mmHg（溶血リスクを避ける）／ P2 − P3 &lt; 50 mmHg（人工肺の血栓？）<span class="src in">当院 講義1 p29</span><span class="src jp">ECMOnet p22</span></p>
 
@@ -2852,7 +2642,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>いちばんやりがちな失敗が、「SaO₂ が低い → とりあえず ECMO の流量を上げる」です。ところが再循環が原因だった場合、流量を上げると<strong>かえって SaO₂ が下がります</strong>（§4-3）。人工肺が劣化していた場合も、流量を上げても酸素はつきません。</p>
 <p>だから<strong>「流量を上げる」は後半のステップ</strong>で、先に再循環と人工肺を潰します。このアルゴリズムは、その順番を固定するためにあります。</p>
 
-
 <div class="box">
 <span class="label">大原則（当院 p87 の注記そのまま）</span>
 <p>緊急時なら → 緊急時呼吸器設定に → ECMO流量アップ → 原因探求／余裕あるなら → アルゴリズムの通り／いずれにせよ、Cxpオーダー、ABG、脱送血ABG採取し評価を行う</p>
@@ -2884,7 +2673,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b28">9-4. 緊急時の共通言語</h3>
 
 <p>最後に<strong>言葉の話</strong>です。地味に見えますが重要で、急変時に「クランプして」「止めて」が人によって違う意味だと、それ自体が事故になります。導入するなら、平時のうちに院内で用語を1つに決めておいてください。</p>
-
 
 <p>用語集というと地味ですが、ここに挙げた言葉はすべて「言った人と聞いた人で意味が違うと事故になる」ものです。</p>
 <p>たとえば<strong>「ポンプ・オフ」</strong>。これは単に電源を切ることではなく、回転数を 1000 まで下げる → 送血・脱血カニュラ近傍とポンプの後をクランプ → そのうえで回転数を 0 にする、という順序のある手順の名前です。順序を飛ばして先に止めると逆流します。「ポンプ・オン」も同様で、1500 回転まで上げてから、逆流がないことを確認しながらデクランプします。<u>ただしこの回転数の下限は VA 由来の数字です</u>——VV での扱いは表の下に書きました。</p>
@@ -2972,7 +2760,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p><strong>出血は「探しにいかないと見つからない」</strong>のが厄介なところです。ECMO 中の出血は派手に始まるとは限らず、刺入部のじわじわした滲みや、口腔・鼻腔からの少量出血として現れます。だからこそ観察部位を決めて、毎日同じ場所を見ます。ここは看護記録がいちばん力を発揮する場面です。</p>
 
-
 <div class="tablewrap">
 <table>
 <caption>表47｜出血合併症を見逃さないための観察部位　<span class="src in">当院 講義1日目 p36</span>（<span class="src jp">ECMOnet p28</span> に同一の表）</caption>
@@ -2992,7 +2779,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b30">10-2. 頭蓋内出血・胸腔ドレーン</h3>
 
 <p>出血のなかでも、この2つは「起こしてしまいがち」かつ「起きると重い」ので独立させました。片方は見逃しやすく、もう片方はこちらから作ってしまう合併症です。</p>
-
 
 <div class="box danger">
 <span class="label">① 頭蓋内出血</span>
@@ -3016,7 +2802,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>抗凝固の綱引きの、<strong>反対側</strong>です。血栓は回路の中で静かに育つので、毎日ペンライトで見ないと気づけません。溶血は「機械が血球を壊している」サインで、回路交換を考える入口になります。</p>
 
-
 <ul>
 <li><strong>回路内血栓は人工肺・コネクタ・ルアーに多い。</strong>白色光のペンライトで確認し、認めたら○で囲んで長さを計測。<span class="src jp">岡山5 p49</span></li>
 <li><strong>定期的な回路交換は行わない。</strong>交換を考えるのは：人工肺の劣化／血栓／凝固障害（フィブリノゲンの消耗など）／フローに見合ったチューブ径でない・回路を短くしたい／感染のコントロールがつかない時。<span class="src in">講義1 p43</span></li>
@@ -3029,7 +2814,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b32">10-4. 感染</h3>
 
 <p>感染は<strong>「いつ起きたか」で狙う菌が変わります。</strong>そしてもう一つ厄介なのが、ECMO 患者は熱交換器で体温が調整されているため、発熱に気づけないことです。だから体温より、培養と局所所見で拾いにいきます。</p>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -3067,11 +2851,9 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>最後に、頻度は低いけれど、判断を間違えると取り返しがつかない場面を5つまとめます。<strong>心停止・腹臥位・覚醒 ECMO・CRRT・搬送</strong>です。</p>
 <p>とくに最初の1つは要注意です。VA-ECMO の知識をそのまま持ち込むと逆のことをしてしまいます。</p>
 
-
 <h3 id="rs-b35">11-1. 心停止</h3>
 
 <p>ここは VA-ECMO の知識をそのまま持ち込むと、確実に間違えます。</p>
-
 
 <div class="box danger">
 <p>VA-ECMO 中の心停止に胸骨圧迫は不要だが、VV-ECMO 中は必要。VV は肺機能のみの補助であり、血行動態は酸素化改善を介して間接的に支持されるにすぎないため。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
@@ -3142,7 +2924,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 </div>
 
-
 <h3 id="rs-b3">11-3. 覚醒 ECMO</h3>
 
 <p>ここまでは「人工呼吸をしながら離床する」話でした。もう一歩進んだ選択肢として、<strong>ECMO 支持下で抜管し、人工呼吸器なしで管理する</strong>——という戦略があります。</p>
@@ -3161,7 +2942,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>ECMO 中は水分バランスの調整が難しく、CRRT を併用する場面がしばしばあります。問題は「どこに繋ぐか」で、繋ぎ方を間違えると空気や血栓を人工肺の先へ送ってしまいます。</p>
 
-
 <ul>
 <li>当院の型：導入期に「水分バランスの調整（CHDF）」。<span class="src in">講義1 p82／講義2 p55</span></li>
 <li>遠心ポンプ使用時は空気の巻き込みを避けるため CRRT 装置はポンプの下流に置き、CRRT からの返血は人工肺の手前に戻す（空気・凝血塊を人工肺で捕捉するため）。<span class="src vault">ICM2016</span></li>
@@ -3172,7 +2952,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b39">11-5. 搬送</h3>
 
 <p>最後に搬送です。院内資料に ECMO 搬送のプロトコルはありませんが、ハンズオンの想定に含まれているので、最低限の備えだけ書いておきます。</p>
-
 
 <ul>
 <li>院内資料に ECMO 搬送のプロトコルはありません。ハンズオンの想定に「ECMO 搬送中にバッテリーが切れてコンソールが突然停止」があり、対応は §9-2 のポンプ停止の行（送血クランプ → ハンドクランク）。<span class="src in">ハンズオン②</span></li>
@@ -3188,7 +2967,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h2 id="s12"><span class="no">§12</span>離脱</h2>
 
 <p>ECMO を始めた瞬間から、ゴールは「どうやって終わるか」です。そして離脱の判断は、多くの人が思っているより早い段階から始まります。肺が回復してきたサインは、SaO₂ より先に「一回換気量が戻ってくる」ことに現れるからです（§4-2）。</p>
-
 
 <h3 id="rs-b46">12-1. 離脱を始めてよい条件</h3>
 
@@ -3354,7 +3132,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>ELSO の「1時間前」は<u>縫合で閉じることとセットの数字</u>——縫合するなら、抜くぎりぎりまで抗凝固を効かせて回路の血栓を防ぐほうが合理的です。<span class="split">手技が違えば、止める時間も変わります。</span></p>
 </div>
 
-
 <p>考え方の違いは単純で、ELSO は「抜くまで回路の血栓を防ぐこと」を、ECMOnet は「抜いた後の出血を防ぐこと」を優先しているだけです。ECMOnet 側には「抜去前の APTT 延長は離脱後合併症のリスク」という根拠があります。</p>
 <p>それ以外は概ね一致しています。<strong>抜く前に</strong>：sweep off の血液ガスで PaO₂ ≥70 と許容できる pH、過剰な呼吸仕事がないことを確認し（血液ガスは 60分以上経ってから評価する）、絶食にして、大量出血に備えて血液型と抗体スクリーニングを有効にしておく。抜くとき：頸静脈カニュラなら Trendelenburg 体位（空気を引き込まないため）、縫合で閉鎖し軽い圧迫。抜いた後：24時間後に DVT をチェック——ここは忘れられがちです。</p>
 
@@ -3506,7 +3283,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0"><strong>大腿の2時間は妥当な設定です。</strong>動脈なら4〜6時間が必要ですが、静脈で凝固能が戻っていれば2時間で足ります。ただし安静も無料ではありません——ECMO 後の患者はDVT のリスクが高いので、<span class="split">2時間を過ぎたら早期離床に戻してください</span>（§8・§13-1）。「念のため長めに」が最も避けたい判断です。</p>
 </div>
 
-
 <p>抜いた直後にやることは §13-1 に。ここで1つだけ付け加えるなら、<strong>大量出血に備えた準備を解かないこと</strong>（血液型と抗体スクリーニングは有効なままにしておく・表52）。<span class="split">「抜けたから終わり」で解除してしまいがちです。</span></p>
 
 <div class="box plain">
@@ -3580,16 +3356,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p style="font-size:.9rem;color:var(--muted)">ここは<strong>毎日くり返す作業だけ</strong>を集めた章です。14-1〜14-5 が「その日ずっと回すもの」、14-6 が「朝いちで潰すもの」。</p>
 
-
-
 <p>導入から24時間が過ぎると、ECMO 管理は「毎日、同じことを同じ順で確認する」仕事に変わります。そしてここが肝心なのですが、ECMO の事故の多くは珍しい病態で起きるのではなく、決まった確認を飛ばしたときに起きます。回路の中で静かに血栓が育っていた、カニュラが数cm抜けかけていた、といった類です。</p>
 <p><strong>順番そのものに意味がある</strong>ので、慣れるまでは上から順になぞってください。医師のルーチン（14-1）→ 記録の型（14-2）→ 看護・CE の安全チェック（14-3）→ ラウンドで声に出す項目（14-4）→ 最後に「今日は経過のどのあたりか」を全員で言語化（14-5）。</p>
-
 
 <h3 id="rs-b13">14-1. 医師の1日</h3>
 
 <p>まず<strong>医師の1日</strong>から。「いつ・何を・どのくらいの頻度で見るか」が決まっていれば、当直が替わっても管理の質が落ちません。逆にここが人によって違うと、夜のうちに方針がぶれます。</p>
-
 
 <div class="tablewrap">
 <table class="wide">
@@ -3721,7 +3493,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 
 <p>最後に、<strong>ラウンドで実際に声に出す項目</strong>です。頭の中で確認するのではなく、口に出してチームで共有することに意味があります。ここに挙げたのは、黙っていると抜けやすい順です。</p>
 
-
 <ul class="chk">
 <li><strong>神経</strong>：瞳孔径・意識レベル・麻痺（＝頭蓋内出血の観察）。意識変化を「鎮静のせい」で片付けない <span class="src vault">ドイツ剖検登録</span></li>
 <li><strong>呼吸</strong>：Lung rest 設定を守れているか（§6）／VT・コンプライアンスの推移＝自己肺の回復</li>
@@ -3804,7 +3575,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </table>
 </div>
 
-
 <div class="box warn">
 <span class="label">相を進める閾値は「恣意的」だと著者自身が書いている</span>
 <p>Cstat ＝ VT ÷（プラトー圧 − PEEP）（吸気ポーズ中に測定）。受動的な条件で最も信頼して測れるため、著者らは鎮静・筋弛緩下（気管支鏡など臨床的に必要な処置の際が多い）に測定しています。毎日 Cstat を記録し、20 mL/cmH₂O 前後まで改善したら肺保護相へ、25 mL/cmH₂O を超えたら自発呼吸への移行を検討する——という運用ですが、著者自身がこの数字を「恣意的（arbitrary）」と明記しています。<span class="src vault">CritCare2026</span></p>
@@ -3816,9 +3586,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>肺保護相（②）が長期支持のなかで最も変動が大きく、数週間に及ぶこともある。この局面を遅らせる代表的な合併症は ①人工呼吸器関連感染 ②気胸 ③代謝需要が増大する敗血症。これらが起きたときに weaning を焦らず辛抱強く待つことが最も重要で、急ぐことが合併症、ひいては予防可能だった死亡につながりうる。<span class="src vault">CritCare2026</span><br>またルーチンのリクルートメント手技は行わない（過膨張のリスク、段階的高圧リクルートメント戦略で有益性が示されていない）——これは当院講義の「肺をリクルートメントしない」（§6）と一致します。</p>
 </div>
 
-
 <h3 id="rs-b49">14-6. 明日の朝いちで確認すること</h3>
-
 
 <p>明日の朝いちで実際に手を動かす項目だけを集めました。</p>
 <p>ここに挙げたものの多くは、医学的に難しい判断ではありません。「決めていなかった」「共有していなかった」というだけで事故になる類のものです。<strong>だから朝のうちに潰します。</strong></p>
@@ -3835,7 +3603,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <h3 id="rs-b40">チェックリスト</h3>
 
 <p>上から順に潰していってください。全部埋まれば、少なくとも「決めていなかったせいで起きる事故」は防げます。</p>
-
 
 <h4>設定・目標値</h4>
 <ul class="chk">
@@ -3973,7 +3740,6 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 </ul>
 
 <hr>
-
 
 <p class="sub" style="margin-top:2rem">聖路加国際病院 集中治療科 ／ 2026-08-28 作成。院内資料と外部標準を突き合わせて構成しています。数値の採用判断は各症例の担当医が行ってください。</p>
 </main><script id="rs-tools-js">

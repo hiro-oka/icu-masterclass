@@ -373,6 +373,12 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <a class="lv3" href="#rs-b13">14-1. 医師の1日</a>
 <a class="lv3" href="#rs-b2">14-2. カルテ記録</a>
 <a class="lv3" href="#rs-b15">14-3. 安全管理チェックリスト</a>
+<a class="lv2" href="#s15">§15 ECMO の体制と成績</a>
+<a class="lv3" href="#rs-s15-1">15-1. センター化と搬送</a>
+<a class="lv3" href="#rs-s15-2">15-2. エビデンスの物語</a>
+<a class="lv3" href="#rs-s15-3">15-3. ECPR はシステムの勝負</a>
+<a class="lv3" href="#rs-s15-4">15-4. 心原性ショックへのVA-ECMO</a>
+<a class="lv3" href="#rs-s15-5">15-5. 相談のタイミングと日本の体制</a>
 <a class="lv2" href="#refs">出典一覧</a>
 <a class="lv3" href="#rs-b41">院内資料</a>
 <a class="lv3" href="#rs-b42">外部標準 — ELSO</a>
@@ -3053,6 +3059,76 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <p>本体が動いているか／血液流量／ポンプの音／空気混入・出血／血液の色／回路内圧／回路の震え　— この7つは30秒で見る。<br>時間が必要なもの＝血ガス、回路内血栓（白色光のペンライトで確認）、エコーでの評価。</p>
 </div>
 
+<h2 id="s15"><span class="no">§15</span>ECMO の体制と成績 — CESAR から日本の災害対応システムまで</h2>
+
+<p>ここまでの章は「乗せたあとに何をするか」でした。この章は視点を変えて、「その施設・その地域は乗せてよい体制にあるか」を扱います。同じ適応基準を満たしていても、施設症例数・搬送の速さ・チームの構成によって成績は大きく変わります。装置ではなく分配の仕組みが成績を決める、という考え方を持ち帰ってください。</p>
+
+<h3 id="rs-s15-1">15-1. センター化と搬送 — 施設症例数が成績を決める</h3>
+
+<p>VV-ECMO がエビデンスの土台を得たのは、装置そのものではなく<strong>「ECMOセンターへ搬送する」戦略</strong>を検証したことによります。2009年の CESAR 試験は、重症呼吸不全の患者をECMOセンターへ搬送する群と通常治療を続ける群を比較し、6か月時点の重度障害のない生存を63%対47%まで押し上げました。<span class="src ext">CESAR2009</span></p>
+
+<p>ただし限界もあります。搬送群のうち実際にVV-ECMOを受けたのは76%にとどまり、対照群の人工呼吸は標準化されておらず、腹臥位が普及する前の試験でした。それでも「搬送そのものが治療」という発想は今も生きています。搬送が安全にできる患者をECMO可能施設へ移すこと自体が予後を改善し、導入できない施設は早期に搬送計画を立てておくべきとされています（搬送の実務は 11-5 参照）。<span class="src ext">Compl.2022 p3</span></p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表60｜ECMOセンターの施設症例数基準 — <span class="ok">年間症例数が少ないと volume-outcome 関係の検出自体が難しくなる</span></caption>
+<thead><tr><th>指標</th><th>基準</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>センター全体</td><td class="num">年20例以上</td><td>呼吸・循環を合わせた総数<span class="src ext">CCM2024</span></td></tr>
+<tr><td>成人 呼吸ECMO（VV）</td><td class="num">年12例以上</td><td>これを下回ると評価自体が難しい<span class="src ext">CCM2024</span></td></tr>
+<tr><td>成人 ECPR</td><td class="num">年12例超</td><td>この症例数を境に施設症例数と転帰の関係が現れる<span class="src ext">CCM2024</span></td></tr>
+<tr><td>看護師配置</td><td class="num">1:2〜1:1</td><td>配置比であって1件あたりの動員人数ではない<span class="src vault">ICM2016</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>ELSO は、ECPR プログラムを単独で立ち上げるのではなく、<strong>既存の高パフォーマンスなECMOプログラム</strong>から育てることを推奨しています。症例数の少ない施設が急にECPRだけを始めても、回路のプライミングも搬送の連携も育ちません。</p>
+
+<h3 id="rs-s15-2">15-2. エビデンスの物語 — CESAR から EOLIA、そしてガイドラインへ</h3>
+
+<p>2018年の EOLIA 試験は、CESAR の弱点だった「対照群の人工呼吸が標準化されていない」点を修正し、筋弛緩と腹臥位を対照群にも徹底したうえで行われました。結果は60日死亡 35%対46%で、方向は明らかに良いものの従来の統計学的有意には届きませんでした。<span class="src ext">EOLIA2018</span> 理由は対照群の28%がECMOにクロスオーバーしたことで、「効かなかった試験」ではなく「差を検出しにくくした試験」と読むのが正確です（適応基準の中身は 2-1 参照）。</p>
+
+<p>そこで行われたベイズ流の事後解析では、死亡が下がる確率（RR&lt;1）は事前分布の置き方によらず89〜99%、一方で「死亡率を20%以上改善する」確率は0〜48%にとどまりました。<span class="src vault">EOLIAベイズ JAMA2018</span> まとめると<strong>効くが劇的ではない</strong>——これがVV-ECMOの現在地です。</p>
+
+<p>豪州・NZ の2026年GRADEガイドラインは、CESARとEOLIAをプールした解析として、2試験計429例で28日死亡 RR 0.57（95%CI 0.43〜0.76）、90日死亡 RR 0.78（0.61〜1.01）を示しています。<span class="src vault">ANZ 2026</span> 米国ATSも2024年の改訂で、2017年版の「推奨保留」から「選択された重症ARDSに条件付き推奨」へと踏み出しました。<span class="src ext">ATS2024</span> ただしATSがこの推奨に付けた確実性は「低」で、理由の中心はCESARの非直接性（対照群の人工呼吸が標準化されていない、腹臥位が普及する前の試験）です。ガイドラインが賛成したことと、強いエビデンスがあることは別物だと意識してください。</p>
+
+<h3 id="rs-s15-3">15-3. ECPR はシステムの勝負</h3>
+
+<p>心停止は1分ごとに生存確率が落ち、20分で約5%になります。ECPRはそこにVA-ECMOで灌流を作り、そのあいだに原因を診断・治療する方法です。同じ「ECPR」でも、体制が違うと結果はまったく変わることを3つの試験が示しています。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表61｜ECPR 3試験の比較 — <span class="ok">差を分けたのは患者でなく体制</span></caption>
+<thead><tr><th>試験</th><th>体制</th><th>主要結果</th></tr></thead>
+<tbody>
+<tr><td>ARREST</td><td>単施設・心カテ室・熟練4名・カニュレーション平均6分</td><td>退院生存 43%対7%<span class="src ext">ARREST2020</span></td></tr>
+<tr><td>Prague</td><td>単施設・搬送型</td><td>30日 30.6%対18.2%（p=0.09）<span class="src ext">Prague2022</span></td></tr>
+<tr><td>INCEPTION</td><td>10施設・複数の場所・3診療科・カニュレーション約15分・9%が不成功</td><td>30日生存 20%対16%（p=0.52）<span class="src ext">INCEPTION2023</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>ARREST と INCEPTION をプールした per protocol 解析では、180日生存が32.4%対19.7%でした。<span class="src ext">CCM2024</span> ARRESTは心カテ室に熟練者4名が揃い、カニュレーション平均6分・肢虚血ゼロという体制で行われた一方、INCEPTIONは10施設・複数の場所・3診療科というより一般的な体制で、9%が不成功でした。差を説明したのは患者ではなく体制です。カニュレーションは心停止から<strong>60分以内、理想は30分以内</strong>が目標になります。</p>
+
+<p>日本のデータもあります。非心臓手術の周術期心停止518例（129施設のICU）を対象にした全国コホートでは、ECPRは8.5%で使用されていましたが、死亡との関連は明確になりませんでした。<span class="src vault">AnesthOpen2026</span> ECPRは原因を治しません。カニュレーション後に冠動脈造影・体温管理・神経学的評価を24時間回せる体制がなければ、流量を立てても転帰は変わらないと考えてください。</p>
+
+<h3 id="rs-s15-4">15-4. 心原性ショックへの VA-ECMO — ルーチンは支持されない</h3>
+
+<p>急性心筋梗塞に伴う心原性ショック（AMICS）へのルーチンVA-ECMOは、3件のRCTを合わせた個別患者データメタ解析（567例、うち75%がECLS-SHOCK）で30日死亡が動きませんでした（OR 0.92）。一方で大出血は2.4倍、末梢虚血は2.9〜3.5倍に増えています。<span class="src vault">AMICS ICM2024</span></p>
+
+<p>ただし「効かない証明」と読むのは早すぎます。ECLS-SHOCKの対象は78%が心停止例で、血行動態の定義は低血圧のみ、対照群の26%が他の補助循環デバイスを受けており、左室アンローディング併用はわずか5.8%でした。この患者像の偏りが中立の結果を説明しうる、というのが著者らの立場です。2025年のACC専門家合意はSCAI分類D・EでVA-ECMOを選択肢の筆頭に置いており、RCTの結果とガイドラインの姿勢は今なお割れています。<span class="src ext">ACC2025</span> なお心原性ショックで「VA-ECMOを入れるか」の判断そのものは循環器領域が主担当で、ICU側の主戦場は入れたあとの回路・抗凝固・左室負荷・離脱です。</p>
+
+<p>敗血症性ショックへのVA-ECMOも体制論として押さえてください。14研究468例のメタ解析ではプール生存率36.4%でしたが、LVEFで結果が大きく割れます。LVEF 20%未満では生存62.0%、35%超では32.1%（p=0.05）。地域差も顕著で、アジア19.5%対欧州61.0%でした。<span class="src ext">CritCare2021</span> 切り口は「敗血症だから」ではなく「重度の敗血症誘発性心筋抑制があるか」で、LVEFを測らずにこの議論はできません。</p>
+
+<h3 id="rs-s15-5">15-5. 相談のタイミングと日本の体制</h3>
+
+<p>基準を満たした瞬間に、何を、どの順で伝えるかが成績を左右します。伝える内容は4点で十分です——①P/F ②pH・PaCO₂ ③挿管からの日数 ④腹臥位と筋弛緩を尽くしたか。この4点を言い切れれば、電話の向こうは搬送か導入かを即断できます。基準に届く前の「そろそろ危ないかもしれない」段階で、搬送先の連絡先だけ確認しておくことも有効です。これは相談ではなく準備です。</p>
+
+<p>体制が成績を決めることは、国レベルでも示されています。COVID-19に対して日本が構築した災害対応型システム（Japan ECMOnet for COVID-19）は、①24時間365日の電話・メール相談 ②実時間の空床情報共有 ③ECMO専門家の現地派遣 ④搬送調整、の4機能を持ちます。電話相談は165件（うち26.7%が実際にECMOに至った患者）、地域のECMOコーディネーターで日本の人口の71.3%をカバーし、187例中125例（66.8%）がECMOを離脱しました。これは2009年のH1N1パンデミック時の生存率35%を有意に上回っています（p=0.010）。<span class="src jp">JapanECMOnet2021</span></p>
+
+<p>資源集約的な治療の成績は、装置の性能ではなく分配の仕組みで決まります。ARREST対INCEPTIONの差が施設内の体制で説明できたのと同じ構図が、国レベルでも再現されているということです。</p>
+
+
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 
 <h2 id="refs">出典一覧</h2>
@@ -3088,6 +3164,7 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
 <li><strong>岡山1〜7</strong>：岡山大学病院 高度救命救急センター 青景聡之「ECMO web セミナー」2020 第1〜7部<br>本ガイドでは手技・トラブル対応・急変時の手順の参照にとどめ、目標値には採用していません（目標値の標準は ELSO / ECMOnet）</li>
 <li><strong>市場2016</strong>：市場晋吾（日本医科大学付属病院 外科系集中治療科）「重症呼吸不全に対するECMO」補助循環の最近の進歩 Vol.27 No.9 2016:721-728</li>
 <li>日本体外循環技術医学会「エクモ(ECMO)とは」2020/4/14</li>
+<li><strong>JapanECMOnet2021</strong>：Ogura T, Ohshimo S, Liu K, Iwashita Y, Hashimoto S, Takeda S. Establishment of a Disaster Management-like System for COVID-19 Patients Requiring Veno-Venous Extracorporeal Membrane Oxygenation in Japan. <em>Membranes (Basel)</em> 2021;11(8):625. DOI 10.3390/membranes11080625（§15-5）</li>
 </ul>
 
 <h3 id="rs-b44">参考文献（論文）</h3>
@@ -3114,6 +3191,22 @@ mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
   <li>Conrad SA, Wang D. Evaluation of Recirculation During Venovenous Extracorporeal Membrane Oxygenation Using Computational Fluid Dynamics Incorporating Fluid-Structure Interaction. <em>ASAIO J</em> 2021;67:943-953. DOI 10.1097/MAT.0000000000001314</li>
   <li>Carvalho LT, Mendes PV, Besen BAMP, Park M. The hemoglobin level impact on arterial oxygen saturation during venous-venous-ECMO support of ARDS patients: a mathematical marginal approach. <em>Rev Bras Ter Intensiva</em> 2022;34(3):393-395. DOI 10.5935/0103-507X.20220465-en</li>
   <li>Fan E, Gattinoni L, Combes A, Schmidt M, Peek G, Brodie D, et al. Venovenous extracorporeal membrane oxygenation for acute respiratory failure. <em>Intensive Care Med</em> 2016;42(5):712-724. DOI 10.1007/s00134-016-4314-7</li>
+  </ul>
+</li>
+<li><strong>体制・ECPR・エビデンスの物語（§15）</strong>
+  <ul>
+  <li><strong>CESAR2009</strong>：Peek GJ, Mugford M, Tiruvoipati R, et al; CESAR trial collaboration. Efficacy and economic assessment of conventional ventilatory support versus extracorporeal membrane oxygenation for severe adult respiratory failure (CESAR): a multicentre randomised controlled trial. <em>Lancet</em> 2009;374(9698):1351-1363. DOI 10.1016/S0140-6736(09)61069-2</li>
+  <li><strong>EOLIA2018</strong>：Combes A, Hajage D, Capellier G, et al; EOLIA Trial Group. Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome. <em>N Engl J Med</em> 2018;378(21):1965-1975. DOI 10.1056/NEJMoa1800385</li>
+  <li><strong>EOLIAベイズ JAMA2018</strong>：Goligher EC, Tomlinson G, Hajage D, et al. Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial. <em>JAMA</em> 2018;320(21):2251-2259. DOI 10.1001/jama.2018.14276</li>
+  <li><strong>ATS2024</strong>：Qadir N, Sahetya S, Munshi L, et al. An Update on Management of Adult Patients with Acute Respiratory Distress Syndrome: An Official American Thoracic Society Clinical Practice Guideline. <em>Am J Respir Crit Care Med</em> 2024;209(1):24-36. DOI 10.1164/rccm.202311-2011ST</li>
+  <li><strong>ARREST2020</strong>：Yannopoulos D, Bartos J, Raveendran G, et al. Advanced reperfusion strategies for patients with out-of-hospital cardiac arrest and refractory ventricular fibrillation (ARREST): a phase 2, single centre, open-label, randomised controlled trial. <em>Lancet</em> 2020;396(10265):1807-1816. DOI 10.1016/S0140-6736(20)32338-2</li>
+  <li><strong>Prague2022</strong>：Belohlavek J, Smalcova J, Rob D, et al; Prague OHCA Study Group. Effect of Intra-arrest Transport, Extracorporeal Cardiopulmonary Resuscitation, and Immediate Invasive Assessment and Treatment on Functional Neurologic Outcome in Refractory Out-of-Hospital Cardiac Arrest: A Randomized Clinical Trial. <em>JAMA</em> 2022;327(8):737-747. DOI 10.1001/jama.2022.1025</li>
+  <li><strong>INCEPTION2023</strong>：Suverein MM, Delnoij TSR, Lorusso R, et al. Early Extracorporeal CPR for Refractory Out-of-Hospital Cardiac Arrest. <em>N Engl J Med</em> 2023;388(4):299-309. DOI 10.1056/NEJMoa2204511</li>
+  <li><strong>CCM2024</strong>：Tonna JE, Cho SM. Extracorporeal Cardiopulmonary Resuscitation. <em>Crit Care Med</em> 2024;52(6):963-973. DOI 10.1097/CCM.0000000000006185 — 本ガイドでは施設症例数基準（表60）とARREST／INCEPTIONのプールper protocol解析（180日生存32.4%対19.7%）を参照</li>
+  <li><strong>AMICS ICM2024</strong>：Combes A, Price S, Levy B. What's new in VA-ECMO for acute myocardial infarction-related cardiogenic shock. <em>Intensive Care Med</em> 2024;50:590-592. DOI 10.1007/s00134-024-07356-0</li>
+  <li><strong>ACC2025</strong>：American College of Cardiology Solution Set Oversight Committee. 2025 Concise Clinical Guidance: An ACC Expert Consensus Statement on the Evaluation and Management of Cardiogenic Shock. <em>J Am Coll Cardiol</em> 2025. DOI 10.1016/j.jacc.2025.02.018</li>
+  <li><strong>CritCare2021</strong>：Ling RR, Ramanathan K, Poon WH, Tan CS, Brechot N, Brodie D, Combes A, MacLaren G. Venoarterial extracorporeal membrane oxygenation as mechanical circulatory support in adult septic shock: a systematic review and meta-analysis with individual participant data meta-regression analysis. <em>Crit Care</em> 2021;25:246. DOI 10.1186/s13054-021-03668-5</li>
+  <li><strong>AnesthOpen2026</strong>：Aoki Y, Shiko Y, Kawasaki Y, et al. Extracorporeal Cardiopulmonary Resuscitation for Perioperative Cardiac Arrest in Noncardiac Surgery: A Nationwide Cohort Study in Japan. <em>Anesthesiology Open</em> 2026;1:e0013. DOI 10.1097/ao9.0000000000000013</li>
   </ul>
 </li>
 <li><strong>人工呼吸・ECMO 総説</strong>

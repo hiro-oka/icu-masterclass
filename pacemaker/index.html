@@ -758,6 +758,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <div class="cal n">
     <h4><span class="dot">i</span>この節は原著未確認の二次情報だけで書かれている</h4>
     <p>精読済みの査読総説2本は、いずれも術後一時ワイヤを扱っていません。一方は心外膜ワイヤに一切触れておらず<sup class="ref"><a href="#r1">1</a></sup>、もう一方では心外膜ペーシングは恒久デバイスの文脈でのみ扱われます<sup class="ref"><a href="#r2">2</a></sup>。</p>
+    <p><b>2026-09-04 追記</b>：BJA Education 2023 の教育総説（Gillham MJ, Barr TM. Temporary epicardial pacing after cardiac surgery. BJA Educ 2023; 23: 337–349）を精読し、この節の一次資料としました。要点は次のとおりです。①感度（設定値）と感知閾値（測定値）を区別し、<b>感度＝感知閾値の30〜50%</b>、<b>出力＝捕捉閾値の2倍（最低5 mA）</b>。②閉胸前に捕捉閾値を測り、5 mA未満が望ましく、5〜10 mAは外科医と再固定を相談、<b>10 mA超は早期に失敗するので交換</b>。③点検は正常体温（36℃超）・正常カリウムで、少なくとも1日1回、術後48時間は閾値が大きく動く。④<b>心室感知閾値2 mV未満・心房1 mV未満は高リスク</b>で、バックアップ設定のまま病棟に出さない（切るか、除細動器のある高度モニタ環境に置く）。⑤人工心肺離脱時のレートは<b>70〜90 bpm</b>が頻用され、AV伝導が200 ms未満ならAOOをDOOより優先。電気メスが終わればデマンドモードへ。⑥自己リズムが十分な患者に感知の悪いDDDバックアップを残すと、心房感知不良→心室ブランキング→伝導R波の見逃し→T波上の心室ペーシング→多形性VT/VFという経路で心停止に至る（同総説の症例提示）。</p>
   </div>
 </div>
 </section>
@@ -788,6 +789,33 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <h3>RATE</h3>
   <p>VVI 60/min なら、自己HR 75 → sense して pace しない／自己HR 40 → 設定 rate を下回るので pacing する。<strong>ICUでは rate に絶対的な正解はありません</strong>。血圧・心拍出量・虚血・拡張期充満を見ながら設定します<sup class="ref"><a href="#r3">3</a></sup>。</p>
   <p><strong>下限レート（lower rate limit）</strong>とは、これを下回るとペーシングが起こる速度、すなわち「出るべき最も遅い心拍数」です。上限レート（upper rate limit）はペースメーカーがペーシングする最も速い速度で、<em class="mk">自己心拍にはこの上限はありません</em><sup class="ref"><a href="#r1">1</a></sup>。</p>
+
+  <h3>レートの最適化 — 「上げれば心拍出量が増える」のはどこまでか</h3>
+  <p>「固定レート50の患者でショックが抜けず、90に上げたらカテコラミンが減った」という現象を ICU のショック患者で直接検証した試験は見当たりません。しかし完全房室ブロックの古典的血行動態研究、心臓外科術後の一時ペーシング、HFpEF の myPACE、RV 不全の知見は一貫していて、<strong>固定レート50は低すぎる、80〜90前後までは心拍出量が増える、それ以上は頭打ちか低下</strong>とまとめられます（古典研究の数字は二次情報からの引用で、原著は未確認）。</p>
+  <p>理屈はこうです。心拍出量＝心拍数×1回拍出量。ショックでは交感神経駆動の頻脈が主要な代償ですが、固定レートのPM患者は人為的に chronotropic incompetence の状態にあります。正常心では心房ペーシングで心拍数を上げても1回拍出量が反比例に落ちて心拍出量は変わりませんが、完全房室ブロックで徐脈の患者では固定レートを上げると心拍出量が増え、ある点でプラトーになります。「心拍数が低すぎて1回拍出量が最大化している状態」からの増速だけが心拍出量を増やします。不全心筋では心拍数上昇で収縮力が上がる Bowditch 効果が平坦〜逆転するので、LVEFが低い患者では効果が小さくなります。カテコラミンが減るのは、ノルアドレナリンの変時・変力作用をペーシングが肩代わりするからです。</p>
+  <div class="tw wide"><div class="in"><table>
+    <thead><tr><th>領域</th><th>文献</th><th>分かること</th></tr></thead>
+    <tbody>
+      <tr><td>完全房室ブロックの古典研究</td><td>Segel JCI 1964、Sowton Br Heart J 1964、Samet AJC 1965、Ross・Braunwald Circ 1965</td><td>徐脈心ではレート増で心拍出量増、正常心では不変。心房収縮の寄与も大きい</td></tr>
+      <tr><td>心臓外科術後の一時ペーシング</td><td>BJA Educ 2023 総説、Reade Anaesthesia 2007 総説</td><td>「レート最適化で心拍出量を改善する」が標準。設定は70〜90 bpmが頻用</td></tr>
+      <tr><td>術後の実測</td><td>Ann Thorac Surg 1991（CABG周術期）</td><td>80→110へ上げると1回拍出量係数は28〜35%低下、心係数は80〜95で不変、110で有意に低下。90超は意味がない</td></tr>
+      <tr><td>術後の実測</td><td>ICM Experimental 2015 抄録</td><td>70〜110を10刻みで試験。心拍数と心拍出量の相関は集団全体では一貫せず（僧帽弁手術のみ相関）。個別に測って決める</td></tr>
+      <tr><td>HFpEF の慢性期</td><td>myPACE JAMA Cardiol 2023</td><td>下限60は根拠のない慣習。中央値75 bpmでQoL・NT-proBNP・AF負荷が改善</td></tr>
+      <tr><td>ショック一般</td><td>IBCC Shock 章</td><td>PM患者ではレートを上げてよい。ただし自己伝導拍が減るなら利益が減る</td></tr>
+      <tr><td>RV 不全・RV 梗塞</td><td>Ann ATS 2014、StatPearls RVMI</td><td>1回拍出量が固定され心拍出量が rate-dependent。AVペーシングは生存改善、V単独は改善せず</td></tr>
+      <tr><td>逆方向</td><td>Morelli JAMA 2013（esmolol）</td><td>敗血症の頻脈を下げても心拍出量は維持され1回拍出量が増える。「高すぎる」と「低すぎる」は別問題</td></tr>
+    </tbody>
+  </table></div></div>
+  <div class="tw wide"><div class="in"><table>
+    <thead><tr><th>状況</th><th>確認すること</th><th>次の一手</th></tr></thead>
+    <tbody>
+      <tr><td>固定レート50〜60で昇圧薬が減らない</td><td>1回拍出量が既に限界か（VTI・輸液反応性）、自己リズムは残っているか</td><td>レートを70→80→90と各数分ずつ上げ、LVOT VTI・動脈圧波形の心拍出量・ScvO₂・乳酸・ノルアド量で効果を判定する</td></tr>
+      <tr><td>VVIで洞調律が残っている</td><td>心房収縮を失っていないか（pacemaker症候群）</td><td>DDDならAV同期のまま上げる。AFなら問題なし</td></tr>
+      <tr><td>RVペーシング率が上がる</td><td>非同期で1回拍出量が落ちていないか（LVEF低下例）</td><td>効果がなければ元のレートへ戻す</td></tr>
+      <tr><td>AS・HCM・虚血心</td><td>拡張期充満と酸素消費</td><td>上げすぎない。効果判定を厳密に</td></tr>
+      <tr><td>90〜100を超えたい</td><td>術後データでは1回拍出量が落ちる</td><td>上限の目安は90〜100。それ以上は原則やらない</td></tr>
+    </tbody>
+  </table></div></div>
 
   <h3>OUTPUT — spikeが出ている ≠ captureしている</h3>
   <p>OUTPUT は心筋を脱分極させる刺激の強さです。<em class="mk">spikeが出ている ≠ captureしている</em>。この1行が、<a href="#trouble">第9章</a>と<a href="#mech">第10章</a>のすべての出発点になります<sup class="ref"><a href="#r3">3</a></sup>。</p>

@@ -514,6 +514,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     </table>
   </div></div>
 
+  <div class="cal b">
+    <h4><span class="dot">i</span>抜管後呼吸不全の高リスク因子（ATS 2026 Table 1）</h4>
+    <p>65歳以上／心肺疾患（心不全・中等度〜重度COPDなど）／APACHE II ≥12／BMI ≥30／気道開存性の問題または喉頭浮腫の高リスク／分泌物管理不能（弱い咳嗽反射、抜管前8時間で2回以上の吸引）／複雑な離脱（complex weaning）／併存疾患が2つを超える／7日以上の長期人工呼吸。<strong>1つでも該当すれば「高リスク抜管後」として扱い、上表のNIV優先を検討する。</strong></p>
+  </div>
+
   <h3>設定を触る前に、問いの順序を固定する</h3>
   <p>この6つは並列ではなく、上から順に通過するゲートです。</p>
   <div class="tw"><div class="in">
@@ -1022,6 +1027,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     </table>
   </div></div>
 
+  <div class="cal g">
+    <h4><span class="dot">✓</span>栄養は「食べるか呼吸か」の二択ではない</h4>
+    <p>NIV中の経腸栄養が転帰不良と関連するという観察データはありますが、これは患者を飢えさせる理由にはなりません。低栄養ならHFNCへの変更を検討して24〜48時間以内に栄養を確保し、栄養状態が良好なら数日待つのが実務的な折衷案です。開始直後から「いつ栄養を再開するか」を治療計画に組み込みます。</p>
+  </div>
+
   <div class="cal o">
     <h4><span class="dot">!</span>鎮静で「耐えさせる」ことの危うさ</h4>
     <p>不耐に対して低用量の鎮静（例：dexmedetomidine）は選択肢になり得ますが、<strong>気道防御を損なわない範囲</strong>に限られます。そして最も重要なのは、鎮静で耐えさせることが failure の隠蔽になりうるという点。「鎮静を足さないと続けられないNIV」は、多くの場合すでに答えが出ています。</p>
@@ -1113,6 +1123,20 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <p>HFNCでは <strong>ROX index</strong>、低酸素NIVでは P/F の trajectory・VT・RR、severe ARDSでは lung ultrasound score。食道内圧は吸気努力を直接評価できるが普及は限定的。スコアが低くても、VT・呼吸努力・分泌物・意識は別に評価する。</p>
   </div>
 
+  <h3>モニタリングツールの比較</h3>
+  <div class="tw wide"><div class="in">
+    <table>
+      <thead><tr><th>ツール</th><th>対象</th><th>主な閾値</th><th>強み</th><th>限界</th></tr></thead>
+      <tbody>
+        <tr><td>ROX指数（SpO₂/FiO₂ ÷ RR）</td><td>HFNC</td><td>開始12時間後 ≥4.88で挿管リスク低い／&lt;3.85で挿管を議論の卓上に（特異度98.4%）</td><td>簡便。精度は時間とともに向上（AUROC 0時間0.66→12時間0.75→24時間0.80）</td><td>介入で転帰が改善するかは未検証の予測ツール</td></tr>
+        <tr><td>HACORスコア</td><td>フェイスマスクNIV</td><td>開始1時間後 &gt;5でfailure</td><td>複合スコアで意識・血ガスを含む</td><td>定期的な再計算が必要</td></tr>
+        <tr><td>ΔPocc（気道閉塞試験）</td><td>侵襲的換気（PSV）</td><td>高努力検出でAUROC 0.92</td><td>高努力検出の精度が高い</td><td>ベッドサイド実装は発展途上</td></tr>
+        <tr><td>MIME（圧・流量波形のみで推定）</td><td>侵襲的換気（PSV）</td><td>平均バイアス0.4 cmH₂O</td><td>既存の呼吸器波形だけで非侵襲的に推定</td><td>1呼吸ごとのばらつきが大きい。NIVでは未検証</td></tr>
+        <tr><td>Macklin効果（縦隔気腫の画像所見）</td><td>圧損傷の先行指標</td><td>圧損傷の8〜12日前に出現</td><td>P‑SILIリスク患者の選別に使える可能性</td><td>Correspondenceで原データなし。原著と同列に扱わない</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
   <h3>当直で使うチェックリスト</h3>
   <div class="ck">
     <div class="row"><span class="t">T0</span><ul>
@@ -1202,7 +1226,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <thead><tr><th>病態</th><th>エビデンスの強さ</th><th>主な根拠</th><th>実務での意味</th></tr></thead>
       <tbody>
         <tr><td>COPD急性増悪（高CO₂・アシドーシス）</td><td><b style="color:var(--green)">強い</b></td><td>ATS 2026でフェイスマスクNIVを強い推奨（死亡 RR 0.47・挿管 RR 0.43）。HAPPEN試験では高強度NPPVがさらに挿管を減らす可能性。HFNCは<b>pH 7.25超の軽度アシデミアに限り条件付き代替</b>（2022年は「COPDでのHFNCはエビデンス不十分」だった）</td><td>第一選択。ためらう理由がない</td></tr>
-        <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>Cochrane 2019（24 RCT・2664例）：院内死亡 RR 0.65（NNTB 17・確実性 低）、挿管 RR 0.49（NNTB 13・中等度）。心筋梗塞は増えない（RR 1.03）</td><td>CPAPでもbilevelでも差はない（機器と習熟で選ぶ）。害はほぼマスク不快感</td></tr>
+        <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>Cochrane 2019（24 RCT・2664例）：院内死亡 RR 0.65（NNTB 17・確実性 低）、挿管 RR 0.49（NNTB 13・中等度）。心筋梗塞は増えない（RR 1.03）。<b>低バイアスリスク試験に限ると死亡（RR 0.81）も挿管（RR 0.85）も有意差が消える</b>——古い試験の質のばらつきが効果推定を押し上げている可能性がある</td><td>CPAPでもbilevelでも差はない（機器と習熟で選ぶ）。害はほぼマスク不快感。効果の確実性は「挿管＞死亡」と心得る</td></tr>
         <tr><td>高リスク抜管後 —— 予防的</td><td><b style="color:var(--blue)">中等度</b></td><td>ATS 2026：予防的NIVまたはHFNC（条件付き・中等度／再挿管 <b>NIV RR 0.75・HFNC RR 0.80</b>）。高リスクではNIV優先（<b>交互作用 p=0.006</b>）。COPDではCHEST Crit Care 2025レビューも抜管後のNIV/HFNCを「悪化を待たず即時装着」と推奨。HFNCとNIVを直接比べた最新のメタ解析（15 RCT・2,073例）では72時間再挿管は <b>OR 1.19（95%CI 0.88–1.59・確実性 低）</b>で平均としては差がなく、死亡・院内肺炎・ICU滞在も差なし。ただし事前設定サブグループの<b>リスク因子4個以上 OR 1.63（1.05–2.53）</b>と<b>非手術の肥満 OR 2.52（1.45–4.38）</b>ではHFNCが不利で、高バイアス3試験を除くと全体でも OR 1.32（1.02–1.71）へ傾く（高CO₂血症性のCOPD増悪は差なし。交互作用検定はなく、著者自身が仮説生成的と留保）</td><td>対象を絞って、悪化を待たずに使う。<b>抜管の指示を出す前にリスク因子を数える</b>——4個以上や非手術の肥満なら、HFNCで済ませずNIVを第一に置く</td></tr>
         <tr><td>抜管後 —— <b style="color:var(--red)">救援的</b></td><td><b style="color:var(--red)">害の懸念あり</b></td><td>2022年の総説：救援フェイスマスクNIVが挿管を遅らせ死亡を増やす。2026年のATS：救援目的のHFNC単独が再挿管を増やす（対標準酸素で交互作用 <b>p=0.001</b>、対NIVで <b>p=0.03</b>）。4年で警告の対象デバイスが入れ替わった</td><td>害はデバイスではなく「救援として使う」使い方に付いている。救援に該当したらNIVか再挿管へ直行する</td></tr>
         <tr><td>de novo 低酸素ARF</td><td><b style="color:var(--green)">強い（HFNC）</b> ／ <b style="color:var(--orange)">条件付き（NIV）</b></td><td>ATS 2026：HFNCを標準酸素より強い推奨（<b>挿管 RR 0.76</b>）。NIV/CPAPは条件付きで確実性は低い。RENOVATEはHFNCの非劣性を報告。HFNC対NIVの優劣は2022年の総説でも2026年のガイドラインでも未決着</td><td>まずHFNC。NIVを使うなら監視を厚く。「どちらが上か」より失敗基準と引き上げ役の明文化</td></tr>
@@ -1407,6 +1431,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     </table>
   </div></div>
   <p>Bourkeらのレビューでは、acute‑on‑chronic lung / heart diseaseではNIV failureに伴う過剰死亡が明確でなかった一方、hypoxemic ARF、特にARDSではdelay‑related harmと患者自身の予後不良が混在すると整理されています。</p>
+
+  <div class="cal o">
+    <h4><span class="dot">!</span>COVID‑19の挿管タイミング、観察研究は結論が割れている</h4>
+    <p>傾向スコアマッチ614例（CIBERESUCICOVID）では挿管遅延が院内死亡を27.3%→37.1%へ増やし、特にHFNC先行例で顕著でした。ところがアトランタ4病院175例の後ろ向きコホートでは、挿管までの時間（&lt;8時間／8–24時間／≥24時間）と院内死亡に関連はなく（38.2%／31.6%／38.1%、p=0.7）、36施設・傾向スコアマッチ122例では初日からのHFNO選択が人工呼吸器フリー日数を8日増やしICU在室を8日縮める一方、死亡は1ミリも動きませんでした。<strong>いずれも観察研究であり、重症度が挿管タイミングを決めている可能性（適応交絡）を排除できません。</strong>「早期挿管が死亡を下げる」は association にとどまり、一般診療への外挿は避けます。</p>
+  </div>
 
   <p class="pull">目標は「早く挿管する」ではない。<br><span>適切なNIV trialを行い、failureを早く見つけ、failure後は遅らせない。</span></p>
 

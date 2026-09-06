@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集中治療科ページ改訂案（検討中）</title>
+</head>
+<body>
+<style>
+  /* 既存の病院サイト（hospital.luke.ac.jp）の配色・書体に寄せた単一テーマ。ダークモード非対応（本番サイトと同じ見え方を優先） */
+  :root{
+    --paper:#f7f3ea;        /* ページ地 */
+    --panel:#ffffff;        /* 本文パネル */
+    --tabbar:#efe4cf;       /* タブバー地 */
+    --tabbar-line:#d8c8a5;  /* タブバー罫 */
+    --tab-text:#7d6a4c;     /* 非選択タブ文字 */
+    --tab-active:#5b3f14;   /* 選択タブ文字 */
+    --brown:#774913;        /* 見出し（既存サイトの色） */
+    --rule:#dfd0ae;         /* 見出し下の帯 */
+    --ink:#222222;          /* 本文 */
+    --sub:#666666;          /* 小見出し */
+    --muted:#8a7d66;
+    --link:#8a5a1f;
+    --th:#f4ecdb;
+    --border:#e6dcc6;
+    --flag:#fff2b3;         /* 要確認マーカー */
+    --flag-ink:#6a4d00;
+    --note:#f3f0e8;
+  }
+  html{color-scheme:light}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Meiryo","ＭＳ Ｐゴシック","MS PGothic",Arial,sans-serif;
+       font-size:14px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  a{color:var(--link)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--brown);outline-offset:2px}
+
+  .memo{max-width:1140px;margin:18px auto 0;padding:10px 16px;background:var(--note);border:1px dashed var(--tabbar-line);
+        font-size:12.5px;color:var(--muted);line-height:1.6}
+  .memo b{color:var(--brown)}
+  .memo .flag{margin:0 2px}
+
+  .crumb{max-width:1140px;margin:14px auto 6px;font-size:12px;color:var(--muted)}
+  .crumb span{margin:0 6px}
+
+  .wrap{max-width:1140px;margin:0 auto 60px;background:var(--panel);border:1px solid var(--border)}
+
+  /* タブバー：既存サイトの「診療内容／スタッフ紹介／SNS／論文・書籍・メディア」と同じ作り */
+  .tabs{display:flex;flex-wrap:wrap;gap:0;background:linear-gradient(var(--tabbar),#e6d9bf);border-bottom:1px solid var(--tabbar-line);padding:8px 8px 0}
+  .tab{appearance:none;border:1px solid transparent;border-bottom:none;background:transparent;color:var(--tab-text);
+       font:inherit;font-size:15px;letter-spacing:.04em;padding:8px 15px 6px;cursor:pointer;border-radius:3px 3px 0 0;margin-right:2px;white-space:nowrap}
+  .tab[aria-selected="true"]{background:var(--panel);color:var(--tab-active);border-color:var(--tabbar-line);margin-bottom:-1px;padding-bottom:7px}
+  .tab.new::after{content:"新設";font-size:10px;letter-spacing:0;vertical-align:super;margin-left:4px;color:#a0551c}
+
+  .panel{display:none;padding:34px 40px 40px}
+  .panel[data-active]{display:block}
+
+  h2{font-size:22px;font-weight:normal;color:var(--brown);margin:0 0 8px;letter-spacing:.04em;padding-bottom:6px;
+     border-bottom:1px solid var(--brown);box-shadow:0 5px 0 var(--rule);text-wrap:balance}
+  h2 + *{margin-top:26px}
+  h3{font-size:15px;font-weight:bold;color:var(--sub);margin:34px 0 8px;text-wrap:balance}
+  h3:first-of-type{margin-top:0}
+  p{margin:0 0 12px;max-width:44em}
+  .lead{font-size:15px;max-width:44em}
+  ul{margin:0 0 12px;padding-left:1.4em;max-width:44em}
+  li{margin:2px 0}
+  .tblwrap{overflow-x:auto;margin:6px 0 14px}
+  table{border-collapse:collapse;width:100%;max-width:820px;font-size:13.5px}
+  th,td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  th{background:var(--th);color:var(--brown);font-weight:bold;white-space:nowrap}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .kv th{width:12em}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;max-width:820px}
+  @media (max-width:720px){.cols{grid-template-columns:1fr}.panel{padding:24px 18px}.tab{font-size:14px;padding:8px 14px 6px}}
+
+  .flag{background:var(--flag);color:var(--flag-ink);padding:0 4px;border-radius:2px}
+  .photo{display:flex;align-items:center;justify-content:center;background:#ece5d6;border:1px solid var(--border);color:var(--muted);
+         font-size:12px;letter-spacing:.05em;height:140px;margin:12px 0 18px;max-width:820px}
+
+  .faq dt{font-weight:bold;color:var(--sub);margin-top:12px}
+  .faq dd{margin:2px 0 0 1.2em;max-width:44em}
+
+  .greeting{display:grid;grid-template-columns:150px 1fr;gap:24px;max-width:820px;align-items:start}
+  .greeting .portrait{height:190px}
+  .greeting .name{font-size:15px;font-weight:bold;color:var(--brown);margin-bottom:6px}
+  @media (max-width:720px){.greeting{grid-template-columns:1fr}}
+
+  .totop{text-align:right;padding:0 22px 16px;font-size:12px}
+  .totop a{text-decoration:none;color:var(--muted)}
+  .totop a span{display:inline-block;background:#c9b895;color:#fff;padding:0 8px;margin-left:6px}
+  @media (prefers-reduced-motion:no-preference){.panel[data-active]{animation:fade .18s ease-out}}
+  @keyframes fade{from{opacity:.6}to{opacity:1}}
+</style>
+
+<div class="memo"><b>集中治療科ページ 改訂案（2026-09-06 第2版・検討中）</b>　既存ページのデザインに合わせてタブを4本→6本に再編した案です。<span class="flag">黄色</span>は確認中の箇所、写真枠は差し替え予定の場所です。</div>
+<div class="crumb">ホーム<span>&gt;</span>診療科・部門のご案内<span>&gt;</span>集中治療科</div>
+
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="集中治療科">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="t1" id="tab1">診療内容・特徴</button>
+    <button class="tab new" role="tab" aria-selected="false" aria-controls="t2" id="tab2">患者さん・ご家族へ</button>
+    <button class="tab new" role="tab" aria-selected="false" aria-controls="t3" id="tab3">医療従事者・研修希望の方へ</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t4" id="tab4">スタッフ紹介</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t5" id="tab5">論文・書籍・メディア</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t6" id="tab6">SNS</button>
+  </div>
+
+  <!-- ===== タブ1 ===== -->
+  <section class="panel" id="t1" role="tabpanel" aria-labelledby="tab1" data-active>
+    <h2>診療内容・特徴</h2>
+
+    <h3>命を守り、元の生活へつなげる集中治療科</h3>
+    <p class="lead">集中治療科は、生命の危機にある重症の患者さんを24時間体制で診療する診療科です。聖路加国際病院のICU（集中治療室）には、救急外来から運ばれた方、入院中に容体が悪化した方、大きな手術を受けた方など、内科・外科を問わず院内で最も重症な患者さんが集まります。</p>
+    <p>私たちの仕事は、命を救うことだけではありません。ICUを出た後に、その方が<strong>元の生活に戻れること</strong>をゴールに、入室前から退室後まで切れ目なく関わります。</p>
+    <div class="photo">写真：ICU全景（2024年Word案 写真1）</div>
+
+    <h3>集中治療専門医が24時間365日、ICUに常駐しています</h3>
+    <ul>
+      <li>集中治療科の医師が<strong>24時間365日ICUに常駐</strong>し、すべての患者さんの治療方針を各診療科の主治医と一緒に決めています（2020年〜）</li>
+      <li>年間<strong>約600名</strong>の患者さんをICUで診療しています（2025年度）。約6割は救急外来や病棟から緊急に入室された内科系の患者さん、約4割は手術後の患者さんです</li>
+      <li>全国の集中治療室のデータベース（JIPAD：日本集中治療患者データベース）に参加し、診療の質を全国の施設と比較しながら改善を続けています</li>
+      <li>日本集中治療医学会の専門医研修施設です</li>
+    </ul>
+
+    <h3>多職種のチームで、毎朝全員の患者さんを診ています</h3>
+    <p>毎朝8時半から、集中治療科医師・各診療科の医師・看護師・薬剤師・管理栄養士・理学療法士が集まり、患者さん一人ひとりの状態を確認して、その日の治療方針とケアの目標を決めています。薬剤師・管理栄養士・理学療法士はICUに常駐しており、薬の調整、栄養、早期のリハビリテーションを毎日チームで行います。</p>
+    <p>長く入室されている患者さんについては、別途「ICU多職種カンファレンス」を開き、主治医・ICUチーム・看護師・関係する職種が集まって、ご本人にとって最善の方針を話し合っています。</p>
+    <div class="photo">写真：多職種回診（2024年Word案 写真2）</div>
+
+    <h3>院内急変対応（Rapid Response System）の中心です</h3>
+    <p>入院中の患者さんの容体が急に悪くなったとき、あるいは「悪くなりそう」と感じたときに、病棟の医師・看護師が<strong>24時間365日、いつでも直接ICUに相談できる専用電話（ICU相談PHS）</strong>を置いています。早めに相談してもらうことで、重症化する前に手を打つことができます。集中治療科はこの院内急変対応チームの中心を担っています。</p>
+
+    <h3>ステップダウンユニット（SDU）を運営しています</h3>
+    <p>ICUを出た後、一般病棟に移るにはまだ少し不安がある患者さんのために、2024年9月から<strong>ステップダウンユニット</strong>を開設しました。ICUと一般病棟の間の段階として、集中治療科が引き続き関わりながら、安心して回復に向かえる環境を整えています。</p>
+  </section>
+
+  <!-- ===== タブ2 ===== -->
+  <section class="panel" id="t2" role="tabpanel" aria-labelledby="tab2">
+    <h2>患者さん・ご家族へ</h2>
+
+    <h3>一人の「人」として向き合うケアを大切にしています</h3>
+    <p class="lead">ICUに入室される患者さんの多くは、人工呼吸器や意識の状態のために、ご自身の思いを言葉で伝えることができません。私たちは、そのような患者さんにこそ、<strong>普段健康な人に接するのと同じように</strong>接したいと考えています。</p>
+    <p>毎日の挨拶、目を見て話すこと、処置の前の声かけ、静かで落ち着いた環境。最新かつ質の高い医療と、心の通ったケア（Human Care）を両立させ、患者さん・ご家族にとって安心できる場所であること。それが私たちの目指すICUです。</p>
+    <div class="photo">写真：ベッドサイドでの声かけ（2024年Word案 写真3）</div>
+
+    <h3>「その人らしさ」を大切にするための取り組み</h3>
+    <div class="tblwrap">
+      <table class="kv">
+        <tr><th>あなたの想いをつなぐシート</th><td>入室前や入室時に、呼ばれたい名前、大切にしていること、楽しみにしていること、私たちに知っておいてほしいことを、ご本人・ご家族から伺います。3年以上続けている取り組みです。</td></tr>
+        <tr><th>Helloボード</th><td>ベッドサイドのボードに、患者さんの名前の呼び方・お仕事・趣味・ご家族のことなどを掲示します。スタッフ全員が「患者」ではなく「その人」として接するためのものです。</td></tr>
+        <tr><th>ケアラウンド</th><td>医師・看護師が毎日、痛み・口の渇き・眠れているか・不安なことなど、ご本人の「いま困っていること」を直接伺いに回ります。</td></tr>
+        <tr><th>静かで眠れる環境づくり</th><td>全室にテレビと遮光カーテンを備え、モニターのアラーム音や夜間の話し声を減らす「音のプロジェクト」、夜間の照明を落として睡眠を守る取り組みを進めています。</td></tr>
+      </table>
+    </div>
+
+    <h3>ご家族はチームの一員です</h3>
+    <p>重症の患者さんにとって、ご家族の存在は治療の一部です。私たちは面会をできる限り柔軟に受け入れ、ご家族が患者さんのそばで過ごし、ケアに参加していただけるようにしています。</p>
+    <ul>
+      <li>面会時間・人数・お子さまの面会などはスタッフにご相談ください <span class="flag">面会時間の実際の運用を記載</span></li>
+      <li>ロビーのモニターで、いま面会できる状態かどうかをお知らせしています</li>
+      <li>患者さんに声をかけること、手を握ること、好きな音楽を流すことなど、ご家族にしていただけることがたくさんあります。遠慮なくスタッフにお声かけください</li>
+    </ul>
+
+    <h3>治療方針は、ご本人の価値観を起点に決めます</h3>
+    <p>ICUでは、治療の選択を迫られる場面が少なくありません。私たちは、病状の説明だけでなく、<strong>「ご本人がどのような生き方を大切にしてきたか」</strong>を伺うことから話し合いを始めます。判断が難しい場合には、主治医・集中治療科・看護師・必要に応じて緩和ケアや倫理の担当者を交えた多職種カンファレンスを開き、ご本人にとって最善の方針をご家族と一緒に考えます。</p>
+
+    <h3>ICUを出た後も見守ります</h3>
+    <p>ICUを退室したあと、患者さんやご家族には「体力が戻らない」「眠れない」「ICUでの記憶が断片的で不安」といった変化（集中治療後症候群：PICS）が起こることがあります。集中治療科では、ICU退室後に多職種で病棟を訪問し、体調の変化を早めに見つけ、病棟スタッフや主治医と連携してその後の回復を支えます。<span class="flag">退室後訪問は2026年秋に運用開始予定。公開時期を合わせる</span></p>
+
+    <h3>ICUについてよくあるご質問</h3>
+    <dl class="faq">
+      <dt>ICUに入ると、どのくらいで出られますか？</dt>
+      <dd>患者さんによって異なりますが、当院ICUの滞在期間は中央値で約3日です。回復に応じてステップダウンユニットや一般病棟へ移ります。</dd>
+      <dt>家族は何をすればよいですか？</dt>
+      <dd>そばにいていただくこと、患者さんについて教えていただくこと（あなたの想いをつなぐシート）が一番の助けになります。ご家族ご自身の休息も大切です。</dd>
+      <dt>面会は何時までですか？</dt>
+      <dd>病院の面会案内に加えて、ICUでは患者さんの状態に合わせて柔軟に対応しています。スタッフにご相談ください。</dd>
+      <dt>治療について相談したいときは？</dt>
+      <dd>担当看護師にお申し出ください。医師からの説明の場を設けます。</dd>
+    </dl>
+  </section>
+
+  <!-- ===== タブ3 ===== -->
+  <section class="panel" id="t3" role="tabpanel" aria-labelledby="tab3">
+    <h2>医療従事者・研修希望の方へ</h2>
+
+    <h3>内科系重症患者が多いICUで、術後管理も学ぶ</h3>
+    <p class="lead">聖路加国際病院ICUには、救急外来・院内病棟・手術室から、内科系・外科系を問わず重症患者が入室します。集中治療科が<strong>全患者に介入する Closed/Mandatory consultation 型</strong>で運営し、各診療科と一緒に治療方針を決定します。</p>
+    <p>全国のICUと比べた当院の特徴は、<strong>非手術（内科系）症例の比率が高い</strong>ことです。JIPADの施設別レポートでは、非手術症例が全体の約56%（全国平均約36%）、手術室からの入室は約44%（全国平均約62%）でした。敗血症、呼吸不全、血液疾患・免疫不全患者の重症化、電解質・代謝異常など、内科の重症管理を各診療科のエキスパートと一緒に学べる環境です。予定手術では脳神経外科が最多で、消化器外科、腎移植を含む泌尿器科術後の管理も経験できます。</p>
+
+    <p><strong>2025年度（2025年4月〜2026年3月）の実績</strong></p>
+    <div class="tblwrap">
+      <table class="kv">
+        <tr><th>年間ICU入室数</th><td class="num">591例（過去6年で最多）</td></tr>
+        <tr><th>入室区分</th><td>非手術（内科系・緊急）約6割／手術後（予定・緊急）約4割</td></tr>
+        <tr><th>ICU滞在日数（中央値）</th><td class="num">3.0日</td></tr>
+        <tr><th>人工呼吸管理</th><td>全入室の約2割</td></tr>
+        <tr><th>診療の質</th><td>重症度スコア（APACHE III）から予測される死亡率を毎年下回っています（JIPAD比較） <span class="flag">公開可否を判断</span></td></tr>
+      </table>
+    </div>
+    <p>2024年9月には集中治療科が関わる<strong>ステップダウンユニット（SDU）</strong>を開設し、ICU退室後の回復期まで診療範囲を広げています（2027年4月に6床へ拡張予定 <span class="flag">公表可否を経営企画に確認</span>）。</p>
+
+    <h3>集中治療科医が24時間365日常駐しています</h3>
+    <p>2020年から、集中治療科医師が<strong>24時間365日ICUに常駐</strong>する体制をとっています。常勤医は麻酔科・救急科・呼吸器内科など多様なバックグラウンドを持ち、集中治療専門医が指導にあたります。<span class="flag">常勤◯名・専門医◯名・サブスペ内訳を2026年の数字に更新</span></p>
+    <p>集中治療科スタッフに加えて、ICU研修中の初期研修医・内科専攻医が常時ICUに所属しています。当院麻酔科・救急科からの短期研修も毎年受け入れています。</p>
+    <div class="photo">写真：スタッフ集合写真（2024年Word案 写真4）</div>
+
+    <h3>多職種チームで毎朝全員を回診します</h3>
+    <p>毎朝8時半から、集中治療科医師・各診療科医師・看護師・薬剤師・管理栄養士・理学療法士による多職種回診を行い、その日の治療方針とケアのゴールを決めます。看護体制は患者2人に看護師1人。薬剤師・管理栄養士・理学療法士がICUに常駐しています。</p>
+    <p>長期入室患者には<strong>ICU多職種カンファレンス</strong>を開き、主治医・ICU・看護・緩和ケア・倫理担当を交えて治療のゴールを話し合います。倫理的に難しい判断に迅速に対応する<strong>倫理版RRS（ERRS）</strong>も運用しています。</p>
+
+    <h3>医療の質とHuman Careを両立する</h3>
+    <p>私たちが目指すのは、<strong>最新かつ質の高い医療と、心の通ったケア（Human Care）を両立させ、患者・家族・働くスタッフ全員にとって最善の場となるICU</strong>です。快適な環境を整えるだけでなく、患者さんを一人の人として尊重する診療とケアを、チーム全体の文化にすることを大切にしています。6つの柱で考えています。</p>
+    <div class="tblwrap">
+      <table>
+        <tr><th>患者・家族に向けて</th><td>①ホスピタリティ　②Human Care　③世界最高の医療</td></tr>
+        <tr><th>医療者に向けて</th><td>④働きやすい環境　⑤Wellbeing　⑥プロフェッショナルとしての満足感</td></tr>
+      </table>
+    </div>
+    <p>実装として、入室前の「あなたの想いをつなぐシート」、ベッドサイドの「Helloボード」、毎日の「ケアラウンド」、退室後の「ICU退室後訪問」を<strong>1人の患者の時間軸に沿った連続ケア</strong>として設計しています。ICUの騒音対策（音のプロジェクト）と睡眠バンドル（調光・Quiet Time・RCSQによる評価）は2026年度の重点テーマです。命を救うだけでなく、その人の人生の質を高めることに情熱を注ぐ仲間を待っています。</p>
+
+    <h3>院内急変対応（RRS）の中心を担っています</h3>
+    <p>ICU内に<strong>ICU相談PHS（Rapid Response Teamコール専用電話）</strong>を置き、院内急変または急変が予測される患者の相談を24時間365日受け付けています。医師だけでなく看護師も気軽に電話できる運用です。急変対応ワーキンググループ（集中治療科部長が委員長）で急変記録の標準化、早期警告スコア、病棟バイタルサインの自動収集など、院内の急変対応の仕組みづくりを進めています。</p>
+
+    <h3>医療の質を「測って」改善しています</h3>
+    <ul>
+      <li><strong>JIPAD（日本集中治療患者データベース）参加施設</strong>。毎年、施設別レポートで全国150施設以上とベンチマークしています</li>
+      <li>院内台帳をもとに<strong>ICU年次レポート</strong>を作成し、滞在日数・再入室率・せん妄発生率・早期経腸栄養率などの質指標（QI）を Structure／Process／Outcome で毎年評価しています</li>
+      <li>ICUで働く全職種を対象に<strong>年1回のICU改善アンケート</strong>を実施。2026年は145件の声が集まり、課題として挙がった項目すべてに部長がコメントを返し、進捗を公開しています。全室のテレビ設置、ナースコール連動スマートフォン、朝カンファレンスのマイク導入、医師控室の改修などはこのアンケートから実現しました</li>
+    </ul>
+
+    <h3>教育資源が豊富です</h3>
+    <p>聖路加国際病院は伝統的にレジデント教育に力を入れており、ICU研修中も各診療科による講義やラウンドが数多くあります。</p>
+    <ul>
+      <li><strong>ベッドサイドマニュアル型の教育資料 43本</strong>（呼吸・循環・感染・腎・脳神経・PADIS・栄養・血液・ケア／組織）を科として整備し、研修中いつでも参照できます</li>
+      <li><strong>『聖路加ICUマニュアル』（金芳堂、2026年6月刊）</strong>を集中治療科と多職種スタッフで執筆しました。ICUプレゼンテーション、リハビリ、ACP、ファシリテーション、AIを使った文献検索など、教科書に載りにくい実践知も収録しています <span class="flag">正式書名を確認</span></li>
+      <li>定期カンファレンス：毎週の感染症ラウンド・血液内科ラウンド、毎月の腎臓内科コアレクチャー、脳神経外科症例振り返り など</li>
+      <li>Microsoft Teams で資料・勉強会を共有し、いつでもどこでも学べる環境にしています</li>
+      <li>集中治療科部長は聖路加国際病院 Best Teacher Award を3年連続受賞（2019〜2021）</li>
+    </ul>
+
+    <h3>臨床研究・学会活動</h3>
+    <ul>
+      <li>国内外の学会発表・論文執筆の実績があります。JIPAD参加施設として<strong>JIPADデータの二次利用</strong>が可能で、JIPADを用いた研究論文を継続的に発表しています（誤嚥性肺炎、ICU質指標、緊急非心臓手術後転帰 など）</li>
+      <li>多施設共同研究にも参加しており、集中治療専門医取得のために短期間で論文を仕上げたい方にも適した環境です</li>
+      <li>学会発表・論文執筆はスタッフが伴走します。学会参加を支援しています</li>
+    </ul>
+
+    <h3>施設認定</h3>
+    <p>日本集中治療医学会 専門医研修施設です。当院での研修により集中治療専門医の受験資格が得られます。</p>
+
+    <h3>働き方</h3>
+    <ul>
+      <li>労働時間は原則週40時間。<strong>2交代勤務（日勤7時〜17時／夜勤17時〜翌7時）</strong>で、時間外に呼び出されることはありません <span class="flag">現行の勤務体制を確認</span></li>
+      <li>Teamsなどデジタルツールでの情報共有により、オンとオフをはっきり分けています</li>
+      <li>公衆衛生大学院・経営大学院に通いながら勤務するスタッフ、子育て中のスタッフがいます。勤務形態は柔軟に相談できます</li>
+    </ul>
+
+    <h3>見学・研修のお問い合わせ</h3>
+    <p>短期研修・見学・専攻医採用のご相談は、随時受け付けています。<span class="flag">連絡先（医師採用窓口／集中治療科メール）を記入</span></p>
+  </section>
+
+  <!-- ===== タブ4 ===== -->
+  <section class="panel" id="t4" role="tabpanel" aria-labelledby="tab4">
+    <h2>スタッフ紹介</h2>
+    <p>既存ページと同じ項目（役職・氏名・資格）のみ掲載します。<span class="flag">既存ページの項目に合わせる。氏名・資格は本人確認のうえ記入</span></p>
+    <div class="tblwrap">
+      <table>
+        <tr><th>役職</th><th>氏名</th><th>資格</th></tr>
+        <tr><td>部長</td><td>岡本 洋史</td><td>救急科専門医、集中治療専門医</td></tr>
+        <tr><td>医長</td><td>医師A</td><td>集中治療専門医、◯◯専門医</td></tr>
+        <tr><td></td><td>医師B</td><td></td></tr>
+        <tr><td></td><td>医師C</td><td></td></tr>
+        <tr><td></td><td>医師D</td><td></td></tr>
+        <tr><td></td><td>医師E</td><td></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== タブ5 ===== -->
+  <section class="panel" id="t5" role="tabpanel" aria-labelledby="tab5">
+    <h2>論文・書籍・メディア</h2>
+
+    <h3>書籍</h3>
+    <p><strong>『聖路加ICUマニュアル』</strong>（金芳堂、2026年6月）── 集中治療科と多職種スタッフ（現役・OB/OG）で執筆した臨床実践マニュアル。人工呼吸・循環・感染・栄養などの診療に加え、ICUプレゼンテーション、リハビリテーション、ACP、多職種カンファレンスのファシリテーション、AIを使った文献検索まで収録。<span class="flag">正式書名・編者名を奥付で確認</span></p>
+    <div class="photo">画像：書影</div>
+
+    <h3>主な論文</h3>
+    <p>JIPAD（日本集中治療患者データベース）を用いた研究を中心に、ICUの転帰と医療の質に関する論文を発表しています。<span class="flag">2023年以降の当科発論文を5〜10本、著者・誌名・年・PubMedリンクで列挙</span></p>
+    <ul>
+      <li>誤嚥性肺炎のICU転帰（J Intensive Care, 2026）</li>
+      <li>日本のICU質指標38項目の再評価（J Intensive Care, 2026）</li>
+      <li>DPCデータとJIPADの妥当性検証</li>
+      <li>緊急非心臓手術後のICU死亡に関する検討</li>
+    </ul>
+
+    <h3>学会発表・講演</h3>
+    <ul>
+      <li>JIPAD・医療の質（QI）に関する学会講演（日本集中治療医学会 2021〜2025）</li>
+      <li>血液ガス分析（Stewartアプローチ）セミナー講師</li>
+      <li><span class="flag">当科スタッフの直近2年の学会発表を年ごとに列挙</span></li>
+    </ul>
+
+    <h3>メディア・広報</h3>
+    <ul>
+      <li>院内広報誌 St. Luke's VOL.54「命を守り、元の生活へつなげる集中治療科」特集</li>
+      <li>明るい窓 2026年4月号：ICUでのPeople-Centered Care実践（あなたの想いをつなぐシート・Helloボード）</li>
+      <li><span class="flag">テレビ・新聞・Web記事があれば追加</span></li>
+    </ul>
+  </section>
+
+  <!-- ===== タブ6 ===== -->
+  <section class="panel" id="t6" role="tabpanel" aria-labelledby="tab6">
+    <h2>SNS</h2>
+    <p class="lead">聖路加国際病院 集中治療科では、ICUでの取り組み、教育、最新の論文紹介をSNSで発信しています。フォローをお待ちしています。</p>
+    <div class="tblwrap">
+      <table>
+        <tr><th>SNS</th><th>アカウント</th><th>主な内容</th></tr>
+        <tr><td>Instagram</td><td><span class="flag">@アカウント名・URL</span></td><td>ICUの日常・取り組み・スタッフ紹介</td></tr>
+        <tr><td>Facebook</td><td><span class="flag">聖路加ICU・URL</span></td><td>毎週土曜に論文紹介（ジャーナルクラブ）・活動報告</td></tr>
+        <tr><td>X／YouTube／note</td><td><span class="flag">あれば</span></td><td></td></tr>
+      </table>
+    </div>
+    <div class="cols">
+      <div class="photo">Instagram 埋め込み（最新投稿）</div>
+      <div class="photo">Facebook 埋め込み（ページプラグイン）</div>
+    </div>
+  </section>
+
+  <div class="totop"><a href="#top">トップへ<span>▲</span></a></div>
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(id){
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('aria-controls')===id?'true':'false');});
+    panels.forEach(function(p){if(p.id===id){p.setAttribute('data-active','');}else{p.removeAttribute('data-active');}});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.getAttribute('aria-controls'));try{history.replaceState(null,'','#'+t.getAttribute('aria-controls'));}catch(e){}});
+    t.addEventListener('keydown',function(e){
+      var n=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:null;
+      if(n===null)return; e.preventDefault();
+      var nt=tabs[(n+tabs.length)%tabs.length]; nt.focus(); nt.click();
+    });
+  });
+  var h=location.hash.replace('#','');
+  if(h&&document.getElementById(h)&&document.getElementById(h).classList.contains('panel'))show(h);
+  document.querySelector('.totop a').addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0});});
+})();
+</script>
+
+</body>
+</html>

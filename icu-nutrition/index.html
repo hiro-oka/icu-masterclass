@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>聖路加ICU 栄養療法マニュアル</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+  --note:#6b3fa0; --note-soft:#f1ecf9;
+  --danger:#b3261e; --danger-soft:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --code:#1e2329;
+    --note:#c4a7ea; --note-soft:#241c33;
+    --danger:#f2857c; --danger-soft:#3a1c1a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.95; letter-spacing:.01em;
+}
+main{max-width:860px; margin:0 auto; padding:2.2rem 1.1rem 5rem}
+h1{font-size:1.66rem; line-height:1.4; margin:0 0 .4rem; letter-spacing:-.01em}
+.sub{color:var(--muted); font-size:.94rem; margin:0 0 1.2rem}
+h2{font-size:1.2rem; margin:2.8rem 0 .8rem; padding-left:.6rem; border-left:4px solid var(--accent); line-height:1.5; scroll-margin-top:.6rem}
+h2 .no{display:inline-block; font-size:.74rem; letter-spacing:.1em; color:var(--muted); font-weight:700; margin-right:.5rem; vertical-align:.14em}
+h3{font-size:1.02rem; margin:1.8rem 0 .45rem; color:var(--accent); scroll-margin-top:.6rem}
+h4{font-size:.95rem; margin:1.2rem 0 .35rem}
+p{margin:1.05rem 0; line-height:2.0}
+ul,ol{padding-left:1.3rem; margin:.7rem 0}
+li{margin:.3rem 0}
+strong{font-weight:700}
+u{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px}
+.box p{line-height:1.95}
+.box{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.05rem; margin:1.2rem 0; background:var(--accent-soft)}
+.box.warn{background:var(--warn-soft); border-color:var(--warn)}
+.box.good{background:var(--good-soft); border-color:var(--good)}
+.box.danger{background:var(--danger-soft); border-color:var(--danger)}
+.box.plain{background:var(--code)}
+.box p:first-child{margin-top:0}
+.box p:last-child, .box ul:last-child, .box ol:last-child, .box .tablewrap:last-child{margin-bottom:0}
+.box .label{display:block; font-weight:700; font-size:.85rem; letter-spacing:.04em; margin-bottom:.35rem}
+.box.danger .label{color:var(--danger)}
+.box.warn .label{color:var(--warn)}
+.box.good .label{color:var(--good)}
+.toc{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem; background:var(--code); margin:1.4rem 0 2rem}
+.toc .label{display:block; font-weight:700; font-size:.83rem; letter-spacing:.08em; color:var(--muted); margin-bottom:.5rem}
+.toc ol{margin:0; padding-left:1.2rem; font-size:.93rem}
+.toc li{margin:.24rem 0}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid var(--line)}
+.toc a:hover{color:var(--accent); border-color:var(--accent)}
+.tablewrap{overflow-x:auto; margin:1rem 0; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem; line-height:1.6}
+table.wide{min-width:680px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top}
+th{background:var(--code); font-weight:700}
+tbody tr:nth-child(even) td{background:color-mix(in srgb, var(--code) 45%, transparent)}
+td.num{white-space:nowrap; font-variant-numeric:tabular-nums}
+caption{caption-side:top; text-align:left; font-weight:700; font-size:.9rem; padding:.2rem 0 .45rem; color:var(--fg)}
+code{background:var(--code); padding:.1rem .35rem; border-radius:4px; font-size:.9em}
+.src{display:inline; font-size:.72rem; font-weight:400; color:var(--muted);
+  white-space:nowrap; padding:0; border:0; background:none; letter-spacing:0}
+.src::before{content:"["}
+.src::after{content:"]"}
+.src+.src{margin-left:.25em}
+li>.src, p>.src, td>.src{margin-left:.35em}
+.split{color:var(--danger); font-weight:700}
+.ok{color:var(--accent); font-weight:700}
+td.grp{background:var(--accent-soft); font-size:.85rem; letter-spacing:.02em; padding-top:.5rem; padding-bottom:.5rem}
+td.num strong{font-size:1.02em}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.5rem 0 1.2rem; font-size:.84rem; align-items:center}
+.meta{display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.5rem 0 1.2rem; font-size:.82rem}
+.meta span{border:1px solid var(--line); border-radius:999px; padding:.12rem .65rem; color:var(--muted)}
+.kicker{font-size:.78rem; letter-spacing:.12em; color:var(--accent); font-weight:700; margin:0 0 .45rem}
+.chk{list-style:none; padding-left:0}
+.chk li{position:relative; padding-left:1.7rem; margin:.35rem 0}
+.chk li::before{content:"☐"; position:absolute; left:0; top:0; font-size:1.05rem; color:var(--accent)}
+hr{border:0; border-top:1px solid var(--line); margin:2.2rem 0}
+.refs{font-size:.85rem; color:var(--muted)}
+.refs li{margin:.22rem 0}
+.top{display:block; text-align:right; font-size:.8rem; margin:.4rem 0 0}
+.top a{color:var(--muted); text-decoration:none}
+figure.fig{margin:1.5rem 0; padding:.9rem .9rem .1rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); break-inside:avoid; page-break-inside:avoid}
+figure.fig svg{display:block; width:100%; height:auto; margin:0 auto}
+figure.fig img{display:block; width:100%; height:auto; margin:0 auto; border-radius:6px}
+figure.fig figcaption{font-size:.85rem; line-height:1.7; color:var(--muted); margin:.7rem 0 .8rem; padding-top:.55rem; border-top:1px solid var(--line)}
+figure.fig figcaption b{color:var(--fg); font-weight:700}
+@media (prefers-color-scheme: dark){
+  figure.fig svg{filter:brightness(1.5) saturate(.95)}
+  figure.fig img{filter:brightness(.92)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:1.4rem .7rem 3.5rem}
+  table{font-size:.83rem}
+}
+@media print{
+  @page{margin:12mm 10mm}
+  /* 画面と同じ配色でPDF化する（2026-09-13 本人指示）。背景・アクセント色を落とさない */
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
+  :root{
+    --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+    --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+    --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+    --note:#6b3fa0; --note-soft:#f1ecf9;
+    --danger:#b3261e; --danger-soft:#fdecea;
+  }
+  body{background:var(--bg); color:var(--fg)}
+  body{font-size:9.2pt; line-height:1.5}
+  main{max-width:none; padding:0}
+  h1{font-size:16pt} h2{font-size:11.5pt; margin:14pt 0 5pt; break-after:avoid; page-break-after:avoid}
+  h3{font-size:10pt; margin:9pt 0 3pt; break-after:avoid; page-break-after:avoid}
+  a{text-decoration:none}
+  .toc{break-after:page; page-break-after:always}
+  .tablewrap{overflow:visible}
+  table{min-width:0 !important; width:100%; font-size:8pt; break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .box{break-inside:avoid; page-break-inside:avoid}
+  figure.fig{break-inside:avoid; page-break-inside:avoid}
+  figure.fig svg, figure.fig img{filter:none !important; max-width:100%}
+  figure.fig figcaption{font-size:7.6pt}
+  .top{display:none}
+}
+
+/* ===== 部（Part）見出し ===== */
+h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
+  background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
+h2.part .pn{display:block; font-size:.72rem; letter-spacing:.14em; opacity:.85; font-weight:700; margin-bottom:.15rem}
+p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-height:1.85}
+.toc li.p{margin-top:.5rem; font-weight:700}
+.toc li.p a{color:var(--accent)}
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
+/* ===== 共有ツール（リンクコピー / PDF） ===== */
+.tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
+.tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
+  border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;-webkit-appearance:none}
+.tools .btn.pri{background:var(--accent);color:#fff}
+.tools .btn.pri:hover{filter:brightness(1.08)}
+.tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.tools .btn.sec:hover{background:var(--accent);color:#fff}
+.tools .btn:active{transform:translateY(1px)}
+.tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+@media print{.tools{display:none !important}}
+
+/* ===== スコア計算機（Murray） ===== */
+.calc{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:1.4rem 0; background:var(--bg)}
+.calc-h{padding:.85rem 1.1rem; border-bottom:1px solid var(--line); background:var(--accent-soft)}
+.calc-h b{font-size:.98rem; color:var(--accent)}
+.calc-h span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+.calc-b{padding:.9rem 1.1rem}
+.crow{display:flex; flex-wrap:wrap; gap:.4rem .7rem; align-items:center; padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>.cl{flex:0 0 13.5rem; font-size:.87rem; font-weight:700}
+.crow>.cl small{display:block; font-weight:400; color:var(--muted); font-size:.76rem}
+.opts{display:flex; flex-wrap:wrap; gap:.35rem; flex:1}
+.opts button{font:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--fg); cursor:pointer; white-space:nowrap}
+.opts button:hover{border-color:var(--accent); color:var(--accent)}
+.opts button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+.calc-out{display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; align-items:center;
+  padding:.9rem 1.1rem; border-top:1px solid var(--line); background:var(--accent-soft)}
+.calc-score{font-size:2.1rem; font-weight:800; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+.calc-score small{font-size:.8rem; font-weight:500; color:var(--muted); margin-left:.2rem}
+.calc-msg{flex:1; min-width:15rem; font-size:.84rem; line-height:1.75}
+.calc.hot .calc-out{background:var(--danger-soft)}
+.calc.hot .calc-score{color:var(--danger)}
+.calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.figread{font-size:.92rem; color:var(--fg); margin:-.4rem 0 1.2rem; padding:.55rem .9rem; border-left:3px solid var(--line); line-height:1.75}
+.figread strong{color:var(--accent)}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
+
+/* ===== リファレンスUI（apply-reference-style.py が付与）===== */
+:root{ --sidebar-w: 288px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+
+/* 進捗バー */
+#rs-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* モバイル上部バー */
+#rs-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:10px;padding:0 12px}
+#rs-topbar .t{font-weight:700;font-size:14px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+#rs-burger{border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  border-radius:8px;width:40px;height:36px;font-size:17px;cursor:pointer}
+
+/* サイドバー */
+#rs-side{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);z-index:55;
+  background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .22s ease}
+#rs-side .hd{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#rs-side .hd .ttl{font-weight:800;font-size:14px;line-height:1.4;color:var(--fg)}
+#rs-side .hd .sb{font-size:11px;color:var(--muted);margin-top:3px}
+#rs-search{width:100%;margin-top:10px;padding:8px 10px;font-size:13px;
+  border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+#rs-search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#rs-hits{font-size:11px;color:var(--muted);margin-top:6px;min-height:14px}
+#rs-nav{overflow-y:auto;padding:10px 8px 24px;flex:1}
+#rs-nav a{display:block;padding:6px 10px;margin:1px 0;border-radius:7px;
+  color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.45;
+  border-left:3px solid transparent}
+#rs-nav a:hover{background:var(--accent-soft);color:var(--fg)}
+#rs-nav a.lv3{padding-left:22px;font-size:12px;opacity:.9}
+#rs-nav a.on{background:var(--accent-soft);color:var(--accent);
+  border-left-color:var(--accent);font-weight:700}
+#rs-nav a.hit{outline:1px dashed var(--accent)}
+#rs-scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;display:none}
+
+/* 本文: サイドバー分を body の padding で空け、main は残り幅の中で中央寄せ
+   （margin-left と max-width の併用だと広い画面で右だけ余る）*/
+body{padding-left:var(--sidebar-w)}
+main{margin:0 auto;max-width:1080px;padding:32px 40px 96px}
+
+/* 見出しが固定バーに隠れないように */
+h2,h3{scroll-margin-top:16px}
+
+/* 表を読みやすく */
+.rs-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+  border:1px solid var(--line);border-radius:10px}
+.rs-tw>table{margin:0;border:0;min-width:520px}
+.rs-tw thead th{position:sticky;top:0;z-index:2;background:var(--bg);
+  box-shadow:inset 0 -1px 0 var(--line)}
+
+/* 検索ハイライト */
+mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
+
+/* トップへ */
+#rs-top{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  font-size:17px;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+
+@media (min-width: 1600px){ main{max-width:1180px} }
+
+@media (max-width: 1000px){
+  #rs-topbar{display:flex}
+  #rs-side{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rs-side.open{transform:none}
+  #rs-side.open ~ #rs-scrim{display:block}
+  body{padding-left:0}
+  main{padding:70px 16px 90px;max-width:none}
+  .rs-tw>table{min-width:460px}
+}
+
+@media print{
+  #rs-side,#rs-topbar,#rs-scrim,#rs-top,#rs-progress{display:none !important}
+  body{padding-left:0 !important}
+  main{margin:0 !important;padding:0 !important;max-width:none !important}
+  .rs-tw{overflow:visible !important;border:0 !important}
+  .rs-tw>table{min-width:0 !important}
+  .rs-tw thead th{position:static !important}
+  table,tr,.box{break-inside:avoid;page-break-inside:avoid}
+  h2{break-after:avoid;page-break-after:avoid}
+  mark.rs-mk{font-weight:700}
+}
+/* ===== /リファレンスUI ===== */
+
+</style>
+</head>
+<body data-refstyle="1">
+<div id="rs-progress"></div>
+<div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">聖路加ICU 栄養療法マニュアル</span></div>
+<aside id="rs-side"><div class="hd"><div class="ttl">聖路加ICU 栄養療法マニュアル</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#quick">栄養療法 早見表</a>
+<a class="lv2" href="#s1">§1 栄養療法の基本方針</a>
+<a class="lv3" href="#rs-s1-1">1-1. 対象と原則</a>
+<a class="lv3" href="#rs-s1-2">1-2. 略語</a>
+<a class="lv2" href="#s2">§2 ENを始める</a>
+<a class="lv3" href="#rs-s2-1">2-1. 開始してよい条件</a>
+<a class="lv3" href="#rs-s2-2">2-2. 昇圧薬を使っているとき</a>
+<a class="lv3" href="#rs-s2-3">2-3. 遅らせる・保留する状況</a>
+<a class="lv2" href="#s3">§3 ルートを選ぶ</a>
+<a class="lv3" href="#rs-s3-1">3-1. 胃か、幽門後か</a>
+<a class="lv3" href="#rs-s3-2">3-2. NJを使うときの注意</a>
+<a class="lv2" href="#s4">§4 栄養状態を評価する</a>
+<a class="lv3" href="#rs-s4-1">4-1. NUTRICスコア</a>
+<a class="lv3" href="#rs-s4-2">4-2. リフィーディング症候群</a>
+<a class="lv2" href="#s5">§5 目標量を決める</a>
+<a class="lv3" href="#rs-s5-1">5-1. 当院の目標</a>
+<a class="lv3" href="#rs-s5-2">5-2. 急性期の上げ方</a>
+<a class="lv2" href="#s6">§6 投与する — 院内プロトコール</a>
+<a class="lv3" href="#rs-s6-1">6-1. 4つのプロトコール</a>
+<a class="lv3" href="#rs-s6-2">6-2. 胃残を確認したあと</a>
+<a class="lv3" href="#rs-s6-3">6-3. 誤嚥を減らす</a>
+<a class="lv2" href="#s7">§7 トラブルに対応する</a>
+<a class="lv3" href="#rs-s7-1">7-1. 胃残量（GRV）の考え方</a>
+<a class="lv3" href="#rs-s7-2">7-2. 胃残が増えたとき</a>
+<a class="lv3" href="#rs-s7-3">7-3. 蠕動促進薬</a>
+<a class="lv3" href="#rs-s7-4">7-4. 下痢</a>
+<a class="lv3" href="#rs-s7-5">7-5. 便秘</a>
+<a class="lv2" href="#s8">§8 静脈栄養（PN）</a>
+<a class="lv3" href="#rs-s8-1">8-1. 始めるタイミング</a>
+<a class="lv3" href="#rs-s8-2">8-2. 脂肪乳剤</a>
+<a class="lv2" href="#s9">§9 栄養剤の基礎知識</a>
+<a class="lv3" href="#rs-s9-1">9-1. たんぱく質の形で4種類に分かれる</a>
+<a class="lv3" href="#rs-s9-2">9-2. 当院がペプタメンを標準にしている理由</a>
+<a class="lv3" href="#rs-s9-3">9-3. 医薬品か、食品か</a>
+<a class="lv3" href="#rs-s9-4">9-4. 濃さと形</a>
+<a class="lv3" href="#rs-s9-5">9-5. 病態に合わせた製剤</a>
+<a class="lv2" href="#s10">§10 当院の栄養剤一覧</a>
+<a class="lv3" href="#rs-s10-1">10-1. 医薬品</a>
+<a class="lv3" href="#rs-s10-2">10-2. 食品（ICUでよく使うもの）</a>
+<a class="lv3" href="#rs-s10-3">10-3. 給食提供の栄養剤・補助剤</a>
+<a class="lv2" href="#quick">持続投与の早見表</a>
+<a class="lv3" href="#rs-s10-4">10-4. ペプタメン（AF・インテンス・プレビオ）</a>
+<a class="lv3" href="#rs-s10-5">10-5. 下痢・腎不全・糖尿病向け</a>
+<a class="lv3" href="#rs-s10-6">10-6. 医薬品（エレンタール・エンシュアH・ラコールNF・エネーボ・イノラス）</a>
+<a class="lv2" href="#s11">§11 急性腎障害（AKI）・腎代替療法（RRT）</a>
+<a class="lv3" href="#rs-s11-1">11-1. 当院の目安</a>
+<a class="lv3" href="#rs-s11-2">11-2. RRTの有無で考え方が変わる</a>
+<a class="lv2" href="#s12">§12 肝不全</a>
+<a class="lv3" href="#rs-s12-1">12-1. 当院の目安</a>
+<a class="lv2" href="#s13">§13 肥満</a>
+<a class="lv3" href="#rs-s13-1">13-1. 当院の目安</a>
+<a class="lv2" href="#s14">§14 急性膵炎</a>
+<a class="lv3" href="#rs-s14-1">14-1. 重症度ごとの方針</a>
+<a class="lv3" href="#rs-s14-2">14-2. 経路と製剤</a>
+<a class="lv3" href="#rs-s14-3">14-3. ICUでの運用</a>
+<a class="lv3" href="#rs-s14-4">14-4. 主な数字</a>
+<a class="lv2" href="#s15">§15 急性胆管炎・胆道閉塞</a>
+<a class="lv3" href="#rs-s15-1">15-1. 治療の中心はドレナージ</a>
+<a class="lv3" href="#rs-s15-2">15-2. 栄養の運用</a>
+<a class="lv3" href="#rs-s15-3">15-3. 外瘻中の注意</a>
+<a class="lv2" href="#s16">§16 症例の解決</a>
+<a class="lv2" href="#refs">主要文献</a>
+</nav></aside>
+<div id="rs-scrim"></div>
+
+<main>
+
+<p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
+<h1 id="top">聖路加ICU 栄養療法マニュアル</h1>
+<p class="sub">EN開始から栄養剤の選び方、急性膵炎・胆管炎まで — 当院標準と日本版2024</p>
+
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>作成：岡本洋史（集中治療科）</span><span>対象：研修医・専攻医・看護師・栄養士・薬剤師</span><span>最終更新 2026-09-17</span></p>
+
+<div class="tools">
+  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
+  <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
+</div>
+
+<h2 id="quick">栄養療法 早見表</h2>
+
+<p>指示を出すときに見る数値と、判断の分かれ目だけを1枚にまとめています。根拠と例外は各章にあります。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表1｜ICU栄養療法 早見表 — <span class="ok">いつ・どれだけ・何で入れるか</span></caption>
+<thead><tr><th>項目</th><th>当院標準</th><th>根拠</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td colspan="4" class="grp">開始</td></tr>
+<tr><td><strong>EN開始の時期</strong></td><td class="num"><strong>ICU入室後48時間以内</strong></td><td><span class="src jp">JCCNG2024 CQ1-5</span></td><td>腸蠕動音は開始の指標にしない（§2-1）</td></tr>
+<tr><td><strong>開始してよい循環</strong></td><td class="num"><strong>NAD ≤ 0.15 μg/kg/分</strong><br>MAP ≥ 65 mmHg</td><td><span class="src in">当院</span></td><td>組織灌流の目標を達成していること。日本版2024は数値を示していない（§2-2）</td></tr>
+<tr><td>開始量</td><td class="num"><strong>10〜20 mL/時</strong>（持続）</td><td><span class="src in">当院 プロトコール</span></td><td>リフィーディング高リスクは医師が指定（§6）</td></tr>
+<tr><td>増量</td><td class="num">12〜24時間ごとに 10 mL/時</td><td><span class="src in">当院 プロトコール</span></td><td>リフィーディング予防プロトコールは 5 mL/時ずつ</td></tr>
+<tr><td colspan="4" class="grp">目標量</td></tr>
+<tr><td><strong>蛋白</strong></td><td class="num"><strong>1.3 g/kg（実体重）/日</strong></td><td><span class="src in">当院</span><span class="src vault">NEJM2026</span></td><td>第一優先。1週目は漸増で到達する（§5）</td></tr>
+<tr><td>エネルギー</td><td class="num">25〜30 kcal/kg（実体重）/日</td><td><span class="src in">当院</span></td><td>最初から全量は入れない。蛋白を優先し、カロリーは控えめでよい</td></tr>
+<tr><td>肥満（BMI &gt; 30）</td><td class="num">11〜14 kcal/kg 実体重<br>蛋白 1.3 g/kg 標準体重</td><td><span class="src ext">ASPEN2022</span></td><td>BMI &gt; 50 は 22〜25 kcal/kg 標準体重（§14）</td></tr>
+<tr><td colspan="4" class="grp">監視とトラブル</td></tr>
+<tr><td><strong>胃残量</strong></td><td class="num"><strong>6・14・22時に測定</strong><br>250 mL/回以上で減速＋医師コール</td><td><span class="src in">当院</span></td><td>当面は測定を続ける。胃残だけでENを止めない（§7-1）</td></tr>
+<tr><td>下痢</td><td class="num">ブリストル6以上・中等量以上が1日3回以上で介入</td><td><span class="src in">当院</span></td><td>下痢だけでENを止めない（§7-4）</td></tr>
+<tr><td>リフィーディング高リスク</td><td class="num">予防プロトコール＋ビタメジン1週間</td><td><span class="src in">当院</span></td><td>開始後72時間は P・Mg・K を確認（§4-2）</td></tr>
+<tr><td colspan="4" class="grp">ENができないとき</td></tr>
+<tr><td><strong>PN開始</strong></td><td class="num"><strong>3〜7日以内</strong></td><td><span class="src in">当院</span><span class="src ext">ESPEN2019</span></td><td>重度の栄養不良でENが禁忌なら早期に（§8）</td></tr>
+<tr><td>急性膵炎</td><td class="num">絶食にしない。軽症は低脂肪固形食、重症はNGからEN</td><td><span class="src vault">AmJGastroenterol2024</span></td><td>成分栄養は選ばない（§15）</td></tr>
+<tr><td>急性胆管炎</td><td class="num">絶食はドレナージの前後だけ</td><td><span class="src in">当院 運用案</span></td><td>専用の根拠は乏しい（§16）</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box plain"><span class="label">この症例で考える</span>
+<p>68歳男性、肺炎による敗血症性ショックで入室しました。挿管・人工呼吸中で、ノルアドレナリン 0.12 μg/kg/分、乳酸は 4.1 から 2.0 mmol/L に下がっています。腸蠕動音は聴取できません。BMI 17.5 で、入院前の10日間ほとんど食事がとれていませんでした。</p>
+<p>いつ、何を、どれだけの速度で始めますか。</p>
+</div>
+
+<h2 id="s1"><span class="no">§1</span>栄養療法の基本方針</h2>
+
+<p>この章で決めることは、誰に栄養療法を考えるかと、その順番です。栄養は ICU 死亡率を下げうる数少ない介入の一つで、開始の遅れは抗菌薬の遅れと同じように問題にします。</p>
+
+<h3 id="rs-s1-1">1-1. 対象と原則</h3>
+
+<ul>
+<li>対象は<strong>全ICU入室患者</strong>です。特に入室期間が48時間を超える見込みの患者で重要になります。<span class="src in">当院</span></li>
+<li>原則は <strong>If gut works, use it!</strong>（腸が使えるなら使う）です。</li>
+<li><span class="split">腸蠕動音を開始の指標にしないでください</span>。蠕動音が聞こえないことは、栄養を始められないことを意味しません。</li>
+<li>優先順位は <strong>経口 ＞ 経鼻胃管（NG） ＞ 経鼻空腸管（NJ） ＞ 静脈栄養（PN）</strong> です。</li>
+</ul>
+
+<h3 id="rs-s1-2">1-2. 略語</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表2｜この資料で使う略語</caption>
+<thead><tr><th>略語</th><th>意味</th><th>略語</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td>EN</td><td>経腸栄養</td><td>NAD</td><td>ノルアドレナリン</td></tr>
+<tr><td>PN／TPN</td><td>静脈栄養／中心静脈栄養</td><td>GRV</td><td>胃残量</td></tr>
+<tr><td>SPN</td><td>補足的静脈栄養（ENの不足分を補うPN）</td><td>RRT</td><td>腎代替療法</td></tr>
+<tr><td>NG／NJ</td><td>経鼻胃管／経鼻空腸管</td><td>JCCNG2024</td><td>日本版重症患者の栄養療法ガイドライン2024</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s2"><span class="no">§2</span>ENを始める</h2>
+
+<p>この章では、ENを始めてよい条件と、遅らせるべき状況を決めます。目標は ICU 入室後48時間以内の開始です。<span class="src jp">JCCNG2024 CQ1-5</span></p>
+
+<h3 id="rs-s2-1">2-1. 開始してよい条件</h3>
+
+<div class="box good"><span class="label">当院標準　<span class="src in">当院</span></span>
+<div class="tablewrap">
+<table class="wide">
+<caption>表3｜EN開始の条件</caption>
+<thead><tr><th>項目</th><th>基準</th></tr></thead>
+<tbody>
+<tr><td><strong>循環</strong></td><td><strong>NAD 0.15 μg/kg/分以下</strong>、MAP 65 mmHg 以上、組織灌流の目標を達成</td></tr>
+<tr><td><strong>消化管</strong></td><td>出血・通過障害・大量の下痢・大量の胃残・腹部コンパートメント症候群がない</td></tr>
+<tr><td><strong>呼吸</strong></td><td>コントロールできない致死的な低酸素血症がない。安定した低酸素や、許容した高CO₂血症・アシドーシスなら開始してよい</td></tr>
+</tbody>
+</table>
+</div>
+<p>開始前に確認すること：栄養剤の種類／開始量と目標量／ベッドアップ30度／リフィーディングのリスク評価（§4-2）</p>
+</div>
+
+<h3 id="rs-s2-2">2-2. 昇圧薬を使っているとき</h3>
+
+<p>昇圧薬が必要な患者では、腸管の血流が落ちている可能性があります。そこに栄養剤を入れると腸管の酸素需要が増え、まれに非閉塞性腸管虚血を起こします。一方で、少量の栄養は腸粘膜を保つ働きがあります。この釣り合いをどこで取るかが論点です。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表4｜昇圧薬とENの根拠 — <span class="ok">日本版2024は数値の閾値を示していない</span></caption>
+<thead><tr><th>出典</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td><span class="src jp">JCCNG2024 CQ1-6</span></td><td>循環動態が不安定な患者ではENを行わないことを弱く推奨（2D）。<strong>数値の閾値は示していない</strong>。昇圧薬量・蘇生輸液量・乳酸値の推移で症例ごとに検討する</td></tr>
+<tr><td><span class="src jp">JCCNG2024 メタ解析</span></td><td>2 RCT・n = 2441（主に NUTRIREA-2）。腸管虚血 EN群 1.6% 対 0.4%（RR 3.82、1000人あたり12人多い）。ICU滞在は1.0日短い</td></tr>
+<tr><td><span class="src jp">外科と代謝・栄養2022</span></td><td>NAD 0.2 μg/kg/分を超えたら遅らせる</td></tr>
+<tr><td><span class="src vault">NEJM2026</span></td><td>NAD 0.3 未満なら低用量ENは安全。0.5 を超えたらフルドーズのENは行わない。0.3〜0.5 は根拠の空白</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>当院の <strong>0.15 μg/kg/分</strong> は、日本版2024が数値を示していない部分を埋める院内の基準です。<span class="src in">当院</span> 開始後に NAD が 0.1 μg/kg/分以上であれば、増量は見合わせます（§6-2）。</p>
+
+<h3 id="rs-s2-3">2-3. 遅らせる・保留する状況</h3>
+
+<div class="box danger"><span class="label">ENを遅らせる・保留する</span>
+<ul>
+<li>血行動態・組織灌流の目標が未達成（達成したら、腸管虚血の徴候に注意して低用量で開始）</li>
+<li>コントロールできない致死的な低酸素血症</li>
+<li>明らかな腸管虚血</li>
+<li>大きな腸管瘻があり、それより肛門側に栄養ルートがない</li>
+<li>活動性の上部消化管出血（止血し、再出血の徴候がなければ開始してよい）</li>
+<li>胃残 500 mL/6時間 超</li>
+<li>腹部コンパートメント症候群</li>
+</ul>
+<p><span class="src ext">ESICM2017</span><span class="src in">当院</span></p>
+</div>
+
+<div class="box warn"><span class="label">落とし穴</span>
+<p>EN中に腹部膨満・腹痛・乳酸の再上昇・昇圧薬の増量が出たら、<strong>非閉塞性腸管虚血</strong>を考えてENを止め、画像で確認してください。<span class="src jp">JCCNG2024 CQ1-6</span></p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s3"><span class="no">§3</span>ルートを選ぶ</h2>
+
+<p>この章では、栄養剤をどこから入れるかを決めます。まずは経鼻胃管です。胃で入らないときや誤嚥のリスクが高いときに、幽門後（空腸）へ進めます。</p>
+
+<h3 id="rs-s3-1">3-1. 胃か、幽門後か</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表5｜ルートの選び方</caption>
+<thead><tr><th>ルート</th><th>選ぶ場面</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td><strong>経鼻胃管（NG）</strong></td><td>第一選択</td><td><span class="src ext">ESPEN2023</span></td></tr>
+<tr><td><strong>経鼻空腸管（NJ、W-EDチューブ）</strong></td><td>胃残が多く蠕動促進薬でも改善しない／誤嚥のリスクが高い（制酸薬、仰臥位、再挿管、気管切開、ARDS、頭部外傷、頭蓋内圧測定、高齢など）</td><td><span class="src in">当院</span><span class="src ext">ESPEN2023</span></td></tr>
+<tr><td>幽門後投与の効果</td><td>胃内より幽門後を弱く推奨（2D）。肺炎が1000人あたり113件少ない</td><td><span class="src jp">JCCNG2024 CQ1-8</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s3-2">3-2. NJを使うときの注意</h3>
+
+<div class="box warn"><span class="label">落とし穴</span>
+<p><strong>NJでは胃残が測れません</strong>。嘔吐するまで不耐に気づかないことがあるので、毎日、胃エコーで胃内の貯留を確認してください。<span class="src in">当院</span></p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s4"><span class="no">§4</span>栄養状態を評価する</h2>
+
+<p>この章では、栄養リスクとリフィーディング症候群のリスクを評価します。高リスクの患者ほど、早く・慎重に始める必要があります。</p>
+
+<h3 id="rs-s4-1">4-1. NUTRICスコア</h3>
+
+<ul>
+<li>IL-6 は通常測らないので、<strong>IL-6なしの NUTRIC スコア</strong>で評価します。</li>
+<li><strong>5点以上</strong>を高リスクとします。<span class="src in">当院</span></li>
+</ul>
+
+<h3 id="rs-s4-2">4-2. リフィーディング症候群</h3>
+
+<p>飢餓の状態で糖が入るとインスリンが分泌され、リン・カリウム・マグネシウムが細胞内へ移動します。体内の総量がもともと減っているため、血中濃度が急に下がり、不整脈・呼吸筋力低下・心不全を起こします。ビタミンB1欠乏も同時に顕在化します。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表6｜リフィーディング症候群の高リスク — <span class="ok">左の1つ以上、または右の2つ以上</span></caption>
+<thead><tr><th>1つ以上で高リスク</th><th>2つ以上で高リスク</th></tr></thead>
+<tbody>
+<tr><td>BMI 16 未満</td><td>BMI 18.5 未満</td></tr>
+<tr><td>3〜6か月で 15%以上の意図しない体重減少</td><td>3〜6か月で 10%以上の意図しない体重減少</td></tr>
+<tr><td>10日以上の絶食</td><td>5日以上の絶食</td></tr>
+<tr><td>栄養開始前の低K・低P・低Mg血症</td><td>アルコール依存、またはインスリン・化学療法・制酸薬・利尿薬の使用歴</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src ext">BMJ2008</span></p>
+
+<div class="box good"><span class="label">高リスクのときの当院標準</span>
+<ul>
+<li><strong>リフィーディング予防プロトコール</strong>を使う（§6）<span class="src in">当院</span></li>
+<li><strong>ビタメジンを1週間</strong>投与する <span class="src in">当院</span></li>
+<li>発症の多くは栄養開始後72時間以内なので、<strong>その間は P・Mg・K を毎日確認</strong>する <span class="src vault">Nutrition2016</span><span class="src jp">JCCNG2024 CQ3-8</span></li>
+</ul>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s5"><span class="no">§5</span>目標量を決める</h2>
+
+<p>この章では、最終的な目標量と、そこまでの上げ方を決めます。目標値は変えませんが、<strong>最初の数日は目標の一部から漸増</strong>します。</p>
+
+<h3 id="rs-s5-1">5-1. 当院の目標</h3>
+
+<div class="box good"><span class="label">当院標準</span>
+<ul>
+<li><strong>蛋白</strong>：1.3 g/kg（実体重）/日　…第一優先</li>
+<li><strong>エネルギー</strong>：25〜30 kcal/kg（実体重）/日　…第二優先</li>
+<li>蛋白を優先し、カロリーは控えめでもよい（permissive underfeeding）</li>
+</ul>
+<p><span class="src in">当院</span></p>
+</div>
+
+<h3 id="rs-s5-2">5-2. 急性期の上げ方</h3>
+
+<p>急性期には、体が自分の組織を分解して作るエネルギー（内因性エネルギー）があります。そこに外から全量を足すと過剰になり、高血糖や、細胞の自己修復（オートファジー）の抑制につながると考えられています。そのため、最初の数日は少なめから始めます。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表7｜急性期の投与量 — <span class="ok">日本版2024とNEJM 2026で方向が分かれる</span></caption>
+<thead><tr><th>論点</th><th>JCCNG 2024</th><th>NEJM 2026 総説</th></tr></thead>
+<tbody>
+<tr><td><strong>急性期のエネルギー</strong></td><td>意図的に減らさないことを弱く推奨（CQ1-3・2B）</td><td>0〜3日は目標の約25%（10〜20 mL/時）、3〜7日で50〜80%、7日以降に80〜100%</td></tr>
+<tr><td><strong>蛋白</strong></td><td>1.2 g/kg/日を超える量を弱く推奨（CQ1-4・2D、確実性は非常に低い）</td><td>1週目は 1.3 g/kg/日まで漸増。高蛋白の利益は大規模RCTで示されなかった</td></tr>
+<tr><td><strong>AKI</strong></td><td>特記なし</td><td>RRTをしていないAKIでは高蛋白を避ける</td></tr>
+<tr><td><strong>消費量の推定</strong></td><td>間接熱量測定を弱く推奨（CQ3-2・2B）</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src jp">JCCNG2024</span><span class="src vault">NEJM2026</span></p>
+
+<p>当院のプロトコールは 10〜20 mL/時で始めて 12〜24時間ごとに増やすので、実際の投与はすでに漸増になっています。<span class="split">初日から蛋白 1.3 g/kg を入れる、という意味ではありません</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s6"><span class="no">§6</span>投与する — 院内プロトコール</h2>
+
+<p>この章では、4つのプロトコールの使い分けと、胃残を確認したあとの動き方を決めます。投与は<strong>持続投与</strong>で始めます。下痢が少なく、血糖が安定し、循環への負担が少ないためです。<span class="src jp">JCCNG2024 CQ1-9</span></p>
+
+<h3 id="rs-s6-1">6-1. 4つのプロトコール</h3>
+
+<p>電子カルテでは「セット → 経腸栄養 → プロトコール選択」で指示コメントが展開されます。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表8｜院内プロトコールの使い分け</caption>
+<thead><tr><th></th><th>手動</th><th>12h</th><th>24h</th><th>リフィーディング予防</th></tr></thead>
+<tbody>
+<tr><td><strong>使う場面</strong></td><td>医師が個別に調整</td><td>標準（早く増やす）</td><td>標準（ゆっくり）</td><td>リフィーディング高リスク</td></tr>
+<tr><td><strong>栄養剤</strong></td><td>ペプタメンAF</td><td>ペプタメンAF</td><td>ペプタメンインテンス</td><td>ペプタメンインテンス</td></tr>
+<tr><td><strong>開始量</strong></td><td>医師が指定</td><td>10 または 20 mL/時</td><td>10 または 20 mL/時</td><td>医師が指定</td></tr>
+<tr><td><strong>胃残確認</strong></td><td>6・14・22時</td><td>6・14・22時</td><td>6・14・22時</td><td>6・14・22時</td></tr>
+<tr><td><strong>量の調整</strong></td><td>医師</td><td>8時・16時</td><td>8時</td><td>8時</td></tr>
+<tr><td><strong>増やす幅</strong></td><td>—</td><td>10 mL/時</td><td>10 mL/時</td><td>5 mL/時</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src in">当院 持続経腸栄養プロトコール</span></p>
+
+<div class="box danger"><span class="label">医師コール（全プロトコール共通）</span>
+<ul>
+<li>胃残 250 mL/回 以上</li>
+<li>下痢（ブリストル6以上・中等量以上が1日3回以上）</li>
+<li>腹痛</li>
+</ul>
+</div>
+
+<h3 id="rs-s6-2">6-2. 胃残を確認したあと</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表9｜胃残確認後の流れ</caption>
+<thead><tr><th>胃残</th><th>①</th><th>②</th><th>③</th><th>④</th></tr></thead>
+<tbody>
+<tr><td><strong>250 mL/回 未満</strong></td><td>胃残を<strong>戻す</strong></td><td>目標到達なら<strong>同量</strong></td><td>未達なら<strong>増量</strong>（10 mL/時、リフィーディングは5）</td><td>NAD 0.1 μg/kg/分以上なら<strong>増量しない</strong></td></tr>
+<tr><td><strong>250 mL/回 以上</strong></td><td>胃残を<strong>捨てる</strong></td><td><strong>減速</strong>（10 mL/時、リフィーディングは5）して医師コール</td><td>蠕動促進薬を検討</td><td>改善しなければ<strong>経空腸栄養</strong>を検討</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s6-3">6-3. 誤嚥を減らす</h3>
+
+<div class="box good"><span class="label">要点　<span class="src jp">JCCNG2024 CQ3-5</span></span>
+<ul>
+<li>ベッドアップ 30〜45度</li>
+<li>持続投与</li>
+<li>リスクが高ければ幽門後投与</li>
+<li>VAP予防バンドル</li>
+<li>処置のたびにENを止める必要はない</li>
+</ul>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s7"><span class="no">§7</span>トラブルに対応する</h2>
+
+<p>この章では、胃残・消化管運動・下痢・便秘への対応を決めます。共通する原則は、<strong>できるだけENを止めない</strong>ことです。</p>
+
+<h3 id="rs-s7-1">7-1. 胃残量（GRV）の考え方</h3>
+
+<div class="box good"><span class="label">当院標準</span>
+<p><strong>当面は、6・14・22時の測定と、250 mL/回以上での医師コールを続けます。</strong>最新の指針を踏まえて、測定をやめるかどうかを院内で検討しています。<span class="src in">当院</span></p>
+</div>
+
+<div class="box warn"><span class="label">落とし穴</span>
+<p><span class="split">250 mL/回を超えても、嘔吐・腹部膨満・腹痛・画像・乳酸が落ち着いていれば、胃残だけでENを止めないでください</span>。日本版2016・ESPEN 2023 の目安は 500 mL で、当院の 250 mL はそれより低い値です。250 mL は「減速して相談する合図」と考えます。胃残が続けて多いときは、<strong>蠕動促進薬 → 幽門後投与</strong>へ進みます。</p>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表10｜胃残量測定の根拠 — <span class="ok">単独では不耐を見つけられない</span></caption>
+<thead><tr><th>出典</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td><span class="src jp">JCCNG2024 CQ3-4</span></td><td>胃残は腸管不耐の最も多い徴候で、最も一般的な指標。ただし単独では不耐を十分に見つけられない。症状・胃残の性状・腹部所見・エコー／X線・乳酸と組み合わせて評価する</td></tr>
+<tr><td><span class="src ext">Cochrane2021</span></td><td>測定の要否・頻度・閾値・戻すか捨てるかのいずれにも有用性を見いだせなかった（各1〜2 RCT）。死亡・入院日数・肺炎との関係も示されていない</td></tr>
+<tr><td><span class="src ext">ESPEN2023</span></td><td>500 mL/6時間を超えたら開始を遅らせる。ENが確立した後の確認は必須でない</td></tr>
+<tr><td><span class="src jp">JCCNG2024 CQ3-5</span></td><td>胃残の計測で誤嚥を防げる根拠はない。測らなくてもVAPは増えなかった（システマティックレビュー）</td></tr>
+<tr><td><span class="src vault">NEJM2026</span></td><td>定期測定は誤嚥も肺炎も減らさず、栄養の中断だけを増やす</td></tr>
+<tr><td><span class="src vault">AmJGastroenterol2024</span></td><td>急性膵炎で、胃残の評価は役に立たない可能性が高い</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box"><span class="label">検討中：測定をやめる場合に先に決めること</span>
+<ul>
+<li>不耐の評価項目（嘔吐・腹部膨満・腹痛・便性状・画像・乳酸）と、看護師が医師に連絡する基準</li>
+<li>NJ使用中の胃エコー確認は別に残す</li>
+<li>移行の前後で、EN中断時間・目標到達日数・嘔吐・VAPを比べられるように記録する</li>
+</ul>
+</div>
+
+<h3 id="rs-s7-2">7-2. 胃残が増えたとき</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表11｜胃残増加への対応 — <span class="ok">症状→確かめること→一手</span></caption>
+<thead><tr><th>確かめること</th><th>考える原因</th><th>一手</th></tr></thead>
+<tbody>
+<tr><td>腹部膨満・腹痛・乳酸・画像</td><td>腸閉塞、虚血性腸炎</td><td><strong>ENを止める</strong>。外科に相談</td></tr>
+<tr><td>麻薬・鎮静薬・抗コリン薬</td><td>薬剤性の胃排出遅延</td><td>減量・変更を検討</td></tr>
+<tr><td>血清K</td><td>低K血症による消化管運動低下</td><td><strong>Kを補正する</strong></td></tr>
+<tr><td>X線でチューブ先端の位置</td><td>先端位置の異常、イレウス</td><td>位置の修正</td></tr>
+<tr><td>上記で問題がない</td><td>重症病態に伴う胃排出遅延</td><td>蠕動促進薬（表12）→ 改善しなければNJ</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s7-3">7-3. 蠕動促進薬</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表12｜蠕動促進薬の順番</caption>
+<thead><tr><th>部位</th><th>順番</th><th>用量の目安</th></tr></thead>
+<tbody>
+<tr><td rowspan="3"><strong>胃</strong></td><td>① メトクロプラミド</td><td>10 mg 8時間ごと 3日間</td></tr>
+<tr><td>② 六君子湯</td><td>—</td></tr>
+<tr><td>③ エリスロマイシン</td><td>250 mg 8時間ごと 3日間</td></tr>
+<tr><td rowspan="2"><strong>腸</strong></td><td>① 大建中湯</td><td>—</td></tr>
+<tr><td>② パンテノール（パントール）</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src in">当院</span></p>
+
+<div class="box warn"><span class="label">使うときの注意</span>
+<ul>
+<li>メトクロプラミドは<strong>錐体外路症状</strong>、エリスロマイシンは<strong>薬物相互作用</strong>を毎日確認してください。</li>
+<li>PROMOTE 試験では、メトクロプラミド群で心房細動が 13.8% 対 1.6% でした。<span class="src vault">ICM2019</span></li>
+<li>ICUセットから展開します。<span class="split">外科術後の患者は必ず担当医に確認してください</span>。</li>
+</ul>
+</div>
+
+<h3 id="rs-s7-4">7-4. 下痢</h3>
+
+<p>ICUの下痢は<strong>薬剤性が多い</strong>です（抗菌薬・緩下剤・蠕動促進薬・制酸薬）。下痢の20%以上で直前に刺激性下剤が使われていたという報告があります。<span class="src jp">JCCNG2024 CQ3-6</span></p>
+
+<div class="box good"><span class="label">対応の手順</span>
+<ol>
+<li><strong>下痢だけを理由にENを止めない</strong></li>
+<li>抗菌薬関連下痢症（CD腸炎など）を考える</li>
+<li>緩下剤・蠕動促進薬を見直す</li>
+<li>画像を確認する</li>
+<li>整腸剤（ミヤBMなど）・止痢薬・五苓散を検討する</li>
+<li>栄養剤の量・速度・種類を見直す（浸透圧、食物繊維入りの製剤：表17）</li>
+</ol>
+<p><span class="src in">当院</span></p>
+</div>
+
+<ul>
+<li>プレバイオティクス（水溶性食物繊維を含む）は<strong>強い推奨（1B）</strong>、シンバイオティクスも強い推奨（1C）です。<span class="src jp">JCCNG2024 CQ2-7</span></li>
+<li>便量 350 g/日以上で、1日 627 kcal の吸収不良があったとの報告があります。<span class="src jp">JCCNG2024 CQ3-6</span></li>
+</ul>
+
+<h3 id="rs-s7-5">7-5. 便秘</h3>
+
+<div class="box good"><span class="label">要点</span>
+<p><strong>便秘だけを理由にENを止めない</strong>でください。閉塞がないかを確認し、麻薬など薬剤の影響、脱水、腸の動きを確認します。<span class="src in">当院</span></p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s8"><span class="no">§8</span>静脈栄養（PN）</h2>
+
+<p>この章では、ENができないときにPNをいつ始めるかを決めます。ENを優先しますが、ENが長く入らない患者を放置しないことも同じくらい大切です。</p>
+
+<h3 id="rs-s8-1">8-1. 始めるタイミング</h3>
+
+<div class="box good"><span class="label">当院標準</span>
+<ul>
+<li>ENができない患者では <strong>3〜7日以内</strong>にPNを始める</li>
+<li><strong>重度の栄養不良があってENが禁忌</strong>なら、早期に積極的なPN</li>
+<li>経管栄養不耐をまだ調整している最中にはPNを始めない</li>
+</ul>
+<p><span class="src in">当院</span><span class="src ext">ESPEN2019</span></p>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表13｜PNの根拠</caption>
+<thead><tr><th>出典</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td><span class="src jp">JCCNG2024 CQ1-7</span></td><td>ENが一部入っている患者に、足りない分を補うPN（SPN）を最初の7日間は行わないことを弱く推奨（2A）。日本版2024で確実性が「高」の推奨はこれだけ</td></tr>
+<tr><td><span class="src jp">JCCNG2024 CQ1-10</span></td><td>一定期間ENができない患者でPNを行わないと予後が悪化するという考え方がある（BQ）</td></tr>
+<tr><td><span class="src vault">NEJM2026</span></td><td>ENが禁忌なら早期PNをためらわない。PNで感染が増えるという前提は大規模RCTで支持されなかった</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box"><span class="label">検討中</span>
+<p>「ENが一部入っている患者に、最初の7日間はSPNを足さない」をマニュアルに明記するかを検討しています。</p>
+</div>
+
+<h3 id="rs-s8-2">8-2. 脂肪乳剤</h3>
+
+<ul>
+<li>当院では、ICU入室2週間ごろから投与を考えます（協議中）。<span class="src in">当院</span></li>
+<li>日本版2024は、PN中の脂肪乳剤の静脈投与を行わないことを弱く推奨しています（2D）。対象研究は入室2週間以内の投与です。日本で使えるのはω-6系で、炎症を強める可能性があります。<span class="src jp">JCCNG2024 CQ2-6</span></li>
+<li><span class="split">プロポフォールの溶媒もω-6系脂肪乳剤です</span>。脂質の総投与量に含めて考えてください。</li>
+<li>必須脂肪酸の欠乏が長引く場合は、投与を考えてよいかもしれません。</li>
+</ul>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s9"><span class="no">§9</span>栄養剤の基礎知識</h2>
+
+<p>この章では、栄養剤の分類と、選ぶときの考え方を整理します。当院の標準はペプタメン（消化態）ですが、その理由は「消化態だから」ではありません。</p>
+
+<h3 id="rs-s9-1">9-1. たんぱく質の形で4種類に分かれる</h3>
+
+<p>栄養剤は、<strong>窒素源（たんぱく質がどこまで分解されているか）</strong>で分類します。分解が進むほど消化の手間は減りますが、浸透圧が上がり、味は落ちます。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表14｜栄養剤の分類 — <span class="ok">分解が進むほど消化は楽、浸透圧は高い</span></caption>
+<thead><tr><th></th><th>天然濃厚流動食</th><th>半消化態</th><th>消化態</th><th>成分栄養</th></tr></thead>
+<tbody>
+<tr><td><strong>窒素源</strong></td><td>天然食品由来のたんぱく質</td><td>たんぱく質・ポリペプチド（カゼイン・ホエイ・大豆・卵白）</td><td>アミノ酸・ジペプチド・トリペプチド</td><td>アミノ酸だけ</td></tr>
+<tr><td><strong>消化</strong></td><td>必要</td><td>ある程度必要</td><td>ほぼ不要。胃で固まらない</td><td>不要</td></tr>
+<tr><td><strong>脂質</strong></td><td>あり</td><td>あり（中鎖＋長鎖）</td><td>あり（中鎖＋長鎖）</td><td>ほぼなし。長く使うなら脂肪乳剤が必要</td></tr>
+<tr><td><strong>浸透圧</strong></td><td>—</td><td>低い</td><td>やや高い</td><td>高い</td></tr>
+<tr><td><strong>チューブ</strong></td><td>—</td><td>8 Fr</td><td>8 Fr</td><td>5 Fr でも通る</td></tr>
+<tr><td><strong>味</strong></td><td>—</td><td>よい</td><td>ふつう〜やや劣る</td><td>劣る</td></tr>
+<tr><td><strong>向く人</strong></td><td>消化吸収が保たれている人</td><td>ほとんどの患者</td><td>消化吸収が落ちた人（理論上）</td><td>同左</td></tr>
+<tr><td><strong>当院の例</strong></td><td>—</td><td>ラコールNF、エンシュア、エネーボ、イノラス、グルセルナREX、マーメッドワン、アイソカルサポート、リーナレン</td><td>ペプタメンAF・インテンス・プレビオ、ツインラインNF、すいすい</td><td>エレンタール、アミノレバンEN</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src in">当院 栄養科資料</span></p>
+
+<div class="box warn"><span class="label">日本版2024の考え方　<span class="src jp">JCCNG2024 CQ2-3</span></span>
+<p><strong>窒素源を目的に、消化態や成分栄養を選ぶことはしない</strong>（弱い推奨・2D）。</p>
+<ul>
+<li>12 RCT：ICU滞在 1.2日短い、人工呼吸 0.6日短い、下痢 1000人あたり28人少ない。一方で死亡 23人多い、感染 27人多い。死亡を重く見て非推奨としています</li>
+<li>短腸症候群・膵外分泌不全などの吸収不良や、腸管不耐の患者では検討されていません</li>
+<li>半消化態や天然濃厚流動食が優れていると示したわけでもありません</li>
+</ul>
+</div>
+
+<h3 id="rs-s9-2">9-2. 当院がペプタメンを標準にしている理由</h3>
+
+<p>理由は、<strong>少ない量で多くのたんぱく質を入れられる</strong>ことです。急性期は「たんぱく質は多めに、カロリーは控えめに」なるため、100 kcal あたりの蛋白が多い製剤が扱いやすくなります。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表15｜100 kcal あたりのたんぱく質</caption>
+<thead><tr><th>製剤</th><th>蛋白 g/100 kcal</th></tr></thead>
+<tbody>
+<tr><td><strong>ペプタメンインテンス</strong></td><td class="num"><strong>9.2</strong></td></tr>
+<tr><td><strong>ペプタメンAF</strong></td><td class="num"><strong>6.3</strong></td></tr>
+<tr><td>エネーボ</td><td class="num">4.5</td></tr>
+<tr><td>ラコールNF</td><td class="num">4.4</td></tr>
+<tr><td>グルセルナREX</td><td class="num">4.2</td></tr>
+<tr><td>イノラス／マーメッドワン</td><td class="num">4.0</td></tr>
+<tr><td>エンシュアH</td><td class="num">3.5</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>日本版2024が推奨しないのは「窒素源を目的とした」選択なので、目的が異なります。当院の採用品には、同じくらい蛋白密度の高い半消化態製剤はありません。</p>
+
+<h3 id="rs-s9-3">9-3. 医薬品か、食品か</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表16｜医薬品と食品の違い</caption>
+<thead><tr><th></th><th>医薬品（薬価収載）</th><th>食品</th></tr></thead>
+<tbody>
+<tr><td><strong>出し方</strong></td><td>処方として出す</td><td>食事（給食）として出す</td></tr>
+<tr><td><strong>費用</strong></td><td>薬剤として保険請求</td><td>入院時の食事療養費に含まれる</td></tr>
+<tr><td><strong>在宅</strong></td><td>成分栄養は在宅成分栄養経管栄養法の指導管理料などの対象</td><td>対象外</td></tr>
+<tr><td><strong>当院の例</strong></td><td>エレンタール、アミノレバンEN、ツインラインNF、ラコールNF、エンシュア・H、エネーボ、イノラス、イノソリッド</td><td>ペプタメン各種、リーナレン、グルセルナREX、マーメッドワン、アイソカルサポート、給食提供の栄養剤</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s9-4">9-4. 濃さと形</h3>
+
+<ul>
+<li><strong>1.0 kcal/mL</strong>：ラコールNF、エンシュア、インテンス、グルセルナ、マーメッドワン、エレンタール（標準）</li>
+<li><strong>1.2〜1.6 kcal/mL</strong>：エネーボ 1.2、AF・エンシュアH・プレビオ・アイソカルサポート 1.5、イノラス・リーナレン 1.6（水分を減らしたいとき：心不全・腎不全など）</li>
+<li><strong>2.0 kcal/mL</strong>：アイソカル100（経口。少量で栄養をとりたいとき）</li>
+</ul>
+
+<div class="box warn"><span class="label">濃い製剤の落とし穴</span>
+<ul>
+<li>水分が少ないので、脱水・高Na血症の傾向があれば水を足してください（早見表に1日の水分量があります：§11）。</li>
+<li>浸透圧が高いほど下痢の一因になります。<span class="src jp">JCCNG2024 CQ3-6</span></li>
+</ul>
+</div>
+
+<ul>
+<li><strong>液体</strong>：ほとんどの製剤。ポンプで持続投与できるICUの標準です。</li>
+<li><strong>胃の中で固まる</strong>：マーメッドワン（下痢向け）。</li>
+<li><strong>半固形</strong>：イノソリッド、メイバランス ぎゅっとソフトJelly、アップリード。短時間で注入できます。誤嚥性肺炎や胃食道逆流を防ぐ目的で考案されましたが、RCTはほとんどありません。<span class="src jp">JCCNG2024 CQ3-5</span></li>
+<li><strong>とろみ剤</strong>：レフP-1（ペクチン）。<span class="split">エンシュア・リーナレンLP・グルセルナでは固まりません</span>。</li>
+</ul>
+
+<h3 id="rs-s9-5">9-5. 病態に合わせた製剤</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表17｜病態別の製剤と日本版2024の推奨</caption>
+<thead><tr><th>目的</th><th>当院の製剤</th><th>JCCNG 2024</th></tr></thead>
+<tbody>
+<tr><td><strong>腎不全</strong>（K・P・水の制限）</td><td>リーナレンLP（低蛋白）・MP</td><td>特記なし（§12）</td></tr>
+<tr><td><strong>肝不全</strong></td><td>アミノレバンEN（BCAA）</td><td>特記なし（§13）</td></tr>
+<tr><td><strong>高血糖</strong></td><td>グルセルナREX、ペプタメンインテンス（低GI）</td><td>高脂質・低糖質の製剤は投与しないことを弱く推奨（CQ2-5・2C）</td></tr>
+<tr><td><strong>下痢</strong></td><td>ペプタメンプレビオ、マーメッドワン、アイソカルサポート、GFO、サンファイバー</td><td>プレバイオティクス：強い推奨（1B）。シンバイオティクス：強い推奨（1C）。プロバイオティクス：弱い推奨（2C）</td></tr>
+<tr><td><strong>免疫栄養</strong></td><td>アバンド、グルタミンCO、GFO</td><td>アルギニン強化・グルタミン強化：投与しない（2D）</td></tr>
+<tr><td><strong>ω-3脂肪酸の強化</strong></td><td>採用品なし</td><td>投与を弱く推奨（CQ2-1・2C）</td></tr>
+<tr><td><strong>水分制限</strong></td><td>ペプタメンAF、エンシュアH、エネーボ、アイソカルサポート、リーナレン</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box"><span class="label">検討中：高脂質の製剤の位置づけ　<span class="src jp">JCCNG2024 CQ2-5</span></span>
+<p>日本版2024は、重症患者に高脂質・低糖質の経腸栄養剤を投与しないことを弱く推奨しています（2C）。11 RCT で、人工呼吸が1.7日短く下痢が1000人あたり78人少ない一方、30日死亡が26人多い結果でした。対象研究の組成は<strong>脂質40〜55%・糖質28〜37%</strong>です。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表18｜当院の製剤の脂質・糖質エネルギー比（1本あたりの値から計算）</caption>
+<thead><tr><th>製剤</th><th>脂質</th><th>糖質</th></tr></thead>
+<tbody>
+<tr><td>グルセルナREX</td><td class="num"><strong>50%</strong></td><td class="num">39%</td></tr>
+<tr><td>アイソカルサポート</td><td class="num">41%</td><td class="num">41%</td></tr>
+<tr><td>ペプタメンAF</td><td class="num"><strong>40%</strong></td><td class="num"><strong>35%</strong></td></tr>
+<tr><td>ペプタメンプレビオ</td><td class="num">39%</td><td class="num">50%</td></tr>
+<tr><td>マーメッドワン</td><td class="num">34%</td><td class="num">55%</td></tr>
+<tr><td>ペプタメンインテンス</td><td class="num">33%</td><td class="num">30%</td></tr>
+<tr><td>エンシュアH</td><td class="num">32%</td><td class="num">55%</td></tr>
+<tr><td>エネーボ／イノラス</td><td class="num">29%</td><td class="num">51%／53%</td></tr>
+<tr><td>ラコールNF</td><td class="num">20%</td><td class="num">63%</td></tr>
+</tbody>
+</table>
+</div>
+<p>グルセルナREXとペプタメンAFは、この推奨が扱った組成の範囲に入ります。ただしこの推奨は、CO₂産生の抑制や血糖の安定を目的に高脂質にした製剤を扱ったもので、AFはそれを目的にした製剤ではありません。位置づけを栄養科と確認しています。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s10"><span class="no">§10</span>当院の栄養剤一覧</h2>
+
+<p>この章は、採用している栄養剤の一覧です。種類・濃さ・蛋白量を比べて選ぶときに使います。<span class="src in">当院 栄養科資料（2025-09）</span></p>
+
+<h3 id="rs-s10-1">10-1. 医薬品</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表19｜医薬品の栄養剤</caption>
+<thead><tr><th>製品</th><th>特徴・用途</th><th>分類</th><th>mL</th><th>kcal</th><th>kcal/mL</th><th>蛋白 g</th><th>浸透圧</th></tr></thead>
+<tbody>
+<tr><td>エレンタール（小児はP）</td><td>無脂肪、グルタミン。クローン病・短腸症候群</td><td>成分</td><td class="num">300</td><td class="num">300</td><td class="num">1</td><td class="num">13.2</td><td class="num">755</td></tr>
+<tr><td>アミノレバンEN</td><td>BCAA。肝不全・高アンモニア血症</td><td>成分</td><td class="num">200</td><td class="num">200</td><td class="num">1</td><td class="num">13.5</td><td class="num">495</td></tr>
+<tr><td>ツインラインNF（A・B）</td><td>—</td><td>消化態</td><td class="num">400</td><td class="num">400</td><td class="num">1</td><td class="num">16.2</td><td class="num">490</td></tr>
+<tr><td>ラコールNF</td><td>—</td><td>半消化態</td><td class="num">400</td><td class="num">400</td><td class="num">1</td><td class="num">17.5</td><td class="num">330</td></tr>
+<tr><td>エンシュア</td><td>—</td><td>半消化態</td><td class="num">250</td><td class="num">250</td><td class="num">1</td><td class="num">8.8</td><td class="num">330</td></tr>
+<tr><td>エンシュアH</td><td>水制限</td><td>半消化態</td><td class="num">250</td><td class="num">375</td><td class="num">1.5</td><td class="num">13.2</td><td class="num">540</td></tr>
+<tr><td>エネーボ</td><td>水制限</td><td>半消化態</td><td class="num">250</td><td class="num">300</td><td class="num">1.2</td><td class="num">13.5</td><td class="num">350</td></tr>
+<tr><td>イノラス</td><td>—</td><td>半消化態</td><td class="num">187.5</td><td class="num">300</td><td class="num">1.6</td><td class="num">12.0</td><td class="num">670</td></tr>
+<tr><td>イノソリッド</td><td>半固形</td><td>半消化態</td><td class="num">300</td><td class="num">300</td><td class="num">1</td><td class="num">13.1</td><td class="num">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box warn"><span class="label">エレンタールと急性膵炎</span>
+<p><span class="split">急性膵炎で成分栄養を選ぶ必要はありません</span>。標準の半消化態栄養剤で、耐容性・下痢・感染は同等です。<span class="src vault">Gastroenterology2024</span>（§15）</p>
+</div>
+
+<h3 id="rs-s10-2">10-2. 食品（ICUでよく使うもの）</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表20｜食品の栄養剤</caption>
+<thead><tr><th>製品</th><th>用途</th><th>特徴</th><th>分類</th><th>mL</th><th>kcal</th><th>kcal/mL</th><th>蛋白 g</th></tr></thead>
+<tbody>
+<tr><td><strong>ペプタメンインテンス</strong></td><td>急性期・血糖管理</td><td>高蛋白、ホエイ、低GI</td><td>消化態</td><td class="num">200</td><td class="num">200</td><td class="num">1</td><td class="num">18.4</td></tr>
+<tr><td><strong>ペプタメンAF</strong></td><td>急性期</td><td>高蛋白、ホエイ、水制限</td><td>消化態</td><td class="num">200</td><td class="num">300</td><td class="num">1.5</td><td class="num">19.0</td></tr>
+<tr><td>リーナレンLP</td><td>超低蛋白・CKD</td><td>水制限、K 60 mg・P 40 mg</td><td>半消化態</td><td class="num">125</td><td class="num">200</td><td class="num">1.6</td><td class="num">2.0</td></tr>
+<tr><td>リーナレンMP</td><td>K・P管理</td><td>水制限、K 60 mg・P 70 mg</td><td>半消化態</td><td class="num">125</td><td class="num">200</td><td class="num">1.6</td><td class="num">7.0</td></tr>
+<tr><td>グルセルナREX</td><td>糖尿病</td><td>低GI、大豆</td><td>半消化態</td><td class="num">400</td><td class="num">400</td><td class="num">1</td><td class="num">16.7</td></tr>
+<tr><td>ペプタメンプレビオ</td><td>下痢</td><td>プレバイオティクス、ホエイ</td><td>消化態</td><td class="num">267</td><td class="num">400</td><td class="num">1.5</td><td class="num">15.2</td></tr>
+<tr><td>マーメッドワン</td><td>下痢</td><td>胃で半固形化、大豆</td><td>半消化態</td><td class="num">400</td><td class="num">400</td><td class="num">1</td><td class="num">16.0</td></tr>
+<tr><td>アイソカルサポート</td><td>下痢</td><td>食物繊維、低GI、水制限</td><td>半消化態</td><td class="num">267</td><td class="num">400</td><td class="num">1.5</td><td class="num">15.2</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s10-3">10-3. 給食提供の栄養剤・補助剤</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表21｜給食提供の栄養剤</caption>
+<thead><tr><th>製品</th><th>特徴</th><th>量</th><th>kcal</th><th>蛋白 g</th></tr></thead>
+<tbody>
+<tr><td>テルミールミニ コーン</td><td>ストロー付</td><td class="num">125 mL</td><td class="num">200</td><td class="num">7.3</td></tr>
+<tr><td>アイソカル100</td><td>ストロー付</td><td class="num">100 mL</td><td class="num">200</td><td class="num">8.0</td></tr>
+<tr><td>すいすい</td><td>消化態・無脂肪</td><td class="num">125 mL</td><td class="num">160</td><td class="num">8.0</td></tr>
+<tr><td>アルジネードウォーター</td><td>アルギニン・術前補水</td><td class="num">125 mL</td><td class="num">100</td><td class="num">2.5</td></tr>
+<tr><td>メイバランス ぎゅっとソフトJelly</td><td>半固形</td><td class="num">125 mL</td><td class="num">200</td><td class="num">6.0</td></tr>
+<tr><td>アップリード</td><td>半固形</td><td class="num">100 mL</td><td class="num">400</td><td class="num">14.0</td></tr>
+<tr><td>ブイクレスCP10ゼリー</td><td>ゼリー</td><td class="num">80 mL</td><td class="num">110</td><td class="num">12.0</td></tr>
+<tr><td>あずきミルクプリン</td><td>ゼリー</td><td class="num">50 mL</td><td class="num">150</td><td class="num">5.0</td></tr>
+<tr><td>プロッカZn</td><td>ゼリー</td><td class="num">50 mL</td><td class="num">80</td><td class="num">6.2</td></tr>
+<tr><td>たんぱくん</td><td>粉末</td><td class="num">6 g</td><td class="num">19</td><td class="num">3.0</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表22｜補助剤 — <span class="ok">★はNST対象者のみ</span></caption>
+<thead><tr><th>製品</th><th>成分</th><th>量</th><th>kcal</th><th>蛋白 g</th></tr></thead>
+<tbody>
+<tr><td>★アバンド</td><td>アルギニン、グルタミン、HMB</td><td class="num">24 g</td><td class="num">79</td><td class="num">14</td></tr>
+<tr><td>★オルニュート</td><td>オルニチン</td><td class="num">5 g</td><td class="num">20</td><td class="num">3.1</td></tr>
+<tr><td>グルタミンCO</td><td>グルタミン</td><td class="num">9 g</td><td class="num">—</td><td class="num">7</td></tr>
+<tr><td>GFO</td><td>グルタミン、食物繊維、オリゴ糖</td><td class="num">15 g</td><td class="num">36</td><td class="num">3.6</td></tr>
+<tr><td>サンファイバー</td><td>食物繊維（グァーガム）</td><td class="num">6 g</td><td class="num">12</td><td class="num">0</td></tr>
+<tr><td>BB536</td><td>乳酸菌</td><td class="num">2 g</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>レフP-1</td><td>凝固剤（ペクチン）</td><td class="num">90 mL</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>MCT</td><td>中鎖脂肪酸</td><td class="num">12.7 g</td><td class="num">100</td><td class="num">0</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box warn"><span class="label">補助剤の注意</span>
+<p>過剰投与は腎・肝障害の可能性があり、エネルギーが不足した状態では効果がありません。日本版2024はアルギニン・グルタミンの強化を推奨していないので、★製品をICUの急性期に使うときはNSTの適応とあわせて慎重に判断してください。<span class="src jp">JCCNG2024</span></p>
+</div>
+
+<h2 id="quick">持続投与の早見表</h2>
+
+<p>主な製剤を 10〜50 mL/時で24時間投与したときの1日量です。K・P は「mg（mEq）」で示します。<span class="src in">当院 栄養科資料（2025-06）</span></p>
+
+<h3 id="rs-s10-4">10-4. ペプタメン（AF・インテンス・プレビオ）</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表23｜ペプタメンAF（1本 200 mL：300 kcal・蛋白19 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">186</td><td class="num">360</td><td class="num">22.8</td><td class="num">15.8</td><td class="num">32</td><td class="num">557（14）</td><td class="num">204（7）</td><td class="num">0.7</td><td class="num">1.2</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">372</td><td class="num">720</td><td class="num">45.6</td><td class="num">31.7</td><td class="num">63</td><td class="num">1114（29）</td><td class="num">408（14）</td><td class="num">1.5</td><td class="num">2.4</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">558</td><td class="num">1080</td><td class="num">68.4</td><td class="num">47.5</td><td class="num">95</td><td class="num">1670（43）</td><td class="num">612（20）</td><td class="num">2.2</td><td class="num">3.6</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">744</td><td class="num">1440</td><td class="num">91.2</td><td class="num">63.4</td><td class="num">127</td><td class="num">2227（57）</td><td class="num">816（27）</td><td class="num">2.9</td><td class="num">4.8</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">930</td><td class="num">1800</td><td class="num">114</td><td class="num">79.2</td><td class="num">158</td><td class="num">2784（71）</td><td class="num">1020（34）</td><td class="num">3.7</td><td class="num">6</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表24｜ペプタメンインテンス（1本 200 mL：200 kcal・蛋白18.4 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">204</td><td class="num">240</td><td class="num">22.1</td><td class="num">8.9</td><td class="num">18</td><td class="num">432（11）</td><td class="num">120（4）</td><td class="num">0.1</td><td class="num">1.2</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">408</td><td class="num">480</td><td class="num">44.2</td><td class="num">17.8</td><td class="num">36</td><td class="num">864（22）</td><td class="num">240（8）</td><td class="num">0.2</td><td class="num">2.4</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">612</td><td class="num">720</td><td class="num">66.2</td><td class="num">26.6</td><td class="num">54</td><td class="num">1296（33）</td><td class="num">360（12）</td><td class="num">0.3</td><td class="num">3.6</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">816</td><td class="num">960</td><td class="num">88.3</td><td class="num">35.5</td><td class="num">72</td><td class="num">1728（44）</td><td class="num">480（16）</td><td class="num">0.3</td><td class="num">4.8</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">1020</td><td class="num">1200</td><td class="num">110.4</td><td class="num">44.4</td><td class="num">90</td><td class="num">2160（55）</td><td class="num">600（20）</td><td class="num">0.4</td><td class="num">6</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表25｜ペプタメンプレビオ・バッグ（1本 267 mL：400 kcal・蛋白15.2 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">183</td><td class="num">360</td><td class="num">13.7</td><td class="num">15.4</td><td class="num">45.1</td><td class="num">384（9.9）</td><td class="num">262（8.8）</td><td class="num">1.5</td><td class="num">0.9</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">367</td><td class="num">720</td><td class="num">27.4</td><td class="num">31.0</td><td class="num">90</td><td class="num">769（20）</td><td class="num">525（17.5）</td><td class="num">3.0</td><td class="num">1.8</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">551</td><td class="num">1080</td><td class="num">41.0</td><td class="num">46.4</td><td class="num">135</td><td class="num">1153（29.6）</td><td class="num">788（26.3）</td><td class="num">4.5</td><td class="num">2.7</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">734</td><td class="num">1440</td><td class="num">54.7</td><td class="num">61.9</td><td class="num">180</td><td class="num">1537（39.4）</td><td class="num">1051（35.0）</td><td class="num">6.0</td><td class="num">3.6</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">917</td><td class="num">1798</td><td class="num">68.3</td><td class="num">77.3</td><td class="num">225</td><td class="num">1919（49.2）</td><td class="num">1313（43.8）</td><td class="num">7.5</td><td class="num">4.5</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s10-5">10-5. 下痢・腎不全・糖尿病向け</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表26｜マーメッドワン500（1本 500 mL：500 kcal・蛋白20 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">201</td><td class="num">240</td><td class="num">9.6</td><td class="num">9.1</td><td class="num">33</td><td class="num">396（10）</td><td class="num">264（9）</td><td class="num">0.9</td><td class="num">0.5</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">403</td><td class="num">480</td><td class="num">19.2</td><td class="num">18.2</td><td class="num">66</td><td class="num">792（20）</td><td class="num">528（18）</td><td class="num">1.7</td><td class="num">1.0</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">604</td><td class="num">720</td><td class="num">28.8</td><td class="num">27.4</td><td class="num">99</td><td class="num">1188（31）</td><td class="num">792（26）</td><td class="num">2.6</td><td class="num">1.5</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">806</td><td class="num">960</td><td class="num">38.4</td><td class="num">36.5</td><td class="num">132</td><td class="num">1584（41）</td><td class="num">1056（35）</td><td class="num">3.4</td><td class="num">2.0</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">1008</td><td class="num">1200</td><td class="num">48.0</td><td class="num">45.6</td><td class="num">166</td><td class="num">1980（51）</td><td class="num">1320（44）</td><td class="num">4.3</td><td class="num">2.4</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表27｜アイソカルサポート・バッグ（1本 267 mL：400 kcal・蛋白15.2 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">184</td><td class="num">360</td><td class="num">13.7</td><td class="num">16.6</td><td class="num">37</td><td class="num">288（7）</td><td class="num">288（10）</td><td class="num">0.8</td><td class="num">0.9</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">367</td><td class="num">720</td><td class="num">27.4</td><td class="num">33.1</td><td class="num">74</td><td class="num">576（15）</td><td class="num">576（19）</td><td class="num">1.6</td><td class="num">1.8</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">551</td><td class="num">1080</td><td class="num">41</td><td class="num">50</td><td class="num">110</td><td class="num">864（22）</td><td class="num">864（29）</td><td class="num">2.5</td><td class="num">2.7</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">734</td><td class="num">1440</td><td class="num">54.7</td><td class="num">66.3</td><td class="num">147</td><td class="num">1152（30）</td><td class="num">1152（38）</td><td class="num">3.3</td><td class="num">3.6</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">917</td><td class="num">1800</td><td class="num">68.4</td><td class="num">82.7</td><td class="num">184</td><td class="num">1440（37）</td><td class="num">1440（48）</td><td class="num">4.1</td><td class="num">4.5</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表28｜リーナレンMP（1本 125 mL：200 kcal・蛋白7 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">181</td><td class="num">384</td><td class="num">13.4</td><td class="num">10.8</td><td class="num">61</td><td class="num">115（3）</td><td class="num">134（5）</td><td class="num">0.6</td><td class="num">1.9</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">363</td><td class="num">768</td><td class="num">26.9</td><td class="num">21.5</td><td class="num">122</td><td class="num">230（6）</td><td class="num">269（9）</td><td class="num">1.2</td><td class="num">3.8</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">544</td><td class="num">1152</td><td class="num">40.3</td><td class="num">32.3</td><td class="num">183</td><td class="num">346（9）</td><td class="num">403（13）</td><td class="num">1.7</td><td class="num">5.8</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">725</td><td class="num">1536</td><td class="num">53.8</td><td class="num">43</td><td class="num">244</td><td class="num">461（12）</td><td class="num">538（18）</td><td class="num">2.3</td><td class="num">7.7</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">906</td><td class="num">1920</td><td class="num">67.2</td><td class="num">53.8</td><td class="num">305</td><td class="num">576（15）</td><td class="num">672（22）</td><td class="num">2.9</td><td class="num">9.6</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表29｜リーナレンLP（1本 125 mL：200 kcal・蛋白2 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">182</td><td class="num">384</td><td class="num">3.8</td><td class="num">10.8</td><td class="num">71</td><td class="num">115（3）</td><td class="num">77（2.6）</td><td class="num">0.3</td><td class="num">1.9</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">364</td><td class="num">768</td><td class="num">7.7</td><td class="num">21.5</td><td class="num">141</td><td class="num">230（6）</td><td class="num">154（5）</td><td class="num">0.6</td><td class="num">3.9</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">546</td><td class="num">1152</td><td class="num">11.5</td><td class="num">32.3</td><td class="num">212</td><td class="num">346（9）</td><td class="num">230（8）</td><td class="num">0.9</td><td class="num">5.8</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">728</td><td class="num">1536</td><td class="num">15.4</td><td class="num">43</td><td class="num">283</td><td class="num">461（12）</td><td class="num">307（10）</td><td class="num">1.2</td><td class="num">7.7</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">910</td><td class="num">1920</td><td class="num">19.2</td><td class="num">53.8</td><td class="num">353</td><td class="num">576（15）</td><td class="num">384（13）</td><td class="num">1.4</td><td class="num">9.6</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表30｜グルセルナREX（1本 400 mL：400 kcal・蛋白16.7 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">204</td><td class="num">240</td><td class="num">10.0</td><td class="num">13.4</td><td class="num">23</td><td class="num">240（6）</td><td class="num">156（5）</td><td class="num">0.6</td><td class="num">0.6</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">408</td><td class="num">480</td><td class="num">20.0</td><td class="num">26.8</td><td class="num">47</td><td class="num">480（12）</td><td class="num">312（10）</td><td class="num">1.1</td><td class="num">1.2</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">612</td><td class="num">720</td><td class="num">30.1</td><td class="num">40.1</td><td class="num">70</td><td class="num">720（19）</td><td class="num">468（16）</td><td class="num">1.7</td><td class="num">1.8</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">816</td><td class="num">960</td><td class="num">40.1</td><td class="num">53.5</td><td class="num">93</td><td class="num">960（25）</td><td class="num">624（21）</td><td class="num">2.3</td><td class="num">2.4</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">1020</td><td class="num">1200</td><td class="num">50.1</td><td class="num">66.9</td><td class="num">116</td><td class="num">1200（31）</td><td class="num">780（26）</td><td class="num">2.9</td><td class="num">3</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s10-6">10-6. 医薬品（エレンタール・エンシュアH・ラコールNF・エネーボ・イノラス）</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表31｜エレンタール（1本 80 g＝300 mL：300 kcal・蛋白13.2 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">200</td><td class="num">240</td><td class="num">10.6</td><td class="num">0.4</td><td class="num">51</td><td class="num">175（5）</td><td class="num">98（3）</td><td class="num">0.5</td><td class="num">0.8</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">400</td><td class="num">480</td><td class="num">21.1</td><td class="num">0.8</td><td class="num">101</td><td class="num">350（9）</td><td class="num">197（7）</td><td class="num">1.1</td><td class="num">1.6</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">600</td><td class="num">720</td><td class="num">31.7</td><td class="num">1.2</td><td class="num">152</td><td class="num">526（14）</td><td class="num">295（10）</td><td class="num">1.6</td><td class="num">2.4</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">800</td><td class="num">960</td><td class="num">42.2</td><td class="num">1.6</td><td class="num">203</td><td class="num">701（18）</td><td class="num">394（13）</td><td class="num">2.1</td><td class="num">3.2</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">1000</td><td class="num">1200</td><td class="num">52.8</td><td class="num">2</td><td class="num">253</td><td class="num">876（23）</td><td class="num">492（16）</td><td class="num">2.6</td><td class="num">4</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表32｜エンシュアH（1本 250 mL：375 kcal・蛋白13.2 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">186</td><td class="num">360</td><td class="num">12.7</td><td class="num">12.7</td><td class="num">49</td><td class="num">533（14）</td><td class="num">187（6）</td><td class="num">0.7</td><td class="num">1</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">372</td><td class="num">720</td><td class="num">25.3</td><td class="num">25.3</td><td class="num">99</td><td class="num">1066（27）</td><td class="num">374（13）</td><td class="num">1.5</td><td class="num">1.9</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">559</td><td class="num">1080</td><td class="num">38</td><td class="num">38</td><td class="num">148</td><td class="num">1598（41）</td><td class="num">562（19）</td><td class="num">2.2</td><td class="num">2.9</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">745</td><td class="num">1440</td><td class="num">50.7</td><td class="num">50.7</td><td class="num">198</td><td class="num">2131（55）</td><td class="num">749（25）</td><td class="num">2.9</td><td class="num">3.8</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">931</td><td class="num">1800</td><td class="num">63.4</td><td class="num">63.4</td><td class="num">247</td><td class="num">2664（68）</td><td class="num">936（31）</td><td class="num">3.6</td><td class="num">4.8</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表33｜ラコールNF（1本 400 mL：400 kcal・蛋白17.5 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">204</td><td class="num">240</td><td class="num">10.5</td><td class="num">5.3</td><td class="num">38</td><td class="num">331（9）</td><td class="num">106（4）</td><td class="num">0.5</td><td class="num">0.6</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">408</td><td class="num">480</td><td class="num">21</td><td class="num">10.7</td><td class="num">75</td><td class="num">662（17）</td><td class="num">211（7）</td><td class="num">0.9</td><td class="num">1.2</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">612</td><td class="num">720</td><td class="num">31.5</td><td class="num">16</td><td class="num">112</td><td class="num">994（26）</td><td class="num">317（11）</td><td class="num">1.4</td><td class="num">1.8</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">816</td><td class="num">960</td><td class="num">42</td><td class="num">21.4</td><td class="num">150</td><td class="num">1324（34）</td><td class="num">422（14）</td><td class="num">1.8</td><td class="num">2.4</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">1020</td><td class="num">1200</td><td class="num">52.6</td><td class="num">26.7</td><td class="num">187</td><td class="num">1656（43）</td><td class="num">528（18）</td><td class="num">2.3</td><td class="num">3</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表34｜エネーボ（1本 250 mL：300 kcal・蛋白13.5 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">195</td><td class="num">288</td><td class="num">13</td><td class="num">9.2</td><td class="num">38</td><td class="num">288（7）</td><td class="num">240（8）</td><td class="num">0.6</td><td class="num">1</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">390</td><td class="num">576</td><td class="num">25.9</td><td class="num">18.4</td><td class="num">76</td><td class="num">576（15）</td><td class="num">480（16）</td><td class="num">1.1</td><td class="num">1.9</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">585</td><td class="num">864</td><td class="num">38.9</td><td class="num">27.7</td><td class="num">114</td><td class="num">864（22）</td><td class="num">720（24）</td><td class="num">1.7</td><td class="num">2.9</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">780</td><td class="num">1152</td><td class="num">51.8</td><td class="num">36.8</td><td class="num">152</td><td class="num">1152（30）</td><td class="num">960（32）</td><td class="num">2.3</td><td class="num">3.8</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">974</td><td class="num">1440</td><td class="num">64.8</td><td class="num">46.1</td><td class="num">190</td><td class="num">1440（37）</td><td class="num">1200（40）</td><td class="num">2.8</td><td class="num">4.8</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表35｜イノラス（1本 187.5 mL：300 kcal・蛋白12 g）</caption>
+<thead><tr><th>mL/時</th><th>mL/日</th><th>水分 g</th><th>kcal</th><th>蛋白 g</th><th>脂質 g</th><th>糖質 g</th><th>K</th><th>P</th><th>食塩 g</th><th>本数</th></tr></thead>
+<tbody>
+<tr><td>10</td><td class="num">240</td><td class="num">180</td><td class="num">384</td><td class="num">15.4</td><td class="num">12.4</td><td class="num">51</td><td class="num">705（18.1）</td><td class="num">427（14.2）</td><td class="num">0.9</td><td class="num">1.3</td></tr>
+<tr><td>20</td><td class="num">480</td><td class="num">360</td><td class="num">768</td><td class="num">30.7</td><td class="num">24.7</td><td class="num">101</td><td class="num">1410（36.2）</td><td class="num">854（28.5）</td><td class="num">1.8</td><td class="num">2.6</td></tr>
+<tr><td>30</td><td class="num">720</td><td class="num">540</td><td class="num">1152</td><td class="num">46.1</td><td class="num">37.1</td><td class="num">153</td><td class="num">2116（54.3）</td><td class="num">1280（42.7）</td><td class="num">2.6</td><td class="num">3.9</td></tr>
+<tr><td>40</td><td class="num">960</td><td class="num">720</td><td class="num">1536</td><td class="num">61.4</td><td class="num">49.6</td><td class="num">204</td><td class="num">2821（72.3）</td><td class="num">1707（56.9）</td><td class="num">3.5</td><td class="num">5.2</td></tr>
+<tr><td>50</td><td class="num">1200</td><td class="num">900</td><td class="num">1920</td><td class="num">76.8</td><td class="num">61.8</td><td class="num">254</td><td class="num">3526（90.4）</td><td class="num">2134（71.1）</td><td class="num">4.4</td><td class="num">6.4</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s11"><span class="no">§11</span>急性腎障害（AKI）・腎代替療法（RRT）</h2>
+
+<p>この章では、腎機能が落ちた患者の蛋白量と製剤を決めます。RRTをしているかどうかで方向が逆になる点が大切です。</p>
+
+<h3 id="rs-s11-1">11-1. 当院の目安</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表36｜AKI・RRTの栄養 — <span class="ok">蛋白量は腎臓内科と合意して決める</span></caption>
+<thead><tr><th>状況</th><th>蛋白</th><th>エネルギー</th><th>製剤</th></tr></thead>
+<tbody>
+<tr><td>通常</td><td>まず 1.2 g/kg</td><td>20〜30 kcal/kg/日</td><td>—</td></tr>
+<tr><td>高K血症が制御できない、透析が軌道に乗っていない</td><td>—</td><td>—</td><td>リーナレンを検討</td></tr>
+<tr><td>透析が軌道に乗っている</td><td>HD 1.0〜1.5 g/kg、CRRT 最大 1.7 g/kg</td><td>20〜30 kcal/kg/日</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src in">当院</span><span class="src ext">ICM2019</span></p>
+
+<h3 id="rs-s11-2">11-2. RRTの有無で考え方が変わる</h3>
+
+<ul>
+<li><strong>RRTなしのAKI</strong>：蛋白は 1.2 g/kg を目安にし、高蛋白にしません。高蛋白で害がある可能性が示されています。<span class="src vault">NEJM2026</span></li>
+<li><strong>RRT中</strong>：アミノ酸を1日 10〜15 g 失うので、その分を上乗せします。RRT中の蛋白は 1.7〜2.5 g/kg/日とする考え方があります。<span class="src vault">CritCare2026</span></li>
+<li><strong>クエン酸抗凝固</strong>：クエン酸から約 218 kcal/日が入ります。総エネルギーに含めてください。<span class="src vault">CritCare2026</span></li>
+</ul>
+
+<div class="box"><span class="label">検討中</span>
+<p>CRRT中の蛋白上限（現行の「最大 1.7 g/kg」）を、腎臓内科と見直すことを検討しています。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s12"><span class="no">§12</span>肝不全</h2>
+
+<p>この章では、肝不全の栄養を決めます。急性肝不全は通常の患者と同じ栄養でよく、特別な制限は要りません。</p>
+
+<h3 id="rs-s12-1">12-1. 当院の目安</h3>
+
+<ul>
+<li>急性肝不全は通常の患者と同じ栄養でよい <span class="src ext">ESPEN2019 肝</span></li>
+<li>肝硬変で蛋白がとれないときは、植物性蛋白か<strong>BCAA製剤（0.25 g/kg/日）を経口</strong>で</li>
+<li>進行した肝硬変では、<strong>長期の経口BCAA（0.25 g/kg/日）</strong>でイベントなし生存とQOLが改善する</li>
+<li>腹水・浮腫があるときは、実体重ではなく<strong>ドライウェイトか普段の体重</strong>で目標を決める</li>
+</ul>
+
+<div class="box warn"><span class="label">落とし穴</span>
+<ul>
+<li>BCAA製剤は消化器内科と合意して使います。点滴は必須ではありません。<span class="src in">当院</span></li>
+<li><span class="split">アミノレバン点滴は高Cl性代謝性アシドーシスを起こしやすい</span>ので、使うなら 20 mL/時などで24時間に分け、早めに内服へ切り替えてください。</li>
+</ul>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s13"><span class="no">§13</span>肥満</h2>
+
+<p>この章では、BMI 30を超える患者の目標量を決めます。実体重で計算すると過剰になるため、体重の使い分けが要ります。</p>
+
+<h3 id="rs-s13-1">13-1. 当院の目安</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表37｜肥満患者の目標量</caption>
+<thead><tr><th>項目</th><th>目標</th></tr></thead>
+<tbody>
+<tr><td><strong>エネルギー</strong></td><td>11〜14 kcal/kg 実体重（BMI 30〜50）、22〜25 kcal/kg 標準体重（BMI 50超）、または 20 kcal/kg 標準体重</td></tr>
+<tr><td><strong>蛋白</strong></td><td>1.3 g/kg 標準体重</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src ext">ASPEN2022</span>　肥満・やせでは、実体重・理想体重・調整体重を使い分けて個別に決めます。<span class="src jp">JCCNG2024 CQ3-7</span></p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s14"><span class="no">§14</span>急性膵炎</h2>
+
+<p>この章では、急性膵炎の栄養を決めます。かつての「膵臓を休ませるために絶食」は現在の標準ではありません。急性膵炎の膵臓は食事の刺激にほとんど反応せず、早く腸を使うほうが感染合併症を減らせると考えられています。</p>
+
+<h3 id="rs-s14-1">14-1. 重症度ごとの方針</h3>
+
+<div class="box good"><span class="label">要点</span>
+<ul>
+<li><span class="split">膵炎を理由に絶食にしない</span></li>
+<li>軽症：24〜48時間以内に、<strong>低脂肪の固形食</strong>から</li>
+<li>重症・人工呼吸中：一般原則どおり、<strong>経鼻胃管からEN</strong></li>
+<li>PNは、ENができないときだけ</li>
+<li>成分栄養は選ばない。標準の栄養剤でよい</li>
+</ul>
+</div>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表38｜急性膵炎の重症度ごとの栄養</caption>
+<thead><tr><th>重症度</th><th>方針</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td><strong>軽症</strong></td><td>絶食にしない。耐えられれば24〜48時間以内に経口を始める</td><td><span class="src vault">AmJGastroenterol2024</span> 推奨10（条件付き・低）</td></tr>
+<tr><td>軽症の食形態</td><td>流動食から段階的に上げず、<strong>低脂肪の固形食</strong>から</td><td><span class="src vault">AmJGastroenterol2024</span> 推奨11（条件付き・低）</td></tr>
+<tr><td><strong>予測重症・壊死性</strong></td><td>72時間の時点で経口を試す（耐えられれば早く）。無理ならチューブでEN</td><td><span class="src vault">Gastroenterology2024</span></td></tr>
+<tr><td>中等症・重症</td><td>ENは感染合併症を防ぐと考えられる</td><td><span class="src vault">AmJGastroenterol2024</span></td></tr>
+<tr><td>PN</td><td>ENができない・耐えられない・足りないときだけ</td><td><span class="src vault">AmJGastroenterol2024</span></td></tr>
+<tr><td>ENができない（麻痺性イレウス・閉塞）</td><td>72時間以内にPNを始める</td><td><span class="src vault">JAMA2021</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s14-2">14-2. 経路と製剤</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表39｜急性膵炎の経路と製剤</caption>
+<thead><tr><th>項目</th><th>方針</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td><strong>経路</strong></td><td>まず経鼻胃管。NG・経鼻十二指腸・経鼻空腸はいずれも安全で、NGが望ましい</td><td><span class="src vault">AmJGastroenterol2024</span></td></tr>
+<tr><td><strong>NJにする</strong></td><td>胃の排出が遅い、胃の出口が狭い、嘔吐が続く</td><td><span class="src vault">Gastroenterology2024</span></td></tr>
+<tr><td><strong>製剤</strong></td><td>標準の半消化態でよい。成分・消化態と耐容性・下痢・感染が同等で安価</td><td><span class="src vault">Gastroenterology2024</span></td></tr>
+<tr><td><strong>投与</strong></td><td>持続投与。胃残の評価は役に立たない可能性が高い</td><td><span class="src vault">AmJGastroenterol2024</span></td></tr>
+<tr><td><strong>膵外分泌不全</strong></td><td>脂肪便などがあれば評価し、膵酵素補充を考える</td><td><span class="src vault">Gastroenterology2024</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s14-3">14-3. ICUでの運用</h3>
+
+<div class="box good"><span class="label">当院の運用（案）</span>
+<ol>
+<li>膵炎を理由に絶食にしない。開始基準は §2 と同じ</li>
+<li>経口ができる患者は、低脂肪の固形食から。腹痛や膵酵素の値を開始の条件にしない</li>
+<li><strong>挿管中・意識障害などで経口が見込めない患者は、48時間以内にNGからENを始める</strong></li>
+<li>NGで耐えられなければ、W-EDでNJへ</li>
+<li>製剤はペプタメンAF・インテンスでよい。膵炎だからエレンタールとはしない</li>
+<li>腹部コンパートメント症候群・麻痺性イレウス・閉塞ではENを保留し、改善しなければ72時間以内にPNを考える</li>
+<li>アルコール性膵炎はリフィーディング高リスクとして扱う（§4-2）</li>
+<li>胆石性膵炎は、胆管炎があれば §16 のドレナージを優先。同じ入院中に胆嚢摘出を相談する</li>
+</ol>
+</div>
+
+<p>3は解釈を含みます。PYTHON 試験は経口を試せる患者が対象で、人工呼吸中の患者の多くは当てはまらないためです。6の「72時間以内」は一般のPN開始（3〜7日）より早い設定です。膵炎は異化が強く、栄養リスクが高いことによります。<span class="src vault">JAMA2021</span></p>
+
+<h3 id="rs-s14-4">14-4. 主な数字</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表40｜急性膵炎の栄養と輸液のエビデンス</caption>
+<thead><tr><th>研究</th><th>比較</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td><strong>PYTHON</strong>（予測重症 208例）</td><td>24時間以内のチューブEN vs 72時間後に経口</td><td>感染 25% 対 26%、死亡 11% 対 7%。早いチューブ栄養に利益なし</td></tr>
+<tr><td><strong>Cochrane</strong>（8試験・348例）</td><td>EN vs TPN</td><td>死亡 RR 0.5（0.28–0.91）、多臓器不全 RR 0.55、全身感染 RR 0.39</td></tr>
+<tr><td>同・重症例</td><td>EN vs TPN</td><td>死亡 RR 0.18（0.06–0.58）</td></tr>
+<tr><td><strong>Qi 2018</strong></td><td>24時間以内のEN vs 遅いENまたはPN</td><td>多臓器不全 OR 0.4（0.2–0.79）</td></tr>
+<tr><td><strong>JCCNG 2024 CQ1-2</strong></td><td>EN vs PN（全体）</td><td>ENを弱く推奨（2C）。急性膵炎のサブグループはENが有利だが、確実性は非常に低い</td></tr>
+<tr><td><strong>WATERFALL</strong></td><td>中等量 vs 積極的な輸液</td><td>容量過負荷 6.3% 対 20.5%。中等量（1.5 mL/kg/時、必要時のみ 10 mL/kg のボーラス）が標準に</td></tr>
+<tr><td>胆石性で胆嚢摘出をしない</td><td>—</td><td>退院後中央値40日で8%、5年で22%が再発</td></tr>
+<tr><td>回復後</td><td>—</td><td>新規糖尿病 12か月で15%、外分泌不全 入院中62%</td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="src vault">AmJGastroenterol2024</span><span class="src vault">Gastroenterology2024</span><span class="src vault">JAMA2021</span><span class="src jp">JCCNG2024</span></p>
+
+<div class="box warn"><span class="label">高TG血症性膵炎</span>
+<p><span class="split">プロポフォールや脂肪乳剤は TG をさらに上げます</span>。使っているなら TG を測り、代わりを考えてください。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s15"><span class="no">§15</span>急性胆管炎・胆道閉塞</h2>
+
+<p>この章では、急性胆管炎の栄養を決めます。急性胆管炎に特化した栄養療法の RCT や推奨は見当たりません。以下は、ICU栄養の一般原則と、ドレナージのタイミングを組み合わせた運用です。</p>
+
+<h3 id="rs-s15-1">15-1. 治療の中心はドレナージ</h3>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表41｜胆道ドレナージのタイミング</caption>
+<thead><tr><th>重症度</th><th>ドレナージ</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td><strong>敗血症性ショックを伴う</strong></td><td class="num"><strong>12時間以内</strong></td><td><span class="src vault">Endoscopy2019</span></td></tr>
+<tr><td><strong>重症</strong></td><td class="num">24時間以内</td><td><span class="src vault">AnnGastroenterol2021</span></td></tr>
+<tr><td><strong>中等症</strong></td><td class="num">48〜72時間以内</td><td><span class="src vault">Endoscopy2019</span></td></tr>
+<tr><td><strong>軽症</strong></td><td class="num">待機的</td><td><span class="src vault">Endoscopy2019</span></td></tr>
+<tr><td>胆管炎のない重症胆石性膵炎で閉塞が続く</td><td class="num">48〜72時間以内</td><td><span class="src vault">AnnGastroenterol2021</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s15-2">15-2. 栄養の運用</h3>
+
+<div class="box good"><span class="label">当院の運用（案）</span>
+<ol>
+<li>胆管炎を理由に絶食にしない。開始基準は §2 と同じ（ショックが落ち着くまでは待つ）</li>
+<li><strong>絶食はドレナージの前後だけにする</strong>。処置前の絶食時間は院内の規定に従い、終わったらその日のうちに再開を目指す</li>
+<li>処置まで1〜3日ある中等症で、「処置待ち」のために何日も絶食にしない。処置の日の朝だけ止める運用を消化器内科と決める</li>
+<li>ドレナージ後に循環が落ち着けば、経口できれば経口、できなければNGからEN</li>
+<li>絶食が長引いてENが入らないときは §8 のPNに従う</li>
+</ol>
+</div>
+
+<h3 id="rs-s15-3">15-3. 外瘻中の注意</h3>
+
+<div class="box warn"><span class="label">落とし穴</span>
+<ul>
+<li>外瘻（ENBD・PTBD）で胆汁が体外に出ているあいだは、水・Na・重炭酸が失われます。排液量を記録して補ってください。</li>
+<li>胆汁が腸に届かないあいだは、脂肪と脂溶性ビタミンの吸収が落ちます。下痢・脂肪便に注意してください。</li>
+<li>外瘻の胆汁を腸に戻す（胆汁返還）かどうかは、消化器内科と相談してください。</li>
+</ul>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s16"><span class="no">§16</span>症例の解決</h2>
+
+<p>NAD 0.12 μg/kg/分で乳酸が改善しているので、<strong>循環は開始基準を満たします</strong>。腸蠕動音が聞こえないことは開始を妨げません。一方、10日以上の摂食不良は表6の「1つ以上」に、BMI 17.5 は「2つ以上」の項目に当てはまり、<strong>リフィーディング高リスク</strong>です。</p>
+<p>入室48時間以内に、経鼻胃管から<strong>リフィーディング予防プロトコール（ペプタメンインテンス、医師指定の低速で開始、5 mL/時ずつ増量）</strong>を選び、ビタメジンを1週間投与し、開始後72時間は P・Mg・K を毎日確認します。NAD が 0.1 μg/kg/分以上のあいだは増量を見合わせ、腹部膨満や乳酸の再上昇があればENを止めて腸管虚血を評価します。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="refs">主要文献</h2>
+
+<ul class="refs">
+<li>日本集中治療医学会 重症患者の栄養管理ガイドライン作成委員会. 日本版重症患者の栄養療法ガイドライン2024. J Intensive Care. 2025.</li>
+<li>Singer P, et al. ESPEN practical and partially revised guideline: Clinical nutrition in the intensive care unit. Clin Nutr. 2023;42:1671-89.</li>
+<li>Singer P, et al. ESPEN guideline on clinical nutrition in the intensive care unit. Clin Nutr. 2019;38:48-79.</li>
+<li>Compher C, et al. Guidelines for the provision of nutrition support therapy in the adult critically ill patient: ASPEN. JPEN J Parenter Enteral Nutr. 2022;46:12-41.</li>
+<li>Reintam Blaser A, et al. Early enteral nutrition in critically ill patients: ESICM clinical practice guidelines. Intensive Care Med. 2017;43:380-98.</li>
+<li>重症成人の栄養療法（総説）. N Engl J Med. 2026.</li>
+<li>AKI・RRT患者の栄養（総説）. Crit Care. 2026.</li>
+<li>Ostermann M, et al. How to feed a patient with acute kidney injury. Intensive Care Med. 2019;45:1006-8.</li>
+<li>Plauth M, et al. ESPEN guideline on clinical nutrition in liver disease. Clin Nutr. 2019;38:485-521.</li>
+<li>中西ら. 救急・集中治療領域重症患者における栄養管理. 外科と代謝・栄養. 2022;56(6).</li>
+<li>Tenner S, et al. American College of Gastroenterology Guidelines: Management of Acute Pancreatitis. Am J Gastroenterol. 2024.</li>
+<li>Trikudanathan G, et al. Diagnosis and Management of Acute Pancreatitis. Gastroenterology. 2024;167:673-88.</li>
+<li>Mederos MA, et al. Acute Pancreatitis: A Review. JAMA. 2021;325:382-90.</li>
+<li>Arvanitakis M, et al. ESPEN guideline on clinical nutrition in acute and chronic pancreatitis. Clin Nutr. 2020;39:612-31.</li>
+<li>Bakker OJ, et al. Early versus on-demand nasoenteric tube feeding in acute pancreatitis (PYTHON). N Engl J Med. 2014;371:1983-93.</li>
+<li>Yasuda H, et al. Monitoring of gastric residual volume during enteral nutrition. Cochrane Database Syst Rev. 2021;9:CD013335.</li>
+<li>Manes G, et al. ESGE guideline: Endoscopic management of common bile duct stones. Endoscopy. 2019.</li>
+<li>ERCP timing in acute biliopancreatic disease (review). Ann Gastroenterol. 2021.</li>
+<li>Revisiting the refeeding syndrome: a systematic review. Nutrition. 2016.</li>
+<li>Mehanna HM, et al. Refeeding syndrome: what it is, and how to prevent and treat it. BMJ. 2008;336:1495-8.</li>
+<li>Ulimorelin vs metoclopramide for enteral feeding intolerance (PROMOTE). Intensive Care Med. 2019.</li>
+</ul>
+
+</main><script id="rs-tools-js">
+(function(){
+  var cp=document.getElementById('rs-copy');
+  if(cp){cp.addEventListener('click',function(){
+    // ==公開URLは固定==。ローカル（file://）で開いても正しいリンクが取れるようにする
+    var t=cp.getAttribute('data-url'), old='🔗 リンクをコピー';
+    function done(){cp.textContent='✓ コピーしました';setTimeout(function(){cp.textContent=old;},1800);}
+    function fallback(){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;top:-9999px';
+        document.body.appendChild(ta); ta.select();
+        var ok=document.execCommand('copy'); document.body.removeChild(ta);
+        if(ok){done();return;}
+      }catch(e){}
+      window.prompt('このURLをコピーしてください', t);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,fallback);
+    }else{fallback();}
+  });}
+  var pd=document.getElementById('rs-pdf');
+  if(pd){pd.addEventListener('click',function(){
+    // 折りたたみがあれば開いてから印刷（印刷で中身が欠けるのを防ぐ）
+    [].slice.call(document.querySelectorAll('details')).forEach(function(d){d.open=true;});
+    window.print();
+  });}
+})();
+</script><script id="rs-tpl-js">
+(function(){
+  [].slice.call(document.querySelectorAll('.tpl-h .cp')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.dataset.tpl); if(!pre) return;
+      var t=pre.innerText, old=b.textContent;
+      function done(){b.textContent='✓ コピーしました'; b.classList.add('done');
+        setTimeout(function(){b.textContent=old; b.classList.remove('done');},1800);}
+      function fb(){
+        try{ var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly','');
+          ta.style.cssText='position:fixed;top:-9999px'; document.body.appendChild(ta); ta.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(ta); if(ok){done();return;} }catch(e){}
+        window.prompt('この内容をコピーしてください', t);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+  });
+})();
+</script><button id="rs-top" aria-label="先頭へ">↑</button>
+<script id="rs-js">
+(function(){
+  var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),
+      burger=document.getElementById('rs-burger'), nav=document.getElementById('rs-nav'),
+      inp=document.getElementById('rs-search'), hits=document.getElementById('rs-hits'),
+      bar=document.getElementById('rs-progress'), top=document.getElementById('rs-top'),
+      cur=document.getElementById('rs-cur');
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));})
+                 .filter(Boolean);
+
+  function close(){ side.classList.remove('open'); }
+  burger && burger.addEventListener('click',function(){ side.classList.toggle('open'); });
+  scrim && scrim.addEventListener('click',close);
+  nav.addEventListener('click',function(e){ if(e.target.tagName==='A' && window.innerWidth<=1000) close(); });
+
+  // scroll-spy ＋ 進捗 ＋ 現在地表示
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(h>0?(y/h*100):0)+'%';
+      top.style.display = y>500 ? 'block' : 'none';
+      var idx=0;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=90) idx=i; }
+      links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+      if(cur && heads[idx]) cur.textContent=heads[idx].textContent.trim();
+      var on=nav.querySelector('a.on');
+      if(on && on.offsetTop < nav.scrollTop) nav.scrollTop = on.offsetTop-60;
+      if(on && on.offsetTop > nav.scrollTop+nav.clientHeight-40) nav.scrollTop = on.offsetTop-nav.clientHeight+80;
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // インクリメンタル検索（本文をハイライトし、目次も絞る）
+  var main=document.querySelector('main'), timer=null;
+  function clearMarks(){
+    main.querySelectorAll('mark.rs-mk').forEach(function(m){
+      var p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+    });
+  }
+  function search(q){
+    clearMarks();
+    links.forEach(function(a){ a.classList.remove('hit'); a.style.display=''; });
+    if(!q){ hits.textContent=''; return; }
+    var lc=q.toLowerCase(), n=0, first=null;
+    var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,{acceptNode:function(nd){
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var t=nd.parentNode.tagName;
+      if(t==='SCRIPT'||t==='STYLE') return NodeFilter.FILTER_REJECT;
+      return nd.nodeValue.toLowerCase().indexOf(lc)>=0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+    var targets=[],nd;
+    while((nd=w.nextNode())) targets.push(nd);
+    targets.forEach(function(node){
+      var s=node.nodeValue, low=s.toLowerCase(), frag=document.createDocumentFragment(), i=0, j;
+      while((j=low.indexOf(lc,i))>=0){
+        if(j>i) frag.appendChild(document.createTextNode(s.slice(i,j)));
+        var mk=document.createElement('mark'); mk.className='rs-mk'; mk.textContent=s.substr(j,q.length);
+        frag.appendChild(mk); if(!first) first=mk; n++; i=j+q.length;
+      }
+      if(i<s.length) frag.appendChild(document.createTextNode(s.slice(i)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    // 目次側: 該当セクションだけ残す
+    links.forEach(function(a,i){
+      var el=heads[i]; if(!el) return;
+      var stop=heads[i+1], has=false, cur2=el;
+      while(cur2 && cur2!==stop){
+        if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
+        if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
+        cur2=cur2.nextElementSibling;
+      }
+      a.classList.toggle('hit',has); a.style.display = has ? '' : 'none';
+    });
+    hits.textContent = n ? (n+' 件 — Enterで先頭へ') : '該当なし';
+    inp._first=first;
+  }
+  inp.addEventListener('input',function(){
+    clearTimeout(timer); var q=inp.value.trim();
+    timer=setTimeout(function(){ search(q); },160);
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && inp._first){ inp._first.scrollIntoView({block:'center'}); }
+    if(e.key==='Escape'){ inp.value=''; search(''); }
+  });
+  // "/" で検索にフォーカス
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/' && document.activeElement!==inp){ e.preventDefault(); side.classList.add('open'); inp.focus(); }
+  });
+  top.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // 表を横スクロール容器で包む
+  [].slice.call(main.querySelectorAll('table')).forEach(function(t){
+    if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
+    var d=document.createElement('div'); d.className='rs-tw';
+    t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+</body>
+</html>

@@ -470,6 +470,9 @@ table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-we
     font-weight:700; letter-spacing:.06em; color:var(--muted); margin-bottom:.1rem}
 }
 /* ===== /読みやすさ ===== */
+
+/* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
+td.num{white-space:normal}
 </style>
 </head>
 <body data-refstyle="1">

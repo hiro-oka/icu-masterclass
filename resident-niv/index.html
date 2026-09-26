@@ -500,8 +500,8 @@ main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
 
 figure.fig .nf{font-size:.95em; line-height:1.65; color:var(--ink,var(--fg))}
 figure.fig .nf *{box-sizing:border-box}
-/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない */
-figure.fig svg.nf-svg, figure.fig .nf-svg{filter:none !important}
+/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない（アイコン・凡例の小さな SVG も含む） */
+figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !important}
 
 /* ---- 共通：チップ（道具名・区分） ---- */
 .nf-chip{display:inline-block; font-weight:700; font-size:.92em; line-height:1.45; white-space:nowrap;
@@ -510,6 +510,7 @@ figure.fig svg.nf-svg, figure.fig .nf-svg{filter:none !important}
 .nf-chip.is-fill{background:var(--accent); color:var(--bg)}
 .nf-chip.is-muted{border-color:var(--muted); color:var(--muted)}
 .nf-chip.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-chip.is-warn{border-color:var(--warn); color:var(--warn)}
 .nf-plus{font-weight:700; color:var(--muted); margin:0 .15em}
 
 /* ---- 1. 判断の流れ（nf-flow）：根 → 群 → カード → 結論帯 ---- */
@@ -521,6 +522,9 @@ figure.fig svg.nf-svg, figure.fig .nf-svg{filter:none !important}
 /* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
 .nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
   border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV 図3・HFNC 図13） */
+.nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
+.nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
 .nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
   border-radius:10px; background:var(--code)}
 .nf-gh{align-self:center; font-size:.84em; font-weight:700; letter-spacing:.08em; color:var(--muted); line-height:1.4}
@@ -621,6 +625,8 @@ figure.fig svg.nf-svg, figure.fig .nf-svg{filter:none !important}
 .nf-callout .nf-ch{display:block; font-weight:800; color:var(--accent-ink,var(--accent))}
 .nf-callout.is-danger{border-left-color:var(--danger); background:var(--danger-soft)}
 .nf-callout.is-danger .nf-ch{color:var(--danger)}
+.nf-callout.is-muted{border-left-color:var(--muted); background:var(--code)}
+.nf-callout.is-muted .nf-ch{color:var(--navy,var(--fg))}
 /* 棒の比較（小さな横棒。数値の無い大小比較に使う） */
 .nf-meters{display:grid; grid-template-columns:auto 1fr; gap:.3em .7em; align-items:center; margin:.5em 0 0; font-size:.9em; line-height:1.45}
 .nf-meters dt{color:var(--navy,var(--fg)); font-weight:600}
@@ -640,8 +646,119 @@ figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8p
 .nf-flag{display:inline-block; margin-top:.2em; font-size:.8em; font-weight:700; color:var(--danger);
   border:1.5px solid var(--danger); border-radius:999px; padding:0 .7em .05em; line-height:1.5}
 
+/* ---- 6. 3列の小さなパネル（nf-panels.is-3）：viewBox 幅 300 の SVG を横に3つ並べる（小さな多重グラフ・3つの作用） ----
+   幅 460 の既定より文字を単位上で大きくし、パソコン幅（1枚 約270px）でも本文に近い実寸を保つ。スマホでは1列 */
+.nf-panels.is-3{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1em 1.2em}
+.nf-panels.is-3 .nf-panel{max-width:none}
+.nf-panels.is-3 .nf-svg .nf-t{font-size:17px}
+.nf-panels.is-3 .nf-svg .nf-ts{font-size:15px}
+@container nfp (min-width: 18rem){ .nf-panels.is-3 .nf-svg .nf-t{font-size:15px} .nf-panels.is-3 .nf-svg .nf-ts{font-size:13.5px} }
+/* 凡例の中の小さな記号（SVG）。.nf-svg の幅100%を打ち消す */
+figure.fig .nf-legend svg.nf-sw{display:inline-block; width:1.15em; height:1.15em; margin:0; overflow:visible; flex:none}
+
+/* ---- 7. 物の流れの鎖（nf-steps.is-time.is-chain）：装置の構成など。段の間に矢印、各段に文字なしアイコン ---- */
+.nf-steps.is-chain{gap:1.7em; align-items:stretch}
+.nf-steps.is-chain .nf-step{margin-top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3em}
+.nf-steps.is-chain .nf-step:not(:first-child)::after{content:""; position:absolute; top:50%; left:-1.45em; width:1.2em; height:1.2em;
+  transform:translateY(-50%); background:var(--accent); clip-path:polygon(0 32%, 52% 32%, 52% 0, 100% 50%, 52% 100%, 52% 68%, 0 68%)}
+figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; margin:.1em auto .15em}
+.nf-step .nf-q{color:var(--navy,var(--fg)); font-weight:700; line-height:1.45}
+.nf-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:.3em}
+
+/* ---- 8. 頭文字カード（nf-acro）：語呂合わせ（HI-FLOW など）。左→右・上→下で頭文字が読める ---- */
+.nf-acro{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.6em}
+.nf-ac{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.7em; row-gap:.15em; align-content:start;
+  padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line); border-radius:8px}
+.nf-lt{grid-row:1 / span 3; align-self:start; display:flex; align-items:center; justify-content:center; width:1.9em; height:1.9em;
+  border-radius:50%; background:var(--accent-soft); color:var(--accent-ink,var(--accent)); font-weight:800; font-size:1.3em; line-height:1}
+.nf-en{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-ja{font-size:.94em; line-height:1.6}
+.nf-ac .nf-chip{justify-self:start; font-size:.84em}
+.nf-ac.is-key{border-color:var(--accent); background:var(--accent-soft)}
+.nf-ac.is-key .nf-lt{background:var(--accent); color:var(--bg)}
+
+/* ---- 9. 範囲の横棒（nf-range）：病態ごとの設定値の範囲を1本の数直線に並べる。数値は --a / --b（軸は --lo〜--hi） ---- */
+.nf-range{--lo:0; --hi:60; display:grid; grid-template-columns:minmax(8em, 14em) minmax(0, 1fr) minmax(7em, 12em);
+  column-gap:1em; row-gap:.3em; align-items:center}
+.nf-rl{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4; text-align:right}
+.nf-rl small{display:block; font-weight:400; font-size:.82em; color:var(--muted)}
+.nf-rv{font-size:.9em; line-height:1.45}
+.nf-rt{position:relative; height:2.2em; border-right:1px solid var(--line);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:calc(100% / var(--nf-div, 6)) 100%}
+.nf-zone, .nf-rb, .nf-rx{position:absolute; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+  width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-zone{top:0; bottom:0; background:color-mix(in srgb, var(--muted) 13%, transparent)}
+.nf-zone.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+.nf-rb{top:50%; height:.8em; transform:translateY(-50%); border-radius:999px; background:var(--accent)}
+.nf-rb.is-soft{background:color-mix(in srgb, var(--accent) 38%, transparent)}
+.nf-rb.is-muted{background:var(--muted)}
+.nf-rx{top:50%; height:0; border-top:2px dashed var(--accent)}
+.nf-rx::after{content:""; position:absolute; right:-1px; top:-1px; transform:translateY(-50%); border-style:solid;
+  border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent)}
+.nf-rd{position:absolute; top:50%; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:1.05em; height:1.05em;
+  transform:translate(-50%, -50%); border-radius:50%; background:var(--accent); border:2.5px solid var(--accent)}
+.nf-rd.is-open{background:var(--bg)}
+.nf-rd.is-muted{background:var(--muted); border-color:var(--muted)}
+.nf-raxis{grid-column:2; position:relative; height:1.5em; font-size:.86em; color:var(--muted); font-variant-numeric:tabular-nums}
+.nf-raxis span{position:absolute; top:0; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); transform:translateX(-50%); line-height:1.5}
+.nf-rat{grid-column:2; text-align:center; font-size:.9em; line-height:1.5}
+/* 範囲の横棒の追加（HFNC 図11）：2段のトラック（上＝設定、下＝実測）・四角の点・誤差の線（IQR・±SD） */
+.nf-rt.is-2{height:3.4em}
+.nf-rt .is-up{top:30%} .nf-rt .is-dn{top:71%}
+.nf-rd.is-sq{border-radius:2px; width:.95em; height:.95em}
+.nf-rw{position:absolute; top:50%; height:0; transform:translateY(-1px); border-top:2px solid var(--accent);
+  left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-rw::before, .nf-rw::after{content:""; position:absolute; top:-.42em; height:.84em; left:-1px; border-left:2px solid var(--accent)}
+.nf-rw::after{left:auto; right:-1px}
+.nf-rw.is-muted{border-top-color:var(--muted)}
+.nf-rw.is-muted::before, .nf-rw.is-muted::after{border-left-color:var(--muted)}
+/* 凡例の面（背景帯の見本） */
+.nf-sw-box{display:inline-block; width:1.4em; height:.95em; border-radius:3px; background:color-mix(in srgb, var(--muted) 18%, transparent)}
+.nf-sw-box.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+/* SVG の背景帯（模式図の領域分け） */
+.nf-svg .nf-zone-m{fill:var(--muted); opacity:.16}
+.nf-svg .nf-zone-a{fill:var(--accent); opacity:.13}
+.nf-svg .nf-zone-d{fill:var(--danger); opacity:.13}
+
+/* ---- 10. 番号つきの鎖（nf-steps.is-chain.is-text）：アイコンなしの手順を矢印でつなぐ（HFNC 図8・10・12）。
+   is-check＝確かめる段（灰）、is-goal＝終点（塗り）。戻り道は .nf-return、下の判断へは .nf-join でつなぐ ---- */
+.nf-steps.is-chain.is-text .nf-step{justify-content:flex-start}
+.nf-steps.is-chain.is-text .nf-step::before{margin:0 0 .1em}
+.nf-step.is-check{border-top-color:var(--muted)}
+.nf-step.is-check::before{background:var(--muted)}
+.nf-step.is-goal{background:var(--accent); border-color:var(--accent)}
+.nf-steps.is-chain .nf-step.is-goal{justify-content:center}
+.nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:var(--bg)}
+.nf-step.is-goal::before{background:var(--bg); color:var(--accent-ink,var(--accent))}
+.nf-join{align-self:center; width:2px; height:1.3em; margin:.3em 0 .3em; background:var(--rule,var(--line))}
+/* 戻り道：最後の段から最初の段へ戻る破線の U 字（段が4つなら両端 12.5%。--nf-rl / --nf-rr で調整） */
+.nf-return{position:relative; margin-top:.35em; padding-top:1.75em; text-align:center; color:var(--danger); font-weight:800; line-height:1.5}
+.nf-return::before{content:""; position:absolute; top:0; left:var(--nf-rl,12.5%); right:var(--nf-rr,12.5%); height:1.15em;
+  border:2px dashed var(--danger); border-top:0; border-radius:0 0 12px 12px}
+.nf-return::after{content:""; position:absolute; top:-.45em; left:var(--nf-rl,12.5%); transform:translateX(-50%); margin-left:1px;
+  border-style:solid; border-width:0 6px 10px 6px; border-color:transparent transparent var(--danger) transparent}
+/* 図の前提を上に置く帯 */
+.nf-band.is-top{margin:0 0 1.1em}
+
 /* ---- スマホ：流れ図と対応表は縦に並べ替える。SVG は縮むので文字は上の @container で補う ---- */
 @media screen and (max-width:640px){
+  .nf-panels.is-3{grid-template-columns:minmax(0, 1fr)}
+  .nf-acro{grid-template-columns:minmax(0, 1fr)}
+  .nf-steps.is-chain{gap:1.7em}
+  .nf-steps.is-chain .nf-step{display:grid; grid-template-columns:4.6em minmax(0, 1fr); column-gap:.8em; row-gap:.2em;
+    align-items:center; justify-items:start; text-align:left}
+  .nf-steps.is-chain svg.nf-ico{grid-row:1 / span 3; height:2.9em; margin:0}
+  .nf-steps.is-chain .nf-chips{justify-content:flex-start}
+  .nf-steps.is-chain .nf-step:not(:first-child)::after{top:-1.45em; left:50%; transform:translateX(-50%) rotate(90deg)}
+  .nf-steps.is-chain.is-text .nf-step{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.6em; row-gap:.1em;
+    justify-items:start; text-align:left}
+  .nf-steps.is-chain.is-text .nf-step::before{grid-row:1 / span 2; grid-column:1; align-self:start; margin:.15em 0 0}
+  .nf-steps.is-chain.is-text .nf-step > *{grid-column:2}
+  .nf-return{padding:.45em .9em .5em; border:2px dashed var(--danger); border-radius:10px}
+  .nf-return::before, .nf-return::after{content:none}
+  .nf-range{grid-template-columns:minmax(0, 1fr); row-gap:.15em}
+  .nf-rl{text-align:left; margin-top:.55em}
+  .nf-raxis, .nf-rat{grid-column:1}
   figure.fig .nf{font-size:.94em}
   .nf-groups{grid-template-columns:1fr}
   .nf-cards{grid-template-columns:1fr}
@@ -663,8 +780,10 @@ figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8p
   .nf-panels.is-one{grid-template-columns:1fr}
   .nf-panel .nf-svg .nf-t{font-size:15px}
   .nf-panel .nf-svg .nf-ts{font-size:13px}
-  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before{color:#fff}
-  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel{break-inside:avoid; page-break-inside:avoid}
+  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before, .nf-ac.is-key .nf-lt, .nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:#fff}
+  .nf-step.is-goal::before{color:var(--accent)}
+  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
+  .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
 }
 </style>
 </head>
@@ -738,7 +857,7 @@ figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8p
 <h1 id="top">NIV・NPPV（非侵襲的換気）実戦管理ガイド</h1>
 <p class="sub">病態で選び、開始1時間でfailureを見切る — COPD増悪・心原性肺水腫・de novo低酸素・挿管前酸素化・抜管後まで</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-09-26</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-09-27</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -832,10 +951,10 @@ figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8p
 <p>機器を選ぶ前に、目の前の呼吸不全を1つに分類します。ATS 2026ガイドラインの骨格は「低酸素性か、高CO₂性か」で分け、そこに挿管前・抜管後という2つの「場面」を加えた4つの問い（PICO）で整理することです<span class="src ext">ATS2026</span>。この章では病態（高CO₂性・心原性肺水腫・de novo低酸素性・免疫不全・術後）を、次の§4で挿管前後の場面を扱います。全体像は図3の1枚です。</p>
 
 <figure class="fig">
-<div class="nf nf-flow"><div class="nf-root">どの障害か・どの場面か</div><div class="nf-groups"><div class="nf-group"><div class="nf-gh">障害で選ぶ</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">酸素化の障害</div><div class="nf-a"><span class="nf-chip">HFNC</span> が第一選択</div></div><div class="nf-card"><div class="nf-q">換気の障害（高CO₂）</div><div class="nf-a"><span class="nf-chip is-fill">NIV</span> が第一選択</div></div></div></div><div class="nf-group"><div class="nf-gh">場面で選ぶ</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">挿管前の酸素化</div><div class="nf-a"><span class="nf-chip is-fill">NIV</span><span class="nf-plus">＋</span><span class="nf-chip">HFNC</span></div><div class="nf-note">HFNC 60 L/分を併用</div></div><div class="nf-card"><div class="nf-q">抜管後・低〜中リスク</div><div class="nf-a">予防的 <span class="nf-chip">HFNC</span></div></div><div class="nf-card"><div class="nf-q">抜管後・高リスク</div><div class="nf-a">予防的 <span class="nf-chip is-fill">NIV</span></div><div class="nf-note">休止中は HFNC</div></div></div></div></div><div class="nf-band"><span class="nf-bh">抜管後に悪化してからのHFNC・NIVは効果未確立</span><span class="nf-to">→</span><span>悪化が予測される患者に、リスクに応じて予防的に使う</span></div></div>
+<div class="nf nf-flow"><div class="nf-root">どの障害か・どの場面か</div><div class="nf-groups is-rows"><div class="nf-group"><div class="nf-gh">障害で選ぶ</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">酸素化の障害</div><div class="nf-a"><span class="nf-chip">HFNC</span> が第一選択</div></div><div class="nf-card"><div class="nf-q">換気の障害（高CO₂）</div><div class="nf-a"><span class="nf-chip is-fill">NIV</span> が第一選択</div><div class="nf-note">NIVの休止中・不耐時は HFNC</div></div></div></div><div class="nf-group"><div class="nf-gh">場面で選ぶ</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">挿管前の酸素化</div><div class="nf-a"><span class="nf-chip is-fill">NIV</span><span class="nf-plus">＋</span><span class="nf-chip">HFNC</span></div><div class="nf-note">HFNC 60 L/分を併用</div></div><div class="nf-card"><div class="nf-q">抜管後・低〜中リスク</div><div class="nf-a">予防的 <span class="nf-chip">HFNC</span></div></div><div class="nf-card"><div class="nf-q">抜管後・高リスク</div><div class="nf-a">予防的 <span class="nf-chip is-fill">NIV</span></div><div class="nf-note">休止中は HFNC</div></div></div></div></div><div class="nf-band"><span class="nf-bh">抜管後に悪化してからのHFNC・NIVは効果未確立</span><span class="nf-to">→</span><span>悪化が予測される患者に、リスクに応じて予防的に使う</span></div></div>
 <figcaption>図3. 非侵襲的呼吸補助の選び方 — 障害と場面で決める。</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — 最初の分岐が「酸素化の障害か、換気の障害か」になっていることを確かめてください。換気の障害（高CO₂）はNIV、酸素化の障害はHFNCが第一選択で、挿管前はNIVにHFNCを上乗せ、抜管後の高リスクは予防的NIVの合間にHFNCを流します。抜管後は悪化が予測される患者に予防的に使い、悪化してからのHFNC・NIVは効果未確立です（§4-3）<span class="src ext">ATS2026</span>。図に無い心原性肺水腫はCPAPまたはbilevelです（§3-3）。この図が決めるのは道具（NIVかHFNCか）までで、NIVのモード（S/TかCPAPか）は病名ではなく呼吸努力の有無で決めます（§5-6）<span class="src in">当院</span>。</p>
+<p class="figread"><strong>図の読み方</strong> — 最初の分岐が「酸素化の障害か、換気の障害か」になっていることを確かめてください。換気の障害（高CO₂）はNIV、酸素化の障害はHFNCが第一選択です。換気の障害でも、NIVの休止中・不耐時はHFNCを使います（ERS 2022は、NIVの休止中は従来型酸素よりHFNCとしています）<span class="src vault">ERJ2022</span>。挿管前はNIVにHFNCを上乗せ、抜管後の高リスクは予防的NIVの合間にHFNCを流します。抜管後は悪化が予測される患者に予防的に使い、悪化してからのHFNC・NIVは効果未確立です（§4-3）<span class="src ext">ATS2026</span>。図に無い心原性肺水腫はCPAPまたはbilevelです（§3-3）。この図が決めるのは道具（NIVかHFNCか）までで、NIVのモード（S/TかCPAPか）は病名ではなく呼吸努力の有無で決めます（§5-6）<span class="src in">当院</span>。</p>
 
 <div class="box plain">
 <span class="label">推奨の強さの読み方（GRADE）</span>

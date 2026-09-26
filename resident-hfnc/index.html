@@ -473,6 +473,16 @@ table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-we
 
 /* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
 td.num{white-space:normal}
+
+/* 2026-09-26 本人の指摘：「両脇のスペース空きすぎ」「表の幅と文章の幅が違う」「目次のフォントサイズが小さい」 */
+:root{--sidebar-w:300px}
+@media screen and (min-width:1001px){
+  main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
+}
+main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
+#rs-nav a{font-size:14px; line-height:1.5}
+#rs-nav a.lv3{font-size:13px}
+#rs-side .hd .ttl{font-size:15px}
 </style>
 </head>
 <body data-refstyle="1">

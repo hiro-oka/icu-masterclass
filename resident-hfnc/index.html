@@ -485,6 +485,8 @@ main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
 #rs-side .hd .ttl{font-size:15px}
 #rs-topbar .t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
+/* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
+.refs li, main a{overflow-wrap:anywhere}
 </style>
 </head>
 <body data-refstyle="1">

@@ -312,11 +312,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <!-- row 2: modality -->
       <g>
         <rect x="20" y="146" width="290" height="72" rx="14" fill="#0071e3"/>
-        <text x="38" y="177" font-size="16" font-weight="700" fill="#fff">bilevel NIV が第一選択</text>
+        <text x="38" y="177" font-size="16" font-weight="700" fill="#fff">NIV（S/T）が第一選択</text>
         <text x="38" y="200" font-size="12.5" fill="#cfe6fb">当院は S/T・IPAP 8 / EPAP 4 から</text>
 
         <rect x="330" y="146" width="290" height="72" rx="14" fill="#5e51c9"/>
-        <text x="348" y="177" font-size="16" font-weight="700" fill="#fff">CPAP または bilevel NIV</text>
+        <text x="348" y="177" font-size="16" font-weight="700" fill="#fff">CPAP または S/T の NIV</text>
         <text x="348" y="200" font-size="12.5" fill="#ded9fb">呼吸努力あり→S/T・酸素化だけ→CPAP</text>
 
         <rect x="640" y="146" width="300" height="72" rx="14" fill="#c96a00"/>
@@ -396,7 +396,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <p>NIVの圧設定は、突き詰めると2つです。<strong>EPAP</strong>（呼気終末陽圧＝PEEPに相当）と、IPAP（吸気圧）。そして換気補助の実体は、その差である PS（プレッシャーサポート）= IPAP − EPAP です。IPAPの絶対値ではなく差が仕事をする、という理解がすべての設定判断の土台になります。</p>
 
   <figure class="rev">
-    <svg viewBox="0 0 900 320" role="img" aria-label="bilevel NIVの圧-時間波形。EPAPが基線、IPAPが吸気圧、その差がプレッシャーサポート">
+    <svg viewBox="0 0 900 320" role="img" aria-label="S/TモードのNIVの圧-時間波形。EPAPが基線、IPAPが吸気圧、その差がプレッシャーサポート">
       <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
         <path d="M30 0H0V30" fill="none" stroke="#e8e8ed" stroke-width="1"/></pattern></defs>
       <g font-family="-apple-system, Hiragino Sans, sans-serif">
@@ -458,7 +458,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
 
   <div class="cal b">
     <h4><span class="dot">i</span>用語の整理</h4>
-    <p><strong>NIV</strong>＝非侵襲的換気の総称（歴史的には陰圧式も含む）／NPPV＝そのうち陽圧式／CPAP＝持続的な一定陽圧で吸気補助なし／bilevel（BiPAP®等）＝IPAPとEPAPの2相／NRS（noninvasive respiratory support）＝HFNCを含めた非侵襲的呼吸補助全体。文献ではNRSとNIVが使い分けられているので、読むときに区別する。</p>
+    <p><strong>NIV</strong>＝非侵襲的換気の総称（歴史的には陰圧式も含む）／NPPV＝そのうち陽圧式／CPAP＝持続的な一定陽圧で吸気補助なし／bilevel（BiPAP®等）＝IPAPとEPAPの2相。<strong>当院ではS/Tモードと呼ぶ</strong>（呼吸努力で送気が始まり〔S〕、無呼吸ならバックアップで送る〔T〕二相性の圧）。この資料もS/Tと書く／NRS（noninvasive respiratory support）＝HFNCを含めた非侵襲的呼吸補助全体。文献ではNRSとNIVが使い分けられているので、読むときに区別する。</p>
   </div>
 </div>
 </section>
@@ -475,8 +475,8 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <h4 style="color:var(--green)">✓ 適応 — 試す価値がある</h4>
       <p style="color:#145c34">
         <strong>COPD急性増悪</strong>：挿管率・死亡率を減らす最も強固な適応<br>
-        急性高CO₂血症性呼吸不全（PaCO₂ &gt;45、pH &lt;7.35）：bilevelが第一選択<br>
-        心原性肺水腫：CPAPまたはbilevel。胸腔内圧上昇による血行動態的利益。当院は呼吸努力があればS/T、酸素化だけならCPAP<br>
+        急性高CO₂血症性呼吸不全（PaCO₂ &gt;45、pH &lt;7.35）：S/Tモードが第一選択<br>
+        心原性肺水腫：CPAPまたはS/T。胸腔内圧上昇による血行動態的利益。当院は呼吸努力があればS/T、酸素化だけならCPAP<br>
         挿管前酸素化：HFNCまたはNIVが強い推奨。頭対頭ではNIVが低酸素をより減らす<br>
         高リスク抜管後の「予防的」使用：LV不全・高CO₂・COPD・体液過剰・BNP高値・抜管後喘鳴・65歳超。悪化を待たず装着する（呼吸不全が起きてからの救援使用は別物）<br>
         免疫不全：非免疫不全と別戦略を採る根拠はなく、低酸素性の枠組みで扱う<br>
@@ -502,9 +502,9 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <table>
       <thead><tr><th>病態</th><th>第一に考える</th><th>NIVの位置づけ</th><th>最重要の落とし穴</th></tr></thead>
       <tbody>
-        <tr><td>COPD急性増悪＋高CO₂／アシドーシス</td><td>bilevel NIV（呼吸努力があるので初期はS/T。換気サポートが要らなくなればCPAPへ）</td><td>第一選択</td><td>疲弊・意識低下・分泌物</td></tr>
-        <tr><td>重症喘息発作（高CO₂）</td><td>bilevel NIV（CPAPより優先）</td><td>COPDほど強くない。RCTは5試験・206例で挿管と死亡を語る検出力がない。設定は専門家意見（EPAP 3→5・IPAP 7→15 cmH₂O、目標RR 25〜30回/分）</td><td><b>COPDの成績を流用して粘りすぎる</b>／喘息のガイドラインはHFNCを推奨していない</td></tr>
-        <tr><td>心原性肺水腫</td><td>CPAP / bilevel NIV（試験では差なし。当院は呼吸努力があればS/T、酸素化だけならCPAP）</td><td>強い適応</td><td>shock / RV failure / preload依存</td></tr>
+        <tr><td>COPD急性増悪＋高CO₂／アシドーシス</td><td>NIV（呼吸努力があるので初期はS/T。換気サポートが要らなくなればCPAPへ）</td><td>第一選択</td><td>疲弊・意識低下・分泌物</td></tr>
+        <tr><td>重症喘息発作（高CO₂）</td><td>S/TのNIV（CPAPより優先）</td><td>COPDほど強くない。RCTは5試験・206例で挿管と死亡を語る検出力がない。設定は専門家意見（EPAP 3→5・IPAP 7→15 cmH₂O、目標RR 25〜30回/分）</td><td><b>COPDの成績を流用して粘りすぎる</b>／喘息のガイドラインはHFNCを推奨していない</td></tr>
+        <tr><td>心原性肺水腫</td><td>CPAP / S/T（試験では差なし。当院は呼吸努力があればS/T、酸素化だけならCPAP）</td><td>強い適応</td><td>shock / RV failure / preload依存</td></tr>
         <tr><td>de novo低酸素ARF</td><td>まずHFNC（強い推奨・挿管 RR 0.76）。当院はHFNCで無理ならフルフェイスマスク（鼻口マスク）のNIVか挿管を検討する</td><td>NIV/CPAPは条件付き。HFNC対NIVの優劣は未決着</td><td>重症低酸素＋高driveでfailure</td></tr>
         <tr><td>挿管前酸素化</td><td>HFNCまたはNIV（強い推奨）</td><td>頭対頭ではNIVが低酸素をより減らす（RR 0.73）</td><td>準備が緊急挿管を遅らせる</td></tr>
         <tr><td>高リスク抜管後 —— 予防的</td><td>予防的NIV（再挿管 RR 0.75）／HFNC（RR 0.80）</td><td>高リスクではNIV優先（交互作用 p=0.006）。頭対頭で比べると「高リスク」の平均には差がなく、差が出るのは<b>リスク因子4個以上・非手術の肥満</b>まで絞ったとき（いずれもHFNCが不利）。2026年にはもう1本、高リスク例だけを集めた10 RCT・1,697例のメタ解析が「再挿管20.3%対21.0%で同等」と報告したが、その主解析は<b>再挿管しなかった人の比</b>で組まれており、差は1へ寄る向きに歪んでいる。なお<b>高CO₂血症は「高リスク」の必須条件ではない</b>——SBTを通り高CO₂血症も無い高リスク例829例の事後解析では、NIV＋HFNCの7日再挿管が11.8%、HFNC単独が17.6%（調整絶対差5.6%）だった</td><td>気道防御不良をNIVで隠す／リスク因子を数えずにHFNCを選ぶ</td></tr>
@@ -527,7 +527,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <thead><tr><th style="width:34px">#</th><th>問い</th><th>見るもの</th><th>次の行動</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>この患者にNIVを試す価値があるか？</td><td>病態・airway・循環・意識・分泌物</td><td>適応／禁忌を判定</td></tr>
-        <tr><td>2</td><td>何を改善したいのか？</td><td>酸素化 / CO₂ / work of breathing</td><td>CPAPかbilevelか、HFNCか</td></tr>
+        <tr><td>2</td><td>何を改善したいのか？</td><td>酸素化 / CO₂ / work of breathing</td><td>CPAPかS/Tか、HFNCか</td></tr>
         <tr><td>3</td><td>最初の30–60分で効いているか？</td><td>RR・努力・SpO₂/FiO₂・P/F・VT・pH/PaCO₂</td><td>設定調整 or failure判定</td></tr>
         <tr><td>4</td><td>患者自身が肺を傷つけていないか？</td><td>大VT・頻呼吸・補助筋・dyssynchrony</td><td>P‑SILIを疑う</td></tr>
         <tr><td>5</td><td>NIVを続けることが利益か？</td><td>trajectory・HACOR・臨床像</td><td>継続 / HFNC / 挿管</td></tr>
@@ -781,12 +781,12 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       </g>
     </svg>
     </div>
-    <figcaption>同じ「bilevel」でも、S・T・S/Tで<b>誰が吸気を始めるか</b>が違う。S/Tは自発を活かしつつ無呼吸に備える。CPAPだけは段差がなく、換気補助（PS）を行っていない点に注意。</figcaption>
+    <figcaption>IPAPとEPAPの2段の圧をかけるモードでも、S・T・S/Tで<b>誰が吸気を始めるか</b>が違う。当院が使うS/Tは自発を活かしつつ無呼吸に備える。CPAPだけは段差がなく、換気補助（PS）を行っていない点に注意。</figcaption>
   </figure>
 
   <div class="cal g">
     <h4><span class="dot">✓</span>当院の原則 — モードは病名ではなく呼吸努力で決める</h4>
-    <p><strong>呼吸努力がある（換気サポートが必要）ならS/T、酸素化の問題だけで換気サポートが要らないならCPAP。</strong>「COPD増悪はS/T、CS1の心不全はCPAP」と病名で決めない。COPD増悪でも初期は呼吸努力があるのでS/Tで始め、換気サポートが要らなくなればCPAPへ切り替える。CS1の心不全（心原性肺水腫）でも、呼吸努力があればS/Tを使う。試験が病態ごとにCPAPとbilevelを比べている事実（心原性肺水腫では差なし）は、この選び方とは別に読む。</p>
+    <p><strong>呼吸努力がある（換気サポートが必要）ならS/T、酸素化の問題だけで換気サポートが要らないならCPAP。</strong>「COPD増悪はS/T、CS1の心不全はCPAP」と病名で決めない。COPD増悪でも初期は呼吸努力があるのでS/Tで始め、換気サポートが要らなくなればCPAPへ切り替える。CS1の心不全（心原性肺水腫）でも、呼吸努力があればS/Tを使う。試験が病態ごとにCPAPとS/T（文献ではbilevel）を比べている事実（心原性肺水腫では差なし）は、この選び方とは別に読む。</p>
   </div>
 
   <h3>モード早見表</h3>
@@ -825,7 +825,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <div class="grid g2">
     <div class="cal b" style="margin:0">
       <h4><span class="dot">i</span>標準的な開始点</h4>
-      <p><strong>当院のbilevel：IPAP 8 / EPAP 4 cmH₂O から始める。</strong><br>文献の開始点：CPAPは 5–10 cmH₂O から 2 cmH₂O ずつ滴定。bilevelは IPAP 10 / EPAP 5 から、IPAPを 2–3 cmH₂O ずつ調整（NEJM手技解説 2015）。<br>FiO₂：SpO₂ 94–98% に滴定し 98% 超は避ける（COPDなど病態別目標は施設protocolを優先）。<br>いずれも低い圧で数分慣らしてから目標値へ上げる。<br>30分後に血液ガスで見直す：高CO₂が残ればIPAP−EPAP差を広げる（最低呼吸数を上げるのは自発呼吸がそれより遅いときしか効かない）。低酸素が残ればFiO₂かEPAPを上げ、EPAPを上げたらIPAPも同じだけ上げて支持圧を保つ。</p>
+      <p><strong>当院のS/T：IPAP 8 / EPAP 4 cmH₂O から始める。</strong><br>文献の開始点：CPAPは 5–10 cmH₂O から 2 cmH₂O ずつ滴定。S/T（文献ではbilevel）は IPAP 10 / EPAP 5 から、IPAPを 2–3 cmH₂O ずつ調整（NEJM手技解説 2015）。<br>FiO₂：SpO₂ 94–98% に滴定し 98% 超は避ける（COPDなど病態別目標は施設protocolを優先）。<br>いずれも低い圧で数分慣らしてから目標値へ上げる。<br>30分後に血液ガスで見直す：高CO₂が残ればIPAP−EPAP差を広げる（最低呼吸数を上げるのは自発呼吸がそれより遅いときしか効かない）。低酸素が残ればFiO₂かEPAPを上げ、EPAPを上げたらIPAPも同じだけ上げて支持圧を保つ。</p>
     </div>
     <div class="cal o" style="margin:0">
       <h4><span class="dot">!</span>「IPAP &gt;20は避ける」を鵜呑みにしない</h4>
@@ -962,7 +962,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <ol class="ol">
     <li><b>説明してから当てる</b>「機械に合わせて息をしなくていい」「最初は手で軽く当てるだけ」。数分間は手でマスクを保持し、ストラップは付けない。ここを飛ばすと、その後どんな設定でも耐えられません。</li>
     <li><b>サイズを測る</b>専用ゲージで。鼻口マスクは鼻根部のすぐ下から下口唇の下まで。迷ったら小さめ。</li>
-    <li><b>低い圧から始める</b>bilevelは当院の開始値 IPAP 8 / EPAP 4、CPAPは 4–5 cmH₂O 程度で慣らしてから、目標値へ滴定する。</li>
+    <li><b>低い圧から始める</b>S/Tモードは当院の開始値 IPAP 8 / EPAP 4、CPAPは 4–5 cmH₂O 程度で慣らしてから、目標値へ滴定する。</li>
     <li><b>予防的に皮膚を守る</b>装着前に鼻根部へ薄い被覆材（ハイドロコロイド／シリコン）。潰瘍ができてからでは遅い。</li>
     <li><b>ストラップは最後・左右対称・指2本</b>締めるほど密着するわけではありません。</li>
     <li><b>30分後に必ず見に行く</b>圧痕・発赤・リーク・同調・comfort・体位。ここで直せるものを直す。</li>
@@ -1236,8 +1236,8 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <thead><tr><th>病態</th><th>エビデンスの強さ</th><th>主な根拠</th><th>実務での意味</th></tr></thead>
       <tbody>
         <tr><td>COPD急性増悪（高CO₂・アシドーシス）</td><td><b style="color:var(--green)">強い</b></td><td>ATS 2026でフェイスマスクNIVを強い推奨（死亡 RR 0.47・挿管 RR 0.43）。HAPPEN試験では高強度NPPVがさらに挿管を減らす可能性。HFNCは<b>pH 7.25超の軽度アシデミアに限り条件付き代替</b>（2022年は「COPDでのHFNCはエビデンス不十分」だった）。pH 7.25〜7.35・PaCO₂ 50 mmHg以上の中等度アシデミアでは、単施設非劣性RCT（225例・Crit Care 2024）で治療失敗が<b>HFNC 25.7%対NIV 14.3%</b>（リスク差11.38%、95%CI 0.25〜21.20）、挿管14.2%対5.4%とHFNCの非劣性を示せなかった。1・12時間の血液ガスは同等で、差が出たのは48時間のPaCO₂。快適性・皮膚損傷・看護介入はHFNCが優れる</td><td>第一選択。ためらう理由がない。<b>中等度アシデミアではHFNCで代替しない</b>。マスク不耐でHFNCを選ぶなら12〜48時間の血液ガスとRRでNIVへ上げる基準を先に書く</td></tr>
-        <tr><td>重症喘息発作（高CO₂）</td><td><b style="color:var(--orange)">弱い</b></td><td>Cochrane（5 RCT・206例、BiPAP 4件・CPAP 1件）でNPPVは入院を減らし呼吸数と肺メカニクスを改善したが、<b>挿管率を報告したのは2試験のみ・死亡例ゼロ</b>で検出力がない。682病院・13,540例の観察研究ではNPPV管理例で侵襲的換気と院内死亡のオッズが低いが、総説の結論は「標準化されたNPPVの役割を支持するエビデンスは無く、挿管の遅れと天秤にかける」。肺炎合併・重症敗血症・急性腎不全を伴う例はNPPV失敗が多い。HFNCは小児データが大半で、喘息のガイドラインは推奨していない</td><td><b>COPDの成績をそのまま流用しない</b>。NPPVで粘ると決めた時点で挿管の閾値（進行する高CO₂・不応性低酸素・意識変容・疲弊）を同時に書き出す。殺すのは気管支攣縮そのものではなく動的過膨張とauto-PEEPが招く循環虚脱</td></tr>
-        <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>Cochrane 2019（24 RCT・2664例）：院内死亡 RR 0.65（NNTB 17・確実性 低）、挿管 RR 0.49（NNTB 13・中等度）。心筋梗塞は増えない（RR 1.03）。<b>低バイアスリスク試験に限ると死亡（RR 0.81）も挿管（RR 0.85）も有意差が消える</b>——古い試験の質のばらつきが効果推定を押し上げている可能性がある</td><td>CPAPでもbilevelでも差はない（機器と習熟で選ぶ）。害はほぼマスク不快感。効果の確実性は「挿管＞死亡」と心得る</td></tr>
+        <tr><td>重症喘息発作（高CO₂）</td><td><b style="color:var(--orange)">弱い</b></td><td>Cochrane（5 RCT・206例、S/T 4件（文献ではBiPAP）・CPAP 1件）でNPPVは入院を減らし呼吸数と肺メカニクスを改善したが、<b>挿管率を報告したのは2試験のみ・死亡例ゼロ</b>で検出力がない。682病院・13,540例の観察研究ではNPPV管理例で侵襲的換気と院内死亡のオッズが低いが、総説の結論は「標準化されたNPPVの役割を支持するエビデンスは無く、挿管の遅れと天秤にかける」。肺炎合併・重症敗血症・急性腎不全を伴う例はNPPV失敗が多い。HFNCは小児データが大半で、喘息のガイドラインは推奨していない</td><td><b>COPDの成績をそのまま流用しない</b>。NPPVで粘ると決めた時点で挿管の閾値（進行する高CO₂・不応性低酸素・意識変容・疲弊）を同時に書き出す。殺すのは気管支攣縮そのものではなく動的過膨張とauto-PEEPが招く循環虚脱</td></tr>
+        <tr><td>心原性肺水腫</td><td><b style="color:var(--green)">強い</b></td><td>Cochrane 2019（24 RCT・2664例）：院内死亡 RR 0.65（NNTB 17・確実性 低）、挿管 RR 0.49（NNTB 13・中等度）。心筋梗塞は増えない（RR 1.03）。<b>低バイアスリスク試験に限ると死亡（RR 0.81）も挿管（RR 0.85）も有意差が消える</b>——古い試験の質のばらつきが効果推定を押し上げている可能性がある</td><td>CPAPでもS/Tでも差はない（機器と習熟で選ぶ）。害はほぼマスク不快感。効果の確実性は「挿管＞死亡」と心得る</td></tr>
         <tr><td>高リスク抜管後 —— 予防的</td><td><b style="color:var(--blue)">中等度</b></td><td>ATS 2026：予防的NIVまたはHFNC（条件付き・中等度／再挿管 <b>NIV RR 0.75・HFNC RR 0.80</b>）。高リスクではNIV優先（<b>交互作用 p=0.006</b>）。COPDではCHEST Crit Care 2025レビューも抜管後のNIV/HFNCを「悪化を待たず即時装着」と推奨。HFNCとNIVを直接比べた最新のメタ解析（15 RCT・2,073例）では72時間再挿管は <b>OR 1.19（95%CI 0.88–1.59・確実性 低）</b>で平均としては差がなく、死亡・院内肺炎・ICU滞在も差なし。ただし事前設定サブグループの<b>リスク因子4個以上 OR 1.63（1.05–2.53）</b>と<b>非手術の肥満 OR 2.52（1.45–4.38）</b>ではHFNCが不利で、高バイアス3試験を除くと全体でも OR 1.32（1.02–1.71）へ傾く（高CO₂血症性のCOPD増悪は差なし。交互作用検定はなく、著者自身が仮説生成的と留保）。同じ2026年に高リスク例だけを集めた<b>10 RCT・1,697例</b>のメタ解析も出て、再挿管はHFNC 20.3%対NIV 21.0%（RR 1.00）、死亡も在室日数も差なし、TSAは必要情報量に到達したと報告している。ただし主解析が<b>「再挿管しなかった人」のリスク比</b>で組まれているため効果が1へ圧縮されており、同じ論文の通常のリスク比では<b>0.93（0.64–1.37）</b>と区間が数倍に広い。本文の「人工呼吸期間で層別しても差なし」もFigure 4（サブグループ間差 p=0.009、IMV 5〜7日群はHFNC 14.7%対NIV 24.8%）と食い違う。リスク因子数の解析も試験レベルの集計値によるもので、患者レベルで層別したHIGH-FLOW OXYの側を優先して読む。2026年にはさらに、<b>非高CO₂血症</b>の高リスク例だけを2つの多施設RCTから抜き出した事後解析（829例）が、NIV＋HFNCの7日再挿管を<b>11.8%対17.6%（調整絶対差5.6%）</b>と報告した。「高CO₂血症がなければHFNCで足りる」という前提が崩れる方向だが、事後解析1本で部分的に非ランダム化の比較を含み、PaCO₂の測定時点も試験間でばらついている。なお「HFNCはNIVに非劣性」の原点であるHernández高リスク試験（JAMA 2016・604例、再挿管22.8%対19.1%）は、<b>NIV群の42.9%が不耐で中断し実装着が中央値14時間</b>という条件下の結果で、NIVをきちんと当てられる患者・施設ではNIV（またはHFNC＋NIV）の根拠は残る。2025年の実務ガイド（Rezoagli）は予防的NIVを<b>最初の24時間に12時間以上</b>とし、WIN-IN-WEANの二次解析では口鼻マスクNIVの不快がVAS 3前後で48時間減らなかった（HFNCと通常酸素は48時間でほぼゼロ）</td><td>対象を絞って、悪化を待たずに使う。<b>抜管の指示を出す前にリスク因子を数える</b>——4個以上や非手術の肥満なら、HFNCで済ませずNIVを第一に置く。<b>高CO₂血症の有無で候補から外さない</b>。設定はHIGH-WEAN方式（NIVを1日12時間以上＋休止中HFNC 50 L毎分を48時間）を据え置き、変えるのは「SBT終了時にPaCO₂を測る」「高リスクの定義を自施設で決める」「NIVは間欠＋休止中HFNCで設計する」の3点まで</td></tr>
         <tr><td>抜管後 —— <b style="color:var(--red)">救援的</b></td><td><b style="color:var(--red)">効果未確立</b></td><td>2022年の総説：救援フェイスマスクNIVが挿管を遅らせ死亡を増やす。2026年のATS：推奨は予防的使用のみ。救援的HFNCはサブグループで再挿管が多い傾向（対標準酸素で交互作用 <b>p=0.001</b>、対NIVで <b>p=0.03</b>、信頼性は低〜中等度）</td><td>悪化が予測される患者にリスクに応じてHFNCかNIVを予防的に使う。悪化してからは時間を稼がず、再挿管を遅らせない</td></tr>
         <tr><td>de novo 低酸素ARF</td><td><b style="color:var(--green)">強い（HFNC）</b> ／ <b style="color:var(--orange)">条件付き（NIV）</b></td><td>ATS 2026：HFNCを標準酸素より強い推奨（<b>挿管 RR 0.76</b>）。NIV/CPAPは条件付きで確実性は低い。RENOVATEはHFNCの非劣性を報告。HFNC対NIVの優劣は2022年の総説でも2026年のガイドラインでも未決着。SOHO試験（NEJM 2026・42 ICU・1,110例、P/F ≤200の肺炎主体）ではHFNC対標準酸素で<b>28日死亡14.6%対14.6%</b>（p=0.98）、挿管42.4%対48.4%（差−5.93ポイント、95%CI −11.78〜−0.08）、1時間後の呼吸数−3回/分・PaCO₂ −2 mmHg。自発呼吸中の気胸は10例（1.8%）対4例（0.7%）。出発点のFLORALI（NEJM 2015・310例）では28日挿管がHFNC 38%・標準酸素47%・NIV 50%で差がなく、NIV群は<b>PS 8±3・PEEP 5±1で呼気VT 9.2±3.0 mL/kg</b>に達していた。4戦略を並べたFerreyroのNMA（JAMA 2020・25 RCT・3,804例）では標準酸素と比べてヘルメットNIV死亡RR 0.40（4試験340例・確実性 低）・マスクNIV 0.83（感度解析で消える）・HFNCは挿管のみ減らす（RR 0.76）で、<b>標準酸素は死亡・挿管とも最下位</b>。食道内圧の生理NMA（Crit Care 2025・13研究312例）では経肺駆動圧を下げる非侵襲戦略は1つもなく、NIVは1回の努力を−5.9 cmH₂O下げる代わりに駆動圧を+3.4 cmH₂O上げ、CPAPは酸素化だけを上げる</td><td>まずHFNC。当院はHFNCで無理なら（P/F 150以下で呼吸努力が残るなど）フルフェイスマスク（鼻口マスク）のNIVか挿管を検討し、NIVで粘って挿管を遅らせない（ヘルメットは当院には無い）。NIVを使うなら監視を厚く——呼気VTが9 mL/kgを超え続けるなら「効いている」と見なさず、1〜2時間で呼吸数と努力が落ちたかを判定する。「どちらが上か」より失敗基準と引き上げ役の明文化。<b>「HFNCだから死亡が減る」とは説明しない</b>。SOHOの事前規定挿管基準（呼吸数40超・呼吸筋疲労徴候・pH 7.35未満・SpO₂ 92%未満・P/F 100未満・FiO₂ 80%以上のうち2つ以上）を満たしたら躊躇せず挿管する</td></tr>

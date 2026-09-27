@@ -107,7 +107,7 @@ figure.fig figcaption b{color:var(--fg); font-weight:700}
 }
 @media print{
   @page{margin:12mm 10mm}
-  /* 画面と同じ配色でPDF化する（2026-09-13 本人指示）。背景・アクセント色を落とさない */
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
   :root{
@@ -479,7 +479,7 @@ table.key.vals td:nth-child(2) strong{display:inline-block; font-size:1.18em; fo
   font-variant-numeric:tabular-nums; line-height:1.4}
 /* ===== /読みやすさ ===== */
 
-/* 2026-09-26 本人の指摘：「両脇のスペース空きすぎ」「表の幅と文章の幅が違う」「目次のフォントサイズが小さい」 */
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
 :root{--sidebar-w:300px}
 @media screen and (min-width:1001px){
   main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
@@ -493,7 +493,7 @@ main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
 /* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
 .refs li, main a{overflow-wrap:anywhere}
 
-/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 本人指示）
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
    手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
    （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
    文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
@@ -522,7 +522,7 @@ figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !impor
 /* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
 .nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
   border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
-/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV 図3・HFNC 図13） */
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
 .nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
 .nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
 .nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));

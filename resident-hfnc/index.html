@@ -107,7 +107,7 @@ figure.fig figcaption b{color:var(--fg); font-weight:700}
 }
 @media print{
   @page{margin:12mm 10mm}
-  /* 画面と同じ配色でPDF化する（2026-09-13 本人指示）。背景・アクセント色を落とさない */
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
   :root{
@@ -474,7 +474,7 @@ table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-we
 /* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
 td.num{white-space:normal}
 
-/* 2026-09-26 本人の指摘：「両脇のスペース空きすぎ」「表の幅と文章の幅が違う」「目次のフォントサイズが小さい」 */
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
 :root{--sidebar-w:300px}
 @media screen and (min-width:1001px){
   main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
@@ -487,7 +487,7 @@ main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
 #rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
 /* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
 .refs li, main a{overflow-wrap:anywhere}
-/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 本人指示）
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
    手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
    （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
    文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
@@ -516,7 +516,7 @@ figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !impor
 /* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
 .nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
   border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
-/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV 図3・HFNC 図13） */
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
 .nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
 .nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
 .nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
@@ -779,6 +779,150 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
   .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
   .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
 }
+
+/* readable (readable.css) — 章の「読ませ方」部品（2026-09-27 試作・NIV §5）
+   手引き：readable-guide.md。クラスはすべて rd- で始める。章は <section class="rd"> で包む。
+   色は本文の :root 変数（--accent / --accent-soft / --good / --danger / --line / --muted / --bg / --code /
+   --navy / --ink / --accent-ink / --rule）だけを使う。書体は指定しない（本文から継承）。
+   2026-09-27 NIV 全章に適用。「根拠を見る」は開いた状態が既定（<details class="rd-ev" open>）。 */
+
+:root{ --rd-on-accent:#ffffff }
+@media (prefers-color-scheme: dark){ :root{ --rd-on-accent:#15181c } }
+@media print{ :root{ --rd-on-accent:#ffffff } }
+
+/* ---- 文字の階層（本文16px・行間1.9・段落間を広く／補足14px・グレー） ---- */
+@media screen{
+  .rd > p:not([class]), .rd > ul > li, .rd > ol > li{font-size:16px; line-height:1.9}
+  .rd > p:not([class]){margin:0 0 1.5em}
+  .rd > ul, .rd > ol{margin:0 0 1.6em; padding-left:1.4em}
+  .rd > ul > li, .rd > ol > li{margin:.45em 0}
+
+  /* 章見出し：番号つきの色帯 */
+  .rd > h2{display:flex; align-items:center; gap:.9rem; font-size:1.7rem; font-weight:800; line-height:1.4;
+    margin:4.8rem 0 1.6rem; padding:.6rem 1.2rem .6rem 0; border:0; border-radius:12px; overflow:hidden;
+    background:var(--accent-soft); color:var(--navy)}
+  .rd > h2::before{display:none}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-.6rem 0; padding:0 1.1rem;
+    background:var(--accent); color:var(--rd-on-accent); font-size:.9em; font-weight:800; letter-spacing:.02em}
+
+  /* 節見出し：左に太い線と十分な上余白 */
+  .rd > h3{font-size:1.32rem; font-weight:800; line-height:1.5; margin:4rem 0 1.1rem;
+    padding:.15rem 0 .15rem .85rem; border-left:6px solid var(--accent)}
+  /* 小見出し：色つきの小さな印＋下線。リード文より「見出し」に見えるように色を変える */
+  .rd > h4{font-size:1.1rem; font-weight:800; margin:2.8rem 0 .8rem; padding:0 0 .35rem .95rem;
+    border-bottom:1px solid var(--line); color:var(--accent-ink,var(--accent)); position:relative}
+  .rd > h4::before{content:""; position:absolute; left:0; top:.42em; width:.5rem; height:.5rem;
+    border-radius:2px; background:var(--accent)}
+
+  /* リード文：段落の1文目＝結論。少し大きく・やや太く */
+  .rd .rd-lead{font-size:1.14rem; font-weight:700; line-height:1.75; color:var(--navy); margin:0 0 .75em}
+  .rd .rd-lead.is-sub{font-size:1.03rem}
+  /* 節の途中に置くリード文（h4 を立てない小さな話題の切り替え）は、上に余白を取って区切りを見せる */
+  .rd > :not(h3):not(h4) + .rd-lead.is-sub{margin-top:2.2rem}
+
+  /* 補足（注意書き・但し書き） */
+  .rd .rd-note{font-size:14px; line-height:1.8; color:var(--muted); margin:.4rem 0 1.6rem}
+  .rd .rd-check + .rd-note, .rd .rd-dodont + .rd-note{margin-top:-1.3rem}
+  .rd .figread{margin-bottom:1.8rem}
+  .rd .rs-tw{margin:1.2rem 0 1.8rem}
+}
+@media screen and (max-width:1000px){
+  .rd > h2{font-size:1.36rem; gap:.7rem; margin-top:3.8rem}
+  .rd > h3{font-size:1.16rem; margin-top:3.2rem}
+  .rd .rd-lead{font-size:1.08rem}
+  .rd .rd-lead.is-sub{font-size:1.02rem}
+}
+
+/* ---- 1. この章のポイント（章の冒頭・3行） ---- */
+.rd-points{border:2px solid var(--accent); border-radius:14px; padding:1rem 1.3rem .9rem; margin:0 0 2.6rem; background:var(--bg)}
+.rd-points-h{font-size:.8rem !important; font-weight:800; letter-spacing:.14em; color:var(--accent-ink,var(--accent)); margin:0 0 .3rem !important}
+.rd-points ol{list-style:none; counter-reset:rdp; margin:0; padding:0}
+.rd-points li{counter-increment:rdp; position:relative; margin:0; padding:.6rem 0 .6rem 2.7rem;
+  font-size:1.14rem; font-weight:700; line-height:1.55; color:var(--navy); border-top:1px dashed var(--rule,var(--line))}
+.rd-points li:first-child{border-top:0}
+.rd-points li::before{content:counter(rdp); position:absolute; left:0; top:.62rem; width:1.85rem; height:1.85rem;
+  border-radius:50%; background:var(--accent); color:var(--rd-on-accent); font-size:.95rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center; line-height:1}
+@media screen and (max-width:640px){
+  .rd-points{padding:.9rem 1rem .8rem}
+  .rd-points li{font-size:1.04rem; padding-left:2.4rem}
+  .rd-stat{flex:1 1 12rem}
+  .rd-stat-v{font-size:2rem}
+}
+.rd-points-f{font-size:14px !important; line-height:1.75; color:var(--muted); margin:.5rem 0 0 !important;
+  padding-top:.6rem; border-top:1px solid var(--line)}
+
+/* ---- 2. 根拠（灰色・小さめ）。既定は開いた状態（open）で、読者が見出しを押すと閉じられる ---- */
+details.rd-ev{margin:-.5rem 0 1.8rem; color:var(--muted)}
+details.rd-ev[open]{border-left:3px solid var(--rule,var(--line)); background:var(--code); border-radius:0 8px 8px 0;
+  padding-bottom:.1rem}
+details.rd-ev > summary{cursor:pointer; list-style:none; display:inline-block; padding:.2rem .85rem; font-size:13px;
+  font-weight:700; letter-spacing:.04em; color:var(--muted); background:var(--code); border:1px solid var(--line);
+  border-radius:999px; max-width:100%}
+details.rd-ev[open] > summary{border:0; background:transparent; border-radius:0; padding:.45rem .9rem .25rem}
+details.rd-ev > summary::-webkit-details-marker{display:none}
+details.rd-ev > summary::before{content:"▸"; display:inline-block; margin-right:.45em; transition:transform .15s}
+details.rd-ev[open] > summary::before{transform:rotate(90deg)}
+details.rd-ev > summary:hover{color:var(--accent-ink,var(--accent))}
+details.rd-ev p{font-size:14px; line-height:1.8; color:var(--muted); margin:0; padding:0 .95rem .75rem}
+details.rd-ev ul, details.rd-ev ol{margin:0 .95rem .75rem; padding-left:1.2em}
+details.rd-ev li{font-size:14px; line-height:1.75; color:var(--muted); margin:.2em 0}
+details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
+details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
+details.rd-ev table{font-size:.8rem}
+
+/* ---- 3. 当院の数値チップ ---- */
+.rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
+.rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
+  border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
+.rd-stat-v{display:block; font-size:2.3rem; font-weight:800; line-height:1.15; color:var(--accent-ink,var(--accent));
+  font-variant-numeric:tabular-nums; letter-spacing:0}
+.rd-stat-v small{font-size:.4em; font-weight:700; color:var(--muted); margin-left:.25em; letter-spacing:.02em}
+.rd-stat-k{display:block; font-size:13px; font-weight:700; line-height:1.5; color:var(--muted); margin-top:.2rem}
+
+/* ---- 4. 手順チェックリスト ---- */
+.rd-check{border:1px solid color-mix(in srgb, var(--good) 35%, transparent); border-left:5px solid var(--good);
+  background:var(--good-soft); border-radius:10px; padding:.9rem 1.2rem .7rem; margin:1.4rem 0 2rem}
+.rd-check-h{font-size:.86rem !important; font-weight:800; letter-spacing:.06em; color:var(--good); margin:0 0 .3rem !important}
+.rd-check ol{list-style:none; counter-reset:rdc; margin:0; padding:0}
+.rd-check li{counter-increment:rdc; position:relative; margin:0; padding:.55rem 0 .55rem 2.5rem;
+  font-size:15.5px; line-height:1.8; border-top:1px solid color-mix(in srgb, var(--good) 18%, transparent)}
+.rd-check li:first-child{border-top:0}
+.rd-check li::before{content:counter(rdc); position:absolute; left:0; top:.68rem; width:1.55rem; height:1.55rem;
+  border:2px solid var(--good); border-radius:5px; background:var(--bg); color:var(--good);
+  font-size:.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; line-height:1}
+
+/* ---- 5. やる／やらない（左右2列）。is-choice は「条件→選択」の2択に使う ---- */
+.rd-dodont{display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.4rem 0 2rem}
+.rd-dodont > div{border:1.5px solid var(--line); border-radius:12px; padding:.85rem 1.1rem .6rem}
+.rd-dodont p, .rd-dodont li{font-size:15px; line-height:1.75}
+.rd-dodont p{margin:0 0 .5rem}
+.rd-dodont ul{margin:0 0 .4rem; padding-left:1.2em}
+.rd-dodont li{margin:.25em 0}
+.rd-dd-h{font-size:1.05rem !important; font-weight:800; line-height:1.5; margin:0 0 .4rem !important}
+.rd-do{border-color:var(--good) !important; background:var(--good-soft)}
+.rd-dont{border-color:var(--danger) !important; background:var(--danger-soft)}
+.rd-do .rd-dd-h{color:var(--good)} .rd-do .rd-dd-h::before{content:"○ "}
+.rd-dont .rd-dd-h{color:var(--danger)} .rd-dont .rd-dd-h::before{content:"✕ "}
+.rd-dodont.is-choice > div{border-color:var(--accent) !important; background:var(--accent-soft)}
+.rd-dodont.is-choice .rd-dd-h{color:var(--accent-ink,var(--accent))}
+.rd-dodont.is-choice .rd-dd-h::before{content:none}
+@media (max-width:640px){ .rd-dodont{grid-template-columns:1fr} }
+
+/* ---- 印刷：色を保ち、根拠は開いて出す ---- */
+@media print{
+  .rd, .rd *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .rd > h2{display:flex; align-items:center; gap:6pt; padding:3pt 6pt 3pt 0; border:0; background:var(--accent-soft)}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-3pt 0; padding:0 6pt;
+    background:var(--accent); color:var(--rd-on-accent)}
+  .rd > h3{border-left:4pt solid var(--accent); padding-left:5pt}
+  .rd .rd-lead{font-weight:700; color:var(--navy)}
+  details.rd-ev::details-content{content-visibility:visible; display:block}
+  details.rd-ev{break-inside:auto}
+  details.rd-ev > summary::before{content:""}
+  .rd-points, .rd-check, .rd-dodont, .rd-stats{break-inside:avoid; page-break-inside:avoid}
+  .rd-stat-v{font-size:18pt}
+}
 </style>
 </head>
 <body data-refstyle="1">
@@ -858,14 +1002,26 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
 
+<section class="rd">
 <h2 id="s1"><span class="no">§1</span>定義と用語 — HFNC・HFNO・HFOT・NHF</h2>
-<p>HFNCには同じものを指す呼び名がいくつもあり、ガイドラインや試験ごとに使う略語が違います。この章で分かるのは、HFNCとは何か、HFNO・HFOT・HFNT・NHFといった呼び名がどう違い、どれが主流か、の2点です。<strong>当院ではHFNCと呼びます</strong>。以後の章もHFNCで書きます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>当院ではHFNCと呼び、カルテもHFNCで書く</li>
+<li>HFNO・HFNT・NHFは同じものとして読む</li>
+<li>HFOTは鼻からか気管からかを方法の節で確かめる</li>
+</ol>
+<p class="rd-points-f">HFNCには同じものを指す呼び名がいくつもあり、ガイドラインや試験ごとに使う略語が違います。この章で分かるのは、HFNCとは何か、HFNO・HFOT・HFNT・NHFといった呼び名がどう違い、どれが主流か、の2点です。<strong>当院ではHFNCと呼びます</strong>。以後の章もHFNCで書きます。</p>
+</div>
 
 <h3 id="rs-s1-1">1-1. HFNCとは — 加温加湿した高流量を鼻から流す酸素療法</h3>
-<p>HFNC（high-flow nasal cannula、高流量鼻カニュラ酸素療法）は、加温加湿した空気と酸素の混合ガスを、太径の鼻カニュラから30〜60 L/分で流す酸素療法です<span class="src vault">Maggiore ICM2023</span>。FiO₂は0.21〜1.0の範囲で設定でき、解剖学的死腔を洗い流し、低いレベルのPEEP様の圧を生みます。会話・食事・喀痰の喀出を保ちやすいのも特徴です<span class="src vault">ATS2026</span>。</p>
-<p>陽圧換気ではありません。NIV・CPAPとともに非侵襲的呼吸補助（NIRS）と総称されますが、NIV・CPAPが密着したマスクやヘルメットで設定した圧をかけるのに対し、HFNCは圧を設定値として持たず、吸気を押し上げる補助もしません<span class="src vault">ATS2026</span>。3つの生理の違いは§2-5、使い分けは§8にあります。NIVの定義と用語は「呼吸｜NIV・NPPV」の資料を参照してください。</p>
+<p class="rd-lead">HFNCは流量・FiO₂・温度を決めて鼻から流す酸素療法で、圧は設定値として持たず、陽圧換気ではありません<span class="src vault">Maggiore ICM2023</span>。</p>
+<p>HFNC（high-flow nasal cannula、高流量鼻カニュラ酸素療法）は、加温加湿した空気と酸素の混合ガスを、太径の鼻カニュラから30〜60 L/分で流す酸素療法です。FiO₂は0.21〜1.0の範囲で設定でき、解剖学的死腔を洗い流し、低いレベルのPEEP様の圧を生みます。会話・食事・喀痰の喀出を保ちやすいのも特徴です<span class="src vault">ATS2026</span>。</p>
+<p>陽圧換気ではありません。NIV・CPAPとともに非侵襲的呼吸補助（NIRS）と総称されますが、NIV・CPAPが密着したマスクやヘルメットで設定した圧をかけるのに対し、HFNCは圧を設定値として持たず、吸気を押し上げる補助もしません<span class="src vault">ATS2026</span>。</p>
+<p>3つの生理の違いは§2-5、使い分けは§8にあります。NIVの定義と用語は「呼吸｜NIV・NPPV」の資料を参照してください。</p>
 
 <h3 id="rs-s1-2">1-2. 用語の書き分け — どれが主流か</h3>
+<p class="rd-lead">3つのガイドラインはいずれもHFNCと書き、当院もカルテ・申し送り・この資料をHFNCに統一します（表1）。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表1｜HFNCまわりの用語 — <span class="ok">3つのガイドラインはHFNC。当院もHFNCと呼ぶ</span></caption>
@@ -881,16 +1037,28 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </tbody>
 </table>
 </div>
-<p>3つのガイドライン（ICM 2020・ERS 2022・ATS 2026）はいずれもHFNCを使っており、国際的な標準語はHFNCです。一方、原著論文の題名ではHFNOも多く、とくに欧州の試験と総説で目立ちます。HFOT・HFNT・NHFを含め、鼻カニュラから流すものであれば指しているものは同じで、どの呼び名を使うかは文献により一定しません。注意が要るのはHFOTで、気管チューブや気管切開孔から流す方法（§4-6）も同じ名前で呼ばれるため、鼻からか気管からかを論文の方法の節で確かめてください。<span class="split">当院ではHFNCに統一し、カルテ・申し送り・この資料はHFNCと書きます</span>（論文の題名と引用の中は原文のまま）。</p>
+<p>3つのガイドライン（ICM 2020・ERS 2022・ATS 2026）はいずれもHFNCを使っており、国際的な標準語はHFNCです。一方、原著論文の題名ではHFNOも多く、とくに欧州の試験と総説で目立ちます。HFOT・HFNT・NHFを含め、鼻カニュラから流すものであれば指しているものは同じで、どの呼び名を使うかは文献により一定しません。</p>
+<p>注意が要るのはHFOTで、気管チューブや気管切開孔から流す方法（§4-6）も同じ名前で呼ばれるため、鼻からか気管からかを論文の方法の節で確かめてください。<span class="split">当院ではHFNCに統一し、カルテ・申し送り・この資料はHFNCと書きます</span>（論文の題名と引用の中は原文のまま）。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s2"><span class="no">§2</span>なぜ効くのか — 流量が薬の用量</h2>
-<p>鼻から高流量を流すだけで呼吸が楽になる理由を、機序として押さえます。ここが曖昧なままだと、流量やFiO₂を動かすときに、酸素化・換気・努力のどれを直そうとしているのか分からなくなります。この章で分かるのは、3つのつまみの意味、5つの効果、陽圧は口を閉じたときにしか出ないこと、そして「楽に見える」ことと努力が減ることは別だ、という4点です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>流量は支持、FiO₂はSpO₂、温度は忍容のために動かす</li>
+<li>陽圧は口を閉じたときだけ出ると患者に伝える</li>
+<li>「楽そう」ではなく努力とROXで評価する</li>
+</ol>
+<p class="rd-points-f">鼻から高流量を流すだけで呼吸が楽になる理由を、機序として押さえます。ここが曖昧なままだと、流量やFiO₂を動かすときに、酸素化・換気・努力のどれを直そうとしているのか分からなくなります。この章で分かるのは、3つのつまみの意味、5つの効果、陽圧は口を閉じたときにしか出ないこと、そして「楽に見える」ことと努力が減ることは別だ、という4点です。</p>
+</div>
 
 <h3 id="rs-s2-1">2-1. 装置と3つのつまみ</h3>
+<p class="rd-lead">動かせるのは流量・FiO₂・温度の3つだけで、流量は支持を最大化するために上げ、FiO₂は目標SpO₂で決め、温度は高流量を我慢できるように下げます。</p>
 <p>装置は3つの部分でできています。ブレンダーまたはタービンが最大60 L/分のガス流を作り、加温加湿器（温度31〜37 ℃、絶対湿度30〜44 mgH₂O/L）で整えて投与します<span class="src vault">Maggiore ICM2023</span>。国内では Fisher &amp; Paykel 社の Optiflow（加湿器 MR850・Airvo 2）などが使われ、HFNC 機能のある ICU 用人工呼吸器でも投与できます。</p>
-<p>従来型酸素との違いは「酸素を足す」ことではなく、<strong>患者の吸気流量を上回るガスを鼻咽頭に流し続ける</strong>ことです<span class="src vault">Maggiore ICM2023</span>。動かせるのは流量・FiO₂・温度の3つだけで、目的が1つずつ違います。流量は支持を最大化するために上げ、FiO₂は目標SpO₂で決め、温度は高流量を我慢できるように下げます。この3つの役割を先に決めておくと、ベッドサイドで迷いません。</p>
+<p>従来型酸素との違いは「酸素を足す」ことではなく、<strong>患者の吸気流量を上回るガスを鼻咽頭に流し続ける</strong>ことです<span class="src vault">Maggiore ICM2023</span>。3つのつまみは目的が1つずつ違い、この役割を先に決めておくと、ベッドサイドで迷いません。</p>
 
 <figure class="fig">
 <div class="nf"><div class="nf-steps is-time is-chain"><div class="nf-step"><svg class="nf-svg nf-ico" viewBox="0 0 120 72" aria-hidden="true"><path class="nf-sa" stroke-width="4" d="M4,22 H30"/><path class="nf-ln" stroke-width="4" d="M4,50 H30"/><rect class="nf-fm" x="30" y="6" width="62" height="60" rx="9"/><circle class="nf-fb" cx="61" cy="36" r="15"/><path class="nf-sa" stroke-width="3.5" d="M61,36 L61,24"/><path class="nf-ln" stroke-width="2" d="M42,24 L45,26 M80,24 L77,26 M61,15 L61,18"/><path class="nf-sa" stroke-width="4" d="M92,36 H116"/></svg><div class="nf-q">ブレンダー<br>（またはタービン）</div><div class="nf-chips"><span class="nf-chip is-fill">流量</span><span class="nf-chip is-fill">FiO₂</span></div><div class="nf-note">最大60 L/分のガス流を作る</div></div><div class="nf-step"><svg class="nf-svg nf-ico" viewBox="0 0 120 72" aria-hidden="true"><rect class="nf-fm" x="44" y="1" width="9" height="10" rx="2"/><rect class="nf-fm" x="67" y="1" width="9" height="10" rx="2"/><rect class="nf-fb" x="34" y="9" width="52" height="42" rx="7"/><path class="nf-fa" d="M35.5,30 Q47,25 60,30 T84.5,30 V49.5 H35.5 Z"/><rect class="nf-fm" x="26" y="50" width="68" height="19" rx="5"/><path class="nf-sw" stroke-width="3" d="M40,60 H80"/></svg><div class="nf-q">加温加湿器</div><div class="nf-chips"><span class="nf-chip is-fill">温度</span></div><div class="nf-note">31〜37 ℃・絶対湿度30〜44 mgH₂O/L</div></div><div class="nf-step"><svg class="nf-svg nf-ico" viewBox="0 0 120 72" aria-hidden="true"><path d="M6,52 C30,52 36,20 62,22 S96,50 114,24" fill="none" stroke-linecap="round" style="stroke:var(--accent)" stroke-width="18"/><path d="M6,52 C30,52 36,20 62,22 S96,50 114,24" fill="none" stroke-linecap="round" style="stroke:var(--accent-soft)" stroke-width="13"/><path d="M6,52 C30,52 36,20 62,22 S96,50 114,24" fill="none" style="stroke:var(--accent);opacity:.45" stroke-width="13" stroke-dasharray="2 5"/><path class="nf-sw" stroke-width="2" d="M6,52 C30,52 36,20 62,22 S96,50 114,24"/></svg><div class="nf-q">加温回路</div><div class="nf-note">結露しやすい。患者より低く垂らす</div></div><div class="nf-step"><svg class="nf-svg nf-ico" viewBox="0 0 120 72" aria-hidden="true"><path class="nf-sa" stroke-width="4" d="M44,58 C14,58 8,12 60,10 C112,12 106,58 76,58"/><rect class="nf-fb" x="40" y="52" width="40" height="13" rx="6.5"/><rect class="nf-fa" x="48" y="42" width="8" height="13" rx="4"/><rect class="nf-fa" x="64" y="42" width="8" height="13" rx="4"/></svg><div class="nf-q">鼻カニュラ</div><div class="nf-note">太径。鼻孔の内径の半分以下の大きさ</div></div></div><div class="nf-sec">動かせるつまみは3つ — 目的が1つずつ違う</div><div class="nf-callouts"><div class="nf-callout"><span class="nf-ch">流量　20〜60 L/分</span>支持を最大化するために上げる</div><div class="nf-callout"><span class="nf-ch">FiO₂　0.21〜1.0</span>目標SpO₂で決める</div><div class="nf-callout"><span class="nf-ch">温度　31〜37 ℃</span>高流量を我慢できるように下げる</div></div><p class="nf-foot">模式図</p></div>
@@ -906,7 +1074,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s2-2">2-2. 5つの効果（HI-FLOW）</h3>
-<p>効き方は5つに整理され、HI-FLOWの6文字で覚えられます<span class="src vault">Maggiore ICM2023</span><span class="src vault">Lodeserto Cureus2018</span>。要になるのは、呼吸不全患者の吸気ピーク流量（30〜60 L/分以上）を満たせることです。15 L/分しか出ない従来型酸素と違って室内気が混ざらず、呼気相にも流し続けるので上気道の死腔が洗い出され、同じ分時換気量でも肺胞換気が増えます。呼吸数の低下はその帰結です。</p>
+<p class="rd-lead">要になるのは呼吸不全患者の吸気ピーク流量（30〜60 L/分以上）を満たせることで、呼吸数の低下はその帰結です。</p>
+<p>効き方は5つに整理され、HI-FLOWの6文字で覚えられます<span class="src vault">Maggiore ICM2023</span><span class="src vault">Lodeserto Cureus2018</span>。15 L/分しか出ない従来型酸素と違って室内気が混ざらず、呼気相にも流し続けるので上気道の死腔が洗い出され、同じ分時換気量でも肺胞換気が増えます。</p>
 <figure class="fig">
 <div class="nf"><div class="nf-acro"><div class="nf-ac"><span class="nf-lt">H</span><span class="nf-en">Heated &amp; Humidified</span><span class="nf-ja">加温加湿で高流量を長時間我慢でき、線毛クリアランスも保たれる</span></div><div class="nf-ac"><span class="nf-lt">I</span><span class="nf-en">Inspiratory Demands</span><span class="nf-ja">亢進した吸気ピーク流量を満たす</span></div><div class="nf-ac is-key"><span class="nf-lt">F</span><span class="nf-en">Functional Residual Capacity</span><span class="nf-chip is-warn">閉口時だけ</span><span class="nf-ja">流量依存の陽圧で機能的残気量が増える</span></div><div class="nf-ac"><span class="nf-lt">L</span><span class="nf-en">Lighter</span><span class="nf-ja">CPAPやNIV（S/Tモード）より楽で忍容性が高い</span></div><div class="nf-ac"><span class="nf-lt">O</span><span class="nf-en">Oxygen Dilution</span><span class="nf-ja">室内気で薄まらず、設定FiO₂がそのまま届く</span></div><div class="nf-ac"><span class="nf-lt">W</span><span class="nf-en">Washout of dead space</span><span class="nf-ja">咽頭の死腔を洗い流す（CO₂の除去）</span></div></div></div>
 <figcaption>図2. HI-FLOW — HFNCの効果の覚え方</figcaption>
@@ -935,10 +1104,13 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </figure>
 <p class="figread"><strong>図の読み方</strong> — 左が死腔の洗い出し、中央が吸気流量を上回る供給（室内気が混ざらない）、右が閉口時の陽圧です。3つは独立した効果ではなく流量という1つの入力から生まれるので、流量を下げると3つとも同時に弱まります。</p>
 
-<p>臨床上の利点は、会話・食事・口腔ケア・睡眠ができることです。ATS 2026は快適性が他の非侵襲的呼吸補助より10点尺度でMD +1.3点高いことを、強い推奨の根拠の1つにしました<span class="src vault">ATS2026</span>。快適性は付加価値ではなく、高流量を24時間続けて治療として成立させるための前提条件です。</p>
+<p class="rd-lead is-sub">快適性は付加価値ではなく、高流量を24時間続けて治療として成立させるための前提条件です。</p>
+<p>臨床上の利点は、会話・食事・口腔ケア・睡眠ができることです。ATS 2026は快適性が他の非侵襲的呼吸補助より10点尺度でMD +1.3点高いことを、強い推奨の根拠の1つにしました<span class="src vault">ATS2026</span>。</p>
 
 <h3 id="rs-s2-3">2-3. 陽圧は閉口で生まれる</h3>
-<p>HFNCの陽圧は設定値ではありません。流し込んだ高流量のガスが鼻咽頭から逃げていくときの抵抗（呼気抵抗）で生まれるので、口を開けて逃げ道ができると圧はほぼ消えます。実測値は表3のとおりで、閉口時でも個人差が大きく（心臓術後15例で1.5〜5.3 cmH₂O）、著者はカニュラ周囲のリークと鼻孔の大きさの差を主因と推測しています<span class="src vault">Parke BJA2009</span>。</p>
+<p class="rd-lead">HFNCの陽圧は設定値ではなく、口を閉じているときにだけ数 cmH₂O生まれ、口を開けるとほぼ消えます。</p>
+<p>流し込んだ高流量のガスが鼻咽頭から逃げていくときの抵抗（呼気抵抗）で生まれるので、口を開けて逃げ道ができると圧はほぼ消えます。実測値は表3のとおりで、閉口時でも個人差が大きく（心臓術後15例で1.5〜5.3 cmH₂O）、著者はカニュラ周囲のリークと鼻孔の大きさの差を主因と推測しています<span class="src vault">Parke BJA2009</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表3：流量・口の開閉と気道内圧）</summary>
 <div class="tablewrap">
 <table class="wide">
 <caption>表3｜流量・口の開閉と気道内圧の実測値 — <span class="ok">「高流量＝PEEP」ではなく「高流量×呼気抵抗＝PEEP」</span></caption>
@@ -951,6 +1123,7 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </tbody>
 </table>
 </div>
+</details>
 
 <figure class="fig">
 <div class="nf"><div class="nf-panels"><div class="nf-panel"><svg class="nf-svg" viewBox="0 0 460 330" role="img" aria-label="HFNCの流量と鼻咽頭圧・気道内圧の実測値。閉口では流量とともに上がり、開口ではほぼ消える"><defs><marker id="nf4-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-a" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-aL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-a" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-aX" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="24" markerHeight="24" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-a" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-d" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-dL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-d" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-dX" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="24" markerHeight="24" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-d" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-m" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-mL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-m" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-mX" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="24" markerHeight="24" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-m" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-w" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-wL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-w" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nf4-wX" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="24" markerHeight="24" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-w" d="M0,0 L10,5 L0,10 z"/></marker></defs><text class="nf-ts" x="62" y="262" dy=".35em" text-anchor="end">0</text><line class="nf-grid" x1="70" y1="201" x2="446" y2="201"/><text class="nf-ts" x="62" y="201" dy=".35em" text-anchor="end">2</text><line class="nf-grid" x1="70" y1="140" x2="446" y2="140"/><text class="nf-ts" x="62" y="140" dy=".35em" text-anchor="end">4</text><line class="nf-grid" x1="70" y1="79" x2="446" y2="79"/><text class="nf-ts" x="62" y="79" dy=".35em" text-anchor="end">6</text><line class="nf-grid" x1="70" y1="18" x2="446" y2="18"/><text class="nf-ts" x="62" y="18" dy=".35em" text-anchor="end">8</text><line class="nf-tick" x1="141.6" y1="262" x2="141.6" y2="267"/><text class="nf-ts" x="141.6" y="284" text-anchor="middle">30</text><line class="nf-tick" x1="186.4" y1="262" x2="186.4" y2="267"/><text class="nf-ts" x="186.4" y="284" text-anchor="middle">35</text><line class="nf-tick" x1="231.1" y1="262" x2="231.1" y2="267"/><text class="nf-ts" x="231.1" y="284" text-anchor="middle">40</text><line class="nf-tick" x1="275.9" y1="262" x2="275.9" y2="267"/><text class="nf-ts" x="275.9" y="284" text-anchor="middle">45</text><line class="nf-tick" x1="320.7" y1="262" x2="320.7" y2="267"/><text class="nf-ts" x="320.7" y="284" text-anchor="middle">50</text><line class="nf-tick" x1="365.4" y1="262" x2="365.4" y2="267"/><text class="nf-ts" x="365.4" y="284" text-anchor="middle">55</text><line class="nf-tick" x1="410.2" y1="262" x2="410.2" y2="267"/><text class="nf-ts" x="410.2" y="284" text-anchor="middle">60</text><line class="nf-axis" x1="70" y1="262" x2="70" y2="18"/><line class="nf-axis" x1="70" y1="262" x2="446" y2="262"/><text class="nf-t" transform="translate(22 140.0) rotate(-90)" text-anchor="middle">鼻咽頭圧・気道内圧（cmH₂O）</text><text class="nf-t" x="258.0" y="316" text-anchor="middle">HFNCの流量（L/分）</text><path class="nf-wave" stroke-width="2.5" d="M141.6,203.1 L231.1,183.3 L320.7,161"/><path class="nf-sa" stroke-width="1.6" d="M141.6,241.3 V165 M135.6,241.3 H147.6 M135.6,165 H147.6"/><circle cx="141.6" cy="203.1" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/><text class="nf-t nf-ta nf-tb" x="131.6" y="208.1" text-anchor="end">1.93</text><path class="nf-sa" stroke-width="1.6" d="M231.1,230.3 V136.3 M225.1,230.3 H237.1 M225.1,136.3 H237.1"/><circle cx="231.1" cy="183.3" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/><text class="nf-t nf-ta nf-tb" x="241.1" y="207.3">2.58</text><path class="nf-sa" stroke-width="1.6" d="M320.7,193.1 V129 M314.7,193.1 H326.7 M314.7,129 H326.7"/><circle cx="320.7" cy="161" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/><text class="nf-t nf-ta nf-tb" x="330.7" y="166">3.31</text><rect x="179.9" y="173.1" width="13" height="13" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/><rect x="179.9" y="218.9" width="13" height="13" style="fill:var(--bg);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-ta nf-tb" x="192.4" y="165.6" text-anchor="middle">閉口 2.7</text><text class="nf-t" x="186.4" y="251.4" text-anchor="middle" style="fill:var(--muted)">開口 1.2</text><path d="M410.2,46.1 L418.6,54.6 L410.2,63 L401.7,54.6 Z" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/><path d="M410.2,229.2 L418.6,237.6 L410.2,246 L401.7,237.6 Z" style="fill:var(--bg);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-ta nf-tb" x="396.2" y="59.6" text-anchor="end">閉口 6.8</text><text class="nf-t" x="396.2" y="242.6" text-anchor="end" style="fill:var(--muted)">開口 0.8</text><line class="nf-sd" stroke-width="2.5" x1="436.2" y1="62.6" x2="436.2" y2="227.6" marker-end="url(#nf4-dL)"/><text class="nf-t nf-td nf-tb" x="424.2" y="97.3" text-anchor="end">口を開けると</text><text class="nf-t nf-td nf-tb" x="424.2" y="119.3" text-anchor="end">ほぼ消える</text></svg></div></div><div class="nf-legend"><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><circle cx="0" cy="0" r="5.1" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/></svg>健常者・閉口（平均±SD）Parke 2011</span><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><rect x="-6" y="-6" width="12" height="12" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/></svg><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><rect x="-6" y="-6" width="12" height="12" style="fill:var(--bg);stroke:var(--muted);stroke-width:2.5"/></svg>心臓術後15例 Parke BJA2009</span><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><path d="M0,-7.8 L7.8,0 L0,7.8 L-7.8,0 Z" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/></svg><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><path d="M0,-7.8 L7.8,0 L0,7.8 L-7.8,0 Z" style="fill:var(--bg);stroke:var(--muted);stroke-width:2.5"/></svg>ベンチ＋健常者10名 Vieira JApplPhysiol2022</span><span>塗り＝閉口　白抜き＝開口</span></div><p class="nf-foot">3つの研究の実測値（表3）。対象と測定部位が違うため、研究をまたいで線で結ばない</p></div>
@@ -964,9 +1137,12 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s2-4">2-4. 努力と呼吸数 — 「楽に見える」の中身</h3>
-<p>HFNCは吸気努力を実際に下げます。肺炎のない敗血症25例では、食道内圧の吸気陰性振幅（ΔPes）が健常者の報告値3.2 cmH₂Oの2倍以上の8.0 cmH₂Oに亢進し、4人に3人以上で圧時間積（PTP）が生理学的上限を超えていました。HFNC 50 L/分を30分流すと、ΔPesは5.5 cmH₂O、PTPは224から140 cmH₂O·s·min⁻¹、呼吸ドライブ（P0.5）は6.0から4.3 cmH₂Oへ下がりました<span class="src vault">Mauri Anesthesiology2021</span>。一回換気量は変わらず動的肺コンプライアンスが63から83 mL/cmH₂Oへ上がっており、同じ換気をより少ない努力で得ています。酸素化もPaCO₂も動いていないので酸素化の改善では説明できず、低流量酸素に戻すと30分で元に戻りました。</p>
-<p>急性低酸素性呼吸不全15例で酸素マスク12 L/分からHFNC 40 L/分（同じFiO₂）に切り替えた研究でも、ΔPes 9.9→8.0 cmH₂O、分時PTP 216→155、分時換気量 −19%、P/F 130→184で、PaCO₂は40.7→41.1 mmHgと不変でした<span class="src vault">Mauri AJRCCM2017</span>。ただし呼吸数の低下（24→22回/分）と仕事量の低下は相関しませんでした。</p>
+<p class="rd-lead">HFNCは吸気努力を実際に下げますが、呼吸数とSpO₂がよくなっても、それだけでは努力が減った証拠になりません。</p>
+<p>肺炎のない敗血症でも、HFNC 50 L/分を30分流すと吸気努力と呼吸ドライブが下がり、同じ換気をより少ない努力で得ていました<span class="src vault">Mauri Anesthesiology2021</span>。酸素化もPaCO₂も動いていないので酸素化の改善では説明できず、低流量酸素に戻すと30分で元に戻りました。</p>
 <p>呼吸数が下がる機序の1つは、閉口時に呼気抵抗が増えて呼気が延びることです。同じ呼吸努力を生むのはHFNC 40 L/分≒CPAP 4 cmH₂Oで、60 L/分ではCPAPより努力が小さくなり、CPAPにはこの呼気抵抗の効果がありません<span class="src vault">Vieira JApplPhysiol2022</span>。4つの戦略を比べたネットワークメタ解析（NMA）でも、HFNCは呼吸数と分時努力を最も下げる一方、1回の吸気努力と経肺駆動圧は動かしませんでした（表4）。</p>
+<details class="rd-ev" open><summary>根拠を見る（表4：非侵襲的呼吸補助4戦略の生理）</summary>
+<p>肺炎のない敗血症25例では、食道内圧の吸気陰性振幅（ΔPes）が健常者の報告値3.2 cmH₂Oの2倍以上の8.0 cmH₂Oに亢進し、4人に3人以上で圧時間積（PTP）が生理学的上限を超えていました。HFNC 50 L/分を30分流すと、ΔPesは5.5 cmH₂O、PTPは224から140 cmH₂O·s·min⁻¹、呼吸ドライブ（P0.5）は6.0から4.3 cmH₂Oへ下がりました<span class="src vault">Mauri Anesthesiology2021</span>。一回換気量は変わらず動的肺コンプライアンスが63から83 mL/cmH₂Oへ上がっていました。</p>
+<p>急性低酸素性呼吸不全15例で酸素マスク12 L/分からHFNC 40 L/分（同じFiO₂）に切り替えた研究でも、ΔPes 9.9→8.0 cmH₂O、分時PTP 216→155、分時換気量 −19%、P/F 130→184で、PaCO₂は40.7→41.1 mmHgと不変でした<span class="src vault">Mauri AJRCCM2017</span>。ただし呼吸数の低下（24→22回/分）と仕事量の低下は相関しませんでした。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表4｜非侵襲的呼吸補助4戦略の生理 — <span class="ok">HFNCは駆動圧を上げずに分時努力を下げる</span></caption>
@@ -979,13 +1155,15 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </tbody>
 </table>
 </div>
+</details>
 <div class="box warn">
 <span class="label">落とし穴 — 呼吸数とSpO₂が良くなっても、努力が減った証拠ではない</span>
 <p>敗血症の研究では、快適性VASは流量によらず8点で、ΔPesともP0.5とも相関しませんでした<span class="src vault">Mauri Anesthesiology2021</span>。装着後に呼吸数が下がりSpO₂が上がるのは、酸素化の改善と呼気延長の結果でもあります。COVID-19の1型呼吸不全では、苦しさが低酸素の重さに見合わないこともあります<span class="src vault">Nicholson BMJ2020</span>。「本人は楽そう」で安全性を判断せず、ROXと努力（補助筋・胸腹部の同調）・意識・循環で評価してください（§5）。</p>
 </div>
 
 <h3 id="rs-s2-5">2-5. HFNC・CPAP・NIVは別の道具</h3>
-<p>3つとも「非侵襲的呼吸補助」ですが、効き方が違います<span class="src vault">Munshi NEJM2022</span>。HFNCは設定値としてのPEEPを持たないので、CPAPの代替ではありません。「酸素化の障害」か「換気の障害」かで方式を選ぶ、というのが次章の適応の骨格です。</p>
+<p class="rd-lead">HFNCは設定値としてのPEEPを持たないのでCPAPの代替ではなく、「酸素化の障害」か「換気の障害」かで方式を選びます<span class="src vault">Munshi NEJM2022</span>。</p>
+<p>3つとも「非侵襲的呼吸補助」ですが、効き方が違います。この線引きが、次章の適応の骨格です。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表5｜HFNC・CPAP・NIVの生理比較 — <span class="ok">酸素化の障害か、換気の障害か</span></caption>
@@ -1001,11 +1179,22 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s3"><span class="no">§3</span>誰に使うか — 病態で選ぶ</h2>
-<p>HFNCの適応は疾患名ではなく病態で決めます。この章で分かるのは、「低酸素性はHFNC、高CO₂血症はNIV」というガイドラインの骨格と、場面ごとに何が減って何は減らないかです。結論を先に言うと、HFNCが減らすのは挿管と不快で、死亡ではありません。COPD・高CO₂血症は§7で扱います。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>低酸素性はHFNC、高CO₂血症はNIVで始める</li>
+<li>HFNCが減らすのは挿管で、死亡ではないと説明する</li>
+<li>抜管後は悪化を待たず予防的に使い、救済で粘らない</li>
+</ol>
+<p class="rd-points-f">HFNCの適応は疾患名ではなく病態で決めます。この章で分かるのは、「低酸素性はHFNC、高CO₂血症はNIV」というガイドラインの骨格と、場面ごとに何が減って何は減らないかです。結論を先に言うと、HFNCが減らすのは挿管と不快で、死亡ではありません。COPD・高CO₂血症は§7で扱います。</p>
+</div>
 
 <h3 id="rs-s3-1">3-1. ガイドライン3本の到達点</h3>
+<p class="rd-lead">低酸素性はHFNC、高CO₂血症はNIV、抜管後はリスクで分ける、というのが3本に共通する線引きです（表6）。</p>
 <p>2020年のICM、2022年のERS、2026年のATSのガイドラインを並べると、骨格は変わらず、確実性が「条件付き」から「強い推奨」へ上がったことが分かります（表中のCOTは従来型酸素療法＝標準酸素）<span class="src vault">ATS2026</span>。ERSが8つの推奨をすべて条件付きにとどめたのは、確実性が低いか、利益と害の差が小さいと判断したためです<span class="src vault">ERS2022</span>。ATSの強い推奨も挿管を減らすことに基づくもので、どのガイドラインも「HFNCが死亡を減らす」とは書いていません。</p>
 <div class="tablewrap">
 <table class="wide">
@@ -1023,9 +1212,16 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s3-2">3-2. de novo 低酸素性呼吸不全 — 挿管は減る、死亡は減らない</h3>
+<p class="rd-lead">SOHOの1,110例でも、HFNCで挿管は減りましたが、28日死亡は14.6%対14.6%で変わりませんでした<span class="src vault">SOHO NEJM2026</span>。</p>
 <p>de novo（新規発症）の急性低酸素性呼吸不全は、換気は保たれたまま、肺実質の障害で酸素化だけが破綻する病態です。珍しくはなく、トロントの9 ICUでは酸素または呼吸補助を4時間以上受けた患者の半数（10,832例）が入室24時間以内に P/F 300以下を満たし、76%が挿管され、重症例の挿管ICU死亡は47%でした<span class="src vault">von Düring CCM2026</span>。</p>
-<p>主要なエビデンスは表7にまとめました。読むときの要点は3つです。第一に、出発点のFLORALIは主要評価項目の28日挿管では差がなく、90日死亡の低下は副次でした。NIV群のPEEPが低かった、NIVのセッション間にHFNCを併用していた、など解釈を難しくする要素もあります<span class="src vault">FLORALI NEJM2015</span><span class="src vault">Munshi NEJM2022</span>。第二に、対NIVは「差が出なかった」だけで「劣らない」とは証明されていません<span class="src vault">Ni Chest2017</span>。ヘルメットNIVだけが死亡RR 0.40と突出しましたが、4試験340例の低い確実性です<span class="src vault">Ferreyro JAMA2020</span>。第三に、死亡に決着をつけたのがSOHOです。</p>
+<p>主要なエビデンスは表7にまとめました。読むときの要点は3つです。</p>
+<ul>
+<li>出発点のFLORALIは主要評価項目の28日挿管では差がなく、90日死亡の低下は副次でした。NIV群のPEEPが低かった、NIVのセッション間にHFNCを併用していた、など解釈を難しくする要素もあります<span class="src vault">FLORALI NEJM2015</span><span class="src vault">Munshi NEJM2022</span></li>
+<li>対NIVは「差が出なかった」だけで「劣らない」とは証明されていません<span class="src vault">Ni Chest2017</span>。ヘルメットNIVだけが死亡RR 0.40と突出しましたが、4試験340例の低い確実性です<span class="src vault">Ferreyro JAMA2020</span></li>
+<li>死亡に決着をつけたのがSOHOです</li>
+</ul>
 <p>SOHOはフランス42 ICUの P/F 200以下・呼吸数25超・肺浸潤影の1,110例（肺炎88.1%、うちCOVID-19 46.6%、免疫不全22.3%）で、HFNC（設定は表13）とリザーバーマスク（10 L/分以上）を比べ、死亡は同じで挿管だけが減りました（表7）<span class="src vault">SOHO NEJM2026</span>。1時間後には呼吸数が3回/分、PaCO₂が2 mmHg下がり、自覚呼吸困難の改善も49.5%対34.7%と多くなりました。死亡率が想定の18%より低かったため、2〜3ポイントの死亡減は否定できないと著者自身が書いています。</p>
+<details class="rd-ev" open><summary>根拠を見る（表7：de novo低酸素性呼吸不全の主要エビデンス）</summary>
 <div class="tablewrap">
 <table class="wide">
 <caption>表7｜de novo低酸素性呼吸不全の主要エビデンス — <span class="ok">挿管は減る、死亡は減らない</span></caption>
@@ -1040,23 +1236,35 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </tbody>
 </table>
 </div>
-<p>ARDSでは P/F 150が分水嶺です。150超の軽〜中等症では非侵襲戦略が安全・有効でHFNCが第一選択ですが、150以下の中〜重症は「試みてよいが、挿管の遅れで死亡が増える危険域」とされます<span class="src vault">Grieco ICM2021</span>。この P/F 150は、§5で見切りの時刻を決めるときの目安になります。当院ではこの領域もHFNCで開始し、それで無理ならフルフェイスマスク（口と鼻を覆うマスク）のNIVか挿管を検討します。フルフェイスマスクNIVは次の一手であって、そこで粘って挿管を遅らせません。文献で2本目の柱とされるヘルメットNIVは当院には無い選択肢です<span class="src in">当院</span>。</p>
+</details>
+<p class="rd-lead is-sub">ARDSでは P/F 150が分水嶺で、この P/F 150は§5で見切りの時刻を決めるときの目安になります。</p>
+<p>150超の軽〜中等症では非侵襲戦略が安全・有効でHFNCが第一選択ですが、150以下の中〜重症は「試みてよいが、挿管の遅れで死亡が増える危険域」とされます<span class="src vault">Grieco ICM2021</span>。</p>
+<p>当院ではこの領域もHFNCで開始し、それで無理ならフルフェイスマスク（口と鼻を覆うマスク）のNIVか挿管を検討します。フルフェイスマスクNIVは次の一手であって、そこで粘って挿管を遅らせません。文献で2本目の柱とされるヘルメットNIVは当院には無い選択肢です<span class="src in">当院</span>。</p>
 <div class="box good">
 <span class="label">要点 — 家族にどう説明するか</span>
 <p>P/F 200以下の肺炎性呼吸不全にはHFNCを第一選択で使いますが、家族には「挿管を避けられる可能性は上がるが、生存率が上がる治療ではない」と伝えます。運用はSOHOの型（最低48時間・事前規定の挿管基準）とセットにします<span class="src vault">Zhao CritCare2017</span>。</p>
 </div>
 
 <h3 id="rs-s3-3">3-3. 免疫不全 — 特別扱いしない</h3>
+<p class="rd-lead">免疫不全でもHFNCは非免疫不全と同じプロトコルで使い、見切りは予測スコアではなく臨床評価で行います。</p>
 <p>免疫不全患者は米国人口の約7%にすぎないのにARDS症例の約20%を占め、死亡率は今なお50〜60%です<span class="src vault">Azoulay ICM2026</span>。挿管された患者のほぼ半数が院内で死亡しうるため、「挿管を何としても避ける」戦略が長く模索されてきましたが、結論は「特別扱いしない」です。</p>
-<p>HIGH試験は免疫不全の急性低酸素性呼吸不全776例（酸素6 L/分以上を要する。AIDS・PaCO₂ 50以上・単独の心原性肺水腫は除外）で、HFNCと標準酸素を比べました。28日死亡は35.6%対36.1%（HR 0.98）、挿管は38.7%対43.8%で差がなく、快適さ・呼吸困難・ICU獲得感染も同じで、改善したのは P/F（150対119）と6時間後の呼吸数（25対26回/分）だけでした<span class="src vault">HIGH JAMA2018</span>。原著は「どちらも妥当」と述べており、使ってはいけないという結論ではありません。同じ集団で早期NIVも28日死亡を減らさず（24.1%対27.3%、対照群の44%がHFNCを使用）<span class="src vault">Lemiale JAMA2015</span>、HFNC単独がNIVより挿管（35%対55%）・28日死亡（20%対40%）とも少なかった報告は単施設の後ろ向き115例です<span class="src vault">Coudroy AnnIntensiveCare2016</span>。総説はここから「呼吸補助のプロトコルは非免疫不全と変えない」「挿管回避を目的化しない」と結論しています<span class="src vault">Maggiore ICM2023</span>。</p>
+<p>HIGH試験（免疫不全776例）では、HFNCと標準酸素で28日死亡も挿管も差がありませんでした<span class="src vault">HIGH JAMA2018</span>。原著は「どちらも妥当」と述べており、使ってはいけないという結論ではありません。総説はここから「呼吸補助のプロトコルは非免疫不全と変えない」「挿管回避を目的化しない」と結論しています<span class="src vault">Maggiore ICM2023</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>HIGH試験は免疫不全の急性低酸素性呼吸不全776例（酸素6 L/分以上を要する。AIDS・PaCO₂ 50以上・単独の心原性肺水腫は除外）で、HFNCと標準酸素を比べました。28日死亡は35.6%対36.1%（HR 0.98）、挿管は38.7%対43.8%で差がなく、快適さ・呼吸困難・ICU獲得感染も同じで、改善したのは P/F（150対119）と6時間後の呼吸数（25対26回/分）だけでした<span class="src vault">HIGH JAMA2018</span>。</p>
+<p>同じ集団で早期NIVも28日死亡を減らさず（24.1%対27.3%、対照群の44%がHFNCを使用）<span class="src vault">Lemiale JAMA2015</span>、HFNC単独がNIVより挿管（35%対55%）・28日死亡（20%対40%）とも少なかった報告は単施設の後ろ向き115例です<span class="src vault">Coudroy AnnIntensiveCare2016</span>。</p>
+</details>
 <div class="box warn">
 <span class="label">落とし穴 — 同じプロトコルでも、同じ物差しでは見張れない</span>
 <p>ROX指数も、NIVの失敗予測に使うHACORスコア（心拍数・アシドーシス・意識・酸素化・呼吸数）も、免疫不全患者では性能が実質的に低く、信頼できる検証済みの予測ツールは存在しません<span class="src vault">Azoulay ICM2026</span>。挿管の判断は、酸素化・呼吸数の改善の欠如、胸腹部の非同調、全身状態の悪化という臨床評価で行い、病因の確定を急いでください。</p>
 </div>
 
 <h3 id="rs-s3-4">3-4. 挿管前の酸素化 — NIVを軸にHFNCを上乗せ</h3>
-<p>挿管前酸素化はこの4年で最も大きく動いた領域で、ATS 2026ではHFNCまたはNIVの強い推奨になりました（表6）<span class="src vault">ATS2026</span>。試験の結果（表8）は重症度で読み分けます。軽症〜中等症ではHFNC単独でも最低SpO₂が保たれましたが、P/F約120の重症例ではフェイスマスクに勝らず、無呼吸酸素化としての効果も P/F 200超に限られました。重症例でHFNCが効いたのは、NIVに上乗せしたとき（OPTINIV）です<span class="src vault">OPTINIV ICM2016</span>。</p>
-<p>前酸素化の軸はNIVです。NIVの試験PREOXIでは肥満での恩恵が大きく、低酸素血症は26.4%→9.0%と非肥満の3倍以上減りました<span class="src vault">Russotto ICM2026</span>。FRCが小さく酸素消費の大きい肥満では、まず陽圧で酸素の貯蔵庫を増やす必要があり、無呼吸酸素化は効きません。25年分のRCTを総ざらいしたレビューも、HFNCをNIVの禁忌がある患者の代替と位置づけています<span class="src vault">DeMasi AJRCCM2025</span>。</p>
+<p class="rd-lead">挿管前の酸素化はNIVを軸にし、P/F約120の重症例ではHFNC 60 L/分をNIVに上乗せします<span class="src vault">OPTINIV ICM2016</span>。</p>
+<p>挿管前酸素化はこの4年で最も大きく動いた領域で、ATS 2026ではHFNCまたはNIVの強い推奨になりました（表6）<span class="src vault">ATS2026</span>。試験の結果（表8）は重症度で読み分けます。</p>
+<p>軽症〜中等症ではHFNC単独でも最低SpO₂が保たれましたが、P/F約120の重症例ではフェイスマスクに勝らず、無呼吸酸素化としての効果も P/F 200超に限られました。重症例でHFNCが効いたのは、NIVに上乗せしたとき（OPTINIV）です<span class="src vault">OPTINIV ICM2016</span>。</p>
+<p>前酸素化の軸はNIVです。NIVの試験PREOXIでは肥満での恩恵が大きく、低酸素血症は26.4%→9.0%と非肥満の3倍以上減りました<span class="src vault">Russotto ICM2026</span>。FRCが小さく酸素消費の大きい肥満では、まず陽圧で酸素の貯蔵庫を増やす必要があり、無呼吸酸素化は効きません。</p>
+<p>25年分のRCTを総ざらいしたレビューも、HFNCをNIVの禁忌がある患者の代替と位置づけています<span class="src vault">DeMasi AJRCCM2025</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表8：挿管前酸素化の試験と設定）</summary>
 <div class="tablewrap">
 <table class="wide">
 <caption>表8｜挿管前酸素化の試験と設定 — <span class="ok">重症ほどNIVに上乗せする</span></caption>
@@ -1071,15 +1279,22 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </table>
 </div>
 <p>出典は順に<span class="src vault">Miguel-Montanes CCM2015</span><span class="src vault">PREOXYFLOW ICM2015</span><span class="src vault">OPTINIV ICM2016</span><span class="src vault">Jhou SciRep2020</span><span class="src vault">Russotto ICM2026</span>です。</p>
+</details>
 <div class="box good">
 <span class="label">要点 — 挿管の場面でのHFNC</span>
 <p>HFNCを使っている患者を挿管するときは、NIVマスクの下に鼻カニュラを残して60 L/分・FiO₂ 100%で流し続けます（OPTINIVの型）。総吸気圧（PS＋PEEP）は15 cmH₂Oまでにします。この範囲では胃内送気・気圧外傷は起きていません<span class="src vault">OPTINIV ICM2016</span>。HFNC単独の無呼吸酸素化に安心を求めず、前酸素化の質と手技の速さで勝負してください。</p>
 </div>
 
 <h3 id="rs-s3-5">3-5. 抜管後 — 悪化が予測される患者に予防的に使う</h3>
-<p>抜管後の再挿管は10〜40%と幅があり、死亡の増加と独立して関連します<span class="src vault">Maggiore ICM2023</span>。HFNCが最も確実に効くのがこの場面です。2017年のメタ解析で対COTの挿管回避が有意だったのは抜管後（OR 0.37）だけで<span class="src vault">Zhao CritCare2017</span>、予定抜管後15試験・2,600例のネットワークメタ解析では、HFNCはCOTに比べて再挿管を RR 0.54（0.32–0.89）・確信度 high で減らしました（短期死亡は不変）<span class="src vault">Yasuda CritCare2021</span>。抜管後にCOTへ戻す理由はありません。</p>
-<p>ただし答えはリスク層で変わります（表9）。低リスク527例では、抜管後24時間のHFNCが72時間再挿管を4.9%対12.2%（NNT 14）に減らしました<span class="src vault">Hernández JAMA2016</span>。P/F 300以下の105例では、50 L/分のHFNCがベンチュリマスクより24時間の P/F（287対247）と快適さを改善しました<span class="src vault">Maggiore AJRCCM2014</span>。高リスク604例ではHFNCはNIVに非劣性（再挿管22.8%対19.1%）でしたが、24時間で外した直後に再挿管が急増しました（§6-3）<span class="src vault">Hernández JAMA2016高リスク</span>。</p>
-<p>高リスク（65歳超・慢性心疾患・慢性肺疾患のいずれか）641例のHIGH-WEANでは、抜管直後48時間のNIV（1日12時間以上）＋休止中HFNC 50 L/分が、HFNC単独より7日再挿管を11.8%対18.2%に減らしました。再挿管の曲線は最初の48時間から離れ始め、効果が最大だったのは自発呼吸トライアル（SBT）終了時のPaCO₂ 45 mmHg超の群（8%対21%）です<span class="src vault">HIGH-WEAN JAMA2019</span>。非高CO₂血症の高リスク829例の事後解析でもNIV＋HFNCは11.8%対17.6%で<span class="src vault">Capdevila ICM2026</span>、2026年のメタ解析（15 RCT・2,073例）ではリスク因子4個以上（OR 1.63）と非手術の肥満（OR 2.52）でHFNC単独が不利でした<span class="src vault">HIGH-FLOW OXY CCE2026</span>。「高リスク」の定義は研究ごとに違い、ATS 2026が挙げた定義（65歳以上・心肺疾患・APACHE II ≥12・BMI ≥30・気道開存の問題・分泌物管理不良・複雑な離脱・併存疾患3つ以上・7日以上の人工呼吸）が1つの目安になります<span class="src vault">ATS2026</span>。</p>
+<p class="rd-lead">悪化が予測される患者には、リスクに応じてHFNCかNIVを抜管と同時に予防的に使い、悪化してからのHFNC・NIVは効果未確立です<span class="src vault">ATS2026</span>。</p>
+<p>抜管後の再挿管は10〜40%と幅があり、死亡の増加と独立して関連します<span class="src vault">Maggiore ICM2023</span>。HFNCが最も確実に効くのがこの場面です。2017年のメタ解析で対COTの挿管回避が有意だったのは抜管後（OR 0.37）だけで<span class="src vault">Zhao CritCare2017</span>、予定抜管後15試験・2,600例のネットワークメタ解析では、HFNCはCOTに比べて再挿管を RR 0.54（0.32–0.89）・確信度 high で減らしました（短期死亡は不変）<span class="src vault">Yasuda CritCare2021</span>。</p>
+<p>抜管後にCOTへ戻す理由はありません。ただし答えはリスク層で変わります（表9）。</p>
+<p>高リスク（65歳超・慢性心疾患・慢性肺疾患のいずれか）641例のHIGH-WEANでは、抜管直後48時間のNIV（1日12時間以上）＋休止中HFNC 50 L/分が、HFNC単独より7日再挿管を11.8%対18.2%に減らしました。再挿管の曲線は最初の48時間から離れ始め、効果が最大だったのは自発呼吸トライアル（SBT）終了時のPaCO₂ 45 mmHg超の群（8%対21%）です<span class="src vault">HIGH-WEAN JAMA2019</span>。</p>
+<p>「高リスク」の定義は研究ごとに違い、ATS 2026が挙げた定義（65歳以上・心肺疾患・APACHE II ≥12・BMI ≥30・気道開存の問題・分泌物管理不良・複雑な離脱・併存疾患3つ以上・7日以上の人工呼吸）が1つの目安になります<span class="src vault">ATS2026</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>低リスク527例では、抜管後24時間のHFNCが72時間再挿管を4.9%対12.2%（NNT 14）に減らしました<span class="src vault">Hernández JAMA2016</span>。P/F 300以下の105例では、50 L/分のHFNCがベンチュリマスクより24時間の P/F（287対247）と快適さを改善しました<span class="src vault">Maggiore AJRCCM2014</span>。高リスク604例ではHFNCはNIVに非劣性（再挿管22.8%対19.1%）でしたが、24時間で外した直後に再挿管が急増しました（§6-3）<span class="src vault">Hernández JAMA2016高リスク</span>。</p>
+<p>非高CO₂血症の高リスク829例の事後解析でもNIV＋HFNCは11.8%対17.6%で<span class="src vault">Capdevila ICM2026</span>、2026年のメタ解析（15 RCT・2,073例）ではリスク因子4個以上（OR 1.63）と非手術の肥満（OR 2.52）でHFNC単独が不利でした<span class="src vault">HIGH-FLOW OXY CCE2026</span>。</p>
+</details>
 <div class="tablewrap">
 <table class="wide">
 <caption>表9｜抜管後のリスク層と当て方 — <span class="ok">リスク因子を数えてから抜管を指示する</span></caption>
@@ -1100,14 +1315,18 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </figure>
 <p class="figread"><strong>図の読み方</strong> — 表9を1枚にしたものです。上の3段が抜管と同時に当てる予防、一番下が悪化してからの救済です。悪化が予測される患者には予防的に使い、悪化してからのHFNC・NIVは効果が確立していないことを表9で確かめてください<span class="src vault">ATS2026</span>。</p>
 
-<p>日本の実態も動いています。JIPAD 40 ICU・12,687例では、抜管後のNIVが6.7%→3.9%、HFNCが15.9%→28.0%に変わりましたが（2018→2022年）、転帰との関連は評価されていません<span class="src jp">JIPAD CCR2026</span>。同じJIPADでは抜管72時間以内の再挿管が5.9%で、やせ（BMI 18.5未満）で8.4%・調整OR 1.58、肥満で4.3%・OR 0.69と、西欧と逆に「やせ」がリスクでした<span class="src jp">JIPAD JAACC2026</span>。「非手術の肥満ではHFNC不利」を日本の抜管後にそのまま当てはめてよいかは、慎重に読みます。</p>
+<p class="rd-lead is-sub">「非手術の肥満ではHFNC不利」を日本の抜管後にそのまま当てはめてよいかは、慎重に読みます。</p>
+<p>日本の実態も動いています。JIPAD 40 ICU・12,687例では、抜管後のNIVが6.7%→3.9%、HFNCが15.9%→28.0%に変わりましたが（2018→2022年）、転帰との関連は評価されていません<span class="src jp">JIPAD CCR2026</span>。同じJIPADでは抜管72時間以内の再挿管が5.9%で、やせ（BMI 18.5未満）で8.4%・調整OR 1.58、肥満で4.3%・OR 0.69と、西欧と逆に「やせ」がリスクでした<span class="src jp">JIPAD JAACC2026</span>。</p>
 <div class="box warn">
 <span class="label">落とし穴 — 予防と救済を言葉の上で分ける</span>
 <p>悪化が予測される患者には、リスクに応じてHFNCかNIVを悪化を待たずに装着します（予防）。抜管後に悪化してから始めるHFNC・NIV（救済）は、どちらも効果が確立していません。ATS 2026は抜管後の推奨を予防的使用に限り、救援的HFNCはサブグループで再挿管が多い傾向でした（信頼性は低〜中等度）<span class="src vault">ATS2026</span>。救済的なNIVでは挿管が遅れ、ICU死亡が25%対14%に増えた試験があり（Esteban NEJM2004）、総説も救済で始めたHFNC・NIVはどちらも効果が示されていないとまとめています<span class="src vault">Burns JClinMed2026</span>。カルテに「予防」「救済」を区別して残し、救済で始めるなら見切りの時刻を決めて、時間を稼がないでください。目標は再挿管ゼロではなく、必要な再挿管を遅らせないことです<span class="src vault">De Jong ICM2023</span>。</p>
 </div>
 
 <h3 id="rs-s3-6">3-6. 術後 — 対象を絞る</h3>
-<p>術後の予防的使用は「誰に」で答えが変わります。ICM 2020は、心臓・胸部手術を受ける高リスクまたは肥満の患者にHFNCを提案し、その他の患者へのルーチン使用は行わないことを提案しています<span class="src vault">HFNC GL ICM2020</span>。表10のとおり、心胸郭外科術後の低酸素ではS/T（文献ではBiPAP）に非劣性で皮膚障害が少なく、腹部大手術後の全例予防では低酸素を減らしませんでした。高齢VATSの試験は術後肺合併症の重症度を下げましたが、減ったのは中等症で重症は10.4%対7.7%と大差なく、著者自身が全例へのルーチン使用を支持していません<span class="src vault">Lin CritCare2026</span>。</p>
+<p class="rd-lead">術後は対象を絞り、ICM 2020は、心臓・胸部手術を受ける高リスクまたは肥満の患者にHFNCを提案し、その他の患者へのルーチン使用は行わないことを提案しています<span class="src vault">HFNC GL ICM2020</span>。</p>
+<p>術後の予防的使用は「誰に」で答えが変わります。表10のとおり、心胸郭外科術後の低酸素ではS/T（文献ではBiPAP）に非劣性で皮膚障害が少なく、腹部大手術後の全例予防では低酸素を減らしませんでした。</p>
+<p>高齢VATSの試験は術後肺合併症の重症度を下げましたが、減ったのは中等症で重症は10.4%対7.7%と大差なく、著者自身が全例へのルーチン使用を支持していません<span class="src vault">Lin CritCare2026</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表10：術後の試験と設定）</summary>
 <div class="tablewrap">
 <table class="wide">
 <caption>表10｜術後の試験と設定 — <span class="ok">同じ高流量でも「誰に」で答えが変わる</span></caption>
@@ -1120,8 +1339,10 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </table>
 </div>
 <p>出典は順に<span class="src vault">BiPOP JAMA2015</span><span class="src vault">OPERA ICM2016</span><span class="src vault">Lin CritCare2026</span>です。</p>
+</details>
 
 <h3 id="rs-s3-7">3-7. HFNCで粘ってはいけない状況</h3>
+<p class="rd-lead">呼吸停止の切迫、呼吸性アシドーシスを伴う高CO₂血症、心原性肺水腫などでは、HFNCを続けるより挿管かNIVを選びます。</p>
 <p>HFNCの簡便さは、必要な挿管やNIVを遅らせる危険と裏表です。次の状況では、HFNCを続けることより挿管かNIVを選ぶことを優先してください。</p>
 <div class="box danger">
 <span class="label">HFNCではなく挿管（またはNIV）を選ぶ</span>
@@ -1138,17 +1359,31 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s4"><span class="no">§4</span>設定 — 流量・FiO₂・温度を病態で決める</h2>
-<p>ここからは「どう始めるか」です。この章で分かるのは、流量を上げると何がどれだけ変わるか、病態ごとの出発点、そしてその数字がどの試験から来たかです。原則は3つで、低酸素性は高く・COPDは低く始める、FiO₂は目標SpO₂で決める、不快なら流量より先に温度を下げる、です。数値は各試験に書かれた値で、書かれていない値は「記載なし」としています。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>低酸素性は忍容できる最大、COPDは30前後で始める</li>
+<li>FiO₂は目標SpO₂で決め、下げるのはFiO₂が先</li>
+<li>不快なら流量より先に温度を下げる</li>
+</ol>
+<p class="rd-points-f">ここからは「どう始めるか」です。この章で分かるのは、流量を上げると何がどれだけ変わるか、病態ごとの出発点、そしてその数字がどの試験から来たかです。原則は3つで、低酸素性は高く・COPDは低く始める、FiO₂は目標SpO₂で決める、不快なら流量より先に温度を下げる、です。数値は各試験に書かれた値で、書かれていない値は「記載なし」としています。</p>
+</div>
 
 <h3 id="rs-s4-1">4-1. 流量は「何を直したいか」で決める</h3>
-<p>流量の効果は1本の曲線ではなく、指標によって形が違います。非挿管の急性低酸素性呼吸不全17例で、酸素マスク→HFNC 30→45→60 L/分と各20分流したクロスオーバーでは、酸素化と呼気終末肺容量は60 L/分まで直線的に伸びました（P/F 151→177→187→205、ΔEELV 0→+74→+115→+230 mL）<span class="src vault">Mauri ICM2017</span>。一方、吸気努力（ΔPes 9.4→7.9→8.1→6.8 cmH₂O）・圧時間積（254→174→169→151）・分時換気量（9.1→7.0→7.0→6.9 L/分）は<strong>30 L/分で効果の大半が出て頭打ち</strong>でした。PaCO₂は38 mmHg前後で、流量によって変わっていません。</p>
+<p class="rd-lead">酸素化と肺容量は60 L/分まで伸び、吸気努力と分時換気量は30 L/分でほぼ頭打ちになるので、直したいもので流量を決めます<span class="src vault">Mauri ICM2017</span>。</p>
+<p>流量の効果は1本の曲線ではなく、指標によって形が違います。PaCO₂は38 mmHg前後で、流量によって変わっていません。</p>
 <figure class="fig">
 <div class="nf"><div class="nf-sec">酸素化・肺容量は60 L/分まで伸びる（PaCO₂は変わらない）</div><div class="nf-panels is-3"><div class="nf-panel"><p class="nf-pt">P/F比（mmHg）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="P/F比（mmHg）：マスク 151、30 L/分 177、45 L/分 187、60 L/分 205"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">140</text><line class="nf-grid" x1="50" y1="119" x2="292" y2="119"/><text class="nf-ts" x="43" y="119" dy=".35em" text-anchor="end">160</text><line class="nf-grid" x1="50" y1="88" x2="292" y2="88"/><text class="nf-ts" x="43" y="88" dy=".35em" text-anchor="end">180</text><line class="nf-grid" x1="50" y1="57" x2="292" y2="57"/><text class="nf-ts" x="43" y="57" dy=".35em" text-anchor="end">200</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">220</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="132.9" x2="140.8" y2="92.7" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--accent)"/><path d="M140.8,92.7 L201.2,77.2 L261.8,49.2" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--accent)"/><circle cx="80.2" cy="132.9" r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="119.9" text-anchor="middle">151</text><circle cx="140.8" cy="92.7" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="79.7" text-anchor="middle">177</text><circle cx="201.2" cy="77.2" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="64.2" text-anchor="middle">187</text><circle cx="261.8" cy="49.2" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="36.2" text-anchor="middle">205</text></svg></div><div class="nf-panel"><p class="nf-pt">呼気終末肺容量の変化（mL）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="呼気終末肺容量の変化（mL）：マスク 0、30 L/分 74、45 L/分 115、60 L/分 230"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">0</text><line class="nf-grid" x1="50" y1="108.7" x2="292" y2="108.7"/><text class="nf-ts" x="43" y="108.7" dy=".35em" text-anchor="end">100</text><line class="nf-grid" x1="50" y1="67.3" x2="292" y2="67.3"/><text class="nf-ts" x="43" y="67.3" dy=".35em" text-anchor="end">200</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">300</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="150" x2="140.8" y2="119.4" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--accent)"/><path d="M140.8,119.4 L201.2,102.5 L261.8,54.9" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--accent)"/><circle cx="80.2" cy="150" r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="137" text-anchor="middle">0</text><circle cx="140.8" cy="119.4" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="106.4" text-anchor="middle">74</text><circle cx="201.2" cy="102.5" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="89.5" text-anchor="middle">115</text><circle cx="261.8" cy="54.9" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="41.9" text-anchor="middle">230</text></svg></div><div class="nf-panel"><p class="nf-pt">PaCO₂（mmHg）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="PaCO₂（mmHg）：マスク 38.2、30 L/分 38.0、45 L/分 38.1、60 L/分 38.3"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">30</text><line class="nf-grid" x1="50" y1="108.7" x2="292" y2="108.7"/><text class="nf-ts" x="43" y="108.7" dy=".35em" text-anchor="end">35</text><line class="nf-grid" x1="50" y1="67.3" x2="292" y2="67.3"/><text class="nf-ts" x="43" y="67.3" dy=".35em" text-anchor="end">40</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">45</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="82.2" x2="140.8" y2="83.9" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--muted)"/><path d="M140.8,83.9 L201.2,83 L261.8,81.4" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--muted)"/><circle cx="80.2" cy="82.2" r="5.5" style="fill:var(--bg);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="69.2" text-anchor="middle">38.2</text><circle cx="140.8" cy="83.9" r="5.5" style="fill:var(--muted);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="70.9" text-anchor="middle">38.0</text><circle cx="201.2" cy="83" r="5.5" style="fill:var(--muted);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="70" text-anchor="middle">38.1</text><circle cx="261.8" cy="81.4" r="5.5" style="fill:var(--muted);stroke:var(--muted);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="68.4" text-anchor="middle">38.3</text></svg></div></div><div class="nf-sec">吸気努力・分時換気量は30 L/分でほぼ頭打ち</div><div class="nf-panels is-3"><div class="nf-panel"><p class="nf-pt">吸気努力 ΔPes（cmH₂O）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="吸気努力 ΔPes（cmH₂O）：マスク 9.4、30 L/分 7.9、45 L/分 8.1、60 L/分 6.8"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">6</text><line class="nf-grid" x1="50" y1="119" x2="292" y2="119"/><text class="nf-ts" x="43" y="119" dy=".35em" text-anchor="end">7</text><line class="nf-grid" x1="50" y1="88" x2="292" y2="88"/><text class="nf-ts" x="43" y="88" dy=".35em" text-anchor="end">8</text><line class="nf-grid" x1="50" y1="57" x2="292" y2="57"/><text class="nf-ts" x="43" y="57" dy=".35em" text-anchor="end">9</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">10</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="44.6" x2="140.8" y2="91.1" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--accent)"/><path d="M140.8,91.1 L201.2,84.9 L261.8,125.2" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--accent)"/><circle cx="80.2" cy="44.6" r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="31.6" text-anchor="middle">9.4</text><circle cx="140.8" cy="91.1" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="78.1" text-anchor="middle">7.9</text><circle cx="201.2" cy="84.9" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="71.9" text-anchor="middle">8.1</text><circle cx="261.8" cy="125.2" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="112.2" text-anchor="middle">6.8</text></svg></div><div class="nf-panel"><p class="nf-pt">圧時間積 PTPPes（cmH₂O·s/分）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="圧時間積 PTPPes（cmH₂O·s/分）：マスク 254、30 L/分 174、45 L/分 169、60 L/分 151"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">100</text><line class="nf-grid" x1="50" y1="119" x2="292" y2="119"/><text class="nf-ts" x="43" y="119" dy=".35em" text-anchor="end">150</text><line class="nf-grid" x1="50" y1="88" x2="292" y2="88"/><text class="nf-ts" x="43" y="88" dy=".35em" text-anchor="end">200</text><line class="nf-grid" x1="50" y1="57" x2="292" y2="57"/><text class="nf-ts" x="43" y="57" dy=".35em" text-anchor="end">250</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">300</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="54.5" x2="140.8" y2="104.1" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--accent)"/><path d="M140.8,104.1 L201.2,107.2 L261.8,118.4" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--accent)"/><circle cx="80.2" cy="54.5" r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="41.5" text-anchor="middle">254</text><circle cx="140.8" cy="104.1" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="91.1" text-anchor="middle">174</text><circle cx="201.2" cy="107.2" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="94.2" text-anchor="middle">169</text><circle cx="261.8" cy="118.4" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="105.4" text-anchor="middle">151</text></svg></div><div class="nf-panel"><p class="nf-pt">分時換気量（L/分）</p><svg class="nf-svg" viewBox="0 0 300 210" role="img" aria-label="分時換気量（L/分）：マスク 9.1、30 L/分 7.0、45 L/分 7.0、60 L/分 6.9"><text class="nf-ts" x="43" y="150" dy=".35em" text-anchor="end">6</text><line class="nf-grid" x1="50" y1="119" x2="292" y2="119"/><text class="nf-ts" x="43" y="119" dy=".35em" text-anchor="end">7</text><line class="nf-grid" x1="50" y1="88" x2="292" y2="88"/><text class="nf-ts" x="43" y="88" dy=".35em" text-anchor="end">8</text><line class="nf-grid" x1="50" y1="57" x2="292" y2="57"/><text class="nf-ts" x="43" y="57" dy=".35em" text-anchor="end">9</text><line class="nf-grid" x1="50" y1="26" x2="292" y2="26"/><text class="nf-ts" x="43" y="26" dy=".35em" text-anchor="end">10</text><line class="nf-axis" x1="50" y1="150" x2="50" y2="20"/><line class="nf-axis" x1="50" y1="150" x2="292" y2="150"/><line class="nf-tick" x1="80.2" y1="150" x2="80.2" y2="155"/><text class="nf-ts" x="80.2" y="172" text-anchor="middle">マスク</text><line class="nf-tick" x1="140.8" y1="150" x2="140.8" y2="155"/><text class="nf-ts" x="140.8" y="172" text-anchor="middle">30</text><line class="nf-tick" x1="201.2" y1="150" x2="201.2" y2="155"/><text class="nf-ts" x="201.2" y="172" text-anchor="middle">45</text><line class="nf-tick" x1="261.8" y1="150" x2="261.8" y2="155"/><text class="nf-ts" x="261.8" y="172" text-anchor="middle">60</text><text class="nf-t" x="171.0" y="200" text-anchor="middle">流量（L/分）</text><line x1="80.2" y1="53.9" x2="140.8" y2="119" stroke-width="2" stroke-dasharray="5 4" style="stroke:var(--accent)"/><path d="M140.8,119 L201.2,119 L261.8,122.1" fill="none" stroke-width="3" stroke-linejoin="round" style="stroke:var(--accent)"/><circle cx="80.2" cy="53.9" r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="80.2" y="40.9" text-anchor="middle">9.1</text><circle cx="140.8" cy="119" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="140.8" y="106" text-anchor="middle">7.0</text><circle cx="201.2" cy="119" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="201.2" y="106" text-anchor="middle">7.0</text><circle cx="261.8" cy="122.1" r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/><text class="nf-t nf-tb" x="261.8" y="109.1" text-anchor="middle">6.9</text></svg></div></div><div class="nf-legend"><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><circle r="5.5" style="fill:var(--bg);stroke:var(--accent);stroke-width:2.5"/></svg>酸素マスク 12 L/分</span><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><circle r="5.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2.5"/></svg>HFNC 30・45・60 L/分</span></div><p class="nf-foot">各流量20分のクロスオーバー。値は各流量の代表値（Mauri ICM2017）</p></div>
 <figcaption>図6. 流量を上げると何が変わるか（非挿管の急性低酸素性呼吸不全17例）。</figcaption>
 </figure>
 <p class="figread"><strong>図の読み方</strong> — 上段（酸素化・肺容量）は60 L/分まで右肩上がりが続き、下段（努力・分時換気量）は30 L/分で平らになります。この形の違いが、目的によって流量の出発点が変わる理由です<span class="src vault">Mauri ICM2017</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>非挿管の急性低酸素性呼吸不全17例で、酸素マスク→HFNC 30→45→60 L/分と各20分流したクロスオーバーでは、酸素化と呼気終末肺容量は60 L/分まで直線的に伸びました（P/F 151→177→187→205、ΔEELV 0→+74→+115→+230 mL）<span class="src vault">Mauri ICM2017</span>。一方、吸気努力（ΔPes 9.4→7.9→8.1→6.8 cmH₂O）・圧時間積（254→174→169→151）・分時換気量（9.1→7.0→7.0→6.9 L/分）は<strong>30 L/分で効果の大半が出て頭打ち</strong>でした。</p>
+</details>
 <p>至適流量は患者ごとにも違い、ΔPesは43%、背側EELVは37%の患者で30または45 L/分が最良でした。著者は「個別に滴定するのが理想、時間がなければ60 L/分から耐えられる最大流量」と提案しています<span class="src vault">Mauri ICM2017</span>。まとめると表11のようになります。</p>
 <div class="tablewrap">
 <table class="wide">
@@ -1164,7 +1399,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s4-2">4-2. 病態別の出発点</h3>
-<p>病態ごとの位置づけと初期流量・FiO₂・目標SpO₂・温度を表12にまとめます。まず病態を1つに決め、その行の設定から始めてください。低酸素性は忍容できる最大を目指し、高CO₂血症は30前後から、抜管後の低〜中リスクは低めから上方滴定、と覚えてください。数字の出どころは§4-3、吸入薬の投与中と気管切開の設定は§4-6にあります。</p>
+<p class="rd-lead">低酸素性は忍容できる最大を目指し、高CO₂血症は30前後から、抜管後の低〜中リスクは低めから上方滴定、と病態ごとに出発点が違います。</p>
+<p>病態ごとの位置づけと初期流量・FiO₂・目標SpO₂・温度を表12にまとめます。まず病態を1つに決め、その行の設定から始めてください。数字の出どころは§4-3、吸入薬の投与中と気管切開の設定は§4-6にあります。</p>
 <div class="tablewrap">
 <table class="wide key">
 <caption>表12｜病態・状況ごとの位置づけと開始設定 — <span class="ok">まず病態を1つに決め、試験で効いた設定から始める</span></caption>
@@ -1198,7 +1434,10 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p class="figread"><strong>図の読み方</strong> — ティールの行（低酸素性・術後・抜管後・挿管前）は50〜60 L/分の帯に、灰色の行（高CO₂血症・COPD増悪・吸入薬）は20〜40 L/分の帯に集まります。例外は抜管後・低リスクで、10 L/分から上げて実測31 L/分に落ち着きました<span class="src vault">Hernández JAMA2016</span>。</p>
 
 <h3 id="rs-s4-3">4-3. 試験で効いた設定 — 表12の根拠</h3>
-<p>表12の数字がどこから来たかを確かめます。主要試験が実際にどの設定で走ったかを並べ、結果の列には主要評価項目での判定だけを書きました（FLORALI・SOHO・HIGHの数値は表7と§3-3）。挿管前酸素化と術後は表8・表10、COPDは表22にあります。ウィーニングの基準は表20にまとめました。</p>
+<p class="rd-lead">低酸素性で挿管を減らした試験は、50〜60 L/分・FiO₂ 1.0または高濃度で開始・SpO₂ 92%以上・48時間以上・事前規定の挿管基準、という同じ型で走っていました。</p>
+<p>表12の数字がどこから来たかを確かめます。主要試験が実際にどの設定で走ったかを並べ、結果の列には主要評価項目での判定だけを書きました（FLORALI・SOHO・HIGHの数値は表7と§3-3）。</p>
+<p class="rd-note">挿管前酸素化と術後は表8・表10、COPDは表22にあります。ウィーニングの基準は表20にまとめました。</p>
+<details class="rd-ev" open><summary>根拠を見る（表13・表14：試験の設定）</summary>
 <div class="tablewrap">
 <table class="wide">
 <caption>表13｜低酸素性呼吸不全（免疫不全・COVID-19を含む）の試験設定 — <span class="ok">挿管を減らした試験は同じ型</span></caption>
@@ -1231,18 +1470,22 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </table>
 </div>
 <p>出典は順に<span class="src vault">Hernández JAMA2016</span><span class="src vault">Maggiore AJRCCM2014</span><span class="src vault">Hernández JAMA2016高リスク</span><span class="src vault">HIGH-WEAN JAMA2019</span><span class="src vault">Rouby CritCare2026</span>です。</p>
-
+</details>
 <div class="box good">
 <span class="label">要点 — 有効だった設定と中立だった設定を見分ける</span>
 <p>低酸素性で挿管を減らした試験は、50〜60 L/分・FiO₂ 1.0または高濃度で開始・SpO₂ 92%以上・48時間以上・事前規定の挿管基準、という同じ型です。中立に終わったHIGHも設定はほぼ同じで、結果を分けたのは設定ではなく対象（免疫不全）と評価項目（死亡）でした。抜管後は、Hernándezの2試験が同じ「10 L/分から不快の手前まで」のルールで、低リスクでは実測31 L/分、高リスクでは50 L/分に落ち着いています。「抜管後はやや低めから上方滴定」の根拠です<span class="src vault">Roca ICM2024</span>。</p>
 </div>
 
 <h3 id="rs-s4-4">4-4. FiO₂と目標SpO₂ — 高く始めて下げる</h3>
-<p>FiO₂は目標SpO₂で決めます。有効性を示した低酸素性の試験は、FiO₂ 1.0（FLORALI・HIGH・HiFLo）または高濃度（SOHOの実測0.67）で始めて下げ、目標はSpO₂ 92%以上か92〜96%でした<span class="src vault">SOHO NEJM2026</span>。COPDだけは88〜92%です<span class="src vault">Tan CritCare2024</span>。下げるときはFiO₂が先で流量が後です（理由は§6-1）。FiO₂ 0.7〜0.8でSpO₂を保っている状態は挿管基準のすぐ手前なので、SpO₂だけでなくFiO₂とセットで報告してください（表26）。</p>
+<p class="rd-lead">FiO₂は高く始めて目標SpO₂まで下げ、目標は低酸素性で92%以上か92〜96%、COPDだけ88〜92%です。</p>
+<p>FiO₂は目標SpO₂で決めます。有効性を示した低酸素性の試験は、FiO₂ 1.0（FLORALI・HIGH・HiFLo）または高濃度（SOHOの実測0.67）で始めて下げ、目標はSpO₂ 92%以上か92〜96%でした<span class="src vault">SOHO NEJM2026</span>。COPDだけは88〜92%です<span class="src vault">Tan CritCare2024</span>。</p>
+<p>下げるときはFiO₂が先で流量が後です（理由は§6-1）。FiO₂ 0.7〜0.8でSpO₂を保っている状態は挿管基準のすぐ手前なので、SpO₂だけでなくFiO₂とセットで報告してください（表26）。</p>
 
 <h3 id="rs-s4-5">4-5. 温度と不耐への対応</h3>
-<p>温度は快適性で決めます。理想は37 ℃ですが、低いほうが快適な患者がいて、不快で外されるくらいなら下げるのが正解です<span class="src vault">Roca ICM2024</span>。臨床ガイドは「低酸素性では31 ℃のほうが37 ℃より快適。低温から始めて快適性で上げる」と逆向きの提案をしています<span class="src vault">Rezoagli CritCare2025</span>。試験でも、軽症COPD増悪（Xia）と高齢VATSは31 ℃、在宅のFLOCOPは37 ℃から34・31 ℃へ下げる設計でした。</p>
-<p>不耐は珍しくありません。SOHOでは不快による中止が両群あわせて44例（4.3%）で、うちHFNCから標準酸素へ移ったのが30例（HFNC群の5.4%）でした<span class="src vault">SOHO NEJM2026</span>。SOHO-COVIDでは6%、OPERAでは7.4%で、軽症COPD増悪では不耐が治療失敗の最多理由でした（§7-3）。初日に乾燥・音・熱感を聞き、表15の順に手を打ちます。</p>
+<p class="rd-lead">温度は快適性で決め、理想は37 ℃ですが、低いほうが快適な患者がいて、不快で外されるくらいなら下げるのが正解です<span class="src vault">Roca ICM2024</span>。</p>
+<p>臨床ガイドは「低酸素性では31 ℃のほうが37 ℃より快適。低温から始めて快適性で上げる」と逆向きの提案をしています<span class="src vault">Rezoagli CritCare2025</span>。試験でも、軽症COPD増悪（Xia）と高齢VATSは31 ℃、在宅のFLOCOPは37 ℃から34・31 ℃へ下げる設計でした。</p>
+<p class="rd-lead is-sub">不耐は珍しくないので、初日に乾燥・音・熱感を聞き、表15の順に手を打ちます。</p>
+<p>SOHOでは不快による中止が両群あわせて44例（4.3%）で、うちHFNCから標準酸素へ移ったのが30例（HFNC群の5.4%）でした<span class="src vault">SOHO NEJM2026</span>。SOHO-COVIDでは6%、OPERAでは7.4%で、軽症COPD増悪では不耐が治療失敗の最多理由でした（§7-3）。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表15｜不耐への対応の順番 — <span class="ok">外される前に手を打つ</span></caption>
@@ -1258,16 +1501,29 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s4-6">4-6. 吸入薬・気管切開・気管チューブからの高流量</h3>
-<p>HFNC中の気管支拡張薬は、ネブライザーを加温加湿器の乾燥側（入口）に置き、送達中は流量を30 L/分に下げます。HFNCを外す必要はありません<span class="src vault">Dhanani ICM2022</span>。メッシュ式（VMN）はジェット式の2〜3倍の送達を提供しますが、根拠の大半は in vitro です<span class="src vault">Rello ICM2023</span>。</p>
+<p class="rd-lead">HFNC中の気管支拡張薬は、HFNCを外さず、ネブライザーを加温加湿器の乾燥側（入口）に置き、送達中は流量を30 L/分に下げて投与します<span class="src vault">Dhanani ICM2022</span>。</p>
+<p>メッシュ式（VMN）はジェット式の2〜3倍の送達を提供しますが、根拠の大半は in vitro です<span class="src vault">Rello ICM2023</span>。</p>
 <p>気管切開患者では専用インターフェースで気管高流量酸素を投与でき、最高流量（50〜60 L/分）でわずかな陽圧と軽度の酸素化改善・呼吸数低下が得られますが、効果は同流量の鼻HFNCより穏やかです。持続的な気管高流量酸素＋吸引頻度を抜去準備の指標にする戦略は、間欠的高流量＋カフトライアルより抜去までの時間を短縮しました<span class="src vault">Maggiore ICM2023</span>。</p>
-<p>気管チューブや気管切開孔に高流量酸素を回すときは、流量だけでなくアダプタの呼気ポート径が圧を決めます。呼気ポート6.9 mm・60 L/分ではT-pieceに比べてPEEPを6.0 cmH₂O押し上げ、SBT 15分の呼気終末肺気量の喪失を532 mLから164 mLへ食い止めましたが、吸気努力は変わりませんでした。14.6 mmの汎用品では60 L/分でもPEEPは1 cmH₂O未満です<span class="src vault">Xu CritCare2026</span>。鼻カニュラの閉口・開口（表3）と同じく、「高流量×呼気抵抗＝PEEP」です。</p>
+<p class="rd-lead is-sub">気管チューブや気管切開孔に高流量酸素を回すときは、流量だけでなくアダプタの呼気ポート径が圧を決めます。</p>
+<p>呼気ポート6.9 mm・60 L/分ではT-pieceに比べてPEEPを6.0 cmH₂O押し上げ、SBT 15分の呼気終末肺気量の喪失を532 mLから164 mLへ食い止めましたが、吸気努力は変わりませんでした。14.6 mmの汎用品では60 L/分でもPEEPは1 cmH₂O未満です<span class="src vault">Xu CritCare2026</span>。鼻カニュラの閉口・開口（表3）と同じく、「高流量×呼気抵抗＝PEEP」です。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s5"><span class="no">§5</span>評価と見切り — 2・6・12時間で決める</h2>
-<p>始めたら、次は「いつ諦めるか」です。HFNC中にいちばん大事なのは、失敗を早く見つけて挿管と保護換気を遅らせないことです<span class="src vault">Maggiore ICM2023</span>。挿管をトリガーする閾値にコンセンサスはなく最終判断は臨床判断ですが、ROX指数は個別の変数より予測精度が優れています<span class="src vault">Roca ICM2024</span>。この章で分かるのは、開始から48時間の時間割、ROXの使い方と限界、挿管基準、そして挿管のタイミングをめぐる論争です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>開始と同時に挿管基準と見切りの時刻を書く</li>
+<li>ROXを2・6・12時間に測り、伸びているかを見る</li>
+<li>基準を満たしたら時刻を待たずに挿管する</li>
+</ol>
+<p class="rd-points-f">始めたら、次は「いつ諦めるか」です。HFNC中にいちばん大事なのは、失敗を早く見つけて挿管と保護換気を遅らせないことです<span class="src vault">Maggiore ICM2023</span>。挿管をトリガーする閾値にコンセンサスはなく最終判断は臨床判断ですが、ROX指数は個別の変数より予測精度が優れています<span class="src vault">Roca ICM2024</span>。この章で分かるのは、開始から48時間の時間割、ROXの使い方と限界、挿管基準、そして挿管のタイミングをめぐる論争です。</p>
+</div>
 
 <h3 id="rs-s5-1">5-1. 開始から48時間の時間割</h3>
+<p class="rd-lead">開始時刻から逆算して、血液ガスは1時間、ROXは2・6・12時間の実時刻を指示に書き、挿管が集中する最初の2〜4日を厚く見ます。</p>
 <p>低酸素性呼吸不全でHFNCを始めたら、図8の順に進め、表16の時間割で評価します。挿管の大半は最初の2〜4日に起き、SOHOでも挿管の累積発生率はそこで急峻に立ち上がって以後平坦になりました<span class="src vault">SOHO NEJM2026</span>。再評価の時刻は実時刻で指示に書きます（午前2時開始なら、血液ガスは3時、ROXは4時・8時・14時）。</p>
 <figure class="fig">
 <div class="nf"><div class="nf-steps is-chain is-text"><div class="nf-step"><div class="nf-q">病態を1つに決める</div><div class="nf-note">適応は§3</div></div><div class="nf-step"><div class="nf-q">開始設定</div><div class="nf-note">病態の行（表12）から。§4</div></div><div class="nf-step"><div class="nf-q">挿管基準を書く</div><div class="nf-note">見切りの時刻・連絡先も（表19）</div></div></div><div class="nf-flow"><div class="nf-join"></div><div class="nf-root">2・6・12時間でROXを測る（表17）</div><div class="nf-groups" style="--nf-cols:1fr 1fr;--nf-bl:25%;--nf-br:25%"><div class="nf-group"><div class="nf-gh">伸びている（4.88以上）</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">続ける</div><div class="nf-a">48時間以降にウィーニングを判定（表20）</div></div></div></div><div class="nf-group"><div class="nf-gh">伸びない（表17の閾値未満）</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">強い吸気努力が残る</div><div class="nf-a"><span class="nf-chip is-fill">NIV</span> を足す</div></div><div class="nf-card"><div class="nf-q">挿管の準備</div><div class="nf-a">前酸素化は <span class="nf-chip is-fill">NIV</span><span class="nf-plus">＋</span><span class="nf-chip">HFNC</span></div></div></div></div></div><div class="nf-band"><span class="nf-bh">挿管基準（表19）を満たしたら</span><span class="nf-to">→</span><span>時刻を待たず、躊躇せず挿管する</span></div></div></div>
@@ -1294,7 +1550,11 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s5-2">5-2. ROX指数 — 時間が経つほど精度が上がる</h3>
-<p>ROX指数は（SpO₂／FiO₂）÷呼吸数です。成功と相関する変数を分子に、逆相関する変数を分母に置いた合成量で、SpO₂ 92%・FiO₂ 0.6・呼吸数28なら（92÷0.6）÷28＝5.5です。肺炎による急性低酸素性呼吸不全でHFNCを受けた191例（挿管35.6%）では、予測精度（AUROC）が開始前0.659→2時間0.679→6時間0.703→12時間0.752→24時間0.801と時間とともに上がりました<span class="src vault">Roca AJRCCM2019</span>。</p>
+<p class="rd-lead">ROXが2・6・12時間で4.88以上なら挿管リスクが低く、単発の値より「伸びているか」を見ます<span class="src vault">Roca AJRCCM2019</span>。</p>
+<p>ROX指数は（SpO₂／FiO₂）÷呼吸数です。成功と相関する変数を分子に、逆相関する変数を分母に置いた合成量で、SpO₂ 92%・FiO₂ 0.6・呼吸数28なら（92÷0.6）÷28＝5.5です。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>肺炎による急性低酸素性呼吸不全でHFNCを受けた191例（挿管35.6%）では、予測精度（AUROC）が開始前0.659→2時間0.679→6時間0.703→12時間0.752→24時間0.801と時間とともに上がりました<span class="src vault">Roca AJRCCM2019</span>。</p>
+</details>
 <div class="tablewrap">
 <table class="wide">
 <caption>表17｜ROX指数の読み方 — <span class="ok">12時間が主戦場</span></caption>
@@ -1314,8 +1574,12 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p>計算の練習をしておきます。SpO₂ 95%・FiO₂ 0.4・呼吸数22なら10.8、SpO₂ 90%・FiO₂ 0.8・呼吸数34なら3.3です。同じ患者が朝と夜でこう変われば、単発の値ではなく軌道で危険が見えます。</p>
 
 <h3 id="rs-s5-3">5-3. ROXの限界を知って使う</h3>
-<p>ROXは予測指標であって、介入試験で裏づけられた挿管トリガーではありません。患者の生理だけでなく施設のFiO₂・流量設定の習慣も反映する合成量なので、施設ごとに値の分布が動きえます<span class="src vault">Roca AJRCCM2019</span>。</p>
-<p>ROXを「行動ルール」として使った場合の効果を推定したのが、MIMIC-IV 1,651例のターゲットトライアルエミュレーションです。通常ケアの30日死亡26.9%に対し、ROX 3.85未満で2時間以内に挿管する戦略は20.5%（RR 0.76、0.66–0.86）でした。30日の挿管の累積発生率はほぼ同じ（21.5%対22.0%）で、死亡の減少は挿管を増やしたのではなく、挿管のタイミングを早めたことで説明される可能性があります<span class="src vault">Yamamoto JIntensiveCare2026</span>。著者自身が「仮説生成であり、単独の判断基準として今使うべきではない」と明言しています。</p>
+<p class="rd-lead">ROXは予測指標であって介入試験で裏づけられた挿管トリガーではないので、単独の判断基準にしません。</p>
+<p>患者の生理だけでなく施設のFiO₂・流量設定の習慣も反映する合成量なので、施設ごとに値の分布が動きえます<span class="src vault">Roca AJRCCM2019</span>。</p>
+<p>ROXを「行動ルール」として使った場合の効果を推定したのが、MIMIC-IV 1,651例のターゲットトライアルエミュレーションです。著者自身が「仮説生成であり、単独の判断基準として今使うべきではない」と明言しています。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>通常ケアの30日死亡26.9%に対し、ROX 3.85未満で2時間以内に挿管する戦略は20.5%（RR 0.76、0.66–0.86）でした。30日の挿管の累積発生率はほぼ同じ（21.5%対22.0%）で、死亡の減少は挿管を増やしたのではなく、挿管のタイミングを早めたことで説明される可能性があります<span class="src vault">Yamamoto JIntensiveCare2026</span>。</p>
+</details>
 <div class="box warn">
 <span class="label">落とし穴 — ROXが効かない集団</span>
 <ul>
@@ -1327,7 +1591,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s5-4">5-4. ROX以外の撤退サイン</h3>
-<p>ROX以外の撤退サインは3つです。HFNC開始後に酸素化の改善も呼吸数の低下もない、胸腹部の非同調、全身的重症度の増加です<span class="src vault">Roca ICM2024</span>。ARDSの生理学的レビューはこれに ΔPes 15 cmH₂O超と酸素化のトレンドを加え、「トレンドが単一値より鋭敏」としています<span class="src vault">Grieco ICM2021</span>。</p>
+<p class="rd-lead">ROX以外の撤退サインは3つで、HFNC開始後に酸素化の改善も呼吸数の低下もない、胸腹部の非同調、全身的重症度の増加です<span class="src vault">Roca ICM2024</span>。</p>
+<p>ARDSの生理学的レビューはこれに ΔPes 15 cmH₂O超と酸素化のトレンドを加え、「トレンドが単一値より鋭敏」としています<span class="src vault">Grieco ICM2021</span>。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表18｜ROXのほかに使う指標 — <span class="ok">単一の数値で決めず、組み合わせて見る</span></caption>
@@ -1341,7 +1606,9 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s5-5">5-5. 挿管基準を開始時に書く</h3>
-<p>SOHOでは挿管基準が事前に規定され（表19）、挿管までの時間は両群とも約24時間で差がありませんでした<span class="src vault">SOHO NEJM2026</span>。事前の基準が「HFNCで挿管を遅らせない」を支えたと読めます。HFNCを始めたら、同時にこの基準を指示に書いてください。ROXコホートの基準（表19の下段）も、施設で合意するときの参考になります<span class="src vault">Roca AJRCCM2019</span>。</p>
+<p class="rd-lead">HFNCを始めたら、同時にこの挿管基準（表19）を指示に書き、満たしたら躊躇せず挿管します。</p>
+<p>SOHOでは挿管基準が事前に規定され（表19）、挿管までの時間は両群とも約24時間で差がありませんでした<span class="src vault">SOHO NEJM2026</span>。事前の基準が「HFNCで挿管を遅らせない」を支えたと読めます。</p>
+<p>ROXコホートの基準（表19の下段）も、施設で合意するときの参考になります<span class="src vault">Roca AJRCCM2019</span>。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表19｜開始時に書いておく挿管基準 — <span class="ok">満たしたら躊躇せず挿管する</span></caption>
@@ -1358,7 +1625,11 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s5-6">5-6. 挿管のタイミング — 遅れの代償と未決着の論争</h3>
-<p>挿管のタイミングは、COVID-19で最も結論が割れた論点です。スペイン58 ICUの614例マッチ解析では、遅延挿管群の院内死亡が37.1%対27.3%（p=0.01）、ICU死亡36.1%対25.7%、90日死亡40.2%対30.9%で、HFNC先行例で顕著でした<span class="src vault">Riera ERJ2022</span>。同じスペインの36 ICU・122例のマッチ解析は、初日HFNCが人工呼吸器フリー日を8.0日増やしICU在室を8.2日縮めるが院内死亡は変えない（OR 0.64）と報告し、HFNC群の38%が2日目以降に挿管されています<span class="src vault">Mellado-Artigas CritCare2021</span>。アトランタ4病院175例では、挿管までの時間もHFNC使用も死亡と関連しませんでした<span class="src vault">Hernandez-Romieu CCM2020</span>。</p>
+<p class="rd-lead">早く挿管するか粘るかは観察研究では決着しないので、時間軸と失敗基準を開始時に決めておきます。</p>
+<p>挿管のタイミングは、COVID-19で最も結論が割れた論点です。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>スペイン58 ICUの614例マッチ解析では、遅延挿管群の院内死亡が37.1%対27.3%（p=0.01）、ICU死亡36.1%対25.7%、90日死亡40.2%対30.9%で、HFNC先行例で顕著でした<span class="src vault">Riera ERJ2022</span>。同じスペインの36 ICU・122例のマッチ解析は、初日HFNCが人工呼吸器フリー日を8.0日増やしICU在室を8.2日縮めるが院内死亡は変えない（OR 0.64）と報告し、HFNC群の38%が2日目以降に挿管されています<span class="src vault">Mellado-Artigas CritCare2021</span>。アトランタ4病院175例では、挿管までの時間もHFNC使用も死亡と関連しませんでした<span class="src vault">Hernandez-Romieu CCM2020</span>。</p>
+</details>
 <p>評価項目が違う（死亡と人工呼吸器フリー日数）ので統計的には矛盾しません。そもそも「挿管が遅れて悪くなった」のか「悪いから挿管が遅れて見えた」のかは、観察研究では原理的に切り分けられません<span class="src vault">Sklar AJRCCM2021</span>。</p>
 <div class="box good">
 <span class="label">要点 — 早く挿管するか、粘るか、ではない</span>
@@ -1366,14 +1637,26 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s6"><span class="no">§6</span>ウィーニングと中止</h2>
-<p>うまく行ったら、次は外し方です。HFNCは外して再開するのが容易で、成人では離脱があまり問題になりません。多くのRCTに離脱基準はなく、一部が数値で書いているだけです<span class="src vault">Roca ICM2024</span>。この章で分かるのは、下げる順番、試験で使われた基準、外すときに気をつけることです。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>FiO₂を先に下げ、流量は後で下げる</li>
+<li>呼吸数25未満を確かめてから流量を下げる</li>
+<li>高リスクの抜管後は24時間で機械的に外さない</li>
+</ol>
+<p class="rd-points-f">うまく行ったら、次は外し方です。HFNCは外して再開するのが容易で、成人では離脱があまり問題になりません。多くのRCTに離脱基準はなく、一部が数値で書いているだけです<span class="src vault">Roca ICM2024</span>。この章で分かるのは、下げる順番、試験で使われた基準、外すときに気をつけることです。</p>
+</div>
 
 <h3 id="rs-s6-1">6-1. 何を先に下げるか — FiO₂ → 流量</h3>
-<p>FiO₂を先に下げ、流量は後で下げます。効果（死腔の洗い出し・陽圧・努力の軽減）は流量に比例するので、流量を先に落とすと「効いていないのに酸素だけ多い」状態になります<span class="src vault">Roca ICM2024</span>。呼吸数が高いと、とくに流量60 L/分未満で洗い出しの効率が下がるので、頻呼吸のまま流量を下げないでください。飲食時は、50 L/分下では飲水しにくく、一時的に流量を下げる必要があるかもしれません（臨床上の経験則で、試験の裏づけはありません）。</p>
-<div class="box good">
-<span class="label">要点 — 下げる順番</span>
+<p class="rd-lead">FiO₂を目標SpO₂を保てる最低まで下げ、呼吸数が25未満で落ち着いてから流量を下げます。</p>
+<p>FiO₂を先に下げ、流量は後で下げます。効果（死腔の洗い出し・陽圧・努力の軽減）は流量に比例するので、流量を先に落とすと「効いていないのに酸素だけ多い」状態になります<span class="src vault">Roca ICM2024</span>。呼吸数が高いと、とくに流量60 L/分未満で洗い出しの効率が下がるので、頻呼吸のまま流量を下げないでください。</p>
+<p class="rd-note">飲食時は、50 L/分下では飲水しにくく、一時的に流量を下げる必要があるかもしれません（臨床上の経験則で、試験の裏づけはありません）。</p>
+<div class="rd-check">
+<p class="rd-check-h">下げる順番</p>
 <ol>
 <li>FiO₂を下げる（目標SpO₂を保てる最低まで。低酸素性は40%以下が目安）</li>
 <li>呼吸数が25未満で落ち着いていることを確かめる</li>
@@ -1388,7 +1671,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p class="figread"><strong>図の読み方</strong> — 上の囲みの4段階を図にしたものです。FiO₂の段と流量の段の間に「呼吸数25未満」の確認が挟まっていること、最後に「再開」への戻り道があることを見てください<span class="src vault">SOHO NEJM2026</span>。</p>
 
 <h3 id="rs-s6-2">6-2. ウィーニング基準 — 試験で使われた型</h3>
-<p>数値で書かれたウィーニングの基準は、総説の目安のほかにSOHO型・HENIVOT型・HiFLo型・Tan型・Xia型の5つがあります。どの型も「FiO₂が十分に下がり、呼吸数が落ち着いていること」を条件にしており、どれを採るかは当院で決めておくことです（§11）。</p>
+<p class="rd-lead">どの型も「FiO₂が十分に下がり、呼吸数が落ち着いていること」を条件にしており、どれを採るかは当院で決めておくことです（§11）。</p>
+<p>数値で書かれたウィーニングの基準は、総説の目安のほかにSOHO型・HENIVOT型・HiFLo型・Tan型・Xia型の5つがあります。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表20｜ウィーニング・中止の基準 — <span class="ok">FiO₂と呼吸数がそろって下がってから</span></caption>
@@ -1405,20 +1689,35 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s6-3">6-3. 外すときの注意 — 期間の下限と抜管後</h3>
-<p>試験で続けた期間が下限の目安です。低酸素性の有効な試験は48時間以上ないし2暦日、抜管後は24〜48時間でした（表13・表14）<span class="src vault">FLORALI NEJM2015</span>。</p>
+<p class="rd-lead">試験で続けた期間が下限の目安で、低酸素性の有効な試験は48時間以上ないし2暦日、抜管後は24〜48時間でした（表13・表14）<span class="src vault">FLORALI NEJM2015</span>。</p>
 <div class="box warn">
 <span class="label">落とし穴 — 24時間で機械的に外す</span>
 <p>高リスクの抜管後患者で、低リスク試験の「24時間で中止」をそのまま真似ないでください。Hernándezの高リスク試験では、24時間で外した直後に再挿管が急増しました<span class="src vault">Hernández JAMA2016高リスク</span>。呼吸筋の疲労は数時間から数日遅れて表面化するので、高リスク例は48時間を1区切りにします<span class="src vault">HIGH-WEAN JAMA2019</span>。</p>
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s7"><span class="no">§7</span>COPD・高CO₂血症での使い方 — NIVが先、流量は30前後から</h2>
-<p>ここまでは低酸素性呼吸不全の話でした。高二酸化炭素血症性呼吸不全では、HFNCは主役ではありません。COPD増悪でNIVが挿管と死亡を減らすことは決着しているからです（表6）<span class="src vault">ATS2026</span>。この章で分かるのは、HFNCがどこまで許されるか、使うならどの流量か、そしてNIVへ上げる基準です。とくに「COPDのHFNCは30 L/分」という数字が試験の裏づけを持つのかを、論文の記載・臨床上の仮説・解釈に分けて確かめます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>高CO₂血症はNIVで始め、HFNCは次善にとどめる</li>
+<li>HFNCは30前後で始め、忍容性と血液ガスで上下する</li>
+<li>1・12・48時間の血液ガスでNIVへ上げる基準を書く</li>
+</ol>
+<p class="rd-points-f">ここまでは低酸素性呼吸不全の話でした。高二酸化炭素血症性呼吸不全では、HFNCは主役ではありません。COPD増悪でNIVが挿管と死亡を減らすことは決着しているからです（表6）<span class="src vault">ATS2026</span>。この章で分かるのは、HFNCがどこまで許されるか、使うならどの流量か、そしてNIVへ上げる基準です。とくに「COPDのHFNCは30 L/分」という数字が試験の裏づけを持つのかを、論文の記載・臨床上の仮説・解釈に分けて確かめます。</p>
+</div>
 
 <h3 id="rs-s7-1">7-1. ガイドラインの線引き — NIVへの橋渡しとして使う</h3>
-<p>HFNCがCO₂を下げる機序は死腔の洗い出し（§2-2）で、生理的には理にかなっています。フェイスマスク酸素からHFNC（流量43±10 L/分）へ切り替えた急性高CO₂血症性呼吸不全18例では、PaCO₂は48時間で平均11.2 mmHg下がりpHは正常化し、下がり幅は初期PaCO₂が高いほど大きくなりました<span class="src vault">Lee AcuteCritCare2019</span>。ただし院内死亡は55.6%対61.1%で変わらず、呼吸不全で死亡した8例の48時間PaCO₂の変化は −2.6 mmHgにとどまり、それ以外の10例は −18.1 mmHgでした。</p>
-<p>ガイドラインの位置づけは表6のとおりで、ERS 2022は「HFNCの前にNIVを試す」、NIVの休止中は従来型酸素よりHFNC、としました<span class="src vault">ERS2022</span>。ATS 2026がHFNCを代替として認めたのも、pH 7.25以上に限り、監視とNIVへの速やかなエスカレーションが利用できることが条件です<span class="src vault">ATS2026</span>。試験全体でHFNCを始めた患者の3分の1がNIVへのエスカレーションを要したとおり、これは「NIVへの橋渡しを前提にした選択肢」です。重症度ごとの位置づけは表21のとおりです。</p>
+<p class="rd-lead">HFNCはpH 7.25以上に限り、監視とNIVへの速やかなエスカレーションが利用できることを条件にした次善として使います<span class="src vault">ATS2026</span>。</p>
+<p>HFNCがCO₂を下げる機序は死腔の洗い出し（§2-2）で、生理的には理にかなっています。ただし急性高CO₂血症18例の研究では、PaCO₂は下がっても院内死亡は変わりませんでした。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>フェイスマスク酸素からHFNC（流量43±10 L/分）へ切り替えた急性高CO₂血症性呼吸不全18例では、PaCO₂は48時間で平均11.2 mmHg下がりpHは正常化し、下がり幅は初期PaCO₂が高いほど大きくなりました<span class="src vault">Lee AcuteCritCare2019</span>。ただし院内死亡は55.6%対61.1%で変わらず、呼吸不全で死亡した8例の48時間PaCO₂の変化は −2.6 mmHgにとどまり、それ以外の10例は −18.1 mmHgでした。</p>
+</details>
+<p>ガイドラインの位置づけは表6のとおりで、ERS 2022は「HFNCの前にNIVを試す」、NIVの休止中は従来型酸素よりHFNC、としました<span class="src vault">ERS2022</span>。ATS 2026がHFNCを代替として認めたのも、pH 7.25以上に限り、監視とNIVへの速やかなエスカレーションが利用できることが条件です<span class="src vault">ATS2026</span>。</p>
+<p>試験全体でHFNCを始めた患者の3分の1がNIVへのエスカレーションを要したとおり、これは「NIVへの橋渡しを前提にした選択肢」です。重症度ごとの位置づけは表21のとおりです。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表21｜高CO₂血症・COPD増悪でのHFNCの位置 — <span class="ok">重いほどNIV、軽ければ使う理由がない</span></caption>
@@ -1433,19 +1732,29 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s7-2">7-2. 中等度高CO₂血症（pH 7.25〜7.35）— 代替できない</h3>
-<p>この帯域を治療失敗で比べた非劣性RCTが2024年に出て、答えは「代替できない」でした。pH 7.25〜7.35かつPaCO₂ 50 mmHg以上のCOPD増悪225例で、HFNC（初期40 L/分・37 ℃・SpO₂ 88〜92%）の治療失敗（挿管または他方への切り替え）はNIVより多く、リスク差11.38%（95%CI 0.25〜21.20）は非劣性マージン9%を超えました（数値は表21）<span class="src vault">Tan CritCare2024</span>。</p>
-<p>怖いのは時間軸です。1・12時間の血液ガスは両群同等で、PaCO₂の差は48時間で初めて出て（57対53 mmHg）、HFNC群の失敗は開始3〜8日目に集中し、最多の理由はCO₂貯留の悪化（44.8%）でした。<strong>早期の血液ガスが良くても「効いている」と早合点しない</strong>ことが、この試験から得る行動です。一方で快適スコア7対6、鼻顔面の皮膚損傷2.7%対8.9%、看護の気道ケア5対8回/日と、HFNCの利点も本物です。楽であることと換気を保証できることは別で、著者は「病勢がピークに達すると、PEEPと圧支持を調整できるNIVのほうが分時換気量を保証できる」と解釈しています。単施設・非盲検・40 L/分固定という限界があるので、「NIVが優れる」ではなく「HFNCの非劣性は示せなかった」と読むのが正確です。</p>
+<p class="rd-lead">pH 7.25〜7.35のCOPD増悪では、HFNCはNIVの初期補助を代替できず、早期の血液ガスが良くても効いていると早合点しません<span class="src vault">Tan CritCare2024</span>。</p>
+<p>この帯域を治療失敗で比べた非劣性RCTが2024年に出て、答えは「代替できない」でした。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>pH 7.25〜7.35かつPaCO₂ 50 mmHg以上のCOPD増悪225例で、HFNC（初期40 L/分・37 ℃・SpO₂ 88〜92%）の治療失敗（挿管または他方への切り替え）はNIVより多く、リスク差11.38%（95%CI 0.25〜21.20）は非劣性マージン9%を超えました（数値は表21）<span class="src vault">Tan CritCare2024</span>。</p>
 <p>同じ帯域の79例（Cortegiani）では、2時間後のPaCO₂低下がNIVに統計学的に非劣性（−6.8対−9.5 mmHg）でしたが、6時間で約3分の1がNIVへ切り替わり（表22）、著者自身が臨床的な非劣性には慎重でした<span class="src vault">Cortegiani CritCare2020</span>。</p>
+</details>
+<p>怖いのは時間軸です。1・12時間の血液ガスは両群同等で、PaCO₂の差は48時間で初めて出て（57対53 mmHg）、HFNC群の失敗は開始3〜8日目に集中し、最多の理由はCO₂貯留の悪化（44.8%）でした。<strong>早期の血液ガスが良くても「効いている」と早合点しない</strong>ことが、この試験から得る行動です。</p>
+<p>一方で快適スコア7対6、鼻顔面の皮膚損傷2.7%対8.9%、看護の気道ケア5対8回/日と、HFNCの利点も本物です。楽であることと換気を保証できることは別で、著者は「病勢がピークに達すると、PEEPと圧支持を調整できるNIVのほうが分時換気量を保証できる」と解釈しています。</p>
+<p class="rd-note">単施設・非盲検・40 L/分固定という限界があるので、「NIVが優れる」ではなく「HFNCの非劣性は示せなかった」と読むのが正確です。</p>
 
 <h3 id="rs-s7-3">7-3. 軽度高CO₂血症（pH 7.35以上）— 使う理由がない</h3>
-<p>pH 7.35以上・PaCO₂ 45超の軽度高CO₂血症のCOPD増悪330例（16施設・一般病棟）では、HFNC（初期25 L/分から最大忍容量へ）は挿管基準充足を減らさず、在院日数と入院費用をむしろ増やしました（表21）<span class="src vault">Xia CritCare2022</span>。治療失敗の最多理由はHFNC不耐（52%）で、NIV開始が4.0日対2.0日と遅れる傾向がありました。主要アウトカムの発生率が想定の20分の1で検出力不足という限界はありますが、「軽症COPD増悪にHFNCをルーチンで使う理由はない」という結論は揺らぎません。総説はこれを「重炭酸が高い患者でNIVへのエスカレーションが遅れる」と読んでいます<span class="src vault">Roca ICM2024</span>。</p>
+<p class="rd-lead">pH 7.35以上の軽度高CO₂血症のCOPD増悪では、HFNCは挿管基準充足を減らさず、ルーチンで使う理由はありません<span class="src vault">Xia CritCare2022</span>。</p>
+<p>pH 7.35以上・PaCO₂ 45超の軽度高CO₂血症のCOPD増悪330例（16施設・一般病棟）では、HFNC（初期25 L/分から最大忍容量へ）は挿管基準充足を減らさず、在院日数と入院費用をむしろ増やしました（表21）<span class="src vault">Xia CritCare2022</span>。治療失敗の最多理由はHFNC不耐（52%）で、NIV開始が4.0日対2.0日と遅れる傾向がありました。</p>
+<p>主要アウトカムの発生率が想定の20分の1で検出力不足という限界はありますが、「軽症COPD増悪にHFNCをルーチンで使う理由はない」という結論は揺らぎません。総説はこれを「重炭酸が高い患者でNIVへのエスカレーションが遅れる」と読んでいます<span class="src vault">Roca ICM2024</span>。</p>
 <div class="box warn">
 <span class="label">落とし穴 — 「楽そうだからHFNCのまま」</span>
 <p>COPD増悪のHFNCは、快適さと皮膚の点でNIVより優れます。その快適さが、NIVへ上げる判断を遅らせます。HFNCを選んだら、開始の指示と同時に「何時に何が満たされなければNIVへ」を書いてください<span class="src vault">Tan CritCare2024</span>。</p>
 </div>
 
 <h3 id="rs-s7-4">7-4. 30 L/分は本当に必要か — 試験の実際の設定</h3>
-<p>「COPDのHFNCは30 L/分」という数字が独り歩きしています。背景にあるのは、閉口時の陽圧（表3）がCOPDの内因性PEEP（PEEPi）を超えると過膨張を招く、という懸念です。ここでは、COPDでHFNCの有効性を検討した試験が実際にどの流量で走り、なぜその値を選び、実測は何 L/分だったかを並べます。論文の記載、臨床上の仮説、解釈を分けて書きます。</p>
+<p class="rd-lead">COPDで有効性を検討した試験に「初期30 L/分」をそのまま採ったものは無く、実測が報告された2試験の流量は忍容性で30前後に落ち着いていました（表22）。</p>
+<p>「COPDのHFNCは30 L/分」という数字が独り歩きしています。背景にあるのは、閉口時の陽圧（表3）がCOPDの内因性PEEP（PEEPi）を超えると過膨張を招く、という懸念です。</p>
+<p>ここでは、COPDでHFNCの有効性を検討した試験が実際にどの流量で走り、なぜその値を選び、実測は何 L/分だったかを並べます。論文の記載、臨床上の仮説、解釈を分けて書きます。</p>
 <p><strong>論文の記載</strong></p>
 <div class="tablewrap">
 <table class="wide">
@@ -1464,7 +1773,7 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </tbody>
 </table>
 </div>
-<p>出典は順に<span class="src vault">Cortegiani CritCare2020</span><span class="src vault">Tan CritCare2024</span><span class="src vault">Xia CritCare2022</span><span class="src vault">Lee AcuteCritCare2019</span><span class="src vault">Ding Pulmonology2025</span><span class="src vault">FLOCOP AJRCCM2022</span><span class="src vault">Roca ICM2024</span><span class="src vault">Rezoagli CritCare2025</span><span class="src vault">ATS2026</span>です。口の開閉と圧の実測は表3にあります。</p>
+<p class="rd-note">出典は順に<span class="src vault">Cortegiani CritCare2020</span><span class="src vault">Tan CritCare2024</span><span class="src vault">Xia CritCare2022</span><span class="src vault">Lee AcuteCritCare2019</span><span class="src vault">Ding Pulmonology2025</span><span class="src vault">FLOCOP AJRCCM2022</span><span class="src vault">Roca ICM2024</span><span class="src vault">Rezoagli CritCare2025</span><span class="src vault">ATS2026</span>です。口の開閉と圧の実測は表3にあります。</p>
 
 <figure class="fig">
 <div class="nf"><div class="nf-range" style="--lo:10;--hi:70;--nf-div:6" role="img" aria-label="COPDでHFNCを検証した5試験の設定流量と実測流量。設定は25〜60とばらつき、実測はXia 中央値30・FLOCOP 28.5"><div class="nf-rl">Cortegiani 2020<small>pH 7.25〜7.35・79例</small></div><div class="nf-rt"><span class="nf-zone is-accent" style="--a:20;--b:30"></span><span class="nf-rd is-sq is-muted" style="--a:60"></span></div><div class="nf-rv">設定 60（開始）<br>実測 記載なし</div><div class="nf-rl">Tan 2024<small>pH 7.25〜7.35・225例</small></div><div class="nf-rt"><span class="nf-zone is-accent" style="--a:20;--b:30"></span><span class="nf-rd is-sq is-muted" style="--a:40"></span></div><div class="nf-rv">設定 40（固定）<br>実測 記載なし</div><div class="nf-rl">Lee 2019<small>急性高CO₂血症 18対</small></div><div class="nf-rt"><span class="nf-zone is-accent" style="--a:20;--b:30"></span><span class="nf-rw is-muted" style="--a:33;--b:53"></span><span class="nf-rd is-sq is-muted" style="--a:43"></span></div><div class="nf-rv">設定 初期43±10<br>24・48時間 約47・約44</div><div class="nf-rl">Xia 2022<small>pH 7.35以上・330例</small></div><div class="nf-rt is-2"><span class="nf-zone is-accent" style="--a:20;--b:30"></span><span class="nf-rd is-sq is-muted is-up" style="--a:25"></span><span class="nf-rw is-dn" style="--a:25;--b:40"></span><span class="nf-rd is-dn" style="--a:30"></span></div><div class="nf-rv">設定 開始25→最大忍容量<br>実測 中央値30（IQR 25〜40）</div><div class="nf-rl">FLOCOP 2022<small>在宅・安定期 93例</small></div><div class="nf-rt is-2"><span class="nf-zone is-accent" style="--a:20;--b:30"></span><span class="nf-rb is-muted is-up" style="--a:30;--b:40"></span><span class="nf-rw is-dn" style="--a:23.93;--b:33.07"></span><span class="nf-rd is-dn" style="--a:28.5"></span></div><div class="nf-rv">設定 30〜40<br>実測 28.5±4.57</div><div class="nf-raxis"><span style="--a:10">10</span><span style="--a:20">20</span><span style="--a:30">30</span><span style="--a:40">40</span><span style="--a:50">50</span><span style="--a:60">60</span><span style="--a:70">70</span></div><div class="nf-rat">HFNCの流量（L/分）</div></div><div class="nf-legend"><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><rect x="-6.5" y="-6.5" width="13" height="13" rx="1.5" style="fill:var(--muted);stroke:var(--muted);stroke-width:2"/></svg>設定・開始流量</span><span><span class="nf-sw-line" style="border-top-width:.8em;border-top-color:var(--muted);border-radius:999px;width:1.6em"></span>設定の範囲</span><span><svg class="nf-svg nf-sw" viewBox="-9 -9 18 18" aria-hidden="true"><circle r="6.5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2"/></svg>実測流量（線はIQRまたは±SD）</span><span><span class="nf-sw-box is-accent"></span>NMA 2025の「Low 20〜30」</span></div><p class="nf-foot">値は各試験の論文の記載どおり（表22）。Lee 2019の線は初期設定の±SD。NMA 2025＝Ding Pulmonology2025</p></div>
@@ -1487,7 +1796,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </ul>
 
 <h3 id="rs-s7-5">7-5. 使うと決めたら — 監視とNIVへ上げる基準</h3>
-<p>HFNCを初期に選ぶのは、マスク不耐・顔面外傷・せん妄でマスクが保持できない、あるいは患者がNIVを拒む場合の次善に限ります。選んだら、監視できる場所で、NIVへ即座に移れる準備を整え、上げる基準を紙に書きます<span class="src vault">Tan CritCare2024</span>。</p>
+<p class="rd-lead">HFNCを選んだら、監視できる場所で、NIVへ即座に移れる準備を整え、上げる基準を紙に書きます<span class="src vault">Tan CritCare2024</span>。</p>
+<p>HFNCを初期に選ぶのは、マスク不耐・顔面外傷・せん妄でマスクが保持できない、あるいは患者がNIVを拒む場合の次善に限ります。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表23｜COPD増悪でHFNCを使うときの監視とNIVへの移行 — <span class="ok">1・12・48時間の血液ガスで判定する</span></caption>
@@ -1508,17 +1818,34 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p class="figread"><strong>図の読み方</strong> — 「第一選択はNIV」という前提の上に、HFNCを使う場合の流量の決め方（30前後で開始→忍容性と血液ガスで上下）と、NIVへ移る出口を1枚にしたものです。どの段階からも出口が開いていることを確かめてください<span class="src vault">Tan CritCare2024</span><span class="src vault">Ding Pulmonology2025</span>。</p>
 
 <h3 id="rs-s7-6">7-6. 退室後と特殊な閉塞性疾患</h3>
-<p>安定期（1か月以上増悪なし）の慢性高CO₂血症COPDに在宅HFNC（20〜40 L/分・主に夜間）を1か月以上使ったRCT 4本・440例のメタ解析では、急性増悪はRR 0.77（0.66〜0.89）・中等度の確実性で、1000人あたり69件減りました<span class="src vault">Pitre RespirMed2023</span>。入院（RR 0.87）とQOLは改善の方向ですが確実性は低く、死亡（RR 1.22）は「分からない」です。対象の平均PaCO₂は48〜52 mmHgの軽度で、在宅NIVとの直接比較はありません。4試験中2本は日本の多施設試験で、本邦の在宅ハイフローセラピー（2022年度保険収載・PaCO₂ 45以上のCOPD）の根拠でもあります<span class="src vault">FLOCOP AJRCCM2022</span>。</p>
+<p class="rd-lead">安定期の慢性高CO₂血症COPDでは在宅HFNCで急性増悪が減り（中等度の確実性）、ICUで関わるのは退室後の設計です。</p>
+<p>安定期（1か月以上増悪なし）の慢性高CO₂血症COPDに在宅HFNC（20〜40 L/分・主に夜間）を1か月以上使ったRCT 4本・440例のメタ解析では、急性増悪はRR 0.77（0.66〜0.89）・中等度の確実性で、1000人あたり69件減りました<span class="src vault">Pitre RespirMed2023</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>入院（RR 0.87）とQOLは改善の方向ですが確実性は低く、死亡（RR 1.22）は「分からない」です。対象の平均PaCO₂は48〜52 mmHgの軽度で、在宅NIVとの直接比較はありません。4試験中2本は日本の多施設試験で、本邦の在宅ハイフローセラピー（2022年度保険収載・PaCO₂ 45以上のCOPD）の根拠でもあります<span class="src vault">FLOCOP AJRCCM2022</span>。</p>
+</details>
 <p>ICUで変わるのは退室後の設計です。COPD増悪で入室し、回復後もPaCO₂が高く、NIVマスクに耐えられない患者では、退院前に呼吸器内科と在宅HFNCを相談する選択肢があります。逆に「在宅HFNC使用中」の患者が入室してきたら、自宅の流量と使用時間を聴取し、急性期の設定と区別して記録してください。</p>
-<p>喘息は別扱いです。重症喘息発作ではHFNCのデータは小児が大半で質の高い比較試験が不足しており、現時点で喘息のガイドラインはHFNCを推奨していません<span class="src vault">JICM2026 喘息</span>。閉塞性肺疾患の呼吸サポート5段階（酸素→HFNC→NIV→IMV→VV ECMO）でも、HFNCはNIVの手前の段であって代替ではない、という位置づけです<span class="src vault">Mein CHESTCC2025</span>。</p>
+<p class="rd-lead is-sub">喘息は別扱いで、重症喘息発作ではHFNCはNIVの手前の段であって代替ではありません。</p>
+<p>重症喘息発作ではHFNCのデータは小児が大半で質の高い比較試験が不足しており、現時点で喘息のガイドラインはHFNCを推奨していません<span class="src vault">JICM2026 喘息</span>。閉塞性肺疾患の呼吸サポート5段階（酸素→HFNC→NIV→IMV→VV ECMO）でも、HFNCはNIVの手前の段であって代替ではない、という位置づけです<span class="src vault">Mein CHESTCC2025</span>。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s8"><span class="no">§8</span>NIVとの使い分けと併用</h2>
-<p>場面ごとの第一選択は§3と§7で見てきました。この章で分かるのは、ほかの章に出てこない境界（ARDSの重症例・心原性肺水腫・肥満など）と併用の型で、全体は図13の1枚にまとめます。HFNC対NIVの優劣は、メタ解析でもガイドラインでも決着していません。ATS 2026は「選択は患者特性・術者の習熟・地域の資源に基づくべき」と個別化に委ね<span class="src vault">ATS2026</span>、総説は問いを「HFNCかNIVか」から「HFNC単独か、NIVと組み合わせるか」に置き換えています<span class="src vault">Maggiore ICM2023</span>。NIVの設定そのものは「呼吸｜NIV・NPPV」の資料に任せます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>酸素化の障害はHFNC、換気の障害はNIVで始める</li>
+<li>開始時に失敗基準と誰が引き上げるかを書く</li>
+<li>併用は「切り替えるか」ではなく「いつ足すか」で決める</li>
+</ol>
+<p class="rd-points-f">場面ごとの第一選択は§3と§7で見てきました。この章で分かるのは、ほかの章に出てこない境界（ARDSの重症例・心原性肺水腫・肥満など）と併用の型で、全体は図13の1枚にまとめます。HFNC対NIVの優劣は、メタ解析でもガイドラインでも決着していません。ATS 2026は「選択は患者特性・術者の習熟・地域の資源に基づくべき」と個別化に委ね<span class="src vault">ATS2026</span>、総説は問いを「HFNCかNIVか」から「HFNC単独か、NIVと組み合わせるか」に置き換えています<span class="src vault">Maggiore ICM2023</span>。NIVの設定そのものは「呼吸｜NIV・NPPV」の資料に任せます。</p>
+</div>
 
 <h3 id="rs-s8-1">8-1. 場面別の使い分け</h3>
-<p>低酸素性では、マスクNIV対HFNCは25 RCT・3,804例のNMAで死亡RR 0.95・挿管RR 1.01と差がありませんでした。ヘルメットNIV（当院には無い）はHFNCより死亡RR 0.46と圧倒的に見えますが、直接比較は0本・4試験340例の間接推定です<span class="src vault">Ferreyro JAMA2020</span>。COVID-19ではCPAP（RECOVERY-RS）とヘルメットNIV（HENIVOT）がHFNCより挿管を減らしましたが（表13）、呼吸補助フリー日数は変わらず、ヘルメットNIVは180日死亡もQOLも改善しませんでした<span class="src vault">Arabi ICM2023</span>。</p>
+<p class="rd-lead">低酸素性ではマスクNIVとHFNCに差がなく、ヘルメットNIVの大きな効果は直接比較の無い間接推定です<span class="src vault">Ferreyro JAMA2020</span>。</p>
+<p>低酸素性では、マスクNIV対HFNCは25 RCT・3,804例のNMAで死亡RR 0.95・挿管RR 1.01と差がありませんでした。ヘルメットNIV（当院には無い）はHFNCより死亡RR 0.46と圧倒的に見えますが、直接比較は0本・4試験340例の間接推定です<span class="src vault">Ferreyro JAMA2020</span>。</p>
+<p>COVID-19ではCPAP（RECOVERY-RS）とヘルメットNIV（HENIVOT）がHFNCより挿管を減らしましたが（表13）、呼吸補助フリー日数は変わらず、ヘルメットNIVは180日死亡もQOLも改善しませんでした<span class="src vault">Arabi ICM2023</span>。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表24｜HFNCかNIVか、併用か — <span class="ok">酸素化の障害はHFNC、換気の障害はNIV</span></caption>
@@ -1540,22 +1867,44 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p class="figread"><strong>図の読み方</strong> — §3と§7で見た場面ごとの第一選択を1枚にまとめたものです。最初の分岐が「酸素化の障害か、換気の障害か」になっていること、抜管後は悪化が予測される患者に予防的に使い、悪化してからのHFNC・NIVは効果未確立（§3-5）であることを確かめてください<span class="src vault">ATS2026</span>。</p>
 
 <h3 id="rs-s8-2">8-2. 併用の型 — 「切り替えるか」ではなく「いつ足すか」</h3>
-<p>NIVの休止中に何を流すかについては、2つの大規模RCTの予防的NIV患者1,077例の事後観察解析で、休止中HFNCの抜管失敗は未調整で13.7%対18.5%でしたが、調整すると −3.9%（95%CI −8.7〜0.9）と有意差が消えました。著者ら自身が「実践変更は支持できない」と書いています<span class="src vault">Thille ICM2026</span>。快適性の面では、抜管後のNIVの不快が48時間続くのに対し、HFNCの不快は軽いものでした（表14）<span class="src vault">Rouby CritCare2026</span>。</p>
+<p class="rd-lead">NIVの休止中に流すHFNCが抜管失敗を減らすとはまだ言えず、実践を変える根拠にはなっていません<span class="src vault">Thille ICM2026</span>。</p>
+<p>快適性の面では、抜管後のNIVの不快が48時間続くのに対し、HFNCの不快は軽いものでした（表14）<span class="src vault">Rouby CritCare2026</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>NIVの休止中に何を流すかについては、2つの大規模RCTの予防的NIV患者1,077例の事後観察解析で、休止中HFNCの抜管失敗は未調整で13.7%対18.5%でしたが、調整すると −3.9%（95%CI −8.7〜0.9）と有意差が消えました。著者ら自身が「実践変更は支持できない」と書いています<span class="src vault">Thille ICM2026</span>。</p>
+</details>
 <div class="box good">
 <span class="label">要点 — 迷ったときの決め方</span>
 <p>「どちらが上か」を議論するより、失敗基準と誰が引き上げるかを明文化するほうが患者のアウトカムを動かします<span class="src vault">ATS2026</span>。HFNCを選んだらROXの時間割、NIVを選んだらHACORの1時間判定を、開始の指示と同時に書いてください。併用の型を先に決めておくと、ベッドサイドの議論が「切り替えるか」ではなく「いつ足すか」になります。</p>
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s9"><span class="no">§9</span>リスク・トラブルシューティング・搬送</h2>
-<p>HFNCの害は、装置そのものより使い方に付きます。ATS 2026は望ましくない効果を「些細〜小さい」と判定し、主な懸念として酸素消費量の増加と治療期間が長引くことを挙げました<span class="src vault">ATS2026</span>。この章で分かるのは、見落とすと患者を害する2つのリスク（挿管の遅れとP-SILI）、酸素と電源の物流、症状からの逆引き、そして努力を下げすぎることの害です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>落ち着いた外見の下の強い吸気努力を見逃さない</li>
+<li>HFNCのまま移動せず、習熟した医師がジャクソンリースで換気する</li>
+<li>症状が出たら口の開閉・流量・FiO₂・温度から見直す</li>
+</ol>
+<p class="rd-points-f">HFNCの害は、装置そのものより使い方に付きます。ATS 2026は望ましくない効果を「些細〜小さい」と判定し、主な懸念として酸素消費量の増加と治療期間が長引くことを挙げました<span class="src vault">ATS2026</span>。この章で分かるのは、見落とすと患者を害する2つのリスク（挿管の遅れとP-SILI）、酸素と電源の物流、症状からの逆引き、そして努力を下げすぎることの害です。</p>
+</div>
 
 <h3 id="rs-s9-1">9-1. 害は使い方に付く — 挿管の遅れとP-SILI</h3>
-<p>最大のリスクは挿管の遅れです（§5-6）。HFNCはSpO₂を保ち呼吸数を下げるので、内部で強い吸気努力が続いていても、外見上は落ち着いて見えることがあります（§2-4）。HFNCは低いレベルのPEEPを作りますが、強い自発呼吸努力そのものが肺を傷めるP-SILIは防げません<span class="src vault">Battaglini BJA2021</span>。SOHOでは自発呼吸中の気胸が10例（1.8%）対4例（0.7%）とHFNC群に多く（p=0.11）、著者は重篤な有害事象として明記しています<span class="src vault">SOHO NEJM2026</span>。胸痛や急なSpO₂低下では、まず気胸を疑います（表26）。</p>
+<p class="rd-lead">最大のリスクは挿管の遅れで（§5-6）、HFNCで落ち着いて見える患者にも強い吸気努力が続いていることがあります。</p>
+<p>HFNCはSpO₂を保ち呼吸数を下げるので、内部で強い吸気努力が続いていても、外見上は落ち着いて見えることがあります（§2-4）。HFNCは低いレベルのPEEPを作りますが、強い自発呼吸努力そのものが肺を傷めるP-SILIは防げません<span class="src vault">Battaglini BJA2021</span>。</p>
+<p>SOHOでは自発呼吸中の気胸が10例（1.8%）対4例（0.7%）とHFNC群に多く（p=0.11）、著者は重篤な有害事象として明記しています<span class="src vault">SOHO NEJM2026</span>。胸痛や急なSpO₂低下では、まず気胸を疑います（表26）。</p>
 
 <h3 id="rs-s9-2">9-2. 酸素の物流と電源 — HFNCのままでは移動しない</h3>
-<p>HFNCは大量の酸素と電源を使います。当院の酸素ボンベは500 Lで<span class="src in">当院</span>、持ち時間は<strong>500 L ÷ 酸素流量（L/分）</strong>で出ます。FiO₂ 1.0では設定した流量がそのまま酸素の消費量になるので、<span class="split">50 L/分では約10分しか持ちません</span>（表25）。加温加湿のため信頼できる電源が要り、電源が切れた高流量ガスは利益を失うだけでなく有害になりえます<span class="src vault">Vieux ICM2026</span>。ATS 2026も、パンデミックのような高需要期には酸素供給の制約が使用を制限しうると書いています<span class="src vault">ATS2026</span>。</p>
+<p class="rd-lead">持ち時間は500 L ÷ 酸素流量（L/分）で出て、HFNC 50 L/分では約10分、NIVでマスクが外れれば約2〜2.5分です。</p>
+<div class="rd-stats">
+<div class="rd-stat"><span class="rd-stat-v">約10<small>分</small></span><span class="rd-stat-k">HFNC 50 L/分・FiO₂ 1.0（500 L）</span></div>
+<div class="rd-stat"><span class="rd-stat-v">約2〜2.5<small>分</small></span><span class="rd-stat-k">NIVでリークが増えた・マスクが外れたとき</span></div>
+</div>
+<p>HFNCは大量の酸素と電源を使います。当院の酸素ボンベは500 Lで<span class="src in">当院</span>、持ち時間は<strong>500 L ÷ 酸素流量（L/分）</strong>で出ます。FiO₂ 1.0では設定した流量がそのまま酸素の消費量になるので、<span class="split">50 L/分では約10分しか持ちません</span>（表25）。</p>
+<p>加温加湿のため信頼できる電源が要り、電源が切れた高流量ガスは利益を失うだけでなく有害になりえます<span class="src vault">Vieux ICM2026</span>。ATS 2026も、パンデミックのような高需要期には酸素供給の制約が使用を制限しうると書いています<span class="src vault">ATS2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表25｜500 L酸素ボンベの持ち時間 — <span class="ok">HFNCは約10分、NIVは数分で空になる</span></caption>
@@ -1574,7 +1923,9 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s9-3">9-3. 症状から逆引きする</h3>
-<p>次の表は「症状→確かめること→原因→一手」の順です。いずれも、まず口の開閉・流量・FiO₂・温度という4つの基本設定を見直してから考えてください。不耐（熱い・うるさい・鼻が痛い）は表15、吸入薬は§4-6、搬送（ボンベの持ち時間と移動の方針）は§9-2にあります。</p>
+<p class="rd-lead">症状が出たら、まず口の開閉・流量・FiO₂・温度という4つの基本設定を見直してから原因を考えます。</p>
+<p>次の表は「症状→確かめること→原因→一手」の順です。</p>
+<p class="rd-note">不耐（熱い・うるさい・鼻が痛い）は表15、吸入薬は§4-6、搬送（ボンベの持ち時間と移動の方針）は§9-2にあります。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表26｜HFNCのトラブルシューティング — <span class="ok">症状→確かめること→原因→一手</span></caption>
@@ -1592,7 +1943,8 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s9-4">9-4. 呼吸努力の「下限」も忘れない</h3>
-<p>HFNCは努力を下げる道具ですが、努力は下げれば下げるほど良いものではありません。呼吸努力と害の関係はU字で、少なすぎれば横隔膜の萎縮と無気肺、多すぎれば肺と横隔膜の損傷につながります。</p>
+<p class="rd-lead">HFNCは努力を下げる道具ですが、努力は下げれば下げるほど良いものではありません。</p>
+<p>呼吸努力と害の関係はU字で、少なすぎれば横隔膜の萎縮と無気肺、多すぎれば肺と横隔膜の損傷につながります。</p>
 <figure class="fig">
 <div class="nf"><div class="nf-panels"><div class="nf-panel"><svg class="nf-svg" viewBox="0 0 460 300" role="img" aria-label="呼吸努力と害のU字関係の模式図。努力が少なすぎても多すぎても害が増える"><defs><marker id="nf14-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="11" markerHeight="11" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path class="nf-mk-m" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="nf-zone-m" x="40" y="14" width="136.7" height="236"/><rect class="nf-zone-a" x="176.7" y="14" width="136.7" height="236"/><rect class="nf-zone-d" x="313.3" y="14" width="136.7" height="236"/><text class="nf-t nf-tb " x="108.3" y="36" text-anchor="middle" style="fill:var(--muted)">少なすぎ</text><text class="nf-t nf-tb nf-ta" x="245" y="36" text-anchor="middle">適度</text><text class="nf-t nf-tb nf-td" x="381.7" y="36" text-anchor="middle">多すぎ</text><path class="nf-wave" d="M62,52 C94,200 180,226 245,226 C310,226 396,200 428,52"/><line class="nf-axis" x1="40" y1="250" x2="40" y2="10" marker-end="url(#nf14-m)"/><line class="nf-axis" x1="40" y1="250" x2="454" y2="250" marker-end="url(#nf14-m)"/><text class="nf-t" x="20" y="132" dy=".35em" text-anchor="middle">害</text><text class="nf-t" x="245" y="282" text-anchor="middle">呼吸努力（少ない → 多い）</text></svg></div></div><div class="nf-callouts"><div class="nf-callout is-muted"><span class="nf-ch">少なすぎ</span>横隔膜の萎縮・無気肺。努力の低下そのものを目標にすると行き過ぎうる</div><div class="nf-callout is-danger"><span class="nf-ch">多すぎ（P-SILI）</span>肺と横隔膜の損傷。努力の強い患者の挿管を引き延ばさない</div></div><p class="nf-foot">模式図。軸に数値はない</p></div>
 <figcaption>図14. 呼吸努力と害のU字関係。</figcaption>
@@ -1600,13 +1952,27 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 <p class="figread"><strong>図の読み方</strong> — 横軸が呼吸努力、縦軸が害です。敗血症患者のHFNC下の値（ΔPes 5.5・PTP 140）は「少なすぎ」の側には落ちていませんが、努力の低下そのものを目標にすると行き過ぎうる、という注意です<span class="src vault">Mauri Anesthesiology2021</span>。右側の「過剰」がP-SILIの領域で、努力の強い患者の挿管を引き延ばさない理由になります<span class="src vault">Battaglini BJA2021</span>。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s10"><span class="no">§10</span>特殊状況</h2>
-<p>最後に、病態や場面ごとの注意点をまとめます。この章で分かるのは、COVID-19と覚醒下腹臥位、敗血症と外傷、高齢者と治療の上限、体位とインターフェースの工夫です。どれも「装着したから安心」ではない、という点は共通です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>覚醒下腹臥位は1日8時間以上を目標に記録する</li>
+<li>装着したことを理由に挿管の判断を先送りしない</li>
+<li>治療の上限として使うなら、その意図をカルテに書く</li>
+</ol>
+<p class="rd-points-f">最後に、病態や場面ごとの注意点をまとめます。この章で分かるのは、COVID-19と覚醒下腹臥位、敗血症と外傷、高齢者と治療の上限、体位とインターフェースの工夫です。どれも「装着したから安心」ではない、という点は共通です。</p>
+</div>
 
 <h3 id="rs-s10-1">10-1. COVID-19と覚醒下腹臥位</h3>
+<p class="rd-lead">COVID-19はde novo低酸素性の一部として扱い、覚醒下腹臥位を併用するなら1日8時間以上を目標に時間を記録します<span class="src vault">Esperatti CritCare2022</span>。</p>
 <p>COVID-19はde novo低酸素性呼吸不全の一部として扱い、試験の設定と結果は表13にあります。HFNCは標準酸素より挿管を減らしましたが（HiFLo-Covid・SOHO-COVID）、CPAPやヘルメットNIVとの比較は§8-1のとおりです<span class="src vault">SOHO-COVID JAMA2022</span>。</p>
-<p>HFNCと覚醒下腹臥位の併用はCOVID-19で鍛えられました。アルゼンチン6 ICU・335例（HFNC管理中）で、1日6時間以上の腹臥位は挿管の調整OR 0.36、8時間以上で院内死亡OR 0.37と用量反応がありましたが、観察研究で、長時間達成できた群は若く、ROXが高く、浅鎮静が2倍でした<span class="src vault">Esperatti CritCare2022</span>。総説は「HFNCと1日8時間以上の腹臥位の併用が有効性をさらに改善しうる」とし<span class="src vault">Maggiore ICM2023</span>、「HFNC＋覚醒下腹臥位は呼気終末経肺圧を0 cmH₂Oに近づけ動的な肺のstrainを減らす」と書いています<span class="src vault">Roca ICM2024</span>。</p>
+<p>HFNCと覚醒下腹臥位の併用はCOVID-19で鍛えられました。総説は「HFNCと1日8時間以上の腹臥位の併用が有効性をさらに改善しうる」とし<span class="src vault">Maggiore ICM2023</span>、「HFNC＋覚醒下腹臥位は呼気終末経肺圧を0 cmH₂Oに近づけ動的な肺のstrainを減らす」と書いています<span class="src vault">Roca ICM2024</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>アルゼンチン6 ICU・335例（HFNC管理中）で、1日6時間以上の腹臥位は挿管の調整OR 0.36、8時間以上で院内死亡OR 0.37と用量反応がありましたが、観察研究で、長時間達成できた群は若く、ROXが高く、浅鎮静が2倍でした<span class="src vault">Esperatti CritCare2022</span>。</p>
+</details>
 <p>エアロゾル飛散への懸念は2020年に大きく取り上げられましたが、ICMの論考は「多分大丈夫だろうが研究を待つ」という結論でした<span class="src vault">ICM2020 エアロゾル</span>。英国で当時「感染拡散リスクでHFNCを非推奨」とした運用はその時点のもので、そのまま採用しないでください<span class="src vault">Nicholson BMJ2020</span>。</p>
 <div class="box good">
 <span class="label">要点 — 腹臥位は「何時間やれたか」</span>
@@ -1614,10 +1980,12 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s10-2">10-2. 敗血症と外傷</h3>
-<p>肺炎がなくても敗血症患者の呼吸努力は亢進しており、HFNC 50 L/分で下がります（§2-4）。ただしそれは生理学的アウトカムの改善であって、挿管や死亡が減ることを示したものではありません。HFNCを装着したことを理由に、挿管の判断を先送りしないでください<span class="src vault">Mauri Anesthesiology2021</span>。</p>
+<p class="rd-lead">HFNCを装着したことを理由に、挿管の判断を先送りしないでください<span class="src vault">Mauri Anesthesiology2021</span>。</p>
+<p>肺炎がなくても敗血症患者の呼吸努力は亢進しており、HFNC 50 L/分で下がります（§2-4）。ただしそれは生理学的アウトカムの改善であって、挿管や死亡が減ることを示したものではありません。</p>
 <p>外傷関連ARDSでは、予防的NIV/HFNCを検証したOptiTHO試験は挿管率が7.8%と低く、検出力不足で中立でした。ヘルメットCPAP（当院には無い）とHFNCを交互に使う運用はどちらか単独よりNIV失敗が少なく（後ろ向き）、続けるかの判断ではROXの閾値を内科より高く置きます（§5-3）<span class="src vault">Lassola ICM2026</span>。</p>
 
 <h3 id="rs-s10-3">10-3. 高齢者・誤嚥性肺炎・治療の上限</h3>
+<p class="rd-lead">高齢の誤嚥性肺炎では年齢とともに侵襲的人工呼吸が減ってHFNC・NIVが増えており、治療の上限として使うならその意図を書きます。</p>
 <p>JIPADの誤嚥性肺炎3,906例では、年齢が上がるほど重症なのに侵襲的人工呼吸は73.2%→55.4%と減り、NIV（10.6→11.8%）とHFNC（26.1→31.3%）はむしろ増えていました<span class="src jp">JIPAD 誤嚥性肺炎 JIntensiveCare2026</span>。侵襲を落とした呼吸補助に振り替わっている像ですが、治療制限の結果か undertreatment かはJIPADの変数では分けられません。</p>
 <div class="box good">
 <span class="label">要点 — 「治療の上限」として使うなら意図を書く</span>
@@ -1625,13 +1993,27 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <h3 id="rs-s10-4">10-4. 離床とカニュラの工夫</h3>
+<p class="rd-lead">HFNC中も椅子座位は妥当で、非対称カニュラは生理学的な利点が報告されていますが、臨床アウトカムは未証明です。</p>
 <p>呼吸補助（PSV・NIV・HFNC）を受けている自発呼吸下の284例で、朝の血液ガス直後から3時間椅子に出すとP/Fが+13 mmHg、ベッドでは −13 mmHgでした（群間差26）。呼吸補助の種類で効果の異質性はなく、HFNC中も椅子座位は妥当です<span class="src vault">Fossat ICM2026</span>。</p>
-<p>インターフェースの形そのものも効きます。左右で径の異なる非対称カニュラは、安定成人20例のクロスオーバー（50 L/分・FiO₂ 0.21・37 ℃）でPTPesを30.66 cmH₂O·s/min（約22%）下げ、一回換気量を33 mL増やしました<span class="src vault">Gerovasileiou CritCare2026</span>。COPD増悪の回復期14例では30 L/分で分時換気量を1.83 L/分減らし、pCO₂は変わりませんでした<span class="src vault">Nilius AJRCCM2024</span>。総説は非対称プロングで分時換気量が19.6%減ったことを挙げています<span class="src vault">Roca ICM2024</span>。いずれも少数例・短時間の生理学研究で、臨床アウトカムは未証明です。</p>
+<p>インターフェースの形そのものも効きます。いずれも少数例・短時間の生理学研究で、臨床アウトカムは未証明です。</p>
+<details class="rd-ev" open><summary>根拠を見る</summary>
+<p>左右で径の異なる非対称カニュラは、安定成人20例のクロスオーバー（50 L/分・FiO₂ 0.21・37 ℃）でPTPesを30.66 cmH₂O·s/min（約22%）下げ、一回換気量を33 mL増やしました<span class="src vault">Gerovasileiou CritCare2026</span>。COPD増悪の回復期14例では30 L/分で分時換気量を1.83 L/分減らし、pCO₂は変わりませんでした<span class="src vault">Nilius AJRCCM2024</span>。総説は非対称プロングで分時換気量が19.6%減ったことを挙げています<span class="src vault">Roca ICM2024</span>。</p>
+</details>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
+<section class="rd">
 <h2 id="s11"><span class="no">§11</span>当院で決めておくこと</h2>
-<p>ここまでの数値は、すべて試験・ガイドライン・総説に書かれた値です。当院固有のHFNCプロトコルとして明文化されたものはまだありません。根拠が試験に無いもの、施設ごとに決めるべきものを、問いの形で並べておきます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>開始基準・初期流量・ROXの記録先を決める</li>
+<li>挿管基準と、誰が引き上げるかを決める</li>
+<li>COPD・抜管後・ウィーニングの線引きを決める</li>
+</ol>
+<p class="rd-points-f">ここまでの数値は、すべて試験・ガイドライン・総説に書かれた値です。当院固有のHFNCプロトコルとして明文化されたものはまだありません。根拠が試験に無いもの、施設ごとに決めるべきものを、問いの形で並べておきます。</p>
+</div>
 <div class="box plain">
 <span class="label">運用として決めておく問い</span>
 <ol>
@@ -1649,6 +2031,7 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
 </div>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
 
 <h2 id="refs">主要文献</h2>
 <p style="font-size:.9rem;color:var(--muted)">本文中の［ ］は出典です（海外ガイドライン・原著論文、国内のデータ、当院の運用）。文献はガイドライン・総説、低酸素性、免疫不全、ROXと生理、COPD、抜管後、挿管前、術後、COVID-19、その他の順に並べています。</p>
@@ -1857,7 +2240,7 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
     links.forEach(function(a,i){
       var el=heads[i]; if(!el) return;
       var stop=heads[i+1], has=false, cur2=el;
-      while(cur2 && cur2!==stop){
+      while(cur2 && cur2!==stop && !(stop && cur2.contains && cur2.contains(stop))){
         if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
         if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
         cur2=cur2.nextElementSibling;
@@ -1886,6 +2269,13 @@ figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; m
     if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
     var d=document.createElement('div'); d.className='rs-tw';
     t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+<script id="rd-js">
+(function(){
+  window.addEventListener('beforeprint',function(){
+    [].slice.call(document.querySelectorAll('details.rd-ev')).forEach(function(d){d.open=true;});
   });
 })();
 </script>

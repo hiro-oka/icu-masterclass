@@ -475,7 +475,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
       <h4 style="color:var(--green)">✓ 適応 — 試す価値がある</h4>
       <p style="color:#145c34">
         <strong>COPD急性増悪</strong>：挿管率・死亡率を減らす最も強固な適応<br>
-        急性高CO₂血症性呼吸不全（PaCO₂ &gt;45、pH &lt;7.35）：S/Tモードが第一選択<br>
+        急性高CO₂血症性呼吸不全（PaCO₂ &gt;45、pH &lt;7.35）：S/Tモードが第一選択。開始の目安は PaCO₂ 45 mmHg以上・pH 7.1〜7.35・標準治療下でも呼吸窮迫（呼吸数24回/分以上・補助呼吸筋・胸腹部奇異運動）の3条件。pH 7.1未満は挿管を考慮するが、NIVを禁じる下限はなく、試すなら厳重に監視する（スロバキア呼吸器学会の実践推奨 2024）<br>
         心原性肺水腫：CPAPまたはS/T。胸腔内圧上昇による血行動態的利益。当院は呼吸努力があればS/T、酸素化だけならCPAP<br>
         挿管前酸素化：HFNCまたはNIVが強い推奨。頭対頭ではNIVが低酸素をより減らす<br>
         高リスク抜管後の「予防的」使用：LV不全・高CO₂・COPD・体液過剰・BNP高値・抜管後喘鳴・65歳超。悪化を待たず装着する（呼吸不全が起きてからの救援使用は別物）<br>
@@ -492,6 +492,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
         血行動態不安定：陽圧が循環を悪化させ得る<br>
         顔面変形・外傷・術後：interfaceが成立しない<br>
         上気道／消化管術後早期：圧・誤嚥などのリスク<br>
+        NIVを勧めない場面：臓器不全を伴うARDS／アシドーシスのない高CO₂血症のCOPD増悪／抜管後に生じた低酸素性呼吸不全（スロバキア呼吸器学会の実践推奨 2024。GRADEは不使用）<br>
         <strong>※ここに挙げたのは「持続的なNIV」に対する禁忌</strong>で、挿管前の数分の前酸素化にはそのまま当てはまらない。誤嚥リスクを伴う意識障害でも、有効な前酸素化の利益と天秤にかける（PREOXI・PreVentのいずれでも誤嚥の有意なシグナルは出ていない）
       </p>
     </div>
@@ -809,11 +810,11 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <div class="grid g3">
     <div class="tile">
       <span class="lbl">Trigger 感度</span>
-      <p style="font-size:15px"><b style="color:var(--ink)">吸気の始まりを拾う閾値。</b>鈍いとミストリガー（努力しても入らない＝疲弊）、鋭すぎるとオートトリガー（リークを吸気と誤認）。<b>リークがある状態で感度だけをいじらない。</b></p>
+      <p style="font-size:15px"><b style="color:var(--ink)">吸気の始まりを拾う閾値。</b>鈍いとミストリガー（努力しても入らない＝疲弊）、鋭すぎるとオートトリガー（リークを吸気と誤認）。<b>リークがある状態で感度だけをいじらない。</b>見つけるには波形に加えて患者に聞く：「吸いたいたびに機械が息をくれますか」（いいえ→ミストリガー）、「欲しくないときに息が来ますか」（はい→オートトリガー）。</p>
     </div>
     <div class="tile">
       <span class="lbl">Cycling（呼気移行）</span>
-      <p style="font-size:15px"><b style="color:var(--ink)">吸気を終わらせる基準。</b>通常は吸気フローがピークの一定割合（例：25%）まで落ちた時点。リークがあるとフローが落ちず<b>吸気が終わらない</b>。cycling基準を上げるか、最大吸気時間を設定する。</p>
+      <p style="font-size:15px"><b style="color:var(--ink)">吸気を終わらせる基準。</b>通常は吸気フローがピークの一定割合（例：25%）まで落ちた時点。リークがあるとフローが落ちず<b>吸気が終わらない</b>。cycling基準を上げるか、最大吸気時間を設定する。吸気が短すぎる（早期サイクル・ダブルトリガー）ならcycling基準を下げ、長すぎる・吐きにくい（遅延サイクル）なら上げる。</p>
     </div>
     <div class="tile">
       <span class="lbl">Rise time</span>
@@ -825,7 +826,7 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
   <div class="grid g2">
     <div class="cal b" style="margin:0">
       <h4><span class="dot">i</span>標準的な開始点</h4>
-      <p><strong>当院のS/T：IPAP 8 / EPAP 4 cmH₂O から始める。</strong><br>文献の開始点：CPAPは 5–10 cmH₂O から 2 cmH₂O ずつ滴定。S/T（文献ではbilevel）は IPAP 10 / EPAP 5 から、IPAPを 2–3 cmH₂O ずつ調整（NEJM手技解説 2015）。<br>FiO₂：SpO₂ 94–98% に滴定し 98% 超は避ける（COPDなど病態別目標は施設protocolを優先）。<br>いずれも低い圧で数分慣らしてから目標値へ上げる。<br>30分後に血液ガスで見直す：高CO₂が残ればIPAP−EPAP差を広げる（最低呼吸数を上げるのは自発呼吸がそれより遅いときしか効かない）。低酸素が残ればFiO₂かEPAPを上げ、EPAPを上げたらIPAPも同じだけ上げて支持圧を保つ。</p>
+      <p><strong>当院のS/T：IPAP 8 / EPAP 4 cmH₂O から始める。</strong><br>文献の開始点：CPAPは 5–10 cmH₂O から 2 cmH₂O ずつ滴定。S/T（文献ではbilevel）は IPAP 10 / EPAP 5 から、IPAPを 2–3 cmH₂O ずつ調整（NEJM手技解説 2015）。<br>FiO₂：SpO₂ 94–98% に滴定し 98% 超は避ける（COPDなど病態別目標は施設protocolを優先）。<br>いずれも低い圧で数分慣らしてから目標値へ上げる。<br>30分後に血液ガスで見直す：高CO₂が残ればIPAP−EPAP差を広げる（最低呼吸数を上げるのは自発呼吸がそれより遅いときしか効かない）。低酸素が残ればFiO₂かEPAPを上げ、EPAPを上げたらIPAPも同じだけ上げて支持圧を保つ。<br>圧の数え方に注意：ICU型人工呼吸器のPSVは「PEEPへの上乗せ圧」、NIV専用機のIPAPは「EPAPを含む総圧」。PSV 15／PEEP 5は最高圧20、IPAP 15／EPAP 5は上乗せ10。メーカー教育用e-book（2023）の開始点 PEEP 4–6・上乗せ圧 6–10 cmH₂O はIPAP表記なら10–16相当で、数字をそのまま移さない。</p>
     </div>
     <div class="cal o" style="margin:0">
       <h4><span class="dot">!</span>「IPAP &gt;20は避ける」を鵜呑みにしない</h4>
@@ -1525,6 +1526,8 @@ footer .fin{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-betw
     <li><i>Goel NN, Ferreyro BL, Pitre T, et al.</i> Noninvasive Respiratory Support for Adult Patients With Acute Respiratory Failure. An Official ATS Clinical Practice Guideline. Am J Respir Crit Care Med. 2026.</li>
     <li><i>Rezoagli E, Nova A, Carteaux G, et al.</i> A Clinical Guide to Non‑Invasive Respiratory Support in Acute Respiratory Failure. Critical Care. 2025.</li>
     <li><i>Nava S, Hill N.</i> Non‑Invasive Ventilation in Acute Respiratory Failure. Lancet. 2009.</li>
+    <li><i>Pobeha P, Mucska I, Vysehradsky R, Hajkova M, Paranicova I, Joppa P.</i> Non‑Invasive Positive Pressure Ventilation Use—Practice Recommendations of the Slovak Society of Pulmonology and Phthisiology. Life. 2024;14:376. doi:10.3390/life14030376</li>
+    <li><i>Karjaghli M.</i> NIV. The basics of noninvasive positive pressure ventilation. E‑book, Edition 1. Hamilton Medical AG; 2023.</li>
     <li><i>Berbenetz N, Wang Y, Brown J, et al.</i> Non‑Invasive Positive Pressure Ventilation (CPAP or Bilevel NPPV) for Cardiogenic Pulmonary Oedema. Cochrane Database Syst Rev. 2019;4:CD005351.</li>
     <li><i>Ferreyro BL, De Jong A, Grieco DL.</i> How to Use Facemask Noninvasive Ventilation. Intensive Care Med. 2024.</li>
     <li><i>Fordyce CB, Katz JN, Alviar CL, et al.</i> Prevention of Complications in the Cardiac Intensive Care Unit. Circulation. 2020.</li>

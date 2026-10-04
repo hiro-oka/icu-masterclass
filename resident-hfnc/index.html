@@ -1400,7 +1400,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <thead><tr><th>項目</th><th>HFNC</th><th>CPAP</th><th>NIV（S/Tモード）</th></tr></thead>
 <tbody>
 <tr><td>主な機序</td><td>死腔洗い出し・FiO₂の正確な供給・呼気抵抗</td><td>リクルートメント・内因性PEEPの相殺・左室後負荷の軽減</td><td>CPAPの効果＋吸気圧補助（一回換気量の増大と呼吸仕事量の大幅な低減）</td></tr>
-<tr><td>陽圧</td><td>非調整。閉口で数 cmH₂O、開口でほぼ0</td><td>設定値として維持</td><td>EPAPとして維持、PSを上乗せ</td></tr>
+<tr><td>陽圧</td><td>非調整。閉口で数 cmH₂O、開口でほぼ0</td><td>設定値として維持</td><td>EPAPを維持し、吸気でIPAPまで上げる</td></tr>
 <tr><td>CO₂への効き方</td><td>死腔の除去（換気の補助ではない）</td><td>下げない</td><td>一回換気量の増大で下げる</td></tr>
 <tr><td>快適性</td><td>最も高い（会話・食事ができる）</td><td>マスク不耐がありうる</td><td>マスク不耐・皮膚損傷がありうる</td></tr>
 <tr><td>向く障害</td><td>酸素化の障害（de novo低酸素性）</td><td>心原性肺水腫など</td><td>換気の障害（高CO₂血症）</td></tr>
@@ -1502,7 +1502,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tbody>
 <tr><td>Miguel-Montanes 2015</td><td>軽症〜中等症の低酸素（前後比較101例）</td><td>60 L/分・FiO₂ 1.0・37 ℃、3分＋喉頭展開中も継続</td><td>最低SpO₂ 100%対94%、80%未満 2%対14%</td></tr>
 <tr><td>PREOXYFLOW 2015</td><td>重症低酸素（P/F約120）119例</td><td>60 L/分・FiO₂ 100%、4分＋挿管終了まで</td><td>最低SpO₂ 91.5%対89.5%（差なし）</td></tr>
-<tr><td>OPTINIV 2016</td><td>重症低酸素の挿管49例</td><td>60 L/分・FiO₂ 100%をNIV（PS 10／PEEP 5・FiO₂ 100%）に上乗せ、4分＋喉頭鏡中も継続</td><td>最低SpO₂ 100%対96%（p=0.029）、80%未満 0例対5例（per-protocol）</td></tr>
+<tr><td>OPTINIV 2016</td><td>重症低酸素の挿管49例</td><td>60 L/分・FiO₂ 100%をNIV（IPAP 15／EPAP 5〔論文の表記ではPS 10／PEEP 5〕・FiO₂ 100%）に上乗せ、4分＋喉頭鏡中も継続</td><td>最低SpO₂ 100%対96%（p=0.029）、80%未満 0例対5例（per-protocol）</td></tr>
 <tr><td>Jhou 2020（メタ解析）</td><td>7研究・956例</td><td>無呼吸酸素化としてのHFNC</td><td>非劣性、優越なし。P/F 200超でのみ有利</td></tr>
 <tr><td>PREOXI（NIVの試験）</td><td>1,301例</td><td>NIV前酸素化対酸素マスク</td><td>低酸素 18.5%→9.1%、心停止 1.1%→0.2%</td></tr>
 </tbody>
@@ -1512,7 +1512,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </details>
 <div class="box good">
 <span class="label">要点 — 挿管の場面でのHFNC</span>
-<p>HFNCを使っている患者を挿管するときは、NIVマスクの下に鼻カニュラを残して60 L/分・FiO₂ 100%で流し続けます（OPTINIVの型）。総吸気圧（PS＋PEEP）は15 cmH₂Oまでにします。この範囲では胃内送気・気圧外傷は起きていません<span class="src vault">OPTINIV ICM2016</span>。HFNC単独の無呼吸酸素化に安心を求めず、前酸素化の質と手技の速さで脱飽和を防いでください。</p>
+<p>HFNCを使っている患者を挿管するときは、NIVマスクの下に鼻カニュラを残して60 L/分・FiO₂ 100%で流し続けます（OPTINIVの型）。総吸気圧（IPAPに相当。論文の表記ではPS＋PEEP）は15 cmH₂Oまでにします。この範囲では胃内送気・気圧外傷は起きていません<span class="src vault">OPTINIV ICM2016</span>。HFNC単独の無呼吸酸素化に安心を求めず、前酸素化の質と手技の速さで脱飽和を防いでください。</p>
 </div>
 
 <h3 id="rs-s3-5">3-5. 抜管後 — 悪化が予測される患者に予防的に使う</h3>
@@ -1639,7 +1639,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td data-label="病態・状況">de novo 急性低酸素性呼吸不全<br>（肺炎・ARDS・COVID-19。非高CO₂・非心原性）</td><td class="num" data-label="HFNCの位置づけ"><strong>第一選択</strong>（対標準酸素で強い推奨）</td><td data-label="初期流量">30〜40 L/分で始め、10分以内に忍容できる最大（50〜60）へ。挿管を減らした試験は<strong>50〜60 L/分</strong>で開始<span class="src vault">Roca ICM2024</span></td><td data-label="FiO₂・目標SpO₂・温度">FiO₂ 1.0で始め、SpO₂ 92〜96%へ漸減。37 ℃<span class="src vault">SOHO NEJM2026</span></td><td data-label="挿管・切り替えの目安">ROXを2・6・12時間（表17）。挿管基準（表19）を開始時に書く</td></tr>
 <tr><td data-label="病態・状況">免疫不全の急性低酸素性呼吸不全</td><td class="num" data-label="HFNCの位置づけ"><strong>非免疫不全と同じプロトコル</strong></td><td data-label="初期流量"><strong>50 L/分</strong>（最初の3日は50以上、以後60まで）<span class="src vault">HIGH JAMA2018</span></td><td data-label="FiO₂・目標SpO₂・温度">FiO₂ 1.0で開始、SpO₂ 95%以上</td><td data-label="挿管・切り替えの目安">ROX・HACORは性能が落ちる。臨床評価で挿管を判断する</td></tr>
 <tr><td data-label="病態・状況">COPD増悪・高CO₂血症性</td><td class="num" data-label="HFNCの位置づけ"><strong>NIVが先</strong>。HFNCはNIV休止中・不耐・拒否時の次善</td><td data-label="初期流量"><strong>30 L/分前後</strong>（20〜30から）。5〜10 L/分ずつ、忍容性と血液ガスで上下<span class="src vault">Ding Pulmonology2025</span></td><td data-label="FiO₂・目標SpO₂・温度">SpO₂ 88〜92%。31〜37 ℃<span class="src vault">Tan CritCare2024</span></td><td data-label="挿管・切り替えの目安">1・12・48時間の血液ガスでNIVへ上げる基準を先に書く（表23）</td></tr>
-<tr><td data-label="病態・状況">挿管前の酸素化</td><td class="num" data-label="HFNCの位置づけ"><strong>NIVが軸</strong>。HFNCは上乗せ</td><td data-label="初期流量"><strong>60 L/分</strong></td><td data-label="FiO₂・目標SpO₂・温度">FiO₂ 1.0。3〜4分＋喉頭展開中も継続</td><td data-label="挿管・切り替えの目安">NIV（PS 10／PEEP 5）＋HFNC。総吸気圧 ≤15 cmH₂O<span class="src vault">OPTINIV ICM2016</span></td></tr>
+<tr><td data-label="病態・状況">挿管前の酸素化</td><td class="num" data-label="HFNCの位置づけ"><strong>NIVが軸</strong>。HFNCは上乗せ</td><td data-label="初期流量"><strong>60 L/分</strong></td><td data-label="FiO₂・目標SpO₂・温度">FiO₂ 1.0。3〜4分＋喉頭展開中も継続</td><td data-label="挿管・切り替えの目安">NIV（IPAP 15／EPAP 5）＋HFNC。総吸気圧 ≤15 cmH₂O<span class="src vault">OPTINIV ICM2016</span></td></tr>
 <tr><td data-label="病態・状況">抜管後・低〜中リスク</td><td class="num" data-label="HFNCの位置づけ"><strong>予防的HFNC</strong></td><td data-label="初期流量"><strong>10 L/分から5刻み</strong>で不快の手前まで（12時間後の実測は約31）<span class="src vault">Hernández JAMA2016</span></td><td data-label="FiO₂・目標SpO₂・温度">SpO₂ 92%超。37 ℃</td><td data-label="挿管・切り替えの目安">24〜48時間。呼吸不全が起きたらNIVか再挿管へ</td></tr>
 <tr><td data-label="病態・状況">抜管後・高リスク<br>（65歳超・慢性心肺疾患など）</td><td class="num" data-label="HFNCの位置づけ"><strong>予防的NIV＋休止中HFNC</strong></td><td data-label="初期流量"><strong>50 L/分</strong>（NIVの合間）<span class="src vault">HIGH-WEAN JAMA2019</span></td><td data-label="FiO₂・目標SpO₂・温度">SpO₂ 92%以上。37 ℃</td><td data-label="挿管・切り替えの目安">NIV 1日12時間以上を48時間。<span class="ng">悪化してからのHFNC・NIVは効果未確立</span></td></tr>
 <tr><td data-label="病態・状況">術後（心胸郭外科の高リスク・肥満、高齢VATS）</td><td class="num" data-label="HFNCの位置づけ"><strong>対象を絞って予防的に</strong></td><td data-label="初期流量"><strong>40〜50 L/分</strong><span class="src vault">Lin CritCare2026</span></td><td data-label="FiO₂・目標SpO₂・温度">FiO₂ 0.4〜0.5、SpO₂ 92〜98%（試験ごと）。VATSの試験は31 ℃</td><td data-label="挿管・切り替えの目安">全例へのルーチン使用はしない</td></tr>

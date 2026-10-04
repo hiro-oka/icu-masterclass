@@ -945,6 +945,12 @@ details.rd-ev table{font-size:.8rem}
 .mo-on .mo-pre.mo-growx{transform:scaleX(0)}
 .mo-on .mo-pre.mo-growy{transform:scaleY(0)}
 .mo-on .mo-pre.mo-draw{stroke-dashoffset:1}
+.mo-on .mo-pre.mo-growu{transform:scaleY(0)}
+.mo-on .mo-pre.mo-barx{scale:0 1}
+.mo-on .mo-pre.mo-dotp{opacity:0}
+.mo-on .mo-pre.mo-wipel{clip-path:inset(-1em -1em -1em 100%)}
+svg .mo-growu{transform-box:fill-box; transform-origin:center bottom}
+.mo-barx{transform-origin:left center}
 .mo-draw{stroke-dasharray:1}
 .mo-growx{transform-origin:left center}
 .mo-growy{transform-origin:center top}
@@ -960,6 +966,10 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-go.mo-growx{animation:mo-growx var(--mo-t, .45s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
 .mo-on .mo-go.mo-growy{animation:mo-growy var(--mo-t, .35s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
 .mo-on .mo-go.mo-draw{animation:mo-draw var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growu{animation:mo-growy var(--mo-t, .6s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-barx{animation:mo-barx var(--mo-t, .5s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-dotp{animation:mo-dotp var(--mo-t, .45s) cubic-bezier(.3,1.5,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-wipel{animation:mo-wipel var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
 /* 終わりの値は書かない（to を省く）＝元の opacity・transform 属性に戻って止まる */
 @keyframes mo-fade{from{opacity:0}}
 @keyframes mo-rise{from{opacity:0; transform:translateY(12px)}}
@@ -970,6 +980,17 @@ svg .mo-growy{transform-box:fill-box}
 @keyframes mo-growx{from{transform:scaleX(0)}}
 @keyframes mo-growy{from{transform:scaleY(0)}}
 @keyframes mo-draw{from{stroke-dashoffset:1}}
+/* HTMLの棒・点（範囲の横棒など）は transform を持つので、独立した scale プロパティで動かす */
+@keyframes mo-barx{from{scale:0 1}}
+@keyframes mo-dotp{from{opacity:0; scale:.2}}
+/* 戻りの線：右（最後の段）から左（最初の段）へ。HTML要素だけに使うので終わりの値を書いてよい（終わると外れる） */
+@keyframes mo-wipel{from{clip-path:inset(-1em -1em -1em 100%)} to{clip-path:inset(-1em -1em -1em 0)}}
+
+/* 装置の鎖のガスの粒（JSが作り、流れ終わると消す） */
+.mo-on .nf-steps.is-chain{position:relative}
+.mo-gas-lay{position:absolute; left:0; top:0; width:0; height:0; pointer-events:none; z-index:2}
+.mo-gas{position:absolute; left:-5px; top:-5px; width:10px; height:10px; border-radius:50%; opacity:0;
+  background:var(--accent); box-shadow:0 0 0 2px var(--bg), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
 
 /* 疑似要素の線（判断の流れの幹・階段の矢印）：持ち主の --mo-del を継承して伸びる */
 .mo-on .nf-root.mo-pre::after, .mo-on .nf-groups.mo-pre::before{transform:scaleY(0)}
@@ -1063,6 +1084,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .mo-ip-v small{font-size:.42em; font-weight:700; color:#a9c7d8; margin-left:.3em; letter-spacing:.02em}
 .mo-ip-v .mo-ip-or{font-size:.55em; color:#a9c7d8; margin:0 .25em}
 .mo-ip-v.is-word{font-size:1.65rem}
+.mo-ip-pop{display:inline-block}
+.mo-ip-v small{white-space:nowrap}
+.mo-ip-v.is-long{white-space:nowrap}   /* 「30〜60」「0.21〜1.0」など幅のある値。スマホでは字を小さくして1行に収める */
 .mo-ip-s{font-size:13px; line-height:1.6; color:#cfe0ea}
 .mo-ip-n{position:relative; margin:.8rem 0 0 !important; font-size:12px !important; color:#a9c7d8; text-align:right}
 @media (max-width:820px){ .mo-ip-g{grid-template-columns:repeat(2, minmax(0, 1fr))} }
@@ -1071,7 +1095,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   .mo-ip-h{font-size:1.2rem !important}
   .mo-ip-g{gap:.5rem}
   a.mo-ip-t{padding:.7rem .75rem .75rem}
-  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem}
+  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem} .mo-ip-v.is-long{font-size:1.38rem}
+  .mo-ip-v.is-long small{font-size:.5em; margin-left:.2em}
   .mo-ip-s{font-size:12px}
 }
 
@@ -1112,7 +1137,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 /* ---------- 6. 印刷・PDF：隠す指定はすべて @media screen の中なので、紙には常に最終状態が出る ---------- */
 @media print{
-  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind{display:none !important}
+  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind, .mo-gas-lay{display:none !important}
   .mo-ip{color:var(--ink, #26333f); background:#fff !important; border:1.5pt solid var(--accent); box-shadow:none; padding:8pt 10pt; margin:6pt 0 10pt;
     break-inside:avoid; page-break-inside:avoid}
   .mo-ip-wave, .mo-ip-n{display:none}
@@ -2749,7 +2774,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     if (parent) parent.appendChild(e);
     return e;
   }
-  var DUR = { fade: .45, rise: .55, pop: .5, slide: .5, slider: .5, stamp: .45, growx: .45, growy: .35, draw: .8, ring: 1, line: 0 };
+  var DUR = { fade: .45, rise: .55, pop: .5, slide: .5, slider: .5, stamp: .45, growx: .45, growy: .35, growu: .6, draw: .8, ring: 1, line: 0,
+              barx: .5, dotp: .45, wipel: .8 };
 
   // ================= 場面（scene）：図の中の要素を時刻つきで並べる =================
   var FIGS = [];
@@ -2789,10 +2815,13 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     fig.scenes.push(this);
   }
   // 要素を1つ（または配列）登録する。kind: fade / rise / pop / slide / slider / stamp / growx / growy / draw / ring / line
+  //   growu＝SVGの棒が下から伸びる／barx・dotp＝HTMLの棒と点（transform を持つ要素でも使える scale プロパティで動かす）／wipel＝右から左へ拭き出す
   Scene.prototype.el = function (el, kind, d, t, step) {
     var s = this;
     if (!el) return s;
     if (el.nodeType !== 1) { [].forEach.call(el, function (e, k) { s.el(e, kind, d + k * (step || 0), t); }); return s; }
+    if (el._moS === s) return s;   // 同じ要素を2回登録しない（先に登録した動きを使う）
+    el._moS = s;
     var svg = el instanceof SVGElement;
     if (svg && el.hasAttribute('transform') && /rise|pop|slide|stamp|grow/.test(kind)) kind = 'fade';
     if (kind === 'draw') {
@@ -2893,7 +2922,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   }
 
   // 波形を時間軸に沿って左から描く（モニターの掃引）。点線のカーソルと先端の点は描き終わると消える
-  function sweep(s, svg, waves, t0, dur) {
+  function sweep(s, svg, waves, t0, dur, fills) {
+    fills = fills || [];
     if (!waves.length) return;
     var bb = null;
     waves.forEach(function (w) {
@@ -2912,7 +2942,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
           var pt = w.getPointAtLength(L * i / n);
           mx = Math.max(mx, pt.x); xs.push(mx); ys.push(pt.y);
         }
-        return { xs: xs, ys: ys };
+        return { xs: xs, ys: ys, a: xs[0], b: mx };
       });
     }
     function yAt(sm, x) {
@@ -2925,14 +2955,17 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
       rect.setAttribute('width', p > 0 ? Math.max(0, x - bb.x0 + 6) : 0);
       var on = p > 0 && p < 1;
       cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.style.opacity = on ? '' : 0;
-      tips.forEach(function (c, k) { c.setAttribute('cx', x); c.setAttribute('cy', yAt(samples[k], x)); c.style.opacity = on ? '' : 0; });
+      tips.forEach(function (c, k) {   // 線の始まりより左・終わりより右では先端の点を出さない（線が途中から始まるグラフ）
+        var sm = samples[k], inside = x >= sm.a - 1 && x <= sm.b + 1;
+        c.setAttribute('cx', x); c.setAttribute('cy', yAt(sm, x)); c.style.opacity = on && inside ? '' : 0;
+      });
     }, function () {
       if (!samples) sample();
-      waves.forEach(function (w) { w.setAttribute('clip-path', 'url(#' + id + ')'); });
+      waves.concat(fills).forEach(function (w) { w.setAttribute('clip-path', 'url(#' + id + ')'); });
       cur = E('line', { 'class': 'mo-cur', y1: bb.y0 - 10, y2: bb.y1 + 10 }, svg);
       tips = waves.map(function () { return E('circle', { 'class': 'mo-tip', r: 5.5 }, svg); });
     }, function () {
-      waves.forEach(function (w) { w.removeAttribute('clip-path'); });
+      waves.concat(fills).forEach(function (w) { w.removeAttribute('clip-path'); });
       if (cur) cur.remove();
       tips.forEach(function (c) { c.remove(); }); tips = [];
     });
@@ -3065,10 +3098,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
   // 判断の流れ（.nf-flow）：根 → 幹が伸びる → 群 → カード → 結論帯
   RECIPES.flow = function (fig) {
-    var F = new Fig(fig), s = new Scene(F), fl = q('.nf-flow', fig);
-    s.el(q('.nf-root', fl), 'pop', 0, .45);
-    s.el(q('.nf-groups', fl), 'line', .55, .35);
-    var t = .75;
+    var F = new Fig(fig), s = new Scene(F);
+    flowSeq(s, q('.nf-flow', fig), 0);
+    tail(s, fig);
+  };
+  // 判断の流れの中身を時刻 t0 から並べ、終わりの時刻を返す（流れ図の中・手順の鎖の下でも使う）
+  function flowSeq(s, fl, t0) {
+    s.el(q(':scope > .nf-join', fl), 'fade', t0, .3);
+    s.el(q('.nf-root', fl), 'pop', t0, .45);
+    s.el(q('.nf-groups', fl), 'line', t0 + .55, .35);
+    var t = t0 + .75;
     Q('.nf-group', fl).forEach(function (g) {
       s.el(g, 'rise', t, .5); s.el(q('.nf-gh', g), 'fade', t + .12, .4);
       Q('.nf-card', g).forEach(function (c, j) {
@@ -3077,21 +3116,27 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
       });
       t += .3 + Q('.nf-card', g).length * .14;
     });
-    s.el(q('.nf-band', fl), 'slide', t + .1, .55);
-    tail(s, fig);
-  };
+    var band = q('.nf-band', fl);
+    if (band) { s.el(band, 'slide', t + .1, .55); t += .6; }
+    return t;
+  }
 
   // 対応表（.nf-map）：条件 → 矢印が伸びる → 対応、を1行ずつ
   RECIPES.map = function (fig) {
-    var F = new Fig(fig), s = new Scene(F), t = 0;
-    [].forEach.call(q('.nf-map', fig).children, function (c) {
-      if (c.classList.contains('nf-sec')) { if (t > 0) t += .2; s.el(c, 'fade', t, .4); t += .12; }
+    var F = new Fig(fig), s = new Scene(F);
+    mapSeq(s, q('.nf-map', fig), 0);
+    tail(s, fig);
+  };
+  function mapSeq(s, mp, t0) {
+    var t = t0;
+    [].forEach.call(mp.children, function (c) {
+      if (c.classList.contains('nf-sec')) { if (t > t0) t += .2; s.el(c, 'fade', t, .4); t += .12; }
       else if (c.classList.contains('nf-key')) s.el(c, 'slide', t, .45);
       else if (c.classList.contains('nf-arr')) s.el(c, 'growx', t + .18, .35);
       else if (c.classList.contains('nf-val')) { s.el(c, 'rise', t + .3, .5); t += .34; }
     });
-    tail(s, fig);
-  };
+    return t + .25;
+  }
 
   // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
   RECIPES.gallery = function (fig) {
@@ -3164,15 +3209,210 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     }
   };
 
-  // 階段（.nf-steps）：上の模式図 → 段が順に → 戻りの矢印
+  // 階段・手順の鎖（.nf-steps）：図の中身を上から順に組み立てる。
+  // 上の模式図 → 前提の帯 → 段が1つずつ（段の間の矢印が先に）→ 下に続く流れ図・対応表 → 戻りの線（右から左へ）→ 説明カード → 注記
+  // アイコンの並ぶ鎖（装置の構成など）は、段が出そろう間にガスの粒が左から右へ流れる
   RECIPES.steps = function (fig) {
-    var F = new Fig(fig), s = new Scene(F), nf = q('.nf', fig);
-    s.el(q(':scope > img', nf), 'fade', 0, .5);
-    var steps = Q('.nf-step', nf);
-    steps.forEach(function (st, k) { s.el(st, 'rise', .3 + k * .3, .5); });
-    s.el(q('.nf-return', nf), 'fade', .3 + steps.length * .3 + .1, .5);
+    var F = new Fig(fig), s = new Scene(F), nf = q('.nf', fig), t = 0;
+    [].forEach.call(nf.children, function (c) {
+      var cl = c.classList;
+      if (c.tagName === 'IMG') { s.el(c, 'fade', t, .5); t += .2; }
+      else if (cl.contains('nf-steps')) t = stepsSeq(s, c, t);
+      else if (cl.contains('nf-flow')) t = flowSeq(s, c, t);
+      else if (cl.contains('nf-map')) t = mapSeq(s, c, t);
+      else if (cl.contains('nf-return')) { s.el(c, 'wipel', t + .05, .85); t += .95; }
+      else if (cl.contains('nf-band')) { s.el(c, 'slide', t + .05, .55); t += .45; }
+      else if (cl.contains('nf-sec')) { s.el(c, 'fade', t, .4); t += .2; }
+      else if (cl.contains('nf-callouts')) {
+        Q(':scope > *', c).forEach(function (x, k) { s.el(x, 'rise', t + k * .22, .5); });
+        t += c.children.length * .22 + .1;
+      }
+      else if (cl.contains('nf-foot') || cl.contains('nf-legend')) s.el(c, 'fade', t, .45);
+    });
+  };
+  function stepsSeq(s, el, t0) {
+    var st = Q(':scope > .nf-step', el), GAP = .3;
+    st.forEach(function (x, k) {
+      var d = t0 + .1 + k * GAP;
+      s.el(x, x.classList.contains('is-goal') ? 'pop' : 'rise', d, .5);
+      s.el(Q('.nf-chip.is-fill', x), 'pop', d + .3, .45, .1);
+    });
+    var end = t0 + .1 + st.length * GAP + .2;
+    if (el.classList.contains('is-chain') && Q('svg.nf-ico', el).length > 1) {
+      gas(s, el, t0 + .3, 2.3);
+      end = Math.max(end, t0 + 1.75);
+    }
+    return end;
+  }
+  // ガスの粒：アイコンの中心を順につないだ道を左（上）から流れる。段の並びが縦（スマホ）でも同じ道を測って流す
+  function gas(s, box, t0, dur) {
+    var N = 10, TRAVEL = 1.15, lay = null, dots = [], path = null;
+    function measure() {
+      var b = box.getBoundingClientRect(), p = [];
+      Q('svg.nf-ico', box).forEach(function (ic, k) {
+        var r = ic.getBoundingClientRect(), c = { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+        if (k === 0) p.push({ x: c.x - r.width / 2, y: c.y });
+        p.push(c);
+      });
+      var acc = [0];
+      for (var i = 1; i < p.length; i++) acc.push(acc[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+      path = { p: p, acc: acc, L: acc[acc.length - 1] || 1 };
+    }
+    function along(u) {
+      var d = clamp(u) * path.L, i = 1;
+      while (i < path.acc.length - 1 && path.acc[i] < d) i++;
+      var a = path.p[i - 1], b = path.p[i], seg = (path.acc[i] - path.acc[i - 1]) || 1, f = (d - path.acc[i - 1]) / seg;
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      if (p > 0 && !path) measure();
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / TRAVEL;
+        if (!path || u <= 0 || u >= 1 || p >= 1) { o.style.opacity = 0; return; }
+        var pt = along(easeIO(u));
+        o.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
+        o.style.opacity = u < .08 ? u / .08 : u > .86 ? (1 - u) / .14 : 1;
+      });
+    }, function () {
+      path = null;
+      lay = D.createElement('span'); lay.className = 'mo-gas-lay'; lay.setAttribute('aria-hidden', 'true');
+      for (var k = 0; k < N; k++) { var o = D.createElement('i'); o.className = 'mo-gas'; lay.appendChild(o); dots.push(o); }
+      box.appendChild(lay);
+    }, function () { if (lay) lay.remove(); lay = null; dots = []; path = null; });
+  }
+
+  // 頭文字カード（.nf-acro）：カードが1枚ずつ来て頭文字が弾む → 注意の札が押される
+  RECIPES.acro = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), cs = Q('.nf-ac', fig);
+    cs.forEach(function (c, k) {
+      var d = .05 + k * .17;
+      s.el(c, 'rise', d, .5); s.el(q('.nf-lt', c), 'pop', d + .12, .5);
+    });
+    s.el(Q('.nf-ac .nf-chip', fig), 'stamp', .05 + cs.length * .17 + .35, .45, .1);
     tail(s, fig);
   };
+
+  // 範囲の横棒（.nf-range）：行ごとに、名前 → 背景の帯 → 棒が左から伸びる → 点が置かれる → 値。
+  // 下の段（.is-dn＝実測）がある図は、上の段（設定）を全行に出してから、実測を上から順に重ねる
+  RECIPES.range = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), rg = q('.nf-range', fig), rows = Q('.nf-rt', rg), late = [];
+    var two = !!q('.nf-rt .is-dn', rg), ROW = .2;
+    s.el(Q('.nf-raxis, .nf-rat', rg), 'fade', 0, .45);
+    rows.forEach(function (rt, k) {
+      var d = .08 + k * ROW, j = 0;
+      s.el(rt.previousElementSibling, 'slide', d, .45);
+      s.el(Q('.nf-zone', rt), 'fade', d, .5);
+      [].forEach.call(rt.children, function (e) {
+        if (e.classList.contains('nf-zone')) return;
+        if (two && e.classList.contains('is-dn')) { late.push({ e: e, k: k }); return; }
+        var dot = e.classList.contains('nf-rd');
+        s.el(e, dot ? 'dotp' : 'barx', d + .15 + j * .14, dot ? .45 : .5); j++;
+      });
+      s.el(rt.nextElementSibling, 'fade', d + .2 + j * .14, .45);
+    });
+    var t2 = .08 + rows.length * ROW + .45, seen = {}, n = 0;
+    late.forEach(function (o) {
+      if (!(o.k in seen)) seen[o.k] = n++;
+      var dot = o.e.classList.contains('nf-rd');
+      s.el(o.e, dot ? 'dotp' : 'barx', t2 + seen[o.k] * .28 + (dot ? .3 : 0), dot ? .45 : .5);
+    });
+    tail(s, fig);
+  };
+
+  // グラフ（data-mo="chart"）：パネルごとに 見出し → 軸 → 閾値 → 線を時間軸に沿って描く。
+  // 点・棒・値・帯は、描く線がその x に来たときに出る。data-mo-at で個別に時刻を変える：
+  //   frame（軸と一緒）／thr（閾値と一緒）／x（その x に線が来たとき。軸の文字に見える値の札に付ける）／end（線を描き終えてから順に）／last（最後）
+  // 面（塗りのある大きな path）は線と一緒に左から現れる
+  // SVG に data-mo-panel="washout" があれば、死腔の洗い出し（たまったCO₂が流れに押し出される）として動かす
+  RECIPES.chart = function (fig) {
+    var F = new Fig(fig, .5), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('svg', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      if (svg.getAttribute('data-mo-panel') === 'washout') washout(s, svg); else chart(s, svg);
+    });
+    tail(last, fig);
+  };
+  function chart(s, svg) {
+    var T0 = .5, frame = [], thr = [], series = [], marks = [], ends = [], lasts = [], axes = [];
+    [].forEach.call(svg.children, function (e) {
+      var tag = e.tagName, cl = e.classList, at = e.getAttribute('data-mo-at');
+      if (tag === 'defs' || tag === 'title' || tag === 'desc') return;
+      if (cl.contains('nf-axis')) axes.push(e);
+      if (at === 'frame') frame.push(e); else if (at === 'thr') thr.push(e);
+      else if (at === 'end') ends.push(e); else if (at === 'last') lasts.push(e); else if (at === 'x') marks.push(e);
+      else if (/nf-(axis|grid|tick|zero)/.test(e.getAttribute('class') || '') || (tag === 'text' && !cl.contains('nf-tb'))) frame.push(e);
+      else if (cl.contains('nf-thr')) thr.push(e);
+      else if (isSeries(e)) series.push(e);
+      else marks.push(e);
+    });
+    function isSeries(e) {
+      var tag = e.tagName, cl = e.classList;
+      if (cl.contains('nf-sa') || cl.contains('nf-sd') || !/^(path|line|polyline)$/.test(tag)) return false;
+      if (tag === 'path' && W.getComputedStyle(e).fill !== 'none') return false;
+      return cl.contains('nf-wave') || e.getBBox().width >= 30;
+    }
+    function bx(list) {
+      var b = null;
+      list.forEach(function (e) { var r = e.getBBox(); b = b ? { a: Math.min(b.a, r.x), b: Math.max(b.b, r.x + r.width) } : { a: r.x, b: r.x + r.width }; });
+      return b;
+    }
+    var R = bx(series.length ? series : axes.length ? axes : marks) || { a: 0, b: 1 };
+    var TD = series.length ? 1.4 : 1.0, W0 = (R.b - R.a) || 1;
+    function tx(x) { return T0 + TD * clamp((x - R.a) / W0); }
+    s.el(frame, 'fade', .1, .4);
+    s.el(thr, 'fade', .3, .45);
+    var fills = marks.filter(function (e) { return /^(path|polygon)$/.test(e.tagName) && e.getBBox().width >= 30 && !/nf-zone/.test(e.getAttribute('class') || ''); });
+    if (series.length) { marks = marks.filter(function (e) { return fills.indexOf(e) < 0; }); sweep(s, svg, series, T0, TD, fills); }
+    var bars = [];
+    marks.forEach(function (e) {
+      var r = e.getBBox(), cx = r.x + r.width / 2, tag = e.tagName, cl = e.getAttribute('class') || '';
+      if (/nf-zone/.test(cl)) { s.el(e, 'fade', tx(cx) - .1, .6); return; }
+      if (tag === 'rect' && r.width >= 20 && r.width <= W0 * .4) { s.el(e, 'growu', tx(cx), .6); bars.push(r); return; }
+      if (tag === 'text') return;
+      if (r.width >= 30 && /^(path|polygon)$/.test(tag)) { s.el(e, 'fade', tx(r.x), .6); return; }
+      if ((tag === 'line' || tag === 'path') && r.height < 6 && r.width >= 12) { s.el(e, 'growx', tx(cx), .4); return; }
+      s.el(e, /^(circle|rect|ellipse|path|polygon)$/.test(tag) && r.width < 30 && r.height < 30 ? 'pop' : 'fade', tx(cx), .42);
+    });
+    marks.forEach(function (e) {   // 値の文字：棒の上の数字は棒と一緒に数え上がる。それ以外は点のあとに弾む
+      if (e.tagName !== 'text') return;
+      var r = e.getBBox(), cx = r.x + r.width / 2, bar = null;
+      bars.forEach(function (b) { if (cx >= b.x && cx <= b.x + b.width) bar = b; });
+      if (bar && /^\s*\d+(\.\d+)?\s*$/.test(e.textContent)) {
+        var C = counter(e), t = tx(bar.x + bar.width / 2);
+        s.el(e, 'fade', t, .3);
+        if (C) s.track(t, .6, function (p) { C.set(p); }, null, function () { C.done(); });
+        return;
+      }
+      s.el(e, 'pop', tx(cx) + .12, .42);
+    });
+    var t = T0 + TD + .15;
+    ends.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .12, e.tagName === 'rect' ? .6 : .42); });
+    if (ends.length) t += ends.length * .12 + .3;
+    lasts.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .1, e.tagName === 'rect' ? .7 : .45); });
+  }
+  // 死腔の洗い出し：管の中にたまったCO₂の粒が、高流量の矢印が来ると右の出口へ押し出される（最後は元の位置）
+  function washout(s, svg) {
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var co2 = kids.filter(function (e) { return e.tagName === 'circle'; });
+    var jet = kids.filter(function (e) { return /a[LX]\)/.test(e.getAttribute('marker-end') || ''); });
+    kids.forEach(function (e) {
+      if (co2.indexOf(e) >= 0 || jet.indexOf(e) >= 0) return;
+      var tb = e.tagName === 'text' && e.classList.contains('nf-tb');
+      s.el(e, tb ? 'pop' : 'fade', tb ? 1.75 : .1, .45);
+    });
+    s.el(jet, 'slide', .35, .6);
+    var home = co2.map(function (c) { return { x: +c.getAttribute('cx'), y: +c.getAttribute('cy') }; });
+    var minX = Math.min.apply(null, home.map(function (h) { return h.x; }));
+    s.track(.45, 1.5, function (p) {
+      co2.forEach(function (c, k) {
+        var h = home[k], f = easeIO(clamp((p * 1.5 - k * .04) / 1.05));
+        var x0 = 78 + (h.x - minX) * .55, y0 = 100 + (h.y - 100) * .55;   // 管の中に寄せた位置から
+        c.setAttribute('cx', (x0 + (h.x - x0) * f).toFixed(1)); c.setAttribute('cy', (y0 + (h.y - y0) * f).toFixed(1));
+      });
+    }, null, function () { co2.forEach(function (c, k) { c.setAttribute('cx', home[k].x); c.setAttribute('cy', home[k].y); }); });
+  }
 
   // 既定：パネル → 説明カード → 注記
   RECIPES.panels = function (fig) {
@@ -3226,6 +3466,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     if (name) return name;
     if (fig.classList.contains('mo-ip')) return 'intro';
     if (q('.mo-tank', fig)) return 'tank';
+    if (q('.nf-steps', fig)) return 'steps';        // 手順の鎖の下に流れ図・対応表が続く図もここで組み立てる
+    if (q('.nf-acro', fig)) return 'acro';
+    if (q('.nf-range', fig)) return 'range';
     if (q('.nf-flow', fig)) return 'flow';
     if (q('.nf-map', fig)) return 'map';
     if (q('.nf-gallery', fig)) return 'gallery';
@@ -3233,7 +3476,6 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     if (q('img[data-mo-sign]', fig)) return 'signs';
     if (q('svg .nf-wave', fig)) return 'wave';
     if (q('svg.nf-draw', fig)) return 'circuit';
-    if (q('.nf-steps', fig)) return 'steps';
     return 'panels';
   }
 

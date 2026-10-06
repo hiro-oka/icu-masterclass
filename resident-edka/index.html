@@ -924,6 +924,21 @@ details.rd-ev table{font-size:.8rem}
   .rd-stat-v{font-size:18pt}
 }
 
+/* linked resource card (2026-10-06) — 姉妹資料へのリンクカード */
+.xl-card{display:flex; gap:1rem; align-items:center; margin:1.6rem 0; padding:1.1rem 1.3rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--accent-soft); text-decoration:none !important; color:var(--fg)}
+.xl-card:hover{box-shadow:0 2px 14px rgba(0,132,181,.22)}
+.xl-card .xl-b{display:block; min-width:0}
+.xl-card .xl-k{display:block; font-size:.74rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink,var(--accent))}
+.xl-card .xl-t{display:block; font-size:1.15rem; font-weight:800; color:var(--navy,var(--fg)); line-height:1.45; margin-top:.15rem}
+.xl-card .xl-s{display:block; font-size:.9rem; color:var(--muted); line-height:1.6; margin-top:.25rem}
+.xl-card .xl-go{flex:none; margin-left:auto; font-weight:700; font-size:.9rem; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.45em 1.1em; white-space:nowrap}
+.xl-card.is-small{padding:.75rem 1.1rem; margin:1.1rem 0}
+.xl-card.is-small .xl-t{font-size:1.02rem}
+@media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
+@media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
+/* /linked resource card */
 /* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
    手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
    ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
@@ -1245,6 +1260,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
 </section>
 
+<a class="xl-card is-small" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/"><span class="xl-b"><span class="xl-k">姉妹資料</span><span class="xl-t">DKA・HHS（高血糖緊急症）</span><span class="xl-s">通常のDKA・HHS・混合型の診断と管理はこちら。この資料は血糖が低いDKAに絞っています</span></span><span class="xl-go">開く →</span></a>
+
 <section class="rd">
 <h2 id="s1"><span class="no">§1</span>定義と用語 — 正常血糖DKA・euDKA・EDKA・euKA</h2>
 <p>正常血糖DKAは、DKA（糖尿病性ケトアシドーシス）のうち血糖が大きく上がっていないものです。この章で分かるのは、正常血糖DKAの定義、euDKA・EDKA・euKAといった呼び名の違いとどれが主流か、そして血糖の閾値が文献ごとに違うことの3点です。この資料では「正常血糖DKA」と書きます。</p>
@@ -1266,7 +1283,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td>EDKA</td><td>euglycemic DKA の略</td><td>救急医向けの総説<span class="src vault">AJEM2021</span></td><td>正常血糖DKAと同じもの</td></tr>
 <tr><td>euKA（正常血糖ケトアシドーシス）</td><td>euglycemic ketoacidosis</td><td>糖尿病のない飢餓・アルコール・妊娠のケトアシドーシスまで含める総説<span class="src vault">CurrDiabRep2020</span></td><td>糖尿病の有無を問わないときに使う（§3-4・§13-3）</td></tr>
 <tr><td>SGLT2阻害薬関連DKA</td><td>SGLT2 inhibitor-associated DKA</td><td>SGLT2阻害薬使用者のDKAをまとめた研究<span class="src vault">DiabetesObesMetab2025</span></td><td>血糖が高いものも含む。正常血糖とは限らない</td></tr>
-<tr><td>DKA・HHS・混合型</td><td>diabetic ketoacidosis／hyperosmolar hyperglycemic state</td><td>高血糖緊急症の総称<span class="src vault">コンセンサス DiabetesCare2024</span></td><td>通常のDKA・HHSは「血糖管理・DKA・内分泌緊急症」の資料</td></tr>
+<tr><td>DKA・HHS・混合型</td><td>diabetic ketoacidosis／hyperosmolar hyperglycemic state</td><td>高血糖緊急症の総称<span class="src vault">コンセンサス DiabetesCare2024</span></td><td>通常のDKA・HHSは姉妹資料「DKA・HHS（高血糖緊急症）」</td></tr>
 </tbody>
 </table>
 </div>
@@ -1287,7 +1304,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </tbody>
 </table>
 </div>
-<p>閾値を200にするか250にするかで、正常血糖DKAの割合は変わります。SGLT2阻害薬使用者のDKAでは、ある症例集積で35%が200 mg/dL未満、別の集積で71%が250 mg/dL以下でした<span class="src vault">コンセンサス DiabetesCare2024</span>。数字を比べるときは定義をそろえてください。</p>
+<p>閾値を200にするか250にするかで、正常血糖DKAの割合は変わります。SGLT2阻害薬使用者のDKAでは、ある症例集積で35%が200 mg/dL未満、別の集積で71%が250 mg/dL以下でした<span class="src vault">コンセンサス DiabetesCare2024</span>。数字を比べるときは定義をそろえてください。日本のICUのデータ（JIPAD）では、ICUに入室したDKA 866例のうち65例（7.5%）がICU初日の最高血糖250 mg/dL未満でした<span class="src vault">Miyazaki CritCareExplor2026</span>。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
@@ -2043,6 +2060,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Long B, Lentz S, Koyfman A, Gottlieb M. Euglycemic diabetic ketoacidosis: Etiologies, evaluation, and management. Am J Emerg Med. 2021;44:157-160. doi:10.1016/j.ajem.2021.02.015</li>
 <li>Cardona Z, Friedman JG, Kamal N, et al. Developing a Protocol for Management of Euglycemic Diabetic Ketoacidosis. Curr Diab Rep. 2025;25:48. doi:10.1007/s11892-025-01604-3</li>
 <li>Lee D, Seo G, Kim Y, Min JY, Yee J. Clinical features and outcomes of diabetic ketoacidosis in patients using SGLT2 inhibitors: A systematic review and meta-analysis. Diabetes Obes Metab. 2025;27:5805-5811. doi:10.1111/dom.16635</li>
+<li>Miyazaki R, Okano H, Goto S, Tanaka H, Okamoto H. Severity and Clinical Outcomes Among ICU Patients With Diabetic Ketoacidosis: An Analysis of the Japanese Intensive Care Patient Database. Crit Care Explor. 2026;8(8):e1449. doi:10.1097/CCE.0000000000001449</li>
 <li>Soliman KAR, Ali AOH, Ameer F, et al. Balanced crystalloids versus normal saline for initial fluid resuscitation in diabetic ketoacidosis: a systematic review and meta-analysis of randomized controlled trials. J Crit Care Med. 2026;12(3):328-341. doi:10.62838/jccm-2026-0022</li>
 <li>Ramanan M, Attokaran A, et al. SCOPE-DKA trial (normal saline vs Plasmalyte-148 in severe diabetic ketoacidosis). Intensive Care Med. 2021;47(10):1248-1257. doi:10.1007/s00134-021-06480-5</li>
 <li>Besen BAMP, Ranzani OT, Singer M. Management of diabetic ketoacidosis. Intensive Care Med. 2023;49(1):95-98. doi:10.1007/s00134-022-06894-9</li>

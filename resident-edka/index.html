@@ -939,6 +939,19 @@ details.rd-ev table{font-size:.8rem}
 @media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
 @media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
 /* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
 /* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
    手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
    ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
@@ -1249,13 +1262,14 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <svg class="mo-ip-wave" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 Q62.5,12 125,40 T250,40 T375,40 T500,40 T625,40 T750,40 T875,40 T1000,40"/></svg>
 <p class="mo-ip-k">ST. LUKE'S ICU ／ EUGLYCEMIC DKA</p>
 <p class="mo-ip-h">正常血糖DKA — 最初に押さえる6点</p>
+<p class="mo-ip-sub">大きな数字は2024年国際コンセンサスと文献の値。当院の現行の運用は注釈と §6-4</p>
 <div class="mo-ip-g">
-<a class="mo-ip-t" href="#rs-s1-1"><span class="mo-ip-l">DKAに占める割合</span><span class="mo-ip-v"><span data-mo-count>約10</span><small>%</small></span><span class="mo-ip-s">2024年コンセンサスでは、血糖200 mg/dL未満のDKA。別の病気ではない</span></a>
-<a class="mo-ip-t" href="#rs-s3-2"><span class="mo-ip-l">SGLT2阻害薬使用者のDKAで正常血糖</span><span class="mo-ip-v"><span data-mo-count>43.6</span><small>%</small></span><span class="mo-ip-s">非使用者は5.0%。血糖でDKAを除外しない</span></a>
-<a class="mo-ip-t" href="#rs-s5-2"><span class="mo-ip-l">AG開大性アシドーシスを見たら</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">βOHB</span><small>を測る</small></span><span class="mo-ip-s">尿ケトンはSGLT2阻害薬で偽陰性になりうる。静脈血ガスで足りる</span></a>
-<a class="mo-ip-t" href="#rs-s9-1"><span class="mo-ip-l">ブドウ糖を始める時期</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">同時</span><small>にインスリンと</small></span><span class="mo-ip-s">5%または10%ブドウ糖を、インスリン開始と同時に流す</span></a>
-<a class="mo-ip-t" href="#rs-s8-2"><span class="mo-ip-l">インスリン（単位/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>0.05〜0.1</span></span><span class="mo-ip-s">血糖ではなく、ケトアシドーシスが消えるまで止めない</span></a>
-<a class="mo-ip-t" href="#rs-s11-3"><span class="mo-ip-l">SGLT2阻害薬の最終投与から</span><span class="mo-ip-v"><span data-mo-count>48</span><small>時間以上</small></span><span class="mo-ip-s">薬が抜けるまで静注を続ける。腎機能が低いとさらに延びる</span></a>
+<a class="mo-ip-t" href="#rs-s1-1"><span class="mo-ip-l">DKAに占める割合</span><span class="mo-ip-v"><span data-mo-count>約10</span><small>%</small></span><span class="mo-ip-s">2024年コンセンサスでは、血糖200 mg/dL未満のDKA。別の病気ではない</span><span class="mo-ip-x"><span class="mo-ip-xk">日本</span>ICU入室DKAの7.5%（JIPAD）</span></a>
+<a class="mo-ip-t" href="#rs-s3-2"><span class="mo-ip-l">SGLT2阻害薬使用者のDKAで正常血糖</span><span class="mo-ip-v"><span data-mo-count>43.6</span><small>%</small></span><span class="mo-ip-s">非使用者は5.0%。血糖でDKAを除外しない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>現行は入室時に内服歴を確認</span></a>
+<a class="mo-ip-t" href="#rs-s5-2"><span class="mo-ip-l">AG開大性アシドーシスを見たら</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">βOHB</span><small>を測る</small></span><span class="mo-ip-s">尿ケトンはSGLT2阻害薬で偽陰性になりうる。静脈血ガスで足りる</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>専用の手順は未決定</span></a>
+<a class="mo-ip-t" href="#rs-s9-1"><span class="mo-ip-l">ブドウ糖を始める時期</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">同時</span><small>にインスリンと</small></span><span class="mo-ip-s">5%または10%ブドウ糖を、インスリン開始と同時に流す</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定（通常DKAは200で追加）</span></a>
+<a class="mo-ip-t" href="#rs-s8-2"><span class="mo-ip-l">インスリン（単位/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>0.05〜0.1</span></span><span class="mo-ip-s">血糖ではなく、ケトアシドーシスが消えるまで止めない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定（通常は0.1＋ボーラス）</span></a>
+<a class="mo-ip-t" href="#rs-s11-3"><span class="mo-ip-l">SGLT2阻害薬の最終投与から</span><span class="mo-ip-v"><span data-mo-count>48</span><small>時間以上</small></span><span class="mo-ip-s">薬が抜けるまで静注を続ける。腎機能が低いとさらに延びる</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定</span></a>
 </div>
 <p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
 </section>

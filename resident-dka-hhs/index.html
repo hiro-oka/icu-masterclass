@@ -1279,7 +1279,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <div class="mo-ip-g">
 <a class="mo-ip-t" href="#rs-s3-1"><span class="mo-ip-l">DKAの血糖の要件（mg/dL）</span><span class="mo-ip-v"><span data-mo-count>200</span><small>以上</small></span><span class="mo-ip-s">糖尿病の既往があれば血糖を問わない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>院内資料も同じ基準（ADA 2026）</span></a>
 <a class="mo-ip-t" href="#rs-s3-3"><span class="mo-ip-l">診断のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.0</span><small>以上</small></span><span class="mo-ip-s">血中βOHBで診断し、重症度と解消も同じ物差しで見る</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>同じ基準。入室時に指先で血中ケトンを測る</span></a>
-<a class="mo-ip-t" href="#rs-s8-1"><span class="mo-ip-l">インスリンを待つK（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.5</span><small>未満</small></span><span class="mo-ip-s">Kを先に補充し、3.5を超えてからインスリンを始める</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>3.5未満で補正が発動。待つ値の規定なし</span></a>
+<a class="mo-ip-t" href="#rs-s8-1"><span class="mo-ip-l">インスリンを待つK（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.5</span><small>未満</small></span><span class="mo-ip-s">Kを先に補充し、3.5を超えてからインスリンを始める</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>補正は原則3.5未満（症例を選んで4）。待つ値の規定なし</span></a>
 <a class="mo-ip-t" href="#rs-s7-2"><span class="mo-ip-l">インスリンのボーラス</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">原則なし</span></span><span class="mo-ip-s">0.1単位/kg/時の固定速度で始める。ボーラスは静脈路確保が遅れるとき</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>あり：血糖値÷100単位（ERで投与済みなら不要）</span></a>
 <a class="mo-ip-t" href="#rs-s9-3"><span class="mo-ip-l">HHSの浸透圧の下げ方（mOsm/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>3〜8</span></span><span class="mo-ip-s">血糖は毎時90〜120 mg/dL、Naは24時間で10 mmol/Lを超えて下げない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>プロトコルに数値の規定なし</span></a>
 <a class="mo-ip-t" href="#rs-s10-2"><span class="mo-ip-l">DKAの解消のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>0.6</span><small>未満</small></span><span class="mo-ip-s">かつpH 7.3以上またはHCO₃⁻ 18以上。AGと尿ケトンでは判定しない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>同じ（pH&gt;7.3またはHCO₃⁻&gt;18、かつケトン&lt;0.6）</span></a>
@@ -1625,12 +1625,23 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <div class="box plain">
 <span class="label">当院の運用 — DKA/HHSプロトコールの骨格</span>
 <ul>
-<li>セットを展開したら、先頭の確認事項（セットを全部展開する、心不全・心房細動ではKの報告値を4 mEq/Lに変えてよい、セットの輸液はMain点滴の指示で脱水へのVolume輸液は別に指示する、中止は寛解基準で判断する）を確かめる<span class="src in">当院</span></li>
+<li>セットを展開したら、先頭の確認事項（セットを全部展開する、Kの補正基準は原則3.5で心不全・心房細動など症例を選んで4にしてよい、セットの輸液はMain点滴の指示で脱水へのVolume輸液は別に指示する、中止は寛解基準で判断する）を確かめる<span class="src in">当院</span></li>
 <li>入室時に指先穿刺血で血中ケトン体を測り、医師に報告する（§3-3）<span class="src in">当院</span></li>
 <li>インスリン：開始時に血糖値÷100単位をボーラスし、血糖値÷100単位/時で持続を始める（ERで投与済みならボーラス不要）。以後は動脈血ガスの血糖で2時間ごとに、看護師がダイナミックスケールで増減する（§7）<span class="src in">当院</span></li>
 <li>輸液：Main輸液は血液ガスごとに血糖で切り替える（300 mg/dL超はソリューゲン、300以下はソルデム3A）。Volume輸液は担当医が別に指示し、生食ではなくソリューゲンFを使う（§6）<span class="src in">当院</span></li>
 <li>カリウム：ICU入室時のセットにある既定の指示で、K 3.5未満で補正が動く（§8）<span class="src in">当院</span></li>
 <li>中止：寛解基準（DKAはpH&gt;7.3またはHCO₃⁻&gt;18 mmol/L、かつ血清ケトン&lt;0.6 mmol/L）を満たしたら、主科と相談して皮下の固定打ちに移る（§10）<span class="src in">当院</span></li>
+</ul>
+</div>
+<div class="box good">
+<span class="label">当院の2026年9月の改訂点と理由</span>
+<ul>
+<li>輸液の製剤：生食をやめ、ソリューゲン（Main）・ソリューゲンF（Volume）にしました。生食の大量投与による高Cl性代謝性アシドーシスを防ぐためです<span class="src in">当院</span></li>
+<li>Main輸液とVolume輸液を分けました：ブドウ糖入りのソルデム3Aの速度を大きく減らし、脱水の補正は担当医が別のVolume輸液で指示します。Main輸液の糖が多いと、そのぶんインスリンの量が増えるのを防ぐためです<span class="src in">当院</span></li>
+<li>インスリンは極力止めない：低血糖や急な低下で中断したら、60分後に必ず血糖を測り、中止時間を最短にします。ダイナミックスケールを使っている間もこの注意を勧告しています<span class="src in">当院</span></li>
+<li>Kの補正基準：原則3.5 mmol/L未満とし、心不全・心房細動など症例を選んで4にします（報告値を4に変えてよい）<span class="src in">当院</span></li>
+<li>開始時に持効型インスリンの皮下注を検討するよう促す文言は削除しました。禁止ではなく、プロトコルとして求めないという扱いです（§7-6）<span class="src in">当院</span></li>
+<li>参考文献は2024年コンセンサスからADA 2026（第16章）に変わりました。インスリン静注製剤とダイナミックスケールそのものは変わっていません<span class="src in">当院</span></li>
 </ul>
 </div>
 <div class="tablewrap">
@@ -1643,10 +1654,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td>速度の調整</td><td>固定速度、または看護師主導の可変速度（毎時1単位を下回らない）</td><td>看護師主導の可変速度。2時間ごとの血糖と前回からの変化量で増減</td><td>ADA 2026が挙げる選択肢の1つ（§7-6）</td></tr>
 <tr><td>血糖が下がったとき</td><td>250未満で0.05単位/kg/時へ減らし、5〜10%ブドウ糖を足す。DKA 150〜200、HHS 200〜250を保つ</td><td>300以下でMain輸液をブドウ糖入りのソルデム3Aへ。インスリンは表で増減し、99以下は中止して50%ブドウ糖</td><td>減量の一律ルールはなく、表で動かす（§7-3）</td></tr>
 <tr><td>輸液の製剤</td><td>0.9%生食または晶質液</td><td>Volume輸液はソリューゲンF（生食を使わない）</td><td>高Cl性アシドーシスを避ける選択（§6-3）</td></tr>
-<tr><td>カリウム</td><td>3.5未満はインスリンを待って補充。5.0未満で輸液1 Lあたり20〜30 mmol</td><td>3.5未満で補正が発動（内服グルコンサンK、または中心静脈からKCl 20 mEqを2時間）。インスリンを待つ値の規定はない</td><td>K 3.5未満で始めるかは上級医と決める（§8-1）</td></tr>
+<tr><td>カリウム</td><td>3.5未満はインスリンを待って補充。5.0未満で輸液1 Lあたり20〜30 mmol</td><td>原則3.5未満で補正（心不全・心房細動など症例を選んで4）。内服グルコンサンK、または中心静脈からKCl 20 mEqを2時間。インスリンを待つ値の規定はない</td><td>K 3.5未満で始めるかは上級医と決める（§8-1）</td></tr>
 <tr><td>測定の間隔</td><td>血糖1〜2時間ごと、電解質・pHは2〜4時間ごと</td><td>動脈血ガスで2時間ごと。6時間以上安定したら4時間ごとにするかを複数の医師で相談</td><td>Kも血糖と同時に毎回見る（§10-1）</td></tr>
 <tr><td>解消（寛解）</td><td>DKA：βOHB 0.6未満かつpH 7.3以上またはHCO₃⁻ 18以上。HHS：浸透圧300未満・尿量0.5超・意識改善・血糖250未満</td><td>同じ数値</td><td>ケトンは血中で測る（§10-2）</td></tr>
-<tr><td>皮下への移行</td><td>静注中止の1〜2時間前（コンセンサス）、2〜4時間前（ADAのDKAの項）ほか</td><td>静注中止の2〜4時間前に基礎インスリン。1日量は安定後の1時間量×24を基礎と追加に割り振る</td><td>ADAのDKAの項にそろえている（§10-4）</td></tr>
+<tr><td>皮下への移行</td><td>静注中止の1〜2時間前（コンセンサス）、2〜4時間前（ADAのDKAの項）ほか</td><td>静注中止の2〜4時間前に基礎インスリン。1日量は安定後の1時間量×24を基礎と追加に割り振り、製剤と量は主科と相談</td><td>ADAのDKAの項にそろえている（§10-4）</td></tr>
+<tr><td>開始時の基礎インスリン併用</td><td>静注の早期から低用量（0.15〜0.3単位/kg）の基礎インスリン併用を選択肢に挙げる</td><td>開始時の持効型併用を促す文言は2026年9月に削除（禁止ではなく、求めない）</td><td>使うかは症例ごとに決める（§7-6）</td></tr>
 <tr><td>HHSの浸透圧の下げ方</td><td>毎時3〜8 mOsm/kg、Naは24時間で10 mmol/Lまで</td><td>プロトコルに数値の規定なし</td><td>国際標準の上限を目安にする（§9-3）</td></tr>
 </tbody>
 </table>
@@ -1826,15 +1838,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-lead">合併症のない軽症・中等症のDKAでは、速効型アナログの皮下投与（0.1単位/kgのあと1時間ごとに0.1、または2時間ごとに0.2単位/kg）が静注の代わりになりますが、重症・複雑なDKAとHHSには勧められません<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span>。</p>
 <p>皮下で行うなら、十分な輸液、頻回の血糖測定、併発する感染の治療、再発を防ぐフォローが必要です<span class="src vault">ADA2026</span>。筋注も有効ですが、皮下より痛みが強く、抗凝固療法中は出血のリスクが上がります<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <p>ADAの2026年版は、固定速度の代わりに血糖に基づく可変速度の看護師主導プロトコルも選べるとしています。その場合もアシドーシスを消すため、速度は毎時1単位を下回らないようにします<span class="src vault">ADA2026</span>。静注中に少量（0.15〜0.3単位/kg）の基礎インスリンアナログを併用すると、反跳高血糖を防げるという報告もあります<span class="src vault">ADA2026</span>。</p>
+<p class="rd-note">当院の運用：2026年9月の改訂で、開始時に持効型インスリンの皮下注を検討するよう促す文言はプロトコルから削除されました。禁止ではなく、プロトコルとして求めないという扱いです。ADAの早期併用は選択肢の1つとして読んでください<span class="src in">当院</span>。</p>
 <div class="box plain">
 <span class="label">当院の運用 — ダイナミックスケール（2時間版）の要点</span>
 <ul>
 <li>看護師が2時間ごとに、今回の血糖値の区分と前回からの変化量を表に当てはめ、Δ増量・変更なし・Δ減量・60分中止のどれかを決めます。血糖が下がっていても、221 mg/dL以上で下がり方が小さければ増量になります<span class="src in">当院</span></li>
 <li>Δの幅は今流している量で決まり、量が多いほど大きくなります（たとえば4.1〜6.0単位/時ならΔ＝1単位/時）<span class="src in">当院</span></li>
-<li>急な低下（101〜140で20超、141〜180で40超、181〜220で80超、221以上で120超の低下）では60分中止し、2Δ減量して再開します。再開時に血糖を再検します<span class="src in">当院</span></li>
+<li>急な低下（101〜140で20超、141〜180で40超、181〜220で80超、221以上で120超の低下）では60分中止し、2Δ減量して再開します。60分後（再開時）に必ず血糖を再検します<span class="src in">当院</span></li>
 <li>血糖99 mg/dL以下ではインスリンを中止し、50%ブドウ糖40 mL（セットのPRN 20 mLを2回）を静注します。1時間ごとに再検し、90以上で2時間ごとに戻し、180を超えたら元の量の50%で再開します<span class="src in">当院</span></li>
 <li>3回以上続けて220 mg/dLを超えたら医師コールで、手動での増量を検討します。6時間以上安定したら、4時間ごとの測定にするかを複数の医師で相談します（1人で延ばさない）<span class="src in">当院</span></li>
-<li>インスリン欠乏が病態なので、中止の時間は最短にします。血糖が下がっても、寛解基準を満たすまで終了しません<span class="src in">当院</span></li>
+<li>インスリン欠乏が病態なので、ダイナミックスケールの使用中もインスリンは極力止めない運用で、注意を勧告しています。止めたら60分後に必ず血糖を測り、中止の時間を最短にします。血糖が下がっても、寛解基準を満たすまで終了しません<span class="src in">当院</span></li>
 </ul>
 <p>増減表とΔの一覧の全体は、院内のDKA/HHSプロトコル資料とオーダーセットを参照してください。</p>
 </div>
@@ -1868,7 +1881,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <thead><tr><th>K（mmol/L）</th><th>2024年コンセンサス</th><th>当院のプロトコル</th><th>ほかの文書</th></tr></thead>
 <tbody>
 <tr><td>インスリンを待つ値</td><td>3.5未満</td><td>規定なし<span class="src in">当院</span></td><td>3.3以下（混合型の総説・正常血糖DKAの院内プロトコルの総説）<span class="src vault">IntJEmergMed2025</span><span class="src vault">CurrDiabRep2025</span></td></tr>
-<tr><td>補充を始める値</td><td>5.0未満</td><td>3.5未満で補正の指示が発動（ICU入室時のセットの既定）<span class="src in">当院</span></td><td>3.5〜5.5で補充（救急医向け総説）<span class="src vault">AJEM2021</span></td></tr>
+<tr><td>補充を始める値</td><td>5.0未満</td><td>原則3.5未満で補正の指示が発動（ICU入室時のセットの既定）。心不全・心房細動など症例を選んで4<span class="src in">当院</span></td><td>3.5〜5.5で補充（救急医向け総説）<span class="src vault">AJEM2021</span></td></tr>
 <tr><td>補充量</td><td>輸液1 Lあたり20〜30 mmol（HHSは10〜20）</td><td>内服できればグルコンサンK（頓用）。内服できず中心静脈があればKCl 20 mEq＋生食を2時間で。Main輸液のソルデム3AにK 20 mEq/L<span class="src in">当院</span></td><td>毎時20 mEq以下を目安、著明な低値ではそれ以上も<span class="src vault">ICM2023</span></td></tr>
 <tr><td>保つ範囲</td><td>4〜5</td><td>報告値は高K側6.0以上。心不全・心房細動では低K側4 mEq/Lで報告する設定に変えてよい<span class="src in">当院</span></td><td>3.5〜5.5<span class="src vault">ICM2023</span></td></tr>
 </tbody>
@@ -1877,7 +1890,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-note">出典：<span class="src vault">コンセンサス DiabetesCare2024</span>。コンセンサスの治療図はK 3.5〜5.0で「Kを入れない」と分岐していますが、本文は5.0未満で補充開始で、図のままだと補充が遅れるため本文を採ります。</p>
 <div class="box plain">
 <span class="label">当院の運用 — Kの補正は入室時のセットで動く</span>
-<p>Kの補正はDKA/HHSのセットではなく、ICU入室時のセットに既定で入っている指示で動きます。血糖300 mg/dL超の間に流れるソリューゲンはKが4 mEq/Lしかないので、この時間帯はMain輸液に補正を任せられません。2時間ごとの血液ガスで血糖と同時にKを見て、3.5を下回れば補正の指示を使い、国際標準の目安どおり3.5を超えるまで続けます<span class="src in">当院</span>。インスリンを始める前のK 3.5未満でインスリンを待つかどうかはプロトコルに書かれていないので、上級医と決めてください。</p>
+<p>Kの補正はDKA/HHSのセットではなく、ICU入室時のセットに既定で入っている指示で動きます。血糖300 mg/dL超の間に流れるソリューゲンはKが4 mEq/Lしかないので、この時間帯はMain輸液に補正を任せられません。2時間ごとの血液ガスで血糖と同時にKを見て、原則3.5（心不全・心房細動など症例を選んで4）を下回れば補正の指示を使い、国際標準の目安どおり3.5を超えるまで続けます<span class="src in">当院</span>。インスリンを始める前のK 3.5未満でインスリンを待つかどうかはプロトコルに書かれていないので、上級医と決めてください。</p>
 </div>
 <div class="box danger">
 <span class="label">危険 — 低K血症は頻度が高く、死亡と関連する</span>
@@ -2048,7 +2061,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-note">出典：<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="box plain">
 <span class="label">当院の運用 — 持続量×24を基礎と追加に割り振る</span>
-<p>寛解基準を満たしたら、主科と相談して皮下の固定打ちに変えます。原則は、血糖が安定した後の持続インスリンの1時間量を24倍して1日量とし、基礎インスリンと追加インスリンに割り振ることです。たとえば2単位/時で安定していれば1日48単位です<span class="src in">当院</span>。国際標準が挙げる「静注量からの換算」に当たる出し方で、コンセンサスは糖毒性で過大評価しうると注意しているので、体重からの目安（0.5〜0.6単位/kg/日）とも見比べてください<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p>寛解基準を満たしたら、主科と相談して皮下の固定打ちに変えます。原則は、血糖が安定した後の持続インスリンの1時間量を24倍して1日量とし、基礎インスリンと追加インスリンに割り振ることです。たとえば2単位/時で安定していれば1日48単位です。総合診療科の症例などでは特に、製剤と量を主科と相談します（主科から要望がなければ当科で決めてよい）<span class="src in">当院</span>。国際標準が挙げる「静注量からの換算」に当たる出し方で、コンセンサスは糖毒性で過大評価しうると注意しているので、体重からの目安（0.5〜0.6単位/kg/日）とも見比べてください<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 </div>
 <p>基礎＋速効型のアナログは、ヒトインスリン（レギュラー＋NPH）に比べて静注から皮下へ移した後の低血糖が少なくなります。ヒトインスリンを使うときは24時間を覆えるようにし、NPHは1日2回の方が柔軟です<span class="src vault">コンセンサス DiabetesCare2024</span>。超長時間作用型（デグルデク・グラルギンU300）への移行を調べた研究はありません（同）。</p>
 

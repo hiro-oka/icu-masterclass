@@ -939,6 +939,19 @@ details.rd-ev table{font-size:.8rem}
 @media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
 @media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
 /* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
 /* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
    手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
    ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
@@ -1262,13 +1275,14 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <svg class="mo-ip-wave" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 Q62.5,12 125,40 T250,40 T375,40 T500,40 T625,40 T750,40 T875,40 T1000,40"/></svg>
 <p class="mo-ip-k">ST. LUKE'S ICU ／ DKA・HHS</p>
 <p class="mo-ip-h">DKA・HHS — 最初に押さえる6点</p>
+<p class="mo-ip-sub">大きな数字は2024年国際コンセンサス。当院の現行の運用は注釈と §5</p>
 <div class="mo-ip-g">
-<a class="mo-ip-t" href="#rs-s3-1"><span class="mo-ip-l">DKAの血糖の要件（mg/dL）</span><span class="mo-ip-v"><span data-mo-count>200</span><small>以上</small></span><span class="mo-ip-s">糖尿病の既往があれば血糖を問わない（2024年コンセンサス）</span></a>
-<a class="mo-ip-t" href="#rs-s3-3"><span class="mo-ip-l">診断のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.0</span><small>以上</small></span><span class="mo-ip-s">血中βOHBで診断し、重症度と解消も同じ物差しで見る</span></a>
-<a class="mo-ip-t" href="#rs-s8-1"><span class="mo-ip-l">インスリンを待つK（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.5</span><small>未満</small></span><span class="mo-ip-s">Kを先に補充し、3.5を超えてからインスリンを始める</span></a>
-<a class="mo-ip-t" href="#rs-s7-2"><span class="mo-ip-l">インスリンのボーラス</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">原則なし</span></span><span class="mo-ip-s">0.1単位/kg/時の固定速度で始める。ボーラスは静脈路確保が遅れるとき</span></a>
-<a class="mo-ip-t" href="#rs-s9-3"><span class="mo-ip-l">HHSの浸透圧の下げ方（mOsm/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>3〜8</span></span><span class="mo-ip-s">血糖は毎時90〜120 mg/dL、Naは24時間で10 mmol/Lを超えて下げない</span></a>
-<a class="mo-ip-t" href="#rs-s10-2"><span class="mo-ip-l">DKAの解消のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>0.6</span><small>未満</small></span><span class="mo-ip-s">かつpH 7.3以上またはHCO₃⁻ 18以上。AGと尿ケトンでは判定しない</span></a>
+<a class="mo-ip-t" href="#rs-s3-1"><span class="mo-ip-l">DKAの血糖の要件（mg/dL）</span><span class="mo-ip-v"><span data-mo-count>200</span><small>以上</small></span><span class="mo-ip-s">糖尿病の既往があれば血糖を問わない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定（変更案あり）</span></a>
+<a class="mo-ip-t" href="#rs-s3-3"><span class="mo-ip-l">診断のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.0</span><small>以上</small></span><span class="mo-ip-s">血中βOHBで診断し、重症度と解消も同じ物差しで見る</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定（変更案あり）</span></a>
+<a class="mo-ip-t" href="#rs-s8-1"><span class="mo-ip-l">インスリンを待つK（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>3.5</span><small>未満</small></span><span class="mo-ip-s">Kを先に補充し、3.5を超えてからインスリンを始める</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>5.2未満で補充・待つ値なし</span></a>
+<a class="mo-ip-t" href="#rs-s7-2"><span class="mo-ip-l">インスリンのボーラス</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">原則なし</span></span><span class="mo-ip-s">0.1単位/kg/時の固定速度で始める。ボーラスは静脈路確保が遅れるとき</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>現行はあり（0.1単位/kg静注）</span></a>
+<a class="mo-ip-t" href="#rs-s9-3"><span class="mo-ip-l">HHSの浸透圧の下げ方（mOsm/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>3〜8</span></span><span class="mo-ip-s">血糖は毎時90〜120 mg/dL、Naは24時間で10 mmol/Lを超えて下げない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定</span></a>
+<a class="mo-ip-t" href="#rs-s10-2"><span class="mo-ip-l">DKAの解消のβOHB（mmol/L）</span><span class="mo-ip-v"><span data-mo-count>0.6</span><small>未満</small></span><span class="mo-ip-s">かつpH 7.3以上またはHCO₃⁻ 18以上。AGと尿ケトンでは判定しない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>未決定（数値基準なし）</span></a>
 </div>
 <p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
 </section>

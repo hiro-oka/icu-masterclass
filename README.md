@@ -11,7 +11,8 @@
 |---|---|---|---|
 | 01 | NIV（非侵襲的換気）実戦管理ガイド | [resident-niv/](https://hiro-oka.github.io/icu-masterclass/resident-niv/) | [PDF](https://hiro-oka.github.io/icu-masterclass/resident-niv/resident-niv.pdf) |
 | 02 | HFNC（高流量鼻カニュラ） | [resident-hfnc/](https://hiro-oka.github.io/icu-masterclass/resident-hfnc/) | [PDF](https://hiro-oka.github.io/icu-masterclass/resident-hfnc/resident-hfnc.pdf) |
-| 03 | 正常血糖DKA（euglycemic DKA） | [resident-edka/](https://hiro-oka.github.io/icu-masterclass/resident-edka/) | [PDF](https://hiro-oka.github.io/icu-masterclass/resident-edka/resident-edka.pdf) |
+| 03 | DKA・HHS（高血糖緊急症） | [resident-dka-hhs/](https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/) | [PDF](https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/resident-dka-hhs.pdf) |
+| 04 | 正常血糖DKA（euglycemic DKA） | [resident-edka/](https://hiro-oka.github.io/icu-masterclass/resident-edka/) | [PDF](https://hiro-oka.github.io/icu-masterclass/resident-edka/resident-edka.pdf) |
 
 ## ファイル構成
 

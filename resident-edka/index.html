@@ -431,7 +431,7 @@ figure.fig figcaption{font-size:.8rem}
   th,td{padding:3pt 4pt}
 }
 
-/* ===== 重要表（表12）：ページの中でひと目で見つかるように ===== */
+/* ===== 重要表（表14）：ページの中でひと目で見つかるように ===== */
 .rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
 table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
 table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
@@ -1223,6 +1223,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="lv3" href="#rs-s9-2" title="9-2. 速度の調整 — 血糖の水準と勢いで決める">9-2. 速度の調整</a>
 <a class="lv3" href="#rs-s9-3" title="9-3. 目標血糖 — コンセンサスの150〜200を基準にする">9-3. 目標血糖</a>
 <a class="lv3" href="#rs-s9-4" title="9-4. 低血糖の手順">9-4. 低血糖の手順</a>
+<a class="lv3" href="#rs-s9-5" title="9-5. 50%ブドウ糖への換算 — g/時に直してmL/時を出す">9-5. 50%ブドウ糖への換算</a>
+<a class="lv3" href="#rs-s9-6" title="9-6. 当院のMain輸液で入るブドウ糖 — ソルデム3Aだけでは足りない">9-6. 当院のMain輸液で入るブドウ糖</a>
+<a class="lv3" href="#rs-s9-7" title="9-7. 50%ブドウ糖を持続で使うときの注意 — 中心静脈から、水とKは別に">9-7. 50%ブドウ糖を持続で使うとき…</a>
 <a class="lv2" href="#s10" title="§10 カリウム・リン・重炭酸">§10 カリウム・リン・重炭酸</a>
 <a class="lv3" href="#rs-s10-1" title="10-1. カリウム — 3.5でインスリンを待ち、5.0未満で補充">10-1. カリウム</a>
 <a class="lv3" href="#rs-s10-2" title="10-2. 重炭酸 — pH 7.0未満のときだけ">10-2. 重炭酸</a>
@@ -1267,7 +1270,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="mo-ip-t" href="#rs-s1-1"><span class="mo-ip-l">DKAに占める割合</span><span class="mo-ip-v"><span data-mo-count>約10</span><small>%</small></span><span class="mo-ip-s">2024年コンセンサスでは、血糖200 mg/dL未満のDKA。別の病気ではない</span><span class="mo-ip-x"><span class="mo-ip-xk">日本</span>ICU入室DKAの7.5%（JIPAD）</span></a>
 <a class="mo-ip-t" href="#rs-s3-2"><span class="mo-ip-l">SGLT2阻害薬使用者のDKAで正常血糖</span><span class="mo-ip-v"><span data-mo-count>43.6</span><small>%</small></span><span class="mo-ip-s">非使用者は5.0%。血糖でDKAを除外しない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>現行は入室時に内服歴を確認</span></a>
 <a class="mo-ip-t" href="#rs-s5-2"><span class="mo-ip-l">AG開大性アシドーシスを見たら</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">βOHB</span><small>を測る</small></span><span class="mo-ip-s">尿ケトンはSGLT2阻害薬で偽陰性になりうる。静脈血ガスで足りる</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>入室時に指先で血中ケトンを測る</span></a>
-<a class="mo-ip-t" href="#rs-s9-1"><span class="mo-ip-l">ブドウ糖を始める時期</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">同時</span><small>にインスリンと</small></span><span class="mo-ip-s">5%または10%ブドウ糖を、インスリン開始と同時に流す</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>専用手順なし。血糖300以下はソルデム3Aで糖が入る</span></a>
+<a class="mo-ip-t" href="#rs-s9-1"><span class="mo-ip-l">ブドウ糖を始める時期</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">同時</span><small>にインスリンと</small></span><span class="mo-ip-s">5%または10%ブドウ糖を、インスリン開始と同時に流す</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>ソルデム3Aだけでは糖が足りず、50%ブドウ糖を足す（§9-6）</span></a>
 <a class="mo-ip-t" href="#rs-s8-2"><span class="mo-ip-l">インスリン（単位/kg/時）</span><span class="mo-ip-v is-long"><span data-mo-count>0.05〜0.1</span></span><span class="mo-ip-s">血糖ではなく、ケトアシドーシスが消えるまで止めない</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>血糖値÷100で開始し、表で増減</span></a>
 <a class="mo-ip-t" href="#rs-s11-3"><span class="mo-ip-l">SGLT2阻害薬の最終投与から</span><span class="mo-ip-v"><span data-mo-count>48</span><small>時間以上</small></span><span class="mo-ip-s">薬が抜けるまで静注を続ける。腎機能が低いとさらに延びる</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>プロトコルに規定なし</span></a>
 </div>
@@ -1676,7 +1679,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>入室時に指先穿刺血で血中ケトン体（βOHB）を測り、医師に報告します。血糖が低くても、ケトンで拾える仕組みです<span class="src in">当院</span></li>
 <li>測定器はFreeStyleリブレ2の読取装置（Reader）で、専用のβ-ケトン測定電極に指先の血液を付けて測ります。腕に貼るセンサーはグルコースだけを測り、ケトンは測れません。測定範囲は0.3〜8.0 mmol/Lで、8.0超は「HI」と表示されるので新しい電極で測り直します。ケトン測定に使えるのは指先穿刺の血液だけです<span class="src in">当院</span><span class="src ext">リブレ2取扱説明書</span></li>
 <li>同じReaderの指先血糖は、脱水・ショック・末梢循環障害で偽低値になりうると取扱説明書に書かれています<span class="src ext">リブレ2取扱説明書</span>。正常血糖DKAではブドウ糖の速度を血糖で決めるので、循環が悪い間は血液ガスや静脈血の血糖で確かめてください</li>
-<li>Main輸液は血糖300 mg/dL以下でブドウ糖とKを含むソルデム3A（血糖101〜200で80 mL/時、201〜300で120 mL/時）なので、正常血糖DKAでは開始時からブドウ糖が入ります。国際標準の「インスリンと同時に5〜10%ブドウ糖」の役割をこの輸液が担います。ブドウ糖が足りているかは、血糖とケトンの推移で確かめてください<span class="src in">当院</span></li>
+<li>Main輸液は血糖300 mg/dL以下でブドウ糖とKを含むソルデム3A（血糖101〜200で80 mL/時、201〜300で120 mL/時）なので、正常血糖DKAでも開始時からブドウ糖は入ります。ただしソルデム3Aのブドウ糖は43 g/Lで、80 mL/時では3.4 g/時と、文献の開始量7.5 g/時の半分以下です<span class="src in">当院</span><span class="src ext">ソルデム3A添付文書</span>。当院では正常血糖DKAのとき、Main輸液とは別に50%ブドウ糖を中心静脈から持続で足すことが多く、速度の目安は§9-5〜§9-7にまとめました</li>
 <li>インスリンは血糖値÷100単位をボーラスし、同じ値の単位/時で始め（ERで投与済みならボーラス不要）、2時間ごとにダイナミックスケールで増減します<span class="src in">当院</span></li>
 <li>ダイナミックスケールには血糖99 mg/dL以下での中止（50%ブドウ糖40 mLを静注し、180を超えたら元の量の50%で再開）がありますが、院内では使用中もインスリンは極力止めない運用で、注意を勧告しています。止めたら60分後に必ず血糖を測り、中止の時間を最短にします<span class="src in">当院</span>。正常血糖DKAの原則（インスリンを減らさず、ブドウ糖を増やして保つ）と同じ向きの注意です<span class="src vault">AJEM2021</span></li>
 <li>寛解基準はDKAと共通で、pH&gt;7.3またはHCO₃⁻&gt;18 mmol/L、かつ血清ケトン&lt;0.6 mmol/Lです。SGLT2阻害薬の最終投与から静注を続ける時間の規定はありません<span class="src in">当院</span></li>
@@ -1738,7 +1741,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s7-3">7-3. ブドウ糖液ぶんの容量に注意</h3>
 <p class="rd-lead">維持輸液83 mL/時にD5 150 mL/時を足すと、初期ボーラスを除いても233 mL/時になるので、容量過多が心配な人はD10を選んで同じブドウ糖を半分の容量で入れます<span class="src vault">CurrDiabRep2025</span>。</p>
 <p>D5 150 mL/時とD10 75 mL/時は、どちらもブドウ糖7.5 g/時です。院内プロトコルの総説は、容量過多の恐れがある人と低血糖が続く人にD10を選ぶとしています<span class="src vault">CurrDiabRep2025</span>。D5が250 mL/時を超えると容量過多と低Na血症の恐れがあります<span class="src vault">CurrDiabRep2025</span>。</p>
-<p>1日の水分出納を見るときは、ブドウ糖液とKを入れた輸液をすべて数えてください。ブドウ糖液は自由水の負荷にもなるため、Naの推移も追います。</p>
+<p>1日の水分出納を見るときは、ブドウ糖液とKを入れた輸液をすべて数えてください。ブドウ糖液は自由水の負荷にもなるため、Naの推移も追います。同じ7.5 g/時を50%ブドウ糖で入れると15 mL/時で、D5の10分の1の容量です（換算は§9-5、中心静脈が要る理由は§9-7）。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
@@ -1794,7 +1797,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>毎時の血糖の水準と勢いで速度を増減する</li>
 <li>目標血糖はコンセンサスの150〜200を基準にする</li>
 </ol>
-<p class="rd-points-f">正常血糖DKAの治療で、通常のDKAと最も違うのがブドウ糖です。この章では、いつ・何%で始めるか、速度をどう動かすか、目標血糖、低血糖時の手順を決めます。</p>
+<p class="rd-points-f">正常血糖DKAの治療で、通常のDKAと最も違うのがブドウ糖です。この章では、いつ・何%で始めるか、速度をどう動かすか、目標血糖、低血糖時の手順を決め、最後に50%ブドウ糖で入れるときの換算と注意をまとめます。</p>
 </div>
 
 <h3 id="rs-s9-1">9-1. いつ・何%で始めるか</h3>
@@ -1851,6 +1854,76 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <p class="rd-note">手順は院内プロトコルの総説の表の脚注に基づきます。原文は「まだ70 mg/dLなら」と書かれ「未満」が抜けているので、70未満として読みました<span class="src vault">CurrDiabRep2025</span>。ADAの診療標準も、血糖70 mg/dL未満が出たら治療計画を見直すよう求めています<span class="src vault">ADA2026</span>。</p>
 
+<h3 id="rs-s9-5">9-5. 50%ブドウ糖への換算 — g/時に直してmL/時を出す</h3>
+<p class="rd-lead">文献の数値をブドウ糖の量に直すと、開始は7.5 g/時、増やしても12.5 g/時前後が目安で、50%ブドウ糖ならそれぞれ15 mL/時と25 mL/時にあたります（表12）<span class="src vault">CurrDiabRep2025</span>。</p>
+<p>速度まで書いている文献は少数です。2024年コンセンサスとADAの診療標準は「5%または10%」、救急医向け総説は「5%で始め、低血糖なら10%」とするだけで、速度はありません<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span><span class="src vault">AJEM2021</span>。院内プロトコルの総説は開始をD5 150 mL/時またはD10 75 mL/時（どちらも7.5 g/時）とし、D5が250 mL/時（12.5 g/時）を超えると容量過多と低Na血症の恐れがあるとしています<span class="src vault">CurrDiabRep2025</span>。</p>
+<p>通常のDKAで血糖が下がった後については、ある総説が「ガイドラインは10%ブドウ糖125 mL/時（12.5 g/時）を提案するが、もっと遅くても足りることが多い」と書いています<span class="src vault">ICM2023</span>。体重あたりの量を示した文献はありません。参考までに、70 kgでは7.5 g/時が約1.8 mg/kg/分、12.5 g/時が約3.0 mg/kg/分です（計算値）。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表12｜ブドウ糖の量と5%・10%・50%の速度の換算 — <span class="ok">50%のmL/時はD5の10分の1、D10の5分の1</span></caption>
+<thead><tr><th>ブドウ糖（g/時）</th><th>5%（mL/時）</th><th>10%（mL/時）</th><th>50%（mL/時）</th><th>文献での位置づけ</th></tr></thead>
+<tbody>
+<tr><td class="num">2.5</td><td class="num">50</td><td class="num">25</td><td class="num">5</td><td>調整の1段の大きさ（表11のD5 ±50 mL/時）</td></tr>
+<tr><td class="num">5</td><td class="num">100</td><td class="num">50</td><td class="num">10</td><td>—</td></tr>
+<tr><td class="num">7.5</td><td class="num">150</td><td class="num">75</td><td class="num">15</td><td>開始量（院内プロトコルの総説）</td></tr>
+<tr><td class="num">10</td><td class="num">200</td><td class="num">100</td><td class="num">20</td><td>—</td></tr>
+<tr><td class="num">12.5</td><td class="num">250</td><td class="num">125</td><td class="num">25</td><td>D5ではこれを超えると容量過多・低Na血症の恐れ。通常のDKAで示される10% 125 mL/時</td></tr>
+<tr><td class="num">15</td><td class="num">300</td><td class="num">150</td><td class="num">30</td><td>文献に記載なし。ここまで要るなら上級医と相談</td></tr>
+</tbody>
+</table>
+</div>
+<p>50%ブドウ糖は1 mLが0.5 gです。表は濃度と速度からの計算で、新しいエビデンスではありません。表11の増減（D5で±25〜125 mL/時）は、50%なら±2.5〜12.5 mL/時に読み替えます。</p>
+<div class="rd-check">
+<p class="rd-check-h">50%ブドウ糖で始めるとき（換算に基づく目安）</p>
+<ol>
+<li>入れるブドウ糖を g/時 で決める。ブドウ糖を含むほかの輸液（当院ではMain輸液のソルデム3A）の分も合計に数える（§9-6）</li>
+<li>開始は合計7.5 g/時を目安にし、足りない分を50%で足す。50%だけなら15 mL/時</li>
+<li>1時間ごとの血糖で50%の速度だけを動かす。インスリンは減らさない（§8-2）</li>
+<li>目標帯は150〜200 mg/dL（§9-3）。下がる勢いが速いときは早めに増やす（表11の考え方）</li>
+<li>高速のブドウ糖でも低血糖を繰り返すときは、上級医・薬剤師とインスリンを0.05単位/kg/時へ下げるか相談する（§9-4）</li>
+</ol>
+</div>
+<p class="rd-note">開始量の7.5 g/時は米国の1施設のプロトコルの値で、成績はまだ公表されていません<span class="src vault">CurrDiabRep2025</span>。正常血糖DKAでどれだけブドウ糖を入れると早く解消するかは分かっていないので、血糖とケトンの推移で調整してください（§9-1）。</p>
+
+<h3 id="rs-s9-6">9-6. 当院のMain輸液で入るブドウ糖 — ソルデム3Aだけでは足りない</h3>
+<p class="rd-lead">当院のプロトコルではMain輸液が血糖300 mg/dL以下でソルデム3A（ブドウ糖43 g/L）に替わりますが、正常血糖DKAの血糖帯では20〜80 mL/時なので、入るブドウ糖は0.9〜3.4 g/時と開始量7.5 g/時に届きません（表13）<span class="src in">当院</span><span class="src ext">ソルデム3A添付文書</span>。</p>
+<p>ソルデム3Aの速度は、通常のDKA・HHSでMain輸液の糖が多いとインスリンの量が増えるのを防ぐために2026年9月の改訂で減らしたもので、正常血糖DKAを想定した設定ではありません<span class="src in">当院</span>。しかも血糖が低い帯ほど速度が下がるので、ソルデム3Aの糖は血糖が下がるほど減ります。正常血糖DKAで必要な向き（血糖が下がったらブドウ糖を増やす）とは逆です。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表13｜当院のMain輸液（ソルデム3A）で入るブドウ糖 — <span class="ok">正常血糖DKAの帯では開始量の半分に届かない</span></caption>
+<thead><tr><th>血糖（mg/dL）</th><th>ソルデム3A（mL/時）</th><th>ブドウ糖（g/時）</th><th>開始量7.5 g/時との差（g/時）</th><th>差を50%で埋めると（mL/時）</th></tr></thead>
+<tbody>
+<tr><td>70以下</td><td class="num">20</td><td class="num">0.9</td><td class="num">6.6</td><td class="num">約13</td></tr>
+<tr><td>71〜100</td><td class="num">40</td><td class="num">1.7</td><td class="num">5.8</td><td class="num">約12</td></tr>
+<tr><td>101〜200</td><td class="num">80</td><td class="num">3.4</td><td class="num">4.1</td><td class="num">約8</td></tr>
+<tr><td>201〜300</td><td class="num">120</td><td class="num">5.2</td><td class="num">2.3</td><td class="num">約5</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">ブドウ糖の量は添付文書の組成（1,000 mL中ブドウ糖43.0 g、K⁺ 20 mEq）からの計算です<span class="src ext">ソルデム3A添付文書</span>。7.5 g/時は§9-5の開始量の目安で、当院で決めた値ではありません。</p>
+<div class="box plain">
+<span class="label">当院の運用 — 正常血糖DKAのブドウ糖</span>
+<ul>
+<li>正常血糖DKAでは、Main輸液とは別に50%ブドウ糖を中心静脈から持続で足すことが多いです<span class="src in">当院</span></li>
+<li>50%ブドウ糖の速度を当院で決めたものはありません。表12・表13の換算を目安に担当医が指示します<span class="src in">当院</span></li>
+<li>Main輸液を血糖の帯で切り替えたら、合計のブドウ糖（ソルデム3A＋50%）を計算し直します。例えば101〜200から71〜100の帯に下がると、ソルデム3Aの糖は3.4から1.7 g/時に減るので、合計を保つには50%を約3.5 mL/時増やします</li>
+</ul>
+</div>
+
+<h3 id="rs-s9-7">9-7. 50%ブドウ糖を持続で使うときの注意 — 中心静脈から、水とKは別に</h3>
+<p class="rd-lead">50%ブドウ糖は浸透圧が生理食塩液の約11倍の高張液なので、持続投与は中心静脈から入れ、脱水の補正とKの補充は別の輸液で行います<span class="src ext">大塚糖液添付文書</span>。</p>
+<p>浸透圧は計算で約2,500〜2,800 mOsm/L（ブドウ糖500 g/Lを分子量180〜198で割った値）です。50%製剤の添付文書は、200 mL・500 mL製剤を中心静脈から持続点滴するとし、点滴の速度をブドウ糖0.5 g/kg/時以下としています<span class="src ext">大塚糖液添付文書</span>。70 kgなら35 g/時で、表12の範囲はこれを大きく下回ります。</p>
+<div class="box warn">
+<span class="label">注意 — 50%ブドウ糖の持続で起きやすいこと</span>
+<ul>
+<li>水はほとんど入りません。15 mL/時で1日360 mLです。脱水の補正は別のVolume輸液で行います（当院はブドウ糖を含まないソリューゲンF）<span class="src in">当院</span><span class="src ext">ソリューゲンF添付文書</span>。容量過多や低Na血症が心配な人では、D5の10分の1の容量で済むことが利点になります（§7-3）</li>
+<li>流量が小さいので、1 mL/時の違いが0.5 g/時になります。シリンジやラインの交換、閉塞、ポンプの停止でブドウ糖だけが止まると、インスリンは固定で入り続けるため、血糖が急に下がりえます。交換は途切れないように準備し、止まったときは血糖を測ってください</li>
+<li>ブドウ糖とインスリンを一緒に入れると、Kとリンは細胞内へ移ります。50%ブドウ糖に電解質は入っていないので、Kは§10-1、リンは§10-3に沿って別に補います</li>
+<li>中心静脈がまだないときは、5%か10%ブドウ糖で始めます（コンセンサスの濃度）<span class="src vault">コンセンサス DiabetesCare2024</span></li>
+</ul>
+</div>
+<p class="rd-note">これらは製剤の性質からの一般的な注意です。正常血糖DKAで50%ブドウ糖と5%・10%ブドウ糖を比べた研究はありません。</p>
+
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
 
@@ -1867,11 +1940,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s10-1">10-1. カリウム — 3.5でインスリンを待ち、5.0未満で補充</h3>
-<p class="rd-lead">来院時のKが3.5 mmol/L未満ならK補充を10 mmol/時で始めてインスリンを待ち、5.0 mmol/L未満になったら輸液1 Lあたり20〜30 mmolを足して4〜5 mmol/Lに保ちます（表12）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">来院時のKが3.5 mmol/L未満ならK補充を10 mmol/時で始めてインスリンを待ち、5.0 mmol/L未満になったら輸液1 Lあたり20〜30 mmolを足して4〜5 mmol/Lに保ちます（表14）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <p>全身のK欠乏は3〜6 mmol/kgに達しますが、来院時の血清Kは正常〜高値が大半です。アシドーシスとインスリン欠乏がKを細胞外へ出しているからで、治療が始まると48時間以内に1〜2 mmol/L下がるのが典型です<span class="src vault">コンセンサス DiabetesCare2024</span>。K 3.5 mmol/L未満でインスリンを待つのは、致死的不整脈と呼吸筋力低下を避けるためです<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表12｜カリウムの閾値 — <span class="ok">コンセンサスの3.5を採り、総説の3.3は使わない</span></caption>
+<caption>表14｜カリウムの閾値 — <span class="ok">コンセンサスの3.5を採り、総説の3.3は使わない</span></caption>
 <thead><tr><th>K（mmol/L）</th><th>2024年コンセンサス</th><th>救急医向け総説</th><th>院内プロトコルの総説</th></tr></thead>
 <tbody>
 <tr><td>3.5未満</td><td>K 10 mmol/時で補充し、3.5を超えるまでインスリンを待つ。より速く入れるなら中心静脈路</td><td>インスリンの前に3.5超まで補正</td><td>インスリンはK 3.3超で開始</td></tr>
@@ -1913,10 +1986,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s11-1">11-1. 測る項目と頻度</h3>
-<p class="rd-lead">ブドウ糖の速度を毎時動かすため血糖は毎時測り、電解質は2時間ごと、βOHBと静脈血pHは少なくとも4時間ごとに測ります（表13）<span class="src vault">CurrDiabRep2025</span><span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">ブドウ糖の速度を毎時動かすため血糖は毎時測り、電解質は2時間ごと、βOHBと静脈血pHは少なくとも4時間ごとに測ります（表15）<span class="src vault">CurrDiabRep2025</span><span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表13｜測る項目と頻度 — <span class="ok">正常血糖DKAは血糖を毎時</span></caption>
+<caption>表15｜測る項目と頻度 — <span class="ok">正常血糖DKAは血糖を毎時</span></caption>
 <thead><tr><th>項目</th><th>2024年コンセンサス（DKA）</th><th>正常血糖DKAの総説</th></tr></thead>
 <tbody>
 <tr><td>血糖</td><td>毛細血管で1〜2時間ごと</td><td>毎時（院内プロトコル・救急総説）</td></tr>
@@ -1944,11 +2017,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>ただし、ケトアシドーシスがすでに解消していても48時間は静注を続けるのかは、総説の記載からははっきりしません（前段は「48〜72時間」、後段は「少なくとも48時間」）<span class="src vault">CurrDiabRep2025</span>。早く解消した人で静注を続けるかは、上級医と相談して決めてください。</p>
 
 <h3 id="rs-s11-4">11-4. 皮下インスリンへの移行 — 重ねて切り替える</h3>
-<p class="rd-lead">皮下インスリンは静注をやめる前に始めて重ね、切り替えの時間は施設で1つに決めておきます（表14）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span>。</p>
+<p class="rd-lead">皮下インスリンは静注をやめる前に始めて重ね、切り替えの時間は施設で1つに決めておきます（表16）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span>。</p>
 <p>移行で最も大事なのは重ね合わせで、怠るとリバウンド高血糖とケトアシドーシスの再燃が起きます<span class="src vault">コンセンサス DiabetesCare2024</span>。ADAの2026年版は章の中で切り替えの時間を3通りに書いており（「静注中止の2時間前に基礎インスリン」「2〜4時間前」「皮下投与後も静注を1〜2時間続ける」）、施設のプロトコルで1つに決める必要があります<span class="src vault">ADA2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表14｜皮下インスリンへの移行 — <span class="ok">静注をやめる前に皮下を始めて重ねる</span></caption>
+<caption>表16｜皮下インスリンへの移行 — <span class="ok">静注をやめる前に皮下を始めて重ねる</span></caption>
 <thead><tr><th>項目</th><th>2024年コンセンサス</th><th>ADA 2026年版</th><th>正常血糖DKAの院内プロトコル</th></tr></thead>
 <tbody>
 <tr><td>重ねる時間</td><td>静注中止の1〜2時間前に皮下開始</td><td>2時間前・2〜4時間前・皮下後1〜2時間静注継続の3通り</td><td>記載なし</td></tr>
@@ -1983,10 +2056,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>例外は心不全です。心不全で入院した2型糖尿病では、禁忌がなく急性疾患から回復した後なら、入院中に開始・継続してよいとされています（推奨等級A）<span class="src vault">ADA2026</span>。正常血糖DKAを起こした人はこの「禁忌がなく回復した後」に当たらない時期があるので、再開の時期は循環器と相談して決めてください。</p>
 
 <h3 id="rs-s12-2">12-2. 再開するか — 書き方が分かれる</h3>
-<p class="rd-lead">SGLT2阻害薬の再開は文献で書き方が分かれ、コンセンサスはルーチンには勧めていないので、退院時は再開せず外来で再評価する方向で調整します（表15）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">SGLT2阻害薬の再開は文献で書き方が分かれ、コンセンサスはルーチンには勧めていないので、退院時は再開せず外来で再評価する方向で調整します（表17）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表15｜DKA後のSGLT2阻害薬の再開 — <span class="ok">ルーチンには再開しない</span></caption>
+<caption>表17｜DKA後のSGLT2阻害薬の再開 — <span class="ok">ルーチンには再開しない</span></caption>
 <thead><tr><th>出典</th><th>再開についての記載</th></tr></thead>
 <tbody>
 <tr><td>2024年コンセンサス<span class="src vault">コンセンサス DiabetesCare2024</span></td><td>1型糖尿病には勧めない。2型糖尿病でも安全性データがないため、DKA解消後の開始・継続はルーチンには勧めない</td></tr>
@@ -1999,10 +2072,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>当院では、退院時にSGLT2阻害薬を再開せず外来で再評価することを退院サマリーの定型にする案があります（未決定）<span class="src in">当院</span>。心不全の適応で飲んでいた人では中止の不利益もあるため、再開の判断を主治医と循環器に引き継いでください。</p>
 
 <h3 id="rs-s12-3">12-3. 周術期の休薬 — 予定手術の3日前</h3>
-<p class="rd-lead">SGLT2阻害薬は予定手術の3日前（エルツグリフロジンは4日前）に休薬し、内服中のまま緊急手術を受けた人は術後に正常血糖DKAを疑ってβOHBを測ります（表16）<span class="src vault">ADA2026</span>。</p>
+<p class="rd-lead">SGLT2阻害薬は予定手術の3日前（エルツグリフロジンは4日前）に休薬し、内服中のまま緊急手術を受けた人は術後に正常血糖DKAを疑ってβOHBを測ります（表18）<span class="src vault">ADA2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表16｜SGLT2阻害薬の周術期の休薬 — <span class="ok">現行は3日前（エルツグリフロジン4日前）</span></caption>
+<caption>表18｜SGLT2阻害薬の周術期の休薬 — <span class="ok">現行は3日前（エルツグリフロジン4日前）</span></caption>
 <thead><tr><th>出典</th><th>予定手術</th><th>緊急手術・急性疾患</th></tr></thead>
 <tbody>
 <tr><td>ADA 2026年版<span class="src vault">ADA2026</span></td><td>3日前（エルツグリフロジンは4日前）に休薬。章内には「3〜4日前」の表現もある</td><td>術後のDKAを厳重に監視し、正常血糖DKAの可能性を考える</td></tr>
@@ -2091,6 +2164,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Simha V, Shah P. Perioperative Glucose Control in Patients With Diabetes Undergoing Elective Surgery. JAMA. 2019;321(4):399-400. doi:10.1001/jama.2018.20922</li>
 <li>Laffel L. Ketone bodies: a review of physiology, pathophysiology and application of monitoring to diabetes. Diabetes Metab Res Rev. 1999;15(6):412-426. doi:10.1002/(sici)1520-7560(199911/12)15:6&lt;412::aid-dmrr72&gt;3.0.co;2-8</li>
 <li>アボットジャパン合同会社. FreeStyleリブレ2 フラッシュグルコースモニタリングシステム 取扱説明書（用途、測定機能の使用、血中ケトン体測定、システムの仕様）.</li>
+<li>テルモ株式会社. ソルデム3A輸液 添付文書（組成：1,000 mL中ブドウ糖43.0 g、K⁺ 20 mEq）.</li>
+<li>株式会社大塚製薬工場. 大塚糖液5%・10%・20%・40%・50%・70% 添付文書（性状：50%の浸透圧比 約11、用法・用量：投与経路と速度）.</li>
+<li>光製薬株式会社. ソリューゲンF注 添付文書（組成）.</li>
 </ol>
 
 </main><script id="rs-tools-js">

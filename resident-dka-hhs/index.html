@@ -431,7 +431,7 @@ figure.fig figcaption{font-size:.8rem}
   th,td{padding:3pt 4pt}
 }
 
-/* ===== 重要表（表12）：ページの中でひと目で見つかるように ===== */
+/* ===== 重要表（表13）：ページの中でひと目で見つかるように ===== */
 .rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
 table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
 table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
@@ -1195,7 +1195,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="lv2" href="#s3" title="§3 診断 — 2024年コンセンサスの基準で分ける">§3 診断</a>
 <a class="lv3" href="#rs-s3-1" title="3-1. DKAの診断基準 — 3項目すべて">3-1. DKAの診断基準</a>
 <a class="lv3" href="#rs-s3-2" title="3-2. HHSの診断基準と浸透圧の計算">3-2. HHSの診断基準と浸透圧の計算</a>
-<a class="lv3" href="#rs-s3-3" title="3-3. ケトンは血中βOHBで測る — 尿ケトンとAGの限界">3-3. ケトンは血中βOHBで測る</a>
+<a class="lv3" href="#rs-s3-3" title="3-3. ケトンは血中βOHBで測る — 尿ケトンとAGの限界、指先の簡易測定">3-3. ケトンは血中βOHBで測る</a>
 <a class="lv3" href="#rs-s3-4" title="3-4. 重症度とケアの場所の目安">3-4. 重症度とケアの場所の目安</a>
 <a class="lv3" href="#rs-s3-5" title="3-5. 診断の流れ">3-5. 診断の流れ</a>
 <a class="lv3" href="#rs-s3-6" title="3-6. 鑑別 — ほかのケトアシドーシスと中毒">3-6. 鑑別</a>
@@ -1433,9 +1433,26 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>2024年コンセンサスはHHSの「アシドーシスがない」のHCO₃⁻を、診断基準図では15 mmol/L以上、本文とインスリン開始の項では18 mmol/L以上と書いています<span class="src vault">コンセンサス DiabetesCare2024</span>。ADAの2026年版の表でも、HHS（15以上）とDKA（18未満）の間に15〜18の空白が残ります<span class="src vault">ADA2026</span>。HCO₃⁻がこの範囲の人は、βOHBと浸透圧の両方を見て、混合型として扱うかを上級医と決めてください。</p>
 </div>
 
-<h3 id="rs-s3-3">3-3. ケトンは血中βOHBで測る — 尿ケトンとAGの限界</h3>
+<h3 id="rs-s3-3">3-3. ケトンは血中βOHBで測る — 尿ケトンとAGの限界、指先の簡易測定</h3>
 <p class="rd-lead">ケトンは静脈血か毛細血管のβOHBを直接測り（3.0 mmol/L以上は感度・特異度とも90%超）、尿ケトンとAGは補助にとどめます<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
-<p>尿のニトロプルシド法はアセト酢酸しか測りません。DKAではβOHBとアセト酢酸の比が7〜10対1なので<span class="src vault">AJEM2021</span>、早期には過小評価になり、回復期にはβOHBがアセト酢酸に変わるため、良くなっているのに尿ケトンが強くなって見えます<span class="src vault">コンセンサス DiabetesCare2024</span>。カプトプリルなどのスルフヒドリル薬やバルプロ酸では偽陽性も出ます。</p>
+<p>ケトン体は3つあります。主役はβOHBとアセト酢酸の2つで、アセトンは3つ目の、最も量の少ないケトン体です<span class="src ext">Laffel DMRR1999</span>。アセトンはアセト酢酸から生じる揮発性の物質で、酸ではなく、呼気に出てケトン臭（アセトン臭）のもとになります<span class="src vault">ICM2023</span>。βOHBとアセト酢酸の比は平常時はおよそ1対1ですが、DKAでは最大10対1まで上がり<span class="src ext">Laffel DMRR1999</span>、ケトン体の大部分はβOHBです（7〜10対1）<span class="src vault">AJEM2021</span>。</p>
+<p>尿のニトロプルシド法（尿試験紙のケトン）が反応するのはアセト酢酸で、βOHBは拾いません<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src ext">Laffel DMRR1999</span>。つまり、DKAで一番多いケトン体を見ていない検査です。早期には過小評価になり、回復期にはβOHBがアセト酢酸に変わるため、良くなっているのに尿ケトンが強くなって見えます<span class="src vault">コンセンサス DiabetesCare2024</span>。インスリンを始めるとβOHBはアセト酢酸より先に下がるので<span class="src ext">Laffel DMRR1999</span>、「尿ケトンが3+のまま」は治療の失敗を意味しません。カプトプリルなどのスルフヒドリル薬やバルプロ酸では偽陽性も出ます<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p>尿ケトンには、尿が採れなければ測れないという単純な限界もあります。高度の脱水で乏尿・無尿になっている入室直後こそ測れず、採れても膀胱にたまっていた尿は過去の状態を映します。SGLT2阻害薬の内服中はケトン体が尿に出ずに再吸収され、偽陰性になりえます<span class="src vault">AJEM2021</span>。尿ケトンが陰性でも、ケトアシドーシスは否定できません（表4）。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表4｜尿ケトンと血中βOHBの違い — <span class="ok">診断・重症度・解消は血中βOHBで判定する</span></caption>
+<thead><tr><th>項目</th><th>尿ケトン（ニトロプルシド法の試験紙）</th><th>血中βOHB（検査室・指先の簡易測定）</th></tr></thead>
+<tbody>
+<tr><td>測るケトン体</td><td>アセト酢酸。βOHBは拾わない</td><td>βOHB（DKAで最も多いケトン体）</td></tr>
+<tr><td>結果の形</td><td>半定量（−〜3+などの段階）</td><td>定量（mmol/L）</td></tr>
+<tr><td>早期の見え方</td><td>過小評価しうる</td><td>そのまま反映する</td></tr>
+<tr><td>治療中の見え方</td><td>βOHB→アセト酢酸の変換で、良くなっているのに強く見える</td><td>改善とともに下がる</td></tr>
+<tr><td>測れない・誤る場面</td><td>乏尿・無尿で採尿できない。SGLT2阻害薬で偽陰性、スルフヒドリル薬・バルプロ酸で偽陽性</td><td>簡易測定は5 mmol/L以上で検査室との一致に懸念</td></tr>
+<tr><td>2024年コンセンサスでの扱い</td><td>βOHBが測れないときの代わり（診断は2+以上）。解消の判定には使わない</td><td>診断3.0以上、重症度3.0〜6.0／6.0超、解消0.6未満のすべての軸</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">出典：<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">AJEM2021</span><span class="src ext">Laffel DMRR1999</span>。</p>
 <p>AGが第一選択から外れた理由は2つあります。DKAの約3分の1は混合性の酸塩基障害であること、生食を大量に入れた後の高Cl性・正常AGのアシドーシスを「DKAの遷延」と誤認すると皮下移行が遅れることです<span class="src vault">コンセンサス DiabetesCare2024</span>。ケトンが測れない環境ではAGの有用性が残ります。</p>
 <details class="rd-ev" open><summary>根拠を見る</summary>
 <p>βOHBの簡易測定（POCT）は、5 mmol/L以上の領域で検査室の測定との一致度に懸念があります<span class="src vault">コンセンサス DiabetesCare2024</span>。病態生理から見直した総説は、AGの閉鎖を高Cl性アシドーシスに影響されない指標とし、Na−Clギャップで簡便に評価できるとしています<span class="src vault">ICM2023</span>。当院の電子カルテではNa−Clギャップは自動計算されていません<span class="src in">当院</span>。</p>
@@ -1443,13 +1460,23 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <div class="box plain">
 <span class="label">当院の運用 — 入室時に指先で血中ケトンを測る</span>
 <p>ICUには簡易ケトン体測定器（血中βOHB）があり、DKA/HHSプロトコルのセットには「ICU入室時に指先穿刺血で血中ケトン体を測定し、医師に報告する」指示が入っています。診断と寛解の判定はどちらも血中ケトンで行うので、入室時の値がその後の判定の起点になります。尿ケトンでは判定しません<span class="src in">当院</span>。</p>
+<p>測定器は、持続血糖測定（CGM）のFreeStyleリブレ2の読取装置（Reader）です。Readerには血糖と血中ケトンの測定機能が内蔵されていて、専用のβ-ケトン測定電極を差し込み、指先の血液を1滴付けて測ります<span class="src in">当院</span><span class="src ext">リブレ2取扱説明書</span>。腕に貼るセンサーが測るのは間質液のグルコースだけで、ケトンは測れません。ケトンはその都度、電極で測る別の機能です<span class="src ext">リブレ2取扱説明書</span>。</p>
+<ul>
+<li>測るもの：血液中のβOHB。測定範囲は0.3〜8.0 mmol/Lで、8.0を超えると「HI」と表示されます。HIのときは新しい電極で測り直します</li>
+<li>表示：値が高いと画面に「高ケトン値」のメッセージが出ます。結果は履歴に「ケトン」の文字とともに残ります</li>
+<li>検体：ケトン測定は指先穿刺の血液だけを使い、電極に尿を付けてはいけません</li>
+<li>電極：専用のβ-ケトン測定電極だけを使い、包装から出したらすぐ使い、1回で捨てます。血糖用の電極とは別物です</li>
+<li>使える温度：Readerの操作温度は10〜45℃。範囲外だと正確な値が出ないことがあります</li>
+</ul>
+<p>同じReaderで指先の血糖も測れますが、取扱説明書は、脱水・ショック・末梢循環障害の患者では指先血の血糖が偽低値になりうるとして、静脈血など他の部位の血液で測るよう求めています<span class="src ext">リブレ2取扱説明書</span>。DKA・HHSの入室直後はまさにこの状態なので、ショックや高度の脱水が続く間は、血糖を血液ガスや静脈血の値で確かめてください。必要な血液量と測定時間は、電極の添付文書を見てください。</p>
 </div>
+<p class="rd-note">持続ケトン測定：米国では2026年8月、グルコースとケトンを1つのセンサーで同時に持続測定する機器（Libre Duo 10 Day）がFDAの認可を受け、欧州でもCEマークを取得しています<span class="src ext">Abbott2026</span>。国内で承認されたかは確認できていません（2026年10月6日時点）。当院のケトン測定は、上記の電極による1回ごとの測定です。</p>
 
 <h3 id="rs-s3-4">3-4. 重症度とケアの場所の目安</h3>
-<p class="rd-lead">DKAの重症度はβOHB・pH・HCO₃⁻・意識の4つで3段階に分け、軽症は一般病棟、中等症はstep-down、重症はICUが目安です（表4）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">DKAの重症度はβOHB・pH・HCO₃⁻・意識の4つで3段階に分け、軽症は一般病棟、中等症はstep-down、重症はICUが目安です（表5）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表4｜DKAの重症度と推奨されるケアの場所（2024年コンセンサス） — <span class="ok">全項目がそろわなくてよく、最後は臨床判断</span></caption>
+<caption>表5｜DKAの重症度と推奨されるケアの場所（2024年コンセンサス） — <span class="ok">全項目がそろわなくてよく、最後は臨床判断</span></caption>
 <thead><tr><th>項目</th><th>軽症</th><th>中等症</th><th>重症</th></tr></thead>
 <tbody>
 <tr><td>βOHB（mmol/L）</td><td>3.0〜6.0</td><td>3.0〜6.0</td><td>6.0超</td></tr>
@@ -1465,7 +1492,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s3-5">3-5. 診断の流れ</h3>
 <p class="rd-lead">ケトンとアシドーシスの有無で最初に分け、次に血糖と浸透圧でDKA・混合型・正常血糖DKA・HHSを決め、どれにも当てはまらなければほかのケトアシドーシスと中毒を探します（図2）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <figure class="fig">
-<div class="nf"><div class="nf-map"><div class="nf-sec">ケトンとアシドーシスがある（βOHB 3.0以上、pH 7.3未満かつ／またはHCO₃⁻ 18未満）</div><div class="nf-key">血糖200以上、または糖尿病の既往</div><div class="nf-arr">→</div><div class="nf-val">DKA。重症度は表4で決める</div><div class="nf-key">さらに血糖600以上・有効浸透圧300超</div><div class="nf-arr">→</div><div class="nf-val is-strong">混合型。ケトンと浸透圧の両方を追う</div><div class="nf-key">血糖200未満（糖尿病の既往あり）</div><div class="nf-arr">→</div><div class="nf-val">正常血糖DKA。インスリンと同時にブドウ糖（§13）</div><div class="nf-sec">ケトンもアシドーシスも目立たない（βOHB 3.0未満、pH 7.3以上かつHCO₃⁻ 15以上）</div><div class="nf-key">血糖600以上・有効浸透圧300超（または総浸透圧320超）</div><div class="nf-arr">→</div><div class="nf-val">HHS。浸透圧の下げ方に上限がある（§9）</div><div class="nf-sec is-danger">どれにも当てはまらない</div><div class="nf-key is-danger">ケトンはあるが糖尿病がない・血糖が低い</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">飢餓性・アルコール性・妊娠のケトアシドーシス、サリチル酸・メタノール・エチレングリコールを鑑別（3-6）</div></div><p class="nf-foot">血糖はmg/dL、βOHBとHCO₃⁻はmmol/L、浸透圧はmOsm/kg。HCO₃⁻ 15〜18は基準の空白（3-2）</p></div>
+<div class="nf"><div class="nf-map"><div class="nf-sec">ケトンとアシドーシスがある（βOHB 3.0以上、pH 7.3未満かつ／またはHCO₃⁻ 18未満）</div><div class="nf-key">血糖200以上、または糖尿病の既往</div><div class="nf-arr">→</div><div class="nf-val">DKA。重症度は表5で決める</div><div class="nf-key">さらに血糖600以上・有効浸透圧300超</div><div class="nf-arr">→</div><div class="nf-val is-strong">混合型。ケトンと浸透圧の両方を追う</div><div class="nf-key">血糖200未満（糖尿病の既往あり）</div><div class="nf-arr">→</div><div class="nf-val">正常血糖DKA。インスリンと同時にブドウ糖（§13）</div><div class="nf-sec">ケトンもアシドーシスも目立たない（βOHB 3.0未満、pH 7.3以上かつHCO₃⁻ 15以上）</div><div class="nf-key">血糖600以上・有効浸透圧300超（または総浸透圧320超）</div><div class="nf-arr">→</div><div class="nf-val">HHS。浸透圧の下げ方に上限がある（§9）</div><div class="nf-sec is-danger">どれにも当てはまらない</div><div class="nf-key is-danger">ケトンはあるが糖尿病がない・血糖が低い</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">飢餓性・アルコール性・妊娠のケトアシドーシス、サリチル酸・メタノール・エチレングリコールを鑑別（3-6）</div></div><p class="nf-foot">血糖はmg/dL、βOHBとHCO₃⁻はmmol/L、浸透圧はmOsm/kg。HCO₃⁻ 15〜18は基準の空白（3-2）</p></div>
 <figcaption>図2. 高血糖緊急症の診断の流れ。</figcaption>
 </figure>
 <p class="figread"><strong>図の読み方</strong> — 上の段から順に、ケトンとアシドーシスがあるかで2つに分け、右の結論に進みます<span class="src vault">コンセンサス DiabetesCare2024</span>。混合型はDKAの基準を満たしたうえでHHSの血糖と浸透圧も満たすもので、正常血糖DKAはDKAの基準のうち血糖だけが低いものです<span class="src vault">ADA2026</span>。赤い段は高血糖緊急症以外の原因を探す段です。</p>
@@ -1510,10 +1537,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-note">動脈血ガスは不要で、静脈血のpHで足ります<span class="src vault">AJEM2021</span>。体液量は身体所見とエコーで評価します<span class="src ext">UpToDate</span>。最初の評価で最優先なのは、循環血液量減少の徴候と緊急のK値です<span class="src vault">ICM2023</span>。</p>
 
 <h3 id="rs-s4-2">4-2. 症状と経過 — DKAは急に、HHSはゆっくり</h3>
-<p class="rd-lead">DKAは24時間以内に急速に進み、HHSは多尿・口渇・体重減少を伴って1週間ほどかけて進むため、HHSは来院時に脱水と意識障害が強いことが多くなります（表5）<span class="src vault">ADA2026</span><span class="src ext">UpToDate</span>。</p>
+<p class="rd-lead">DKAは24時間以内に急速に進み、HHSは多尿・口渇・体重減少を伴って1週間ほどかけて進むため、HHSは来院時に脱水と意識障害が強いことが多くなります（表6）<span class="src vault">ADA2026</span><span class="src ext">UpToDate</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表5｜DKAとHHSの臨床像 — <span class="ok">症状だけでは区別できず、検査で分ける</span></caption>
+<caption>表6｜DKAとHHSの臨床像 — <span class="ok">症状だけでは区別できず、検査で分ける</span></caption>
 <thead><tr><th>項目</th><th>DKA</th><th>HHS</th></tr></thead>
 <tbody>
 <tr><td>発症</td><td>数時間〜数日（24時間以内に急速）</td><td>数日〜1週間</td></tr>
@@ -1547,10 +1574,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>ただし重症度表の全項目がそろう必要はなく、入院先とケアのレベルは最終的に臨床判断です<span class="src vault">コンセンサス DiabetesCare2024</span>。HHSは意識障害と死亡がDKAより多く、ICUでの治療が望ましい場合があります<span class="src in">当院</span>。</p>
 
 <h3 id="rs-s4-5">4-5. 頻度と予後 — 日本の死亡は欧米より高い</h3>
-<p class="rd-lead">高血糖緊急症は糖尿病患者の入院の約1%で、院内死亡は混合型が最も高く、日本の報告はDKA 3.3〜5.7%・HHS 13.2%と、米国の数字より高い値です（表6）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">高血糖緊急症は糖尿病患者の入院の約1%で、院内死亡は混合型が最も高く、日本の報告はDKA 3.3〜5.7%・HHS 13.2%と、米国の数字より高い値です（表7）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表6｜高血糖緊急症の院内死亡 — <span class="ok">混合型とHHSが重く、日本の数字は高い</span></caption>
+<caption>表7｜高血糖緊急症の院内死亡 — <span class="ok">混合型とHHSが重く、日本の数字は高い</span></caption>
 <thead><tr><th>国・研究</th><th>DKA</th><th>HHS</th><th>混合型</th></tr></thead>
 <tbody>
 <tr><td>米国</td><td class="num">0.20%（1型）〜1.04%（2型）</td><td class="num">2型で1.44%（2008年）→0.77%（2018年）</td><td>—</td></tr>
@@ -1563,11 +1590,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>DKAで退院した人の1年の年齢補正死亡率は一般人口の13倍、15〜39歳では49倍です。DKA入院が2〜5回の人は死亡リスクが3倍、6回以上なら6倍になります<span class="src vault">コンセンサス DiabetesCare2024</span>。DKAの入院率は最近55%増えており、特に45歳未満で増えています<span class="src vault">コンセンサス DiabetesCare2024</span>。退院時の再発予防は§10-6で扱います。</p>
 
 <h3 id="rs-s4-6">4-6. 日本のICUのDKA（当院からの報告）</h3>
-<p class="rd-lead">全国のICUデータベース（JIPAD）でICUに入室したDKA 866例を調べた当院からの報告では、院内死亡は全体で4.0%で、ICU初日のpHで分けた重症度によらず3〜6%にとどまり、重症ほど長くなったのはICU滞在だけでした（表7）<span class="src vault">Miyazaki CritCareExplor2026</span>。</p>
+<p class="rd-lead">全国のICUデータベース（JIPAD）でICUに入室したDKA 866例を調べた当院からの報告では、院内死亡は全体で4.0%で、ICU初日のpHで分けた重症度によらず3〜6%にとどまり、重症ほど長くなったのはICU滞在だけでした（表8）<span class="src vault">Miyazaki CritCareExplor2026</span>。</p>
 <p>対象は95のICUに2015〜2022年度にDKAで入室した18歳以上の935例で、ICU初日の動脈血pHが欠損した69例を除く866例を解析しました。重症度はICU初日のpHで、軽症7.25以上（449例）、中等症7.00〜7.25未満（347例）、重症7.00未満（70例）に分けています<span class="src vault">Miyazaki CritCareExplor2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表7｜ICUに入室したDKAの重症度別の転帰と資源利用（JIPAD・866例） — <span class="ok">死亡はpHの重さで並ばず、ICU滞在だけが重症ほど長い</span></caption>
+<caption>表8｜ICUに入室したDKAの重症度別の転帰と資源利用（JIPAD・866例） — <span class="ok">死亡はpHの重さで並ばず、ICU滞在だけが重症ほど長い</span></caption>
 <thead><tr><th>項目</th><th>軽症（pH 7.25以上）</th><th>中等症（7.00〜7.25未満）</th><th>重症（7.00未満）</th><th>全体</th></tr></thead>
 <tbody>
 <tr><td>例数</td><td class="num">449</td><td class="num">347</td><td class="num">70</td><td class="num">866</td></tr>
@@ -1621,7 +1648,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>経過が目安から外れたときは、敗血症・心筋梗塞・脳卒中などの誘因が続いていないかを探し、治療します<span class="src vault">ADA2026</span>。解消の基準を満たさないことだけを理由に、病棟移動や退院を遅らせないとも注記されています（§10-2）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 
 <h3 id="rs-s5-3">5-3. 当院のDKA/HHSプロトコル — 国際標準との違い</h3>
-<p class="rd-lead">当院はICU入室時に電子カルテのDKA/HHSプロトコール（オーダーセット）を展開し、輸液・インスリン・カリウムの3列はADA 2026の治療経路図を骨格にしていますが、インスリンは体重ではなく血糖値で開始量を決める看護師主導の可変速度で、DKAとHHSで開始量を分けない点が国際標準と違います（表8）<span class="src in">当院</span><span class="src vault">ADA2026</span>。</p>
+<p class="rd-lead">当院はICU入室時に電子カルテのDKA/HHSプロトコール（オーダーセット）を展開し、輸液・インスリン・カリウムの3列はADA 2026の治療経路図を骨格にしていますが、インスリンは体重ではなく血糖値で開始量を決める看護師主導の可変速度で、DKAとHHSで開始量を分けない点が国際標準と違います（表9）<span class="src in">当院</span><span class="src vault">ADA2026</span>。</p>
 <div class="box plain">
 <span class="label">当院の運用 — DKA/HHSプロトコールの骨格</span>
 <ul>
@@ -1646,7 +1673,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <div class="tablewrap">
 <table class="wide">
-<caption>表8｜国際標準と当院のプロトコルの違い — <span class="ok">数値の土台は同じで、インスリンの決め方と輸液の製剤が違う</span></caption>
+<caption>表9｜国際標準と当院のプロトコルの違い — <span class="ok">数値の土台は同じで、インスリンの決め方と輸液の製剤が違う</span></caption>
 <thead><tr><th>項目</th><th>2024年コンセンサス・ADA 2026</th><th>当院のプロトコル</th><th>読み方</th></tr></thead>
 <tbody>
 <tr><td>インスリンの開始量</td><td>中等症・重症DKAは0.1単位/kg/時、HHSは0.05単位/kg/時（体重で決める）</td><td>血糖値÷100単位/時。DKAとHHSで区別しない</td><td>HHSで開始量を下げる規定はない（§7-5）</td></tr>
@@ -1690,10 +1717,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s6-1">6-1. 量と速度 — 最初の2〜4時間は500〜1,000 mL/時</h3>
-<p class="rd-lead">腎・心の合併がなければ、生食または平衡晶質液を最初の2〜4時間は500〜1,000 mL/時で入れ、推定欠乏の50%を8〜12時間で、全欠乏を24〜48時間で補います（表9）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">腎・心の合併がなければ、生食または平衡晶質液を最初の2〜4時間は500〜1,000 mL/時で入れ、推定欠乏の50%を8〜12時間で、全欠乏を24〜48時間で補います（表10）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表9｜輸液の目安 — <span class="ok">数値は目安。循環を評価しながら滴定する</span></caption>
+<caption>表10｜輸液の目安 — <span class="ok">数値は目安。循環を評価しながら滴定する</span></caption>
 <thead><tr><th>場面</th><th>2024年コンセンサス</th><th>当院のプロトコル</th><th>動かすときの考え方</th></tr></thead>
 <tbody>
 <tr><td>重度の循環血液量減少</td><td>晶質液1.0 L/時</td><td>Volume輸液を担当医が別に指示（ソリューゲンF）<span class="src in">当院</span></td><td>低血圧・頻脈が是正されるまで。心機能低下があれば血行動態モニタリングと昇圧薬<span class="src vault">ADA2026</span></td></tr>
@@ -1739,10 +1766,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>平衡晶質液でHCO₃⁻が高くなるのは、生食に多いClによる高Cl性アシドーシスを作らないためで、ケトンが早く消えたことを意味しません<span class="src vault">JCritCareMed2026</span>。入院期間・AKI・ICU入室にも差はありませんでした。コンセンサスは選択を施設の入手性とコストで決めるとし<span class="src vault">コンセンサス DiabetesCare2024</span>、ADAの2026年版の経路図も「0.9%生食または他の晶質液」と並べて書いています<span class="src vault">ADA2026</span>。</p>
 <p class="rd-note">当院の運用：Volume輸液は生食ではなくソリューゲンF（晶質液）を使います。生食の大量投与で高Cl性代謝性アシドーシスが重なるのを避けるためで、ADAの「0.9%生食または晶質液」のうち晶質液を選んだ形です<span class="src in">当院</span>。</p>
 <p>大量輸液が見込まれる例や初診時のアシドーシスが高度な例では、平衡晶質液を既定にするのは合理的な選択肢です<span class="src vault">JCritCareMed2026</span>。低K血症は平衡晶質液で減る傾向がありましたが有意ではなく、K補充の手順は輸液の種類にかかわらず同じです。</p>
-<details class="rd-ev" open><summary>根拠を見る（表10：輸液の種類をめぐる研究）</summary>
+<details class="rd-ev" open><summary>根拠を見る（表11：輸液の種類をめぐる研究）</summary>
 <div class="tablewrap">
 <table class="wide">
-<caption>表10｜輸液の種類をめぐる研究 — <span class="ok">生化学の差はあるが、臨床転帰の差は示されていない</span></caption>
+<caption>表11｜輸液の種類をめぐる研究 — <span class="ok">生化学の差はあるが、臨床転帰の差は示されていない</span></caption>
 <thead><tr><th>研究</th><th>対象・n</th><th>比較</th><th>主な結果</th></tr></thead>
 <tbody>
 <tr><td>RCT 11本のメタ解析（2026）<span class="src vault">JCritCareMed2026</span></td><td>成人・小児のDKA。主要解析は6本・491例</td><td>平衡晶質液 対 生食</td><td>解消時間 −1.50時間（95%CI −3.79〜0.79、確実性 低）。12時間後のHCO₃⁻ +2.50 mmol/L（1.51〜3.48、確実性 中）。入院期間 −0.78日（−2.35〜0.79）。AKI OR 0.84（0.39〜1.82）。低K血症 OR 0.49（0.23〜1.02、p=0.057）。ICU入室 OR 0.61（0.11〜3.48）</td></tr>
@@ -1813,10 +1840,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s7-4">7-4. 血糖を急いで下げない — 中等度強度のインスリン療法</h3>
 <p class="rd-lead">血糖目標を200〜300 mg/dLに緩め、ボーラスを使わず緩やかに滴定した中等度強度の療法は、前後比較で入院期間を23.6%、ICU在室を38%短くし、低血糖を35%から1%に減らしました<span class="src vault">CCM2019</span>。</p>
-<details class="rd-ev" open><summary>根拠を見る（表11：インスリンの強度をめぐる研究）</summary>
+<details class="rd-ev" open><summary>根拠を見る（表12：インスリンの強度をめぐる研究）</summary>
 <div class="tablewrap">
 <table class="wide">
-<caption>表11｜インスリンの強度をめぐる研究 — <span class="ok">急がなくてもケトアシドーシスの補正は遅れない</span></caption>
+<caption>表12｜インスリンの強度をめぐる研究 — <span class="ok">急がなくてもケトアシドーシスの補正は遅れない</span></caption>
 <thead><tr><th>研究</th><th>対象・n</th><th>比較</th><th>主な結果</th></tr></thead>
 <tbody>
 <tr><td>中等度強度の前後比較（2019）<span class="src vault">CCM2019</span></td><td>ICUのDKA・HHSの成人201例、単施設</td><td>中等度強度（目標200〜300、ボーラスなし、0.05〜0.1で開始、25%ずつ滴定）対 高強度（目標100〜200、ボーラス0.1、0.1〜0.2で開始、20〜50%ずつ滴定）</td><td>入院期間149.9→114.4時間（−23.6%、p=0.039）、ICU 30→18.6時間（−38.0%、p=0.017）、低血糖35%→1%（p=0.0003）、血糖のSD 148.9→106.3。AG閉鎖時間は差なし（11.6対9.4時間、p=0.123）</td></tr>
@@ -1877,7 +1904,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="figread"><strong>図の読み方</strong> — 上の段はインスリンを始める前の判断で、左のKの値から右の対応に進みます<span class="src vault">コンセンサス DiabetesCare2024</span>。赤い行はインスリンを待つ、または死亡と関連する低K血症です。下の段は治療中の測定と、HHSでの補充量です<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表12｜カリウムの閾値の比較 — <span class="ok">コンセンサスの3.5を採り、3.3は使わない</span></caption>
+<caption>表13｜カリウムの閾値の比較 — <span class="ok">コンセンサスの3.5を採り、3.3は使わない</span></caption>
 <thead><tr><th>K（mmol/L）</th><th>2024年コンセンサス</th><th>当院のプロトコル</th><th>ほかの文書</th></tr></thead>
 <tbody>
 <tr><td>インスリンを待つ値</td><td>3.5未満</td><td>規定なし<span class="src in">当院</span></td><td>3.3以下（混合型の総説・正常血糖DKAの院内プロトコルの総説）<span class="src vault">IntJEmergMed2025</span><span class="src vault">CurrDiabRep2025</span></td></tr>
@@ -1942,10 +1969,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s9-3">9-3. HHSの速度の上限 — 血糖・Na・浸透圧</h3>
-<p class="rd-lead">HHSでは浸透圧の急な変化が脳浮腫と浸透圧性脱髄症候群を招くため、血糖は毎時90〜120 mg/dL、血清Naは24時間で10 mmol/L、浸透圧は毎時3.0〜8.0 mOsm/kgを超えて下げません（表13）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">HHSでは浸透圧の急な変化が脳浮腫と浸透圧性脱髄症候群を招くため、血糖は毎時90〜120 mg/dL、血清Naは24時間で10 mmol/L、浸透圧は毎時3.0〜8.0 mOsm/kgを超えて下げません（表14）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表13｜HHSの速度の上限（2024年コンセンサス） — <span class="ok">混合型にも同じ上限を使う</span></caption>
+<caption>表14｜HHSの速度の上限（2024年コンセンサス） — <span class="ok">混合型にも同じ上限を使う</span></caption>
 <thead><tr><th>指標</th><th>上限・目安</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td>高血糖の解消までの時間</td><td>通常8〜10時間</td><td>急速な浸透圧の低下を避ける</td></tr>
@@ -1979,10 +2006,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s10-1">10-1. 測る項目と頻度</h3>
-<p class="rd-lead">血糖は1〜2時間ごと、電解質・リン・Cr・βOHB・静脈血pHは4時間ごと（不安定なら2時間ごと）、HHSでは血清浸透圧も4時間ごとに測ります（表14）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">血糖は1〜2時間ごと、電解質・リン・Cr・βOHB・静脈血pHは4時間ごと（不安定なら2時間ごと）、HHSでは血清浸透圧も4時間ごとに測ります（表15）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表14｜測る項目と頻度 — <span class="ok">安定するまで2〜4時間ごと</span></caption>
+<caption>表15｜測る項目と頻度 — <span class="ok">安定するまで2〜4時間ごと</span></caption>
 <thead><tr><th>項目</th><th>頻度</th><th>補足</th></tr></thead>
 <tbody>
 <tr><td>毛細血管血糖</td><td>1〜2時間ごと</td><td>院内で校正された血糖計を使う</td></tr>
@@ -2019,7 +2046,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>AGが残る理由が高Cl性アシドーシスではないかを先に確かめると、不要な静注の延長を避けられます<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 
 <h3 id="rs-s10-4">10-4. 重ね合わせの時間 — 文書ごとに書き方が違う</h3>
-<p class="rd-lead">皮下インスリンは静注をやめる前に始めて重ね、2024年コンセンサスは静注中止の1〜2時間前に皮下開始としていますが、ADAの2026年版は同じ章の中で3通りに書いているため、施設で1つに決める必要があります（図7・表15）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span>。</p>
+<p class="rd-lead">皮下インスリンは静注をやめる前に始めて重ね、2024年コンセンサスは静注中止の1〜2時間前に皮下開始としていますが、ADAの2026年版は同じ章の中で3通りに書いているため、施設で1つに決める必要があります（図7・表16）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">ADA2026</span>。</p>
 <p>重ねずに切ると、リバウンド高血糖とケトアシドーシスの再燃が起きます<span class="src vault">コンセンサス DiabetesCare2024</span>。どの書き方を採っても「重ねずに切る」ことだけは誤りです。</p>
 <figure class="fig">
 <div class="nf"><div class="nf-panels"><div class="nf-panel"><p class="nf-pt">皮下インスリンと静注が重なる時間</p><p class="nf-ps">静注をやめる時刻を0とした</p><svg class="nf-svg" viewBox="0 0 460 300" role="img" aria-label="静注中止の何時間前に皮下インスリンを始めるかの比較。コンセンサスは1から2時間前、ADA本文は2時間前、ADAのDKAの項は2から4時間前、ADAの治療図は皮下投与後1から2時間静注を続ける"><line class="nf-axis" x1="70" y1="240" x2="400" y2="240"/><line class="nf-tick" x1="70" y1="240" x2="70" y2="245"/><text class="nf-ts" x="70" y="262" text-anchor="middle">−4</text><line class="nf-tick" x1="125" y1="240" x2="125" y2="245"/><text class="nf-ts" x="125" y="262" text-anchor="middle">−3</text><line class="nf-tick" x1="180" y1="240" x2="180" y2="245"/><text class="nf-ts" x="180" y="262" text-anchor="middle">−2</text><line class="nf-tick" x1="235" y1="240" x2="235" y2="245"/><text class="nf-ts" x="235" y="262" text-anchor="middle">−1</text><line class="nf-tick" x1="290" y1="240" x2="290" y2="245"/><text class="nf-ts" x="290" y="262" text-anchor="middle">0</text><line class="nf-tick" x1="345" y1="240" x2="345" y2="245"/><text class="nf-ts" x="345" y="262" text-anchor="middle">+1</text><line class="nf-tick" x1="400" y1="240" x2="400" y2="245"/><text class="nf-ts" x="400" y="262" text-anchor="middle">+2</text><text class="nf-t" x="235" y="290" text-anchor="middle">静注中止からの時間（時間）</text><line class="nf-thr" x1="290" y1="24" x2="290" y2="240" style="stroke:var(--danger)"/><text class="nf-ts" style="paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round" x="70" y="38">2024年コンセンサス：中止の1〜2時間前に皮下</text><rect class="nf-zone-a" x="180" y="44" width="55" height="18"/><rect x="235" y="44" width="55" height="18" style="fill:var(--accent)"/><text class="nf-ts" style="paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round" x="70" y="93">ADA本文：中止の2時間前に基礎インスリン</text><rect x="180" y="99" width="110" height="18" style="fill:var(--accent)"/><text class="nf-ts" style="paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round" x="70" y="148">ADAのDKAの項：中止の2〜4時間前</text><rect class="nf-zone-a" x="70" y="154" width="110" height="18"/><rect x="180" y="154" width="110" height="18" style="fill:var(--accent)"/><text class="nf-ts" style="paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round" x="70" y="203">ADAの治療図：皮下投与後1〜2時間は静注を続ける</text><rect class="nf-zone-a" x="180" y="209" width="55" height="18"/><rect x="235" y="209" width="55" height="18" style="fill:var(--accent)"/><text class="nf-t nf-td nf-tb" x="296" y="20">静注中止</text></svg></div></div><div class="nf-legend"><span><span class="nf-sw-box" style="background:var(--accent)"></span>皮下と静注が重なる時間（最短）</span><span><span class="nf-sw-box is-accent"></span>書き方に幅がある部分</span></div><p class="nf-foot">模式図。重なる時間を帯で示した</p></div>
@@ -2028,7 +2055,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="figread"><strong>図の読み方</strong> — 赤い縦線が静注をやめる時刻で、各行の帯が皮下インスリンと静注が重なる時間です<span class="src vault">ADA2026</span>。濃い帯はどの書き方でも重なる最短の時間、薄い帯は書き方に幅がある部分です。4行とも、静注をやめる前に皮下が始まっている点は共通です<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表15｜重ね合わせの時間 — <span class="ok">施設で1つに決めて指示セットに書く</span></caption>
+<caption>表16｜重ね合わせの時間 — <span class="ok">施設で1つに決めて指示セットに書く</span></caption>
 <thead><tr><th>出典</th><th>書き方</th></tr></thead>
 <tbody>
 <tr><td>2024年コンセンサス<span class="src vault">コンセンサス DiabetesCare2024</span></td><td>静注中止の1〜2時間前に皮下開始</td></tr>
@@ -2042,10 +2069,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-note">当院の運用：当院のプロトコル資料はADAのDKAの項に沿って、静注中止の2〜4時間前に基礎インスリンを皮下注射しておくとしています。1型糖尿病では特に重要です<span class="src in">当院</span>。</p>
 
 <h3 id="rs-s10-5">10-5. 皮下インスリンの組み立て</h3>
-<p class="rd-lead">インスリン未使用の人の1日総量は0.5〜0.6単位/kg（腎不全・フレイル・高齢では約0.3）を目安にし、40〜60%を基礎、残りを3回の食前の速効型に分けます（表16）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">インスリン未使用の人の1日総量は0.5〜0.6単位/kg（腎不全・フレイル・高齢では約0.3）を目安にし、40〜60%を基礎、残りを3回の食前の速効型に分けます（表17）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表16｜皮下インスリンの組み立て（2024年コンセンサス） — <span class="ok">基礎＋食前の速効型で24時間を覆う</span></caption>
+<caption>表17｜皮下インスリンの組み立て（2024年コンセンサス） — <span class="ok">基礎＋食前の速効型で24時間を覆う</span></caption>
 <thead><tr><th>項目</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td>1日総量（体重から）</td><td>インスリン未使用で0.5〜0.6単位/kg/日。腎不全・フレイル・高齢では約0.3</td></tr>
@@ -2092,10 +2119,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s11-1">11-1. 合併症の一覧</h3>
-<p class="rd-lead">低血糖と低K血症は頻度が高く死亡と関連し、脳浮腫は成人ではまれでも死亡30%と重く、AKIはDKA・HHS入院の半数に起きます（表17）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
+<p class="rd-lead">低血糖と低K血症は頻度が高く死亡と関連し、脳浮腫は成人ではまれでも死亡30%と重く、AKIはDKA・HHS入院の半数に起きます（表18）<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表17｜治療中の合併症（2024年コンセンサス） — <span class="ok">頻度と死亡との関連を知り、測定で防ぐ</span></caption>
+<caption>表18｜治療中の合併症（2024年コンセンサス） — <span class="ok">頻度と死亡との関連を知り、測定で防ぐ</span></caption>
 <thead><tr><th>合併症</th><th>頻度</th><th>リスク</th><th>対策</th></tr></thead>
 <tbody>
 <tr><td>低血糖</td><td class="num">70未満が16〜28%、40未満が2%</td><td>40未満で死亡4.8倍</td><td>1〜2時間ごとの血糖。250未満で減量＋ブドウ糖</td></tr>
@@ -2137,7 +2164,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>妊娠は進行が速く、産科とすぐ共有する</li>
 <li>高齢・透析・ステロイド使用では量を調整する</li>
 </ol>
-<p class="rd-points-f">同じDKA・HHSでも、背景によって診断の落とし穴と治療の調整が変わります。この章では、SGLT2阻害薬と周術期、妊娠、ステロイドとCOVID-19、末期腎不全、高齢者を扱います（表18）。</p>
+<p class="rd-points-f">同じDKA・HHSでも、背景によって診断の落とし穴と治療の調整が変わります。この章では、SGLT2阻害薬と周術期、妊娠、ステロイドとCOVID-19、末期腎不全、高齢者を扱います（表19）。</p>
 </div>
 
 <h3 id="rs-s12-1">12-1. SGLT2阻害薬 — 入院時に中止し、周術期は3日前に休薬</h3>
@@ -2163,7 +2190,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>高齢者・フレイルの人は、院内死亡・入院の長期化・DKAの再発のリスクが高く、心血管イベント・感染・薬剤などの併存する診断を評価します。退院前には認知と機能（自己管理の能力を含む）を評価してください<span class="src vault">コンセンサス DiabetesCare2024</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表18｜特殊な集団と状況 — <span class="ok">診断の落とし穴と治療の調整を先に確かめる</span></caption>
+<caption>表19｜特殊な集団と状況 — <span class="ok">診断の落とし穴と治療の調整を先に確かめる</span></caption>
 <thead><tr><th>状況</th><th>診断で注意すること</th><th>治療で調整すること</th></tr></thead>
 <tbody>
 <tr><td>SGLT2阻害薬</td><td>ほぼ正常血糖か、血糖200未満のDKAで来うる。尿ケトンが偽陰性になりうる<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">AJEM2021</span></td><td>入院時に中止。正常血糖DKAはインスリンと同時にブドウ糖（§13）</td></tr>
@@ -2198,10 +2225,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>正常血糖DKAの約50%は診断が遅れます。血糖という目立つ警報が鳴らないこと、SGLT2阻害薬で尿ケトンが偽陰性になりうること、症状が嘔吐・倦怠感・腹痛など非特異的なことが理由です<span class="src vault">AJEM2021</span>。当院からのJIPADの報告では、ICUに入室したDKAの7.5%（65例）がICU初日の最高血糖250 mg/dL未満でした<span class="src vault">Miyazaki CritCareExplor2026</span>。</p>
 
 <h3 id="rs-s13-2">13-2. 通常のDKAとの違い — ブドウ糖の時期・インスリンの扱い・期間</h3>
-<p class="rd-lead">正常血糖DKAでは、インスリン開始と同時に5%または10%ブドウ糖を始め、血糖が下がってもインスリンを減らさずブドウ糖を増やし、SGLT2阻害薬の最終投与から少なくとも48時間は静注を続けます（表19）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">AJEM2021</span><span class="src vault">CurrDiabRep2025</span>。</p>
+<p class="rd-lead">正常血糖DKAでは、インスリン開始と同時に5%または10%ブドウ糖を始め、血糖が下がってもインスリンを減らさずブドウ糖を増やし、SGLT2阻害薬の最終投与から少なくとも48時間は静注を続けます（表20）<span class="src vault">コンセンサス DiabetesCare2024</span><span class="src vault">AJEM2021</span><span class="src vault">CurrDiabRep2025</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表19｜通常のDKA・HHSと正常血糖DKAの違い — <span class="ok">ブドウ糖の時期・インスリンの扱い・期間が違う</span></caption>
+<caption>表20｜通常のDKA・HHSと正常血糖DKAの違い — <span class="ok">ブドウ糖の時期・インスリンの扱い・期間が違う</span></caption>
 <thead><tr><th>項目</th><th>通常のDKA</th><th>HHS</th><th>正常血糖DKA</th></tr></thead>
 <tbody>
 <tr><td>ブドウ糖を始める時期</td><td>血糖250未満になってから5〜10%</td><td>血糖250未満になってから</td><td>インスリンと同時に5〜10%</td></tr>
@@ -2245,6 +2272,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Simha V, Shah P. Perioperative Glucose Control in Patients With Diabetes Undergoing Elective Surgery. JAMA. 2019;321(4):399-400. doi:10.1001/jama.2018.20922</li>
 <li>Rathish D, Karalliyadda S. Concurrent presentation of thyroid storm and diabetic ketoacidosis: a systematic review of previously reported cases. BMC Endocr Disord. 2019;19:49. doi:10.1186/s12902-019-0374-3</li>
 <li>UpToDate（DKA・HHSの項。臨床像・初期評価の抜粋）.</li>
+<li>Laffel L. Ketone bodies: a review of physiology, pathophysiology and application of monitoring to diabetes. Diabetes Metab Res Rev. 1999;15(6):412-426. doi:10.1002/(sici)1520-7560(199911/12)15:6&lt;412::aid-dmrr72&gt;3.0.co;2-8</li>
+<li>アボットジャパン合同会社. FreeStyleリブレ2 フラッシュグルコースモニタリングシステム 取扱説明書（用途、測定機能の使用、血中ケトン体測定、システムの仕様）.</li>
+<li>Abbott. Abbott receives FDA authorization for world's first dual glucose-ketone sensing technology for people with diabetes（Libre Duo 10 Day）. Press release, 2026年8月25日（2026年10月6日閲覧）.</li>
 <li>聖路加国際病院 集中治療科. ICU DKA/HHSプロトコール（オーダーセット・看護師用インスリン増減表「Dynamic scale 2 hour」）. 院内資料, 2026年9月.</li>
 </ol>
 

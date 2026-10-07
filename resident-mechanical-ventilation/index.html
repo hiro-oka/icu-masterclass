@@ -1210,7 +1210,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="lv3" href="#rs-s5-6" title="5-6. オートトリガーとフロー不足 — 回路と流量を先に確かめる">5-6. オートトリガーとフロー不足</a>
 <a class="lv2" href="#s6" title="§6 最初の設定は仮の値 — 予測体重で量を決め、波形とガスで直す">§6 最初の設定は仮の値</a>
 <a class="lv3" href="#rs-s6-1" title="6-1. 一回換気量は身長から予測体重で計算する">6-1. 一回換気量は身長から予測体…</a>
-<a class="lv3" href="#rs-s6-2" title="6-2. 当院の初期設定 — VT 6・PEEP 5〜8・呼吸数14〜18から始める">6-2. 当院の初期設定</a>
+<a class="lv3" href="#rs-s6-2" title="6-2. 当院の初期設定 — VT 6・PEEP 5〜8・呼吸数12〜20から始める">6-2. 当院の初期設定</a>
 <a class="lv3" href="#rs-s6-3" title="6-3. COPD・喘息は呼気時間を確保し、正常な血液ガスを目指さない">6-3. COPD・喘息は呼気時間を確保し</a>
 <a class="lv3" href="#rs-s6-4" title="6-4. 肥満は圧が胸壁で水増しされる — VTは予測体重、PEEPは高めに個別化">6-4. 肥満は圧が胸壁で水増しされる</a>
 <a class="lv3" href="#rs-s6-5" title="6-5. 調節換気から補助換気へは早めに移る — P/F 150超で検討">6-5. 調節換気から補助換気へは早…</a>
@@ -1260,7 +1260,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <p>人工呼吸器の画面に並ぶ数字と波形は、患者の肺と呼吸筋で起きていることを間接的に映したものです。この資料で持ち帰るのは、①モード名は暗記せず「何を固定し何が結果になるか・誰が吸気を始めるか・どう追従するか」の3つの質問で分解する、②圧は運動方程式で「流す分・膨らませる分・PEEP」に分け、毎日の吸気ポーズと呼気ポーズでプラトー圧・総PEEP・駆動圧（ΔP）を測る、③非同調やアラームでは鎮静を足す前に患者を診て、波形を同じ順番で読み、ホールドで型を決めてから設定を1つだけ変える、の3点です。</p>
 
-<p>肺保護換気の数値の根拠はARDSの資料、合併症（VAP・ARDSでない肺のVILI・横隔膜）の予防は合併症の資料、離脱と抜管は院内資料「人工呼吸からの離脱・抜管・気管切開」が正本です。この資料ではそれらを要点とリンクにとどめ、画面の読み方と最初の設定に絞ります。</p>
+<p>肺保護換気の数値の根拠はARDSの資料、合併症（VAP・ARDSでない肺のVILI・横隔膜）の予防は合併症の資料、離脱と抜管は院内資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>」が正本です。この資料ではそれらを要点とリンクにとどめ、画面の読み方と最初の設定に絞ります。</p>
 
 <a class="xl-card is-small" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/"><span class="xl-b"><span class="xl-k">関連資料</span><span class="xl-t">ARDSの換気設定と自発呼吸 — 小さな肺を伸ばしすぎない</span><span class="xl-s">肺保護換気の数値（VT・Pplat・ΔP・PEEP）の根拠、baby lung・メカニカルパワー、自発呼吸とP-SILI、腹臥位・筋弛緩・ECMO</span></span><span class="xl-go">開く</span></a>
 <a class="xl-card is-small" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/"><span class="xl-b"><span class="xl-k">関連資料</span><span class="xl-t">人工呼吸器関連合併症の予防と管理</span><span class="xl-s">VAP予防（頭位・カフ圧26・口腔ケア）、ARDSでない肺のVILI、圧損傷、横隔膜を守る換気（Pocc・P0.1・6マス）</span></span><span class="xl-go">開く</span></a>
@@ -1484,7 +1484,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s2-5">2-5. ATCはモードではなく、チューブの抵抗を打ち消す補助の一成分</h3>
 <p class="rd-lead">ATC（自動チューブ補正）は気道圧と流量から気管チューブの圧－流量特性を計算し、流量に比例した補助を足す機能で、既存のモード（PSV・PAVなど）に加えて使います<span class="src vault">Guttmann MinervaAnestesiol2002</span><span class="src vault">L'Her RespirCare2012</span>。</p>
-<p>チューブを越えるための圧は流量とともに増え、内径8 mmのチューブでピーク流量が約2 L/秒に達する強い吸気では約25 cmH₂Oにもなります。一定の支持圧では低流量で補いすぎ、高流量で足りなくなるため、換気需要の高い患者では圧支持15 cmH₂Oでもチューブの分を消せません<span class="src vault">Guttmann MinervaAnestesiol2002</span>。ONにするときは主モードの支持圧を下げ、量と圧のアラームを狭めておきます。COPDなど呼気の流量制限がある患者では、末梢気道を支えていたチューブの抵抗を失うので、PEEPをわずかに上げることが勧められます。SBTでのATCの使い方は院内資料「人工呼吸からの離脱・抜管・気管切開」で扱います。</p>
+<p>チューブを越えるための圧は流量とともに増え、内径8 mmのチューブでピーク流量が約2 L/秒に達する強い吸気では約25 cmH₂Oにもなります。一定の支持圧では低流量で補いすぎ、高流量で足りなくなるため、換気需要の高い患者では圧支持15 cmH₂Oでもチューブの分を消せません<span class="src vault">Guttmann MinervaAnestesiol2002</span>。ONにするときは主モードの支持圧を下げ、量と圧のアラームを狭めておきます。COPDなど呼気の流量制限がある患者では、末梢気道を支えていたチューブの抵抗を失うので、PEEPをわずかに上げることが勧められます。SBTでのATCの使い方は院内資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>」で扱います。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
@@ -1818,8 +1818,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <p class="rd-note">身長を入力するとPBWと換気量の目安が表示される機種もあります。挿管直後に必ず身長を確かめて入力します<span class="src in">当院運用</span>。</p>
 
-<h3 id="rs-s6-2">6-2. 当院の初期設定 — VT 6・PEEP 5〜8・呼吸数14〜18から始める</h3>
-<p class="rd-lead">当院では、患者トリガーのVCVかPCV、VT 6 mL/kg PBW、呼吸数14〜18回/分、PEEP 5〜8 cmH₂O、I:E 1:2程度から始め、プラトー圧30未満・ΔP 15未満をモードによらない安全域として守ります（表21）<span class="src in">当院運用</span><span class="src vault">S3 2025</span>。</p>
+<h3 id="rs-s6-2">6-2. 当院の初期設定 — VT 6・PEEP 5〜8・呼吸数12〜20から始める</h3>
+<p class="rd-lead">当院では、患者トリガーのVCVかPCV、VT 6 mL/kg PBW、呼吸数12〜20回/分、PEEP 5〜8 cmH₂O、I:E 1:2程度から始め、プラトー圧30未満・ΔP 15未満をモードによらない安全域として守ります（表21）<span class="src in">当院運用</span><span class="src vault">S3 2025</span>。呼吸数とPEEPの幅は目安で、どこから始めるかは患者ごとに違います。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表21｜当院の初期設定の目安 — <span class="ok">出発点であって処方箋ではない</span></caption>
@@ -1827,8 +1827,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tbody>
 <tr><td>モード</td><td>VCVまたはPCV（Set point）、患者トリガー</td><td>力学が不安定な超急性期は、VCVで圧を監視しやすくする選択もある<span class="src in">当院運用</span></td></tr>
 <tr><td>一回換気量</td><td>6（4〜8）mL/kg PBW</td><td>予測体重で計算する。実体重で計算しない<span class="src vault">S3 2025</span></td></tr>
-<tr><td>呼吸数</td><td>14〜18回/分から開始</td><td>PaCO₂と時定数を見て調整。速くしすぎるとauto-PEEPの原因になる</td></tr>
-<tr><td>PEEP</td><td>5〜8 cmH₂O</td><td>出発点。ARDSで高めを探る判断はARDSの資料へ</td></tr>
+<tr><td>呼吸数</td><td>12〜20回/分から開始</td><td>患者ごとに違う。PaCO₂と時定数を見て調整。速くしすぎるとauto-PEEPの原因になる</td></tr>
+<tr><td>PEEP</td><td>5〜8 cmH₂O</td><td>出発点で、患者ごとに違う。ARDSで高めを探る判断はARDSの資料へ</td></tr>
 <tr><td>FiO₂</td><td>目標のSpO₂を満たす最小量</td><td>不要な高酸素を避ける。目標の値は酸素化目標の資料へ</td></tr>
 <tr><td>吸気時間・I:E比</td><td>I:E 1:2程度から</td><td>時定数の長い病態（COPD）では呼気を長めに取る</td></tr>
 <tr><td>トリガー感度</td><td>流量トリガーを基本とする</td><td>オートトリガーを疑えば感度を下げる方向へ</td></tr>
@@ -1876,7 +1876,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s6-5">6-5. 調節換気から補助換気へは早めに移る — P/F 150超で検討</h3>
 <p class="rd-lead">調節換気が48時間を超えた患者で、補助換気への切り替えをP/F 250超まで待つ運用は、150超で動く運用より抜管成功が平均2.3日遅れ（死亡は同等）、PEEP 8以上なら200程度が目安です<span class="src vault">Reep CritCare2026</span>。</p>
-<p>最初の切り替えの54%が失敗しても、早い閾値のほうが最終的に有利でした。単施設の後ろ向きデータで、推論に耐える切り替え戦略は9つのうち3つだけという弱さがあるので、厳密な数値にはせず「迷ったら早めに補助換気へ、戻ってもよい」という向きとして使います<span class="src in">当院運用</span>。切り替えた後の努力の見方は§4-4、離脱とSBTは院内資料「人工呼吸からの離脱・抜管・気管切開」が正本です。</p>
+<p>最初の切り替えの54%が失敗しても、早い閾値のほうが最終的に有利でした。単施設の後ろ向きデータで、推論に耐える切り替え戦略は9つのうち3つだけという弱さがあるので、厳密な数値にはせず「迷ったら早めに補助換気へ、戻ってもよい」という向きとして使います<span class="src in">当院運用</span>。切り替えた後の努力の見方は§4-4、離脱とSBTは院内資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>」が正本です。</p>
 
 <h3 id="rs-s6-6">6-6. 引き継ぎは3属性・直近のホールド値・今夜の予測を伝える</h3>
 <p class="rd-lead">申し送りでは設定の数字だけでなく、モードの3属性・直近のホールド値とその時刻・今夜起こりうる変化を伝えると、次の担当者が「どこが動きやすいか」を知った状態でベッドサイドに立てます<span class="src in">当院運用</span>。</p>

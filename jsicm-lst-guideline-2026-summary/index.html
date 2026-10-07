@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>生命維持治療の終了と差し控え 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>生命維持治療の終了と差し控え — 4学会合同ガイドライン2026 要約</h1>
+<p class="sub">本編・説明文・Q&amp;A集・緩和ケア別編の4分冊を、現場で使う要点だけに絞った2ページ版です。各見出しの「詳しく」から解説の本編へ移れます。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：医師・看護師・多職種</span><span>最終更新 2026-10-07</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>このガイドラインで変わること3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>「終末期かどうか」で決めない</b><span>終末期をあえて定義せず、多職種の検討と共同意思決定（SDM）という手順で決める。対象は救急・ICUで治療を決めるすべての患者</span></div>
+<div><b>差し控えと終了は倫理的に同じ</b><span>一度始めた治療もやめられる。だから「やめられないから始めない」をせず、迷ったら期限を決めて試す（TLT）</span></div>
+<div><b>緩和ケアの準備なしに終了しない</b><span>どれを選んでも症状緩和は最大限続く。緩和ケア別編が抜管前後の薬と量まで示した</span></div>
+</div>
+<p>あわせて言葉を変えました。「中止」は「終了」に統一し、「延命治療・延命措置」「消極的安楽死」「BSC」は使いません。DNARで決まるのは心停止時の蘇生だけで、入院時の一律のDNARと partial DNAR はしません。</p>
+
+<h2><span class="n">2</span>決め方の手順<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="きっかけから2本の柱で検討し、3つの対応から選ぶ。決まらなければ臨床倫理コンサルテーション">
+<div class="f-top">きっかけ：重篤で生命維持治療を要し、大きな苦痛を伴うのに、望む結果につながらないと考えられる（誰が提起してもよい）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>柱1　多職種の臨床倫理的検討</b><ul><li>4観点：医学的側面・患者の意向・QOL・周囲の状況</li><li>関わる全員に発言の機会を保証する</li></ul></div>
+<div class="f-col"><b>柱2　患者・家族等とのSDM</b><ul><li>厚労省プロセスガイドラインに沿う</li><li>本人の意思を確認できる／推定できる／推定もできない／身寄りがない、で進め方を変える</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>3つの対応から、本人の価値観に沿うものを選ぶ</b>：差し控え（不開始を含む）／終了（症状緩和のみ、または一部の終了・減弱）／期限付きの試行（TLT）。どれでも緩和ケアを並行する</div>
+<div class="f-bot">決まらないとき → 臨床倫理コンサルテーション・臨床倫理委員会に助言を求める。助言者であって決定者ではなく、最終決定はチームと患者・家族等に残る</div>
+</div>
+<p class="cap">本編 I-1 と付録3の手順を1枚にまとめた図（原典の図の転載ではありません）</p>
+
+<h2><span class="n">3</span>「BSC」と書かずに何を書くか<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#rs-s1-4">詳しく</a></h2>
+<ul>
+<li>治療・ケアのゴールを、本人の価値観に基づく言葉で書く</li>
+<li>続ける・始めない（増やさない）・終える治療を、項目ごとに書く。心停止時の蘇生の扱いも書く</li>
+<li>苦痛の評価の方法と、使う薬と追加の仕方を書く</li>
+</ul>
+<div class="ex"><span class="ng">✕</span>「BSCの方針」　<span class="ok">○</span>「ゴールは『残された時間を苦痛なく家族と過ごす』。続ける：フェンタニル持続と必要時のボーラス、口腔ケア。始めない・増やさない：昇圧薬の増量、新たな血液浄化。終える：人工呼吸器（〇日〇時に抜管予定）、経管栄養（抜管24時間前）、抗菌薬。心停止時：心肺蘇生は行わない。苦痛の評価：表情・呼吸回数・RDOSを〇時間ごと」<br><span style="color:var(--muted)">（ガイドラインの項目に沿って作った文例で、原典の文言ではありません）</span></div>
+
+<h2><span class="n">4</span>「家族等」とは誰か<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#rs-s2-4">詳しく</a></h2>
+<ul>
+<li>法的な親族に限らず、本人の価値観をよく知る人。親しい友人や事実上のパートナーも含み、複数でもよい（Q5）</li>
+<li>役割は本人に代わって決めることではなく、「本人ならどう考えるか」を一緒に推し量ること。決定の負担を一人に背負わせない</li>
+<li>本人が話せるうちに「話すことが難しくなったら、どなたに意思を推定して話し合ってほしいですか」と聞き、その人と関係を記録する</li>
+</ul>
+
+<h2><span class="n">5</span>差し控え・終了・TLTの選び方<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>選択肢</th><th>向く場面</th><th>行うこと／行わないこと</th></tr></thead>
+<tbody>
+<tr><td>差し控え</td><td>まだ始めていない治療が、いまの患者に適切でない</td><td>新たな開始と増強をしない。症状緩和は続ける。検査・モニターは最小限。心停止時に蘇生しない</td></tr>
+<tr><td>終了</td><td>すでに始めた治療が、いまの患者に適切でない</td><td>症状緩和だけにするか、項目ごとに一部を終了・減弱する。心停止時に蘇生しない</td></tr>
+<tr><td>TLT</td><td>予後が読めない、家族とチームの意見が違う</td><td>始める前に①何を目標に試すか②いつ何で再評価するか③結果が価値観とどう結びつくかを決める。期限で必ず立ち止まり、自動で終了も延長もしない</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">6</span>緩和的抜管の準備チェックリスト<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#s4">詳しく</a></h2>
+<ul class="chk">
+<li>チームで共通認識をそろえた（安楽死ではない・見捨てることではない・再挿管しない）</li>
+<li>経管栄養を<b>24時間前</b>までに止めた</li>
+<li>筋弛緩薬を<b>2時間前</b>までに止めた（多臓器不全では18時間前）</li>
+<li>止めるもの（透析・昇圧薬・抗菌薬・輸血・身体拘束など）を決めた</li>
+<li>上気道浮腫・分泌物の予防が要るか検討した</li>
+<li>オピオイドと鎮静薬の事前投与と追加の量を決めた（オピオイドに上限なし）</li>
+<li>家族に経過（数分〜数日）と別れの時間を説明した</li>
+<li>抜管後、苦痛が落ち着くまで医師と看護師がそばにいる</li>
+</ul>
+
+<h2><span class="n">7</span>記録に残す項目<a class="more" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#rs-s7-1">詳しく</a></h2>
+<ul>
+<li>説明：説明の対象となる家族等とその範囲、説明した内容、理解と受容の状況、同席した医療・ケア従事者</li>
+<li>本人の意思：本人の意思やACPの記録とそれが述べられた状況。なければ家族等による推定意思とその根拠</li>
+<li>検討の経緯：家族等の意向、終了・差し控えを考慮する時期であることとその根拠、最善のゴールの検討内容、検討に加わったすべてのメンバー</li>
+</ul>
+<p>意思は変わりうるので、話し合いはそのつど記録します。ガイドラインに沿った適切なプロセスなら違法とされないと考えられますが、法的な免責ではありません。経緯を残すことが、患者とチームを守ります。</p>
+
+<p class="note">出典：日本集中治療医学会・日本救急医学会・日本循環器学会・日本緩和医療学会 編. 救急・集中治療における生命維持治療の終了／差し控えに関する4学会合同ガイドライン（本編・説明文・Q&amp;A集・緩和ケア別編）. 2026年9月。臨床倫理のガイドラインで、推奨の強さとエビデンスの確実性は付いていません。薬の用量は緩和ケア別編（海外の実務記事を改変）によるもので、本編の該当節と原典で確かめてから使ってください。</p>
+</main>
+</body>
+</html>

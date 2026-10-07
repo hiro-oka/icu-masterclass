@@ -1252,7 +1252,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </section>
 
 <p>重症患者では、同じ抗菌薬・同じ量でも、届く濃度が平時と大きくずれます。しかも足りない患者と多すぎる患者が同じICUに同時にいます。この資料で持ち帰るのは、①初回量は分布容積で決まるので腎機能やRRTで減らさず、維持量だけを実測クレアチニンクリアランスとRRTの設定で作り直す、②βラクタムは負荷のあと延長・持続投与にし、推算式では見えないARC（腎クリアランス亢進）と高MIC株を最優先にする、③TDMの有無にかかわらず、神経症状と腎機能の推移で「多すぎる側」を毎日探し、増やすと決めたら減らす日も決める、の3点です。</p>
-<p>経験的治療の選び方・投与のタイミング・感染源の制御・デエスカレーションと投与期間・耐性菌の型別の選択は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/">敗血症の診断・抗菌薬・感染源管理</a>、RRTの始めどきと回し方は「AKIと腎代替療法」、VAPの吸入抗菌薬は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vap/#s6">VAPと抗菌薬</a>に分けています。予防投与と選択的消化管除菌（SDD）も前者で扱いますが、SDDは当院では採りません<span class="src in">当院</span>。この資料は「選んだ薬をどう届けるか」だけを扱います。</p>
+<p>経験的治療の選び方・投与のタイミング・感染源の制御・デエスカレーションと投与期間・耐性菌の型別の選択は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/">敗血症の診断・抗菌薬・感染源管理</a>、RRTの始めどきと回し方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/">AKIと腎代替療法</a>、VAPの吸入抗菌薬は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vap/#s6">VAPと抗菌薬</a>に分けています。予防投与と選択的消化管除菌（SDD）も前者で扱いますが、SDDは当院では採りません<span class="src in">当院</span>。この資料は「選んだ薬をどう届けるか」だけを扱います。</p>
 
 <section class="rd">
 <h2 id="s1"><span class="no">§1</span>初回量は分布容積、維持量はクリアランスで決まる — この2つを分けるのが投与設計の背骨</h2>
@@ -1662,7 +1662,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s7-1">7-1. RRT：負荷はそのまま、維持は排液流量と残存腎機能で決める</h3>
 <p class="rd-lead">RRT中の合理的な手順は「高い負荷量 → 排液流量に基づく初回の維持量 → TDMとベイズ投与設計による調整」の3段階で、RRTによる除去は膜の透過性・治療強度・薬の性質（分子サイズ・イオン化・蛋白結合・親水性）で決まります<span class="src vault">ECMO・RRT下の抗菌薬投与設計 ICM2022</span><span class="src vault">JIntensiveMed2024</span>。</p>
-<p>CRRTと間欠透析（IHD）は対極ではなく連続体の両端で、拡散で除くCVVHD、対流で除くCVVH、両方のCVVHDF、IHDを10〜12時間に延ばしたSLED（PIRRT）があります<span class="src vault">ECMO・RRT下の抗菌薬投与設計 ICM2022</span>。無尿でない限り患者自身の腎臓も働いているので、排液流量だけから計算した維持量は不正確になり、「RRT中だから腎機能はゼロ」という単純化は、とくに間欠的治療の合間で過小投与の方向に働きます<span class="src vault">JIntensiveMed2024</span>。RRTそのものの始めどきと回し方は「AKIと腎代替療法」で扱います。</p>
+<p>CRRTと間欠透析（IHD）は対極ではなく連続体の両端で、拡散で除くCVVHD、対流で除くCVVH、両方のCVVHDF、IHDを10〜12時間に延ばしたSLED（PIRRT）があります<span class="src vault">ECMO・RRT下の抗菌薬投与設計 ICM2022</span>。無尿でない限り患者自身の腎臓も働いているので、排液流量だけから計算した維持量は不正確になり、「RRT中だから腎機能はゼロ」という単純化は、とくに間欠的治療の合間で過小投与の方向に働きます<span class="src vault">JIntensiveMed2024</span>。RRTそのものの始めどきと回し方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s3">AKIと腎代替療法の§3・§4</a>で扱います。</p>
 
 <h3 id="rs-s7-2">7-2. ECMO：吸着されるのは高脂溶性・高蛋白結合の薬 — RRT併用は共同で設計する</h3>
 <p class="rd-lead">ECMOは回路への吸着・プライミング液による血液希釈・腎と肝の灌流低下によるCL低下の3経路でPKを変えますが、増量や頻回投与を考えるのは蛋白結合70%超かつ高脂溶性（Log P&gt;2）の薬で、それ以外の大半は、ECMOでない重症患者の投与戦略を経験的に使えます（表10）<span class="src vault">ECMO・RRT下の抗菌薬投与設計 ICM2022</span>。</p>

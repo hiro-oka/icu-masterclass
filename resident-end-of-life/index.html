@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ICUの終末期と意思決定</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+  --note:#6b3fa0; --note-soft:#f1ecf9;
+  --danger:#b3261e; --danger-soft:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --code:#1e2329;
+    --note:#c4a7ea; --note-soft:#241c33;
+    --danger:#f2857c; --danger-soft:#3a1c1a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.95; letter-spacing:.01em;
+}
+main{max-width:860px; margin:0 auto; padding:2.2rem 1.1rem 5rem}
+h1{font-size:1.66rem; line-height:1.4; margin:0 0 .4rem; letter-spacing:-.01em}
+.sub{color:var(--muted); font-size:.94rem; margin:0 0 1.2rem}
+h2{font-size:1.2rem; margin:2.8rem 0 .8rem; padding-left:.6rem; border-left:4px solid var(--accent); line-height:1.5; scroll-margin-top:.6rem}
+h2 .no{display:inline-block; font-size:.74rem; letter-spacing:.1em; color:var(--muted); font-weight:700; margin-right:.5rem; vertical-align:.14em}
+h3{font-size:1.02rem; margin:1.8rem 0 .45rem; color:var(--accent); scroll-margin-top:.6rem}
+h4{font-size:.95rem; margin:1.2rem 0 .35rem}
+p{margin:1.05rem 0; line-height:2.0}
+ul,ol{padding-left:1.3rem; margin:.7rem 0}
+li{margin:.3rem 0}
+strong{font-weight:700}
+u{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px}
+.box p{line-height:1.95}
+.box{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.05rem; margin:1.2rem 0; background:var(--accent-soft)}
+.box.warn{background:var(--warn-soft); border-color:var(--warn)}
+.box.good{background:var(--good-soft); border-color:var(--good)}
+.box.danger{background:var(--danger-soft); border-color:var(--danger)}
+.box.plain{background:var(--code)}
+.box p:first-child{margin-top:0}
+.box p:last-child, .box ul:last-child, .box ol:last-child, .box .tablewrap:last-child{margin-bottom:0}
+.box .label{display:block; font-weight:700; font-size:.85rem; letter-spacing:.04em; margin-bottom:.35rem}
+.box.danger .label{color:var(--danger)}
+.box.warn .label{color:var(--warn)}
+.box.good .label{color:var(--good)}
+.toc{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem; background:var(--code); margin:1.4rem 0 2rem}
+.toc .label{display:block; font-weight:700; font-size:.83rem; letter-spacing:.08em; color:var(--muted); margin-bottom:.5rem}
+.toc ol{margin:0; padding-left:1.2rem; font-size:.93rem}
+.toc li{margin:.24rem 0}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid var(--line)}
+.toc a:hover{color:var(--accent); border-color:var(--accent)}
+.tablewrap{overflow-x:auto; margin:1rem 0; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem; line-height:1.6}
+table.wide{min-width:680px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top}
+th{background:var(--code); font-weight:700}
+tbody tr:nth-child(even) td{background:color-mix(in srgb, var(--code) 45%, transparent)}
+td.num{white-space:nowrap; font-variant-numeric:tabular-nums}
+caption{caption-side:top; text-align:left; font-weight:700; font-size:.9rem; padding:.2rem 0 .45rem; color:var(--fg)}
+code{background:var(--code); padding:.1rem .35rem; border-radius:4px; font-size:.9em}
+.src{display:inline; font-size:.72rem; font-weight:400; color:var(--muted);
+  white-space:nowrap; padding:0; border:0; background:none; letter-spacing:0}
+.src::before{content:"["}
+.src::after{content:"]"}
+.src+.src{margin-left:.25em}
+li>.src, p>.src, td>.src{margin-left:.35em}
+.split{color:var(--danger); font-weight:700}
+.ok{color:var(--accent); font-weight:700}
+td.grp{background:var(--accent-soft); font-size:.85rem; letter-spacing:.02em; padding-top:.5rem; padding-bottom:.5rem}
+td.num strong{font-size:1.02em}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.5rem 0 1.2rem; font-size:.84rem; align-items:center}
+.meta{display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.5rem 0 1.2rem; font-size:.82rem}
+.meta span{border:1px solid var(--line); border-radius:999px; padding:.12rem .65rem; color:var(--muted)}
+.kicker{font-size:.78rem; letter-spacing:.12em; color:var(--accent); font-weight:700; margin:0 0 .45rem}
+.chk{list-style:none; padding-left:0}
+.chk li{position:relative; padding-left:1.7rem; margin:.35rem 0}
+.chk li::before{content:"☐"; position:absolute; left:0; top:0; font-size:1.05rem; color:var(--accent)}
+hr{border:0; border-top:1px solid var(--line); margin:2.2rem 0}
+.refs{font-size:.85rem; color:var(--muted)}
+.refs li{margin:.22rem 0}
+.top{display:block; text-align:right; font-size:.8rem; margin:.4rem 0 0}
+.top a{color:var(--muted); text-decoration:none}
+figure.fig{margin:1.5rem 0; padding:.9rem .9rem .1rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); break-inside:avoid; page-break-inside:avoid}
+figure.fig svg{display:block; width:100%; height:auto; margin:0 auto}
+figure.fig img{display:block; width:100%; height:auto; margin:0 auto; border-radius:6px}
+figure.fig figcaption{font-size:.85rem; line-height:1.7; color:var(--muted); margin:.7rem 0 .8rem; padding-top:.55rem; border-top:1px solid var(--line)}
+figure.fig figcaption b{color:var(--fg); font-weight:700}
+@media (prefers-color-scheme: dark){
+  figure.fig svg{filter:brightness(1.5) saturate(.95)}
+  figure.fig img{filter:brightness(.92)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:1.4rem .7rem 3.5rem}
+  table{font-size:.83rem}
+}
+@media print{
+  @page{margin:12mm 10mm}
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
+  :root{
+    --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+    --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+    --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+    --note:#6b3fa0; --note-soft:#f1ecf9;
+    --danger:#b3261e; --danger-soft:#fdecea;
+  }
+  body{background:var(--bg); color:var(--fg)}
+  body{font-size:9.2pt; line-height:1.5}
+  main{max-width:none; padding:0}
+  h1{font-size:16pt} h2{font-size:11.5pt; margin:14pt 0 5pt; break-after:avoid; page-break-after:avoid}
+  h3{font-size:10pt; margin:9pt 0 3pt; break-after:avoid; page-break-after:avoid}
+  a{text-decoration:none}
+  .toc{break-after:page; page-break-after:always}
+  .tablewrap{overflow:visible}
+  table{min-width:0 !important; width:100%; font-size:8pt; break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .box{break-inside:avoid; page-break-inside:avoid}
+  figure.fig{break-inside:avoid; page-break-inside:avoid}
+  figure.fig svg, figure.fig img{filter:none !important; max-width:100%}
+  figure.fig figcaption{font-size:7.6pt}
+  .top{display:none}
+}
+
+/* ===== 部（Part）見出し ===== */
+h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
+  background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
+h2.part .pn{display:block; font-size:.72rem; letter-spacing:.14em; opacity:.85; font-weight:700; margin-bottom:.15rem}
+p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-height:1.85}
+.toc li.p{margin-top:.5rem; font-weight:700}
+.toc li.p a{color:var(--accent)}
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
+/* ===== 共有ツール（リンクコピー / PDF） ===== */
+.tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
+.tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
+  border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;-webkit-appearance:none}
+.tools .btn.pri{background:var(--accent);color:#fff}
+.tools .btn.pri:hover{filter:brightness(1.08)}
+.tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.tools .btn.sec:hover{background:var(--accent);color:#fff}
+.tools .btn:active{transform:translateY(1px)}
+.tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+@media print{.tools{display:none !important}}
+
+/* ===== スコア計算機（Murray） ===== */
+.calc{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:1.4rem 0; background:var(--bg)}
+.calc-h{padding:.85rem 1.1rem; border-bottom:1px solid var(--line); background:var(--accent-soft)}
+.calc-h b{font-size:.98rem; color:var(--accent)}
+.calc-h span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+.calc-b{padding:.9rem 1.1rem}
+.crow{display:flex; flex-wrap:wrap; gap:.4rem .7rem; align-items:center; padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>.cl{flex:0 0 13.5rem; font-size:.87rem; font-weight:700}
+.crow>.cl small{display:block; font-weight:400; color:var(--muted); font-size:.76rem}
+.opts{display:flex; flex-wrap:wrap; gap:.35rem; flex:1}
+.opts button{font:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--fg); cursor:pointer; white-space:nowrap}
+.opts button:hover{border-color:var(--accent); color:var(--accent)}
+.opts button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+.calc-out{display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; align-items:center;
+  padding:.9rem 1.1rem; border-top:1px solid var(--line); background:var(--accent-soft)}
+.calc-score{font-size:2.1rem; font-weight:800; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+.calc-score small{font-size:.8rem; font-weight:500; color:var(--muted); margin-left:.2rem}
+.calc-msg{flex:1; min-width:15rem; font-size:.84rem; line-height:1.75}
+.calc.hot .calc-out{background:var(--danger-soft)}
+.calc.hot .calc-score{color:var(--danger)}
+.calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.figread{font-size:.92rem; color:var(--fg); margin:-.4rem 0 1.2rem; padding:.55rem .9rem; border-left:3px solid var(--line); line-height:1.75}
+.figread strong{color:var(--accent)}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
+
+/* ===== リファレンスUI（apply-reference-style.py が付与）===== */
+:root{ --sidebar-w: 288px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+
+/* 進捗バー */
+#rs-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* モバイル上部バー */
+#rs-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:10px;padding:0 12px}
+#rs-topbar .t{font-weight:700;font-size:14px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+#rs-burger{border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  border-radius:8px;width:40px;height:36px;font-size:17px;cursor:pointer}
+
+/* サイドバー */
+#rs-side{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);z-index:55;
+  background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .22s ease}
+#rs-side .hd{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#rs-side .hd .ttl{font-weight:800;font-size:14px;line-height:1.4;color:var(--fg)}
+#rs-side .hd .sb{font-size:11px;color:var(--muted);margin-top:3px}
+#rs-search{width:100%;margin-top:10px;padding:8px 10px;font-size:13px;
+  border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+#rs-search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#rs-hits{font-size:11px;color:var(--muted);margin-top:6px;min-height:14px}
+#rs-nav{overflow-y:auto;padding:10px 8px 24px;flex:1}
+#rs-nav a{display:block;padding:6px 10px;margin:1px 0;border-radius:7px;
+  color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.45;
+  border-left:3px solid transparent}
+#rs-nav a:hover{background:var(--accent-soft);color:var(--fg)}
+#rs-nav a.lv3{padding-left:22px;font-size:12px;opacity:.9}
+#rs-nav a.on{background:var(--accent-soft);color:var(--accent);
+  border-left-color:var(--accent);font-weight:700}
+#rs-nav a.hit{outline:1px dashed var(--accent)}
+#rs-scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;display:none}
+
+/* 本文: サイドバー分を body の padding で空け、main は残り幅の中で中央寄せ
+   （margin-left と max-width の併用だと広い画面で右だけ余る）*/
+body{padding-left:var(--sidebar-w)}
+main{margin:0 auto;max-width:1080px;padding:32px 40px 96px}
+
+/* 見出しが固定バーに隠れないように */
+h2,h3{scroll-margin-top:16px}
+
+/* 表を読みやすく */
+.rs-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+  border:1px solid var(--line);border-radius:10px}
+.rs-tw>table{margin:0;border:0;min-width:520px}
+.rs-tw thead th{position:sticky;top:0;z-index:2;background:var(--bg);
+  box-shadow:inset 0 -1px 0 var(--line)}
+
+/* 検索ハイライト */
+mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
+
+/* トップへ */
+#rs-top{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  font-size:17px;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+
+@media (min-width: 1600px){ main{max-width:1180px} }
+
+@media (max-width: 1000px){
+  #rs-topbar{display:flex}
+  #rs-side{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rs-side.open{transform:none}
+  #rs-side.open ~ #rs-scrim{display:block}
+  body{padding-left:0}
+  main{padding:70px 16px 90px;max-width:none}
+  .rs-tw>table{min-width:460px}
+}
+
+@media print{
+  #rs-side,#rs-topbar,#rs-scrim,#rs-top,#rs-progress{display:none !important}
+  body{padding-left:0 !important}
+  main{margin:0 !important;padding:0 !important;max-width:none !important}
+  .rs-tw{overflow:visible !important;border:0 !important}
+  .rs-tw>table{min-width:0 !important}
+  .rs-tw thead th{position:static !important}
+  table,tr,.box{break-inside:avoid;page-break-inside:avoid}
+  h2{break-after:avoid;page-break-after:avoid}
+  mark.rs-mk{font-weight:700}
+}
+/* ===== /リファレンスUI ===== */
+
+
+/* ===== 読みやすさ：文字の階層と配色（2026-09-26 試作・見本は ICU年次レポート2025） =====
+   章見出し ＞ 節見出し ＞ 章の導入文 ＞ 本文 ＞ 表・図の説明・出典タグ の順に大きさと色で差をつける。
+   大きさ・余白は画面だけ（@media screen）。色・囲み・表は印刷にも効かせる。 */
+:root{
+  --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+  --rule:#d5e3ea; --lead-bg:#f2f8fb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --navy:#e8eef4; --ink:#dde3ea; --accent-ink:#6cc8ea; --stripe:#1a1f25; --th-bg:#16323f;
+    --rule:#2f4652; --lead-bg:#13262f;
+  }
+}
+@media print{
+  :root{
+    --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+    --rule:#d5e3ea; --lead-bg:#f2f8fb;
+  }
+}
+
+/* --- 色（画面・印刷共通） --- */
+body{color:var(--ink)}
+h1,h2,h3,h4{color:var(--navy)}
+strong{color:var(--accent-ink)}
+.ok{color:var(--accent-ink)}
+.ng{color:var(--danger); font-weight:700}
+.box.warn strong{color:var(--warn)}
+.box.danger strong{color:var(--danger)}
+h2 .no{color:var(--accent)}
+h3{color:var(--navy)}
+
+/* 出典タグ：小さく薄く */
+.src{font-size:.66rem; color:var(--muted); opacity:.8; letter-spacing:0}
+
+/* 囲み：種類ごとに色と見出しラベルを分ける */
+.box{border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px;
+  padding:1rem 1.2rem 1.05rem; background:var(--accent-soft)}
+.box.good{border-color:color-mix(in srgb, var(--good) 35%, transparent); border-left-color:var(--good); background:var(--good-soft)}
+.box.warn{border-color:color-mix(in srgb, var(--warn) 35%, transparent); border-left-color:var(--warn); background:var(--warn-soft)}
+.box.danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent); border-left-color:var(--danger); background:var(--danger-soft)}
+.box.plain{border-color:var(--line); border-left-color:var(--muted); background:var(--code)}
+.box .label{display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.06em; line-height:1.5;
+  color:#fff; background:var(--accent); border-radius:999px; padding:.18em .95em .22em; margin-bottom:.6rem}
+.box.good .label{color:#fff; background:var(--good)}
+.box.warn .label{color:#fff; background:var(--warn)}
+.box.danger .label{color:#fff; background:var(--danger)}
+.box.plain .label{color:#fff; background:var(--muted)}
+.box.good .label::before{content:"✓ "}
+.box.warn .label::before{content:"! "}
+.box.danger .label::before{content:"✕ "}
+@media (prefers-color-scheme: dark){
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#15181c}
+}
+@media print{
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#fff}
+}
+
+/* 表：本文より小さく、見出し行に色、1行おきの薄い背景、横罫だけ */
+table{font-size:.86rem; line-height:1.65}
+th,td{border:0; border-bottom:1px solid var(--line); padding:.55rem .7rem}
+th{background:var(--th-bg); color:var(--navy); border-bottom:2px solid var(--accent)}
+.rs-tw thead th{background:var(--th-bg); box-shadow:inset 0 -2px 0 var(--accent)}
+tbody tr:nth-child(even) td{background:var(--stripe)}
+tbody td:first-child{font-weight:600; color:var(--navy)}
+td.num{font-weight:600; color:var(--navy); font-variant-numeric:tabular-nums}
+caption{font-size:.92rem; color:var(--navy); padding:.75rem .8rem .6rem; line-height:1.6}
+.rs-tw{border-color:var(--rule)}
+td .src{font-size:.62rem}
+
+/* 図の説明・読み方 */
+figure.fig figcaption{font-size:.8rem}
+.figread{border-left-color:var(--accent); background:var(--lead-bg); border-radius:0 8px 8px 0; font-size:.9rem}
+.refs{font-size:.8rem}
+
+/* --- 大きさ・行長・余白（画面だけ） --- */
+@media screen{
+  body{font-size:17px; line-height:1.85; letter-spacing:.015em}
+  /* 本文の行長：1行およそ40〜45字。表だけは横幅いっぱいまで広げる */
+  main{max-width:1040px}
+  @media (min-width:1600px){ main{max-width:1080px} }
+  main > *:not(.tablewrap):not(.rs-tw){max-width:47rem}
+  p{margin:0 0 1.15em; line-height:1.85}
+  li{margin:.35em 0; line-height:1.8}
+  h1{font-size:2rem; font-weight:800; line-height:1.35; margin:.2rem 0 .6rem}
+  .sub{font-size:1rem; line-height:1.75}
+
+  /* 章見出し：上に余白と区切り線、§番号を色付きで大きく */
+  h2{font-size:1.6rem; font-weight:800; line-height:1.4; letter-spacing:.01em;
+    margin:4.6rem 0 1.1rem; padding:1.5rem 0 0; border-left:0; border-top:1px solid var(--line);
+    position:relative}
+  h2::before{content:""; position:absolute; top:-2px; left:0; width:64px; height:3px; background:var(--accent)}
+  h2 .no{display:inline-block; font-size:1.2em; font-weight:800; letter-spacing:0; color:var(--accent);
+    margin-right:.45em; vertical-align:baseline}
+
+  /* 章の導入文（h2 直後の段落）：本文よりひと回り大きく */
+  h2:not(#refs) + p{font-size:1.1em; line-height:1.85; color:var(--navy);
+    background:var(--lead-bg); border-radius:10px; padding:1rem 1.25rem 1.1rem; margin:0 0 2rem}
+  h2:not(#refs) + p::before{content:"この章のねらい"; display:block; width:max-content;
+    font-size:.72rem; font-weight:700; letter-spacing:.12em; line-height:1.5; color:#fff; background:var(--accent);
+    border-radius:999px; padding:.15em .9em .2em; margin-bottom:.55rem}
+  h2:not(#refs) + p strong{color:var(--accent-ink)}
+
+  /* 節見出し */
+  h3{font-size:1.22rem; font-weight:800; line-height:1.5; margin:2.9rem 0 .8rem;
+    padding-left:.7rem; border-left:4px solid var(--accent)}
+  h4{font-size:1.02rem; margin:1.6rem 0 .5rem}
+
+  .box{margin:1.5rem 0}
+  .box p, .box li{font-size:.96em; line-height:1.8}
+  .top{font-size:.76rem; margin:1.4rem 0 0}
+}
+@media screen and (prefers-color-scheme: dark){
+  h2:not(#refs) + p::before{color:#15181c}
+}
+@media screen and (max-width:1000px){
+  body{font-size:16px; line-height:1.85}
+  h1{font-size:1.6rem}
+  h2{font-size:1.36rem; margin-top:3.6rem; padding-top:1.2rem}
+  h3{font-size:1.1rem; margin-top:2.4rem}
+  h2:not(#refs) + p{font-size:1.06em; padding:.85rem 1rem .95rem}
+  .box{padding:.9rem 1rem .95rem}
+}
+@media print{
+  h2{border-left:0; border-top:1.5pt solid var(--accent); padding-top:4pt}
+  h2 .no{font-size:1.15em; color:var(--accent); vertical-align:baseline}
+  h2:not(#refs) + p{font-size:1.05em; color:var(--navy)}
+  h3{border-left:3pt solid var(--accent); padding-left:4pt}
+  th,td{padding:3pt 4pt}
+}
+
+/* ===== 重要表（表13）：ページの中でひと目で見つかるように ===== */
+.rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
+table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
+table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; color:#fff; background:var(--danger); border-radius:999px;
+  padding:.1em .8em .15em; margin-right:.6em; vertical-align:.1em}
+table.key thead th, .rs-tw table.key thead th{background:var(--accent); color:#fff; border-bottom:0; box-shadow:none}
+table.key td{border-bottom:1.5px solid var(--rule); vertical-align:top}
+table.key td:first-child{font-weight:800; color:var(--accent-ink); font-size:1.02em; min-width:10em}
+table.key td:nth-child(2){min-width:9em}
+table.key td.num{white-space:normal; font-weight:400; color:var(--ink)}
+table.key td:nth-child(2) strong{color:var(--navy); font-weight:800}
+table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-weight:800; color:var(--accent-ink);
+  font-variant-numeric:tabular-nums; line-height:1.4}
+@media (prefers-color-scheme: dark){
+  table.key thead th, .rs-tw table.key thead th{color:#15181c}
+}
+@media print{
+  table.key thead th, .rs-tw table.key thead th{color:#fff}
+  .rs-tw:has(> table.key){border:1.5pt solid var(--accent) !important; box-shadow:none}
+}
+/* スマホ：1行＝1枚のカードに切り替える */
+@media screen and (max-width:640px){
+  .rs-tw:has(> table.key){overflow:visible; border:0; box-shadow:none; border-radius:0}
+  .rs-tw > table.key{min-width:0 !important; width:100%}
+  table.key, table.key caption, table.key tbody, table.key tr, table.key td{display:block}
+  table.key caption{border:2px solid var(--accent); border-radius:10px; margin-bottom:.8rem}
+  table.key thead{display:none}
+  table.key tr{border:2px solid var(--accent); border-radius:10px; overflow:hidden; margin:0 0 .9rem;
+    background:var(--bg); box-shadow:0 2px 10px rgba(0,132,181,.12)}
+  table.key tbody tr:nth-child(even) td{background:transparent}
+  table.key td{border-bottom:1px solid var(--line); padding:.55rem .85rem}
+  table.key td:last-child{border-bottom:0}
+  table.key td:first-child{background:var(--accent-soft) !important; font-size:1.05em; line-height:1.55;
+    border-bottom:1px solid var(--rule)}
+  table.key td:not(:first-child)::before{content:attr(data-label); display:block; font-size:.72rem;
+    font-weight:700; letter-spacing:.06em; color:var(--muted); margin-bottom:.1rem}
+}
+/* ===== /読みやすさ ===== */
+
+/* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
+td.num{white-space:normal}
+
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
+:root{--sidebar-w:300px}
+@media screen and (min-width:1001px){
+  main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
+}
+main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
+#rs-nav a{font-size:14px; line-height:1.5}
+#rs-nav a.lv3{font-size:13px}
+#rs-side .hd .ttl{font-size:15px}
+#rs-topbar .t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
+/* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
+.refs li, main a{overflow-wrap:anywhere}
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
+   手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
+   （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
+   文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
+
+figure.fig .nf{font-size:.95em; line-height:1.65; color:var(--ink,var(--fg))}
+figure.fig .nf *{box-sizing:border-box}
+/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない（アイコン・凡例の小さな SVG も含む） */
+figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !important}
+
+/* ---- 共通：チップ（道具名・区分） ---- */
+.nf-chip{display:inline-block; font-weight:700; font-size:.92em; line-height:1.45; white-space:nowrap;
+  padding:.06em .75em .1em; border-radius:999px; border:1.5px solid var(--accent);
+  color:var(--accent-ink,var(--accent)); background:var(--bg)}
+.nf-chip.is-fill{background:var(--accent); color:var(--bg)}
+.nf-chip.is-muted{border-color:var(--muted); color:var(--muted)}
+.nf-chip.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-chip.is-warn{border-color:var(--warn); color:var(--warn)}
+.nf-plus{font-weight:700; color:var(--muted); margin:0 .15em}
+
+/* ---- 1. 判断の流れ（nf-flow）：根 → 群 → カード → 結論帯 ---- */
+.nf-flow{display:flex; flex-direction:column}
+.nf-root{position:relative; align-self:center; margin-bottom:1.1em; padding:.5em 1.6em .55em; border-radius:10px;
+  background:var(--accent); color:var(--bg); font-weight:800; font-size:1.06em; text-align:center; line-height:1.5}
+.nf-root::after{content:""; position:absolute; left:50%; top:100%; width:2px; height:1.1em; margin-left:-1px; background:var(--rule,var(--line))}
+.nf-groups{position:relative; display:grid; grid-template-columns:var(--nf-cols, 2fr 3fr); gap:.9em; padding-top:1.1em}
+/* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
+.nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
+  border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
+.nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
+.nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
+.nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
+  border-radius:10px; background:var(--code)}
+.nf-gh{align-self:center; font-size:.84em; font-weight:700; letter-spacing:.08em; color:var(--muted); line-height:1.4}
+.nf-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9.5em), 1fr)); gap:.55em; flex:1}
+.nf-card{display:flex; flex-direction:column; gap:.4em; padding:.6em .8em .7em; background:var(--bg);
+  border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:8px}
+.nf-q{font-weight:700; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-a{line-height:1.8}
+.nf-note{font-size:.86em; color:var(--muted); line-height:1.5}
+
+/* 結論帯（図の結論・例外を1本で示す） */
+.nf-band{display:flex; flex-wrap:wrap; align-items:baseline; gap:.2em .6em; margin-top:1em; padding:.7em 1.05em .75em;
+  border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-left:5px solid var(--danger);
+  border-radius:10px; background:var(--danger-soft); line-height:1.6}
+.nf-band .nf-bh{color:var(--danger); font-weight:800}
+.nf-band .nf-to{color:var(--danger); font-weight:800}
+.nf-band.is-accent{border-color:color-mix(in srgb, var(--accent) 40%, transparent); border-left-color:var(--accent); background:var(--accent-soft)}
+.nf-band.is-accent .nf-bh, .nf-band.is-accent .nf-to{color:var(--accent-ink,var(--accent))}
+
+/* ---- 2. 対応表型（nf-map）：条件 → 対応 を行で並べる ---- */
+.nf-map{display:grid; grid-template-columns:minmax(7.5em, 1fr) 2.2em minmax(0, 2.4fr); row-gap:.55em; align-items:stretch}
+.nf-sec{grid-column:1 / -1; font-weight:800; color:var(--accent-ink,var(--accent)); line-height:1.5}
+.nf-sec:not(:first-child){margin-top:.7em; padding-top:.9em; border-top:1px solid var(--rule,var(--line))}
+.nf-sec.is-danger{color:var(--danger)}
+.nf-key, .nf-val{display:flex; align-items:center; padding:.5em .9em; border-radius:8px; line-height:1.55;
+  border:1.5px solid var(--accent)}
+.nf-key{justify-content:center; text-align:center; font-weight:700; color:var(--navy,var(--fg)); background:var(--bg)}
+.nf-val{font-weight:600; background:var(--accent-soft)}
+.nf-arr{display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:800; font-size:1.1em}
+.nf-key.is-muted, .nf-val.is-muted{border-color:var(--muted)}
+.nf-val.is-muted{background:var(--code)}
+.nf-key.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-val.is-danger{border-color:var(--danger); background:var(--danger-soft)}
+.nf-val.is-strong{background:var(--accent); color:var(--bg); border-color:var(--accent)}
+.nf-arr.is-danger{color:var(--danger)}
+
+/* ---- 3. 階段・タイムライン（nf-steps）：左から右へ段階が進む ---- */
+.nf-steps{display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:.55em; counter-reset:nfstep; align-items:end}
+.nf-step{position:relative; padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line);
+  border-top:4px solid var(--accent); border-radius:8px; margin-top:calc(var(--lv, 0) * 1.2em)}
+.nf-step::before{counter-increment:nfstep; content:counter(nfstep); display:inline-flex; align-items:center; justify-content:center;
+  width:1.6em; height:1.6em; margin-right:.4em; border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:.85em}
+.nf-steps.is-time .nf-step::before{content:none}
+.nf-step .nf-when{display:block; font-size:.84em; font-weight:700; color:var(--muted)}
+
+/* ---- 4. 図版パネル（SVG の模式図・グラフ） ---- */
+.nf-panels{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap:1.1em 1.6em; justify-items:center}
+.nf-panel{width:100%; max-width:34rem; container-type:inline-size; container-name:nfp}
+.nf-panels.is-one .nf-panel{max-width:46rem}
+.nf-pt{margin:0 0 .1em; text-align:center; font-weight:800; font-size:1.02em; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-ps{margin:0 0 .45em; text-align:center; font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-svg{display:block; width:100%; height:auto; overflow:visible}
+/* SVG の文字：書体は本文を継承。大きさは viewBox の単位（幅 460 の図で 15 ≒ 本文と同じ） */
+.nf-svg text{fill:var(--ink,var(--fg)); font-variant-numeric:tabular-nums}
+.nf-svg .nf-t{font-size:15px}
+.nf-svg .nf-ts{font-size:13px; fill:var(--muted)}
+.nf-svg .nf-tb{font-weight:700}
+.nf-svg .nf-ta{fill:var(--accent-ink,var(--accent))}
+.nf-svg .nf-tw{fill:var(--warn)}
+.nf-svg .nf-td{fill:var(--danger)}
+.nf-svg .nf-axis{stroke:var(--muted); stroke-width:1.5; fill:none}
+.nf-svg .nf-tick{stroke:var(--muted); stroke-width:1.2}
+.nf-svg .nf-grid{stroke:var(--line); stroke-width:1; fill:none}
+.nf-svg .nf-zero{stroke:var(--muted); stroke-width:1; opacity:.55}
+.nf-svg .nf-wave{stroke:var(--accent); stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-wave.is-danger{stroke:var(--danger)}
+.nf-svg .nf-thr{stroke:var(--warn); stroke-width:2; stroke-dasharray:6 5; fill:none}
+.nf-svg .nf-dim{stroke:var(--warn); stroke-width:2; fill:none}
+.nf-svg .nf-guide{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:3 4; fill:none}
+.nf-svg .nf-ln{stroke:var(--muted); stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-fa{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fb{fill:var(--bg); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fm{fill:var(--code); stroke:var(--muted); stroke-width:2}
+.nf-svg .nf-fd{fill:var(--danger-soft); stroke:var(--danger); stroke-width:2}
+.nf-svg .nf-sa{stroke:var(--accent); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sd{stroke:var(--danger); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sw{stroke:var(--warn); fill:none; stroke-linecap:round}
+.nf-svg .nf-mk-a{fill:var(--accent)} .nf-svg .nf-mk-d{fill:var(--danger)} .nf-svg .nf-mk-w{fill:var(--warn)} .nf-svg .nf-mk-m{fill:var(--muted)}
+.nf-svg .nf-soft-d{fill:var(--danger); opacity:.22}
+/* パネルが細いとき（スマホ・印刷の2段組）は SVG の文字を単位上で大きくし、実寸を本文に近づける */
+@container nfp (max-width: 30rem){ .nf-svg .nf-t{font-size:17px} .nf-svg .nf-ts{font-size:15px} }
+@container nfp (max-width: 24rem){ .nf-svg .nf-t{font-size:19.5px} .nf-svg .nf-ts{font-size:17px} }
+/* 文字を入れない横長の模式図（ラベルは下の HTML で出す） */
+.nf-draw{display:block; width:100%; max-width:46rem; height:auto; margin:0 auto}
+.nf-labels{display:grid; grid-template-columns:var(--nf-lcols, 1fr 1fr 1fr); max-width:46rem; margin:.1em auto 0;
+  text-align:center; font-weight:700; color:var(--navy,var(--fg)); line-height:1.45}
+.nf-labels small{display:block; font-weight:400; font-size:.84em; color:var(--muted)}
+/* 凡例・注記 */
+.nf-legend{display:flex; flex-wrap:wrap; justify-content:center; gap:.35em 1.3em; margin:.7em 0 0; font-size:.88em; color:var(--muted); line-height:1.5}
+.nf-legend > span{display:inline-flex; align-items:center; gap:.45em}
+.nf-sw-line{display:inline-block; width:1.9em; border-top:3px solid var(--accent)}
+.nf-sw-line.is-dash{border-top:2px dashed var(--warn)}
+.nf-sw-line.is-danger{border-top-color:var(--danger)}
+.nf-foot{margin:.5em 0 0; font-size:.84em; color:var(--muted); text-align:right; line-height:1.5}
+/* 説明カード（図の下で要素ごとの意味を並べる） */
+.nf-callouts{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:.6em; margin-top:.8em}
+.nf-callout{padding:.6em .9em .7em; border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:8px; background:var(--accent-soft); line-height:1.6}
+.nf-callout .nf-ch{display:block; font-weight:800; color:var(--accent-ink,var(--accent))}
+.nf-callout.is-danger{border-left-color:var(--danger); background:var(--danger-soft)}
+.nf-callout.is-danger .nf-ch{color:var(--danger)}
+.nf-callout.is-muted{border-left-color:var(--muted); background:var(--code)}
+.nf-callout.is-muted .nf-ch{color:var(--navy,var(--fg))}
+/* 棒の比較（小さな横棒。数値の無い大小比較に使う） */
+.nf-meters{display:grid; grid-template-columns:auto 1fr; gap:.3em .7em; align-items:center; margin:.5em 0 0; font-size:.9em; line-height:1.45}
+.nf-meters dt{color:var(--navy,var(--fg)); font-weight:600}
+.nf-meters dd{margin:0; display:flex; align-items:center; gap:.5em}
+.nf-bar{display:inline-block; height:.7em; width:calc(var(--v, .5) * 8em); border-radius:999px; background:var(--accent)}
+.nf-bar.is-danger{background:var(--danger)}
+.nf-meters .nf-bv{font-size:.9em; color:var(--muted)}
+
+/* ---- 5. 画像＋HTMLラベル（nf-gallery）：絵が要るものだけ画像。文字は画像に入れない ---- */
+.nf-gallery{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(46%, 9rem), 1fr)); gap:.9em .7em}
+.nf-item{text-align:center}
+figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8px; background:#fff; border:1px solid var(--line)}
+.nf-name{margin-top:.4em; font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-desc{font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-item.is-absent img{opacity:.55}
+.nf-item.is-absent .nf-name{color:var(--muted)}
+.nf-flag{display:inline-block; margin-top:.2em; font-size:.8em; font-weight:700; color:var(--danger);
+  border:1.5px solid var(--danger); border-radius:999px; padding:0 .7em .05em; line-height:1.5}
+
+/* ---- 6. 3列の小さなパネル（nf-panels.is-3）：viewBox 幅 300 の SVG を横に3つ並べる（小さな多重グラフ・3つの作用） ----
+   幅 460 の既定より文字を単位上で大きくし、パソコン幅（1枚 約270px）でも本文に近い実寸を保つ。スマホでは1列 */
+.nf-panels.is-3{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1em 1.2em}
+.nf-panels.is-3 .nf-panel{max-width:none}
+.nf-panels.is-3 .nf-svg .nf-t{font-size:17px}
+.nf-panels.is-3 .nf-svg .nf-ts{font-size:15px}
+@container nfp (min-width: 18rem){ .nf-panels.is-3 .nf-svg .nf-t{font-size:15px} .nf-panels.is-3 .nf-svg .nf-ts{font-size:13.5px} }
+/* 凡例の中の小さな記号（SVG）。.nf-svg の幅100%を打ち消す */
+figure.fig .nf-legend svg.nf-sw{display:inline-block; width:1.15em; height:1.15em; margin:0; overflow:visible; flex:none}
+
+/* ---- 7. 物の流れの鎖（nf-steps.is-time.is-chain）：装置の構成など。段の間に矢印、各段に文字なしアイコン ---- */
+.nf-steps.is-chain{gap:1.7em; align-items:stretch}
+.nf-steps.is-chain .nf-step{margin-top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3em}
+.nf-steps.is-chain .nf-step:not(:first-child)::after{content:""; position:absolute; top:50%; left:-1.45em; width:1.2em; height:1.2em;
+  transform:translateY(-50%); background:var(--accent); clip-path:polygon(0 32%, 52% 32%, 52% 0, 100% 50%, 52% 100%, 52% 68%, 0 68%)}
+figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; margin:.1em auto .15em}
+.nf-step .nf-q{color:var(--navy,var(--fg)); font-weight:700; line-height:1.45}
+.nf-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:.3em}
+
+/* ---- 8. 頭文字カード（nf-acro）：語呂合わせ（HI-FLOW など）。左→右・上→下で頭文字が読める ---- */
+.nf-acro{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.6em}
+.nf-ac{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.7em; row-gap:.15em; align-content:start;
+  padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line); border-radius:8px}
+.nf-lt{grid-row:1 / span 3; align-self:start; display:flex; align-items:center; justify-content:center; width:1.9em; height:1.9em;
+  border-radius:50%; background:var(--accent-soft); color:var(--accent-ink,var(--accent)); font-weight:800; font-size:1.3em; line-height:1}
+.nf-en{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-ja{font-size:.94em; line-height:1.6}
+.nf-ac .nf-chip{justify-self:start; font-size:.84em}
+.nf-ac.is-key{border-color:var(--accent); background:var(--accent-soft)}
+.nf-ac.is-key .nf-lt{background:var(--accent); color:var(--bg)}
+
+/* ---- 9. 範囲の横棒（nf-range）：病態ごとの設定値の範囲を1本の数直線に並べる。数値は --a / --b（軸は --lo〜--hi） ---- */
+.nf-range{--lo:0; --hi:60; display:grid; grid-template-columns:minmax(8em, 14em) minmax(0, 1fr) minmax(7em, 12em);
+  column-gap:1em; row-gap:.3em; align-items:center}
+.nf-rl{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4; text-align:right}
+.nf-rl small{display:block; font-weight:400; font-size:.82em; color:var(--muted)}
+.nf-rv{font-size:.9em; line-height:1.45}
+.nf-rt{position:relative; height:2.2em; border-right:1px solid var(--line);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:calc(100% / var(--nf-div, 6)) 100%}
+.nf-zone, .nf-rb, .nf-rx{position:absolute; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+  width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-zone{top:0; bottom:0; background:color-mix(in srgb, var(--muted) 13%, transparent)}
+.nf-zone.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+.nf-rb{top:50%; height:.8em; transform:translateY(-50%); border-radius:999px; background:var(--accent)}
+.nf-rb.is-soft{background:color-mix(in srgb, var(--accent) 38%, transparent)}
+.nf-rb.is-muted{background:var(--muted)}
+.nf-rx{top:50%; height:0; border-top:2px dashed var(--accent)}
+.nf-rx::after{content:""; position:absolute; right:-1px; top:-1px; transform:translateY(-50%); border-style:solid;
+  border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent)}
+.nf-rd{position:absolute; top:50%; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:1.05em; height:1.05em;
+  transform:translate(-50%, -50%); border-radius:50%; background:var(--accent); border:2.5px solid var(--accent)}
+.nf-rd.is-open{background:var(--bg)}
+.nf-rd.is-muted{background:var(--muted); border-color:var(--muted)}
+.nf-raxis{grid-column:2; position:relative; height:1.5em; font-size:.86em; color:var(--muted); font-variant-numeric:tabular-nums}
+.nf-raxis span{position:absolute; top:0; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); transform:translateX(-50%); line-height:1.5}
+.nf-rat{grid-column:2; text-align:center; font-size:.9em; line-height:1.5}
+/* 範囲の横棒の追加（HFNC 図11）：2段のトラック（上＝設定、下＝実測）・四角の点・誤差の線（IQR・±SD） */
+.nf-rt.is-2{height:3.4em}
+.nf-rt .is-up{top:30%} .nf-rt .is-dn{top:71%}
+.nf-rd.is-sq{border-radius:2px; width:.95em; height:.95em}
+.nf-rw{position:absolute; top:50%; height:0; transform:translateY(-1px); border-top:2px solid var(--accent);
+  left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-rw::before, .nf-rw::after{content:""; position:absolute; top:-.42em; height:.84em; left:-1px; border-left:2px solid var(--accent)}
+.nf-rw::after{left:auto; right:-1px}
+.nf-rw.is-muted{border-top-color:var(--muted)}
+.nf-rw.is-muted::before, .nf-rw.is-muted::after{border-left-color:var(--muted)}
+/* 凡例の面（背景帯の見本） */
+.nf-sw-box{display:inline-block; width:1.4em; height:.95em; border-radius:3px; background:color-mix(in srgb, var(--muted) 18%, transparent)}
+.nf-sw-box.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+/* SVG の背景帯（模式図の領域分け） */
+.nf-svg .nf-zone-m{fill:var(--muted); opacity:.16}
+.nf-svg .nf-zone-a{fill:var(--accent); opacity:.13}
+.nf-svg .nf-zone-d{fill:var(--danger); opacity:.13}
+
+/* ---- 10. 番号つきの鎖（nf-steps.is-chain.is-text）：アイコンなしの手順を矢印でつなぐ（HFNC 図8・10・12）。
+   is-check＝確かめる段（灰）、is-goal＝終点（塗り）。戻り道は .nf-return、下の判断へは .nf-join でつなぐ ---- */
+.nf-steps.is-chain.is-text .nf-step{justify-content:flex-start}
+.nf-steps.is-chain.is-text .nf-step::before{margin:0 0 .1em}
+.nf-step.is-check{border-top-color:var(--muted)}
+.nf-step.is-check::before{background:var(--muted)}
+.nf-step.is-goal{background:var(--accent); border-color:var(--accent)}
+.nf-steps.is-chain .nf-step.is-goal{justify-content:center}
+.nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:var(--bg)}
+.nf-step.is-goal::before{background:var(--bg); color:var(--accent-ink,var(--accent))}
+.nf-join{align-self:center; width:2px; height:1.3em; margin:.3em 0 .3em; background:var(--rule,var(--line))}
+/* 戻り道：最後の段から最初の段へ戻る破線の U 字（段が4つなら両端 12.5%。--nf-rl / --nf-rr で調整） */
+.nf-return{position:relative; margin-top:.35em; padding-top:1.75em; text-align:center; color:var(--danger); font-weight:800; line-height:1.5}
+.nf-return::before{content:""; position:absolute; top:0; left:var(--nf-rl,12.5%); right:var(--nf-rr,12.5%); height:1.15em;
+  border:2px dashed var(--danger); border-top:0; border-radius:0 0 12px 12px}
+.nf-return::after{content:""; position:absolute; top:-.45em; left:var(--nf-rl,12.5%); transform:translateX(-50%); margin-left:1px;
+  border-style:solid; border-width:0 6px 10px 6px; border-color:transparent transparent var(--danger) transparent}
+/* 図の前提を上に置く帯 */
+.nf-band.is-top{margin:0 0 1.1em}
+
+/* ---- スマホ：流れ図と対応表は縦に並べ替える。SVG は縮むので文字は上の @container で補う ---- */
+@media screen and (max-width:640px){
+  .nf-panels.is-3{grid-template-columns:minmax(0, 1fr)}
+  .nf-acro{grid-template-columns:minmax(0, 1fr)}
+  .nf-steps.is-chain{gap:1.7em}
+  .nf-steps.is-chain .nf-step{display:grid; grid-template-columns:4.6em minmax(0, 1fr); column-gap:.8em; row-gap:.2em;
+    align-items:center; justify-items:start; text-align:left}
+  .nf-steps.is-chain svg.nf-ico{grid-row:1 / span 3; height:2.9em; margin:0}
+  .nf-steps.is-chain .nf-chips{justify-content:flex-start}
+  .nf-steps.is-chain .nf-step:not(:first-child)::after{top:-1.45em; left:50%; transform:translateX(-50%) rotate(90deg)}
+  .nf-steps.is-chain.is-text .nf-step{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.6em; row-gap:.1em;
+    justify-items:start; text-align:left}
+  .nf-steps.is-chain.is-text .nf-step::before{grid-row:1 / span 2; grid-column:1; align-self:start; margin:.15em 0 0}
+  .nf-steps.is-chain.is-text .nf-step > *{grid-column:2}
+  .nf-return{padding:.45em .9em .5em; border:2px dashed var(--danger); border-radius:10px}
+  .nf-return::before, .nf-return::after{content:none}
+  .nf-range{grid-template-columns:minmax(0, 1fr); row-gap:.15em}
+  .nf-rl{text-align:left; margin-top:.55em}
+  .nf-raxis, .nf-rat{grid-column:1}
+  figure.fig .nf{font-size:.94em}
+  .nf-groups{grid-template-columns:1fr}
+  .nf-cards{grid-template-columns:1fr}
+  .nf-band{display:block}
+  .nf-band .nf-bh{display:block; margin-bottom:.2em}
+  .nf-band .nf-to{margin-right:.3em}
+  .nf-labels small{display:none}
+  .nf-groups::before{left:50%; right:auto; width:2px; border:0; background:var(--rule,var(--line)); border-radius:0}
+  .nf-map{grid-template-columns:1fr; row-gap:.2em}
+  .nf-map .nf-arr{transform:rotate(90deg); height:1.5em}
+  .nf-map .nf-key + .nf-arr + .nf-val{margin-bottom:1em}
+  .nf-steps{grid-auto-flow:row; grid-auto-columns:auto}
+  .nf-step{margin-top:0}
+}
+/* ---- 印刷：色は画面と同じ（本文の print-color-adjust:exact を継承）。文字は紙の本文に合わせる ---- */
+@media print{
+  figure.fig .nf{font-size:.95em}
+  .nf-panels{grid-template-columns:1fr 1fr}
+  .nf-panels.is-one{grid-template-columns:1fr}
+  .nf-panel .nf-svg .nf-t{font-size:15px}
+  .nf-panel .nf-svg .nf-ts{font-size:13px}
+  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before, .nf-ac.is-key .nf-lt, .nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:#fff}
+  .nf-step.is-goal::before{color:var(--accent)}
+  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
+  .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* readable (readable.css) — 章の「読ませ方」部品（2026-09-27 試作・NIV §5）
+   手引き：readable-guide.md。クラスはすべて rd- で始める。章は <section class="rd"> で包む。
+   色は本文の :root 変数（--accent / --accent-soft / --good / --danger / --line / --muted / --bg / --code /
+   --navy / --ink / --accent-ink / --rule）だけを使う。書体は指定しない（本文から継承）。
+   2026-09-27 NIV 全章に適用。「根拠を見る」は開いた状態が既定（<details class="rd-ev" open>）。 */
+
+:root{ --rd-on-accent:#ffffff }
+@media (prefers-color-scheme: dark){ :root{ --rd-on-accent:#15181c } }
+@media print{ :root{ --rd-on-accent:#ffffff } }
+
+/* ---- 文字の階層（本文16px・行間1.9・段落間を広く／補足14px・グレー） ---- */
+@media screen{
+  .rd > p:not([class]), .rd > ul > li, .rd > ol > li{font-size:16px; line-height:1.9}
+  .rd > p:not([class]){margin:0 0 1.5em}
+  .rd > ul, .rd > ol{margin:0 0 1.6em; padding-left:1.4em}
+  .rd > ul > li, .rd > ol > li{margin:.45em 0}
+
+  /* 章見出し：番号つきの色帯 */
+  .rd > h2{display:flex; align-items:center; gap:.9rem; font-size:1.7rem; font-weight:800; line-height:1.4;
+    margin:4.8rem 0 1.6rem; padding:.6rem 1.2rem .6rem 0; border:0; border-radius:12px; overflow:hidden;
+    background:var(--accent-soft); color:var(--navy)}
+  .rd > h2::before{display:none}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-.6rem 0; padding:0 1.1rem;
+    background:var(--accent); color:var(--rd-on-accent); font-size:.9em; font-weight:800; letter-spacing:.02em}
+
+  /* 節見出し：左に太い線と十分な上余白 */
+  .rd > h3{font-size:1.32rem; font-weight:800; line-height:1.5; margin:4rem 0 1.1rem;
+    padding:.15rem 0 .15rem .85rem; border-left:6px solid var(--accent)}
+  /* 小見出し：色つきの小さな印＋下線。リード文より「見出し」に見えるように色を変える */
+  .rd > h4{font-size:1.1rem; font-weight:800; margin:2.8rem 0 .8rem; padding:0 0 .35rem .95rem;
+    border-bottom:1px solid var(--line); color:var(--accent-ink,var(--accent)); position:relative}
+  .rd > h4::before{content:""; position:absolute; left:0; top:.42em; width:.5rem; height:.5rem;
+    border-radius:2px; background:var(--accent)}
+
+  /* リード文：段落の1文目＝結論。少し大きく・やや太く */
+  .rd .rd-lead{font-size:1.14rem; font-weight:700; line-height:1.75; color:var(--navy); margin:0 0 .75em}
+  .rd .rd-lead.is-sub{font-size:1.03rem}
+  /* 節の途中に置くリード文（h4 を立てない小さな話題の切り替え）は、上に余白を取って区切りを見せる */
+  .rd > :not(h3):not(h4) + .rd-lead.is-sub{margin-top:2.2rem}
+
+  /* 補足（注意書き・但し書き） */
+  .rd .rd-note{font-size:14px; line-height:1.8; color:var(--muted); margin:.4rem 0 1.6rem}
+  .rd .rd-check + .rd-note, .rd .rd-dodont + .rd-note{margin-top:-1.3rem}
+  .rd .figread{margin-bottom:1.8rem}
+  .rd .rs-tw{margin:1.2rem 0 1.8rem}
+}
+@media screen and (max-width:1000px){
+  .rd > h2{font-size:1.36rem; gap:.7rem; margin-top:3.8rem}
+  .rd > h3{font-size:1.16rem; margin-top:3.2rem}
+  .rd .rd-lead{font-size:1.08rem}
+  .rd .rd-lead.is-sub{font-size:1.02rem}
+}
+
+/* ---- 1. この章のポイント（章の冒頭・3行） ---- */
+.rd-points{border:2px solid var(--accent); border-radius:14px; padding:1rem 1.3rem .9rem; margin:0 0 2.6rem; background:var(--bg)}
+.rd-points-h{font-size:.8rem !important; font-weight:800; letter-spacing:.14em; color:var(--accent-ink,var(--accent)); margin:0 0 .3rem !important}
+.rd-points ol{list-style:none; counter-reset:rdp; margin:0; padding:0}
+.rd-points li{counter-increment:rdp; position:relative; margin:0; padding:.6rem 0 .6rem 2.7rem;
+  font-size:1.14rem; font-weight:700; line-height:1.55; color:var(--navy); border-top:1px dashed var(--rule,var(--line))}
+.rd-points li:first-child{border-top:0}
+.rd-points li::before{content:counter(rdp); position:absolute; left:0; top:.62rem; width:1.85rem; height:1.85rem;
+  border-radius:50%; background:var(--accent); color:var(--rd-on-accent); font-size:.95rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center; line-height:1}
+@media screen and (max-width:640px){
+  .rd-points{padding:.9rem 1rem .8rem}
+  .rd-points li{font-size:1.04rem; padding-left:2.4rem}
+  .rd-stat{flex:1 1 12rem}
+  .rd-stat-v{font-size:2rem}
+}
+.rd-points-f{font-size:14px !important; line-height:1.75; color:var(--muted); margin:.5rem 0 0 !important;
+  padding-top:.6rem; border-top:1px solid var(--line)}
+
+/* ---- 2. 根拠（灰色・小さめ）。既定は開いた状態（open）で、読者が見出しを押すと閉じられる ---- */
+details.rd-ev{margin:-.5rem 0 1.8rem; color:var(--muted)}
+details.rd-ev[open]{border-left:3px solid var(--rule,var(--line)); background:var(--code); border-radius:0 8px 8px 0;
+  padding-bottom:.1rem}
+details.rd-ev > summary{cursor:pointer; list-style:none; display:inline-block; padding:.2rem .85rem; font-size:13px;
+  font-weight:700; letter-spacing:.04em; color:var(--muted); background:var(--code); border:1px solid var(--line);
+  border-radius:999px; max-width:100%}
+details.rd-ev[open] > summary{border:0; background:transparent; border-radius:0; padding:.45rem .9rem .25rem}
+details.rd-ev > summary::-webkit-details-marker{display:none}
+details.rd-ev > summary::before{content:"▸"; display:inline-block; margin-right:.45em; transition:transform .15s}
+details.rd-ev[open] > summary::before{transform:rotate(90deg)}
+details.rd-ev > summary:hover{color:var(--accent-ink,var(--accent))}
+details.rd-ev p{font-size:14px; line-height:1.8; color:var(--muted); margin:0; padding:0 .95rem .75rem}
+details.rd-ev ul, details.rd-ev ol{margin:0 .95rem .75rem; padding-left:1.2em}
+details.rd-ev li{font-size:14px; line-height:1.75; color:var(--muted); margin:.2em 0}
+details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
+details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
+details.rd-ev table{font-size:.8rem}
+
+/* ---- 3. 当院の数値チップ ---- */
+.rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
+.rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
+  border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
+.rd-stat-v{display:block; font-size:2.3rem; font-weight:800; line-height:1.15; color:var(--accent-ink,var(--accent));
+  font-variant-numeric:tabular-nums; letter-spacing:0}
+.rd-stat-v small{font-size:.4em; font-weight:700; color:var(--muted); margin-left:.25em; letter-spacing:.02em}
+.rd-stat-k{display:block; font-size:13px; font-weight:700; line-height:1.5; color:var(--muted); margin-top:.2rem}
+
+/* ---- 4. 手順チェックリスト ---- */
+.rd-check{border:1px solid color-mix(in srgb, var(--good) 35%, transparent); border-left:5px solid var(--good);
+  background:var(--good-soft); border-radius:10px; padding:.9rem 1.2rem .7rem; margin:1.4rem 0 2rem}
+.rd-check-h{font-size:.86rem !important; font-weight:800; letter-spacing:.06em; color:var(--good); margin:0 0 .3rem !important}
+.rd-check ol{list-style:none; counter-reset:rdc; margin:0; padding:0}
+.rd-check li{counter-increment:rdc; position:relative; margin:0; padding:.55rem 0 .55rem 2.5rem;
+  font-size:15.5px; line-height:1.8; border-top:1px solid color-mix(in srgb, var(--good) 18%, transparent)}
+.rd-check li:first-child{border-top:0}
+.rd-check li::before{content:counter(rdc); position:absolute; left:0; top:.68rem; width:1.55rem; height:1.55rem;
+  border:2px solid var(--good); border-radius:5px; background:var(--bg); color:var(--good);
+  font-size:.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; line-height:1}
+
+/* ---- 5. やる／やらない（左右2列）。is-choice は「条件→選択」の2択に使う ---- */
+.rd-dodont{display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.4rem 0 2rem}
+.rd-dodont > div{border:1.5px solid var(--line); border-radius:12px; padding:.85rem 1.1rem .6rem}
+.rd-dodont p, .rd-dodont li{font-size:15px; line-height:1.75}
+.rd-dodont p{margin:0 0 .5rem}
+.rd-dodont ul{margin:0 0 .4rem; padding-left:1.2em}
+.rd-dodont li{margin:.25em 0}
+.rd-dd-h{font-size:1.05rem !important; font-weight:800; line-height:1.5; margin:0 0 .4rem !important}
+.rd-do{border-color:var(--good) !important; background:var(--good-soft)}
+.rd-dont{border-color:var(--danger) !important; background:var(--danger-soft)}
+.rd-do .rd-dd-h{color:var(--good)} .rd-do .rd-dd-h::before{content:"○ "}
+.rd-dont .rd-dd-h{color:var(--danger)} .rd-dont .rd-dd-h::before{content:"✕ "}
+.rd-dodont.is-choice > div{border-color:var(--accent) !important; background:var(--accent-soft)}
+.rd-dodont.is-choice .rd-dd-h{color:var(--accent-ink,var(--accent))}
+.rd-dodont.is-choice .rd-dd-h::before{content:none}
+@media (max-width:640px){ .rd-dodont{grid-template-columns:1fr} }
+
+/* ---- 印刷：色を保ち、根拠は開いて出す ---- */
+@media print{
+  .rd, .rd *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .rd > h2{display:flex; align-items:center; gap:6pt; padding:3pt 6pt 3pt 0; border:0; background:var(--accent-soft)}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-3pt 0; padding:0 6pt;
+    background:var(--accent); color:var(--rd-on-accent)}
+  .rd > h3{border-left:4pt solid var(--accent); padding-left:5pt}
+  .rd .rd-lead{font-weight:700; color:var(--navy)}
+  details.rd-ev::details-content{content-visibility:visible; display:block}
+  details.rd-ev{break-inside:auto}
+  details.rd-ev > summary::before{content:""}
+  .rd-points, .rd-check, .rd-dodont, .rd-stats{break-inside:avoid; page-break-inside:avoid}
+  .rd-stat-v{font-size:18pt}
+}
+
+/* linked resource card (2026-10-06) — 姉妹資料へのリンクカード */
+.xl-card{display:flex; gap:1rem; align-items:center; margin:1.6rem 0; padding:1.1rem 1.3rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--accent-soft); text-decoration:none !important; color:var(--fg)}
+.xl-card:hover{box-shadow:0 2px 14px rgba(0,132,181,.22)}
+.xl-card .xl-b{display:block; min-width:0}
+.xl-card .xl-k{display:block; font-size:.74rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink,var(--accent))}
+.xl-card .xl-t{display:block; font-size:1.15rem; font-weight:800; color:var(--navy,var(--fg)); line-height:1.45; margin-top:.15rem}
+.xl-card .xl-s{display:block; font-size:.9rem; color:var(--muted); line-height:1.6; margin-top:.25rem}
+.xl-card .xl-go{flex:none; margin-left:auto; font-weight:700; font-size:.9rem; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.45em 1.1em; white-space:nowrap}
+.xl-card.is-small{padding:.75rem 1.1rem; margin:1.1rem 0}
+.xl-card.is-small .xl-t{font-size:1.02rem}
+@media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
+@media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
+/* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
+/* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+   手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
+   ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
+     HTMLのまま（＝最終状態）で表示される。隠す指定はすべて .mo-on の下に書く。
+   ・1回動いて止まる。ループ・点滅・揺れ続けは使わない。動かすのは opacity / transform / stroke-dashoffset だけ。
+   ・色は本文の :root 変数（--accent / --accent-soft / --danger / --danger-soft / --line / --muted / --bg / --code / --navy / --ink）。 */
+
+@media screen{
+/* ---------- 1. 図の中の動き（場面 = scene。要素ごとに .mo-pre → .mo-go） ---------- */
+.mo-x{--mo-del:calc(var(--d, 0s) + var(--mo-o, 0s) - var(--mo-seek, 0s))}
+.mo-on .mo-pre.mo-fade, .mo-on .mo-pre.mo-rise, .mo-on .mo-pre.mo-pop,
+.mo-on .mo-pre.mo-slide, .mo-on .mo-pre.mo-slider, .mo-on .mo-pre.mo-stamp{opacity:0}
+.mo-on .mo-pre.mo-growx{transform:scaleX(0)}
+.mo-on .mo-pre.mo-growy{transform:scaleY(0)}
+.mo-on .mo-pre.mo-draw{stroke-dashoffset:1}
+.mo-on .mo-pre.mo-growu{transform:scaleY(0)}
+.mo-on .mo-pre.mo-barx{scale:0 1}
+.mo-on .mo-pre.mo-dotp{opacity:0}
+.mo-on .mo-pre.mo-wipel{clip-path:inset(-1em -1em -1em 100%)}
+svg .mo-growu{transform-box:fill-box; transform-origin:center bottom}
+.mo-barx{transform-origin:left center}
+.mo-draw{stroke-dasharray:1}
+.mo-growx{transform-origin:left center}
+.mo-growy{transform-origin:center top}
+svg .mo-pop, svg .mo-stamp{transform-box:fill-box; transform-origin:center}
+svg .mo-growx{transform-box:fill-box}
+svg .mo-growy{transform-box:fill-box}
+.mo-on .mo-go.mo-fade{animation:mo-fade var(--mo-t, .45s) ease-out var(--mo-del) both}
+.mo-on .mo-go.mo-rise{animation:mo-rise var(--mo-t, .55s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-pop{animation:mo-pop var(--mo-t, .5s) cubic-bezier(.3,1.45,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slide{animation:mo-slide var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slider{animation:mo-slider var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-stamp{animation:mo-stamp var(--mo-t, .45s) cubic-bezier(.3,1.3,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growx{animation:mo-growx var(--mo-t, .45s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growy{animation:mo-growy var(--mo-t, .35s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-draw{animation:mo-draw var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growu{animation:mo-growy var(--mo-t, .6s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-barx{animation:mo-barx var(--mo-t, .5s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-dotp{animation:mo-dotp var(--mo-t, .45s) cubic-bezier(.3,1.5,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-wipel{animation:mo-wipel var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+/* 終わりの値は書かない（to を省く）＝元の opacity・transform 属性に戻って止まる */
+@keyframes mo-fade{from{opacity:0}}
+@keyframes mo-rise{from{opacity:0; transform:translateY(12px)}}
+@keyframes mo-pop{from{opacity:0; transform:scale(.82)}}
+@keyframes mo-slide{from{opacity:0; transform:translateX(-18px)}}
+@keyframes mo-slider{from{opacity:0; transform:translateX(18px)}}
+@keyframes mo-stamp{from{opacity:0; transform:scale(1.5) rotate(-6deg)}}
+@keyframes mo-growx{from{transform:scaleX(0)}}
+@keyframes mo-growy{from{transform:scaleY(0)}}
+@keyframes mo-draw{from{stroke-dashoffset:1}}
+/* HTMLの棒・点（範囲の横棒など）は transform を持つので、独立した scale プロパティで動かす */
+@keyframes mo-barx{from{scale:0 1}}
+@keyframes mo-dotp{from{opacity:0; scale:.2}}
+/* 戻りの線：右（最後の段）から左（最初の段）へ。HTML要素だけに使うので終わりの値を書いてよい（終わると外れる） */
+@keyframes mo-wipel{from{clip-path:inset(-1em -1em -1em 100%)} to{clip-path:inset(-1em -1em -1em 0)}}
+
+/* 装置の鎖のガスの粒（JSが作り、流れ終わると消す） */
+.mo-on .nf-steps.is-chain{position:relative}
+.mo-gas-lay{position:absolute; left:0; top:0; width:0; height:0; pointer-events:none; z-index:2}
+.mo-gas{position:absolute; left:-5px; top:-5px; width:10px; height:10px; border-radius:50%; opacity:0;
+  background:var(--accent); box-shadow:0 0 0 2px var(--bg), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+
+/* 疑似要素の線（判断の流れの幹・階段の矢印）：持ち主の --mo-del を継承して伸びる */
+.mo-on .nf-root.mo-pre::after, .mo-on .nf-groups.mo-pre::before{transform:scaleY(0)}
+.mo-on .nf-root.mo-go::after, .mo-on .nf-groups.mo-go::before{transform-origin:center top;
+  animation:mo-growy .32s cubic-bezier(.3,.7,.2,1) calc(var(--mo-del) + var(--mo-ld, 0s)) both}
+.mo-on .nf-root.mo-go::after{--mo-ld:.3s}
+.mo-on .nf-step.mo-pre::after, .mo-on .nf-return.mo-pre::before, .mo-on .nf-return.mo-pre::after{opacity:0}
+.mo-on .nf-step.mo-go::after{animation:mo-fade .3s ease-out calc(var(--mo-del) - .12s) both}
+.mo-on .nf-return.mo-go::before, .mo-on .nf-return.mo-go::after{animation:mo-fade .4s ease-out var(--mo-del) both}
+
+/* 画像の上の印（赤丸のサイン・番号）：1回だけ脈打って消える。画像そのものは変えない */
+.mo-imgwrap{position:relative; display:block}
+.mo-ring{position:absolute; border-radius:50%; pointer-events:none; opacity:0;
+  border:3px solid var(--danger); box-shadow:0 0 0 6px color-mix(in srgb, var(--danger) 18%, transparent)}
+.mo-ring.is-accent{border-color:var(--accent); box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent)}
+.mo-on .mo-go.mo-ring{animation:mo-ping var(--mo-t, 1s) cubic-bezier(.25,.6,.3,1) var(--mo-del) both}
+@keyframes mo-ping{0%{opacity:0; transform:scale(.72)} 28%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)}}
+
+/* 波形を時間軸に沿って描くときのカーソル（JSが作り、描き終わると消す） */
+.mo-cur{stroke:var(--accent); stroke-width:1.5; opacity:.35}
+.mo-tip{fill:var(--accent); stroke:var(--bg); stroke-width:2}
+.mo-pt{fill:var(--accent); stroke:var(--bg); stroke-width:1.5}
+
+/* もう一度：図の枠の上辺に載せる。動き終わってから出す */
+.mo-on .mo-fig{position:relative}
+.mo-replay{position:absolute; top:-.95em; right:.9em; z-index:3; font:inherit; font-size:12px; font-weight:700; line-height:1;
+  color:var(--accent-ink, var(--accent)); background:var(--bg); border:1.5px solid var(--accent); border-radius:999px;
+  padding:.45em .9em .5em; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .3s, background .15s}
+.mo-replay:hover{background:var(--accent-soft)}
+.mo-replay:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mo-end > .mo-replay{opacity:1; pointer-events:auto}
+
+/* ---------- 2. 本文の動き（スクロールで1回） ---------- */
+.mo-on .mo-rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo-on .mo-rv.mo-in{opacity:1; transform:none}
+/* 章見出し：色帯が左から拭き出され、下に線が引かれる */
+.mo-on .rd > h2.mo-h{position:relative; clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in{clip-path:inset(0 0 0 0)}
+.mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
+  transform:scaleX(0); transform-origin:left center; transition:transform .9s .3s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in::after{transform:scaleX(1)}
+.mo-on .rd > h3.mo-h{opacity:0; transform:translateX(-12px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h3.mo-h.mo-in{opacity:1; transform:none}
+/* 「この章のポイント」：1行ずつ。番号の丸が弾む */
+.mo-on .rd-points li.mo-li{opacity:0; transform:translateX(-10px); transition:opacity .45s ease var(--dd, 0s), transform .5s cubic-bezier(.2,.7,.2,1) var(--dd, 0s)}
+.mo-on .rd-points li.mo-li::before{transform:scale(0); transition:transform .45s cubic-bezier(.3,1.6,.5,1) calc(var(--dd, 0s) + .12s)}
+.mo-on .rd-points li.mo-li.mo-in{opacity:1; transform:none}
+.mo-on .rd-points li.mo-li.mo-in::before{transform:none}
+.mo-on .rd-points .rd-points-f.mo-li{opacity:0; transition:opacity .6s ease var(--dd, 0s)}
+.mo-on .rd-points .rd-points-f.mo-li.mo-in{opacity:1}
+/* 節頭の結論の一文：下3分の1にマーカーを引く（画面だけ。印刷・PDFには出さない） */
+.mo-on .mo-mark{background-image:linear-gradient(transparent 64%, color-mix(in srgb, var(--accent) 24%, transparent) 64%, color-mix(in srgb, var(--accent) 24%, transparent) 94%, transparent 94%);
+  background-repeat:no-repeat; background-size:0% 100%; transition:background-size 1.1s cubic-bezier(.45,.1,.25,1)}
+.mo-on .mo-mark.mo-in{background-size:100% 100%}
+/* 表の行・選択肢の2枚：順に */
+.mo-on tr.mo-row{opacity:0; transition:opacity .4s ease}
+.mo-on tr.mo-row.mo-in{opacity:1}
+.mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
+.mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 数値チップ：カウントアップ中は幅を固定して揺れない */
+.mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
+.mo-on .rd-stat{transition:box-shadow .5s ease}
+.mo-on .rd-stat.mo-in{box-shadow:0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent)}
+}
+
+/* ---------- 3. 読了プログレスバーと目次の現在地 ---------- */
+.mo-on #rs-progress{height:4px; background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, var(--bg)), var(--accent));
+  box-shadow:0 0 10px color-mix(in srgb, var(--accent) 45%, transparent); border-radius:0 3px 3px 0}
+#mo-ticks{position:fixed; top:0; left:0; right:0; height:4px; z-index:61; pointer-events:none}
+#mo-ticks i{position:absolute; top:0; width:2px; height:4px; margin-left:-1px; background:color-mix(in srgb, var(--muted) 45%, transparent); transition:background .3s}
+#mo-ticks i.on{background:var(--bg)}
+.mo-on #rs-nav{position:relative}
+.mo-on #rs-nav a.on{border-left-color:transparent}
+.mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
+
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+.mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
+  background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
+.mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
+.mo-ip-wave path{fill:none; stroke:#7fd3f2; stroke-width:2.2; stroke-linejoin:round; }
+.mo-ip-k{position:relative; margin:0 0 .15rem !important; font-size:.78rem !important; letter-spacing:.18em; font-weight:800; color:#7fd3f2}
+.mo-ip-h{position:relative; margin:0 0 1.05rem !important; font-size:1.42rem !important; font-weight:800; line-height:1.45; color:#fff}
+.mo-ip-g{position:relative; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.7rem}
+a.mo-ip-t{display:flex; flex-direction:column; gap:.15rem; padding:.85rem 1rem .9rem; border-radius:12px; text-decoration:none; color:inherit;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:background .2s, border-color .2s}
+a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,.55)}
+.mo-ip-l{font-size:12.5px; font-weight:700; letter-spacing:.06em; color:#a9c7d8}
+.mo-ip-v{font-size:2.15rem; font-weight:800; line-height:1.15; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+.mo-ip-v small{font-size:.42em; font-weight:700; color:#a9c7d8; margin-left:.3em; letter-spacing:.02em}
+.mo-ip-v .mo-ip-or{font-size:.55em; color:#a9c7d8; margin:0 .25em}
+.mo-ip-v.is-word{font-size:1.65rem}
+.mo-ip-pop{display:inline-block}
+.mo-ip-v small{white-space:nowrap}
+.mo-ip-v.is-long{white-space:nowrap}   /* 「30〜60」「0.21〜1.0」など幅のある値。スマホでは字を小さくして1行に収める */
+.mo-ip-s{font-size:13px; line-height:1.6; color:#cfe0ea}
+.mo-ip-n{position:relative; margin:.8rem 0 0 !important; font-size:12px !important; color:#a9c7d8; text-align:right}
+@media (max-width:820px){ .mo-ip-g{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:460px){
+  .mo-ip{padding:2.7rem 1rem 1.05rem; border-radius:14px}
+  .mo-ip-h{font-size:1.2rem !important}
+  .mo-ip-g{gap:.5rem}
+  a.mo-ip-t{padding:.7rem .75rem .75rem}
+  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem} .mo-ip-v.is-long{font-size:1.38rem}
+  .mo-ip-v.is-long small{font-size:.5em; margin-left:.2em}
+  .mo-ip-s{font-size:12px}
+}
+
+/* ---------- 5. ボンベの持ち時間（.mo-tank）：時間を縮めて2本を比べる ---------- */
+.mo-tank{--tk-c:var(--accent)}
+.mo-tk-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.2em 1em; margin:0 0 .7em}
+.mo-tk-clock{font-weight:800; color:var(--navy, var(--fg)); font-size:1.05em}
+.mo-tk-clock b{display:inline-block; min-width:2.6em; text-align:right; font-size:1.5em; color:var(--accent-ink, var(--accent)); font-variant-numeric:tabular-nums}
+.mo-tk-note{font-size:.84em; color:var(--muted)}
+.mo-tk-rows{position:relative; display:grid; gap:1.05em}
+.mo-tk-row{display:grid; grid-template-columns:3.1em minmax(0, 1fr) 6.4em; column-gap:.8em; row-gap:.25em; align-items:center}
+.mo-tk-row.is-danger{--tk-c:var(--danger)}
+.mo-tk-lab{grid-column:1 / -1; font-weight:700; color:var(--navy, var(--fg)); line-height:1.5}
+.mo-tk-lab small{font-weight:400; color:var(--muted); font-size:.88em}
+.mo-tk-cyl{position:relative; justify-self:center; width:1.9em; height:3.4em; border:2px solid var(--tk-c); border-radius:.75em .75em .5em .5em; background:var(--bg); overflow:hidden}
+.mo-tk-cyl::before{content:""; position:absolute; left:50%; top:-1px; width:.7em; height:.32em; margin-left:-.35em; border-radius:0 0 3px 3px; background:var(--tk-c)}
+.mo-tk-gas{position:absolute; left:0; right:0; bottom:0; height:100%; background:color-mix(in srgb, var(--tk-c) 34%, var(--bg)); transform-origin:center bottom; transform:scaleY(var(--g, 0))}
+.mo-tk-track{position:relative; height:1.5em; border-radius:6px; background:var(--code);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:20% 100%; box-shadow:inset -1px 0 0 var(--line)}
+.mo-tk-bar{position:absolute; left:0; top:.22em; bottom:.22em; width:calc(var(--v) * 100%); border-radius:4px; transform-origin:left center;
+  background:linear-gradient(90deg, var(--tk-c) calc(var(--lo, 1) * 100%), color-mix(in srgb, var(--tk-c) 38%, var(--bg)) 0)}
+.mo-tk-zone{position:absolute; top:0; bottom:0; left:calc(var(--a) / 10 * 100%); width:calc((var(--b) - var(--a)) / 10 * 100%);
+  background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--danger) 45%, transparent) 0 3px, transparent 3px 7px); border-radius:3px; z-index:1}
+.mo-tk-val{font-weight:800; color:var(--tk-c); font-size:1.15em; line-height:1.3; font-variant-numeric:tabular-nums}
+.mo-tk-axis{position:relative; height:1.3em; margin:.35em 0 0 calc(3.1em + .8em); margin-right:calc(6.4em + .8em); color:var(--muted)}
+.mo-tk-axis span{position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; font-size:.8em; font-variant-numeric:tabular-nums}
+.mo-tk-cur{position:absolute; top:-.3em; bottom:-.3em; width:2px; margin-left:-1px; background:var(--navy, var(--fg)); opacity:.55; pointer-events:none}
+@media (max-width:460px){
+  .mo-tk-row{grid-template-columns:2.2em minmax(0, 1fr) 5.6em; column-gap:.5em}
+  .mo-tk-axis{margin-left:calc(2.2em + .5em); margin-right:calc(5.6em + .5em)}
+  .mo-tk-val{font-size:.92em; white-space:nowrap}
+}
+
+/* 点検用（window.RESMO_TEST）：全部の動きをその時刻で止める */
+.mo-paused .mo-go, .mo-paused .mo-go::before, .mo-paused .mo-go::after{animation-play-state:paused !important}
+.mo-paused .mo-rv, .mo-paused .mo-h, .mo-paused .mo-h::after, .mo-paused .mo-li, .mo-paused .mo-li::before, .mo-paused .mo-mark,
+.mo-paused tr.mo-row, .mo-paused .mo-cl, .mo-paused .mo-cr{transition:none !important}
+
+/* ---------- 6. 印刷・PDF：隠す指定はすべて @media screen の中なので、紙には常に最終状態が出る ---------- */
+@media print{
+  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind, .mo-gas-lay{display:none !important}
+  .mo-ip{color:var(--ink, #26333f); background:#fff !important; border:1.5pt solid var(--accent); box-shadow:none; padding:8pt 10pt; margin:6pt 0 10pt;
+    break-inside:avoid; page-break-inside:avoid}
+  .mo-ip-wave, .mo-ip-n{display:none}
+  .mo-ip-k, .mo-ip-l, .mo-ip-v small, .mo-ip-v .mo-ip-or, .mo-ip-n{color:var(--accent-ink, #0a6e96) !important}
+  .mo-ip-h, .mo-ip-v{color:var(--navy, #1d3348) !important}
+  .mo-ip-h{font-size:12pt !important; margin-bottom:5pt !important}
+  .mo-ip-s{color:var(--ink, #26333f) !important; font-size:7.6pt}
+  .mo-ip-g{grid-template-columns:repeat(3, minmax(0, 1fr)) !important; gap:4pt}
+  a.mo-ip-t{background:var(--accent-soft, #e8f4fa) !important; border:0; padding:4pt 6pt}
+  .mo-ip-v{font-size:15pt} .mo-ip-v.is-word{font-size:12pt}
+  .mo-tank, .mo-tank *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
+}
+/* /resident motion (resident-motion.css) */
+</style>
+</head>
+<body data-refstyle="1">
+<div id="rs-progress"></div>
+<div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">ICUの終末期と意思決定</span></div>
+<aside id="rs-side"><div class="hd"><div class="ttl">ICUの終末期と意思決定</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#s1" title="§1 なぜ大事か — ICUの死の多くは「決めた後」に起き、日本は終了をためらってきた">§1 なぜ大事か</a>
+<a class="lv3" href="#rs-s1-1" title="1-1. 治療制限は例外から標準になり、制限後に生きて退院する人も増えた">1-1. 治療制限は例外から標準になり</a>
+<a class="lv3" href="#rs-s1-2" title="1-2. 日本では「やめられないから始めない」が初期治療をためらわせてきた">1-2. 日本ではやめられないから始…</a>
+<a class="lv3" href="#rs-s1-3" title="1-3. 2026年の基準線 — 終末期を定義せず、手順で決める">1-3. 2026年の基準線</a>
+<a class="lv3" href="#rs-s1-4" title="1-4. 法律はないが、手順を守ることが法的な不安への答えになる">1-4. 法律はないが</a>
+<a class="lv2" href="#s2" title="§2 言葉をそろえる — DNARは心停止時だけ、GOCは価値観から">§2 言葉をそろえる</a>
+<a class="lv3" href="#rs-s2-1" title="2-1. DNARで決まるのは、心停止したときの蘇生だけ">2-1. DNARで決まるのは</a>
+<a class="lv3" href="#rs-s2-2" title="2-2. 言葉の対応表 — 厳密な言葉を、都合のよい婉曲表現にしない">2-2. 言葉の対応表</a>
+<a class="lv3" href="#rs-s2-3" title="2-3. GOCは4要素で — 最初に価値観、最後に介入">2-3. GOCは4要素で</a>
+<a class="lv2" href="#s3" title="§3 誰がどう決めるか — 多職種の4観点とSDMの2本柱で、一人で決めない">§3 誰がどう決めるか</a>
+<a class="lv3" href="#rs-s3-1" title="3-1. チームの検討は4観点をもれなく、全員に発言の機会を">3-1. チームの検討は4観点をもれなく</a>
+<a class="lv3" href="#rs-s3-2" title="3-2. 意思決定能力は、決定ごとに4つの過程で評価する">3-2. 意思決定能力は</a>
+<a class="lv3" href="#rs-s3-3" title="3-3. SDMは、本人の意思にどこまで近づけるかで4つに分ける">3-3. SDMは</a>
+<a class="lv3" href="#rs-s3-4" title="3-4. 予後の数字は「情報」、決定は価値観で — 予測と決定を分ける">3-4. 予後の数字は情報</a>
+<a class="lv3" href="#rs-s3-5" title="3-5. 複数の医療者の「不適切な治療では」という違和感は、予後のシグナル">3-5. 複数の医療者の不適切な治療…</a>
+<a class="lv3" href="#rs-s3-6" title="3-6. 「この人はどうせ」という先入観を点検する">3-6. この人はどうせという先入観…</a>
+<a class="lv3" href="#rs-s3-7" title="3-7. 決まらなければ臨床倫理コンサルへ — 対立はまず層を見立てる">3-7. 決まらなければ臨床倫理コン…</a>
+<a class="lv2" href="#s4" title="§4 どう話すか — 聴いてから推奨し、決定の重荷を家族に負わせない">§4 どう話すか</a>
+<a class="lv3" href="#rs-s4-1" title="4-1. 深刻な知らせの直後、家族の脳は意味を受け取れない">4-1. 深刻な知らせの直後</a>
+<a class="lv3" href="#rs-s4-2" title="4-2. 面談の型 — 許可を得る、聴く、見通しを伝える、大切なことを聴く、推奨する">4-2. 面談の型</a>
+<a class="lv3" href="#rs-s4-3" title="4-3. 「決めたのはご家族です」ではなく「医学的な結論をご家族と確認しました」">4-3. 決めたのはご家族ですではな…</a>
+<a class="lv3" href="#rs-s4-4" title="4-4. 公式の面談と、議題のない日々の対話を使い分ける">4-4. 公式の面談と</a>
+<a class="lv3" href="#rs-s4-5" title="4-5. 家族支援の研究 — 専任の伝え役は効かず、死の前後に会うことが効いた">4-5. 家族支援の研究</a>
+<a class="lv2" href="#s5" title="§5 選び方 — 差し控え・終了・TLTは同じ問いへの答え">§5 選び方</a>
+<a class="lv3" href="#rs-s5-1" title="5-1. 差し控えと終了は倫理的に同じ — だから迷ったら始めて試せる">5-1. 差し控えと終了は倫理的に同じ</a>
+<a class="lv3" href="#rs-s5-2" title="5-2. 3つの対応で、行うことと行わないことを分けて決める">5-2. 3つの対応で</a>
+<a class="lv3" href="#rs-s5-3" title="5-3. TLTは目標・期日・価値観との結びつきを先に書き、期日で必ず立ち止まる">5-3. TLTは目標・期日</a>
+<a class="lv3" href="#rs-s5-4" title="5-4. 「すべてやってください」には処置に降ろして答え、スローコードは選ばない">5-4. すべてやってくださいには処…</a>
+<a class="lv3" href="#rs-s5-5" title="5-5. 抗菌薬・人工栄養・ペースメーカーも、何のために使っているかで一つずつ決める">5-5. 抗菌薬・人工栄養</a>
+<a class="lv3" href="#rs-s5-6" title="5-6. 記録には「考慮した時期の根拠」と「検討に加わった全員」を残す">5-6. 記録には考慮した時期の根拠…</a>
+<a class="lv2" href="#s6" title="§6 緩和的抜管 — 準備を済ませ、苦痛に先回りし、そばにいる">§6 緩和的抜管</a>
+<a class="lv3" href="#rs-s6-1" title="6-1. 緩和ケアは予後ではなく必要性で — 終了の前から始めている">6-1. 緩和ケアは予後ではなく必要…</a>
+<a class="lv3" href="#rs-s6-2" title="6-2. 抜管の前日から、止めるものと時刻を逆算する">6-2. 抜管の前日から</a>
+<a class="lv3" href="#rs-s6-3" title="6-3. 抜管は段階的離脱か即時抜管 — 死亡までは数分から数日と伝える">6-3. 抜管は段階的離脱か即時抜管</a>
+<a class="lv3" href="#rs-s6-4" title="6-4. 薬はボーラスで効かせ、オピオイドに上限を設けない">6-4. 薬はボーラスで効かせ</a>
+<a class="lv3" href="#rs-s6-5" title="6-5. 症状ごとの初手 — 分泌物は浅く吸い、不安をオピオイドで眠らせない">6-5. 症状ごとの初手</a>
+<a class="lv2" href="#s7" title="§7 看取りと死別 — 家族の時間を守り、告知と依頼を分ける">§7 看取りと死別</a>
+<a class="lv3" href="#rs-s7-1" title="7-1. 家族のケアは6つの時期で — 亡くなった後の面談まで含める">7-1. 家族のケアは6つの時期で</a>
+<a class="lv3" href="#rs-s7-2" title="7-2. 死亡確認で確かめているのは「もう戻さない」という決定 — permanence">7-2. 死亡確認で確かめているのは…</a>
+<a class="lv3" href="#rs-s7-3" title="7-3. 臓器提供は、治療終了の決定の後に独立した話として — 告知と依頼を分ける">7-3. 臓器提供は</a>
+<a class="lv2" href="#s8" title="§8 チームを守る — モラルディストレスは個人の耐性ではなく組織の課題">§8 チームを守る</a>
+<a class="lv3" href="#rs-s8-1" title="8-1. モラルディストレスを増やすのは、文化・階層・手続きの不在">8-1. モラルディストレスを増やす…</a>
+<a class="lv3" href="#rs-s8-2" title="8-2. 先に変えるのは権限と手続き、デブリーフィングはその次">8-2. 先に変えるのは権限と手続き</a>
+<a class="lv2" href="#s9" title="§9 落とし穴 — 良い意図が、言葉と順番の誤りで害に変わる">§9 落とし穴</a>
+<a class="lv2" href="#refs" title="主要文献">主要文献</a>
+</nav></aside>
+<div id="rs-scrim"></div>
+
+<main>
+
+<p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
+<h1 id="top">ICUの終末期と意思決定</h1>
+<p class="sub">DNARは心停止時だけ、決め方は4観点とSDM、終了するなら苦痛に先回りする — なぜ大事か・言葉をそろえる・誰がどう決めるか・どう話すか・差し控え／終了／TLTの選び方・緩和的抜管・看取りと死別（死の判定・臓器提供）・チームのケア・落とし穴</p>
+
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-07</span></p>
+
+<div class="tools">
+  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
+  <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
+</div>
+
+<p>ICUで亡くなる患者の多くは、治療を「どこまで続けるか」を決めた後に亡くなります。決め方を誤ると、本人の望まない治療が続くか、救えたかもしれない治療が最初から差し控えられます。この資料で持ち帰るのは、①DNARで決まるのは心停止時の蘇生だけで、治療の範囲は「終末期かどうか」ではなく多職種の4観点の検討と共同意思決定（SDM）で決め、迷えば期限付きの試行（TLT）にする、②面談は価値観を聴いてから推奨を伝え、決定の重荷を家族に負わせない、③終了するときは緩和ケアを先に準備し、抜管の前後の苦痛に薬で先回りして、家族とチームを支える、の3点です。</p>
+
+<div class="box good">
+<span class="label">要点 — この資料の骨格</span>
+<p>日本の基準線は、2026年9月の4学会合同ガイドライン（日本集中治療医学会・日本救急医学会・日本循環器学会・日本緩和医療学会）です<span class="src vault">4学会GL2026</span>。終末期を定義せず手順で決め、差し控えと終了を倫理的に同等とし、緩和ケア別編で抜管時の薬まで示しました。この資料はその骨格に、面談・家族支援・死の判定・チームのケアの研究を重ねたものです。ガイドラインの手順・薬の使い方・Q&amp;Aの要点は解説ページ<a href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/">「生命維持治療の終了と差し控え — 4学会合同ガイドライン2026」</a>に、全文は原典「救急・集中治療における生命維持治療の終了／差し控えに関する4学会合同ガイドライン」（2026）にあります。</p>
+</div>
+
+
+<section class="rd">
+<h2 id="s1"><span class="no">§1</span>なぜ大事か — ICUの死の多くは「決めた後」に起き、日本は終了をためらってきた</h2>
+
+<p>欧州では治療を制限した後の死が9割に達し、治療制限は例外ではなく標準になりました。日本では「一度始めたらやめられない」という不安が強く、終了より差し控えが選ばれてきました。この章では、その背景と、2026年に引き直された基準線を確かめます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>治療制限は看取りの開始ではなく、ゴールの定義し直しと知る</li>
+<li>「やめられないから始めない」をしない</li>
+<li>4学会GL（2026）の手順を判断の基準線にする</li>
+</ol>
+</div>
+
+<h3 id="rs-s1-1">1-1. 治療制限は例外から標準になり、制限後に生きて退院する人も増えた</h3>
+<p class="rd-lead">欧州22 ICUを16年あけて比べたEthicus-2では、治療制限を伴う死が68.3%から89.7%へ増え、治療制限を受けた患者の生存退院は5.5%から20.4%へ上がりました（表1）<span class="src vault">Ethicus-2 JAMA2019</span>。</p>
+<p>治療制限は「看取りの開始」ではなく、「治療のゴールを定義し直す行為」です。差し控えた後に限れば生存退院は8.9%から34.9%に上がっています<span class="src vault">Ethicus-2 JAMA2019</span>。一方で、終了（withdraw）の後は24時間以内に98%が亡くなっており、差し控えと終了は臨床的にはまったく違う経過をたどります。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表1｜Ethicus-2（1999→2016、欧州22 ICU） — <span class="ok">制限は標準になり、制限後の生存も増えた</span></caption>
+<thead><tr><th>指標</th><th>1999〜2000年</th><th>2015〜2016年</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>治療制限を伴う死</td><td class="num">68.3%</td><td class="num">89.7%</td><td>差21.4%（95%CI 19.2〜23.6）</td></tr>
+<tr><td>制限なしのまま亡くなった患者</td><td class="num">31.7%</td><td class="num">10.3%</td><td>フルコードでの死は少数派に</td></tr>
+<tr><td>治療制限後の生存退院</td><td class="num">5.5%</td><td class="num">20.4%</td><td>制限は死の決定ではない</td></tr>
+<tr><td>差し控え後の生存退院</td><td class="num">8.9%</td><td class="num">34.9%</td><td>差し控えた3人に1人は退院</td></tr>
+<tr><td>終了後24時間以内の死亡</td><td>—</td><td class="num">98%</td><td>家族の到着・別れの調整は決定の前に</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">対象は西欧に偏った22 ICUで、そのまま日本に当てはまるとは限りません<span class="src vault">Ethicus-2 JAMA2019</span>。</p>
+
+<h3 id="rs-s1-2">1-2. 日本では「やめられないから始めない」が初期治療をためらわせてきた</h3>
+<p class="rd-lead">2014年の3学会ガイドラインは人工呼吸器を含む生命維持装置の終了を認めていましたが、法的リスクの不安と、終了後の緩和ケアの指針がないことから終了はほとんど行われず、「やめられないなら最初から始めない」という判断が救命できたかもしれない患者の治療をためらわせる危険がありました<span class="src vault">4学会GL2026 説明文</span>。</p>
+<p>旧版は「終末期」を4つの例示で定義し、旧Q&amp;Aは「近いうち」をおおよそ2〜3日以内としていました。その結果、生命維持治療を続けている限り終末期にならず、望まない治療が死の直前まで続く運用が残りました<span class="src vault">4学会GL2026 説明文</span>。日本では「欧米ではICUの死の多くが終了の後に起こるが、日本には終了から死までを管理するプロトコルがない」ことも、踏み切れない実質的な理由だと指摘されています<span class="src vault">伊藤 人工呼吸2023</span>。</p>
+
+<h3 id="rs-s1-3">1-3. 2026年の基準線 — 終末期を定義せず、手順で決める</h3>
+<p class="rd-lead">4学会合同ガイドラインは「終末期」をあえて定義せず、多職種の臨床倫理的検討と厚労省プロセスガイドラインに沿ったSDMという手順を示し、差し控えと終了を倫理的に同等とし、DNARは心停止時の蘇生に限ると明文化しました（表2）<span class="src vault">4学会GL2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表2｜2014年版から2026年版で変わったこと — <span class="ok">結論ではなく、決め方を示す</span></caption>
+<thead><tr><th>項目</th><th>2014年版（3学会の提言）</th><th>2026年版（4学会合同GL）</th></tr></thead>
+<tbody>
+<tr><td>終末期</td><td>定義し、4つの例示</td><td>あえて定義しない。病態は「医学的側面」として個別に評価</td></tr>
+<tr><td>判断の枠組み</td><td>医療チームが終末期と判断</td><td>多職種の臨床倫理的検討（4観点）＋SDM（§3）</td></tr>
+<tr><td>差し控えと終了</td><td>—</td><td>倫理的に同等（§5）</td></tr>
+<tr><td>TLT</td><td>記載なし</td><td>明記。一度始めた治療もやめられる</td></tr>
+<tr><td>緩和ケア</td><td>「緩和的措置」の一言</td><td>緩和ケア別編で薬・用量・家族ケア・医療者ケア（§6・§7）</td></tr>
+<tr><td>用語</td><td>延命措置・中止</td><td>生命維持治療・終了。「消極的安楽死」「BSC」は使わない</td></tr>
+<tr><td>作り方</td><td>記載なし</td><td>修正デルファイ法（3ラウンド）＋パブリックコメント。推奨の強さは付かない</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s1-4">1-4. 法律はないが、手順を守ることが法的な不安への答えになる</h3>
+<p class="rd-lead">日本には終了・差し控えを定めた法律がなく、判例と、厚労省プロセスガイドラインや学会ガイドラインという soft law が拠り所で、2007年以降、救急・集中治療の終末期医療で全国報道された刑事事件や警察の介入は確認されていません<span class="src vault">4学会GL2026 説明文</span>。</p>
+<p>有罪になった2件（東海大学病院事件・川崎協同病院事件）は、塩化カリウムや筋弛緩薬で死期を早めた事例でした。不起訴の2件は意図的な行為はなかったものの、許容される終了かどうかが不明瞭で警察の介入を招いています<span class="src vault">4学会GL2026 説明文</span>。ガイドラインに沿った適切なプロセスなら、終了・差し控えが刑事裁判で違法とされることはないと考えられる、と説明文は述べています。ただし、従えば法的に免責されるとは書いていません<span class="src vault">4学会GL2026 Q48</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表3：4つの事件）</summary>
+<div class="tablewrap">
+<table class="wide">
+<caption>表3｜終末期医療をめぐる4つの事件 — <span class="ok">分かれ目は意図的に死期を早めたかどうか</span></caption>
+<thead><tr><th>事件</th><th>何をしたか</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td>東海大学病院事件（1991）</td><td>多発性骨髄腫の末期。家族の求めで治療を外した後、ベラパミルと塩化カリウムを静注</td><td>1995年 殺人罪で有罪。傍論で治療終了の許容要件（死が避けられない末期状態・本人の意思表示）を示した</td></tr>
+<tr><td>川崎協同病院事件（1998）</td><td>心停止後の昏睡。家族の求めで抜管し、苦悶様呼吸に鎮静薬、さらに筋弛緩薬を投与</td><td>2009年 最高裁で有罪確定。推定意思に基づく終了が許される場合を認め、末期状態に限定しないと解しうる</td></tr>
+<tr><td>射水市民病院事件（2000〜2005）</td><td>終末期のがん等の患者7名の人工呼吸器を外した</td><td>2009年 不起訴（死期を早める行為ではない、殺意なし）</td></tr>
+<tr><td>道立羽幌病院事件（2004）</td><td>本人の意思確認なく、家族への説明も不十分なまま人工呼吸器を外した</td><td>因果関係が認められず不起訴</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s2"><span class="no">§2</span>言葉をそろえる — DNARは心停止時だけ、GOCは価値観から</h2>
+
+<p>終末期の議論が壊れる原因の多くは、言葉の意味のずれです。なかでもDNARの拡大解釈は日本で最も多い誤りで、学会が名指しで警告しています。この章で、議論の前提になる言葉をそろえます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>DNARを理由に、心停止前の治療を自動的に控えない</li>
+<li>「中止」ではなく「終了」と言い、BSCを使わない</li>
+<li>GOCは介入の可否ではなく、価値観から話す</li>
+</ol>
+</div>
+
+<h3 id="rs-s2-1">2-1. DNARで決まるのは、心停止したときの蘇生だけ</h3>
+<p class="rd-lead">DNARは「心停止時に心肺蘇生を行わない」という限定的な指示で、胸骨圧迫・除細動・気管挿管などの心停止時の処置に限られ、抗菌薬・酸素・非侵襲的換気・鎮痛鎮静・補液はDNARの有無にかかわらず行います（図1）<span class="src vault">4学会GL2026 Q37</span><span class="src vault">日本救急医学会2025</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-map"><div class="nf-sec">DNARの指示で決まっていること</div><div class="nf-key">心停止したとき</div><div class="nf-arr">→</div><div class="nf-val is-strong">胸骨圧迫・除細動・気管挿管などの蘇生を行わない</div><div class="nf-sec">DNARでは何も決まっていないこと（別に話し合う）</div><div class="nf-key">心停止の前の治療</div><div class="nf-arr">→</div><div class="nf-val">挿管・人工呼吸・昇圧薬・血液浄化・輸血・ICU入室は、目標と価値観に照らして一つずつ決める</div><div class="nf-key">症状を和らげる治療</div><div class="nf-arr">→</div><div class="nf-val">抗菌薬・酸素・非侵襲的換気・鎮痛鎮静・補液はDNARの有無にかかわらず行う</div><div class="nf-sec is-danger">してはいけない運用</div><div class="nf-key is-danger">一律・便宜的なDNAR</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">入院時の一律設定、業務効率や急変対応の簡略化のための設定</div><div class="nf-key is-danger">partial DNAR</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">「胸骨圧迫はするが挿管はしない」のような曖昧な指示</div></div><p class="nf-foot">4学会GL2026のQ37・Q39、日本救急医学会の用語の統一概念（2025）、日本集中治療医学会の勧告（2017）に基づく</p></div>
+<figcaption>図1. DNARの射程 — 決まっているのは心停止時の蘇生だけ。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 一番上の段だけがDNARで決まっていることで、真ん中の2段はDNARでは何も決まっていない領域です<span class="src vault">日本救急医学会2025</span>。いちばん多い誤りは、真ん中の段まで「DNARだからやらない」と読み替えることです。下の赤い段は、4学会GLが明確に否定した運用です<span class="src vault">4学会GL2026 Q39</span>。</p>
+<p>日本集中治療医学会は2017年に、DNAR指示のもとで酸素投与・気管挿管・人工呼吸器・補助循環・血液浄化・昇圧薬・抗菌薬・輸液・栄養・鎮痛鎮静・ICU入室などを自動的に差し控えてはならず、DNARのマニュアルと終末期医療のマニュアルは分けて作ることが強く推奨されるとしました<span class="src vault">日本集中治療医学会2017</span>。日本救急医学会の用語の統一概念（2025）も、「DNARを取る」という言い方と、DNARを理由に心停止前の挿管や人工呼吸を行わない誤認を名指しで正しています<span class="src vault">日本救急医学会2025</span>。</p>
+<p>この誤りは個人の勉強不足より、様式の設計の問題です。22研究を統合したナラティブレビューは、DNAR指示の範囲が紙の上で定義されていない限り、現場の解釈は必ずばらつくと説明しています<span class="src vault">Khayat Kakhki ResuscPlus2026</span>。</p>
+
+<h3 id="rs-s2-2">2-2. 言葉の対応表 — 厳密な言葉を、都合のよい婉曲表現にしない</h3>
+<p class="rd-lead">DNARを「治療全般を控える」、GOCを「予後不良」、BSCを「緩和ケア」の言い換えに使うと、元の意味とのずれが記録にも会話にも残らないので、議論の前に表4で言葉をそろえます<span class="src vault">4学会GL2026 説明文</span><span class="src vault">Secunda JGIM2020</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表4｜言葉の正しい意味とよくある誤解 — <span class="ok">議論の前に言葉をそろえる</span></caption>
+<thead><tr><th>用語</th><th>正しい意味</th><th>よくある誤解・使わない理由</th></tr></thead>
+<tbody>
+<tr><td>生命維持治療</td><td>生命を維持するのに必要とみなす治療。昇圧薬・ペースメーカー・人工栄養・水分補給・透析・輸血・輸液も状況によって含まれる</td><td>人工呼吸器と補助循環だけだと思う</td></tr>
+<tr><td>差し控え／終了</td><td>始めない／始めたものをやめる。倫理的に同等</td><td>「中止」は再開も含みうるので「終了」と言う。「消極的安楽死」とは呼ばない</td></tr>
+<tr><td>DNAR</td><td>心停止時に蘇生を行わない指示。心停止時のみ有効</td><td>「治療全般を控える」ではない。「DNARを取る」も誤用</td></tr>
+<tr><td>Goals of Care（GOC）</td><td>本人の価値観と優先順位に基づき、介入を使うか控えるかの判断を導く医療の包括的な目標</td><td>DNARや人工呼吸の可否リストではない。「予後不良」の婉曲表現でもない</td></tr>
+<tr><td>意思決定能力</td><td>選択を伝える・理解する・自分のこととして認識する・比較して考える、の4過程を決定ごとに評価する臨床判断</td><td>診断名・認知機能の点数・「医師の勧めに従うか」では決まらない</td></tr>
+<tr><td>TLT</td><td>目標と期間を合意して治療を試し、期限で必ず見直す取り決め</td><td>「とりあえず様子見」ではない。期限で自動的に終了もしない</td></tr>
+<tr><td>BSC</td><td>本来はがん臨床試験で両群に等しく行う最低限の医療</td><td>中身が見えず「見放した」と受け取られるので、4学会GLは使わないと決めた。代わりに続ける・控える・終える治療を書く（<a href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#rs-s1-4">解説ページの1-4</a>）</td></tr>
+<tr><td>スローコード</td><td>形だけ・手加減した蘇生</td><td>「家族への配慮」ではなく欺瞞（§5-4）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s2-3">2-3. GOCは4要素で — 最初に価値観、最後に介入</h3>
+<p class="rd-lead">1987〜2018年の文献214本を分析した系統的レビューは、GOCを①包括的な目標 ②本人の価値観と優先順位 ③臨床的な文脈 ④介入の判断を導く、の4要素がそろったものと定義し、この順序を崩すと面談は「DNARを取る場」に退行します（表5）<span class="src vault">Secunda JGIM2020</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表5｜Goals of Careの4要素 — <span class="ok">順序が本体</span></caption>
+<thead><tr><th>要素</th><th>内容</th><th>面談での位置</th></tr></thead>
+<tbody>
+<tr><td>①包括的な目標</td><td>延命か快適さかの二択ではなく、複数の目標を同時に追ってよい</td><td>最初に聞く</td></tr>
+<tr><td>②本人の価値観と優先順位</td><td>何を大切にしてきたか。自宅に帰る・自分でできる・家族の行事など</td><td>最初に聞く</td></tr>
+<tr><td>③臨床的な文脈</td><td>今の病状で何が可能か。可逆性と予後の見立て</td><td>次に説明する</td></tr>
+<tr><td>④介入の判断を導く</td><td>③を踏まえ、②に沿う介入は何かを一緒に考える</td><td>最後に話す</td></tr>
+</tbody>
+</table>
+</div>
+<p>実際の面談では、医師が「ゴールの話をする」と宣言した場面でも、発話の4%未満しか本人の意向や価値観に触れていませんでした<span class="src vault">Secunda JGIM2020</span>。カルテでも「GOC＝DNAR」と省略せず、「本人が大切にしていること」「今の文脈での実現可能性」「そこから導かれる方針」を分けて書きます。</p>
+<div class="box plain">
+<span class="label">ここで使う言い方</span>
+<p>「すべてやりますか、やめますか」ではなく、「〇〇さんがこれまで一番大切にしてこられたことは何でしょうか」から入ります。4学会GLの緩和ケア別編は、「これができないまま生きていくのは考えられない、と思うのはどんなことですか」という問いを例に挙げています<span class="src vault">4学会GL2026 別編</span>。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+
+<section class="rd">
+<h2 id="s3"><span class="no">§3</span>誰がどう決めるか — 多職種の4観点とSDMの2本柱で、一人で決めない</h2>
+
+<p>決めるのは担当医一人でも、家族一人でもありません。医療・ケアチームが4つの観点で検討し、本人・家族等と話し合って一緒に決めます。この章では、その手順と、評価の過程に紛れ込む予測や先入観の扱い方を見ます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>4観点を多職種で話し、全員に発言の機会を保証する</li>
+<li>意思決定能力は決定ごとに4過程で評価する</li>
+<li>予測と決定を分け、違和感と先入観を点検する</li>
+</ol>
+</div>
+
+<figure class="fig">
+<div class="nf"><div class="nf-flow"><div class="nf-root">生命維持治療が大きな苦痛を伴うのに、本人の望む結果につながらないと考えられる（誰が提起してもよい）</div><div class="nf-groups" style="--nf-cols:1fr 1fr;--nf-bl:25%;--nf-br:25%"><div class="nf-group"><div class="nf-gh">柱1 医療・ケアチームの臨床倫理的検討</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">医学的側面</div><div class="nf-a">診断・予後・治療の有効性と限界</div></div><div class="nf-card"><div class="nf-q">本人の意向</div><div class="nf-a">本人 → ACP → 価値観からの推定</div></div><div class="nf-card"><div class="nf-q">QOL</div><div class="nf-a">本人が望む生活・人生の質</div></div><div class="nf-card"><div class="nf-q">周囲の状況</div><div class="nf-a">家族の価値観と介護力・社会的背景・制度</div></div></div></div><div class="nf-group"><div class="nf-gh">柱2 本人・家族等との共同意思決定（SDM）</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">準拠先</div><div class="nf-a">厚労省プロセスガイドライン</div></div><div class="nf-card"><div class="nf-q">進め方</div><div class="nf-a">意思の確認状況で4場面（表8）</div></div><div class="nf-card"><div class="nf-q">話し方</div><div class="nf-a">聴いてから推奨する（§4）</div></div></div></div></div><div class="nf-band is-accent"><span class="nf-bh">対応は3つ</span><span class="nf-to">→</span><span>差し控え／終了（症状緩和のみ、または一部）／期限付きの試行（TLT）。どれでも緩和ケアを並行する（§5）</span></div><div class="nf-band"><span class="nf-bh">決まらないとき</span><span class="nf-to">→</span><span>臨床倫理コンサルテーション・臨床倫理委員会に助言を求める。決定は代行しない</span></div></div><p class="nf-foot">4学会GL2026 本編 I-1 と付録3をもとに作図</p></div>
+<figcaption>図2. 生命維持治療の終了・差し控えを決める手順 — 2本柱で検討し、3つの対応から選ぶ。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上のきっかけから、左のチーム内の検討と右の本人・家族との話し合いを並行して進めます<span class="src vault">4学会GL2026</span>。下の青い帯が選べる対応、最後の帯がどちらかの柱で合意できないときの相談先です。</p>
+
+<h3 id="rs-s3-1">3-1. チームの検討は4観点をもれなく、全員に発言の機会を</h3>
+<p class="rd-lead">臨床倫理的な検討とは医学的側面・本人の意向・QOL・周囲の状況の4観点をもれなく話すことで、その患者に関わるすべての診療科と多職種、かかりつけ医や在宅の医療・ケア従事者まで加わり、全員に公平な発言の機会と心理的安全性を保証します（表6）<span class="src vault">4学会GL2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表6｜臨床倫理的検討の4観点 — <span class="ok">医療者の偏見を外して、もれなく</span></caption>
+<thead><tr><th>観点</th><th>検討する内容</th></tr></thead>
+<tbody>
+<tr><td>医学的側面</td><td>診断・予後・治療の有効性と限界を客観的に評価する。各疾患の専門家の見解を踏まえる</td></tr>
+<tr><td>本人の意向</td><td>意思を示せれば十分な説明を受けたうえでの意向。示せなければACPの記録（事前指示書を含む）。それも無ければ価値観から推定する</td></tr>
+<tr><td>QOL</td><td>本人の望む生活・人生の質を知り、どう担保するかを検討する</td></tr>
+<tr><td>周囲の状況</td><td>家族の価値観と介護力、社会的・文化的背景、法制度・病院体制を把握し、必要な社会的支援を考える</td></tr>
+</tbody>
+</table>
+</div>
+<p>「多職種カンファ」の実態は理想から遠いことがあります。フランスのICUで差し控えを議論するカンファを実測したところ、実質14分のうち医師が94%を話し、看護師・看護助手の発言は1分（5%）でした<span class="src vault">Tarcy ICM2022</span>。司会が発言を明示的に他職種へ振り、患者の情報は事前に共有して、その場は議論に使います。医師の方針を追認するだけの形式的な場は、4学会GLの趣旨に反します（Q62）<span class="src vault">4学会GL2026</span>。</p>
+
+<h3 id="rs-s3-2">3-2. 意思決定能力は、決定ごとに4つの過程で評価する</h3>
+<p class="rd-lead">意思決定能力は、選択を伝えられる・理解できる・自分のこととして認識できる・比較して考えられる、の4過程をその決定について評価する臨床判断で、診断名や認知機能検査の点数では代用できません（表7）<span class="src vault">Ganzini JAMDA2004</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表7｜意思決定能力の評価 — <span class="ok">何が本体で、何が代用にならないか</span></caption>
+<thead><tr><th>方法</th><th>使い方</th><th>根拠・注意</th></tr></thead>
+<tbody>
+<tr><td>4過程の評価</td><td>これが本体</td><td>担当する臨床医が行い、最終責任を持つ</td></tr>
+<tr><td>説明の有無の確認</td><td>先に確かめる</td><td>情報が与えられていないことは能力の欠如ではない</td></tr>
+<tr><td>時間軸の確認</td><td>忘れやすい</td><td>欠如はしばしば一時的。回復が見込めれば決定を待ち、回復したら本人に戻す。鎮静薬や挿管で低下して見えることもある</td></tr>
+<tr><td>認知機能検査（MMSEなど）</td><td>代用にならない</td><td>高得点でも能力を欠く人、低得点でも一部の決定ができる人がいる</td></tr>
+<tr><td>診断名（認知症・統合失調症など）</td><td>単独では否定できない</td><td>欠如の最多の原因はせん妄と認知症だが、能力が保たれていることも多い</td></tr>
+<tr><td>「医師の勧めに従うか」</td><td>根拠にならない</td><td>助言に反したことは能力欠如の根拠ではない</td></tr>
+</tbody>
+</table>
+</div>
+<p>カルテには「意思決定能力なし」と書かず、「〇月〇日〇時、△△の同意について、4つの過程のうち□□が確認できなかった」と、決定・時刻・欠けた過程を書きます<span class="src vault">Ganzini JAMDA2004</span>。4学会GLも、説明の工夫や環境の調整で能力をできる限り引き出すよう求め、能力が十分でなくても本人が価値観や選好を持っていることは多いとしています（Q16）<span class="src vault">4学会GL2026</span>。</p>
+
+<h3 id="rs-s3-3">3-3. SDMは、本人の意思にどこまで近づけるかで4つに分ける</h3>
+<p class="rd-lead">本人の意思を確認できるか、推定できるか、推定もできないか、家族等がいないかで進め方を変え、どの場面でも「最善」は第三者が決める利益ではなく本人の価値観に即した最善で判断します（表8）<span class="src vault">4学会GL2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表8｜SDMの4つの場面 — <span class="ok">「あなたならどうするか」ではなく「ご本人ならどう言うか」</span></caption>
+<thead><tr><th>場面</th><th>進め方</th></tr></thead>
+<tbody>
+<tr><td>本人の意思を確認できる</td><td>能力を評価し、説明して合意する。能力がなくても、それまでのACPが今の状況に当てはまれば尊重する</td></tr>
+<tr><td>確認できないが推定できる</td><td>家族等とチームが推定した意思を尊重する。ACPの状況が今と違っても、希望や価値観は推定の根拠になる</td></tr>
+<tr><td>推定もできない</td><td>家族等と十分に話し合い、本人にとって最善の方針をとる。状態や評価が変わるたびに繰り返す</td></tr>
+<tr><td>身元不詳・身寄りがない</td><td>年齢や外見の偏見を排し、過去の意向を最大限尊重する。終了・差し控えはチームや臨床倫理委員会が公正で透明な手続きで判断する</td></tr>
+</tbody>
+</table>
+</div>
+<p>家族等は法的親族に限らず、本人の価値観をよく知る人で、友人や事実上のパートナーも含み、複数でもかまいません（Q5・Q50。複数いるとき・いないときの考え方は<a href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#rs-s2-4">解説ページの2-4</a>）。家族の意向に介護や経済的な負担、年金などの事情が影響していないかにも注意し、優先するのは本人の価値観です（Q6・Q18）<span class="src vault">4学会GL2026</span>。代理で決める家族の理解には偏りがあり、前向き研究では代理意思決定者の19%がICU医療をほとんど理解しておらず、ほぼ半数がケアの内容をよく知らないまま重い決定に関わっていました<span class="src vault">Jabaley CritCare2026</span>。一度に大量の情報を渡すより、段階的に確かめながら進めます。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表9｜迷う場面の次の一手（4学会GL2026のQ&amp;Aから） — <span class="ok">一度で決めきらず、一人に背負わせない</span></caption>
+<thead><tr><th>場面</th><th>確かめること</th><th>次の一手</th></tr></thead>
+<tbody>
+<tr><td>本人と家族の意見が違う</td><td>家族の意向に介護・経済的負担や年金の事情が影響していないか</td><td>本人の価値観を中心に調整し、必要なら第三者の助言を求める（Q6・Q18）</td></tr>
+<tr><td>「お任せします」と言われる</td><td>情報の差が原因ではないか</td><td>専門用語を避け、選択肢と利点・不利益を釣り合いよく示して理解を確かめる（Q19）</td></tr>
+<tr><td>意思が揺れる</td><td>揺れは自然なこと</td><td>再面談と再評価を前提にし、家族に強い決断力を求めない（Q20・Q21・Q29）</td></tr>
+<tr><td>本人が終了を希望する</td><td>自己決定だけに依拠していないか</td><td>医学的妥当性を含む検討とSDMで総合的に判断する（Q54）</td></tr>
+<tr><td>公的支援とつながらない孤立した患者</td><td>診療記録・生活歴・知人や関係機関</td><td>医療ソーシャルワーカーと連携し、単独で判断しない（Q27）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s3-4">3-4. 予後の数字は「情報」、決定は価値観で — 予測と決定を分ける</h3>
+<p class="rd-lead">予後モデルに基づいて治療の縮小や終了を決めることは医療者の倫理的責任が禁じると明言されており、重症度スコアを治療制限の理由としてカルテに書かず、予測は家族と共有する情報、決定は価値観と合意で行います<span class="src vault">Bein ICM2023</span>。</p>
+<p>「偽陽性ゼロ」という報告も、分母を見て伝えます。心停止後の神経予後予測で「不良マーカー2つ以上なら偽陽性ゼロ」とされた研究は良好転帰が33例しかなく、rule of three（0/nの95%上限はおよそ3/n）により、真の偽陽性率は95%の確からしさで10.6%以下としか言えません<span class="src vault">Xu CritCare2026</span>。家族には「外れたことがない」ではなく「10人に1人まで外れうる不確実さが残る」と伝え、時点を固定して再評価します。予後予測が治療の終了を通じて自らの予測を的中させる「自己成就的予言」の議論は、資料「心停止後ケア」に譲ります。</p>
+
+<h3 id="rs-s3-5">3-5. 複数の医療者の「不適切な治療では」という違和感は、予後のシグナル</h3>
+<p class="rd-lead">オランダ47 ICUの医療者1,058人の26%が調査当日に「不適切な医療を提供している」と感じており、複数の医療者が同じ患者について一致して報告した場合、その患者の6か月死亡は3.86倍（95%CI 1.23〜12.16）でした<span class="src vault">PICNL-ICU CCM2026</span>。</p>
+<p>理由の首位は分配的正義（70%）、次いで治療量と期待される転帰の不釣り合い（66%）でした。1人だけの報告では有意な関連はありません<span class="src vault">PICNL-ICU CCM2026</span>。現場の違和感を個人の感情として流さず、複数人の一致を拾う仕組みを持つことが、この研究の実務的な結論です。</p>
+<div class="box plain">
+<span class="label">当院の運用</span>
+<p>複数の医療者が同じ患者を「不適切な治療では」と感じたら、48時間以内にゴール・オブ・ケアを再確認します。「ICUに来るべきでなかった」の根拠にはしません<span class="src in">当院</span>。</p>
+</div>
+
+<h3 id="rs-s3-6">3-6. 「この人はどうせ」という先入観を点検する</h3>
+<p class="rd-lead">障害のある人を無自覚に価値が低いものとして扱う前提（エイブリズム）は、自律尊重・善行・無危害・公正という誰も反対しない4原則を、歪んだまま治療制限の正当化に使わせます（表10）<span class="src vault">Taccone ICM2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表10｜先入観が評価を歪める3つの経路 — <span class="ok">障害は能力の欠如を意味しない</span></caption>
+<thead><tr><th>経路</th><th>起きること</th><th>点検の問い</th></tr></thead>
+<tbody>
+<tr><td>自律性の否定</td><td>家族や医療者が「この人の最善は自分たちが知っている」と想定する</td><td>本人に直接、その決定について聞いたか</td></tr>
+<tr><td>合理的配慮の欠如</td><td>伝えられない苦痛が興奮と読み替えられ、鎮静で処理される</td><td>文字盤・筆談・タブレットなどの補助具を試したか</td></tr>
+<tr><td>知識の欠如</td><td>障害を「終末期」「一律にQOLが低い状態」と誤認し、公正を持ち出して治療を絞る</td><td>同じ病状で障害のない人にも同じ基準を当てるか</td></tr>
+</tbody>
+</table>
+</div>
+<p>医療者の推定するQOLはあてになりません。脊髄損傷の調査では、重度の損傷を負っても生きていてよかったと思うと答えた救急医療者は18%でしたが、実際の生存者本人は92%が「生きていてよかった」と答えていました<span class="src vault">Gerhart AnnEmergMed1994</span>。4学会GLも、障がいの有無や医療機器の使用だけを理由に終了・差し控えを検討することはなく、外見や機能からQOLや価値を推し量らないと明言しています（Q70〜Q76）<span class="src vault">4学会GL2026</span>。高齢・フレイルの患者の判断は「フレイルと高齢重症患者」の資料で扱います。</p>
+
+<h3 id="rs-s3-7">3-7. 決まらなければ臨床倫理コンサルへ — 対立はまず層を見立てる</h3>
+<p class="rd-lead">チームでゴールが決まらない、本人・家族と合意できない、家族の中でまとまらない、意思が分からず家族もいないときは、臨床倫理コンサルテーションや臨床倫理委員会に助言を求めますが、決定は代行されず、チームと本人・家族等に残ります<span class="src vault">4学会GL2026</span>。</p>
+<p>「困った家族」というラベルを貼る前に、対立がどの層にあるかを見立てます。課題（何をすべきか）、プロセス（誰がどう決めたか）、関係（信頼と敬意が壊れたか）の3層で、「困った家族」の多くはプロセスの不全から生まれ、関係の層に入ると解決は格段に難しくなります（表11）<span class="src vault">Jabaley CritCare2026</span>。4学会GLの緩和ケア別編も、対立は価値観の違いよりコミュニケーション不足から生じることが多く、話し合いを重ねれば90%以上の事例で合意に至ると述べています<span class="src vault">4学会GL2026 別編</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表11｜対立の3層 — <span class="ok">層を見誤ると打ち手も外れる</span></caption>
+<thead><tr><th>層</th><th>問われていること</th><th>典型的なことば</th><th>打ち手</th></tr></thead>
+<tbody>
+<tr><td>課題</td><td>何をすべきか</td><td>「透析は続けるべきだ」</td><td>情報の共有と選択肢の整理</td></tr>
+<tr><td>プロセス</td><td>誰がどう決めたか</td><td>「そんな話、聞いていません」</td><td>決め方と決定者を明らかにする</td></tr>
+<tr><td>関係</td><td>信頼と敬意が壊れたか</td><td>「この病院は信用できない」</td><td>調停・第三者の関与。だから手前で止める</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">臨床倫理委員会は、適切なプロセスを踏んだ決定であれば、刑事・民事で訴追されたときにチームを守る役割を持つとされ、医療安全委員会とは独立して運用するのが望ましいとされます（注釈2・Q61）<span class="src vault">4学会GL2026</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s4"><span class="no">§4</span>どう話すか — 聴いてから推奨し、決定の重荷を家族に負わせない</h2>
+
+<p>決め方の手順が正しくても、話し方を誤れば家族には「決めさせられた」という傷が残ります。この章では、深刻な知らせを受け取る脳の状態から始め、面談の型、公式面談と日々の対話の使い分け、家族支援の研究が教えることを見ます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>悪い知らせの直後に決定を求めない</li>
+<li>理解と大切なことを聴いてから、推奨を伝える</li>
+<li>「決めたのはご家族です」と言わない</li>
+</ol>
+</div>
+
+<h3 id="rs-s4-1">4-1. 深刻な知らせの直後、家族の脳は意味を受け取れない</h3>
+<p class="rd-lead">言葉の意味が届くより先に扁桃体と島皮質が「危険」を登録し、カテコラミンとコルチゾールが注意を狭めて作業記憶を止めるので、沈黙・怒り・無反応は「理解の悪さ」ではなく生理的な過負荷のサインです<span class="src vault">Rusinova ICM2026</span>。</p>
+<div class="rd-check">
+<p class="rd-check-h">知らせを伝えるときの3つの約束</p>
+<ol>
+<li>その時間帯に重要な決定を求めない。「では、どうされますか」を告知の直後に置かない</li>
+<li>見出しは1文で短く直接に伝え、意図して間を置く</li>
+<li>「わかりましたか」ではなく「ここまでで受け取られたことを教えてください」と聞き、返ってきた言葉をカルテに書く</li>
+</ol>
+</div>
+<p class="rd-note">静かな個室・全員分の椅子・手の届くティッシュはケアの前提ですが、個室そのものが「悪い知らせを聞く部屋」として記憶され、避けたい場所になる家族もいます<span class="src vault">Maringer ICM2018</span>。</p>
+
+<h3 id="rs-s4-2">4-2. 面談の型 — 許可を得る、聴く、見通しを伝える、大切なことを聴く、推奨する</h3>
+<p class="rd-lead">4学会GLの緩和ケア別編は、目的を伝えて許可を得る、理解と心配を聴く、見通しを伝える、大切なことを聴く、本人の言葉を使って推奨を伝える、の5段階を示し、医療側が一方的に説明を始めないことを要にしています（図3）<span class="src vault">4学会GL2026 別編</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-chain is-text">
+<div class="nf-step is-check"><p class="nf-q">始める</p><p class="nf-note">目的を伝え、許可を得る</p></div>
+<div class="nf-step is-check"><p class="nf-q">理解と心配を聴く</p><p class="nf-note">「今一番心配なことは」</p></div>
+<div class="nf-step"><p class="nf-q">見通しを伝える</p><p class="nf-note">不確実さと、難しいことははっきりと</p></div>
+<div class="nf-step"><p class="nf-q">大切なことを聴く</p><p class="nf-note">ゴール・恐れ・支え・譲れないこと</p></div>
+<div class="nf-step is-goal"><p class="nf-q">推奨して締める</p><p class="nf-note">本人の言葉を引いて勧め、また話せると伝える</p></div>
+</div><p class="nf-foot">4学会GL2026 緩和ケア別編 第1章の話し合いの進め方を5段にしたもの。言い方の例は表12</p></div>
+<figcaption>図3. 面談の5段階 — 説明の前に聴き、推奨は最後に。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 灰色の2段は医療者が話す前に相手の受け止めを知る段です<span class="src vault">4学会GL2026 別編</span>。病状の共有 → 価値観 → 医療チームの推奨、という3段階の枠組み（3ステージプロトコル）とも同じ順序です<span class="src vault">Lu MayoClinProc2020</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表12｜面談の言い方の例 — <span class="ok">本人の言葉を拾って、推奨につなげる</span></caption>
+<thead><tr><th>段階</th><th>言い方の例（4学会GL2026 緩和ケア別編）</th></tr></thead>
+<tbody>
+<tr><td>始める</td><td>「今後予想されることをお伝えし、あなたにとってどのようなことが大切かをお聞きしながら、これからの治療やケアの方向性について一緒に考えていきたいと思うのですが、よろしいでしょうか？」</td></tr>
+<tr><td>理解と心配を聴く</td><td>「今一番心配になられていることはどのようなことですか？」「病状について、どのようにとらえておられますか？」</td></tr>
+<tr><td>見通しを伝える</td><td>「そうでないとよいのですが、残された時間が日単位〜週単位くらいになってきている可能性があることを心配しています」</td></tr>
+<tr><td>大切なことを聴く</td><td>「普段の生活で一番楽しみにしていることはなんですか？」「もしお話しすることが難しくなった場合、どなたに、あなたの意思を推定して話し合ってほしいですか？」</td></tr>
+<tr><td>推奨して締める</td><td>「〇〇がとても大切だとおっしゃいましたね。それを考慮に入れると、現在の病状では◎◎をお勧めします」「この方針をどう思われますか？」</td></tr>
+</tbody>
+</table>
+</div>
+<p>説明者が正面に座るなら、看護師は本人・家族と説明者の間（90度の位置）に座ります。心情を打ち明けられたら「わかります」と即答せず沈黙を置き、感情にはNURSE（命名・理解・承認・支持・探索）で応じます<span class="src vault">4学会GL2026 別編</span>。悪い知らせの伝え方（SPIKES）も同じ構造です。本人に意識があれば、家族より先に本人に聞きます。死が近いと判断された意識清明な患者の気がかりで最も多かったのは「治療の目標を話し合いたい」でした<span class="src vault">Kentish-Barnes ICM2023</span>。</p>
+
+<h3 id="rs-s4-3">4-3. 「決めたのはご家族です」ではなく「医学的な結論をご家族と確認しました」</h3>
+<p class="rd-lead">治療の終了に家族が関わると「死のタイミングに自分が関わった」という決定の残滓（decisional residue）が残ることがあり<span class="src vault">Choi CritCare2026</span>、家族のPTSD症状は単一の出来事ではなく、ICU滞在の全体にわたる引き金の積み重なりから生じます<span class="src vault">Kentish-Barnes ICM2026</span>。</p>
+<p>3か月時点でPTSD症状のある家族17人への面接では、入室前の生活史から死後の遺体との対面まで、引き金が疾患の軌跡全体に散らばっていました<span class="src vault">Kentish-Barnes ICM2026</span>。終了の説明では、決定の重荷を家族に負わせない言い方を選び、「安楽死ではない」ことも言葉にします。一方、誰がそろってからにするか、何時にするかを家族に選んでもらった経験は、良い記憶として語られていました。</p>
+<div class="box plain">
+<span class="label">当院の運用</span>
+<p>終了の説明は「決めたのはご家族です」ではなく「医学的に到達した結論を、ご家族と確認しました」と言い、記録にもそう残します。タイミングは家族に選んでもらう余地を残します<span class="src in">当院</span>。</p>
+</div>
+
+<h3 id="rs-s4-4">4-4. 公式の面談と、議題のない日々の対話を使い分ける</h3>
+<p class="rd-lead">ICUの医師の役割は医学情報の唯一の供給源から、信頼を築き情報と誤情報の海を家族と一緒に渡る案内人へ移り、節目の公式面談に加えて、議題を決めない短い日々のcheck-inが重視されるようになりました（表13）<span class="src vault">Ashana ICM2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表13｜公式面談と日々のcheck-in — <span class="ok">同じ型でやろうとしない</span></caption>
+<thead><tr><th>項目</th><th>公式の家族面談</th><th>日々のcheck-in</th></tr></thead>
+<tbody>
+<tr><td>いつ</td><td>入室後早期・TLTの期日・方針を変えるとき</td><td>毎日、面会のたびに数分</td></tr>
+<tr><td>議題</td><td>あり。図3の5段階とGOCの4要素を順に踏む</td><td>なし。聴くことに徹する</td></tr>
+<tr><td>参加者</td><td>担当医・担当看護師・主な意思決定者</td><td>その場にいる医療者と面会者</td></tr>
+<tr><td>出てくること</td><td>予後・方針・介入の可否</td><td>宿泊費・休業・症状など医療の外の困りごと</td></tr>
+<tr><td>記録</td><td>説明の内容・理解・同席者・推定意思の根拠（§5-6）</td><td>ソーシャルワーカーなどへつなぐ情報があれば申し送る</td></tr>
+</tbody>
+</table>
+</div>
+<p>家族が訴える満たされないニーズは、意思決定上の葛藤より、患者の症状・経済的な困窮・スピリチュアルな不安のほうが多いと報告されています<span class="src vault">Cox CCM2023</span>。家族面談を、立場の異なる当事者が合意を作る「交渉」の場として捉え直す視点もあります<span class="src vault">Tuinman ICM2026</span>。</p>
+
+<h3 id="rs-s4-5">4-5. 家族支援の研究 — 専任の伝え役は効かず、死の前後に会うことが効いた</h3>
+<p class="rd-lead">多職種の家族支援（PARTNER）やコミュニケーション・ファシリテーターのRCTは家族の心理症状を減らせませんでしたが、死が近い患者の家族に死の前・最中・後に医師と看護師が会う3ステップ支援は、6か月後の遷延性悲嘆を21%から15%に減らしました（表14）<span class="src vault">Kentish-Barnes Lancet2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表14｜家族支援の主な試験 — <span class="ok">動いたのは対話の質と、死の前後の関わり</span></caption>
+<thead><tr><th>試験</th><th>規模</th><th>結果</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>PARTNER（多職種の家族支援）</td><td class="num">1,420例</td><td>6か月のHADSは差なし（11.7 vs 12.0）。コミュニケーションの質は改善（69.1 vs 62.7）、ICU滞在は短縮（6.7 vs 7.4日）</td><td>心理症状は動かないが、質と資源は動く<span class="src vault">White NEJM2018</span></td></tr>
+<tr><td>コミュニケーション・ファシリテーター</td><td class="num">449例</td><td>6か月のHADS-うつの差 −0.07</td><td>専任の伝え役の新設は行き詰まった<span class="src vault">Creutzfeldt CCM2026</span></td></tr>
+<tr><td>看護師主導の介入（系統的レビュー）</td><td class="num">14研究・2,885家族</td><td>不安・うつ・PTSDは改善せず、コミュニケーションの質と在院日数が改善</td><td>同じ方向の結果<span class="src vault">Li CCM2026</span></td></tr>
+<tr><td>3ステップ支援（クラスターRCT）</td><td class="num">875人・34 ICU</td><td>遷延性悲嘆21%→15%（OR 0.6、95%CI 0.4〜1.0）</td><td>差の実体は死後の面談（対照29% vs 介入85%）<span class="src vault">Kentish-Barnes Lancet2022</span></td></tr>
+</tbody>
+</table>
+</div>
+<p>3ステップ支援で対照群と最も差が開いたのは、亡くなった後の面談でした。家族カンファや病室訪問は対照群でもおよそ3分の2で行われていたからです<span class="src vault">Kentish-Barnes Lancet2022</span>。一方、お悔やみの手紙は、同じ研究グループのRCTでPTSD・不安・うつの症状をむしろ増やしました。手を抜くなら手紙ではなく電話にします。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+
+<section class="rd">
+<h2 id="s5"><span class="no">§5</span>選び方 — 差し控え・終了・TLTは同じ問いへの答え</h2>
+
+<p>手順を踏んで終了・差し控えが妥当と判断されたら、選べる対応は差し控え・終了・期限付きの試行（TLT）の3つです。どれを選んでも症状緩和は続き、差し控えと終了では心停止時の蘇生は行いません。この章では選び方と、選んだことの記録の仕方を見ます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>始めたかどうかで倫理は変わらないと知る</li>
+<li>迷えばTLTにし、目標・期日・価値観を先に書く</li>
+<li>「すべて」は処置に降ろし、スローコードは選ばない</li>
+</ol>
+</div>
+
+<h3 id="rs-s5-1">5-1. 差し控えと終了は倫理的に同じ — だから迷ったら始めて試せる</h3>
+<p class="rd-lead">治療の倫理的な評価は始めるか終えるかの順序ではなく「その時点で本人にとって適切か」で決まり、未開始なら差し控え、開始済みなら終了を考えるという判断の構造は同じです（図4）<span class="src vault">4学会GL2026 Q33</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-flow"><div class="nf-root">その治療は、いまの時点で本人にとって適切か（利益が苦痛を上回り、価値観に沿っているか）</div><div class="nf-groups" style="--nf-cols:1fr 1fr;--nf-bl:25%;--nf-br:25%"><div class="nf-group"><div class="nf-gh">まだ始めていない</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">適切でない</div><div class="nf-a"><span class="nf-chip is-fill">差し控え</span></div></div><div class="nf-card"><div class="nf-q">死亡の原因</div><div class="nf-a">病気そのもの</div></div></div></div><div class="nf-group"><div class="nf-gh">すでに始めている</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">適切でない</div><div class="nf-a"><span class="nf-chip is-fill">終了</span></div></div><div class="nf-card"><div class="nf-q">試した分だけ</div><div class="nf-a">回復の機会があり、差し控えより長く生きられている</div></div></div></div></div><div class="nf-band is-accent"><span class="nf-bh">判断の構造は同じ</span><span class="nf-to">→</span><span>終了だけを重く扱うと、予後が読めない急性期に「全部やるか、やらないか」の二択を迫り、救えたかもしれない治療が差し控えられる</span></div></div><p class="nf-foot">4学会GL2026のQ33・Q34と緩和ケア別編の説明をもとに作図</p></div>
+<figcaption>図4. 差し控えと終了は同じ問いへの答え — 始めたかどうかで倫理は変わらない。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上の問いは1つで、左右は治療をすでに始めているかどうかの違いだけです<span class="src vault">4学会GL2026 Q33</span>。一度始めた治療はやめられるので（Q34）、予後が読めないときは始めて試し、期限で見直すことができます（5-3）。</p>
+<p>ただし、記録では両者を項目ごとに書き分けます。倫理的には同等でも、生存も死亡までの時間も臨床的にはまったく違うからです（1-1）<span class="src vault">Ethicus-2 JAMA2019</span>。</p>
+
+<h3 id="rs-s5-2">5-2. 3つの対応で、行うことと行わないことを分けて決める</h3>
+<p class="rd-lead">差し控えは新たな治療の開始や増強をせず、終了は症状緩和だけにするか一部を終了・減弱し、TLTは期間を決めて試し、差し控えと終了ではいずれも心停止時の蘇生を行いません（表15）<span class="src vault">4学会GL2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表15｜3つの対応 — <span class="ok">どれを選んでも症状緩和は最大限続ける</span></caption>
+<thead><tr><th>対応</th><th>行うこと</th><th>行わないこと</th></tr></thead>
+<tbody>
+<tr><td>差し控え（不開始を含む）</td><td>症状緩和の治療とケア。生命維持装置の設定や昇圧薬は減弱できればする</td><td>新たな治療の開始と増強。検査・モニターも侵襲なので最小限に。心停止時の蘇生</td></tr>
+<tr><td>終了：症状緩和だけにする</td><td>鎮痛・鎮静薬を続けて調整する</td><td>人工呼吸器・補助循環・除細動機能は停止か取り外しを検討。血液浄化・昇圧薬・血液製剤・抗菌薬・輸液・人工栄養の終了も検討。心停止時の蘇生</td></tr>
+<tr><td>終了：一部を終了・減弱する</td><td>項目ごとに続けるか、減らすか、終えるかを決める</td><td>心停止時の蘇生</td></tr>
+<tr><td>期限付きの試行（TLT）</td><td>合意した期間、特定の治療を試し、目標に向かって改善するかを確かめる</td><td>期限が来たら自動的に終了すること</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">4学会GLの作成過程で最も議論が集まったのは「一部を終了または減弱する」（コメント34件）とTLT（31件）でした。現場で判断が最も割れる部分です<span class="src vault">4学会GL2026 付録2</span>。</p>
+
+<h3 id="rs-s5-3">5-3. TLTは目標・期日・価値観との結びつきを先に書き、期日で必ず立ち止まる</h3>
+<p class="rd-lead">TLTは家族とチームの意見が違うときや予後が読めないときに、目標と期間を合意して治療を試す方法で、始める前に「何を目標に試すか」「いつ何で再評価するか」「その結果が本人の価値観とどう結びつくか」を決め、期限で自動終了も自動延長もしません（図5）<span class="src vault">4学会GL2026 Q35</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-chain is-text">
+<div class="nf-step is-check"><p class="nf-q">目標を決める</p><p class="nf-note">例：人工呼吸器から離れて会話できる状態に戻る</p></div>
+<div class="nf-step is-check"><p class="nf-q">期日と指標を決める</p><p class="nf-note">例：7日目に、離脱の可否と意識レベルで</p></div>
+<div class="nf-step is-check"><p class="nf-q">価値観と結びつける</p><p class="nf-note">例：「家族と話せない状態で長く生きることは望まない」</p></div>
+<div class="nf-step is-goal"><p class="nf-q">期日で立ち止まる</p><p class="nf-note">改善なら継続と増減を、未達なら終了も含めて話し合う</p></div>
+</div><div class="nf-return">改善が続けば、一定期間ごとに増強・継続・減弱・終了を話し合い直す</div><p class="nf-foot">4学会GL2026の例（7日間の人工呼吸）とQ35の3点を手順にしたもの</p></div>
+<figcaption>図5. TLTの組み立て — 先に3点を書き、期日で必ず立ち止まる。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 左の3段は始める前に書くこと、右端が期日の判断です<span class="src vault">4学会GL2026 Q35</span>。下の破線は改善したときに話し合いを繰り返す道で、期限が来ても自動的に終了はしません（Q36・Q78）。</p>
+<p>面談では、Quillらの5要素（臨床問題と予後の定義・本人の目標と優先順位・改善と悪化の客観的指標・再評価の時間枠・終了時に取りうる行動）を明示して合意し、フォローアップ面談をその場で予約します<span class="src vault">Quill JAMA2011</span>。TLTは予後の見通しと、家族が状況を受け入れる時間をもたらす一方、侵襲的な治療の期間が延び「死のプロセスの質」を損なう欠点もあります<span class="src vault">4学会GL2026</span>。</p>
+<div class="box warn">
+<span class="label">注意 — 「決めきれないから続ける」にしない</span>
+<p>3点が曖昧なまま続けると「決めきれないから続ける」「説明が難しいから先送りする」に陥り、ガイドラインの趣旨に反します。多職種で検討したこと自体は結論の正しさを保証せず、判断が本人の価値観とどう整合するかを説明できることが大切です<span class="src vault">4学会GL2026 Q35</span>。TLTの利益とリスクの実証的なエビデンスは乏しく、Quillら自身も「良い実践の提案」と位置づけています<span class="src vault">Quill JAMA2011</span>。</p>
+</div>
+<p>予後が読めない症例では、TLTを特別な場面の道具にせず、初回の面談から「こういう経過なら、こう見直しましょう」と標準の選択肢として先に示しておくと、後の再評価がゼロからの交渉になりません<span class="src vault">Ashana ICM2026</span>。</p>
+
+<h3 id="rs-s5-4">5-4. 「すべてやってください」には処置に降ろして答え、スローコードは選ばない</h3>
+<p class="rd-lead">形だけの蘇生（スローコード）は、米国の倫理文献34本の系統的レビューで82.4%が欺瞞、67.6%が患者への潜在的な害を理由に反対されており、残る選択肢は「目標を共有した全力の蘇生」か「無益の方針に基づく蘇生の辞退」です<span class="src vault">Fontenot CCM2026</span><span class="src vault">Ajzenberg CCM2026</span>。</p>
+<p>「すべて」の中身を、胸骨圧迫・気管挿管・電気ショック・昇圧薬・透析のように一つずつの処置に降ろし、心停止が起きる前に本人の価値観に照らして話します。生理学的に無益なCPRを「短時間だけ行う」ことも、誠実さも害の軽減も満たさない妥協だと論じられています<span class="src vault">Wasserman CritCare2026</span>。4学会GLも、適切なプロセスで終了・差し控えを選んだ後に苦痛を伴う心停止時の蘇生を行うことは推奨しないとしています（Q38）<span class="src vault">4学会GL2026</span>。</p>
+
+<h3 id="rs-s5-5">5-5. 抗菌薬・人工栄養・ペースメーカーも、何のために使っているかで一つずつ決める</h3>
+<p class="rd-lead">症状緩和に使っている強心薬は必ずしも減らさず、人工栄養やペースメーカーも生命維持治療になりうるものとして同じ手順で判断し、終末期の抗菌薬は感染部位ごとに症状緩和になっているかで決めます（表16）<span class="src vault">4学会GL2026</span><span class="src vault">Correia ICM2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表16｜個別の治療の考え方 — <span class="ok">一律に止めず、目的で決める</span></caption>
+<thead><tr><th>治療</th><th>考え方</th></tr></thead>
+<tbody>
+<tr><td>心不全の苦痛緩和に使っていた強心薬</td><td>症状の強さと必要性で増減する。必ずしも減量・終了は要らない（Q40）</td></tr>
+<tr><td>ペースメーカー・ICD</td><td>依存していれば事実上の生命維持治療。ICDの除細動機能は循環器内科医と相談して停止を検討（Q41・別編）</td></tr>
+<tr><td>人工栄養</td><td>胃ろうを含め生命維持治療の一つ。行わない場合も口腔ケア・食事介助・苦痛緩和は続ける（Q44）</td></tr>
+<tr><td>終末期の抗菌薬</td><td>死亡直前の40〜80%に投与されているが、症状緩和は21.4〜56.7%と一貫しない。尿路感染は60〜92%、呼吸器感染は0〜53%と部位で桁が違う</td></tr>
+<tr><td>機械的補助循環</td><td>対象に含まれ、同じ手順で決める。日本では経験施設が非常に少ない（6-5）</td></tr>
+</tbody>
+</table>
+</div>
+<p>抗菌薬を始めるなら、開始時に「48〜72時間後に経過・培養・予後で再評価し、改善がなければやめる」と書きます。「もう1コース」が本人の症状ではなく医療者と家族の不安を治療しているなら、それは適応外の投与です<span class="src vault">Correia ICM2026</span>。</p>
+
+<h3 id="rs-s5-6">5-6. 記録には「考慮した時期の根拠」と「検討に加わった全員」を残す</h3>
+<p class="rd-lead">4学会GLは、説明の対象と内容・理解・同席者、本人の意思と推定意思の根拠、終了・差し控えを考慮する時期であることの根拠、検討に加わったすべてのメンバーを診療記録に残すよう求めています（表17）<span class="src vault">4学会GL2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表17｜診療記録に書く項目 — <span class="ok">のちの検証に耐える書き方</span></caption>
+<thead><tr><th>区分</th><th>記載する事項</th></tr></thead>
+<tbody>
+<tr><td>医学的な検討とその説明</td><td>説明の対象となる本人・家族等とその範囲／説明した内容／理解や受容の状況／同席した医療・ケア従事者</td></tr>
+<tr><td>本人の意思</td><td>本人の意思、またはACPの記録に示された意思と、それが述べられた状況／それがなければ家族等による推定意思とその根拠</td></tr>
+<tr><td>終了・差し控えを検討する際の対応</td><td>本人の意思またはACPの内容／推定意思とその根拠／家族等の意向／考慮する時期であることとその根拠／最善のゴールの検討内容／検討に加わったすべてのメンバー</td></tr>
+</tbody>
+</table>
+</div>
+<p>一般的な説明の記録で抜けやすいのは、「考慮する時期とその根拠」「検討に加わった全員」「説明に同席した医療・ケア従事者」「推定意思の根拠」です。意思は変わりうるので、話し合いはそのたびに記録します<span class="src vault">4学会GL2026</span>。</p>
+<div class="box plain">
+<span class="label">当院の運用</span>
+<p>差し控えと終了は、人工呼吸・昇圧薬・血液浄化・輸血などの項目ごとに書き分けます。決定の根拠の欄には「医学的適応」と「本人の意思」を書き、予後スコアは治療制限の根拠として書きません<span class="src in">当院</span>。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s6"><span class="no">§6</span>緩和的抜管 — 準備を済ませ、苦痛に先回りし、そばにいる</h2>
+
+<p>終了で最も多いのは人工呼吸器の終了です。4学会GLの緩和ケア別編は、止めるもの、抜管の方法、抜管の前後の薬と量まで示しました。適切な緩和ケアを提供できない状態で終了・差し控えを行うべきではない、というのが本編の原則です。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>経管栄養は24時間前、筋弛緩薬は2時間前に止める</li>
+<li>オピオイドはボーラスで、上限を設けずに使う</li>
+<li>苦痛が落ち着くまで、医師と看護師はベッドサイドを離れない</li>
+</ol>
+</div>
+
+<h3 id="rs-s6-1">6-1. 緩和ケアは予後ではなく必要性で — 終了の前から始めている</h3>
+<p class="rd-lead">緩和ケアは予後ではなく必要性に基づくもので、主治医と担当看護師が行う基本的緩和ケア（症状緩和・意思決定支援・心理社会的支援）を救急搬送やICU入室の早期から提供し、終了の後に導入するのでは遅すぎます<span class="src vault">Edwards ICM2016</span><span class="src vault">4学会GL2026</span>。</p>
+<p>救命治療と苦痛の軽減は対立するものではなく両輪です（Q57・Q58）。担い手はICUの臨床医全員で、専門の緩和ケアチームは緩和しにくい苦痛や意思決定の困難があるときの上乗せです<span class="src vault">Edwards ICM2016</span>。敗血症の診療ガイドラインも、ゴール・オブ・ケアの話し合いやTLT、緩和ケアを良い実践として初めて明記し、治療の目標が相によって変わることを示しました<span class="src vault">Kesecioglu ICM2026</span>。</p>
+<div class="box danger">
+<span class="label">危険 — 準備なしに終了しない</span>
+<p>侵襲的な治療を終えても症状緩和の治療は最大限続くため、適切な緩和ケアを提供できない状態で生命維持治療の終了・差し控えを行うべきではありません<span class="src vault">4学会GL2026</span>。</p>
+</div>
+
+<h3 id="rs-s6-2">6-2. 抜管の前日から、止めるものと時刻を逆算する</h3>
+<p class="rd-lead">経管栄養は24時間前まで、筋弛緩薬は2時間前まで（多臓器不全では18時間前まで）に止めるのが望ましく、透析・昇圧薬・抗菌薬・輸血・身体拘束は終了し、ラインやモニターや検査は苦痛と利益を比べて一つずつ決めます（図6・表18）<span class="src vault">4学会GL2026 別編</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-time" style="align-items:stretch">
+<div class="nf-step"><span class="nf-when">24時間前</span><p class="nf-q">経管栄養を止める</p><p class="nf-note">24時間前までに終えておくのが望ましい</p></div>
+<div class="nf-step"><span class="nf-when">12時間前</span><p class="nf-q">上気道浮腫のハイリスクなら</p><p class="nf-note">メチルプレドニゾロン20 mgを4時間おき</p></div>
+<div class="nf-step"><span class="nf-when">2時間前</span><p class="nf-q">筋弛緩薬を止める</p><p class="nf-note">多臓器不全では18時間前</p></div>
+<div class="nf-step"><span class="nf-when">30分前</span><p class="nf-q">分泌物が予想されるなら</p><p class="nf-note">ブチルスコポラミン10〜20 mg皮下注</p></div>
+<div class="nf-step"><span class="nf-when">直前</span><p class="nf-q">苦痛を先回り</p><p class="nf-note">オピオイドと鎮静薬の事前投与を検討（表19）</p></div>
+<div class="nf-step"><span class="nf-when">抜管後</span><p class="nf-q">離れない</p><p class="nf-note">苦痛が落ち着くまで医師・看護師がそばで調整</p></div>
+</div><p class="nf-foot">4学会GL2026 緩和ケア別編の本文と薬の表から時刻のある項目を並べたもの。12時間前・30分前・直前の投与は必要な患者に</p></div>
+<figcaption>図6. 抜管までの準備 — 前日から時刻を逆算する。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 左から右へ時間が進みます。経管栄養と筋弛緩薬の終了、抜管後にそばにいることは全員に、12時間前・30分前・直前の投与は上気道浮腫・分泌物・苦痛の出方を予想して患者ごとに検討します<span class="src vault">4学会GL2026 別編</span>。筋弛緩薬が残っていると苦痛を評価できず、鎮痛を調整できません。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表18｜止めるものと、止めるかを検討するもの — <span class="ok">観るのは数値ではなく、表情と家族の反応</span></caption>
+<thead><tr><th>区分</th><th>項目</th><th>注意点</th></tr></thead>
+<tbody>
+<tr><td>終了する</td><td>透析、経管栄養、昇圧薬、抗菌薬、輸血、筋弛緩薬、身体拘束</td><td>家族等と十分に話して決める</td></tr>
+<tr><td>終了を検討する（装置）</td><td>機械的循環補助、ペースメーカー、ICDの除細動機能</td><td>ICDは循環器内科医と相談して除細動機能を停止</td></tr>
+<tr><td>終了を検討する（ライン・モニター）</td><td>中心静脈・動脈ライン、心電図モニター、パルスオキシメーター</td><td>末梢がなければ中心静脈は投与路に残してよい。モニターは外してもよく、付けるならアラームを切る。外させないための身体拘束はしない</td></tr>
+<tr><td>終了を検討する（ケア・検査）</td><td>バイタル測定、輸液、体位変換、血液検査、X線・CT</td><td>輸液は浮腫・胸水・せん妄につながる。家族に分かりやすく説明する</td></tr>
+</tbody>
+</table>
+</div>
+<p>実施の前には、十分な話し合いで決めたこと、ゴールが症状緩和優先であること、心停止時に蘇生しないこと、抜管後に再挿管しないことを医療者の間で再確認します<span class="src vault">4学会GL2026 別編</span>。モニターを外すか残すかは、一律にせず家族に選んでもらうのが安全です。消したことで最期の喘ぎに驚いた家族と、消してもらえずモニターを見て崩れた家族が、同じ研究の中に並んでいました<span class="src vault">Kentish-Barnes ICM2026</span>。</p>
+
+<h3 id="rs-s6-3">6-3. 抜管は段階的離脱か即時抜管 — 死亡までは数分から数日と伝える</h3>
+<p class="rd-lead">高度の呼吸サポートが要る呼吸不全では15〜30分かけて設定を下げる段階的離脱、意識障害の患者では準備のうえ設定を下げずに抜管する即時抜管が多く選ばれ、抜管から死亡までの中央値は0.9時間（海外の報告）ですが数時間〜数日の例もあります<span class="src vault">4学会GL2026 別編</span>。</p>
+<div class="rd-dodont is-choice">
+<div class="rd-do"><p class="rd-dd-h">段階的離脱（gradual weaning）</p><ul><li>15〜30分かけて設定を下げ、できるだけ自発呼吸へ移す</li><li>麻薬・鎮痛薬を適量投与しながら行い、その後に抜管する</li><li>高度のサポートが要る呼吸不全で多い</li></ul></div>
+<div class="rd-dont"><p class="rd-dd-h">即時抜管（immediate extubation）</p><ul><li>設定を下げずに抜管する</li><li>鎮静・鎮痛の準備を済ませてから行う</li><li>脳神経疾患などの意識障害で多い</li></ul></div>
+</div>
+<p>家族には不確実さを持たせて説明し、状態が変わるたびに伝えます。死戦期呼吸・死後の筋の攣縮・「思ったより長くかかること」を先に言葉にしておくと、死の徴候を読み取れない苦しさを減らせます<span class="src vault">Kentish-Barnes ICM2026</span>。浮腫・外傷・腫瘍で気道閉塞のリスクが高ければ、人工呼吸は終えても気管チューブは残す選択肢があります<span class="src vault">4学会GL2026 別編</span>。</p>
+
+<h3 id="rs-s6-4">6-4. 薬はボーラスで効かせ、オピオイドに上限を設けない</h3>
+<p class="rd-lead">呼吸困難と痛みにはオピオイドが最も有効とされ、効果が早く蓄積しにくい「ボーラス・ファースト」で、オピオイド未投与ならモルヒネ2〜5 mgから始め、効果がある限り症状が緩和されるまで増やし、用量の上限は設けません（表19）<span class="src vault">4学会GL2026 別編</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表19｜抜管の前後の薬の目安 — <span class="ok">持続投与中なら、直近の量を基準に上乗せ</span></caption>
+<thead><tr><th>場面</th><th>モルヒネ</th><th>フェンタニル</th><th>ミダゾラム</th></tr></thead>
+<tbody>
+<tr><td>未投与の初回</td><td>2〜5 mg 静注・皮下。高齢・衰弱ではさらに少なく</td><td>20〜50 μg。安全域が狭いので少量ずつ</td><td>0.01〜0.06 mg/kgを1分以上かけて</td></tr>
+<tr><td>持続中の抜管直前</td><td>直近の効果量の2倍をボーラス</td><td>直近1時間量の25〜50%をボーラス</td><td>持続の1時間量をボーラス</td></tr>
+<tr><td>持続なしの抜管直前（例）</td><td>5分前に5 mg</td><td>5分前に25〜100 μg</td><td>5分前に2〜4 mg</td></tr>
+<tr><td>抜管後に苦しそうなとき</td><td>10〜15分ごとに追加</td><td>5〜10分ごとに追加</td><td>5〜10分ごとに追加</td></tr>
+<tr><td>頻回にボーラスが要るとき</td><td colspan="3">持続中なら速度を25〜50%増やす。持続していなければ持続を始める（効いたボーラス量の半分の時間量から。例：モルヒネ2 mgで緩和したら1 mg/時）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">表は一例で、体重・年齢・病状・臓器障害で調整します。緩和ケア別編の薬の表は米国救急医学レジデント協会の実務記事を改変したもので、日本の用量の根拠ではありません。全量・その他の症状の薬は<a href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026/#s5">解説ページの§5</a>と原典「4学会合同ガイドライン（2026）緩和ケア別編」の表1・表2で確認してください<span class="src vault">4学会GL2026 別編</span>。</p>
+<p>鎮静薬は本来、症状緩和薬を使っても抑えられないときだけ使うものですが、ベンゾジアゼピンは不安やせん妄の症状緩和薬でもあるため、実際には最初から併用されることが多いとされます。予想に反して長く生存し状態が安定したら減量も含めて調整し、死亡まで機械的に鎮静を続けません<span class="src vault">4学会GL2026 別編</span>。</p>
+<p>10のガイドライン・コンセンサス声明を統合した系統的レビューも、質の高いエビデンスがないにもかかわらず、定量的な疼痛評価、疼痛にはオピオイド・不安にはベンゾジアゼピン、終了時に筋弛緩薬を残さない、上限用量を設けない、の点で推奨が一致していました（表20）<span class="src vault">Durán-Crane CCM2019</span>。症状管理のための増量という意図は、滴定のたびの記録で示します。これが症状緩和と死期の短縮を分ける境界線です。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表20｜終末期の疼痛管理で10文献が一致した5点 — <span class="ok">根拠は統計より倫理と合意</span></caption>
+<thead><tr><th>一致点</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>疼痛評価</td><td>行動観察スケールを含む定量ツールで継続的に評価する</td></tr>
+<tr><td>薬の選択</td><td>疼痛には麻薬性鎮痛薬、不安にはベンゾジアゼピン</td></tr>
+<tr><td>筋弛緩薬</td><td>終了時に効果を残さない。苦しんでいても外から分からなくなる</td></tr>
+<tr><td>用量の上限</td><td>望む効果か耐えがたい副作用が出るまで増量する。最大用量は設けない</td></tr>
+<tr><td>質の指標</td><td>定量評価スケールを終末期の疼痛管理の質の指標に使う</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s6-5">6-5. 症状ごとの初手 — 分泌物は浅く吸い、不安をオピオイドで眠らせない</h3>
+<p class="rd-lead">不安にはミダゾラム、過活動型せん妄には抗精神病薬、気道分泌物には体位の工夫と輸液の減量、上気道狭窄には抜管前のカフリークテストが別編の初手で、不安やせん妄に鎮静目的でオピオイドを使うことは推奨されません（図7）<span class="src vault">4学会GL2026 別編</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-map"><div class="nf-sec">症状ごとの初手</div><div class="nf-key">呼吸困難・痛み</div><div class="nf-arr">→</div><div class="nf-val">オピオイドのボーラス。不十分なら10〜15分ごとに追加か、持続を足す</div><div class="nf-key">不安</div><div class="nf-arr">→</div><div class="nf-val">ミダゾラム（効きが早く短い）。不安は呼吸困難と強く相関する</div><div class="nf-key">過活動型せん妄</div><div class="nf-arr">→</div><div class="nf-val">抗精神病薬（またはベンゾジアゼピン）</div><div class="nf-key">気道分泌物（死前喘鳴）</div><div class="nf-arr">→</div><div class="nf-val">体位と輸液の減量。抗コリン薬は選択肢。家族への説明を必ず添える</div><div class="nf-key">上気道の狭窄</div><div class="nf-arr">→</div><div class="nf-val">抜管前にカフリークテスト。ハイリスクなら予防的ステロイドか、チューブを残す</div><div class="nf-sec is-danger">しないこと</div><div class="nf-key is-danger">不安・せん妄にオピオイド</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">鎮静目的のオピオイドは推奨されない</div><div class="nf-key is-danger">深い吸引</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">出血や咽頭反射を誘発する。口腔内など浅い部分を愛護的に</div><div class="nf-key is-danger">筋弛緩薬を残す</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">苦痛を評価できず、鎮痛を調整できない</div></div><p class="nf-foot">抗コリン薬には口渇・尿閉・せん妄の悪化などの副作用があり、意識が清明な患者では注意する</p></div>
+<figcaption>図7. 症状ごとの初手としないこと — 予測して先に手を打つ。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上の5段が症状ごとの最初の一手、下の赤い3段がしないことです<span class="src vault">4学会GL2026 別編</span>。死前喘鳴は本人の苦痛ではないとする見解もありますが、そばにいる家族の苦痛になることが多く、説明そのものが初手の一部です。意思表示できない患者の呼吸困難は、日本語版RDOS（心拍数・呼吸回数・落ち着きのなさ・奇異呼吸・補助呼吸筋・呻吟・鼻翼呼吸・苦悶表情の8項目）を補助に、表情・仕草・家族の評価を加えて判断します。</p>
+<p>ECMOなどの機械的補助循環の終了は、日本では経験施設が非常に少なく、実際にはIMPELLAやLVADの血栓閉塞、ECMOの人工肺の機能低下が終了の条件になっています。別編はTLTを当てはめ、期間内にゴールを達成できないと考えられたときに終了を検討するよう勧めています<span class="src vault">4学会GL2026 別編</span>。ECMOの看取りを、準備・薬のタイミング・機器操作のばらつきが苦痛を生む「低頻度・高リスクの手技」として、4相モデルとチェックリストで標準化する提案もあります（実証データはなく専門家意見）<span class="src vault">Hubel Healthcare2026</span>。VV-ECMOの管理は<a href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/">VV-ECMO 実戦管理ガイド</a>で扱います。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+
+<section class="rd">
+<h2 id="s7"><span class="no">§7</span>看取りと死別 — 家族の時間を守り、告知と依頼を分ける</h2>
+
+<p>終了を決めた後から死別の後まで、家族のケアは続きます。この章では、時期ごとの家族のケア、死の判定を伝える言葉、臓器提供の話の順序を見ます。どれも、家族に残る記憶を左右する場面です。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>家族のケアは話し合いの前から死別後まで6つの時期で考える</li>
+<li>死亡確認と脳死の説明は「判断した」と言う</li>
+<li>治療終了の決定が先、臓器提供の話は後に分ける</li>
+</ol>
+</div>
+
+<h3 id="rs-s7-1">7-1. 家族のケアは6つの時期で — 亡くなった後の面談まで含める</h3>
+<p class="rd-lead">ICUや救急外来での死別は悲嘆を長引かせるリスクが高いため、4学会GLの緩和ケア別編は家族のケアを、話し合いの前・間・後、終了前、臨終時、死別後の6つの時期に分けて示しています（図8）<span class="src vault">4学会GL2026 別編</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-time" style="align-items:stretch">
+<div class="nf-step"><span class="nf-when">1 話し合いの前</span><p class="nf-q">家族の全体像をつかむ</p><p class="nf-note">患者の人となりを聞く。休める場を用意</p></div>
+<div class="nf-step"><span class="nf-when">2 話し合いの間</span><p class="nf-q">寄り添い、補う</p><p class="nf-note">理解のずれは否定せず、実際の様子を見てもらう</p></div>
+<div class="nf-step"><span class="nf-when">3 話し合いの後</span><p class="nf-q">揺れを支える</p><p class="nf-note">迷いは当然と伝え、保清を一緒に</p></div>
+<div class="nf-step"><span class="nf-when">4 終了前</span><p class="nf-q">起こる変化を伝える</p><p class="nf-note">数分〜数日と幅があると説明</p></div>
+<div class="nf-step"><span class="nf-when">5 臨終時</span><p class="nf-q">時間と環境を守る</p><p class="nf-note">音・におい・汚れを整え、死後の処置への参加を尋ねる</p></div>
+<div class="nf-step"><span class="nf-when">6 死別後</span><p class="nf-q">つながりを残す</p><p class="nf-note">パンフレット、1〜2週後の電話を検討</p></div>
+</div><p class="nf-foot">4学会GL2026 緩和ケア別編 V の6つの時期。死別後のケアは施設の方針とリソースで検討する</p></div>
+<figcaption>図8. 家族のケアの6つの時期 — 決める前から、亡くなった後まで。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 左から時間が進みます<span class="src vault">4学会GL2026 別編</span>。右端の死別後の関わりは、3ステップ支援で対照群と最も差が開いた部分（死後の面談 29% vs 85%）にあたります（4-5）<span class="src vault">Kentish-Barnes Lancet2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表21｜残された時間のケアの例 — <span class="ok">その人らしさと、家族とのつながりを支える</span></caption>
+<thead><tr><th>種類</th><th>例（4学会GL2026 緩和ケア別編）</th></tr></thead>
+<tbody>
+<tr><td>本人を尊重するケア</td><td>好きな衣服・帽子・枕、好きな音楽やアロマ、入浴・洗髪・マッサージ、思い出の写真、誕生日や記念日のお祝い、好きな飲み物を味わう、口腔ケアと保湿</td></tr>
+<tr><td>家族とのつながり</td><td>面会のルールを柔軟に、電話やビデオ通話、家族への手紙づくりの支援、保清への家族の参加（顔への送風で呼吸困難が和らぐことがあると伝え、家族から風を送ってもらう）</td></tr>
+<tr><td>死後を見すえたケア</td><td>希望があれば集合写真、手形や髪の一部を形見に、遺言・葬儀などの気がかりを専門家へつなぐ</td></tr>
+</tbody>
+</table>
+</div>
+<p>立ち会いを望まない家族には一度退室してもらい、苦痛が抑えられたのを確かめてから入室してもらいます<span class="src vault">4学会GL2026 別編</span>。遺体との対面は独立した場面として扱い、準備の説明と付き添いを置きます。冷たさ・硬さ・においが記憶に残り続けると語られています<span class="src vault">Kentish-Barnes ICM2026</span>。面会のルールは希望に応じて柔軟にします。家族中心のケアのガイドラインで強い推奨は面会の緩和の1つだけでした<span class="src vault">Hwang CCM2025</span>。人間的なケア全般は「ICUの人間的ケア（Hotel ICU）」、生存者と家族の退室後は「PICSとICU退室後のフォロー」で扱います。</p>
+
+<h3 id="rs-s7-2">7-2. 死亡確認で確かめているのは「もう戻さない」という決定 — permanence</h3>
+<p class="rd-lead">蘇生を止めて死亡を確認するとき、確かめているのはどんな手段でも戻せないこと（irreversibility）ではなく、循環を回復させないという私たちの決定に支えられた永続性（permanence）で、死の判定は基準の機械的な適用ではなく臨床判断です（表22）<span class="src vault">Le Dorze CritCare2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表22｜死の判定を読むための言葉 — <span class="ok">2つの「戻らない」を区別する</span></caption>
+<thead><tr><th>用語</th><th>意味</th><th>例</th></tr></thead>
+<tbody>
+<tr><td>permanent（永続的）</td><td>自然には再開せず、介入によっても回復させないと決めた機能停止</td><td>蘇生を中止した心停止患者の脳機能</td></tr>
+<tr><td>irreversible（不可逆的）</td><td>利用可能なあらゆる手段でも回復させられない機能停止</td><td>心停止中の脳機能は直接観察できず、この閾値は同定できない</td></tr>
+<tr><td>performative（遂行的）</td><td>発話そのものが現実をつくる行為</td><td>「死亡を確認しました」という宣告が、患者を医学的・法的・社会的に死者へ変える</td></tr>
+<tr><td>no-touch時間</td><td>循環停止の確認後、自己心拍再開が起きないことを確かめる待機時間</td><td>長さは法域で異なる</td></tr>
+</tbody>
+</table>
+</div>
+<p>脳死の説明では「検査で証明されました」ではなく「複数の所見を突き合わせて判断しました」と言います。補助検査が見ているのは脳灌流や電気活動という代替の指標で、心臓が拍動し皮膚が温かいままの体を前にした家族には、神経学的基準による死は直感に反しうるからです<span class="src vault">Le Dorze CritCare2026</span>。死亡確認での無呼吸・無循環の観察時間は手順書に明記し、暗黙知にしません。</p>
+
+<h3 id="rs-s7-3">7-3. 臓器提供は、治療終了の決定の後に独立した話として — 告知と依頼を分ける</h3>
+<p class="rd-lead">臓器提供の可能性が終了の判断に影響してはならず、方針が整理された後に独立したプロセスとして提示し、死亡告知と提供の依頼を同じ面談枠に続けて入れないこと（decoupling）が家族を守ります<span class="src vault">4学会GL2026 Q79</span><span class="src vault">Choi CritCare2026</span>。</p>
+<p>4学会GLは、脳死とされうる状態での脳死下臓器提供は終了・差し控えの意思決定と切り離せないので同じ多職種検討とSDMの手順で話し合い、心停止後臓器提供は終了・差し控えの意思決定が示された後に専門家の慎重な判断のもとで検討するとしています。提示しないことも、情報に基づいて決める機会を損ないます<span class="src vault">4学会GL2026</span>。28本の質的研究の統合は、脳死後提供と心停止後提供では家族の苦悩の質が違うことを示しました（表23）<span class="src vault">Choi CritCare2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表23｜脳死後提供（DBD）と心停止後提供（DCD）の家族の体験 — <span class="ok">同じ「提供」でも経験は別物</span></caption>
+<thead><tr><th>次元</th><th>DBDの家族</th><th>DCDの家族</th></tr></thead>
+<tbody>
+<tr><td>目にするもの</td><td>宣告されたのに生きているように見える体（温かさ・色つや）</td><td>死んでいく過程そのもの（治療終了と心機能の停止）</td></tr>
+<tr><td>時間の感覚</td><td>宙づりの時間。宣告と実感の不協和</td><td>時間の圧縮。臓器の時間枠が別れの時間を切り詰める</td></tr>
+<tr><td>道徳的な重み</td><td>「本当に死んでいる」証拠を求める認知の作業</td><td>「死のタイミングに関わった」という決定の残滓</td></tr>
+</tbody>
+</table>
+</div>
+<p>家族を最も傷つけていたのは、臨床医の態度より、告知と依頼を続けて行う手順や、臓器を一つずつ確認させる同意書、書類の山といった制度の設計でした<span class="src vault">Choi CritCare2026</span>。患者を臓器の供給源ではなく一人の人として扱い、話しかけ続けた臨床医が、家族に安心を与えていました。臓器提供の有無で終末期ケアの中身を変えないことも、提供を前提にした看取りの原則です<span class="src vault">Oppenheim CritCareExplor2026</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s8"><span class="no">§8</span>チームを守る — モラルディストレスは個人の耐性ではなく組織の課題</h2>
+
+<p>「無益な治療を続けている」という痛みは、研修や個人の頑張りでは解決しません。この章では、モラルディストレスを生む施設の要因と、組織として先に変えるべきことを見ます。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>モラルディストレスを施設の要因から読む</li>
+<li>研修より先に、権限と手続きを変える</li>
+<li>デブリーフィングは予防ではなく緩和と知る</li>
+</ol>
+</div>
+
+<h3 id="rs-s8-1">8-1. モラルディストレスを増やすのは、文化・階層・手続きの不在</h3>
+<p class="rd-lead">米国4学術病院の122人の面接は、モラルディストレスを増やす施設の要因として、医療消費主義を受け入れる病院文化、医療の階層、治療を縮小するための手続きの不在を名指ししました（表24）<span class="src vault">Brender JAMANetwOpen2025</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表24｜モラルディストレスの施設要因 — <span class="ok">個人ではなく組織の問題</span></caption>
+<thead><tr><th>増やす要因</th><th>和らげる要因</th></tr></thead>
+<tbody>
+<tr><td>医療消費主義を受け入れる病院文化</td><td>階層を越えて臨床医に権限を与える方針（看護師が単独で緩和ケア・倫理コンサルを依頼できる）</td></tr>
+<tr><td>医療の階層（主科と専門科のコンサルタントの力関係を含む）</td><td>対立の処理と情緒的支援の資源（緩和ケアチーム・death rounds など）</td></tr>
+<tr><td>治療を縮小する手続きの不在</td><td>現場発の改善と支持的な管理職（家族面談への看護師の同席を必須にする など）</td></tr>
+</tbody>
+</table>
+</div>
+<p>モラルディストレスは、正しいと信じることが他者の価値観や組織の制約で実行できないときの不満・怒り・失望で、特に看護師が経験しやすく、同じ場面が来るたびに上乗せされて残ります（moral residue）<span class="src vault">4学会GL2026 別編</span>。別編は、終了・差し控えに関わる医療者に起こりうる心理的な負担を5つに整理しています（表25）。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表25｜医療者に起こりうる心理的負担（4学会GL2026 緩和ケア別編） — <span class="ok">名前が付くと、組織で扱える</span></caption>
+<thead><tr><th>負担</th><th>特徴</th></tr></thead>
+<tbody>
+<tr><td>モラルディストレス</td><td>正しいと信じることが他者の価値観や組織の制約で実行できないときの不満・怒り・失望。看護師が経験しやすい</td></tr>
+<tr><td>共感疲労</td><td>共感がケアの原動力になる一方、甲斐なく死や悪化を繰り返し経験して無力感に陥る</td></tr>
+<tr><td>PTSD・急性ストレス症</td><td>侵入・覚醒・回避・認知と気分の陰性変化。曝露から1か月以内なら急性ストレス症</td></tr>
+<tr><td>二次的外傷性ストレス</td><td>心的外傷を直接経験していない支援者が、PTSDと同様の反応を示す</td></tr>
+<tr><td>バーンアウト</td><td>職場環境・人間関係・過剰な業務が続いて起こる。疲弊→シニシズム→職務効力感の低下</td></tr>
+</tbody>
+</table>
+</div>
+<p>ICU看護師の34研究を統合した系統的レビューでも、上位の要因は無益と感じる延命治療と不要な検査・処置の実施でした（統計処理に疑義があるためプール値は使わない）<span class="src vault">Qu BMCNurs2026</span>。</p>
+
+<h3 id="rs-s8-2">8-2. 先に変えるのは権限と手続き、デブリーフィングはその次</h3>
+<p class="rd-lead">効いたのは役割の新設ではなく権限と手続きの変更で、デブリーフィングは起きた苦痛を和らげる「緩和」であって「予防」ではないため、順番を逆にしません<span class="src vault">Brender JAMANetwOpen2025</span>。</p>
+<div class="rd-check">
+<p class="rd-check-h">組織として変える順番</p>
+<ol>
+<li>看護師が単独で倫理・緩和ケアコンサルを依頼できる権限を明文化する</li>
+<li>家族面談への看護師の同席を、実際の割合を測ってから必須にする</li>
+<li>治療の終了条件を説明と同意の段階で書面に残す（TLTの目標・期日）</li>
+<li>困難な事例の後に、短いデブリーフィングを定例にする</li>
+<li>スタッフの心理状態を定期的にスクリーニングする（日本語版MMD-HPなど）</li>
+</ol>
+</div>
+<p>新しい役割を作るなら、その担い手のモラルディストレスも見込みます。看護師ファシリテーターの研究では、部門長の支持の有無、役割の曖昧さ、既存職種との縄張りが実装を阻み、担い手自身が「家族の前で本当に一人」と孤立を語っていました<span class="src vault">Renet ICM2024</span>。4学会GLの緩和ケア別編も、人員配置と仕事量の管理、デブリーフィング、定期的なスクリーニング、外部チームと連携した相談体制を組織的支援として挙げています<span class="src vault">4学会GL2026 別編</span>。医療者の判断のずれそのものは「ICUの判断はなぜ外れるか」で扱います。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s9"><span class="no">§9</span>落とし穴 — 良い意図が、言葉と順番の誤りで害に変わる</h2>
+
+<p>ここまでの原則は、実際には一つずつではなく組み合わさって崩れます。よくある誤りを、なぜ起きるかとどう防ぐかで並べます。</p>
+
+<div class="box warn">
+<span class="label">① DNARを理由に、心停止前の治療を自動的に控える</span>
+<p>様式に範囲が書かれておらず、「もう積極的にはやらない」の省略語として流通しているために起きます。DNARで決まるのは心停止時の蘇生だけで、挿管・昇圧薬・ICU入室は別に話し合います（2-1）<span class="src vault">日本救急医学会2025</span><span class="src vault">4学会GL2026 Q37</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">② 「やめられないから始めない」</span>
+<p>終了への法的・心理的な不安から、救えたかもしれない治療を最初から差し控えます。差し控えと終了は倫理的に同等で、迷ったらTLTで始めて期日に見直します（5-1・5-3）<span class="src vault">4学会GL2026 Q33</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">③ 「すべてやりますか」と聞き、スローコードに逃げる</span>
+<p>二択が家族にとって苦しく、その逃げ道になります。心停止の前に処置ごとに話し、形だけの蘇生は選択肢から外します（5-4）<span class="src vault">Fontenot CCM2026</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">④ 悪い知らせの直後に「どうされますか」と決定を求める</span>
+<p>沈黙や怒りは理解の悪さではなく生理的な過負荷です。その場で決めさせず、翌日もう一度話します（4-1）<span class="src vault">Rusinova ICM2026</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑤ 「決めたのはご家族です」と言う</span>
+<p>決定の重荷が家族に残ります。医学的に到達した結論を家族と確認した、という言い方と記録にします（4-3）<span class="src vault">Kentish-Barnes ICM2026</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑥ 「偽陽性ゼロ」や重症度スコアを、治療制限の根拠にする</span>
+<p>予測は情報、決定は価値観です。分母の小さい「ゼロ」は「10人に1人まで外れうる」と伝えます（3-4）<span class="src vault">Xu CritCare2026</span><span class="src vault">Bein ICM2023</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑦ 「この人はどうせQOLが低い」を前提に置く</span>
+<p>障害・高齢・認知症を、能力の欠如や治療の無益に短絡させます。本人に聞き、補助具を試し、同じ基準を当てます（3-6）<span class="src vault">Taccone ICM2023</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑧ 筋弛緩薬を残したまま、薬の準備なしに抜管する</span>
+<p>苦しんでいても外から分からなくなります。筋弛緩薬は2時間前（多臓器不全では18時間前）までに止め、苦痛に先回りし、落ち着くまでそばにいます（6-2・6-4）<span class="src vault">4学会GL2026 別編</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑨ 「BSCで」「ここからは緩和で」と言って手を引く</span>
+<p>中身が見えず「見放された」と受け取られます。何を続け、何をやめ、どう苦痛を取るかを具体的に伝えます（2-2）<span class="src vault">4学会GL2026 説明文</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">⑩ 死亡告知と手続きの依頼を、同じ面談で畳みかける</span>
+<p>一度に済ませたほうが効率的に見えるため起きます。告知と依頼の間に時間を置き、担当を分けます（7-3）<span class="src vault">Choi CritCare2026</span>。</p>
+</div>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+
+<h2 id="refs">主要文献</h2>
+<p style="font-size:.9rem;color:var(--muted)">本文中の［ ］は出典です（ガイドライン・原著論文・総説、当院の運用）。4学会GL2026は下の1の各分冊（本編・説明文・Q&amp;A集・緩和ケア別編）を指し、Q番号はQ&amp;A集の問いの番号です。文献は、ガイドラインと用語、決め方、話し方と家族支援、選択肢と緩和的抜管、看取りと死の判定、チームのケアの順に並べています。</p>
+<ol class="refs">
+<li>日本集中治療医学会・日本救急医学会・日本循環器学会・日本緩和医療学会 編. 救急・集中治療における生命維持治療の終了／差し控えに関する4学会合同ガイドライン（本編・説明文・Q&amp;A集・緩和ケア別編）. 令和8年9月.</li>
+<li>日本集中治療医学会・日本救急医学会・日本循環器学会. 救急・集中治療における終末期医療に関するガイドライン ～3学会からの提言～. 2014.</li>
+<li>厚生労働省. 人生の最終段階における医療・ケアの決定プロセスに関するガイドライン（解説編）. 平成30年3月.</li>
+<li>会田薫子, 小豆畑丈夫, 新井隆男, ほか（日本救急医学会 高齢者救急委員会）. 日本救急医学会 高齢者救急に関する用語の統一概念. 日救急医会誌. 2025;36:82-90.</li>
+<li>日本集中治療医学会 倫理委員会. DNAR指示のあり方についての勧告. 日集中医誌. 2017;24:210-215.</li>
+<li>Secunda K, Wirpsa MJ, Neely KJ, et al. Use and Meaning of "Goals of Care" in the Healthcare Literature. J Gen Intern Med. 2020;35(5):1559-1566.</li>
+<li>Khayat Kakhki S, Daneshfar M, NamaeiQasemnia A, et al. Reimagining resuscitation ethics: a narrative review and emergent ethical pathways model. Resusc Plus. 2026;29:101323.</li>
+<li>Sprung CL, Ricou B, Hartog CS, et al. Changes in End-of-Life Practices in European Intensive Care Units From 1999 to 2016（Ethicus-2）. JAMA. 2019.</li>
+<li>伊藤香. 緩和的抜管. 人工呼吸（Jpn J Respir Care）. 2023;40(2):120-125.</li>
+<li>Ganzini L, Volicer L, Nelson WA, Fox E, Derse AR. Ten Myths About Decision-Making Capacity. J Am Med Dir Assoc. 2004;5:263-267.</li>
+<li>Tarcy T, Kallel H, Giffard M, Besch G, Aubry R. Decision-making process during limitation life-sustaining support meetings in French intensive care units. Intensive Care Med. 2022.</li>
+<li>Bein T. Avoidance of futile treatment—confluence of human dignity and ecological ethics. Intensive Care Med. 2023;49(9):1145-1146.</li>
+<li>Xu LX. Neuroprognostication after cardiac arrest: time-anchored reassessment and uncertainty around zero false positives. Crit Care. 2026;30:441.</li>
+<li>Hesselink G, Ramakers B, Fikkers BG, et al.（PICNL-ICU Study Group）. Crit Care Med. 2026;54.</li>
+<li>Taccone FS. Ableism in the intensive care unit. Intensive Care Med. 2023;49(7):898-899.</li>
+<li>Gerhart KA, Koziol-McLain J, Lowenstein SR, Whiteneck GG. Quality of life following spinal cord injury: knowledge and attitudes of emergency care providers. Ann Emerg Med. 1994;23(4):807-812.</li>
+<li>Albrecht GL, Devlieger PJ. The disability paradox: high quality of life against all odds. Soc Sci Med. 1999;48(8):977-988.</li>
+<li>Jabaley CS, Brummell Z, Benoit DD, Kentish-Barnes N, Metaxa V. Conflict in intensive care units: a conceptual framework. Crit Care. 2026.</li>
+<li>Rusinova K, Rusina R, Pantilat SZ. Understanding the neuroscience of communicating serious news. Intensive Care Med. 2026.</li>
+<li>Lu E, Nakagawa S. A "three-stage protocol" for serious illness conversations: reframing communication in real time. Mayo Clin Proc. 2020;95(8):1589-1593.</li>
+<li>Kentish-Barnes N, Poujol AL, Banse E, et al. Giving a voice to patients at high risk of dying in the intensive care unit. Intensive Care Med. 2023;49(7):808-819.</li>
+<li>Maringer EF, Shiland J, Brodie D. Intensive Care Med. 2018;44(6):930-931（ECMOの夫に付き添った妻の記録）.</li>
+<li>Kentish-Barnes N, Denise T, Renet A, et al. Intensive Care Med. 2026;52:1458-1471（PTSD症状のある家族17人の質的研究）.</li>
+<li>Ashana DC, Cox CE. ICU communication: "state of the art". Intensive Care Med. 2026;52(6):1333-1335.</li>
+<li>Cox CE, et al. Trajectories of palliative care needs among family members of chronically critically ill patients. Crit Care Med. 2023;51(1):13-24.</li>
+<li>Tuinman PR, Metaxa V. ICU toolbox: negotiation skills for family conversations in the ICU. Intensive Care Med. 2026.</li>
+<li>White DB, Angus DC, Shields AM, et al. A Randomized Trial of a Family-Support Intervention in Intensive Care Units（PARTNER）. N Engl J Med. 2018;378(25):2365-2375.</li>
+<li>Creutzfeldt CJ, Brumback LC, Im J, et al. Facilitating Communication for Family Members of Critically Ill Patients. Crit Care Med. 2026;54.</li>
+<li>Li Z, Lu F, Abshire Saylor M, et al. Characteristics and Effectiveness of Nurse-Led Family Communication Interventions in the ICU. Crit Care Med. 2026;54(2):301-311.</li>
+<li>Kentish-Barnes N, Chevret S, Valade S, et al. A three-step support strategy for relatives of patients dying in the intensive care unit: a cluster randomised trial. Lancet. 2022;399:656-664.</li>
+<li>Quill TE, Holloway R. Time-Limited Trials Near the End of Life. JAMA. 2011;306(13):1483-1484.</li>
+<li>Kruser JM, Ashana DC, Courtright KR, et al. Defining the Time-limited Trial for Patients with Critical Illness: An Official American Thoracic Society Workshop Report. Ann Am Thorac Soc. 2024;21:187-199.</li>
+<li>Fontenot T, Grisel B, Freeman J, et al. Ethical Implications of the Slow Code: A Systematic Review. Crit Care Med. 2026;54.</li>
+<li>Ajzenberg H, Oczkowski SJW. Slow Codes—It's Time for an Honest Approach. Crit Care Med. 2026;54.</li>
+<li>Wasserman JA, Crutchfield P. Time-limited trials are not an ethical compromise for physiologically futile CPR. Crit Care. 2026. doi:10.1186/s13054-026-06329-7</li>
+<li>Correia I, Gonçalves Pereira J, Metaxa V. Antibiotics must be part of end-of-life decisions: a necessary evil? Intensive Care Med. 2026.</li>
+<li>Edwards JD, Voigt LP, Nelson JE. Ten key points about ICU palliative care. Intensive Care Med. 2016.</li>
+<li>Kesecioglu J, Metaxa V, Azoulay E. Surviving Sepsis Campaign beyond survival: aligning sepsis care with patient goals. Intensive Care Med. 2026.</li>
+<li>Kesecioglu J, Rusinova K, Alampi D, et al. ESICM guidelines on end of life and palliative care in the ICU. Intensive Care Med. 2024;50:1740-1766.</li>
+<li>Downar J, Delaney JW, Hawryluck L, et al. Guidelines for the withdrawal of life-sustaining measures. Intensive Care Med. 2016;42:1003-1017.</li>
+<li>Cooke CR, Hotchkin DL, Engelberg RA, et al. Predictors of time to death after terminal withdrawal of mechanical ventilation in the ICU. Chest. 2010;138:289-297.</li>
+<li>Durán-Crane A, Laserna A, López-Olivo MA, et al. Clinical practice guidelines and consensus statements about pain management in critically ill end-of-life patients: a systematic review. Crit Care Med. 2019;47(11):1619-1626.</li>
+<li>Sakuramoto H, Hatozaki C, Unoki T, et al. Translation, reliability, and validity of Japanese version of the Respiratory Distress Observation Scale. PLoS One. 2021;16:e0255991.</li>
+<li>Hubel K, Reddy R, Khan A, Pak J, Sher N. Compassionate Extracorporeal Membrane Oxygenation Discontinuation: A Narrative Review and Practical Process Model for Reliable End-of-Life Care. Healthcare (Basel). 2026;14:1249.</li>
+<li>Hwang DY, Oczkowski SJW, Lewis K, et al. Society of Critical Care Medicine Guidelines on Family-Centered Care for Adult ICUs: 2024. Crit Care Med. 2025;53(2):e465-e482.</li>
+<li>Le Dorze M, Nicolas-Robin A, Carvallo S, Maglio M, Molina-Pérez A. Death determination at the bedside: clinical judgement beyond criteria. Crit Care. 2026.</li>
+<li>Choi HR, Zhu L, Lo MS, et al. Family members' experiences of death and organ donation in intensive and critical care units: a qualitative systematic review with thematic synthesis. Crit Care. 2026.</li>
+<li>Oppenheim IM, Bakhru RN, Maciel CB, Busl KM; DONOR Group. Crit Care Explor. 2026;8(8):e1458（心停止後臓器提供でも終末期ケアの質を変えない）.</li>
+<li>Brender TD, Axelrod JK, Weiss Goitiandia S, Batten JN, Dzeng EW. Clinicians' Perceptions About Institutional Factors in Moral Distress Related to Potentially Nonbeneficial Treatments. JAMA Netw Open. 2025;8(6):e2516089.</li>
+<li>Qu KY, Zhu DJ, Yang PF, et al. Moral distress of intensive care unit nurses: a systematic review and meta-analysis. BMC Nurs. 2026;25:108.</li>
+<li>Renet A, Azoulay E, Reignier J, et al. "It's all about setting the stage." The nurse facilitator trial: perceived outcomes and implementation issues. Intensive Care Med. 2024;50(10):1657-1667.</li>
+<li>Fujii T, Katayama S, Miyazaki K, et al. Translation and validation of the Japanese version of the measure of moral distress for healthcare professionals. Health Qual Life Outcomes. 2021;19:120.</li>
+</ol>
+
+</main><script id="rs-tools-js">
+(function(){
+  var cp=document.getElementById('rs-copy');
+  if(cp){cp.addEventListener('click',function(){
+    // ==公開URLは固定==。ローカル（file://）で開いても正しいリンクが取れるようにする
+    var t=cp.getAttribute('data-url'), old='🔗 リンクをコピー';
+    function done(){cp.textContent='✓ コピーしました';setTimeout(function(){cp.textContent=old;},1800);}
+    function fallback(){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;top:-9999px';
+        document.body.appendChild(ta); ta.select();
+        var ok=document.execCommand('copy'); document.body.removeChild(ta);
+        if(ok){done();return;}
+      }catch(e){}
+      window.prompt('このURLをコピーしてください', t);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,fallback);
+    }else{fallback();}
+  });}
+  var pd=document.getElementById('rs-pdf');
+  if(pd){pd.addEventListener('click',function(){
+    // 折りたたみがあれば開いてから印刷（印刷で中身が欠けるのを防ぐ）
+    [].slice.call(document.querySelectorAll('details')).forEach(function(d){d.open=true;});
+    window.print();
+  });}
+})();
+</script><script id="rs-tpl-js">
+(function(){
+  [].slice.call(document.querySelectorAll('.tpl-h .cp')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.dataset.tpl); if(!pre) return;
+      var t=pre.innerText, old=b.textContent;
+      function done(){b.textContent='✓ コピーしました'; b.classList.add('done');
+        setTimeout(function(){b.textContent=old; b.classList.remove('done');},1800);}
+      function fb(){
+        try{ var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly','');
+          ta.style.cssText='position:fixed;top:-9999px'; document.body.appendChild(ta); ta.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(ta); if(ok){done();return;} }catch(e){}
+        window.prompt('この内容をコピーしてください', t);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+  });
+})();
+</script><button id="rs-top" aria-label="先頭へ">↑</button>
+<script id="rs-js">
+(function(){
+  var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),
+      burger=document.getElementById('rs-burger'), nav=document.getElementById('rs-nav'),
+      inp=document.getElementById('rs-search'), hits=document.getElementById('rs-hits'),
+      bar=document.getElementById('rs-progress'), top=document.getElementById('rs-top'),
+      cur=document.getElementById('rs-cur');
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));})
+                 .filter(Boolean);
+
+  function close(){ side.classList.remove('open'); }
+  burger && burger.addEventListener('click',function(){ side.classList.toggle('open'); });
+  scrim && scrim.addEventListener('click',close);
+  nav.addEventListener('click',function(e){ if(e.target.tagName==='A' && window.innerWidth<=1000) close(); });
+
+  // scroll-spy ＋ 進捗 ＋ 現在地表示
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(h>0?(y/h*100):0)+'%';
+      top.style.display = y>500 ? 'block' : 'none';
+      var idx=0;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=90) idx=i; }
+      links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+      if(cur && heads[idx]) cur.textContent=heads[idx].textContent.trim();
+      var on=nav.querySelector('a.on');
+      if(on && on.offsetTop < nav.scrollTop) nav.scrollTop = on.offsetTop-60;
+      if(on && on.offsetTop > nav.scrollTop+nav.clientHeight-40) nav.scrollTop = on.offsetTop-nav.clientHeight+80;
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // インクリメンタル検索（本文をハイライトし、目次も絞る）
+  var main=document.querySelector('main'), timer=null;
+  function clearMarks(){
+    main.querySelectorAll('mark.rs-mk').forEach(function(m){
+      var p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+    });
+  }
+  function search(q){
+    clearMarks();
+    links.forEach(function(a){ a.classList.remove('hit'); a.style.display=''; });
+    if(!q){ hits.textContent=''; return; }
+    var lc=q.toLowerCase(), n=0, first=null;
+    var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,{acceptNode:function(nd){
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var t=nd.parentNode.tagName;
+      if(t==='SCRIPT'||t==='STYLE') return NodeFilter.FILTER_REJECT;
+      return nd.nodeValue.toLowerCase().indexOf(lc)>=0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+    var targets=[],nd;
+    while((nd=w.nextNode())) targets.push(nd);
+    targets.forEach(function(node){
+      var s=node.nodeValue, low=s.toLowerCase(), frag=document.createDocumentFragment(), i=0, j;
+      while((j=low.indexOf(lc,i))>=0){
+        if(j>i) frag.appendChild(document.createTextNode(s.slice(i,j)));
+        var mk=document.createElement('mark'); mk.className='rs-mk'; mk.textContent=s.substr(j,q.length);
+        frag.appendChild(mk); if(!first) first=mk; n++; i=j+q.length;
+      }
+      if(i<s.length) frag.appendChild(document.createTextNode(s.slice(i)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    // 目次側: 該当セクションだけ残す
+    links.forEach(function(a,i){
+      var el=heads[i]; if(!el) return;
+      var stop=heads[i+1], has=false, cur2=el;
+      while(cur2 && cur2!==stop && !(stop && cur2.contains && cur2.contains(stop))){
+        if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
+        if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
+        cur2=cur2.nextElementSibling;
+      }
+      a.classList.toggle('hit',has); a.style.display = has ? '' : 'none';
+    });
+    hits.textContent = n ? (n+' 件 — Enterで先頭へ') : '該当なし';
+    inp._first=first;
+  }
+  inp.addEventListener('input',function(){
+    clearTimeout(timer); var q=inp.value.trim();
+    timer=setTimeout(function(){ search(q); },160);
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && inp._first){ inp._first.scrollIntoView({block:'center'}); }
+    if(e.key==='Escape'){ inp.value=''; search(''); }
+  });
+  // "/" で検索にフォーカス
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/' && document.activeElement!==inp){ e.preventDefault(); side.classList.add('open'); inp.focus(); }
+  });
+  top.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // 表を横スクロール容器で包む
+  [].slice.call(main.querySelectorAll('table')).forEach(function(t){
+    if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
+    var d=document.createElement('div'); d.className='rs-tw';
+    t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+<script id="rd-js">
+(function(){
+  window.addEventListener('beforeprint',function(){
+    [].slice.call(document.querySelectorAll('details.rd-ev')).forEach(function(d){d.open=true;});
+  });
+})();
+</script>
+<script id="mo-js">
+// resident motion (resident-motion.js) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+// 手引き：resident-motion-guide.md。体裁は resident-motion.css。クラス・データ属性は mo- で始める。
+// ・スクロールで画面に入ったら1回だけ動いて止まる。動き終わった図には「↻ もう一度」を出す
+// ・動きを減らす設定・印刷・PDF（Headless Chrome）・JSが無い環境では何もしない＝HTMLのまま（最終状態）
+// ・HTMLは最終状態で書く。JSは「最初の状態に戻してから最終状態まで動かす」だけで、最後は必ず元のHTMLに戻す
+// ・点検用：window.RESMO_TEST = {seek: 秒} を先に置くと、全部の図をその時刻で止めて表示する
+(function () {
+  'use strict';
+  var D = document, R = D.documentElement, W = window;
+  var TEST = W.RESMO_TEST || null;
+  function mm(q) { return !!(W.matchMedia && W.matchMedia(q).matches); }
+  var STATIC = !TEST && (mm('(prefers-reduced-motion: reduce)') || mm('print') ||
+    /HeadlessChrome/.test(navigator.userAgent) || navigator.webdriver ||
+    !('IntersectionObserver' in W) || !W.requestAnimationFrame || !W.CSS || !CSS.supports('animation-delay', 'calc(1s - 1s)'));
+  if (STATIC) return;
+
+  var NS = 'http://www.w3.org/2000/svg', UID = 0;
+  function Q(s, r) { return [].slice.call((r || D).querySelectorAll(s)); }
+  function q(s, r) { return (r || D).querySelector(s); }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+  function easeIO(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function E(tag, attrs, parent) {
+    var e = D.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var DUR = { fade: .45, rise: .55, pop: .5, slide: .5, slider: .5, stamp: .45, growx: .45, growy: .35, growu: .6, draw: .8, ring: 1, line: 0,
+              barx: .5, dotp: .45, wipel: .8 };
+
+  // ================= 場面（scene）：図の中の要素を時刻つきで並べる =================
+  var FIGS = [];
+  function Fig(root, stagger) {
+    this.root = root; this.scenes = []; this.stagger = stagger || .45;
+    root.classList.add('mo-fig'); FIGS.push(this);
+    var f = this, b = D.createElement('button');
+    b.type = 'button'; b.className = 'mo-replay'; b.textContent = '↻ もう一度';
+    b.setAttribute('aria-label', 'この図の動きをもう一度再生');
+    b.addEventListener('click', function () { f.replay(); });
+    root.appendChild(b); this.btn = b;
+  }
+  Fig.prototype.check = function () {
+    var done = this.scenes.every(function (s) { return s.state === 2; });
+    this.root.classList.toggle('mo-end', done);
+  };
+  Fig.prototype.offsetOf = function (sc) {   // 横に並んだ場面は順番にずらす（縦に並べば同時）
+    var top = sc.trigger.getBoundingClientRect().top, k = 0;
+    for (var i = 0; i < this.scenes.length && this.scenes[i] !== sc; i++) {
+      if (Math.abs(this.scenes[i].trigger.getBoundingClientRect().top - top) < 40) k++;
+    }
+    return k * this.stagger;
+  };
+  Fig.prototype.replay = function () {
+    var f = this; f.root.classList.remove('mo-end');
+    f.scenes.forEach(function (s) { s.play(f.offsetOf(s)); });
+  };
+  Fig.prototype.undo = function () {        // 部品の組み立てに失敗したら、手を付けずに元のHTMLへ戻す
+    this.scenes.forEach(function (s) { s.state = 2; s.clean(); });
+    if (this.btn.parentNode) this.btn.parentNode.removeChild(this.btn);
+    this.root.classList.remove('mo-fig');
+  };
+
+  function Scene(fig, trigger) {
+    this.fig = fig; this.trigger = trigger || fig.root;
+    this.els = []; this.tracks = []; this.total = 0; this.state = 0; this.raf = 0;
+    fig.scenes.push(this);
+  }
+  // 要素を1つ（または配列）登録する。kind: fade / rise / pop / slide / slider / stamp / growx / growy / draw / ring / line
+  //   growu＝SVGの棒が下から伸びる／barx・dotp＝HTMLの棒と点（transform を持つ要素でも使える scale プロパティで動かす）／wipel＝右から左へ拭き出す
+  Scene.prototype.el = function (el, kind, d, t, step) {
+    var s = this;
+    if (!el) return s;
+    if (el.nodeType !== 1) { [].forEach.call(el, function (e, k) { s.el(e, kind, d + k * (step || 0), t); }); return s; }
+    if (el._moS === s) return s;   // 同じ要素を2回登録しない（先に登録した動きを使う）
+    el._moS = s;
+    var svg = el instanceof SVGElement;
+    if (svg && el.hasAttribute('transform') && /rise|pop|slide|stamp|grow/.test(kind)) kind = 'fade';
+    if (kind === 'draw') {
+      var dash = W.getComputedStyle(el).strokeDasharray;
+      if (!svg || el.hasAttribute('marker-end') || el.hasAttribute('marker-start') || (dash && dash !== 'none')) kind = 'fade';
+      else el.setAttribute('pathLength', '1');
+    }
+    var dur = t || DUR[kind];
+    s.els.push({ el: el, kind: kind, d: d, t: dur });
+    s.total = Math.max(s.total, d + dur);
+    return s;
+  };
+  // JSで動かすもの（波形の掃引・粒・数字・ボンベ）。fn(p) は p=0〜1。setup で部品を作り、end で消す
+  Scene.prototype.track = function (t0, dur, fn, setup, end) {
+    this.tracks.push({ t0: t0, dur: dur, fn: fn, setup: setup, end: end, live: false });
+    this.total = Math.max(this.total, t0 + dur);
+    return this;
+  };
+  Scene.prototype.render = function (t) {
+    this.tracks.forEach(function (k) {
+      if (!k.live && k.setup) { k.setup(); }
+      k.live = true; k.fn(clamp((t - k.t0) / k.dur), t);
+    });
+  };
+  Scene.prototype.prime = function (off) {
+    this.els.forEach(function (o) {
+      var c = o.el.classList;
+      c.remove('mo-go'); c.add('mo-x', 'mo-' + o.kind, 'mo-pre');
+      o.el.style.setProperty('--d', o.d + 's');
+      o.el.style.setProperty('--mo-t', o.t + 's');
+      o.el.style.setProperty('--mo-o', (off || 0) + 's');
+    });
+  };
+  Scene.prototype.reset = function () { this.prime(0); this.render(0); this.state = 0; };
+  Scene.prototype.go = function () {
+    void this.fig.root.offsetWidth;
+    this.els.forEach(function (o) { o.el.classList.remove('mo-pre'); o.el.classList.add('mo-go'); });
+  };
+  Scene.prototype.play = function (off) {
+    var s = this; off = off || 0;
+    cancelAnimationFrame(s.raf); s.state = 1; s.fig.check();
+    s.prime(off); s.render(-off); s.go();
+    var t0 = performance.now();
+    function fr(now) {
+      var t = (now - t0) / 1000 - off;
+      s.render(t);
+      if (t < s.total + .05) s.raf = requestAnimationFrame(fr); else s.finish();
+    }
+    s.raf = requestAnimationFrame(fr);
+  };
+  Scene.prototype.seek = function (t, off) {   // 点検用：時刻 t で止める
+    this.prime(off); this.go(); this.render(t - (off || 0)); this.state = 1;
+  };
+  Scene.prototype.clean = function () {
+    this.els.forEach(function (o) {
+      o.el.classList.remove('mo-go', 'mo-pre');
+      o.el.style.removeProperty('--mo-o');
+    });
+    this.tracks.forEach(function (k) { if (k.live && k.end) k.end(); k.live = false; });
+  };
+  Scene.prototype.finish = function () {
+    cancelAnimationFrame(this.raf);
+    if (this.state === 2) return;
+    this.render(1e6); this.clean(); this.state = 2; this.fig.check();
+  };
+
+  // ================= 部品 =================
+  // 数字のカウントアップ：要素の最初の文字列の中の数字だけを 0 から数える。最後は必ず元の文字列に戻す
+  function counter(el) {
+    var node = null;
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var n = el.childNodes[i];
+      if (n.nodeType === 3 && /\d/.test(n.nodeValue)) { node = n; break; }
+    }
+    if (!node) return null;
+    var raw = node.nodeValue, parts = raw.split(/(\d+(?:\.\d+)?)/), nums = [];
+    for (var j = 1; j < parts.length; j += 2) {
+      var dec = (parts[j].split('.')[1] || '').length, v = parseFloat(parts[j]);
+      if (v.toFixed(dec) !== parts[j]) return null;     // 0埋めなど、数え直すと形が変わる数字は数えない
+      nums.push({ i: j, v: v, dec: dec });
+    }
+    return {
+      set: function (p) {
+        if (p >= 1) { node.nodeValue = raw; return; }
+        var e = easeOut(p), out = parts.slice();
+        nums.forEach(function (o) { out[o.i] = (o.v * e).toFixed(o.dec); });
+        node.nodeValue = out.join('');
+      },
+      done: function () { node.nodeValue = raw; }
+    };
+  }
+  function countTrack(s, el, t0, dur) {
+    var C = counter(el); if (!C) return;
+    var inl = W.getComputedStyle(el).display === 'inline';
+    s.track(t0, dur || .9, function (p) { C.set(p); }, function () {
+      if (inl) { el.classList.add('mo-cnt'); el.style.minWidth = el.getBoundingClientRect().width + 'px'; }
+    }, function () { C.done(); el.style.minWidth = ''; el.classList.remove('mo-cnt'); });
+  }
+
+  // 波形を時間軸に沿って左から描く（モニターの掃引）。点線のカーソルと先端の点は描き終わると消える
+  function sweep(s, svg, waves, t0, dur, fills) {
+    fills = fills || [];
+    if (!waves.length) return;
+    var bb = null;
+    waves.forEach(function (w) {
+      var b = w.getBBox();
+      bb = bb ? { x0: Math.min(bb.x0, b.x), x1: Math.max(bb.x1, b.x + b.width), y0: Math.min(bb.y0, b.y), y1: Math.max(bb.y1, b.y + b.height) }
+              : { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height };
+    });
+    var id = 'mo-clip-' + (++UID), defs = q('defs', svg) || E('defs', {}, svg);
+    var cp = E('clipPath', { id: id }, defs);
+    var rect = E('rect', { x: bb.x0 - 6, y: -9999, width: 0, height: 99999 }, cp);
+    var cur = null, tips = [], samples = null;
+    function sample() {   // 各波形の (x, y) を道のり順に拾い、x からその時点の y を引けるようにする
+      samples = waves.map(function (w) {
+        var L = w.getTotalLength(), n = Math.max(60, Math.min(600, Math.round(L / 2))), xs = [], ys = [], mx = -1e9;
+        for (var i = 0; i <= n; i++) {
+          var pt = w.getPointAtLength(L * i / n);
+          mx = Math.max(mx, pt.x); xs.push(mx); ys.push(pt.y);
+        }
+        return { xs: xs, ys: ys, a: xs[0], b: mx };
+      });
+    }
+    function yAt(sm, x) {
+      var lo = 0, hi = sm.xs.length - 1;
+      while (lo < hi) { var mid = (lo + hi + 1) >> 1; if (sm.xs[mid] <= x) lo = mid; else hi = mid - 1; }
+      return sm.ys[lo];
+    }
+    s.track(t0, dur, function (p) {
+      var x = bb.x0 + (bb.x1 - bb.x0) * p;
+      rect.setAttribute('width', p > 0 ? Math.max(0, x - bb.x0 + 6) : 0);
+      var on = p > 0 && p < 1;
+      cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.style.opacity = on ? '' : 0;
+      tips.forEach(function (c, k) {   // 線の始まりより左・終わりより右では先端の点を出さない（線が途中から始まるグラフ）
+        var sm = samples[k], inside = x >= sm.a - 1 && x <= sm.b + 1;
+        c.setAttribute('cx', x); c.setAttribute('cy', yAt(sm, x)); c.style.opacity = on && inside ? '' : 0;
+      });
+    }, function () {
+      if (!samples) sample();
+      waves.concat(fills).forEach(function (w) { w.setAttribute('clip-path', 'url(#' + id + ')'); });
+      cur = E('line', { 'class': 'mo-cur', y1: bb.y0 - 10, y2: bb.y1 + 10 }, svg);
+      tips = waves.map(function () { return E('circle', { 'class': 'mo-tip', r: 5.5 }, svg); });
+    }, function () {
+      waves.concat(fills).forEach(function (w) { w.removeAttribute('clip-path'); });
+      if (cur) cur.remove();
+      tips.forEach(function (c) { c.remove(); }); tips = [];
+    });
+  }
+
+  // 画像の上の印（data-mo-sign="左,上,幅,高さ;…" ％）。1回だけ脈打つ
+  function rings(img) {
+    var spec = img.getAttribute('data-mo-sign'); if (!spec) return [];
+    var wrap = img.parentNode;
+    if (!wrap.classList.contains('mo-imgwrap')) {
+      wrap = D.createElement('span'); wrap.className = 'mo-imgwrap';
+      img.parentNode.insertBefore(wrap, img); wrap.appendChild(img);
+      var mw = img.style.maxWidth; if (mw) { wrap.style.maxWidth = mw; wrap.style.margin = img.style.margin; }
+    }
+    var tone = img.getAttribute('data-mo-sign-tone');
+    return spec.split(';').map(function (b) {
+      var v = b.split(',').map(parseFloat), r = D.createElement('span'), pad = 1.2;
+      r.className = 'mo-ring' + (tone ? ' is-' + tone : ''); r.setAttribute('aria-hidden', 'true');
+      r.style.left = (v[0] - pad) + '%'; r.style.top = (v[1] - pad * 1.6) + '%';
+      r.style.width = (v[2] + 2 * pad) + '%'; r.style.height = (v[3] + 3.2 * pad) + '%';
+      wrap.appendChild(r);
+      return r;
+    });
+  }
+
+  // ================= 図の型ごとの動き =================
+  var RECIPES = {};
+
+  // 冒頭の導入パネル：見出し → 圧の波形が描かれる → 6枚が順に → 数字が数え上がる
+  RECIPES.intro = function (root) {
+    var F = new Fig(root), s = new Scene(F);
+    s.el(q('.mo-ip-k', root), 'fade', 0, .4).el(q('.mo-ip-h', root), 'slide', .08, .6);
+    s.el(q('.mo-ip-wave path', root), 'draw', .1, 1.5);
+    Q('.mo-ip-t', root).forEach(function (t, k) {
+      var d = .32 + k * .09;
+      s.el(t, 'rise', d, .55);
+      Q('[data-mo-count]', t).forEach(function (c) { countTrack(s, c, d + .1, .9); });
+      Q('.mo-ip-pop', t).forEach(function (e, j) { s.el(e, 'pop', d + .25 + j * .2, .45); });
+    });
+    s.el(q('.mo-ip-n', root), 'fade', 1.3, .5);
+  };
+
+  // 波形（.nf-wave を含む SVG）：軸 → 閾値 → 波形を時間軸に沿って描く → 注記
+  RECIPES.wave = function (fig) {
+    var F = new Fig(fig, .55), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('.nf-wave', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      s.el(Q('.nf-axis, .nf-tick, .nf-grid, .nf-zero', svg), 'fade', .1, .4);
+      s.el(Q('text.nf-ts, text.nf-t:not(.nf-tb)', svg), 'fade', .14, .4);
+      s.el(Q('.nf-thr', svg), 'fade', .35, .45);
+      var T0 = .45, TD = 1.4;
+      sweep(s, svg, Q('.nf-wave', svg), T0, TD);
+      var ann = Q('.nf-guide, .nf-dim, .nf-sa, .nf-sd, text.nf-tb', svg).filter(function (e) { return e.getAttribute('opacity') !== '0'; });
+      ann.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', T0 + TD + .02 + k * .1, .42); });
+    });
+    tail(last, fig);
+  };
+
+  // 図の下の凡例・注記・説明カード：最後の場面の終わりに続けて出す
+  function tail(s, fig, gap) {
+    if (!s) return;
+    var t = s.total + (gap || .05);
+    Q('.nf-callouts > *', fig).forEach(function (c, k) { s.el(c, 'rise', t + k * .18, .5); });
+    s.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot, :scope > .nf > .nf-band', fig), 'fade', t + .1, .45);
+  }
+
+  // 物の流れの模式図（svg.nf-draw）：左から右へ順に組み上がる。太い管があれば粒が流れ、
+  // 管の途中から出る矢印（意図的リーク）に沿って一部の粒が外へ抜ける。赤い矢印（意図しない漏れ）は最後
+  RECIPES.circuit = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), svg = q('svg.nf-draw', fig);
+    var vb = svg.viewBox.baseVal, X0 = vb.x, XW = vb.width || 1, SPAN = 1.7;
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var tubes = kids.filter(function (e) { return e.tagName === 'path' && parseFloat(e.getAttribute('stroke-width')) >= 14; });
+    var reds = kids.filter(function (e) { return e.classList.contains('nf-sd'); });
+    var flow = tubes.length ? tubes[tubes.length - 1] : null;
+    var exits = [];
+    function xd(e) { var b = e.getBBox(); return .1 + (b.x - X0) / XW * SPAN; }
+    kids.forEach(function (e) {
+      if (reds.indexOf(e) >= 0) return;
+      if (tubes.indexOf(e) >= 0) { s.el(e, 'draw', .12, .9); return; }
+      var big = /aL|aX/.test(e.getAttribute('marker-end') || '');
+      if (big && flow) exits.push(e);
+      s.el(e, e.tagName === 'circle' ? 'pop' : 'fade', xd(e) + (big ? .25 : 0), big ? .55 : .42);
+    });
+    var tEnd = .1 + SPAN + .25;
+    reds.forEach(function (e, k) { s.el(e, 'pop', tEnd + k * .08, .45); });
+    var labs = Q('.nf-labels > *', fig), acc = 0;
+    var cols = (getComputedStyle(q('.nf-labels', fig) || fig).gridTemplateColumns || '').split(' ').map(parseFloat);
+    var tot = cols.reduce(function (a, b) { return a + (b || 0); }, 0) || 1;
+    labs.forEach(function (l, k) {
+      var c = cols[k] || tot / labs.length, mid = (acc + c / 2) / tot; acc += c;
+      s.el(l, 'rise', .1 + mid * SPAN + (k === labs.length - 1 && reds.length ? .5 : 0), .5);
+    });
+    if (flow) particles(s, svg, flow, exits, .5, 2.6);
+    tail(s, fig, .1);
+  };
+  function particles(s, svg, tube, exits, t0, dur) {
+    var N = 16, g = null, dots = [], L = 0, portAt = [];
+    function at(path, f) { return path.getPointAtLength(path.getTotalLength() * clamp(f)); }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / .95;                        // 管を流れる時間 0.95 秒
+        var x, y, op = 1;
+        if (u <= 0) { o.c.style.opacity = 0; return; }
+        if (o.exit && u * L >= o.s0) {                       // ポートで外へ抜ける
+          var v = (u * L - o.s0) / (L * .45); var pt = at(o.exit, v); x = pt.x; y = pt.y; op = 1 - clamp((v - .55) / .45);
+        } else {
+          var pt2 = at(tube, u); x = pt2.x; y = pt2.y; op = o.exit ? 1 : 1 - clamp((u - .85) / .15);
+        }
+        if (p >= 1) op = 0;
+        o.c.setAttribute('cx', x); o.c.setAttribute('cy', y); o.c.style.opacity = Math.max(0, op);
+      });
+    }, function () {
+      L = tube.getTotalLength();
+      portAt = exits.map(function (e) {                      // 抜け口の始点に最も近い管の位置
+        var a = e.getPointAtLength(0), best = 0, bd = 1e9;
+        for (var i = 0; i <= 200; i++) { var pt = tube.getPointAtLength(L * i / 200), dd = (pt.x - a.x) * (pt.x - a.x) + (pt.y - a.y) * (pt.y - a.y); if (dd < bd) { bd = dd; best = L * i / 200; } }
+        return bd < 40 * 40 ? best : -1;
+      });
+      g = E('g', { 'aria-hidden': 'true' }, svg);
+      for (var k = 0; k < N; k++) {
+        var ex = (k % 2 === 1 && exits.length) ? k % (exits.length * 2) >> 1 : -1;
+        if (ex >= 0 && portAt[ex] < 0) ex = -1;
+        dots.push({ c: E('circle', { 'class': 'mo-pt', r: 4.5 }, g), exit: ex >= 0 ? exits[ex] : null, s0: ex >= 0 ? portAt[ex] : 0 });
+      }
+    }, function () { if (g) g.remove(); dots = []; });
+  }
+
+  // 判断の流れ（.nf-flow）：根 → 幹が伸びる → 群 → カード → 結論帯
+  RECIPES.flow = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    flowSeq(s, q('.nf-flow', fig), 0);
+    tail(s, fig);
+  };
+  // 判断の流れの中身を時刻 t0 から並べ、終わりの時刻を返す（流れ図の中・手順の鎖の下でも使う）
+  function flowSeq(s, fl, t0) {
+    s.el(q(':scope > .nf-join', fl), 'fade', t0, .3);
+    s.el(q('.nf-root', fl), 'pop', t0, .45);
+    s.el(q('.nf-groups', fl), 'line', t0 + .55, .35);
+    var t = t0 + .75;
+    Q('.nf-group', fl).forEach(function (g) {
+      s.el(g, 'rise', t, .5); s.el(q('.nf-gh', g), 'fade', t + .12, .4);
+      Q('.nf-card', g).forEach(function (c, j) {
+        var d = t + .2 + j * .14; s.el(c, 'rise', d, .5);
+        s.el(Q('.nf-chip.is-fill', c), 'pop', d + .28, .45);
+      });
+      t += .3 + Q('.nf-card', g).length * .14;
+    });
+    var band = q('.nf-band', fl);
+    if (band) { s.el(band, 'slide', t + .1, .55); t += .6; }
+    return t;
+  }
+
+  // 対応表（.nf-map）：条件 → 矢印が伸びる → 対応、を1行ずつ
+  RECIPES.map = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    mapSeq(s, q('.nf-map', fig), 0);
+    tail(s, fig);
+  };
+  function mapSeq(s, mp, t0) {
+    var t = t0;
+    [].forEach.call(mp.children, function (c) {
+      if (c.classList.contains('nf-sec')) { if (t > t0) t += .2; s.el(c, 'fade', t, .4); t += .12; }
+      else if (c.classList.contains('nf-key')) s.el(c, 'slide', t, .45);
+      else if (c.classList.contains('nf-arr')) s.el(c, 'growx', t + .18, .35);
+      else if (c.classList.contains('nf-val')) { s.el(c, 'rise', t + .3, .5); t += .34; }
+    });
+    return t + .25;
+  }
+
+  // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
+  RECIPES.gallery = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), items = Q('.nf-item', fig);
+    items.forEach(function (it, k) {
+      s.el(it, 'pop', .05 + k * .12, .5);
+      s.el(q('.nf-flag', it), 'stamp', .05 + k * .12 + .4, .45);
+    });
+    tail(s, fig);
+  };
+
+  // 棒の比較（.nf-meters を含む模式図。P-SILI など）：輪郭 → 矢印 → 肺がふくらむ → 棒が伸びる
+  RECIPES.meters = function (fig) {
+    var F = new Fig(fig, .9), last = null;
+    Q('.nf-panel', fig).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45);
+      if (svg) {
+        s.el(Q('.nf-ln, .nf-fb', svg), 'fade', .08, .45);
+        s.el(Q('.nf-guide', svg), 'fade', .2, .45);
+        Q('.nf-fa', svg).forEach(function (e) {
+          if (e.hasAttribute('transform')) inflate(s, e, .4, .9); else s.el(e, 'pop', .3, .6);
+        });
+        s.el(Q('.nf-sa, .nf-sd', svg), 'fade', .55, .4, .05);
+        s.el(Q('.nf-soft-d', svg), 'pop', 1.15, .45, .08);
+      }
+      Q('.nf-meters dt', pn).forEach(function (dt, i) {
+        var d = .6 + i * .12, dd = dt.nextElementSibling;
+        s.el(dt, 'fade', d, .4);
+        if (dd) { s.el(q('.nf-bar', dd), 'growx', d + .08, .6); s.el(q('.nf-bv', dd), 'fade', d + .45, .4); }
+      });
+    });
+    tail(last, fig);
+  };
+  // transform 属性で拡大してある図形を、元の大きさから拡大後へ動かす（属性は最後に元へ戻す）
+  function inflate(s, el, t0, dur) {
+    var tf = el.getAttribute('transform') || '';
+    var m = tf.match(/translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)\s*scale\(\s*([-\d.]+)(?:[ ,]+([-\d.]+))?\s*\)/);
+    if (!m) { s.el(el, 'fade', t0, dur); return; }
+    var cx = +m[1], cy = +m[2], sx = +m[3], sy = +(m[4] || m[3]);
+    s.track(t0, dur, function (p) {
+      var e = easeIO(p), kx = (1 / sx) + (1 - 1 / sx) * e, ky = (1 / sy) + (1 - 1 / sy) * e;
+      el.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + (sx * kx).toFixed(4) + ' ' + (sy * ky).toFixed(4) + ') translate(' + (-cx) + ' ' + (-cy) + ')');
+    }, null, function () { el.setAttribute('transform', tf); });
+  }
+
+  // 画像に印のある図（img[data-mo-sign]）：パネルが現れ、赤丸のサインが1回だけ脈打つ。
+  // 印と説明カードの数が同じなら、番号の順にカードと一緒に出す（①〜④など）
+  RECIPES.signs = function (fig) {
+    var F = new Fig(fig, .12), imgs = Q('img[data-mo-sign]', fig), cards = Q('.nf-callouts > *', fig), last = null;
+    imgs.forEach(function (img) {
+      var pn = img.closest('.nf-panel') || img.parentNode, s = last = new Scene(F, pn), rs = rings(img);
+      if (pn.classList.contains('nf-panel')) {
+        s.el(pn, 'rise', 0, .5);
+      } else {
+        s.el(img.closest('.mo-imgwrap') || img, 'fade', 0, .45);
+      }
+      var sync = imgs.length === 1 && rs.length > 1 && cards.length === rs.length;
+      rs.forEach(function (r, j) {
+        var d = .45 + j * (sync ? .5 : .25);
+        s.el(r, 'ring', d, 1);
+        if (sync) s.el(cards[j], 'rise', d, .5);
+      });
+      if (sync) cards = [];
+    });
+    if (last) {
+      var t = last.total;
+      cards.forEach(function (c, k) { last.el(c, 'rise', t + k * .18, .5); });
+      last.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot', fig), 'fade', t + .1, .45);
+    }
+  };
+
+  // 階段・手順の鎖（.nf-steps）：図の中身を上から順に組み立てる。
+  // 上の模式図 → 前提の帯 → 段が1つずつ（段の間の矢印が先に）→ 下に続く流れ図・対応表 → 戻りの線（右から左へ）→ 説明カード → 注記
+  // アイコンの並ぶ鎖（装置の構成など）は、段が出そろう間にガスの粒が左から右へ流れる
+  RECIPES.steps = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), nf = q('.nf', fig), t = 0;
+    [].forEach.call(nf.children, function (c) {
+      var cl = c.classList;
+      if (c.tagName === 'IMG') { s.el(c, 'fade', t, .5); t += .2; }
+      else if (cl.contains('nf-steps')) t = stepsSeq(s, c, t);
+      else if (cl.contains('nf-flow')) t = flowSeq(s, c, t);
+      else if (cl.contains('nf-map')) t = mapSeq(s, c, t);
+      else if (cl.contains('nf-return')) { s.el(c, 'wipel', t + .05, .85); t += .95; }
+      else if (cl.contains('nf-band')) { s.el(c, 'slide', t + .05, .55); t += .45; }
+      else if (cl.contains('nf-sec')) { s.el(c, 'fade', t, .4); t += .2; }
+      else if (cl.contains('nf-callouts')) {
+        Q(':scope > *', c).forEach(function (x, k) { s.el(x, 'rise', t + k * .22, .5); });
+        t += c.children.length * .22 + .1;
+      }
+      else if (cl.contains('nf-foot') || cl.contains('nf-legend')) s.el(c, 'fade', t, .45);
+    });
+  };
+  function stepsSeq(s, el, t0) {
+    var st = Q(':scope > .nf-step', el), GAP = .3;
+    st.forEach(function (x, k) {
+      var d = t0 + .1 + k * GAP;
+      s.el(x, x.classList.contains('is-goal') ? 'pop' : 'rise', d, .5);
+      s.el(Q('.nf-chip.is-fill', x), 'pop', d + .3, .45, .1);
+    });
+    var end = t0 + .1 + st.length * GAP + .2;
+    if (el.classList.contains('is-chain') && Q('svg.nf-ico', el).length > 1) {
+      gas(s, el, t0 + .3, 2.3);
+      end = Math.max(end, t0 + 1.75);
+    }
+    return end;
+  }
+  // ガスの粒：アイコンの中心を順につないだ道を左（上）から流れる。段の並びが縦（スマホ）でも同じ道を測って流す
+  function gas(s, box, t0, dur) {
+    var N = 10, TRAVEL = 1.15, lay = null, dots = [], path = null;
+    function measure() {
+      var b = box.getBoundingClientRect(), p = [];
+      Q('svg.nf-ico', box).forEach(function (ic, k) {
+        var r = ic.getBoundingClientRect(), c = { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+        if (k === 0) p.push({ x: c.x - r.width / 2, y: c.y });
+        p.push(c);
+      });
+      var acc = [0];
+      for (var i = 1; i < p.length; i++) acc.push(acc[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+      path = { p: p, acc: acc, L: acc[acc.length - 1] || 1 };
+    }
+    function along(u) {
+      var d = clamp(u) * path.L, i = 1;
+      while (i < path.acc.length - 1 && path.acc[i] < d) i++;
+      var a = path.p[i - 1], b = path.p[i], seg = (path.acc[i] - path.acc[i - 1]) || 1, f = (d - path.acc[i - 1]) / seg;
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      if (p > 0 && !path) measure();
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / TRAVEL;
+        if (!path || u <= 0 || u >= 1 || p >= 1) { o.style.opacity = 0; return; }
+        var pt = along(easeIO(u));
+        o.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
+        o.style.opacity = u < .08 ? u / .08 : u > .86 ? (1 - u) / .14 : 1;
+      });
+    }, function () {
+      path = null;
+      lay = D.createElement('span'); lay.className = 'mo-gas-lay'; lay.setAttribute('aria-hidden', 'true');
+      for (var k = 0; k < N; k++) { var o = D.createElement('i'); o.className = 'mo-gas'; lay.appendChild(o); dots.push(o); }
+      box.appendChild(lay);
+    }, function () { if (lay) lay.remove(); lay = null; dots = []; path = null; });
+  }
+
+  // 頭文字カード（.nf-acro）：カードが1枚ずつ来て頭文字が弾む → 注意の札が押される
+  RECIPES.acro = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), cs = Q('.nf-ac', fig);
+    cs.forEach(function (c, k) {
+      var d = .05 + k * .17;
+      s.el(c, 'rise', d, .5); s.el(q('.nf-lt', c), 'pop', d + .12, .5);
+    });
+    s.el(Q('.nf-ac .nf-chip', fig), 'stamp', .05 + cs.length * .17 + .35, .45, .1);
+    tail(s, fig);
+  };
+
+  // 範囲の横棒（.nf-range）：行ごとに、名前 → 背景の帯 → 棒が左から伸びる → 点が置かれる → 値。
+  // 下の段（.is-dn＝実測）がある図は、上の段（設定）を全行に出してから、実測を上から順に重ねる
+  RECIPES.range = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), rg = q('.nf-range', fig), rows = Q('.nf-rt', rg), late = [];
+    var two = !!q('.nf-rt .is-dn', rg), ROW = .2;
+    s.el(Q('.nf-raxis, .nf-rat', rg), 'fade', 0, .45);
+    rows.forEach(function (rt, k) {
+      var d = .08 + k * ROW, j = 0;
+      s.el(rt.previousElementSibling, 'slide', d, .45);
+      s.el(Q('.nf-zone', rt), 'fade', d, .5);
+      [].forEach.call(rt.children, function (e) {
+        if (e.classList.contains('nf-zone')) return;
+        if (two && e.classList.contains('is-dn')) { late.push({ e: e, k: k }); return; }
+        var dot = e.classList.contains('nf-rd');
+        s.el(e, dot ? 'dotp' : 'barx', d + .15 + j * .14, dot ? .45 : .5); j++;
+      });
+      s.el(rt.nextElementSibling, 'fade', d + .2 + j * .14, .45);
+    });
+    var t2 = .08 + rows.length * ROW + .45, seen = {}, n = 0;
+    late.forEach(function (o) {
+      if (!(o.k in seen)) seen[o.k] = n++;
+      var dot = o.e.classList.contains('nf-rd');
+      s.el(o.e, dot ? 'dotp' : 'barx', t2 + seen[o.k] * .28 + (dot ? .3 : 0), dot ? .45 : .5);
+    });
+    tail(s, fig);
+  };
+
+  // グラフ（data-mo="chart"）：パネルごとに 見出し → 軸 → 閾値 → 線を時間軸に沿って描く。
+  // 点・棒・値・帯は、描く線がその x に来たときに出る。data-mo-at で個別に時刻を変える：
+  //   frame（軸と一緒）／thr（閾値と一緒）／x（その x に線が来たとき。軸の文字に見える値の札に付ける）／end（線を描き終えてから順に）／last（最後）
+  // 面（塗りのある大きな path）は線と一緒に左から現れる
+  // SVG に data-mo-panel="washout" があれば、死腔の洗い出し（たまったCO₂が流れに押し出される）として動かす
+  RECIPES.chart = function (fig) {
+    var F = new Fig(fig, .5), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('svg', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      if (svg.getAttribute('data-mo-panel') === 'washout') washout(s, svg); else chart(s, svg);
+    });
+    tail(last, fig);
+  };
+  function chart(s, svg) {
+    var T0 = .5, frame = [], thr = [], series = [], marks = [], ends = [], lasts = [], axes = [];
+    [].forEach.call(svg.children, function (e) {
+      var tag = e.tagName, cl = e.classList, at = e.getAttribute('data-mo-at');
+      if (tag === 'defs' || tag === 'title' || tag === 'desc') return;
+      if (cl.contains('nf-axis')) axes.push(e);
+      if (at === 'frame') frame.push(e); else if (at === 'thr') thr.push(e);
+      else if (at === 'end') ends.push(e); else if (at === 'last') lasts.push(e); else if (at === 'x') marks.push(e);
+      else if (/nf-(axis|grid|tick|zero)/.test(e.getAttribute('class') || '') || (tag === 'text' && !cl.contains('nf-tb'))) frame.push(e);
+      else if (cl.contains('nf-thr')) thr.push(e);
+      else if (isSeries(e)) series.push(e);
+      else marks.push(e);
+    });
+    function isSeries(e) {
+      var tag = e.tagName, cl = e.classList;
+      if (cl.contains('nf-sa') || cl.contains('nf-sd') || !/^(path|line|polyline)$/.test(tag)) return false;
+      if (tag === 'path' && W.getComputedStyle(e).fill !== 'none') return false;
+      return cl.contains('nf-wave') || e.getBBox().width >= 30;
+    }
+    function bx(list) {
+      var b = null;
+      list.forEach(function (e) { var r = e.getBBox(); b = b ? { a: Math.min(b.a, r.x), b: Math.max(b.b, r.x + r.width) } : { a: r.x, b: r.x + r.width }; });
+      return b;
+    }
+    var R = bx(series.length ? series : axes.length ? axes : marks) || { a: 0, b: 1 };
+    var TD = series.length ? 1.4 : 1.0, W0 = (R.b - R.a) || 1;
+    function tx(x) { return T0 + TD * clamp((x - R.a) / W0); }
+    s.el(frame, 'fade', .1, .4);
+    s.el(thr, 'fade', .3, .45);
+    var fills = marks.filter(function (e) { return /^(path|polygon)$/.test(e.tagName) && e.getBBox().width >= 30 && !/nf-zone/.test(e.getAttribute('class') || ''); });
+    if (series.length) { marks = marks.filter(function (e) { return fills.indexOf(e) < 0; }); sweep(s, svg, series, T0, TD, fills); }
+    var bars = [];
+    marks.forEach(function (e) {
+      var r = e.getBBox(), cx = r.x + r.width / 2, tag = e.tagName, cl = e.getAttribute('class') || '';
+      if (/nf-zone/.test(cl)) { s.el(e, 'fade', tx(cx) - .1, .6); return; }
+      if (tag === 'rect' && r.width >= 20 && r.width <= W0 * .4) { s.el(e, 'growu', tx(cx), .6); bars.push(r); return; }
+      if (tag === 'text') return;
+      if (r.width >= 30 && /^(path|polygon)$/.test(tag)) { s.el(e, 'fade', tx(r.x), .6); return; }
+      if ((tag === 'line' || tag === 'path') && r.height < 6 && r.width >= 12) { s.el(e, 'growx', tx(cx), .4); return; }
+      s.el(e, /^(circle|rect|ellipse|path|polygon)$/.test(tag) && r.width < 30 && r.height < 30 ? 'pop' : 'fade', tx(cx), .42);
+    });
+    marks.forEach(function (e) {   // 値の文字：棒の上の数字は棒と一緒に数え上がる。それ以外は点のあとに弾む
+      if (e.tagName !== 'text') return;
+      var r = e.getBBox(), cx = r.x + r.width / 2, bar = null;
+      bars.forEach(function (b) { if (cx >= b.x && cx <= b.x + b.width) bar = b; });
+      if (bar && /^\s*\d+(\.\d+)?\s*$/.test(e.textContent)) {
+        var C = counter(e), t = tx(bar.x + bar.width / 2);
+        s.el(e, 'fade', t, .3);
+        if (C) s.track(t, .6, function (p) { C.set(p); }, null, function () { C.done(); });
+        return;
+      }
+      s.el(e, 'pop', tx(cx) + .12, .42);
+    });
+    var t = T0 + TD + .15;
+    ends.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .12, e.tagName === 'rect' ? .6 : .42); });
+    if (ends.length) t += ends.length * .12 + .3;
+    lasts.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .1, e.tagName === 'rect' ? .7 : .45); });
+  }
+  // 死腔の洗い出し：管の中にたまったCO₂の粒が、高流量の矢印が来ると右の出口へ押し出される（最後は元の位置）
+  function washout(s, svg) {
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var co2 = kids.filter(function (e) { return e.tagName === 'circle'; });
+    var jet = kids.filter(function (e) { return /a[LX]\)/.test(e.getAttribute('marker-end') || ''); });
+    kids.forEach(function (e) {
+      if (co2.indexOf(e) >= 0 || jet.indexOf(e) >= 0) return;
+      var tb = e.tagName === 'text' && e.classList.contains('nf-tb');
+      s.el(e, tb ? 'pop' : 'fade', tb ? 1.75 : .1, .45);
+    });
+    s.el(jet, 'slide', .35, .6);
+    var home = co2.map(function (c) { return { x: +c.getAttribute('cx'), y: +c.getAttribute('cy') }; });
+    var minX = Math.min.apply(null, home.map(function (h) { return h.x; }));
+    s.track(.45, 1.5, function (p) {
+      co2.forEach(function (c, k) {
+        var h = home[k], f = easeIO(clamp((p * 1.5 - k * .04) / 1.05));
+        var x0 = 78 + (h.x - minX) * .55, y0 = 100 + (h.y - 100) * .55;   // 管の中に寄せた位置から
+        c.setAttribute('cx', (x0 + (h.x - x0) * f).toFixed(1)); c.setAttribute('cy', (y0 + (h.y - y0) * f).toFixed(1));
+      });
+    }, null, function () { co2.forEach(function (c, k) { c.setAttribute('cx', home[k].x); c.setAttribute('cy', home[k].y); }); });
+  }
+
+  // 既定：パネル → 説明カード → 注記
+  RECIPES.panels = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), pn = Q('.nf-panel', fig);
+    if (!pn.length) pn = Q(':scope > .nf > *:not(.nf-callouts):not(.nf-foot):not(.nf-legend)', fig);
+    s.el(pn, 'rise', 0, .55, .2);
+    tail(s, fig);
+  };
+
+  // ボンベの持ち時間（.mo-tank）：時間を縮め、2本が同時に減っていく。空になったところで持ち時間が出る
+  RECIPES.tank = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), tk = q('.mo-tank', fig);
+    var MAX = parseFloat(tk.getAttribute('data-max') || 10), SPD = parseFloat(tk.getAttribute('data-sec-per-min') || .4);
+    var clock = q('[data-mo-clock]', tk), raw = clock ? clock.textContent : '';
+    var rows = Q('.mo-tk-row', tk).map(function (r) {
+      return { r: r, min: parseFloat(r.getAttribute('data-min')), gas: q('.mo-tk-gas', r), bar: q('.mo-tk-bar', r),
+               val: q('.mo-tk-val', r), track: q('.mo-tk-track', r), cur: null };
+    });
+    s.el(Q('.mo-tk-row', tk), 'rise', 0, .5, .15);
+    s.el(q('.mo-tk-head', tk), 'fade', 0, .4);
+    var T0 = .55, DUR2 = MAX * SPD;
+    s.track(T0, DUR2, function (p) {
+      var m = MAX * p;
+      if (clock) clock.textContent = p >= 1 ? raw : m.toFixed(1);
+      rows.forEach(function (o) {
+        var f = clamp(m / o.min);
+        o.gas.style.setProperty('--g', (1 - f).toFixed(4));
+        o.bar.style.transform = 'scaleX(' + f.toFixed(4) + ')';
+        o.val.style.opacity = f >= 1 ? 1 : 0;
+        o.val.style.transform = f >= 1 ? 'none' : 'scale(.8)';
+        o.cur.style.left = (m / MAX * 100) + '%';
+        o.cur.style.opacity = p > 0 && p < 1 ? '' : 0;
+      });
+    }, function () {
+      rows.forEach(function (o) {
+        o.val.style.transition = 'opacity .3s ease, transform .4s cubic-bezier(.3,1.5,.5,1)';
+        o.cur = D.createElement('span'); o.cur.className = 'mo-tk-cur'; o.track.appendChild(o.cur);
+      });
+    }, function () {
+      if (clock) clock.textContent = raw;
+      rows.forEach(function (o) {
+        o.gas.style.removeProperty('--g'); o.bar.style.transform = ''; o.val.style.opacity = ''; o.val.style.transform = '';
+        if (o.cur) o.cur.remove();
+      });
+    });
+    tail(s, fig);
+  };
+
+  function recipeFor(fig) {
+    var name = fig.getAttribute('data-mo');
+    if (name) return name;
+    if (fig.classList.contains('mo-ip')) return 'intro';
+    if (q('.mo-tank', fig)) return 'tank';
+    if (q('.nf-steps', fig)) return 'steps';        // 手順の鎖の下に流れ図・対応表が続く図もここで組み立てる
+    if (q('.nf-acro', fig)) return 'acro';
+    if (q('.nf-range', fig)) return 'range';
+    if (q('.nf-flow', fig)) return 'flow';
+    if (q('.nf-map', fig)) return 'map';
+    if (q('.nf-gallery', fig)) return 'gallery';
+    if (q('.nf-meters', fig)) return 'meters';
+    if (q('img[data-mo-sign]', fig)) return 'signs';
+    if (q('svg .nf-wave', fig)) return 'wave';
+    if (q('svg.nf-draw', fig)) return 'circuit';
+    return 'panels';
+  }
+
+  // ================= 本文の動き =================
+  function seen(nodes, cb, th) {
+    if (!nodes.length) return;
+    var io = new IntersectionObserver(function (es) {
+      es.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) { io.unobserve(e.target); cb(e.target, i); });
+    }, { threshold: th || 0, rootMargin: '0px 0px -8% 0px' });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+  var REVEAL = [];   // [要素, 見えたときの処理]
+
+  function body() {
+    var main = q('main'); if (!main) return;
+    // 1) かたまりが下から現れる
+    var blocks = Q('.box, .tablewrap, details.rd-ev, .rd-check, .rd-dodont:not(.is-choice), .rd-stats, .rd-points, figure.fig, .figread, .mo-ip', main)
+      .filter(function (el) { return !el.parentNode.closest('.mo-rv, figure.fig, .box'); });
+    blocks.forEach(function (el) { el.classList.add('mo-rv'); });
+    seen(blocks, function (el, i) { el.style.transitionDelay = Math.min(i * .06, .3) + 's'; el.classList.add('mo-in'); });
+    REVEAL.push(blocks);
+    // 2) 章見出し・節見出し
+    var hs = Q('.rd > h2, .rd > h3', main);
+    hs.forEach(function (h) { h.classList.add('mo-h'); });
+    seen(hs, function (h) { h.classList.add('mo-in'); }, .4);
+    REVEAL.push(hs);
+    // 3) 「この章のポイント」を1行ずつ
+    var pts = Q('.rd-points', main);
+    pts.forEach(function (b) {
+      Q('li, .rd-points-f', b).forEach(function (li, k) { li.classList.add('mo-li'); li.style.setProperty('--dd', (.2 + k * .14) + 's'); });
+    });
+    seen(pts, function (b) { Q('.mo-li', b).forEach(function (li) { li.classList.add('mo-in'); }); }, .3);
+    REVEAL.push(Q('.rd-points .mo-li', main));
+    // 4) 節頭の結論の一文にマーカー（出典タグは除く）
+    var leads = Q('.rd .rd-lead:not(.is-sub)', main), marks = [];
+    leads.forEach(function (p) {
+      var run = [];
+      function flush() {
+        if (!run.length) return;
+        var sp = D.createElement('span'); sp.className = 'mo-mark';
+        run[0].parentNode.insertBefore(sp, run[0]); run.forEach(function (n) { sp.appendChild(n); }); run = []; marks.push(sp);
+      }
+      [].slice.call(p.childNodes).forEach(function (n) { if (n.nodeType === 1 && n.classList.contains('src')) flush(); else run.push(n); });
+      flush();
+    });
+    seen(leads, function (p) { setTimeout(function () { Q('.mo-mark', p).forEach(function (m) { m.classList.add('mo-in'); }); }, 220); }, .9);
+    REVEAL.push(marks);
+    // 5) 表の行を順に（25行まで）
+    Q('table', main).forEach(function (tb) {
+      if (tb.closest('figure.fig')) return;
+      var rows = Q('tbody tr', tb); if (!rows.length || rows.length > 25) return;
+      rows.forEach(function (r) { r.classList.add('mo-row'); });
+      seen([tb], function () { rows.forEach(function (r, k) { r.style.transitionDelay = Math.min(.1 + k * .045, .9) + 's'; r.classList.add('mo-in'); }); });
+      REVEAL.push(rows);
+    });
+    // 6) 2択の囲み：左右から
+    var ch = Q('.rd-dodont.is-choice', main);
+    ch.forEach(function (c) { if (c.children[0]) c.children[0].classList.add('mo-cl'); if (c.children[1]) c.children[1].classList.add('mo-cr'); });
+    seen(ch, function (c) { c.classList.add('mo-in'); }, .25);
+    REVEAL.push(ch);
+    // 7) 数値チップのカウントアップ
+    var stats = Q('.rd-stats', main);
+    seen(stats, function (b) {
+      Q('.rd-stat', b).forEach(function (st, k) {
+        setTimeout(function () { st.classList.add('mo-in'); }, k * 120);
+        var v = q('.rd-stat-v', st), C = v && counter(v); if (!C) return;
+        var t0 = null, delay = 150 + k * 120;
+        C.set(0);
+        function fr(ts) { if (t0 === null) t0 = ts + delay; var p = clamp((ts - t0) / 900); C.set(p); if (p < 1) requestAnimationFrame(fr); }
+        requestAnimationFrame(fr);
+        FINAL.push(C.done);
+      });
+    }, .5);
+  }
+  var FINAL = [];
+
+  // ================= 読了バーの章の刻みと、目次の現在地 =================
+  function chrome() {
+    var hs = Q('main h2[id^="s"]');
+    if (hs.length && D.getElementById('rs-progress')) {
+      var box = D.createElement('div'); box.id = 'mo-ticks'; box.setAttribute('aria-hidden', 'true'); D.body.appendChild(box);
+      var marks = hs.map(function () { var i = D.createElement('i'); box.appendChild(i); return i; });
+      var fr = [];
+      var place = function () {
+        var max = R.scrollHeight - W.innerHeight;
+        fr = hs.map(function (h, k) {
+          var f = max > 0 ? clamp((h.getBoundingClientRect().top + W.pageYOffset - 90) / max) : 0;
+          marks[k].style.left = (f * 100) + '%'; return f;
+        });
+        mark();
+      };
+      var mark = function () {
+        var max = R.scrollHeight - W.innerHeight, f = max > 0 ? W.pageYOffset / max : 0;
+        marks.forEach(function (m, k) { m.classList.toggle('on', fr[k] <= f + .0005); });
+      };
+      W.addEventListener('scroll', mark, { passive: true });
+      W.addEventListener('resize', place);
+      W.addEventListener('load', place);
+      if (W.ResizeObserver) new ResizeObserver(function () { place(); }).observe(q('main'));
+      place();
+    }
+    var nav = D.getElementById('rs-nav');
+    if (nav) {
+      var ind = D.createElement('span'); ind.className = 'mo-navind'; ind.setAttribute('aria-hidden', 'true');
+      nav.insertBefore(ind, nav.firstChild);
+      var first = true, busy = false;
+      var upd = function () {
+        busy = false;
+        var a = q('a.on', nav);
+        if (!a || !a.offsetHeight) { ind.style.opacity = 0; return; }
+        if (first) ind.style.transition = 'none';
+        ind.style.height = a.offsetHeight + 'px';
+        ind.style.transform = 'translateY(' + a.offsetTop + 'px)';
+        ind.style.opacity = 1;
+        if (first) { void ind.offsetWidth; ind.style.transition = ''; first = false; }
+      };
+      W.addEventListener('scroll', function () {
+        if (busy) return; busy = true;
+        requestAnimationFrame(function () { requestAnimationFrame(upd); });   // 目次側の更新（rs-js）のあとに動かす
+      }, { passive: true });
+      W.addEventListener('resize', upd);
+      setTimeout(upd, 80);
+    }
+  }
+
+  // ================= 起動 =================
+  function finishAll() {
+    R.classList.add('mo-done');
+    FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.finish(); }); });
+    REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+    FINAL.forEach(function (fn) { try { fn(); } catch (e) {} });
+  }
+
+  function start() {
+    R.classList.add('mo-on');
+    var figs = Q('.mo-ip, main figure.fig').filter(function (f) { return f.getAttribute('data-mo') !== 'none'; });
+    figs.forEach(function (fig) {
+      var name = recipeFor(fig), n0 = FIGS.length;
+      if (!RECIPES[name]) return;
+      try {
+        RECIPES[name](fig);
+        for (var i = n0; i < FIGS.length; i++) FIGS[i].scenes.forEach(function (s) { s.reset(); });
+      } catch (err) {
+        for (var j = n0; j < FIGS.length; j++) FIGS[j].undo();
+        FIGS.length = n0;
+        if (W.console) console.warn('resident motion: ' + name + ' を飛ばしました', err);
+      }
+    });
+    body();
+    chrome();
+    W.addEventListener('beforeprint', finishAll);
+    W.ResMo = { figs: FIGS, finishAll: finishAll };
+
+    if (TEST && TEST.seek != null) {             // 点検：全部をその時刻で止める
+      R.classList.add('mo-paused');
+      R.style.setProperty('--mo-seek', TEST.seek + 's');
+      FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.seek(TEST.seek, f.offsetOf(s)); }); });
+      REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+      return;
+    }
+    FIGS.forEach(function (f) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var sc = e.target._moScene;
+          if (!sc || sc.state !== 0 || !e.isIntersecting) return;
+          if (e.intersectionRatio >= .3 || e.intersectionRect.height >= W.innerHeight * .4) { io.unobserve(e.target); sc.play(f.offsetOf(sc)); }
+        });
+      }, { threshold: [0, .1, .2, .3, .5] });
+      f.scenes.forEach(function (s) { s.trigger._moScene = s; io.observe(s.trigger); });
+    });
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>

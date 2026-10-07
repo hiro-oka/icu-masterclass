@@ -169,6 +169,11 @@ p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-hei
 .tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
 .tools .btn.sec:hover{background:var(--accent);color:#fff}
 .tools .btn:active{transform:translateY(1px)}
+.start{border:2px solid var(--accent);border-radius:12px;background:#fff;padding:.75rem 1rem .8rem;margin:.9rem 0 .6rem}
+.start-k{display:inline-block;margin:0 0 .3rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:999px;padding:.12rem .7rem}
+.start-t{margin:0;font-size:.95rem;line-height:1.75}
+.start-t a{font-weight:800;color:var(--accent);white-space:nowrap}
+@media print{.start{display:none}}
 .tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
 @media print{.tools{display:none !important}}
 
@@ -1239,10 +1244,15 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：医師・看護師・多職種</span><span>最終更新 2026-10-07</span></p>
 
+<div class="start">
+  <p class="start-k">はじめての方へ</p>
+  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026-lecture/">🎞 スライド</a> で全体をつかんでください。1枚ずつ要点だけを、→キーやスワイプで送って読めます。詳しく知りたいところは、目次から本文へ進んでください。</p>
+</div>
+
 <div class="tools">
-  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
-  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026-summary/">📝 サマリー</a>
   <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026-lecture/">🎞 スライド</a>
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/jsicm-lst-guideline-2026-summary/">📝 サマリー</a>
+  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
 

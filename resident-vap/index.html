@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>VAPと抗菌薬</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+  --note:#6b3fa0; --note-soft:#f1ecf9;
+  --danger:#b3261e; --danger-soft:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --code:#1e2329;
+    --note:#c4a7ea; --note-soft:#241c33;
+    --danger:#f2857c; --danger-soft:#3a1c1a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.95; letter-spacing:.01em;
+}
+main{max-width:860px; margin:0 auto; padding:2.2rem 1.1rem 5rem}
+h1{font-size:1.66rem; line-height:1.4; margin:0 0 .4rem; letter-spacing:-.01em}
+.sub{color:var(--muted); font-size:.94rem; margin:0 0 1.2rem}
+h2{font-size:1.2rem; margin:2.8rem 0 .8rem; padding-left:.6rem; border-left:4px solid var(--accent); line-height:1.5; scroll-margin-top:.6rem}
+h2 .no{display:inline-block; font-size:.74rem; letter-spacing:.1em; color:var(--muted); font-weight:700; margin-right:.5rem; vertical-align:.14em}
+h3{font-size:1.02rem; margin:1.8rem 0 .45rem; color:var(--accent); scroll-margin-top:.6rem}
+h4{font-size:.95rem; margin:1.2rem 0 .35rem}
+p{margin:1.05rem 0; line-height:2.0}
+ul,ol{padding-left:1.3rem; margin:.7rem 0}
+li{margin:.3rem 0}
+strong{font-weight:700}
+u{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px}
+.box p{line-height:1.95}
+.box{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.05rem; margin:1.2rem 0; background:var(--accent-soft)}
+.box.warn{background:var(--warn-soft); border-color:var(--warn)}
+.box.good{background:var(--good-soft); border-color:var(--good)}
+.box.danger{background:var(--danger-soft); border-color:var(--danger)}
+.box.plain{background:var(--code)}
+.box p:first-child{margin-top:0}
+.box p:last-child, .box ul:last-child, .box ol:last-child, .box .tablewrap:last-child{margin-bottom:0}
+.box .label{display:block; font-weight:700; font-size:.85rem; letter-spacing:.04em; margin-bottom:.35rem}
+.box.danger .label{color:var(--danger)}
+.box.warn .label{color:var(--warn)}
+.box.good .label{color:var(--good)}
+.toc{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem; background:var(--code); margin:1.4rem 0 2rem}
+.toc .label{display:block; font-weight:700; font-size:.83rem; letter-spacing:.08em; color:var(--muted); margin-bottom:.5rem}
+.toc ol{margin:0; padding-left:1.2rem; font-size:.93rem}
+.toc li{margin:.24rem 0}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid var(--line)}
+.toc a:hover{color:var(--accent); border-color:var(--accent)}
+.tablewrap{overflow-x:auto; margin:1rem 0; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem; line-height:1.6}
+table.wide{min-width:680px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top}
+th{background:var(--code); font-weight:700}
+tbody tr:nth-child(even) td{background:color-mix(in srgb, var(--code) 45%, transparent)}
+td.num{white-space:nowrap; font-variant-numeric:tabular-nums}
+caption{caption-side:top; text-align:left; font-weight:700; font-size:.9rem; padding:.2rem 0 .45rem; color:var(--fg)}
+code{background:var(--code); padding:.1rem .35rem; border-radius:4px; font-size:.9em}
+.src{display:inline; font-size:.72rem; font-weight:400; color:var(--muted);
+  white-space:nowrap; padding:0; border:0; background:none; letter-spacing:0}
+.src::before{content:"["}
+.src::after{content:"]"}
+.src+.src{margin-left:.25em}
+li>.src, p>.src, td>.src{margin-left:.35em}
+.split{color:var(--danger); font-weight:700}
+.ok{color:var(--accent); font-weight:700}
+td.grp{background:var(--accent-soft); font-size:.85rem; letter-spacing:.02em; padding-top:.5rem; padding-bottom:.5rem}
+td.num strong{font-size:1.02em}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.5rem 0 1.2rem; font-size:.84rem; align-items:center}
+.meta{display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.5rem 0 1.2rem; font-size:.82rem}
+.meta span{border:1px solid var(--line); border-radius:999px; padding:.12rem .65rem; color:var(--muted)}
+.kicker{font-size:.78rem; letter-spacing:.12em; color:var(--accent); font-weight:700; margin:0 0 .45rem}
+.chk{list-style:none; padding-left:0}
+.chk li{position:relative; padding-left:1.7rem; margin:.35rem 0}
+.chk li::before{content:"☐"; position:absolute; left:0; top:0; font-size:1.05rem; color:var(--accent)}
+hr{border:0; border-top:1px solid var(--line); margin:2.2rem 0}
+.refs{font-size:.85rem; color:var(--muted)}
+.refs li{margin:.22rem 0}
+.top{display:block; text-align:right; font-size:.8rem; margin:.4rem 0 0}
+.top a{color:var(--muted); text-decoration:none}
+figure.fig{margin:1.5rem 0; padding:.9rem .9rem .1rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); break-inside:avoid; page-break-inside:avoid}
+figure.fig svg{display:block; width:100%; height:auto; margin:0 auto}
+figure.fig img{display:block; width:100%; height:auto; margin:0 auto; border-radius:6px}
+figure.fig figcaption{font-size:.85rem; line-height:1.7; color:var(--muted); margin:.7rem 0 .8rem; padding-top:.55rem; border-top:1px solid var(--line)}
+figure.fig figcaption b{color:var(--fg); font-weight:700}
+@media (prefers-color-scheme: dark){
+  figure.fig svg{filter:brightness(1.5) saturate(.95)}
+  figure.fig img{filter:brightness(.92)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:1.4rem .7rem 3.5rem}
+  table{font-size:.83rem}
+}
+@media print{
+  @page{margin:12mm 10mm}
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
+  :root{
+    --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+    --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+    --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+    --note:#6b3fa0; --note-soft:#f1ecf9;
+    --danger:#b3261e; --danger-soft:#fdecea;
+  }
+  body{background:var(--bg); color:var(--fg)}
+  body{font-size:9.2pt; line-height:1.5}
+  main{max-width:none; padding:0}
+  h1{font-size:16pt} h2{font-size:11.5pt; margin:14pt 0 5pt; break-after:avoid; page-break-after:avoid}
+  h3{font-size:10pt; margin:9pt 0 3pt; break-after:avoid; page-break-after:avoid}
+  a{text-decoration:none}
+  .toc{break-after:page; page-break-after:always}
+  .tablewrap{overflow:visible}
+  table{min-width:0 !important; width:100%; font-size:8pt; break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .box{break-inside:avoid; page-break-inside:avoid}
+  figure.fig{break-inside:avoid; page-break-inside:avoid}
+  figure.fig svg, figure.fig img{filter:none !important; max-width:100%}
+  figure.fig figcaption{font-size:7.6pt}
+  .top{display:none}
+}
+
+/* ===== 部（Part）見出し ===== */
+h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
+  background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
+h2.part .pn{display:block; font-size:.72rem; letter-spacing:.14em; opacity:.85; font-weight:700; margin-bottom:.15rem}
+p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-height:1.85}
+.toc li.p{margin-top:.5rem; font-weight:700}
+.toc li.p a{color:var(--accent)}
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
+/* ===== 共有ツール（リンクコピー / PDF） ===== */
+.tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
+.tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
+  border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;-webkit-appearance:none}
+.tools .btn.pri{background:var(--accent);color:#fff}
+.tools .btn.pri:hover{filter:brightness(1.08)}
+.tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.tools .btn.sec:hover{background:var(--accent);color:#fff}
+.tools .btn:active{transform:translateY(1px)}
+.tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+@media print{.tools{display:none !important}}
+
+/* ===== スコア計算機（Murray） ===== */
+.calc{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:1.4rem 0; background:var(--bg)}
+.calc-h{padding:.85rem 1.1rem; border-bottom:1px solid var(--line); background:var(--accent-soft)}
+.calc-h b{font-size:.98rem; color:var(--accent)}
+.calc-h span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+.calc-b{padding:.9rem 1.1rem}
+.crow{display:flex; flex-wrap:wrap; gap:.4rem .7rem; align-items:center; padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>.cl{flex:0 0 13.5rem; font-size:.87rem; font-weight:700}
+.crow>.cl small{display:block; font-weight:400; color:var(--muted); font-size:.76rem}
+.opts{display:flex; flex-wrap:wrap; gap:.35rem; flex:1}
+.opts button{font:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--fg); cursor:pointer; white-space:nowrap}
+.opts button:hover{border-color:var(--accent); color:var(--accent)}
+.opts button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+.calc-out{display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; align-items:center;
+  padding:.9rem 1.1rem; border-top:1px solid var(--line); background:var(--accent-soft)}
+.calc-score{font-size:2.1rem; font-weight:800; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+.calc-score small{font-size:.8rem; font-weight:500; color:var(--muted); margin-left:.2rem}
+.calc-msg{flex:1; min-width:15rem; font-size:.84rem; line-height:1.75}
+.calc.hot .calc-out{background:var(--danger-soft)}
+.calc.hot .calc-score{color:var(--danger)}
+.calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.figread{font-size:.92rem; color:var(--fg); margin:-.4rem 0 1.2rem; padding:.55rem .9rem; border-left:3px solid var(--line); line-height:1.75}
+.figread strong{color:var(--accent)}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
+
+/* ===== リファレンスUI（apply-reference-style.py が付与）===== */
+:root{ --sidebar-w: 288px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+
+/* 進捗バー */
+#rs-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* モバイル上部バー */
+#rs-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:10px;padding:0 12px}
+#rs-topbar .t{font-weight:700;font-size:14px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+#rs-burger{border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  border-radius:8px;width:40px;height:36px;font-size:17px;cursor:pointer}
+
+/* サイドバー */
+#rs-side{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);z-index:55;
+  background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .22s ease}
+#rs-side .hd{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#rs-side .hd .ttl{font-weight:800;font-size:14px;line-height:1.4;color:var(--fg)}
+#rs-side .hd .sb{font-size:11px;color:var(--muted);margin-top:3px}
+#rs-search{width:100%;margin-top:10px;padding:8px 10px;font-size:13px;
+  border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+#rs-search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#rs-hits{font-size:11px;color:var(--muted);margin-top:6px;min-height:14px}
+#rs-nav{overflow-y:auto;padding:10px 8px 24px;flex:1}
+#rs-nav a{display:block;padding:6px 10px;margin:1px 0;border-radius:7px;
+  color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.45;
+  border-left:3px solid transparent}
+#rs-nav a:hover{background:var(--accent-soft);color:var(--fg)}
+#rs-nav a.lv3{padding-left:22px;font-size:12px;opacity:.9}
+#rs-nav a.on{background:var(--accent-soft);color:var(--accent);
+  border-left-color:var(--accent);font-weight:700}
+#rs-nav a.hit{outline:1px dashed var(--accent)}
+#rs-scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;display:none}
+
+/* 本文: サイドバー分を body の padding で空け、main は残り幅の中で中央寄せ
+   （margin-left と max-width の併用だと広い画面で右だけ余る）*/
+body{padding-left:var(--sidebar-w)}
+main{margin:0 auto;max-width:1080px;padding:32px 40px 96px}
+
+/* 見出しが固定バーに隠れないように */
+h2,h3{scroll-margin-top:16px}
+
+/* 表を読みやすく */
+.rs-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+  border:1px solid var(--line);border-radius:10px}
+.rs-tw>table{margin:0;border:0;min-width:520px}
+.rs-tw thead th{position:sticky;top:0;z-index:2;background:var(--bg);
+  box-shadow:inset 0 -1px 0 var(--line)}
+
+/* 検索ハイライト */
+mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
+
+/* トップへ */
+#rs-top{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  font-size:17px;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+
+@media (min-width: 1600px){ main{max-width:1180px} }
+
+@media (max-width: 1000px){
+  #rs-topbar{display:flex}
+  #rs-side{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rs-side.open{transform:none}
+  #rs-side.open ~ #rs-scrim{display:block}
+  body{padding-left:0}
+  main{padding:70px 16px 90px;max-width:none}
+  .rs-tw>table{min-width:460px}
+}
+
+@media print{
+  #rs-side,#rs-topbar,#rs-scrim,#rs-top,#rs-progress{display:none !important}
+  body{padding-left:0 !important}
+  main{margin:0 !important;padding:0 !important;max-width:none !important}
+  .rs-tw{overflow:visible !important;border:0 !important}
+  .rs-tw>table{min-width:0 !important}
+  .rs-tw thead th{position:static !important}
+  table,tr,.box{break-inside:avoid;page-break-inside:avoid}
+  h2{break-after:avoid;page-break-after:avoid}
+  mark.rs-mk{font-weight:700}
+}
+/* ===== /リファレンスUI ===== */
+
+
+/* ===== 読みやすさ：文字の階層と配色（2026-09-26 試作・見本は ICU年次レポート2025） =====
+   章見出し ＞ 節見出し ＞ 章の導入文 ＞ 本文 ＞ 表・図の説明・出典タグ の順に大きさと色で差をつける。
+   大きさ・余白は画面だけ（@media screen）。色・囲み・表は印刷にも効かせる。 */
+:root{
+  --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+  --rule:#d5e3ea; --lead-bg:#f2f8fb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --navy:#e8eef4; --ink:#dde3ea; --accent-ink:#6cc8ea; --stripe:#1a1f25; --th-bg:#16323f;
+    --rule:#2f4652; --lead-bg:#13262f;
+  }
+}
+@media print{
+  :root{
+    --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+    --rule:#d5e3ea; --lead-bg:#f2f8fb;
+  }
+}
+
+/* --- 色（画面・印刷共通） --- */
+body{color:var(--ink)}
+h1,h2,h3,h4{color:var(--navy)}
+strong{color:var(--accent-ink)}
+.ok{color:var(--accent-ink)}
+.ng{color:var(--danger); font-weight:700}
+.box.warn strong{color:var(--warn)}
+.box.danger strong{color:var(--danger)}
+h2 .no{color:var(--accent)}
+h3{color:var(--navy)}
+
+/* 出典タグ：小さく薄く */
+.src{font-size:.66rem; color:var(--muted); opacity:.8; letter-spacing:0}
+
+/* 囲み：種類ごとに色と見出しラベルを分ける */
+.box{border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px;
+  padding:1rem 1.2rem 1.05rem; background:var(--accent-soft)}
+.box.good{border-color:color-mix(in srgb, var(--good) 35%, transparent); border-left-color:var(--good); background:var(--good-soft)}
+.box.warn{border-color:color-mix(in srgb, var(--warn) 35%, transparent); border-left-color:var(--warn); background:var(--warn-soft)}
+.box.danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent); border-left-color:var(--danger); background:var(--danger-soft)}
+.box.plain{border-color:var(--line); border-left-color:var(--muted); background:var(--code)}
+.box .label{display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.06em; line-height:1.5;
+  color:#fff; background:var(--accent); border-radius:999px; padding:.18em .95em .22em; margin-bottom:.6rem}
+.box.good .label{color:#fff; background:var(--good)}
+.box.warn .label{color:#fff; background:var(--warn)}
+.box.danger .label{color:#fff; background:var(--danger)}
+.box.plain .label{color:#fff; background:var(--muted)}
+.box.good .label::before{content:"✓ "}
+.box.warn .label::before{content:"! "}
+.box.danger .label::before{content:"✕ "}
+@media (prefers-color-scheme: dark){
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#15181c}
+}
+@media print{
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#fff}
+}
+
+/* 表：本文より小さく、見出し行に色、1行おきの薄い背景、横罫だけ */
+table{font-size:.86rem; line-height:1.65}
+th,td{border:0; border-bottom:1px solid var(--line); padding:.55rem .7rem}
+th{background:var(--th-bg); color:var(--navy); border-bottom:2px solid var(--accent)}
+.rs-tw thead th{background:var(--th-bg); box-shadow:inset 0 -2px 0 var(--accent)}
+tbody tr:nth-child(even) td{background:var(--stripe)}
+tbody td:first-child{font-weight:600; color:var(--navy)}
+td.num{font-weight:600; color:var(--navy); font-variant-numeric:tabular-nums}
+caption{font-size:.92rem; color:var(--navy); padding:.75rem .8rem .6rem; line-height:1.6}
+.rs-tw{border-color:var(--rule)}
+td .src{font-size:.62rem}
+
+/* 図の説明・読み方 */
+figure.fig figcaption{font-size:.8rem}
+.figread{border-left-color:var(--accent); background:var(--lead-bg); border-radius:0 8px 8px 0; font-size:.9rem}
+.refs{font-size:.8rem}
+
+/* --- 大きさ・行長・余白（画面だけ） --- */
+@media screen{
+  body{font-size:17px; line-height:1.85; letter-spacing:.015em}
+  /* 本文の行長：1行およそ40〜45字。表だけは横幅いっぱいまで広げる */
+  main{max-width:1040px}
+  @media (min-width:1600px){ main{max-width:1080px} }
+  main > *:not(.tablewrap):not(.rs-tw){max-width:47rem}
+  p{margin:0 0 1.15em; line-height:1.85}
+  li{margin:.35em 0; line-height:1.8}
+  h1{font-size:2rem; font-weight:800; line-height:1.35; margin:.2rem 0 .6rem}
+  .sub{font-size:1rem; line-height:1.75}
+
+  /* 章見出し：上に余白と区切り線、§番号を色付きで大きく */
+  h2{font-size:1.6rem; font-weight:800; line-height:1.4; letter-spacing:.01em;
+    margin:4.6rem 0 1.1rem; padding:1.5rem 0 0; border-left:0; border-top:1px solid var(--line);
+    position:relative}
+  h2::before{content:""; position:absolute; top:-2px; left:0; width:64px; height:3px; background:var(--accent)}
+  h2 .no{display:inline-block; font-size:1.2em; font-weight:800; letter-spacing:0; color:var(--accent);
+    margin-right:.45em; vertical-align:baseline}
+
+  /* 章の導入文（h2 直後の段落）：本文よりひと回り大きく */
+  h2:not(#refs) + p{font-size:1.1em; line-height:1.85; color:var(--navy);
+    background:var(--lead-bg); border-radius:10px; padding:1rem 1.25rem 1.1rem; margin:0 0 2rem}
+  h2:not(#refs) + p::before{content:"この章のねらい"; display:block; width:max-content;
+    font-size:.72rem; font-weight:700; letter-spacing:.12em; line-height:1.5; color:#fff; background:var(--accent);
+    border-radius:999px; padding:.15em .9em .2em; margin-bottom:.55rem}
+  h2:not(#refs) + p strong{color:var(--accent-ink)}
+
+  /* 節見出し */
+  h3{font-size:1.22rem; font-weight:800; line-height:1.5; margin:2.9rem 0 .8rem;
+    padding-left:.7rem; border-left:4px solid var(--accent)}
+  h4{font-size:1.02rem; margin:1.6rem 0 .5rem}
+
+  .box{margin:1.5rem 0}
+  .box p, .box li{font-size:.96em; line-height:1.8}
+  .top{font-size:.76rem; margin:1.4rem 0 0}
+}
+@media screen and (prefers-color-scheme: dark){
+  h2:not(#refs) + p::before{color:#15181c}
+}
+@media screen and (max-width:1000px){
+  body{font-size:16px; line-height:1.85}
+  h1{font-size:1.6rem}
+  h2{font-size:1.36rem; margin-top:3.6rem; padding-top:1.2rem}
+  h3{font-size:1.1rem; margin-top:2.4rem}
+  h2:not(#refs) + p{font-size:1.06em; padding:.85rem 1rem .95rem}
+  .box{padding:.9rem 1rem .95rem}
+}
+@media print{
+  h2{border-left:0; border-top:1.5pt solid var(--accent); padding-top:4pt}
+  h2 .no{font-size:1.15em; color:var(--accent); vertical-align:baseline}
+  h2:not(#refs) + p{font-size:1.05em; color:var(--navy)}
+  h3{border-left:3pt solid var(--accent); padding-left:4pt}
+  th,td{padding:3pt 4pt}
+}
+
+/* ===== 重要表（表13）：ページの中でひと目で見つかるように ===== */
+.rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
+table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
+table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; color:#fff; background:var(--danger); border-radius:999px;
+  padding:.1em .8em .15em; margin-right:.6em; vertical-align:.1em}
+table.key thead th, .rs-tw table.key thead th{background:var(--accent); color:#fff; border-bottom:0; box-shadow:none}
+table.key td{border-bottom:1.5px solid var(--rule); vertical-align:top}
+table.key td:first-child{font-weight:800; color:var(--accent-ink); font-size:1.02em; min-width:10em}
+table.key td:nth-child(2){min-width:9em}
+table.key td.num{white-space:normal; font-weight:400; color:var(--ink)}
+table.key td:nth-child(2) strong{color:var(--navy); font-weight:800}
+table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-weight:800; color:var(--accent-ink);
+  font-variant-numeric:tabular-nums; line-height:1.4}
+@media (prefers-color-scheme: dark){
+  table.key thead th, .rs-tw table.key thead th{color:#15181c}
+}
+@media print{
+  table.key thead th, .rs-tw table.key thead th{color:#fff}
+  .rs-tw:has(> table.key){border:1.5pt solid var(--accent) !important; box-shadow:none}
+}
+/* スマホ：1行＝1枚のカードに切り替える */
+@media screen and (max-width:640px){
+  .rs-tw:has(> table.key){overflow:visible; border:0; box-shadow:none; border-radius:0}
+  .rs-tw > table.key{min-width:0 !important; width:100%}
+  table.key, table.key caption, table.key tbody, table.key tr, table.key td{display:block}
+  table.key caption{border:2px solid var(--accent); border-radius:10px; margin-bottom:.8rem}
+  table.key thead{display:none}
+  table.key tr{border:2px solid var(--accent); border-radius:10px; overflow:hidden; margin:0 0 .9rem;
+    background:var(--bg); box-shadow:0 2px 10px rgba(0,132,181,.12)}
+  table.key tbody tr:nth-child(even) td{background:transparent}
+  table.key td{border-bottom:1px solid var(--line); padding:.55rem .85rem}
+  table.key td:last-child{border-bottom:0}
+  table.key td:first-child{background:var(--accent-soft) !important; font-size:1.05em; line-height:1.55;
+    border-bottom:1px solid var(--rule)}
+  table.key td:not(:first-child)::before{content:attr(data-label); display:block; font-size:.72rem;
+    font-weight:700; letter-spacing:.06em; color:var(--muted); margin-bottom:.1rem}
+}
+/* ===== /読みやすさ ===== */
+
+/* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
+td.num{white-space:normal}
+
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
+:root{--sidebar-w:300px}
+@media screen and (min-width:1001px){
+  main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
+}
+main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
+#rs-nav a{font-size:14px; line-height:1.5}
+#rs-nav a.lv3{font-size:13px}
+#rs-side .hd .ttl{font-size:15px}
+#rs-topbar .t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
+/* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
+.refs li, main a{overflow-wrap:anywhere}
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
+   手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
+   （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
+   文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
+
+figure.fig .nf{font-size:.95em; line-height:1.65; color:var(--ink,var(--fg))}
+figure.fig .nf *{box-sizing:border-box}
+/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない（アイコン・凡例の小さな SVG も含む） */
+figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !important}
+
+/* ---- 共通：チップ（道具名・区分） ---- */
+.nf-chip{display:inline-block; font-weight:700; font-size:.92em; line-height:1.45; white-space:nowrap;
+  padding:.06em .75em .1em; border-radius:999px; border:1.5px solid var(--accent);
+  color:var(--accent-ink,var(--accent)); background:var(--bg)}
+.nf-chip.is-fill{background:var(--accent); color:var(--bg)}
+.nf-chip.is-muted{border-color:var(--muted); color:var(--muted)}
+.nf-chip.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-chip.is-warn{border-color:var(--warn); color:var(--warn)}
+.nf-plus{font-weight:700; color:var(--muted); margin:0 .15em}
+
+/* ---- 1. 判断の流れ（nf-flow）：根 → 群 → カード → 結論帯 ---- */
+.nf-flow{display:flex; flex-direction:column}
+.nf-root{position:relative; align-self:center; margin-bottom:1.1em; padding:.5em 1.6em .55em; border-radius:10px;
+  background:var(--accent); color:var(--bg); font-weight:800; font-size:1.06em; text-align:center; line-height:1.5}
+.nf-root::after{content:""; position:absolute; left:50%; top:100%; width:2px; height:1.1em; margin-left:-1px; background:var(--rule,var(--line))}
+.nf-groups{position:relative; display:grid; grid-template-columns:var(--nf-cols, 2fr 3fr); gap:.9em; padding-top:1.1em}
+/* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
+.nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
+  border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
+.nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
+.nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
+.nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
+  border-radius:10px; background:var(--code)}
+.nf-gh{align-self:center; font-size:.84em; font-weight:700; letter-spacing:.08em; color:var(--muted); line-height:1.4}
+.nf-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9.5em), 1fr)); gap:.55em; flex:1}
+.nf-card{display:flex; flex-direction:column; gap:.4em; padding:.6em .8em .7em; background:var(--bg);
+  border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:8px}
+.nf-q{font-weight:700; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-a{line-height:1.8}
+.nf-note{font-size:.86em; color:var(--muted); line-height:1.5}
+
+/* 結論帯（図の結論・例外を1本で示す） */
+.nf-band{display:flex; flex-wrap:wrap; align-items:baseline; gap:.2em .6em; margin-top:1em; padding:.7em 1.05em .75em;
+  border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-left:5px solid var(--danger);
+  border-radius:10px; background:var(--danger-soft); line-height:1.6}
+.nf-band .nf-bh{color:var(--danger); font-weight:800}
+.nf-band .nf-to{color:var(--danger); font-weight:800}
+.nf-band.is-accent{border-color:color-mix(in srgb, var(--accent) 40%, transparent); border-left-color:var(--accent); background:var(--accent-soft)}
+.nf-band.is-accent .nf-bh, .nf-band.is-accent .nf-to{color:var(--accent-ink,var(--accent))}
+
+/* ---- 2. 対応表型（nf-map）：条件 → 対応 を行で並べる ---- */
+.nf-map{display:grid; grid-template-columns:minmax(7.5em, 1fr) 2.2em minmax(0, 2.4fr); row-gap:.55em; align-items:stretch}
+.nf-sec{grid-column:1 / -1; font-weight:800; color:var(--accent-ink,var(--accent)); line-height:1.5}
+.nf-sec:not(:first-child){margin-top:.7em; padding-top:.9em; border-top:1px solid var(--rule,var(--line))}
+.nf-sec.is-danger{color:var(--danger)}
+.nf-key, .nf-val{display:flex; align-items:center; padding:.5em .9em; border-radius:8px; line-height:1.55;
+  border:1.5px solid var(--accent)}
+.nf-key{justify-content:center; text-align:center; font-weight:700; color:var(--navy,var(--fg)); background:var(--bg)}
+.nf-val{font-weight:600; background:var(--accent-soft)}
+.nf-arr{display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:800; font-size:1.1em}
+.nf-key.is-muted, .nf-val.is-muted{border-color:var(--muted)}
+.nf-val.is-muted{background:var(--code)}
+.nf-key.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-val.is-danger{border-color:var(--danger); background:var(--danger-soft)}
+.nf-val.is-strong{background:var(--accent); color:var(--bg); border-color:var(--accent)}
+.nf-arr.is-danger{color:var(--danger)}
+
+/* ---- 3. 階段・タイムライン（nf-steps）：左から右へ段階が進む ---- */
+.nf-steps{display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:.55em; counter-reset:nfstep; align-items:end}
+.nf-step{position:relative; padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line);
+  border-top:4px solid var(--accent); border-radius:8px; margin-top:calc(var(--lv, 0) * 1.2em)}
+.nf-step::before{counter-increment:nfstep; content:counter(nfstep); display:inline-flex; align-items:center; justify-content:center;
+  width:1.6em; height:1.6em; margin-right:.4em; border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:.85em}
+.nf-steps.is-time .nf-step::before{content:none}
+.nf-step .nf-when{display:block; font-size:.84em; font-weight:700; color:var(--muted)}
+
+/* ---- 4. 図版パネル（SVG の模式図・グラフ） ---- */
+.nf-panels{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap:1.1em 1.6em; justify-items:center}
+.nf-panel{width:100%; max-width:34rem; container-type:inline-size; container-name:nfp}
+.nf-panels.is-one .nf-panel{max-width:46rem}
+.nf-pt{margin:0 0 .1em; text-align:center; font-weight:800; font-size:1.02em; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-ps{margin:0 0 .45em; text-align:center; font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-svg{display:block; width:100%; height:auto; overflow:visible}
+/* SVG の文字：書体は本文を継承。大きさは viewBox の単位（幅 460 の図で 15 ≒ 本文と同じ） */
+.nf-svg text{fill:var(--ink,var(--fg)); font-variant-numeric:tabular-nums}
+.nf-svg .nf-t{font-size:15px}
+.nf-svg .nf-ts{font-size:13px; fill:var(--muted)}
+.nf-svg .nf-tb{font-weight:700}
+.nf-svg .nf-ta{fill:var(--accent-ink,var(--accent))}
+.nf-svg .nf-tw{fill:var(--warn)}
+.nf-svg .nf-td{fill:var(--danger)}
+.nf-svg .nf-axis{stroke:var(--muted); stroke-width:1.5; fill:none}
+.nf-svg .nf-tick{stroke:var(--muted); stroke-width:1.2}
+.nf-svg .nf-grid{stroke:var(--line); stroke-width:1; fill:none}
+.nf-svg .nf-zero{stroke:var(--muted); stroke-width:1; opacity:.55}
+.nf-svg .nf-wave{stroke:var(--accent); stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-wave.is-danger{stroke:var(--danger)}
+.nf-svg .nf-thr{stroke:var(--warn); stroke-width:2; stroke-dasharray:6 5; fill:none}
+.nf-svg .nf-dim{stroke:var(--warn); stroke-width:2; fill:none}
+.nf-svg .nf-guide{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:3 4; fill:none}
+.nf-svg .nf-ln{stroke:var(--muted); stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-fa{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fb{fill:var(--bg); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fm{fill:var(--code); stroke:var(--muted); stroke-width:2}
+.nf-svg .nf-fd{fill:var(--danger-soft); stroke:var(--danger); stroke-width:2}
+.nf-svg .nf-sa{stroke:var(--accent); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sd{stroke:var(--danger); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sw{stroke:var(--warn); fill:none; stroke-linecap:round}
+.nf-svg .nf-mk-a{fill:var(--accent)} .nf-svg .nf-mk-d{fill:var(--danger)} .nf-svg .nf-mk-w{fill:var(--warn)} .nf-svg .nf-mk-m{fill:var(--muted)}
+.nf-svg .nf-soft-d{fill:var(--danger); opacity:.22}
+/* パネルが細いとき（スマホ・印刷の2段組）は SVG の文字を単位上で大きくし、実寸を本文に近づける */
+@container nfp (max-width: 30rem){ .nf-svg .nf-t{font-size:17px} .nf-svg .nf-ts{font-size:15px} }
+@container nfp (max-width: 24rem){ .nf-svg .nf-t{font-size:19.5px} .nf-svg .nf-ts{font-size:17px} }
+/* 文字を入れない横長の模式図（ラベルは下の HTML で出す） */
+.nf-draw{display:block; width:100%; max-width:46rem; height:auto; margin:0 auto}
+.nf-labels{display:grid; grid-template-columns:var(--nf-lcols, 1fr 1fr 1fr); max-width:46rem; margin:.1em auto 0;
+  text-align:center; font-weight:700; color:var(--navy,var(--fg)); line-height:1.45}
+.nf-labels small{display:block; font-weight:400; font-size:.84em; color:var(--muted)}
+/* 凡例・注記 */
+.nf-legend{display:flex; flex-wrap:wrap; justify-content:center; gap:.35em 1.3em; margin:.7em 0 0; font-size:.88em; color:var(--muted); line-height:1.5}
+.nf-legend > span{display:inline-flex; align-items:center; gap:.45em}
+.nf-sw-line{display:inline-block; width:1.9em; border-top:3px solid var(--accent)}
+.nf-sw-line.is-dash{border-top:2px dashed var(--warn)}
+.nf-sw-line.is-danger{border-top-color:var(--danger)}
+.nf-foot{margin:.5em 0 0; font-size:.84em; color:var(--muted); text-align:right; line-height:1.5}
+/* 説明カード（図の下で要素ごとの意味を並べる） */
+.nf-callouts{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:.6em; margin-top:.8em}
+.nf-callout{padding:.6em .9em .7em; border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:8px; background:var(--accent-soft); line-height:1.6}
+.nf-callout .nf-ch{display:block; font-weight:800; color:var(--accent-ink,var(--accent))}
+.nf-callout.is-danger{border-left-color:var(--danger); background:var(--danger-soft)}
+.nf-callout.is-danger .nf-ch{color:var(--danger)}
+.nf-callout.is-muted{border-left-color:var(--muted); background:var(--code)}
+.nf-callout.is-muted .nf-ch{color:var(--navy,var(--fg))}
+/* 棒の比較（小さな横棒。数値の無い大小比較に使う） */
+.nf-meters{display:grid; grid-template-columns:auto 1fr; gap:.3em .7em; align-items:center; margin:.5em 0 0; font-size:.9em; line-height:1.45}
+.nf-meters dt{color:var(--navy,var(--fg)); font-weight:600}
+.nf-meters dd{margin:0; display:flex; align-items:center; gap:.5em}
+.nf-bar{display:inline-block; height:.7em; width:calc(var(--v, .5) * 8em); border-radius:999px; background:var(--accent)}
+.nf-bar.is-danger{background:var(--danger)}
+.nf-meters .nf-bv{font-size:.9em; color:var(--muted)}
+
+/* ---- 5. 画像＋HTMLラベル（nf-gallery）：絵が要るものだけ画像。文字は画像に入れない ---- */
+.nf-gallery{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(46%, 9rem), 1fr)); gap:.9em .7em}
+.nf-item{text-align:center}
+figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8px; background:#fff; border:1px solid var(--line)}
+.nf-name{margin-top:.4em; font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-desc{font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-item.is-absent img{opacity:.55}
+.nf-item.is-absent .nf-name{color:var(--muted)}
+.nf-flag{display:inline-block; margin-top:.2em; font-size:.8em; font-weight:700; color:var(--danger);
+  border:1.5px solid var(--danger); border-radius:999px; padding:0 .7em .05em; line-height:1.5}
+
+/* ---- 6. 3列の小さなパネル（nf-panels.is-3）：viewBox 幅 300 の SVG を横に3つ並べる（小さな多重グラフ・3つの作用） ----
+   幅 460 の既定より文字を単位上で大きくし、パソコン幅（1枚 約270px）でも本文に近い実寸を保つ。スマホでは1列 */
+.nf-panels.is-3{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1em 1.2em}
+.nf-panels.is-3 .nf-panel{max-width:none}
+.nf-panels.is-3 .nf-svg .nf-t{font-size:17px}
+.nf-panels.is-3 .nf-svg .nf-ts{font-size:15px}
+@container nfp (min-width: 18rem){ .nf-panels.is-3 .nf-svg .nf-t{font-size:15px} .nf-panels.is-3 .nf-svg .nf-ts{font-size:13.5px} }
+/* 凡例の中の小さな記号（SVG）。.nf-svg の幅100%を打ち消す */
+figure.fig .nf-legend svg.nf-sw{display:inline-block; width:1.15em; height:1.15em; margin:0; overflow:visible; flex:none}
+
+/* ---- 7. 物の流れの鎖（nf-steps.is-time.is-chain）：装置の構成など。段の間に矢印、各段に文字なしアイコン ---- */
+.nf-steps.is-chain{gap:1.7em; align-items:stretch}
+.nf-steps.is-chain .nf-step{margin-top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3em}
+.nf-steps.is-chain .nf-step:not(:first-child)::after{content:""; position:absolute; top:50%; left:-1.45em; width:1.2em; height:1.2em;
+  transform:translateY(-50%); background:var(--accent); clip-path:polygon(0 32%, 52% 32%, 52% 0, 100% 50%, 52% 100%, 52% 68%, 0 68%)}
+figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; margin:.1em auto .15em}
+.nf-step .nf-q{color:var(--navy,var(--fg)); font-weight:700; line-height:1.45}
+.nf-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:.3em}
+
+/* ---- 8. 頭文字カード（nf-acro）：語呂合わせ（HI-FLOW など）。左→右・上→下で頭文字が読める ---- */
+.nf-acro{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.6em}
+.nf-ac{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.7em; row-gap:.15em; align-content:start;
+  padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line); border-radius:8px}
+.nf-lt{grid-row:1 / span 3; align-self:start; display:flex; align-items:center; justify-content:center; width:1.9em; height:1.9em;
+  border-radius:50%; background:var(--accent-soft); color:var(--accent-ink,var(--accent)); font-weight:800; font-size:1.3em; line-height:1}
+.nf-en{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-ja{font-size:.94em; line-height:1.6}
+.nf-ac .nf-chip{justify-self:start; font-size:.84em}
+.nf-ac.is-key{border-color:var(--accent); background:var(--accent-soft)}
+.nf-ac.is-key .nf-lt{background:var(--accent); color:var(--bg)}
+
+/* ---- 9. 範囲の横棒（nf-range）：病態ごとの設定値の範囲を1本の数直線に並べる。数値は --a / --b（軸は --lo〜--hi） ---- */
+.nf-range{--lo:0; --hi:60; display:grid; grid-template-columns:minmax(8em, 14em) minmax(0, 1fr) minmax(7em, 12em);
+  column-gap:1em; row-gap:.3em; align-items:center}
+.nf-rl{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4; text-align:right}
+.nf-rl small{display:block; font-weight:400; font-size:.82em; color:var(--muted)}
+.nf-rv{font-size:.9em; line-height:1.45}
+.nf-rt{position:relative; height:2.2em; border-right:1px solid var(--line);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:calc(100% / var(--nf-div, 6)) 100%}
+.nf-zone, .nf-rb, .nf-rx{position:absolute; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+  width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-zone{top:0; bottom:0; background:color-mix(in srgb, var(--muted) 13%, transparent)}
+.nf-zone.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+.nf-rb{top:50%; height:.8em; transform:translateY(-50%); border-radius:999px; background:var(--accent)}
+.nf-rb.is-soft{background:color-mix(in srgb, var(--accent) 38%, transparent)}
+.nf-rb.is-muted{background:var(--muted)}
+.nf-rx{top:50%; height:0; border-top:2px dashed var(--accent)}
+.nf-rx::after{content:""; position:absolute; right:-1px; top:-1px; transform:translateY(-50%); border-style:solid;
+  border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent)}
+.nf-rd{position:absolute; top:50%; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:1.05em; height:1.05em;
+  transform:translate(-50%, -50%); border-radius:50%; background:var(--accent); border:2.5px solid var(--accent)}
+.nf-rd.is-open{background:var(--bg)}
+.nf-rd.is-muted{background:var(--muted); border-color:var(--muted)}
+.nf-raxis{grid-column:2; position:relative; height:1.5em; font-size:.86em; color:var(--muted); font-variant-numeric:tabular-nums}
+.nf-raxis span{position:absolute; top:0; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); transform:translateX(-50%); line-height:1.5}
+.nf-rat{grid-column:2; text-align:center; font-size:.9em; line-height:1.5}
+/* 範囲の横棒の追加（HFNC 図11）：2段のトラック（上＝設定、下＝実測）・四角の点・誤差の線（IQR・±SD） */
+.nf-rt.is-2{height:3.4em}
+.nf-rt .is-up{top:30%} .nf-rt .is-dn{top:71%}
+.nf-rd.is-sq{border-radius:2px; width:.95em; height:.95em}
+.nf-rw{position:absolute; top:50%; height:0; transform:translateY(-1px); border-top:2px solid var(--accent);
+  left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-rw::before, .nf-rw::after{content:""; position:absolute; top:-.42em; height:.84em; left:-1px; border-left:2px solid var(--accent)}
+.nf-rw::after{left:auto; right:-1px}
+.nf-rw.is-muted{border-top-color:var(--muted)}
+.nf-rw.is-muted::before, .nf-rw.is-muted::after{border-left-color:var(--muted)}
+/* 凡例の面（背景帯の見本） */
+.nf-sw-box{display:inline-block; width:1.4em; height:.95em; border-radius:3px; background:color-mix(in srgb, var(--muted) 18%, transparent)}
+.nf-sw-box.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+/* SVG の背景帯（模式図の領域分け） */
+.nf-svg .nf-zone-m{fill:var(--muted); opacity:.16}
+.nf-svg .nf-zone-a{fill:var(--accent); opacity:.13}
+.nf-svg .nf-zone-d{fill:var(--danger); opacity:.13}
+
+/* ---- 10. 番号つきの鎖（nf-steps.is-chain.is-text）：アイコンなしの手順を矢印でつなぐ（HFNC 図8・10・12）。
+   is-check＝確かめる段（灰）、is-goal＝終点（塗り）。戻り道は .nf-return、下の判断へは .nf-join でつなぐ ---- */
+.nf-steps.is-chain.is-text .nf-step{justify-content:flex-start}
+.nf-steps.is-chain.is-text .nf-step::before{margin:0 0 .1em}
+.nf-step.is-check{border-top-color:var(--muted)}
+.nf-step.is-check::before{background:var(--muted)}
+.nf-step.is-goal{background:var(--accent); border-color:var(--accent)}
+.nf-steps.is-chain .nf-step.is-goal{justify-content:center}
+.nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:var(--bg)}
+.nf-step.is-goal::before{background:var(--bg); color:var(--accent-ink,var(--accent))}
+.nf-join{align-self:center; width:2px; height:1.3em; margin:.3em 0 .3em; background:var(--rule,var(--line))}
+/* 戻り道：最後の段から最初の段へ戻る破線の U 字（段が4つなら両端 12.5%。--nf-rl / --nf-rr で調整） */
+.nf-return{position:relative; margin-top:.35em; padding-top:1.75em; text-align:center; color:var(--danger); font-weight:800; line-height:1.5}
+.nf-return::before{content:""; position:absolute; top:0; left:var(--nf-rl,12.5%); right:var(--nf-rr,12.5%); height:1.15em;
+  border:2px dashed var(--danger); border-top:0; border-radius:0 0 12px 12px}
+.nf-return::after{content:""; position:absolute; top:-.45em; left:var(--nf-rl,12.5%); transform:translateX(-50%); margin-left:1px;
+  border-style:solid; border-width:0 6px 10px 6px; border-color:transparent transparent var(--danger) transparent}
+/* 図の前提を上に置く帯 */
+.nf-band.is-top{margin:0 0 1.1em}
+
+/* ---- スマホ：流れ図と対応表は縦に並べ替える。SVG は縮むので文字は上の @container で補う ---- */
+@media screen and (max-width:640px){
+  .nf-panels.is-3{grid-template-columns:minmax(0, 1fr)}
+  .nf-acro{grid-template-columns:minmax(0, 1fr)}
+  .nf-steps.is-chain{gap:1.7em}
+  .nf-steps.is-chain .nf-step{display:grid; grid-template-columns:4.6em minmax(0, 1fr); column-gap:.8em; row-gap:.2em;
+    align-items:center; justify-items:start; text-align:left}
+  .nf-steps.is-chain svg.nf-ico{grid-row:1 / span 3; height:2.9em; margin:0}
+  .nf-steps.is-chain .nf-chips{justify-content:flex-start}
+  .nf-steps.is-chain .nf-step:not(:first-child)::after{top:-1.45em; left:50%; transform:translateX(-50%) rotate(90deg)}
+  .nf-steps.is-chain.is-text .nf-step{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.6em; row-gap:.1em;
+    justify-items:start; text-align:left}
+  .nf-steps.is-chain.is-text .nf-step::before{grid-row:1 / span 2; grid-column:1; align-self:start; margin:.15em 0 0}
+  .nf-steps.is-chain.is-text .nf-step > *{grid-column:2}
+  .nf-return{padding:.45em .9em .5em; border:2px dashed var(--danger); border-radius:10px}
+  .nf-return::before, .nf-return::after{content:none}
+  .nf-range{grid-template-columns:minmax(0, 1fr); row-gap:.15em}
+  .nf-rl{text-align:left; margin-top:.55em}
+  .nf-raxis, .nf-rat{grid-column:1}
+  figure.fig .nf{font-size:.94em}
+  .nf-groups{grid-template-columns:1fr}
+  .nf-cards{grid-template-columns:1fr}
+  .nf-band{display:block}
+  .nf-band .nf-bh{display:block; margin-bottom:.2em}
+  .nf-band .nf-to{margin-right:.3em}
+  .nf-labels small{display:none}
+  .nf-groups::before{left:50%; right:auto; width:2px; border:0; background:var(--rule,var(--line)); border-radius:0}
+  .nf-map{grid-template-columns:1fr; row-gap:.2em}
+  .nf-map .nf-arr{transform:rotate(90deg); height:1.5em}
+  .nf-map .nf-key + .nf-arr + .nf-val{margin-bottom:1em}
+  .nf-steps{grid-auto-flow:row; grid-auto-columns:auto}
+  .nf-step{margin-top:0}
+}
+/* ---- 印刷：色は画面と同じ（本文の print-color-adjust:exact を継承）。文字は紙の本文に合わせる ---- */
+@media print{
+  figure.fig .nf{font-size:.95em}
+  .nf-panels{grid-template-columns:1fr 1fr}
+  .nf-panels.is-one{grid-template-columns:1fr}
+  .nf-panel .nf-svg .nf-t{font-size:15px}
+  .nf-panel .nf-svg .nf-ts{font-size:13px}
+  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before, .nf-ac.is-key .nf-lt, .nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:#fff}
+  .nf-step.is-goal::before{color:var(--accent)}
+  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
+  .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* readable (readable.css) — 章の「読ませ方」部品（2026-09-27 試作・NIV §5）
+   手引き：readable-guide.md。クラスはすべて rd- で始める。章は <section class="rd"> で包む。
+   色は本文の :root 変数（--accent / --accent-soft / --good / --danger / --line / --muted / --bg / --code /
+   --navy / --ink / --accent-ink / --rule）だけを使う。書体は指定しない（本文から継承）。
+   2026-09-27 NIV 全章に適用。「根拠を見る」は開いた状態が既定（<details class="rd-ev" open>）。 */
+
+:root{ --rd-on-accent:#ffffff }
+@media (prefers-color-scheme: dark){ :root{ --rd-on-accent:#15181c } }
+@media print{ :root{ --rd-on-accent:#ffffff } }
+
+/* ---- 文字の階層（本文16px・行間1.9・段落間を広く／補足14px・グレー） ---- */
+@media screen{
+  .rd > p:not([class]), .rd > ul > li, .rd > ol > li{font-size:16px; line-height:1.9}
+  .rd > p:not([class]){margin:0 0 1.5em}
+  .rd > ul, .rd > ol{margin:0 0 1.6em; padding-left:1.4em}
+  .rd > ul > li, .rd > ol > li{margin:.45em 0}
+
+  /* 章見出し：番号つきの色帯 */
+  .rd > h2{display:flex; align-items:center; gap:.9rem; font-size:1.7rem; font-weight:800; line-height:1.4;
+    margin:4.8rem 0 1.6rem; padding:.6rem 1.2rem .6rem 0; border:0; border-radius:12px; overflow:hidden;
+    background:var(--accent-soft); color:var(--navy)}
+  .rd > h2::before{display:none}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-.6rem 0; padding:0 1.1rem;
+    background:var(--accent); color:var(--rd-on-accent); font-size:.9em; font-weight:800; letter-spacing:.02em}
+
+  /* 節見出し：左に太い線と十分な上余白 */
+  .rd > h3{font-size:1.32rem; font-weight:800; line-height:1.5; margin:4rem 0 1.1rem;
+    padding:.15rem 0 .15rem .85rem; border-left:6px solid var(--accent)}
+  /* 小見出し：色つきの小さな印＋下線。リード文より「見出し」に見えるように色を変える */
+  .rd > h4{font-size:1.1rem; font-weight:800; margin:2.8rem 0 .8rem; padding:0 0 .35rem .95rem;
+    border-bottom:1px solid var(--line); color:var(--accent-ink,var(--accent)); position:relative}
+  .rd > h4::before{content:""; position:absolute; left:0; top:.42em; width:.5rem; height:.5rem;
+    border-radius:2px; background:var(--accent)}
+
+  /* リード文：段落の1文目＝結論。少し大きく・やや太く */
+  .rd .rd-lead{font-size:1.14rem; font-weight:700; line-height:1.75; color:var(--navy); margin:0 0 .75em}
+  .rd .rd-lead.is-sub{font-size:1.03rem}
+  /* 節の途中に置くリード文（h4 を立てない小さな話題の切り替え）は、上に余白を取って区切りを見せる */
+  .rd > :not(h3):not(h4) + .rd-lead.is-sub{margin-top:2.2rem}
+
+  /* 補足（注意書き・但し書き） */
+  .rd .rd-note{font-size:14px; line-height:1.8; color:var(--muted); margin:.4rem 0 1.6rem}
+  .rd .rd-check + .rd-note, .rd .rd-dodont + .rd-note{margin-top:-1.3rem}
+  .rd .figread{margin-bottom:1.8rem}
+  .rd .rs-tw{margin:1.2rem 0 1.8rem}
+}
+@media screen and (max-width:1000px){
+  .rd > h2{font-size:1.36rem; gap:.7rem; margin-top:3.8rem}
+  .rd > h3{font-size:1.16rem; margin-top:3.2rem}
+  .rd .rd-lead{font-size:1.08rem}
+  .rd .rd-lead.is-sub{font-size:1.02rem}
+}
+
+/* ---- 1. この章のポイント（章の冒頭・3行） ---- */
+.rd-points{border:2px solid var(--accent); border-radius:14px; padding:1rem 1.3rem .9rem; margin:0 0 2.6rem; background:var(--bg)}
+.rd-points-h{font-size:.8rem !important; font-weight:800; letter-spacing:.14em; color:var(--accent-ink,var(--accent)); margin:0 0 .3rem !important}
+.rd-points ol{list-style:none; counter-reset:rdp; margin:0; padding:0}
+.rd-points li{counter-increment:rdp; position:relative; margin:0; padding:.6rem 0 .6rem 2.7rem;
+  font-size:1.14rem; font-weight:700; line-height:1.55; color:var(--navy); border-top:1px dashed var(--rule,var(--line))}
+.rd-points li:first-child{border-top:0}
+.rd-points li::before{content:counter(rdp); position:absolute; left:0; top:.62rem; width:1.85rem; height:1.85rem;
+  border-radius:50%; background:var(--accent); color:var(--rd-on-accent); font-size:.95rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center; line-height:1}
+@media screen and (max-width:640px){
+  .rd-points{padding:.9rem 1rem .8rem}
+  .rd-points li{font-size:1.04rem; padding-left:2.4rem}
+  .rd-stat{flex:1 1 12rem}
+  .rd-stat-v{font-size:2rem}
+}
+.rd-points-f{font-size:14px !important; line-height:1.75; color:var(--muted); margin:.5rem 0 0 !important;
+  padding-top:.6rem; border-top:1px solid var(--line)}
+
+/* ---- 2. 根拠（灰色・小さめ）。既定は開いた状態（open）で、読者が見出しを押すと閉じられる ---- */
+details.rd-ev{margin:-.5rem 0 1.8rem; color:var(--muted)}
+details.rd-ev[open]{border-left:3px solid var(--rule,var(--line)); background:var(--code); border-radius:0 8px 8px 0;
+  padding-bottom:.1rem}
+details.rd-ev > summary{cursor:pointer; list-style:none; display:inline-block; padding:.2rem .85rem; font-size:13px;
+  font-weight:700; letter-spacing:.04em; color:var(--muted); background:var(--code); border:1px solid var(--line);
+  border-radius:999px; max-width:100%}
+details.rd-ev[open] > summary{border:0; background:transparent; border-radius:0; padding:.45rem .9rem .25rem}
+details.rd-ev > summary::-webkit-details-marker{display:none}
+details.rd-ev > summary::before{content:"▸"; display:inline-block; margin-right:.45em; transition:transform .15s}
+details.rd-ev[open] > summary::before{transform:rotate(90deg)}
+details.rd-ev > summary:hover{color:var(--accent-ink,var(--accent))}
+details.rd-ev p{font-size:14px; line-height:1.8; color:var(--muted); margin:0; padding:0 .95rem .75rem}
+details.rd-ev ul, details.rd-ev ol{margin:0 .95rem .75rem; padding-left:1.2em}
+details.rd-ev li{font-size:14px; line-height:1.75; color:var(--muted); margin:.2em 0}
+details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
+details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
+details.rd-ev table{font-size:.8rem}
+
+/* ---- 3. 当院の数値チップ ---- */
+.rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
+.rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
+  border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
+.rd-stat-v{display:block; font-size:2.3rem; font-weight:800; line-height:1.15; color:var(--accent-ink,var(--accent));
+  font-variant-numeric:tabular-nums; letter-spacing:0}
+.rd-stat-v small{font-size:.4em; font-weight:700; color:var(--muted); margin-left:.25em; letter-spacing:.02em}
+.rd-stat-k{display:block; font-size:13px; font-weight:700; line-height:1.5; color:var(--muted); margin-top:.2rem}
+
+/* ---- 4. 手順チェックリスト ---- */
+.rd-check{border:1px solid color-mix(in srgb, var(--good) 35%, transparent); border-left:5px solid var(--good);
+  background:var(--good-soft); border-radius:10px; padding:.9rem 1.2rem .7rem; margin:1.4rem 0 2rem}
+.rd-check-h{font-size:.86rem !important; font-weight:800; letter-spacing:.06em; color:var(--good); margin:0 0 .3rem !important}
+.rd-check ol{list-style:none; counter-reset:rdc; margin:0; padding:0}
+.rd-check li{counter-increment:rdc; position:relative; margin:0; padding:.55rem 0 .55rem 2.5rem;
+  font-size:15.5px; line-height:1.8; border-top:1px solid color-mix(in srgb, var(--good) 18%, transparent)}
+.rd-check li:first-child{border-top:0}
+.rd-check li::before{content:counter(rdc); position:absolute; left:0; top:.68rem; width:1.55rem; height:1.55rem;
+  border:2px solid var(--good); border-radius:5px; background:var(--bg); color:var(--good);
+  font-size:.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; line-height:1}
+
+/* ---- 5. やる／やらない（左右2列）。is-choice は「条件→選択」の2択に使う ---- */
+.rd-dodont{display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.4rem 0 2rem}
+.rd-dodont > div{border:1.5px solid var(--line); border-radius:12px; padding:.85rem 1.1rem .6rem}
+.rd-dodont p, .rd-dodont li{font-size:15px; line-height:1.75}
+.rd-dodont p{margin:0 0 .5rem}
+.rd-dodont ul{margin:0 0 .4rem; padding-left:1.2em}
+.rd-dodont li{margin:.25em 0}
+.rd-dd-h{font-size:1.05rem !important; font-weight:800; line-height:1.5; margin:0 0 .4rem !important}
+.rd-do{border-color:var(--good) !important; background:var(--good-soft)}
+.rd-dont{border-color:var(--danger) !important; background:var(--danger-soft)}
+.rd-do .rd-dd-h{color:var(--good)} .rd-do .rd-dd-h::before{content:"○ "}
+.rd-dont .rd-dd-h{color:var(--danger)} .rd-dont .rd-dd-h::before{content:"✕ "}
+.rd-dodont.is-choice > div{border-color:var(--accent) !important; background:var(--accent-soft)}
+.rd-dodont.is-choice .rd-dd-h{color:var(--accent-ink,var(--accent))}
+.rd-dodont.is-choice .rd-dd-h::before{content:none}
+@media (max-width:640px){ .rd-dodont{grid-template-columns:1fr} }
+
+/* ---- 印刷：色を保ち、根拠は開いて出す ---- */
+@media print{
+  .rd, .rd *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .rd > h2{display:flex; align-items:center; gap:6pt; padding:3pt 6pt 3pt 0; border:0; background:var(--accent-soft)}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-3pt 0; padding:0 6pt;
+    background:var(--accent); color:var(--rd-on-accent)}
+  .rd > h3{border-left:4pt solid var(--accent); padding-left:5pt}
+  .rd .rd-lead{font-weight:700; color:var(--navy)}
+  details.rd-ev::details-content{content-visibility:visible; display:block}
+  details.rd-ev{break-inside:auto}
+  details.rd-ev > summary::before{content:""}
+  .rd-points, .rd-check, .rd-dodont, .rd-stats{break-inside:avoid; page-break-inside:avoid}
+  .rd-stat-v{font-size:18pt}
+}
+
+/* linked resource card (2026-10-06) — 姉妹資料へのリンクカード */
+.xl-card{display:flex; gap:1rem; align-items:center; margin:1.6rem 0; padding:1.1rem 1.3rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--accent-soft); text-decoration:none !important; color:var(--fg)}
+.xl-card:hover{box-shadow:0 2px 14px rgba(0,132,181,.22)}
+.xl-card .xl-b{display:block; min-width:0}
+.xl-card .xl-k{display:block; font-size:.74rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink,var(--accent))}
+.xl-card .xl-t{display:block; font-size:1.15rem; font-weight:800; color:var(--navy,var(--fg)); line-height:1.45; margin-top:.15rem}
+.xl-card .xl-s{display:block; font-size:.9rem; color:var(--muted); line-height:1.6; margin-top:.25rem}
+.xl-card .xl-go{flex:none; margin-left:auto; font-weight:700; font-size:.9rem; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.45em 1.1em; white-space:nowrap}
+.xl-card.is-small{padding:.75rem 1.1rem; margin:1.1rem 0}
+.xl-card.is-small .xl-t{font-size:1.02rem}
+@media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
+@media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
+/* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
+/* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+   手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
+   ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
+     HTMLのまま（＝最終状態）で表示される。隠す指定はすべて .mo-on の下に書く。
+   ・1回動いて止まる。ループ・点滅・揺れ続けは使わない。動かすのは opacity / transform / stroke-dashoffset だけ。
+   ・色は本文の :root 変数（--accent / --accent-soft / --danger / --danger-soft / --line / --muted / --bg / --code / --navy / --ink）。 */
+
+@media screen{
+/* ---------- 1. 図の中の動き（場面 = scene。要素ごとに .mo-pre → .mo-go） ---------- */
+.mo-x{--mo-del:calc(var(--d, 0s) + var(--mo-o, 0s) - var(--mo-seek, 0s))}
+.mo-on .mo-pre.mo-fade, .mo-on .mo-pre.mo-rise, .mo-on .mo-pre.mo-pop,
+.mo-on .mo-pre.mo-slide, .mo-on .mo-pre.mo-slider, .mo-on .mo-pre.mo-stamp{opacity:0}
+.mo-on .mo-pre.mo-growx{transform:scaleX(0)}
+.mo-on .mo-pre.mo-growy{transform:scaleY(0)}
+.mo-on .mo-pre.mo-draw{stroke-dashoffset:1}
+.mo-on .mo-pre.mo-growu{transform:scaleY(0)}
+.mo-on .mo-pre.mo-barx{scale:0 1}
+.mo-on .mo-pre.mo-dotp{opacity:0}
+.mo-on .mo-pre.mo-wipel{clip-path:inset(-1em -1em -1em 100%)}
+svg .mo-growu{transform-box:fill-box; transform-origin:center bottom}
+.mo-barx{transform-origin:left center}
+.mo-draw{stroke-dasharray:1}
+.mo-growx{transform-origin:left center}
+.mo-growy{transform-origin:center top}
+svg .mo-pop, svg .mo-stamp{transform-box:fill-box; transform-origin:center}
+svg .mo-growx{transform-box:fill-box}
+svg .mo-growy{transform-box:fill-box}
+.mo-on .mo-go.mo-fade{animation:mo-fade var(--mo-t, .45s) ease-out var(--mo-del) both}
+.mo-on .mo-go.mo-rise{animation:mo-rise var(--mo-t, .55s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-pop{animation:mo-pop var(--mo-t, .5s) cubic-bezier(.3,1.45,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slide{animation:mo-slide var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slider{animation:mo-slider var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-stamp{animation:mo-stamp var(--mo-t, .45s) cubic-bezier(.3,1.3,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growx{animation:mo-growx var(--mo-t, .45s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growy{animation:mo-growy var(--mo-t, .35s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-draw{animation:mo-draw var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growu{animation:mo-growy var(--mo-t, .6s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-barx{animation:mo-barx var(--mo-t, .5s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-dotp{animation:mo-dotp var(--mo-t, .45s) cubic-bezier(.3,1.5,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-wipel{animation:mo-wipel var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+/* 終わりの値は書かない（to を省く）＝元の opacity・transform 属性に戻って止まる */
+@keyframes mo-fade{from{opacity:0}}
+@keyframes mo-rise{from{opacity:0; transform:translateY(12px)}}
+@keyframes mo-pop{from{opacity:0; transform:scale(.82)}}
+@keyframes mo-slide{from{opacity:0; transform:translateX(-18px)}}
+@keyframes mo-slider{from{opacity:0; transform:translateX(18px)}}
+@keyframes mo-stamp{from{opacity:0; transform:scale(1.5) rotate(-6deg)}}
+@keyframes mo-growx{from{transform:scaleX(0)}}
+@keyframes mo-growy{from{transform:scaleY(0)}}
+@keyframes mo-draw{from{stroke-dashoffset:1}}
+/* HTMLの棒・点（範囲の横棒など）は transform を持つので、独立した scale プロパティで動かす */
+@keyframes mo-barx{from{scale:0 1}}
+@keyframes mo-dotp{from{opacity:0; scale:.2}}
+/* 戻りの線：右（最後の段）から左（最初の段）へ。HTML要素だけに使うので終わりの値を書いてよい（終わると外れる） */
+@keyframes mo-wipel{from{clip-path:inset(-1em -1em -1em 100%)} to{clip-path:inset(-1em -1em -1em 0)}}
+
+/* 装置の鎖のガスの粒（JSが作り、流れ終わると消す） */
+.mo-on .nf-steps.is-chain{position:relative}
+.mo-gas-lay{position:absolute; left:0; top:0; width:0; height:0; pointer-events:none; z-index:2}
+.mo-gas{position:absolute; left:-5px; top:-5px; width:10px; height:10px; border-radius:50%; opacity:0;
+  background:var(--accent); box-shadow:0 0 0 2px var(--bg), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+
+/* 疑似要素の線（判断の流れの幹・階段の矢印）：持ち主の --mo-del を継承して伸びる */
+.mo-on .nf-root.mo-pre::after, .mo-on .nf-groups.mo-pre::before{transform:scaleY(0)}
+.mo-on .nf-root.mo-go::after, .mo-on .nf-groups.mo-go::before{transform-origin:center top;
+  animation:mo-growy .32s cubic-bezier(.3,.7,.2,1) calc(var(--mo-del) + var(--mo-ld, 0s)) both}
+.mo-on .nf-root.mo-go::after{--mo-ld:.3s}
+.mo-on .nf-step.mo-pre::after, .mo-on .nf-return.mo-pre::before, .mo-on .nf-return.mo-pre::after{opacity:0}
+.mo-on .nf-step.mo-go::after{animation:mo-fade .3s ease-out calc(var(--mo-del) - .12s) both}
+.mo-on .nf-return.mo-go::before, .mo-on .nf-return.mo-go::after{animation:mo-fade .4s ease-out var(--mo-del) both}
+
+/* 画像の上の印（赤丸のサイン・番号）：1回だけ脈打って消える。画像そのものは変えない */
+.mo-imgwrap{position:relative; display:block}
+.mo-ring{position:absolute; border-radius:50%; pointer-events:none; opacity:0;
+  border:3px solid var(--danger); box-shadow:0 0 0 6px color-mix(in srgb, var(--danger) 18%, transparent)}
+.mo-ring.is-accent{border-color:var(--accent); box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent)}
+.mo-on .mo-go.mo-ring{animation:mo-ping var(--mo-t, 1s) cubic-bezier(.25,.6,.3,1) var(--mo-del) both}
+@keyframes mo-ping{0%{opacity:0; transform:scale(.72)} 28%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)}}
+
+/* 波形を時間軸に沿って描くときのカーソル（JSが作り、描き終わると消す） */
+.mo-cur{stroke:var(--accent); stroke-width:1.5; opacity:.35}
+.mo-tip{fill:var(--accent); stroke:var(--bg); stroke-width:2}
+.mo-pt{fill:var(--accent); stroke:var(--bg); stroke-width:1.5}
+
+/* もう一度：図の枠の上辺に載せる。動き終わってから出す */
+.mo-on .mo-fig{position:relative}
+.mo-replay{position:absolute; top:-.95em; right:.9em; z-index:3; font:inherit; font-size:12px; font-weight:700; line-height:1;
+  color:var(--accent-ink, var(--accent)); background:var(--bg); border:1.5px solid var(--accent); border-radius:999px;
+  padding:.45em .9em .5em; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .3s, background .15s}
+.mo-replay:hover{background:var(--accent-soft)}
+.mo-replay:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mo-end > .mo-replay{opacity:1; pointer-events:auto}
+
+/* ---------- 2. 本文の動き（スクロールで1回） ---------- */
+.mo-on .mo-rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo-on .mo-rv.mo-in{opacity:1; transform:none}
+/* 章見出し：色帯が左から拭き出され、下に線が引かれる */
+.mo-on .rd > h2.mo-h{position:relative; clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in{clip-path:inset(0 0 0 0)}
+.mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
+  transform:scaleX(0); transform-origin:left center; transition:transform .9s .3s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in::after{transform:scaleX(1)}
+.mo-on .rd > h3.mo-h{opacity:0; transform:translateX(-12px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h3.mo-h.mo-in{opacity:1; transform:none}
+/* 「この章のポイント」：1行ずつ。番号の丸が弾む */
+.mo-on .rd-points li.mo-li{opacity:0; transform:translateX(-10px); transition:opacity .45s ease var(--dd, 0s), transform .5s cubic-bezier(.2,.7,.2,1) var(--dd, 0s)}
+.mo-on .rd-points li.mo-li::before{transform:scale(0); transition:transform .45s cubic-bezier(.3,1.6,.5,1) calc(var(--dd, 0s) + .12s)}
+.mo-on .rd-points li.mo-li.mo-in{opacity:1; transform:none}
+.mo-on .rd-points li.mo-li.mo-in::before{transform:none}
+.mo-on .rd-points .rd-points-f.mo-li{opacity:0; transition:opacity .6s ease var(--dd, 0s)}
+.mo-on .rd-points .rd-points-f.mo-li.mo-in{opacity:1}
+/* 節頭の結論の一文：下3分の1にマーカーを引く（画面だけ。印刷・PDFには出さない） */
+.mo-on .mo-mark{background-image:linear-gradient(transparent 64%, color-mix(in srgb, var(--accent) 24%, transparent) 64%, color-mix(in srgb, var(--accent) 24%, transparent) 94%, transparent 94%);
+  background-repeat:no-repeat; background-size:0% 100%; transition:background-size 1.1s cubic-bezier(.45,.1,.25,1)}
+.mo-on .mo-mark.mo-in{background-size:100% 100%}
+/* 表の行・選択肢の2枚：順に */
+.mo-on tr.mo-row{opacity:0; transition:opacity .4s ease}
+.mo-on tr.mo-row.mo-in{opacity:1}
+.mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
+.mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 数値チップ：カウントアップ中は幅を固定して揺れない */
+.mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
+.mo-on .rd-stat{transition:box-shadow .5s ease}
+.mo-on .rd-stat.mo-in{box-shadow:0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent)}
+}
+
+/* ---------- 3. 読了プログレスバーと目次の現在地 ---------- */
+.mo-on #rs-progress{height:4px; background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, var(--bg)), var(--accent));
+  box-shadow:0 0 10px color-mix(in srgb, var(--accent) 45%, transparent); border-radius:0 3px 3px 0}
+#mo-ticks{position:fixed; top:0; left:0; right:0; height:4px; z-index:61; pointer-events:none}
+#mo-ticks i{position:absolute; top:0; width:2px; height:4px; margin-left:-1px; background:color-mix(in srgb, var(--muted) 45%, transparent); transition:background .3s}
+#mo-ticks i.on{background:var(--bg)}
+.mo-on #rs-nav{position:relative}
+.mo-on #rs-nav a.on{border-left-color:transparent}
+.mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
+
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+.mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
+  background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
+.mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
+.mo-ip-wave path{fill:none; stroke:#7fd3f2; stroke-width:2.2; stroke-linejoin:round; }
+.mo-ip-k{position:relative; margin:0 0 .15rem !important; font-size:.78rem !important; letter-spacing:.18em; font-weight:800; color:#7fd3f2}
+.mo-ip-h{position:relative; margin:0 0 1.05rem !important; font-size:1.42rem !important; font-weight:800; line-height:1.45; color:#fff}
+.mo-ip-g{position:relative; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.7rem}
+a.mo-ip-t{display:flex; flex-direction:column; gap:.15rem; padding:.85rem 1rem .9rem; border-radius:12px; text-decoration:none; color:inherit;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:background .2s, border-color .2s}
+a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,.55)}
+.mo-ip-l{font-size:12.5px; font-weight:700; letter-spacing:.06em; color:#a9c7d8}
+.mo-ip-v{font-size:2.15rem; font-weight:800; line-height:1.15; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+.mo-ip-v small{font-size:.42em; font-weight:700; color:#a9c7d8; margin-left:.3em; letter-spacing:.02em}
+.mo-ip-v .mo-ip-or{font-size:.55em; color:#a9c7d8; margin:0 .25em}
+.mo-ip-v.is-word{font-size:1.65rem}
+.mo-ip-pop{display:inline-block}
+.mo-ip-v small{white-space:nowrap}
+.mo-ip-v.is-long{white-space:nowrap}   /* 「30〜60」「0.21〜1.0」など幅のある値。スマホでは字を小さくして1行に収める */
+.mo-ip-s{font-size:13px; line-height:1.6; color:#cfe0ea}
+.mo-ip-n{position:relative; margin:.8rem 0 0 !important; font-size:12px !important; color:#a9c7d8; text-align:right}
+@media (max-width:820px){ .mo-ip-g{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:460px){
+  .mo-ip{padding:2.7rem 1rem 1.05rem; border-radius:14px}
+  .mo-ip-h{font-size:1.2rem !important}
+  .mo-ip-g{gap:.5rem}
+  a.mo-ip-t{padding:.7rem .75rem .75rem}
+  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem} .mo-ip-v.is-long{font-size:1.38rem}
+  .mo-ip-v.is-long small{font-size:.5em; margin-left:.2em}
+  .mo-ip-s{font-size:12px}
+}
+
+/* ---------- 5. ボンベの持ち時間（.mo-tank）：時間を縮めて2本を比べる ---------- */
+.mo-tank{--tk-c:var(--accent)}
+.mo-tk-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.2em 1em; margin:0 0 .7em}
+.mo-tk-clock{font-weight:800; color:var(--navy, var(--fg)); font-size:1.05em}
+.mo-tk-clock b{display:inline-block; min-width:2.6em; text-align:right; font-size:1.5em; color:var(--accent-ink, var(--accent)); font-variant-numeric:tabular-nums}
+.mo-tk-note{font-size:.84em; color:var(--muted)}
+.mo-tk-rows{position:relative; display:grid; gap:1.05em}
+.mo-tk-row{display:grid; grid-template-columns:3.1em minmax(0, 1fr) 6.4em; column-gap:.8em; row-gap:.25em; align-items:center}
+.mo-tk-row.is-danger{--tk-c:var(--danger)}
+.mo-tk-lab{grid-column:1 / -1; font-weight:700; color:var(--navy, var(--fg)); line-height:1.5}
+.mo-tk-lab small{font-weight:400; color:var(--muted); font-size:.88em}
+.mo-tk-cyl{position:relative; justify-self:center; width:1.9em; height:3.4em; border:2px solid var(--tk-c); border-radius:.75em .75em .5em .5em; background:var(--bg); overflow:hidden}
+.mo-tk-cyl::before{content:""; position:absolute; left:50%; top:-1px; width:.7em; height:.32em; margin-left:-.35em; border-radius:0 0 3px 3px; background:var(--tk-c)}
+.mo-tk-gas{position:absolute; left:0; right:0; bottom:0; height:100%; background:color-mix(in srgb, var(--tk-c) 34%, var(--bg)); transform-origin:center bottom; transform:scaleY(var(--g, 0))}
+.mo-tk-track{position:relative; height:1.5em; border-radius:6px; background:var(--code);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:20% 100%; box-shadow:inset -1px 0 0 var(--line)}
+.mo-tk-bar{position:absolute; left:0; top:.22em; bottom:.22em; width:calc(var(--v) * 100%); border-radius:4px; transform-origin:left center;
+  background:linear-gradient(90deg, var(--tk-c) calc(var(--lo, 1) * 100%), color-mix(in srgb, var(--tk-c) 38%, var(--bg)) 0)}
+.mo-tk-zone{position:absolute; top:0; bottom:0; left:calc(var(--a) / 10 * 100%); width:calc((var(--b) - var(--a)) / 10 * 100%);
+  background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--danger) 45%, transparent) 0 3px, transparent 3px 7px); border-radius:3px; z-index:1}
+.mo-tk-val{font-weight:800; color:var(--tk-c); font-size:1.15em; line-height:1.3; font-variant-numeric:tabular-nums}
+.mo-tk-axis{position:relative; height:1.3em; margin:.35em 0 0 calc(3.1em + .8em); margin-right:calc(6.4em + .8em); color:var(--muted)}
+.mo-tk-axis span{position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; font-size:.8em; font-variant-numeric:tabular-nums}
+.mo-tk-cur{position:absolute; top:-.3em; bottom:-.3em; width:2px; margin-left:-1px; background:var(--navy, var(--fg)); opacity:.55; pointer-events:none}
+@media (max-width:460px){
+  .mo-tk-row{grid-template-columns:2.2em minmax(0, 1fr) 5.6em; column-gap:.5em}
+  .mo-tk-axis{margin-left:calc(2.2em + .5em); margin-right:calc(5.6em + .5em)}
+  .mo-tk-val{font-size:.92em; white-space:nowrap}
+}
+
+/* 点検用（window.RESMO_TEST）：全部の動きをその時刻で止める */
+.mo-paused .mo-go, .mo-paused .mo-go::before, .mo-paused .mo-go::after{animation-play-state:paused !important}
+.mo-paused .mo-rv, .mo-paused .mo-h, .mo-paused .mo-h::after, .mo-paused .mo-li, .mo-paused .mo-li::before, .mo-paused .mo-mark,
+.mo-paused tr.mo-row, .mo-paused .mo-cl, .mo-paused .mo-cr{transition:none !important}
+
+/* ---------- 6. 印刷・PDF：隠す指定はすべて @media screen の中なので、紙には常に最終状態が出る ---------- */
+@media print{
+  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind, .mo-gas-lay{display:none !important}
+  .mo-ip{color:var(--ink, #26333f); background:#fff !important; border:1.5pt solid var(--accent); box-shadow:none; padding:8pt 10pt; margin:6pt 0 10pt;
+    break-inside:avoid; page-break-inside:avoid}
+  .mo-ip-wave, .mo-ip-n{display:none}
+  .mo-ip-k, .mo-ip-l, .mo-ip-v small, .mo-ip-v .mo-ip-or, .mo-ip-n{color:var(--accent-ink, #0a6e96) !important}
+  .mo-ip-h, .mo-ip-v{color:var(--navy, #1d3348) !important}
+  .mo-ip-h{font-size:12pt !important; margin-bottom:5pt !important}
+  .mo-ip-s{color:var(--ink, #26333f) !important; font-size:7.6pt}
+  .mo-ip-g{grid-template-columns:repeat(3, minmax(0, 1fr)) !important; gap:4pt}
+  a.mo-ip-t{background:var(--accent-soft, #e8f4fa) !important; border:0; padding:4pt 6pt}
+  .mo-ip-v{font-size:15pt} .mo-ip-v.is-word{font-size:12pt}
+  .mo-tank, .mo-tank *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
+}
+/* /resident motion (resident-motion.css) */
+</style>
+</head>
+<body data-refstyle="1">
+<div id="rs-progress"></div>
+<div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">VAPと抗菌薬</span></div>
+<aside id="rs-side"><div class="hd"><div class="ttl">VAPと抗菌薬</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#s1" title="§1 VAPは確定できないまま治療が始まる — 抗菌薬の害は診断の甘さから生まれる">§1 VAPは確定できないまま治療が始…</a>
+<a class="lv3" href="#rs-s1-1" title="1-1. 定義 — 48時間以上の人工呼吸のあとに起きた肺炎。浸潤影がなければVAT">1-1. 定義</a>
+<a class="lv3" href="#rs-s1-2" title="1-2. VAPで亡くなる人は多くない — 帰属死亡は推定法で1〜13%、死亡を決めるのは基礎疾患と重症度">1-2. VAPで亡くなる人は多くない</a>
+<a class="lv3" href="#rs-s1-3" title="1-3. 抗菌薬が始まる事象の大半は非感染性 — 感染関連とされたIVACの63%は感染ではなかった">1-3. 抗菌薬が始まる事象の大半は…</a>
+<a class="lv2" href="#s2" title="§2 疑ったら抗菌薬の前に下気道検体 — どの検査も単独では確定も除外もできない">§2 疑ったら抗菌薬の前に下気道検体</a>
+<a class="lv3" href="#rs-s2-1" title="2-1. 疑う入口は6所見のうち2つ以上 — 2つ未満なら非感染性の原因を先に潰す">2-1. 疑う入口は6所見のうち2つ以上</a>
+<a class="lv3" href="#rs-s2-2" title="2-2. 検査の精度はどれも中途半端 — X線の特異度26%、CPISは引き金、バイオマーカーは診断に使わない">2-2. 検査の精度はどれも中途半端</a>
+<a class="lv3" href="#rs-s2-3" title="2-3. 唯一の強い推奨は「抗菌薬の前に下気道検体」 — ETAで足り、BALは「陰性なら止める」と決めて使う">2-3. 唯一の強い推奨は抗菌薬の前…</a>
+<a class="lv3" href="#rs-s2-4" title="2-4. 迅速PCRは「誰が何を変えるか」を決めてから入れる — 結果を渡すだけでは処方は変わらない">2-4. 迅速PCRは誰が何を変えるかを…</a>
+<a class="lv2" href="#s3" title="§3 経験的治療の広さは、MDRリスク・死亡リスク・自施設の菌で決める">§3 経験的治療の広さは、MDRリスク</a>
+<a class="lv3" href="#rs-s3-1" title="3-1. 早期か晩期かは出発点にすぎない — 早期発症でもMDRは研究により10〜51%">3-1. 早期か晩期かは出発点にすぎ…</a>
+<a class="lv3" href="#rs-s3-2" title="3-2. 広さは3つの型から選び、保菌で足す — 2剤にするのはショックを伴う高リスク例だけ">3-2. 広さは3つの型から選び</a>
+<a class="lv3" href="#rs-s3-3" title="3-3. 抗MRSA薬は保菌か自ユニット20%超のときだけ — 病院全体の比率では最大95%が過剰">3-3. 抗MRSA薬は保菌か自ユニット2…</a>
+<a class="lv3" href="#rs-s3-4" title="3-4. カンジダやウイルスが出ても、それだけでは治療しない">3-4. カンジダやウイルスが出ても</a>
+<a class="lv2" href="#s4" title="§4 48〜72時間で狭め、7〜8日で止める — 期間を決めるのは個人の知識ではなく仕組み">§4 48〜72時間で狭め</a>
+<a class="lv3" href="#rs-s4-1" title="4-1. 48〜72時間のタイムアウト — 陰性なら中止、感受性が出たら単剤へ">4-1. 48〜72時間のタイムアウト</a>
+<a class="lv3" href="#rs-s4-2" title="4-2. 期間は7〜8日 — 緑膿菌でも延ばさず、延ばすなら理由を言葉にする">4-2. 期間は7〜8日</a>
+<a class="lv3" href="#rs-s4-3" title="4-3. PCTは止める判断の補助 — 7〜8日を守れる患者にルーチンの測定はいらない">4-3. PCTは止める判断の補助</a>
+<a class="lv3" href="#rs-s4-4" title="4-4. 期間を短くできた施設を分けたのは仕組み — AMSとタイムアウトの有無">4-4. 期間を短くできた施設を分け…</a>
+<a class="lv2" href="#s5" title="§5 効かないときは延ばす前に4点を点検する — 「再発」も4つに分ける">§5 効かないときは延ばす前に4点を…</a>
+<a class="lv3" href="#rs-s5-1" title="5-1. 「効いている」は4本柱で言う — 10日目の治療失敗は22〜43%で、抗菌薬の継続と重なる">5-1. 効いているは4本柱で言う</a>
+<a class="lv3" href="#rs-s5-2" title="5-2. 延ばす・足す前に4点 — 感染源、カバー漏れ、薬の届き方、肺の外の原因">5-2. 延ばす・足す前に4点</a>
+<a class="lv3" href="#rs-s5-3" title="5-3. 「再発」は菌と時期で4つに分ける — 同じ薬を延ばすか、培養から選び直すかが変わる">5-3. 再発は菌と時期で4つに分ける</a>
+<a class="lv3" href="#rs-s5-4" title="5-4. S. maltophiliaはまず定着か感染か — DTRの肺炎でチゲサイクリンを主軸にしない">5-4. S. maltophiliaはまず定着か…</a>
+<a class="lv2" href="#s6" title="§6 吸入抗菌薬は上乗せしない — 使うのはXDRグラム陰性菌の代わりの手段に限る">§6 吸入抗菌薬は上乗せしない</a>
+<a class="lv3" href="#rs-s6-1" title="6-1. 上乗せは効かない — 3つのRCTが陰性で、肺に届くのは名目用量の5%未満">6-1. 上乗せは効かない</a>
+<a class="lv3" href="#rs-s6-2" title="6-2. 使うならXDRグラム陰性菌に限り、持続式ネブライザーを人工呼吸器の近くに置く">6-2. 使うならXDRグラム陰性菌に限り</a>
+<a class="lv2" href="#s7" title="§7 原則が当てはまりにくい場面と落とし穴 — 予防投与・sCAPとの違い・「念のため」">§7 原則が当てはまりにくい場面と…</a>
+<a class="lv3" href="#rs-s7-1" title="7-1. 予防投与は限られた患者だけ — 早期VAPは減るが、予後を決めるのは原疾患">7-1. 予防投与は限られた患者だけ</a>
+<a class="lv3" href="#rs-s7-2" title="7-2. sCAPとは組み立てが違う — VAPの7〜8日をそのまま持ち込まない">7-2. sCAPとは組み立てが違う</a>
+<a class="lv3" href="#rs-s7-3" title="7-3. 落とし穴は7つ — 「念のため」と「機械的なルール」の両方で外れる">7-3. 落とし穴は7つ</a>
+<a class="lv2" href="#refs" title="主要文献">主要文献</a>
+</nav></aside>
+<div id="rs-scrim"></div>
+
+<main>
+
+<p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
+<h1 id="top">VAPと抗菌薬</h1>
+<p class="sub">疑ったら抗菌薬の前に検体を採り、広さはMDRリスクと自施設の菌で決め、48〜72時間で狭めて7〜8日で止める — 確定できない病気・疑い方と検体・経験的治療の広さ・狭め方と期間・効かないとき・吸入抗菌薬・例外と落とし穴</p>
+
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-07</span></p>
+
+<div class="tools">
+  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
+  <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
+</div>
+
+<section class="mo-ip" aria-label="VAPと抗菌薬 — 最初に押さえる6点">
+<svg class="mo-ip-wave" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 Q62.5,12 125,40 T250,40 T375,40 T500,40 T625,40 T750,40 T875,40 T1000,40"/></svg>
+<p class="mo-ip-k">ST. LUKE'S ICU ／ VENTILATOR-ASSOCIATED PNEUMONIA</p>
+<p class="mo-ip-h">VAPと抗菌薬 — 最初に押さえる6点</p>
+<p class="mo-ip-sub">大きな数字は国際的な研究・推奨（ERS/ESICM 2017・IDSA/ATS 2016ほか）。注釈は当院の運用</p>
+<div class="mo-ip-g">
+<a class="mo-ip-t" href="#rs-s2-1"><span class="mo-ip-l">VAPを疑う所見（6つのうち）</span><span class="mo-ip-v"><span data-mo-count>2</span><small>つ以上</small></span><span class="mo-ip-s">新しい浸潤影は必須にしない。2つ未満なら非感染性の原因を先に潰す</span></a>
+<a class="mo-ip-t" href="#rs-s2-2"><span class="mo-ip-l">胸部X線の特異度（%）</span><span class="mo-ip-v"><span data-mo-count>26</span></span><span class="mo-ip-s">感度は88.9%。影があるだけではVAPと言えない</span></a>
+<a class="mo-ip-t" href="#rs-s3-3"><span class="mo-ip-l">抗MRSA薬を足す自ユニットのMRSA比率（%）</span><span class="mo-ip-v"><span data-mo-count>20</span><small>超</small></span><span class="mo-ip-s">病院全体の比率で決めると最大95%が過剰治療になる</span></a>
+<a class="mo-ip-t" href="#rs-s4-1"><span class="mo-ip-l">見直しのタイムアウト（時間）</span><span class="mo-ip-v is-long"><span data-mo-count>48〜72</span></span><span class="mo-ip-s">培養が陰性なら中止、感受性が出たら単剤へ</span><span class="mo-ip-x"><span class="mo-ip-xk">当院</span>始める指示に止め方を書き、見直しを記録に残す</span></a>
+<a class="mo-ip-t" href="#rs-s4-2"><span class="mo-ip-l">治療期間（日）</span><span class="mo-ip-v is-long"><span data-mo-count>7〜8</span></span><span class="mo-ip-s">緑膿菌でも延ばさない。例外は免疫不全・膿胸・肺膿瘍・壊死性肺炎</span></a>
+<a class="mo-ip-t" href="#rs-s5-1"><span class="mo-ip-l">10日目の治療失敗（%）</span><span class="mo-ip-v is-long"><span data-mo-count>22〜43</span></span><span class="mo-ip-s">失敗例は90日死亡33.5%対21.6%。抗菌薬が続いていた</span></a>
+</div>
+<p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
+</section>
+
+<p>VAP（人工呼吸器関連肺炎）はICUで最も多い獲得感染ですが、確定診断の方法がないまま抗菌薬が始まる病気です。だから抗菌薬の害の多くは、診断の甘さと、始めたあとに畳めないことから生まれます。この資料で持ち帰るのは、①疑ったら抗菌薬の前に下気道検体を採り、始める指示に「いつ見直し、何が出たら止めるか」を書く、②経験的治療の広さはMDRリスク・死亡リスク・自施設の菌で決め、48〜72時間で狭める、③期間は7〜8日で、効かないときは延ばす前に感染源・カバー漏れ・薬の届き方・肺の外の原因を点検する、の3点です。</p>
+<p>予防（頭位・声門下吸引・カフ圧・口腔ケア・バンドル）とVAEの数え方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/">人工呼吸器関連合併症の予防と管理</a>、敗血症としての初期対応と耐性菌の型別の選択は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/">敗血症の診断・抗菌薬・感染源管理</a>、量・延長投与・腎機能に応じた調整は<a href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/">重症患者の抗菌薬PK／PD</a>、市中肺炎は<a href="https://hiro-oka.github.io/icu-masterclass/resident-scap/">重症市中肺炎（sCAP）</a>にあります。この資料はVAPの診断と抗菌薬（選び方・狭め方・止め方）を扱います。</p>
+
+<section class="rd">
+<h2 id="s1"><span class="no">§1</span>VAPは確定できないまま治療が始まる — 抗菌薬の害は診断の甘さから生まれる</h2>
+
+<p>VAPには参照基準がなく、肺生検ですら病変の分布が不均一で病理医の判定もばらつきます<span class="src vault">ICM2020</span>。この章では、何をVAPと呼ぶか、VAPがどれだけ命に関わるか、なぜ抗菌薬が過剰になりやすいかを確かめます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>浸潤影のないVATには経験的抗菌薬を始めない</li>
+<li>VAPに帰属する死亡は小さく、広域・長期の根拠にならない</li>
+<li>抗菌薬が始まる事象の大半は非感染性と知っておく</li>
+</ol>
+</div>
+
+<h3 id="rs-s1-1">1-1. 定義 — 48時間以上の人工呼吸のあとに起きた肺炎。浸潤影がなければVAT</h3>
+<p class="rd-lead">VAPは少なくとも48時間人工呼吸を受けているICU患者に起きた院内肺炎で、肺炎が先にあって挿管した患者はVAPに入らず、新しい浸潤影を伴わないVAT（人工呼吸器関連気管気管支炎）には経験的抗菌薬の適応がありません<span class="src ext">ERJ2017</span>。</p>
+<p>48時間という線と、挿管5日未満・5日以上という早期・晩期の線は、入室時に潜んでいた肺炎とICUで獲得した肺炎を分けるための便宜的な境界で、生物学的な根拠はありません<span class="src vault">NatCommun2024</span>。VATはVAPと臨床像がほぼ同じで、しばしばVAPの前段階になります。VAE（人工呼吸器関連イベント）はサーベイランスの定義で、ベッドサイドの診断には使いません。VAP・vHAP・VAT・VAEの定義と数え方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#rs-s2-1">人工呼吸器関連合併症の2-1</a>にあります。</p>
+
+<h3 id="rs-s1-2">1-2. VAPで亡くなる人は多くない — 帰属死亡は推定法で1〜13%、死亡を決めるのは基礎疾患と重症度</h3>
+<p class="rd-lead">全死因死亡は最大50%と報告されますが、VAPに帰属する死亡はフランス4,479例の競合リスク解析で30日約1%、24試験6,284例の個別患者データメタ解析でも13%にとどまり、死亡は主に患者の基礎疾患と重症度で決まります<span class="src vault">ICM2020</span>。</p>
+<p>VAPは人工呼吸期間とICU滞在を延ばしますが、死亡への寄与は小さいという非対称があります。予防のバンドルは徹底しつつ、個々の患者に広域薬を長く使う理由にはなりません。</p>
+<details class="rd-ev" open><summary>根拠を見る（帰属死亡の推定）</summary>
+<p>58のVAP予防RCTの集計では帰属死亡は9%で、個別患者データメタ解析の13%は外科系ICUと入室時に中等度の重症度（APACHE II 20〜29、SAPS II 35〜58）の患者に集中し、外傷・内科系・重症度が低いか高い群ではほぼゼロでした。がん患者と外傷性脳損傷の患者ではVAPは死亡と関連しませんでした<span class="src vault">ICM2020</span>。PROSEVA二次解析ではVAPは調整HR 2.21の独立した死亡リスクでした<span class="src vault">ICM2016</span>。VAPの発症は最初の10日に偏り、ICU死亡と退室が競合するので、推定には競合リスクモデルが要ります<span class="src vault">ICM2020</span>。</p>
+</details>
+
+<h3 id="rs-s1-3">1-3. 抗菌薬が始まる事象の大半は非感染性 — 感染関連とされたIVACの63%は感染ではなかった</h3>
+<p class="rd-lead">人工呼吸中に抗菌薬が始まる事象の大半は非感染性で、VAEのうち感染関連とされたIVACの63%はVAPでも記録されたICU感染でもなかったので、広域薬は感染の確からしさが高い患者にだけ使います<span class="src vault">ICM2020</span>。</p>
+<p>ICUの不必要な抗菌薬曝露の多くは、VAT・無症候性細菌尿・肺炎所見のないCOPD増悪への処方から生まれます<span class="src vault">NatCommun2024</span>。広域・長期を正当化するのは重症度ではなく、感染の確からしさと感染源の制御の状態です<span class="src vault">ICM2020</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s2"><span class="no">§2</span>疑ったら抗菌薬の前に下気道検体 — どの検査も単独では確定も除外もできない</h2>
+
+<p>確定できない病気なので、疑いの入口をそろえ、検査の限界を知り、抗菌薬より先にやることを決めておきます。ここを飛ばすと、陰性の結果が出ても止められなくなります。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>6所見のうち2つ以上で疑い、浸潤影は必須にしない</li>
+<li>抗菌薬の前に下気道検体を採る（ETAで十分）</li>
+<li>検査は「陰性なら止める」と決めてから出す</li>
+</ol>
+</div>
+
+<h3 id="rs-s2-1">2-1. 疑う入口は6所見のうち2つ以上 — 2つ未満なら非感染性の原因を先に潰す</h3>
+<p class="rd-lead">人工呼吸48時間超の患者で、発熱・膿性痰・白血球の増加または減少・分時換気量の増加・酸素化の悪化・昇圧薬の増量の6所見のうち2つ以上がそろえば、新しい浸潤影がなくてもVAPを疑います<span class="src vault">ICM2020</span>。</p>
+<p>2つ未満なら、無気肺・肺水腫・肺挫傷・肺胞出血・粘液栓・肺塞栓・薬剤熱を先に潰します<span class="src vault">ICM2020</span>。咳・頻呼吸・呼吸困難は鎮静と陽圧換気で隠れ、膿性分泌物はチューブ上の定着でも増えるので、所見の乏しさを否定の根拠にも、膿性痰だけを感染の根拠にもしません<span class="src vault">NatCommun2024</span>。</p>
+<div class="box warn">
+<span class="label">培養が陽性でも、それだけでは感染ではない</span>
+<p>人工呼吸5日目に痰が膿性で肺炎桿菌が発育しても、発熱がなく、酸素化が変わらず、新しい浸潤影がなければVATで、経験的抗菌薬は始めません<span class="src ext">ERJ2017</span>。</p>
+</div>
+
+<h3 id="rs-s2-2">2-2. 検査の精度はどれも中途半端 — X線の特異度26%、CPISは引き金、バイオマーカーは診断に使わない</h3>
+<p class="rd-lead">系統的レビューでは臨床所見の感度66.4%・特異度53.9%、胸部X線は88.9%・26.1%、CPIS 6点超でも73.8%・66.4%で、単独で確定にも除外にも使える検査はありません（表1）<span class="src vault">NatCommun2024</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表1｜VAPの診断に使う検査の精度 — <span class="ok">単独では確定にも除外にも使えない</span></caption>
+<thead><tr><th>検査</th><th>感度</th><th>特異度</th><th>使いどころ</th></tr></thead>
+<tbody>
+<tr><td>臨床所見（総合）</td><td class="num">66.4%</td><td class="num">53.9%</td><td>疑いの入口</td></tr>
+<tr><td>胸部X線</td><td class="num">88.9%</td><td class="num">26.1%</td><td>「影がある＝VAP」は成り立たない</td></tr>
+<tr><td>気管吸引痰（ETA）</td><td class="num">75.7%</td><td class="num">67.9%</td><td>第一選択で足りる</td></tr>
+<tr><td>BAL</td><td class="num">71.1%</td><td class="num">79.6%</td><td>特異度でETAに勝る。「切る」ために使う（§2-3）</td></tr>
+<tr><td>PSB（検体ブラシ）</td><td class="num">61.4%</td><td class="num">76.5%</td><td>ルーチンには要らない</td></tr>
+<tr><td>CPIS 6点超</td><td class="num">73.8%</td><td class="num">66.4%</td><td>診断には使わない。検体と画像を取りに行く引き金</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>画像：ARDSで両肺がすでに白い患者では「新しい浸潤影」という基準そのものが使えず、前日と変わらないことは否定の根拠になりません<span class="src vault">ICM2020</span>。CTは最も正確ですが搬送の有害事象が最大30%で、診断に困る患者に限ります。肺エコーは感度・特異度のデータがまだ足りません<span class="src vault">NatCommun2024</span></li>
+<li>CPIS：抗菌薬を止める判断に使ったRCTでは消費が減りましたが、始める判断に使うと特異度の低さから不要な投与につながるので、ガイドラインは診断に推奨していません<span class="src vault">ICM2020</span></li>
+<li>バイオマーカー（PCT・CRP・sTREM-1・IL-8・IL-1β）：非感染性の炎症でも上がり、抗菌薬で修飾されるので診断には使いません。出番は止める判断の補助です（§4-3）<span class="src vault">NatCommun2024</span></li>
+</ul>
+
+<h3 id="rs-s2-3">2-3. 唯一の強い推奨は「抗菌薬の前に下気道検体」 — ETAで足り、BALは「陰性なら止める」と決めて使う</h3>
+<p class="rd-lead">ERJ2017で診断について強い推奨は「抗菌薬の前に下気道検体（種類は問わない）を採る」だけで、侵襲的検体とETAを比べた5つのRCTのメタ解析で患者の転帰に差はなかったので、第一選択はETAで足ります<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<p>BALの価値は「切る」ことにあります。陰性結果で抗菌薬の中止を義務づけた試験だけが14日死亡の低下と関連し、中止を求めない試験群のメタ解析では死亡・ICU滞在・人工呼吸期間のいずれにも差がありませんでした。BAL液の好中球50%未満とグラム染色陰性がそろえば、陰性的中率はほぼ100%です<span class="src vault">ICM2022</span>。BALの質は、確実なウェッジ・最初の20〜30 mLを捨てる・合計120 mL以上の3点で決まり、満たさなければ気管支洗浄にすぎません。世界の調査では注入量の中央値は30 mLで、77%が100 mL未満でした<span class="src vault">CritCare2024</span>。</p>
+<div class="box danger">
+<span class="label">ショックが進んでいれば、検体を理由に抗菌薬を遅らせない</span>
+<p>敗血症性ショックに進んでいるなら、培養を採ったらすぐに経験的抗菌薬を始めます。血行動態が安定した患者に許される「開始を急がない」戦略は、ショック・免疫不全・検体の前に抗菌薬が入っていた・非感染性の原因に対処しても改善しない、のいずれかがあれば当てはめません<span class="src vault">ICM2020</span>。ショックの有無で急ぐ度合いを変える考え方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/#rs-s3-1">敗血症の診断・抗菌薬・感染源管理の3-1</a>にあります。</p>
+</div>
+<details class="rd-ev" open><summary>根拠を見る（陰性なら早く止める）</summary>
+<p>定量BALが陰性（10⁴ CFU/mL未満）だった89例で、1日以内に中止した群と遅れて中止した群を比べると、死亡は25.0%対30.6%で差がなく、二次感染は22.5%対43%、MDRによる二次感染は7.5%対36%と早期中止で少ない結果でした<span class="src ext">ERJ2017</span>。培養陰性には「治って除菌された」と「そもそも肺感染がなかった」の2通りの意味があり、後者なら他の疾患を探し、抗菌薬を止めます<span class="src ext">ERJ2017</span>。</p>
+</details>
+
+<h3 id="rs-s2-4">2-4. 迅速PCRは「誰が何を変えるか」を決めてから入れる — 結果を渡すだけでは処方は変わらない</h3>
+<p class="rd-lead">VAP・vHAP疑い146例の多施設RCT（VAPERO）で、マルチプレックスPCRの上乗せは24時間後の標的抗菌薬治療を有意には増やさず（35.1%対23.6%、p=0.13）、増えたのは培養陽性例だけでした（55.3%対31.0%、p=0.048）<span class="src vault">VAPERO ICM2026</span>。</p>
+<p>結果は中央値2.2時間で返り、培養との一致率は菌の同定で81.5%でしたが、治療を変えたのは介入群28.4%対対照群16.7%にとどまりました。陽性の閾値も判断の手順も与えず、調整は「提案」にとどまる導入だったためです<span class="src vault">VAPERO ICM2026</span>。パネルに載っていない起因菌が20%を超え、不安定な患者で培養確認なしに狭めることへの抵抗も背景にあります<span class="src vault">ICM2026</span>。新しい検査は、判断の手順を先に文書にしてから使い始めます。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s3"><span class="no">§3</span>経験的治療の広さは、MDRリスク・死亡リスク・自施設の菌で決める</h2>
+
+<p>検体を採ったら、広さを決めます。初期治療を外した代償は大きく（115例のコホートで不適切な経験的治療の死亡47%、適切20%）、疑いが強くMDRリスクがあれば広く始めます<span class="src ext">ERJ2017</span>。そのぶん48〜72時間で必ず狭める（§4）ことがセットです。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>早期発症でもMDRリスク因子を必ず確かめる</li>
+<li>広さは型で決め、βラクタムを2剤重ねない</li>
+<li>抗MRSA薬は保菌か自ユニット20%超のときだけ足す</li>
+</ol>
+</div>
+
+<h3 id="rs-s3-1">3-1. 早期か晩期かは出発点にすぎない — 早期発症でもMDRは研究により10〜51%</h3>
+<p class="rd-lead">挿管5日未満の早期発症は口腔咽頭の常在菌が起因菌になりやすいとされますが、早期発症肺炎に占めるMDRは研究により10〜51%と振れ、施設全体のMDR頻度が25%を超えると院内肺炎全体とほぼ同じになるので、日数ではなくリスク因子で判断します<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<p>起因菌の主体はグラム陰性菌（緑膿菌・大腸菌・肺炎桿菌・<em>Acinetobacter</em>属）と黄色ブドウ球菌で、腸内細菌目のESBL・AmpCによるセフェム耐性が大きな懸念です<span class="src vault">ICM2020</span>。MDRのリスク因子は次の7つです<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<ul>
+<li>直近90日の抗菌薬投与</li>
+<li>入院5日超</li>
+<li>敗血症性ショック</li>
+<li>VAPに先行するARDS</li>
+<li>VAPに先行する腎代替療法</li>
+<li>MDR菌の定着の既往</li>
+<li>自施設の耐性率25%超</li>
+</ul>
+<p>ICUの外で挿管され、ICU入室が24時間以上遅れた患者はVAPの独立した危険因子で（調整OR 3.29）、MDR菌、とくに<em>A. baumannii</em>が目立ちました<span class="src vault">ClinRespirJ2018</span>。他院やICUの外から来た挿管患者はリスクありの側で考えます。</p>
+<p class="rd-note">この資料の閾値（MRSA 20%・耐性率25%）は国際的な考え方の数字で、当院の実数ではありません。経験的治療の初期選択は、自ユニットのVAP起因菌のアンチバイオグラムで決めます<span class="src ext">ERJ2017</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（「早期だから低リスク」が外れる）</summary>
+<p>689例の前向きコホートでは、「人工呼吸5日未満かつ古典的なMDRリスクなし」とされた152例のうち77例（51%）が実際には耐性菌に感染していました。MDR病原体と強く関連した因子は、人工呼吸7日以上（OR 6.0）、先行する抗菌薬（OR 13.5）、広域薬の先行使用（OR 4.1）でした<span class="src ext">ERJ2017</span>。</p>
+</details>
+
+<h3 id="rs-s3-2">3-2. 広さは3つの型から選び、保菌で足す — 2剤にするのはショックを伴う高リスク例だけ</h3>
+<p class="rd-lead">MDRリスクが低く死亡リスクが15%以下なら狭域の単剤、高リスクでもショックがなく自施設でグラム陰性菌の90%超に効く薬があればその単剤、高リスクでショックなら抗緑膿菌βラクタムと非βラクタムの抗緑膿菌薬の2剤で始め、MRSAと新規βラクタムは保菌と自ユニットの菌で足します（図1・表2）<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-map">
+<div class="nf-sec">MDRリスクと死亡リスクで型を選ぶ</div>
+<div class="nf-key">MDRリスク低・死亡リスク15%以下</div><div class="nf-arr">→</div><div class="nf-val">狭域の単剤（第3世代セフェム、アモキシシリン/クラブラン酸など）</div>
+<div class="nf-key">高リスク・ショックなし</div><div class="nf-arr">→</div><div class="nf-val">自施設でグラム陰性菌の90%超に効く抗緑膿菌薬の単剤</div>
+<div class="nf-key is-strong">高リスク・ショックあり</div><div class="nf-arr">→</div><div class="nf-val is-strong">抗緑膿菌βラクタム＋非βラクタムの抗緑膿菌薬。アシネトバクターを想定するなら第2剤をコリスチンに</div>
+<div class="nf-sec">保菌と自ユニットの菌で足す</div>
+<div class="nf-key">MRSA保菌、または自ユニットのMRSA比率20%超</div><div class="nf-arr">→</div><div class="nf-val">抗MRSA薬を足す（§3-3）</div>
+<div class="nf-key is-danger">CREなど新規βラクタムにしか効かない菌の保菌が判明</div><div class="nf-arr is-danger">→</div><div class="nf-val is-danger">新規βラクタム。保菌が事前に分かっている患者に限る</div>
+</div><p class="nf-foot">どの型も48〜72時間で見直す前提（§4）。耐性菌が確定したあとの型別の選択は18の資料</p></div>
+<figcaption>図1. 経験的治療の広さは、MDRリスク・死亡リスク・保菌の3つで決まる。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上の段で基本の型を1つ選び、下の段の条件があれば足します。2剤にするのはショックを伴う高リスク例だけで、ショックのない患者まで併用を広げる理由にはなりません。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表2｜型ごとの薬剤と用量 — <span class="ok">原典の記載。βラクタムは1剤だけ</span></caption>
+<thead><tr><th>型</th><th>薬剤と用量</th></tr></thead>
+<tbody>
+<tr><td>早期発症・MDRリスクなし・免疫抑制なし</td><td>アモキシシリン/クラブラン酸、または非抗緑膿菌の第3世代セフェム（セフトリアキソン／セフォタキシム）、あるいはエルタペネム／レボフロキサシン／モキシフロキサシン</td></tr>
+<tr><td>晩期発症またはMDRリスクあり</td><td>【βラクタム1剤】セフェピム2 g 8時間ごと／セフタジジム2 g 8時間ごと／ピペラシリン・タゾバクタム4 g 6時間ごと／メロペネム2 g 8時間ごと　＋　【非βラクタム1剤】アミカシン25 mg/kg/日、またはシプロフロキサシン1,200 mg/日</td></tr>
+<tr><td>MRSA保菌、または自ユニットのMRSA比率20%超</td><td>バンコマイシン30〜45 mg/kg/日、またはリネゾリド600 mg 12時間ごと</td></tr>
+<tr><td>CRE、または新規βラクタムにしか感受性のない緑膿菌の保菌</td><td>セフトロザン/タゾバクタム3 g 8時間ごと／セフタジジム/アビバクタム2.5 g 8時間ごと／イミペネム/レレバクタム1.5 g 6時間ごと など</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">表は原典の記載です<span class="src vault">ICM2020</span>。メロペネム/バボルバクタムなど日本で使えない薬の代わりは<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/#rs-s4-4">敗血症の診断・抗菌薬・感染源管理の4-4</a>にあります。</p>
+<div class="box plain">
+<span class="label">当院の運用 — 標準量はPIPC/TAZ 4.5 g、メロペネム1 g</span>
+<p>当院の標準量（1回量）はPIPC/TAZ 4.5 g、メロペネム1 gです<span class="src in">当院</span>。表2の量とは開きがあるので、増量・延長投与・腎機能に応じた調整は<a href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#rs-s3-1">重症患者の抗菌薬PK／PDの3-1</a>の考え方で、薬剤部の基準と照合して決めます。</p>
+</div>
+<div class="box warn">
+<span class="label">「AND」と「OR」を読み違えない</span>
+<p>晩期発症・MDRリスクありの型は「抗緑膿菌βラクタムを1剤＋非βラクタムの抗緑膿菌薬を1剤」で、βラクタムを2剤重ねる意味ではありません<span class="src vault">ICM2020</span>。</p>
+</div>
+<details class="rd-ev" open><summary>根拠を見る（併用の利益はショックに限られる）</summary>
+<p>単剤と併用を分ける「死亡確率15%以下」の線は、重篤な感染症で死亡確率15%以下の集団では単剤のほうが転帰が良かったメタ解析・メタ回帰に由来します。敗血症性ショックを伴う培養陽性の細菌感染4,662例のコホートでは適切な併用が適切な単剤より28日死亡が低く（HR 0.77）、ショック・重症例に限った12研究のメタ解析でも併用で死亡が少ない結果でした（OR 0.51）<span class="src ext">ERJ2017</span>。一方、世界の調査で耐性菌カバーの2剤を全例に使うと答えたのはVAPで47.5%でした<span class="src vault">CritCare2024</span>。</p>
+</details>
+
+<h3 id="rs-s3-3">3-3. 抗MRSA薬は保菌か自ユニット20%超のときだけ — 病院全体の比率では最大95%が過剰</h3>
+<p class="rd-lead">抗MRSA薬を足すのは本人のMRSA保菌があるか、自ユニットのVAP起因菌に占めるMRSAが20%を超えるときだけで、病院全体の比率で決めると、MRSA有病率20%超の病院の院内肺炎3,562例で呼吸器検体からMRSAが出たのは5%だったように、最大95%が過剰治療になります<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<p>培養陽性の重症敗血症・敗血症性ショックで、MRSAと緑膿菌をカバーして1人を救うのに必要な治療数は38人という推計があります<span class="src vault">CritCare2025</span>。「念のため」足す前に、この数字と自ユニットの比率を照らします。</p>
+
+<h3 id="rs-s3-4">3-4. カンジダやウイルスが出ても、それだけでは治療しない</h3>
+<p class="rd-lead">カンジダは人工呼吸患者の最大27%で下気道に定着しますが起因菌としての役割を支持するデータはなく（213例で気管定着68.5%、細菌性VAPとの関連なし）、HSV・CMVの再活性化も治療すべきかの答えが出ていないので、陽性だけで抗真菌薬・抗ウイルス薬を始めません<span class="src vault">ICM2020</span>。</p>
+<p><em>Aspergillus</em>属が関わるのは一部の晩期発症VAP、とくに直近にインフルエンザにかかった患者です。HSVの口腔咽頭の再活性化へのアシクロビルは人工呼吸器なし日数を変えず、バラシクロビルの予防投与は124例のランダム化研究で28日死亡がむしろ高く、早期に中止されました<span class="src vault">ICM2020</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s4"><span class="no">§4</span>48〜72時間で狭め、7〜8日で止める — 期間を決めるのは個人の知識ではなく仕組み</h2>
+
+<p>始めた抗菌薬をいつ・どう畳むかは、始める指示に書き込みます。48〜72時間のタイムアウトと7〜8日の期間が2本の柱で、それを支えるのは個人の知識ではなく仕組みです。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>48〜72時間で見直し、培養が陰性なら止める</li>
+<li>感受性が出たら単剤へ。緑膿菌でも7〜8日で終える</li>
+<li>PCTは診断に使わず、止める判断の補助にだけ使う</li>
+</ol>
+</div>
+
+<h3 id="rs-s4-1">4-1. 48〜72時間のタイムアウト — 陰性なら中止、感受性が出たら単剤へ</h3>
+<p class="rd-lead">48〜72時間で培養と臨床経過を見直し、病原体が出なければ中止し、起因菌と感受性が分かれば、MRSAが陰性なら抗MRSA薬を止め、カルバペネムは「カルバペネムにだけ感受性」の菌に限り、緑膿菌でも経過が良ければ単剤に落とします（図2）<span class="src vault">ICM2020</span><span class="src ext">ERJ2017</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-time">
+<div class="nf-step"><span class="nf-when">開始前 ／ 採る</span><p class="nf-q">抗菌薬の前に下気道検体（ETAで可）。止める条件を指示に書く</p><p class="nf-note">見る：6所見・ショックの有無・MDRリスク</p></div>
+<div class="nf-step"><span class="nf-when">48〜72時間 ／ 狭める</span><p class="nf-q">培養が陰性なら中止。感受性が出たら単剤へ</p><p class="nf-note">見る：培養と感受性・臨床経過・PCT（補助）</p></div>
+<div class="nf-step"><span class="nf-when">7〜8日 ／ 止める</span><p class="nf-q">反応が良ければ終える。延ばすなら理由を書く</p><p class="nf-note">例外：免疫不全・膿胸・肺膿瘍・壊死性肺炎</p></div>
+</div><p class="nf-foot">時刻は目安。ショックが進んでいれば、検体を採ったらすぐ始める（§2-3）</p></div>
+<figcaption>図2. VAPの抗菌薬は、始める時点で止め方まで決める。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 左から右へ時間が進みます。3つの関門を最初の指示に書き込んでおけば、経験的治療をどれだけ広く始めても後で必ず狭められます。効かないときに延ばす前の点検は§5です。</p>
+<div class="box plain">
+<span class="label">当院の運用 — 始める指示に止め方を書き、見直しを記録に残す</span>
+<p>抗菌薬を始めるときに「いつ見直すか・何が出たら止めるか」を同じ指示に書き、48〜72時間のタイムアウトを口頭ではなく記録に残る形で行います<span class="src in">当院</span>。</p>
+</div>
+<div class="box warn">
+<span class="label">感受性が出ても併用を続けない</span>
+<p>併用の価値は治療が当たる確率を上げることにあり、予後を良くすることにはありません。緑膿菌でも経過が良ければ単剤で構いません<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+</div>
+<details class="rd-ev" open><summary>根拠を見る（狭めても安全か）</summary>
+<p>28か国152 ICU・1,495例のDIANA試験では、3日目のデエスカレーションの実施率は16%にとどまりましたが、7日・28日死亡に差はなく、臨床的治癒はむしろ高い結果でした。観察研究を含むメタ解析ではデエスカレーションは死亡の低下と関連しました（RR 0.68、95%CI 0.52〜0.88）<span class="src vault">CritCare2025</span>。感染症全般のデエスカレーションの考え方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/#rs-s7-1">敗血症の診断・抗菌薬・感染源管理の7-1</a>にあります。</p>
+</details>
+
+<h3 id="rs-s4-2">4-2. 期間は7〜8日 — 緑膿菌でも延ばさず、延ばすなら理由を言葉にする</h3>
+<p class="rd-lead">IDSA/ATS 2016とERS/ESICM/ESCMID/ALAT 2017はともに7〜8日を推奨し、緑膿菌などの非発酵菌でも延長は要らないとしており、長くするのは免疫不全と膿胸・肺膿瘍・壊死性肺炎で、その場合も先に感染源のドレナージを確かめます<span class="src ext">IDSA/ATS2016</span><span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>
+<p>期間の推奨そのもの（Q4）は弱い推奨・中等度の質で、ERJ2017の16の推奨にエビデンスの質が「高い」ものはありません（表3）<span class="src ext">ERJ2017</span>。7日未満への短縮はまだ標準ではありませんが、個別化した短期コース（中央値6日）は固定14日に非劣性で、有害事象が31%少ない結果でした（REGARD-VAP）<span class="src vault">CritCare2025</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表3：ERJ2017の7つの問い）</summary>
+<div class="tablewrap">
+<table class="wide">
+<caption>表3｜ERJ2017の7つの問いと推奨の強さ</caption>
+<thead><tr><th>問い</th><th>推奨（強さ・質）</th></tr></thead>
+<tbody>
+<tr><td>Q1 診断</td><td>抗菌薬の前に下気道検体を採る（強い・低）。安定例では遠位の定量検体（弱い・低）</td></tr>
+<tr><td>Q2 経験的治療の広さ</td><td>早期・低リスクは狭域（弱い・非常に低）。ショック・高耐性率・非古典的リスク因子があれば広域（強い・低）</td></tr>
+<tr><td>Q3 単剤か併用か</td><td>高リスクは併用で開始（強い・中）。培養が出たら単剤へ。併用を続けるのはXDR/PDRの非発酵菌とCREだけ（弱い・低）</td></tr>
+<tr><td>Q4 期間</td><td>7〜8日（弱い・中）</td></tr>
+<tr><td>Q5 反応の評価</td><td>ベッドサイドの評価が基本。バイオマーカーのルーチン追加はしない（強い・中）</td></tr>
+<tr><td>Q6 PCTによる短縮</td><td>7〜8日を想定するならルーチンの連続測定はしない（強い・中）</td></tr>
+<tr><td>Q7 予防</td><td>クロルヘキシジンは推奨を出さない。耐性率の低い環境ではSDDでなくSODを提案（弱い・低）</td></tr>
+</tbody>
+</table>
+</div>
+<p>強い推奨は「検体を採る」「高リスクは広域・併用」「バイオマーカーを足さない」「PCTをルーチンに測らない」の4種類に集約され、それ以外は弱い推奨かgood practice statementです<span class="src ext">ERJ2017</span>。</p>
+</details>
+
+<h3 id="rs-s4-3">4-3. PCTは止める判断の補助 — 7〜8日を守れる患者にルーチンの測定はいらない</h3>
+<p class="rd-lead">抗菌薬が先行した例ではPCT 0.5 ng/mL未満かピークから80%超の低下を中止の補助に使えますが、7〜8日を想定するならルーチンの連続測定はせず（強い推奨・中等度の質）、PCTに役割が残るのは高度の免疫抑制・初期治療が不適切だった例・非発酵菌の感染です<span class="src vault">ICM2020</span><span class="src ext">ERJ2017</span>。</p>
+<p>腎機能障害・血液透析・血液濾過・心停止後では、PCTの解釈の価値が落ちるか閾値を変える必要があります<span class="src ext">ERJ2017</span>。PCTの使い方の一般論は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/#rs-s2-2">敗血症の診断・抗菌薬・感染源管理の2-2</a>にあります。</p>
+<details class="rd-ev" open><summary>根拠を見る（PCTで短くなる幅）</summary>
+<p>標準期間群が7〜8日より長かった3RCT・308例では、PCTのルーチン測定で治療期間が3.2日短くなり、28日死亡の低下と関連しました（4RCT・748例、OR 0.67）。重症患者全般の5RCTでは短縮は平均2日でした<span class="src ext">ERJ2017</span>。PCTガイドで抗菌薬曝露を減らした中心的なRCTはPRORATAです<span class="src ext">Lancet2010</span>。7〜8日を守れば、同じ程度の短縮はPCTなしで達成できます。</p>
+</details>
+
+<h3 id="rs-s4-4">4-4. 期間を短くできた施設を分けたのは仕組み — AMSとタイムアウトの有無</h3>
+<p class="rd-lead">72か国1,296人の調査（D-PRISM）でVAPの予定期間は5〜7日が49.6%、8日以上が47.4%と割れ、期間を短くできていた施設を分けたのは個人の知識ではなく、抗菌薬適正使用支援（AMS）プログラムと48〜72時間のタイムアウトでした<span class="src vault">CritCare2024</span>。</p>
+<p>AMSプログラムは79%、院内の抗菌薬ガイドラインは80%の施設にあったのに、期間は割れていました。差を生むのは制度があることではなく、タイムアウトを症例ごとに実際に回しているかです<span class="src vault">CritCare2024</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s5"><span class="no">§5</span>効かないときは延ばす前に4点を点検する — 「再発」も4つに分ける</h2>
+
+<p>反応が足りないときに最も多い誤りは「効かないから延ばす・足す」です。先に「効いているか」を言葉にし、原因を点検し、再発なら型に分けてから次の一手を決めます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>「効いている」を4本柱で判定する</li>
+<li>延ばす前に感染源・カバー漏れ・薬の届き方・肺の外を点検する</li>
+<li>再発は菌と時期で4つに分ける</li>
+</ol>
+</div>
+
+<h3 id="rs-s5-1">5-1. 「効いている」は4本柱で言う — 10日目の治療失敗は22〜43%で、抗菌薬の継続と重なる</h3>
+<p class="rd-lead">治療が効いたかを、①再挿管のない抜管、②酸素化の改善＋炎症3項目のうち2つ、③画像の改善、④原因菌の消失、のいずれかが5日続くかで判定すると、10日目の治療失敗は混合ICUで22.2%、外傷ICUで43%に達し、失敗例は90日死亡が33.5%対21.6%で、10日目以降も抗菌薬が続いていました<span class="src vault">治療成否の枠組み CritCare2026</span>。</p>
+<ul>
+<li>②の酸素化はP/F 300 mmHg超か治療開始時から100 mmHg以上の上昇（PEEP 5以上）、炎症は体温38.3℃未満・白血球4〜12×10⁹/L・CRP 20%超の低下です</li>
+<li>3日目に早期の反応がない患者はICU死亡が約2倍（12.8%対6.1%）でした。48〜72時間のタイムアウトに続けて、3日目の再評価を意識して置きます<span class="src vault">治療成否の枠組み CritCare2026</span></li>
+</ul>
+<div class="box warn">
+<span class="label">研究用の定義を、抗菌薬を変える命令として読まない</span>
+<p>この枠組みは研究で再現できるように作られた定義です。初期の誤診・非感染性の肺障害・肺の外の臓器障害でも基準は満たされず、画像の項目は33.7%が判定できませんでした。抜管が定義に入っているので、挿管していないHAPにはそのまま使えません<span class="src vault">治療成否の枠組み CritCare2026</span>。</p>
+</div>
+
+<h3 id="rs-s5-2">5-2. 延ばす・足す前に4点 — 感染源、カバー漏れ、薬の届き方、肺の外の原因</h3>
+<p class="rd-lead">反応が足りなければ、延長や追加の前に、ドレナージすべき病巣が残っていないか、培養で拾えていない菌がないか、薬の濃度が足りているか、熱と炎症の原因が肺の外にないかの4点を点検します<span class="src vault">ICM2020</span>。</p>
+<div class="rd-check">
+<p class="rd-check-h">延ばす前の4点</p>
+<ol>
+<li>感染源：膿胸・膿瘍・カテーテルなど、ドレナージや抜去が要る病巣が残っていないか</li>
+<li>カバー漏れ：真菌・非定型菌など、培養で拾えていない起因菌がないか</li>
+<li>薬の届き方：腎代替療法・ARC・肥満・低アルブミンで濃度が足りていないか</li>
+<li>肺の外：カテーテル感染・カンジダ血症・薬剤熱など、熱と炎症の原因が肺以外にないか</li>
+</ol>
+</div>
+<p class="rd-note">薬の届き方の点検（ARC・RRT・ECMO・延長投与）は<a href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/">重症患者の抗菌薬PK／PD</a>にあります。βラクタムの濃度は当院では測れないので、予測と観察で点検します<span class="src in">当院</span>。</p>
+<p>単回の値より推移を見ます。10日目のCRP比0.67未満を良好な反応とした観察研究では、死亡は不良反応群53%、良好反応群20%でした<span class="src ext">ERJ2017</span>。</p>
+
+<h3 id="rs-s5-3">5-3. 「再発」は菌と時期で4つに分ける — 同じ薬を延ばすか、培養から選び直すかが変わる</h3>
+<p class="rd-lead">再発と言われたら、初回と同じ菌か、抗菌薬を終えてから48〜72時間の前か後かで4つに分け（表4）、同じレジメンを続けるのか新しい培養から選び直すのかを決めます<span class="src vault">ICM2025</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表4｜VAPの再発の4分類 — <span class="ok">菌が同じか・時期・臨床経過で分ける</span></caption>
+<thead><tr><th>用語</th><th>菌</th><th>分ける軸</th></tr></thead>
+<tbody>
+<tr><td>relapse（再燃）</td><td>初回と同じ</td><td rowspan="4">抗菌薬の終了から48〜72時間より前か後か、と臨床経過</td></tr>
+<tr><td>persistent VAP（持続性VAP）</td><td>初回と同じ</td></tr>
+<tr><td>superinfection（重複感染）</td><td>初回と異なる</td></tr>
+<tr><td>new-pathogen VAP（新規病原体VAP）</td><td>初回と異なる</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">36名の欧州の専門家によるDelphiコンセンサスで、94%が「初回のVAPの診断基準を再発にも使える」ことに同意しました。臨床の転帰による検証はまだです<span class="src vault">ICM2025</span>。</p>
+
+<h3 id="rs-s5-4">5-4. <em>S. maltophilia</em>はまず定着か感染か — DTRの肺炎でチゲサイクリンを主軸にしない</h3>
+<p class="rd-lead">長期挿管で<em>S. maltophilia</em>が出たら、まず定着か感染かを見極め（元のコホートでも閾値陽性391例の63%は定着として除外）、ST合剤・キノロン両方に耐性（DTR）の肺炎ならチゲサイクリンを主軸にしません（30日死亡の調整RR 1.95、95%CI 1.21〜3.13）<span class="src vault">DTR S. maltophilia CritCare2026</span>。</p>
+<p>併用療法も8日を超える投与も、どの転帰にも利益が見えなかったので、7〜8日で畳む原則から外れる理由はありません。経験的治療が当たっていたのは22%で、DTRの58%は先行する非DTRのエピソードをST合剤かキノロンで治療したあとに出ていました。初回の薬の選び方と期間が、次のDTRを作ります。後ろ向きの119例で、著者自身が仮説生成的と書いています<span class="src vault">DTR S. maltophilia CritCare2026</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s6"><span class="no">§6</span>吸入抗菌薬は上乗せしない — 使うのはXDRグラム陰性菌の代わりの手段に限る</h2>
+
+<p>吸入抗菌薬は増えていますが、これを受けるべき患者は明確に定義されていません<span class="src vault">ICM2020</span>。「念のため」足さないために、なぜ効きにくいかを薬の届き方から押さえます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>静注への上乗せはしない</li>
+<li>使うのはコリスチン・アミノグリコシドにしか効かない菌だけ</li>
+<li>使うなら持続式ネブライザーを人工呼吸器の近くに置く</li>
+</ol>
+</div>
+
+<h3 id="rs-s6-1">6-1. 上乗せは効かない — 3つのRCTが陰性で、肺に届くのは名目用量の5%未満</h3>
+<p class="rd-lead">有効な静注治療への上乗せは推奨されず、理由はデータの不足、VAP患者の10〜20%が菌血症を伴うこと、繰り返すネブライゼーションで人工呼吸期間が延びうることで、その後の3つのRCTも無効を追認しました<span class="src vault">ICM2020</span><span class="src ext">ICM2023</span>。</p>
+<p>ネブライザーに入れた薬のうち肺に届くのは名目用量の5%未満で、質量中央空気力学径が5 µmを超える粒子は肺実質に届きません。アミノグリコシドとポリミキシンは濃度依存なので、気管支への沈着を抑えられるかが効果を左右します<span class="src ext">ICM2023</span>。静注の代わりとしても推奨されません<span class="src vault">ICM2020</span>。</p>
+
+<h3 id="rs-s6-2">6-2. 使うならXDRグラム陰性菌に限り、持続式ネブライザーを人工呼吸器の近くに置く</h3>
+<p class="rd-lead">吸入はコリスチンかアミノグリコシドにしか感受性のないXDRグラム陰性菌によるVAPに限り、この場合は3つのメタ解析で静注コリスチンへの吸入コリスチンの併用が静注単独より転帰が良く、腎毒性も少ないと報告されています<span class="src vault">ICM2020</span><span class="src ext">ICM2023</span>。</p>
+<div class="rd-check">
+<p class="rd-check-h">吸入抗菌薬を使う前に確かめる</p>
+<ol>
+<li>起因菌がコリスチンかアミノグリコシドにしか感受性のないXDRグラム陰性菌か</li>
+<li>上乗せではなく、静注コリスチンと組む代わりの手段として使うか</li>
+<li>ネブライザーは持続式か（呼吸同調式はボーラス効果が消え、時間が3〜9倍かかる）</li>
+<li>ネブライザーを人工呼吸器の近くに置いたか</li>
+<li>菌血症を合併していないか（合併していれば吸入だけでは足りない）</li>
+</ol>
+</div>
+<p class="rd-note">人工呼吸器の設定を工夫すると送達量は増えますが、治療効果の上乗せは報告されていません<span class="src ext">ICM2023</span>。新規βラクタムも、事前の感受性試験で効くと分かっている保菌患者に限って温存します<span class="src vault">ICM2020</span>。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<section class="rd">
+<h2 id="s7"><span class="no">§7</span>原則が当てはまりにくい場面と落とし穴 — 予防投与・sCAPとの違い・「念のため」</h2>
+
+<p>最後に、ここまでの原則をそのまま当てはめない場面と、よくある誤りをまとめます。例外を覚えることより、なぜ当てはめないのかを言えることが目的です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>予防投与は心停止後・意識障害など限られた患者だけ</li>
+<li>sCAPとはVAPの期間と組み立てを混ぜない</li>
+<li>「念のため」を積み重ねない</li>
+</ol>
+</div>
+
+<h3 id="rs-s7-1">7-1. 予防投与は限られた患者だけ — 早期VAPは減るが、予後を決めるのは原疾患</h3>
+<p class="rd-lead">ショック適応リズムの院外心停止で32〜34℃の体温管理を受ける患者にアモキシシリン/クラブラン酸を2日間投与すると、早期VAPは34%から19%に減りましたが（ANTHARTIC、194例）、28日死亡と人工呼吸器なし日数は変わらず、予後を決めていたのは低酸素性脳障害でした<span class="src ext">NEJM2019</span>。</p>
+<p>GCS 12以下の意識障害の患者ではセフトリアキソン単回投与でVAPが14%対32%（HR 0.60）に減ったRCT（PROPHY-VAP）がありますが、一般のICU患者には広げられません<span class="src vault">CritCare2025</span>。ICU全体を対象にした32 RCT・約25,000例のメタ解析では効果はRR 0.91とわずかで、SuDDICU（約6,000例）の90日死亡は27.0%対29.1%で差がありませんでした<span class="src vault">CritCare2025</span>。予防投与は「誰にでも」ではなく、どの患者に絞るかを先に決めます<span class="src vault">ICM2026</span>。</p>
+<div class="box plain">
+<span class="label">当院の運用 — SDDは採らない。予防は非薬物のバンドルで</span>
+<p>選択的消化管除菌（SDD）は当院では採りません。カフ圧は26 cmH₂Oを既定にしています（推奨域20〜30）<span class="src in">当院</span>。頭位・声門下吸引・カフ圧・口腔ケア・バンドルの運用は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s3">人工呼吸器関連合併症の§3・§4</a>にあります。</p>
+</div>
+<details class="rd-ev" open><summary>根拠を見る（ANTHARTICと昏睡患者の報告）</summary>
+<p>ANTHARTICはフランス16 ICUの二重盲検RCTで、ROSC後6時間以内にアモキシシリン1 g＋クラブラン酸200 mgを1日3回投与しました。早期VAPのHRは0.53（95%CI 0.31〜0.92）、遅発性VAPは4%対5%、28日死亡は41%対37%で、7日目に耐性菌は増えませんでした。院内心停止・非ショック適応リズム・明らかな誤嚥は対象外です<span class="src ext">NEJM2019</span>。GCS 8以下の129例でセフトリアキソン単回投与が早期VAPを22.4%から2.8%に減らした報告は、対照に歴史的コホートが混ざり、ICU死亡は29.6%対31.0%で変わりませんでした<span class="src ext">Chest2013</span>。</p>
+</details>
+
+<h3 id="rs-s7-2">7-2. sCAPとは組み立てが違う — VAPの7〜8日をそのまま持ち込まない</h3>
+<p class="rd-lead">重症市中肺炎は、耐性リスクがなければβラクタム＋マクロライドで始め、臨床的に安定すれば短く畳み、ステロイドを高炎症の早期例に絞るなど、VAPとは治療の組み立てが違うので、VAPの期間や広さをそのまま持ち込みません<span class="src vault">ICM2026sCAP</span>。</p>
+<p>sCAPの期間（重症は5日以上）・ステロイド・HCAPの扱いは<a href="https://hiro-oka.github.io/icu-masterclass/resident-scap/">重症市中肺炎（sCAP）</a>にあります。HCAP（医療ケア関連肺炎）という区分はガイドラインから外れており、施設入所歴を理由に広域にはしません<span class="src ext">ERJ2017</span>。</p>
+
+<h3 id="rs-s7-3">7-3. 落とし穴は7つ — 「念のため」と「機械的なルール」の両方で外れる</h3>
+<p class="rd-lead">VAPの抗菌薬は、確かめずに足す「念のため」と、患者を見ずに当てはめる「機械的なルール」の両方で外れるので、次の7つを回診で確かめます。</p>
+<ul>
+<li>浸潤影があるからVAP、影が変わらないから否定、と画像だけで決める（§2-2）</li>
+<li>カンジダやHSVが出たから治療する（§3-4）</li>
+<li>早期発症だから狭域でよい、とリスク因子を見ない（§3-1）</li>
+<li>病院全体のMRSA率で抗MRSA薬を足す（§3-3）</li>
+<li>陰性が出ても様子を見てから止める、感受性が出ても併用を続ける（§2-3・§4-1）</li>
+<li>効かないから延ばす・足す、と4点を点検しない（§5-2）</li>
+<li>吸入抗菌薬を静注に上乗せする（§6-1）</li>
+</ul>
+<p>腹臥位はVAPを減らさず（PROSEVA二次解析で90日累積46.5%対33.5%、有意差なし）、VAPは独立した死亡リスクでした<span class="src vault">ICM2016</span>。腹臥位は生存のために行い、その間も予防のバンドルを緩めません（<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#rs-s4-4">人工呼吸器関連合併症の4-4</a>）。</p>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+</section>
+
+<h2 id="refs">主要文献</h2>
+<p style="color:var(--muted);font-size:.9rem">本文中の［ ］は出典です。用量は教育目的の記載で、臨床で使う前に原著・添付文書・薬剤部の基準と照合してください。</p>
+<ul class="refs">
+<li>Papazian L, Klompas M, Luyt CE. Ventilator-associated pneumonia in adults: a narrative review. <em>Intensive Care Med</em> 2020;46:888-906</li>
+<li>Howroyd F, Chacko C, MacDuff A, et al. Ventilator-associated pneumonia: pathobiological heterogeneity and diagnostic challenges. <em>Nat Commun</em> 2024;15:6447</li>
+<li>Torres A, Niederman MS, Chastre J, et al. International ERS/ESICM/ESCMID/ALAT guidelines for the management of HAP/VAP. <em>Eur Respir J</em> 2017;50:1700582</li>
+<li>Kalil AC, Metersky ML, Klompas M, et al. Management of adults with hospital-acquired and ventilator-associated pneumonia: IDSA/ATS clinical practice guidelines. <em>Clin Infect Dis</em> 2016;63:e61-e111</li>
+<li>Martin-Loeches I, Chastre J, Wunderink RG. Bronchoscopy for diagnosis of ventilator-associated pneumonia. <em>Intensive Care Med</em> 2022</li>
+<li>Fernando SM, Tran A, Cheng W, et al. Diagnosis of ventilator-associated pneumonia in critically ill adult patients—a systematic review and meta-analysis. <em>Intensive Care Med</em> 2020;46:1170-1179</li>
+<li>Reyes LF, Serrano-Mayorga CC, Zhang Z, et al; D-PRISM Investigators. D-PRISM: a global survey-based study to assess diagnostic and treatment approaches in pneumonia managed in intensive care. <em>Crit Care</em> 2024;28:381</li>
+<li>Millot G, Rouzé A, Wallet F, et al. Impact of adding multiplex PCR to conventional culture on targeted antimicrobial therapy at 24h in suspected VAP/vHAP（VAPERO）. <em>Intensive Care Med</em> 2026</li>
+<li>Rouzé A, Martin-Loeches I, Timsit JF. Advances in ventilator-associated pneumonia: from pathophysiology to precision management. <em>Intensive Care Med</em> 2026</li>
+<li>Kalil AC, Timsit JF. Less is more: critically ill status is not a carte blanche for unlimited antibiotic use. <em>Intensive Care Med</em> 2020</li>
+<li>Micek ST, Vazquez Guillamet MC, Reynolds D, et al. Optimal antibiotic use in the intensive care unit. <em>Crit Care</em> 2025;29:434</li>
+<li>Haitsma Mulier JLG, Verbeek E, Martin FP, et al. A framework for outcome determination of nosocomial pneumonia treatment in ventilated critically ill patients. <em>Crit Care</em> 2026</li>
+<li>Mokrani D, Piantoni A, Drieux-Rouzet L, et al; SMR-ICU Study Group. Treatment and outcomes of difficult-to-treat <em>Stenotrophomonas maltophilia</em> pneumonia in the intensive care unit: a multinational retrospective cohort study. <em>Crit Care</em> 2026</li>
+<li>Gaillet A, Luyt CE, Weiss E, et al. Consensual definition of ventilator-associated pneumonia recurrences（Delphi）. <em>Intensive Care Med</em> 2025</li>
+<li>Rello J, Bouglé A, Rouby JJ. Aerosolised antibiotics in critical care. <em>Intensive Care Med</em> 2023;49:848-852</li>
+<li>Tsakiridou E, Mega AM, Zakynthinos E, et al. Pre-intensive care unit intubation and subsequent delayed intensive care unit admission is independently associated with increased occurrence of ventilator-associated pneumonia. <em>Clin Respir J</em> 2018;12:2497-2504</li>
+<li>Ayzac L, Girard R, Baboi L, et al. Ventilator-associated pneumonia in ARDS patients: the impact of prone positioning（PROSEVA二次解析）. <em>Intensive Care Med</em> 2016;42:871-878</li>
+<li>François B, Cariou A, Clere-Jehl R, et al. Prevention of early ventilator-associated pneumonia after cardiac arrest（ANTHARTIC）. <em>N Engl J Med</em> 2019;381:1831-1842</li>
+<li>Vallés J, Peredo R, Burgueño MJ, et al. Efficacy of single-dose antibiotic against early-onset pneumonia in comatose patients who are ventilated. <em>Chest</em> 2013;143:1219-1225</li>
+<li>Dequin PF, Torres A, Bassetti M, et al. Severe community-acquired pneumonia: current concepts and controversies. <em>Intensive Care Med</em> 2026;52:118-130</li>
+<li>Bouadma L, Luyt CE, Tubach F, et al. Use of procalcitonin to reduce patients' exposure to antibiotics in intensive care units（PRORATA）. <em>Lancet</em> 2010;375:463-474</li>
+<li>Chastre J, Wolff M, Fagon JY, et al. Comparison of 8 vs 15 days of antibiotic therapy for ventilator-associated pneumonia in adults. <em>JAMA</em> 2003;290:2588-2598</li>
+<li>Trouillet JL, Chastre J, Vuagnat A, et al. Ventilator-associated pneumonia caused by potentially drug-resistant bacteria. <em>Am J Respir Crit Care Med</em> 1998;157:531-539</li>
+<li>Canadian Critical Care Trials Group. A randomized trial of diagnostic techniques for ventilator-associated pneumonia. <em>N Engl J Med</em> 2006;355:2619-2630</li>
+<li>Fagon JY, Chastre J, Wolff M, et al. Invasive and noninvasive strategies for management of suspected ventilator-associated pneumonia: a randomized trial. <em>Ann Intern Med</em> 2000;132:621-630</li>
+</ul>
+
+
+</main><script id="rs-tools-js">
+(function(){
+  var cp=document.getElementById('rs-copy');
+  if(cp){cp.addEventListener('click',function(){
+    // ==公開URLは固定==。ローカル（file://）で開いても正しいリンクが取れるようにする
+    var t=cp.getAttribute('data-url'), old='🔗 リンクをコピー';
+    function done(){cp.textContent='✓ コピーしました';setTimeout(function(){cp.textContent=old;},1800);}
+    function fallback(){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;top:-9999px';
+        document.body.appendChild(ta); ta.select();
+        var ok=document.execCommand('copy'); document.body.removeChild(ta);
+        if(ok){done();return;}
+      }catch(e){}
+      window.prompt('このURLをコピーしてください', t);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,fallback);
+    }else{fallback();}
+  });}
+  var pd=document.getElementById('rs-pdf');
+  if(pd){pd.addEventListener('click',function(){
+    // 折りたたみがあれば開いてから印刷（印刷で中身が欠けるのを防ぐ）
+    [].slice.call(document.querySelectorAll('details')).forEach(function(d){d.open=true;});
+    window.print();
+  });}
+})();
+</script><script id="rs-tpl-js">
+(function(){
+  [].slice.call(document.querySelectorAll('.tpl-h .cp')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.dataset.tpl); if(!pre) return;
+      var t=pre.innerText, old=b.textContent;
+      function done(){b.textContent='✓ コピーしました'; b.classList.add('done');
+        setTimeout(function(){b.textContent=old; b.classList.remove('done');},1800);}
+      function fb(){
+        try{ var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly','');
+          ta.style.cssText='position:fixed;top:-9999px'; document.body.appendChild(ta); ta.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(ta); if(ok){done();return;} }catch(e){}
+        window.prompt('この内容をコピーしてください', t);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+  });
+})();
+</script><button id="rs-top" aria-label="先頭へ">↑</button>
+<script id="rs-js">
+(function(){
+  var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),
+      burger=document.getElementById('rs-burger'), nav=document.getElementById('rs-nav'),
+      inp=document.getElementById('rs-search'), hits=document.getElementById('rs-hits'),
+      bar=document.getElementById('rs-progress'), top=document.getElementById('rs-top'),
+      cur=document.getElementById('rs-cur');
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));})
+                 .filter(Boolean);
+
+  function close(){ side.classList.remove('open'); }
+  burger && burger.addEventListener('click',function(){ side.classList.toggle('open'); });
+  scrim && scrim.addEventListener('click',close);
+  nav.addEventListener('click',function(e){ if(e.target.tagName==='A' && window.innerWidth<=1000) close(); });
+
+  // scroll-spy ＋ 進捗 ＋ 現在地表示
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(h>0?(y/h*100):0)+'%';
+      top.style.display = y>500 ? 'block' : 'none';
+      var idx=0;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=90) idx=i; }
+      links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+      if(cur && heads[idx]) cur.textContent=heads[idx].textContent.trim();
+      var on=nav.querySelector('a.on');
+      if(on && on.offsetTop < nav.scrollTop) nav.scrollTop = on.offsetTop-60;
+      if(on && on.offsetTop > nav.scrollTop+nav.clientHeight-40) nav.scrollTop = on.offsetTop-nav.clientHeight+80;
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // インクリメンタル検索（本文をハイライトし、目次も絞る）
+  var main=document.querySelector('main'), timer=null;
+  function clearMarks(){
+    main.querySelectorAll('mark.rs-mk').forEach(function(m){
+      var p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+    });
+  }
+  function search(q){
+    clearMarks();
+    links.forEach(function(a){ a.classList.remove('hit'); a.style.display=''; });
+    if(!q){ hits.textContent=''; return; }
+    var lc=q.toLowerCase(), n=0, first=null;
+    var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,{acceptNode:function(nd){
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var t=nd.parentNode.tagName;
+      if(t==='SCRIPT'||t==='STYLE') return NodeFilter.FILTER_REJECT;
+      return nd.nodeValue.toLowerCase().indexOf(lc)>=0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+    var targets=[],nd;
+    while((nd=w.nextNode())) targets.push(nd);
+    targets.forEach(function(node){
+      var s=node.nodeValue, low=s.toLowerCase(), frag=document.createDocumentFragment(), i=0, j;
+      while((j=low.indexOf(lc,i))>=0){
+        if(j>i) frag.appendChild(document.createTextNode(s.slice(i,j)));
+        var mk=document.createElement('mark'); mk.className='rs-mk'; mk.textContent=s.substr(j,q.length);
+        frag.appendChild(mk); if(!first) first=mk; n++; i=j+q.length;
+      }
+      if(i<s.length) frag.appendChild(document.createTextNode(s.slice(i)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    // 目次側: 該当セクションだけ残す
+    links.forEach(function(a,i){
+      var el=heads[i]; if(!el) return;
+      var stop=heads[i+1], has=false, cur2=el;
+      while(cur2 && cur2!==stop && !(stop && cur2.contains && cur2.contains(stop))){
+        if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
+        if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
+        cur2=cur2.nextElementSibling;
+      }
+      a.classList.toggle('hit',has); a.style.display = has ? '' : 'none';
+    });
+    hits.textContent = n ? (n+' 件 — Enterで先頭へ') : '該当なし';
+    inp._first=first;
+  }
+  inp.addEventListener('input',function(){
+    clearTimeout(timer); var q=inp.value.trim();
+    timer=setTimeout(function(){ search(q); },160);
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && inp._first){ inp._first.scrollIntoView({block:'center'}); }
+    if(e.key==='Escape'){ inp.value=''; search(''); }
+  });
+  // "/" で検索にフォーカス
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/' && document.activeElement!==inp){ e.preventDefault(); side.classList.add('open'); inp.focus(); }
+  });
+  top.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // 表を横スクロール容器で包む
+  [].slice.call(main.querySelectorAll('table')).forEach(function(t){
+    if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
+    var d=document.createElement('div'); d.className='rs-tw';
+    t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+<script id="rd-js">
+(function(){
+  window.addEventListener('beforeprint',function(){
+    [].slice.call(document.querySelectorAll('details.rd-ev')).forEach(function(d){d.open=true;});
+  });
+})();
+</script>
+<script id="mo-js">
+// resident motion (resident-motion.js) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+// 手引き：resident-motion-guide.md。体裁は resident-motion.css。クラス・データ属性は mo- で始める。
+// ・スクロールで画面に入ったら1回だけ動いて止まる。動き終わった図には「↻ もう一度」を出す
+// ・動きを減らす設定・印刷・PDF（Headless Chrome）・JSが無い環境では何もしない＝HTMLのまま（最終状態）
+// ・HTMLは最終状態で書く。JSは「最初の状態に戻してから最終状態まで動かす」だけで、最後は必ず元のHTMLに戻す
+// ・点検用：window.RESMO_TEST = {seek: 秒} を先に置くと、全部の図をその時刻で止めて表示する
+(function () {
+  'use strict';
+  var D = document, R = D.documentElement, W = window;
+  var TEST = W.RESMO_TEST || null;
+  function mm(q) { return !!(W.matchMedia && W.matchMedia(q).matches); }
+  var STATIC = !TEST && (mm('(prefers-reduced-motion: reduce)') || mm('print') ||
+    /HeadlessChrome/.test(navigator.userAgent) || navigator.webdriver ||
+    !('IntersectionObserver' in W) || !W.requestAnimationFrame || !W.CSS || !CSS.supports('animation-delay', 'calc(1s - 1s)'));
+  if (STATIC) return;
+
+  var NS = 'http://www.w3.org/2000/svg', UID = 0;
+  function Q(s, r) { return [].slice.call((r || D).querySelectorAll(s)); }
+  function q(s, r) { return (r || D).querySelector(s); }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+  function easeIO(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function E(tag, attrs, parent) {
+    var e = D.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var DUR = { fade: .45, rise: .55, pop: .5, slide: .5, slider: .5, stamp: .45, growx: .45, growy: .35, growu: .6, draw: .8, ring: 1, line: 0,
+              barx: .5, dotp: .45, wipel: .8 };
+
+  // ================= 場面（scene）：図の中の要素を時刻つきで並べる =================
+  var FIGS = [];
+  function Fig(root, stagger) {
+    this.root = root; this.scenes = []; this.stagger = stagger || .45;
+    root.classList.add('mo-fig'); FIGS.push(this);
+    var f = this, b = D.createElement('button');
+    b.type = 'button'; b.className = 'mo-replay'; b.textContent = '↻ もう一度';
+    b.setAttribute('aria-label', 'この図の動きをもう一度再生');
+    b.addEventListener('click', function () { f.replay(); });
+    root.appendChild(b); this.btn = b;
+  }
+  Fig.prototype.check = function () {
+    var done = this.scenes.every(function (s) { return s.state === 2; });
+    this.root.classList.toggle('mo-end', done);
+  };
+  Fig.prototype.offsetOf = function (sc) {   // 横に並んだ場面は順番にずらす（縦に並べば同時）
+    var top = sc.trigger.getBoundingClientRect().top, k = 0;
+    for (var i = 0; i < this.scenes.length && this.scenes[i] !== sc; i++) {
+      if (Math.abs(this.scenes[i].trigger.getBoundingClientRect().top - top) < 40) k++;
+    }
+    return k * this.stagger;
+  };
+  Fig.prototype.replay = function () {
+    var f = this; f.root.classList.remove('mo-end');
+    f.scenes.forEach(function (s) { s.play(f.offsetOf(s)); });
+  };
+  Fig.prototype.undo = function () {        // 部品の組み立てに失敗したら、手を付けずに元のHTMLへ戻す
+    this.scenes.forEach(function (s) { s.state = 2; s.clean(); });
+    if (this.btn.parentNode) this.btn.parentNode.removeChild(this.btn);
+    this.root.classList.remove('mo-fig');
+  };
+
+  function Scene(fig, trigger) {
+    this.fig = fig; this.trigger = trigger || fig.root;
+    this.els = []; this.tracks = []; this.total = 0; this.state = 0; this.raf = 0;
+    fig.scenes.push(this);
+  }
+  // 要素を1つ（または配列）登録する。kind: fade / rise / pop / slide / slider / stamp / growx / growy / draw / ring / line
+  //   growu＝SVGの棒が下から伸びる／barx・dotp＝HTMLの棒と点（transform を持つ要素でも使える scale プロパティで動かす）／wipel＝右から左へ拭き出す
+  Scene.prototype.el = function (el, kind, d, t, step) {
+    var s = this;
+    if (!el) return s;
+    if (el.nodeType !== 1) { [].forEach.call(el, function (e, k) { s.el(e, kind, d + k * (step || 0), t); }); return s; }
+    if (el._moS === s) return s;   // 同じ要素を2回登録しない（先に登録した動きを使う）
+    el._moS = s;
+    var svg = el instanceof SVGElement;
+    if (svg && el.hasAttribute('transform') && /rise|pop|slide|stamp|grow/.test(kind)) kind = 'fade';
+    if (kind === 'draw') {
+      var dash = W.getComputedStyle(el).strokeDasharray;
+      if (!svg || el.hasAttribute('marker-end') || el.hasAttribute('marker-start') || (dash && dash !== 'none')) kind = 'fade';
+      else el.setAttribute('pathLength', '1');
+    }
+    var dur = t || DUR[kind];
+    s.els.push({ el: el, kind: kind, d: d, t: dur });
+    s.total = Math.max(s.total, d + dur);
+    return s;
+  };
+  // JSで動かすもの（波形の掃引・粒・数字・ボンベ）。fn(p) は p=0〜1。setup で部品を作り、end で消す
+  Scene.prototype.track = function (t0, dur, fn, setup, end) {
+    this.tracks.push({ t0: t0, dur: dur, fn: fn, setup: setup, end: end, live: false });
+    this.total = Math.max(this.total, t0 + dur);
+    return this;
+  };
+  Scene.prototype.render = function (t) {
+    this.tracks.forEach(function (k) {
+      if (!k.live && k.setup) { k.setup(); }
+      k.live = true; k.fn(clamp((t - k.t0) / k.dur), t);
+    });
+  };
+  Scene.prototype.prime = function (off) {
+    this.els.forEach(function (o) {
+      var c = o.el.classList;
+      c.remove('mo-go'); c.add('mo-x', 'mo-' + o.kind, 'mo-pre');
+      o.el.style.setProperty('--d', o.d + 's');
+      o.el.style.setProperty('--mo-t', o.t + 's');
+      o.el.style.setProperty('--mo-o', (off || 0) + 's');
+    });
+  };
+  Scene.prototype.reset = function () { this.prime(0); this.render(0); this.state = 0; };
+  Scene.prototype.go = function () {
+    void this.fig.root.offsetWidth;
+    this.els.forEach(function (o) { o.el.classList.remove('mo-pre'); o.el.classList.add('mo-go'); });
+  };
+  Scene.prototype.play = function (off) {
+    var s = this; off = off || 0;
+    cancelAnimationFrame(s.raf); s.state = 1; s.fig.check();
+    s.prime(off); s.render(-off); s.go();
+    var t0 = performance.now();
+    function fr(now) {
+      var t = (now - t0) / 1000 - off;
+      s.render(t);
+      if (t < s.total + .05) s.raf = requestAnimationFrame(fr); else s.finish();
+    }
+    s.raf = requestAnimationFrame(fr);
+  };
+  Scene.prototype.seek = function (t, off) {   // 点検用：時刻 t で止める
+    this.prime(off); this.go(); this.render(t - (off || 0)); this.state = 1;
+  };
+  Scene.prototype.clean = function () {
+    this.els.forEach(function (o) {
+      o.el.classList.remove('mo-go', 'mo-pre');
+      o.el.style.removeProperty('--mo-o');
+    });
+    this.tracks.forEach(function (k) { if (k.live && k.end) k.end(); k.live = false; });
+  };
+  Scene.prototype.finish = function () {
+    cancelAnimationFrame(this.raf);
+    if (this.state === 2) return;
+    this.render(1e6); this.clean(); this.state = 2; this.fig.check();
+  };
+
+  // ================= 部品 =================
+  // 数字のカウントアップ：要素の最初の文字列の中の数字だけを 0 から数える。最後は必ず元の文字列に戻す
+  function counter(el) {
+    var node = null;
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var n = el.childNodes[i];
+      if (n.nodeType === 3 && /\d/.test(n.nodeValue)) { node = n; break; }
+    }
+    if (!node) return null;
+    var raw = node.nodeValue, parts = raw.split(/(\d+(?:\.\d+)?)/), nums = [];
+    for (var j = 1; j < parts.length; j += 2) {
+      var dec = (parts[j].split('.')[1] || '').length, v = parseFloat(parts[j]);
+      if (v.toFixed(dec) !== parts[j]) return null;     // 0埋めなど、数え直すと形が変わる数字は数えない
+      nums.push({ i: j, v: v, dec: dec });
+    }
+    return {
+      set: function (p) {
+        if (p >= 1) { node.nodeValue = raw; return; }
+        var e = easeOut(p), out = parts.slice();
+        nums.forEach(function (o) { out[o.i] = (o.v * e).toFixed(o.dec); });
+        node.nodeValue = out.join('');
+      },
+      done: function () { node.nodeValue = raw; }
+    };
+  }
+  function countTrack(s, el, t0, dur) {
+    var C = counter(el); if (!C) return;
+    var inl = W.getComputedStyle(el).display === 'inline';
+    s.track(t0, dur || .9, function (p) { C.set(p); }, function () {
+      if (inl) { el.classList.add('mo-cnt'); el.style.minWidth = el.getBoundingClientRect().width + 'px'; }
+    }, function () { C.done(); el.style.minWidth = ''; el.classList.remove('mo-cnt'); });
+  }
+
+  // 波形を時間軸に沿って左から描く（モニターの掃引）。点線のカーソルと先端の点は描き終わると消える
+  function sweep(s, svg, waves, t0, dur, fills) {
+    fills = fills || [];
+    if (!waves.length) return;
+    var bb = null;
+    waves.forEach(function (w) {
+      var b = w.getBBox();
+      bb = bb ? { x0: Math.min(bb.x0, b.x), x1: Math.max(bb.x1, b.x + b.width), y0: Math.min(bb.y0, b.y), y1: Math.max(bb.y1, b.y + b.height) }
+              : { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height };
+    });
+    var id = 'mo-clip-' + (++UID), defs = q('defs', svg) || E('defs', {}, svg);
+    var cp = E('clipPath', { id: id }, defs);
+    var rect = E('rect', { x: bb.x0 - 6, y: -9999, width: 0, height: 99999 }, cp);
+    var cur = null, tips = [], samples = null;
+    function sample() {   // 各波形の (x, y) を道のり順に拾い、x からその時点の y を引けるようにする
+      samples = waves.map(function (w) {
+        var L = w.getTotalLength(), n = Math.max(60, Math.min(600, Math.round(L / 2))), xs = [], ys = [], mx = -1e9;
+        for (var i = 0; i <= n; i++) {
+          var pt = w.getPointAtLength(L * i / n);
+          mx = Math.max(mx, pt.x); xs.push(mx); ys.push(pt.y);
+        }
+        return { xs: xs, ys: ys, a: xs[0], b: mx };
+      });
+    }
+    function yAt(sm, x) {
+      var lo = 0, hi = sm.xs.length - 1;
+      while (lo < hi) { var mid = (lo + hi + 1) >> 1; if (sm.xs[mid] <= x) lo = mid; else hi = mid - 1; }
+      return sm.ys[lo];
+    }
+    s.track(t0, dur, function (p) {
+      var x = bb.x0 + (bb.x1 - bb.x0) * p;
+      rect.setAttribute('width', p > 0 ? Math.max(0, x - bb.x0 + 6) : 0);
+      var on = p > 0 && p < 1;
+      cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.style.opacity = on ? '' : 0;
+      tips.forEach(function (c, k) {   // 線の始まりより左・終わりより右では先端の点を出さない（線が途中から始まるグラフ）
+        var sm = samples[k], inside = x >= sm.a - 1 && x <= sm.b + 1;
+        c.setAttribute('cx', x); c.setAttribute('cy', yAt(sm, x)); c.style.opacity = on && inside ? '' : 0;
+      });
+    }, function () {
+      if (!samples) sample();
+      waves.concat(fills).forEach(function (w) { w.setAttribute('clip-path', 'url(#' + id + ')'); });
+      cur = E('line', { 'class': 'mo-cur', y1: bb.y0 - 10, y2: bb.y1 + 10 }, svg);
+      tips = waves.map(function () { return E('circle', { 'class': 'mo-tip', r: 5.5 }, svg); });
+    }, function () {
+      waves.concat(fills).forEach(function (w) { w.removeAttribute('clip-path'); });
+      if (cur) cur.remove();
+      tips.forEach(function (c) { c.remove(); }); tips = [];
+    });
+  }
+
+  // 画像の上の印（data-mo-sign="左,上,幅,高さ;…" ％）。1回だけ脈打つ
+  function rings(img) {
+    var spec = img.getAttribute('data-mo-sign'); if (!spec) return [];
+    var wrap = img.parentNode;
+    if (!wrap.classList.contains('mo-imgwrap')) {
+      wrap = D.createElement('span'); wrap.className = 'mo-imgwrap';
+      img.parentNode.insertBefore(wrap, img); wrap.appendChild(img);
+      var mw = img.style.maxWidth; if (mw) { wrap.style.maxWidth = mw; wrap.style.margin = img.style.margin; }
+    }
+    var tone = img.getAttribute('data-mo-sign-tone');
+    return spec.split(';').map(function (b) {
+      var v = b.split(',').map(parseFloat), r = D.createElement('span'), pad = 1.2;
+      r.className = 'mo-ring' + (tone ? ' is-' + tone : ''); r.setAttribute('aria-hidden', 'true');
+      r.style.left = (v[0] - pad) + '%'; r.style.top = (v[1] - pad * 1.6) + '%';
+      r.style.width = (v[2] + 2 * pad) + '%'; r.style.height = (v[3] + 3.2 * pad) + '%';
+      wrap.appendChild(r);
+      return r;
+    });
+  }
+
+  // ================= 図の型ごとの動き =================
+  var RECIPES = {};
+
+  // 冒頭の導入パネル：見出し → 圧の波形が描かれる → 6枚が順に → 数字が数え上がる
+  RECIPES.intro = function (root) {
+    var F = new Fig(root), s = new Scene(F);
+    s.el(q('.mo-ip-k', root), 'fade', 0, .4).el(q('.mo-ip-h', root), 'slide', .08, .6);
+    s.el(q('.mo-ip-wave path', root), 'draw', .1, 1.5);
+    Q('.mo-ip-t', root).forEach(function (t, k) {
+      var d = .32 + k * .09;
+      s.el(t, 'rise', d, .55);
+      Q('[data-mo-count]', t).forEach(function (c) { countTrack(s, c, d + .1, .9); });
+      Q('.mo-ip-pop', t).forEach(function (e, j) { s.el(e, 'pop', d + .25 + j * .2, .45); });
+    });
+    s.el(q('.mo-ip-n', root), 'fade', 1.3, .5);
+  };
+
+  // 波形（.nf-wave を含む SVG）：軸 → 閾値 → 波形を時間軸に沿って描く → 注記
+  RECIPES.wave = function (fig) {
+    var F = new Fig(fig, .55), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('.nf-wave', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      s.el(Q('.nf-axis, .nf-tick, .nf-grid, .nf-zero', svg), 'fade', .1, .4);
+      s.el(Q('text.nf-ts, text.nf-t:not(.nf-tb)', svg), 'fade', .14, .4);
+      s.el(Q('.nf-thr', svg), 'fade', .35, .45);
+      var T0 = .45, TD = 1.4;
+      sweep(s, svg, Q('.nf-wave', svg), T0, TD);
+      var ann = Q('.nf-guide, .nf-dim, .nf-sa, .nf-sd, text.nf-tb', svg).filter(function (e) { return e.getAttribute('opacity') !== '0'; });
+      ann.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', T0 + TD + .02 + k * .1, .42); });
+    });
+    tail(last, fig);
+  };
+
+  // 図の下の凡例・注記・説明カード：最後の場面の終わりに続けて出す
+  function tail(s, fig, gap) {
+    if (!s) return;
+    var t = s.total + (gap || .05);
+    Q('.nf-callouts > *', fig).forEach(function (c, k) { s.el(c, 'rise', t + k * .18, .5); });
+    s.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot, :scope > .nf > .nf-band', fig), 'fade', t + .1, .45);
+  }
+
+  // 物の流れの模式図（svg.nf-draw）：左から右へ順に組み上がる。太い管があれば粒が流れ、
+  // 管の途中から出る矢印（意図的リーク）に沿って一部の粒が外へ抜ける。赤い矢印（意図しない漏れ）は最後
+  RECIPES.circuit = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), svg = q('svg.nf-draw', fig);
+    var vb = svg.viewBox.baseVal, X0 = vb.x, XW = vb.width || 1, SPAN = 1.7;
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var tubes = kids.filter(function (e) { return e.tagName === 'path' && parseFloat(e.getAttribute('stroke-width')) >= 14; });
+    var reds = kids.filter(function (e) { return e.classList.contains('nf-sd'); });
+    var flow = tubes.length ? tubes[tubes.length - 1] : null;
+    var exits = [];
+    function xd(e) { var b = e.getBBox(); return .1 + (b.x - X0) / XW * SPAN; }
+    kids.forEach(function (e) {
+      if (reds.indexOf(e) >= 0) return;
+      if (tubes.indexOf(e) >= 0) { s.el(e, 'draw', .12, .9); return; }
+      var big = /aL|aX/.test(e.getAttribute('marker-end') || '');
+      if (big && flow) exits.push(e);
+      s.el(e, e.tagName === 'circle' ? 'pop' : 'fade', xd(e) + (big ? .25 : 0), big ? .55 : .42);
+    });
+    var tEnd = .1 + SPAN + .25;
+    reds.forEach(function (e, k) { s.el(e, 'pop', tEnd + k * .08, .45); });
+    var labs = Q('.nf-labels > *', fig), acc = 0;
+    var cols = (getComputedStyle(q('.nf-labels', fig) || fig).gridTemplateColumns || '').split(' ').map(parseFloat);
+    var tot = cols.reduce(function (a, b) { return a + (b || 0); }, 0) || 1;
+    labs.forEach(function (l, k) {
+      var c = cols[k] || tot / labs.length, mid = (acc + c / 2) / tot; acc += c;
+      s.el(l, 'rise', .1 + mid * SPAN + (k === labs.length - 1 && reds.length ? .5 : 0), .5);
+    });
+    if (flow) particles(s, svg, flow, exits, .5, 2.6);
+    tail(s, fig, .1);
+  };
+  function particles(s, svg, tube, exits, t0, dur) {
+    var N = 16, g = null, dots = [], L = 0, portAt = [];
+    function at(path, f) { return path.getPointAtLength(path.getTotalLength() * clamp(f)); }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / .95;                        // 管を流れる時間 0.95 秒
+        var x, y, op = 1;
+        if (u <= 0) { o.c.style.opacity = 0; return; }
+        if (o.exit && u * L >= o.s0) {                       // ポートで外へ抜ける
+          var v = (u * L - o.s0) / (L * .45); var pt = at(o.exit, v); x = pt.x; y = pt.y; op = 1 - clamp((v - .55) / .45);
+        } else {
+          var pt2 = at(tube, u); x = pt2.x; y = pt2.y; op = o.exit ? 1 : 1 - clamp((u - .85) / .15);
+        }
+        if (p >= 1) op = 0;
+        o.c.setAttribute('cx', x); o.c.setAttribute('cy', y); o.c.style.opacity = Math.max(0, op);
+      });
+    }, function () {
+      L = tube.getTotalLength();
+      portAt = exits.map(function (e) {                      // 抜け口の始点に最も近い管の位置
+        var a = e.getPointAtLength(0), best = 0, bd = 1e9;
+        for (var i = 0; i <= 200; i++) { var pt = tube.getPointAtLength(L * i / 200), dd = (pt.x - a.x) * (pt.x - a.x) + (pt.y - a.y) * (pt.y - a.y); if (dd < bd) { bd = dd; best = L * i / 200; } }
+        return bd < 40 * 40 ? best : -1;
+      });
+      g = E('g', { 'aria-hidden': 'true' }, svg);
+      for (var k = 0; k < N; k++) {
+        var ex = (k % 2 === 1 && exits.length) ? k % (exits.length * 2) >> 1 : -1;
+        if (ex >= 0 && portAt[ex] < 0) ex = -1;
+        dots.push({ c: E('circle', { 'class': 'mo-pt', r: 4.5 }, g), exit: ex >= 0 ? exits[ex] : null, s0: ex >= 0 ? portAt[ex] : 0 });
+      }
+    }, function () { if (g) g.remove(); dots = []; });
+  }
+
+  // 判断の流れ（.nf-flow）：根 → 幹が伸びる → 群 → カード → 結論帯
+  RECIPES.flow = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    flowSeq(s, q('.nf-flow', fig), 0);
+    tail(s, fig);
+  };
+  // 判断の流れの中身を時刻 t0 から並べ、終わりの時刻を返す（流れ図の中・手順の鎖の下でも使う）
+  function flowSeq(s, fl, t0) {
+    s.el(q(':scope > .nf-join', fl), 'fade', t0, .3);
+    s.el(q('.nf-root', fl), 'pop', t0, .45);
+    s.el(q('.nf-groups', fl), 'line', t0 + .55, .35);
+    var t = t0 + .75;
+    Q('.nf-group', fl).forEach(function (g) {
+      s.el(g, 'rise', t, .5); s.el(q('.nf-gh', g), 'fade', t + .12, .4);
+      Q('.nf-card', g).forEach(function (c, j) {
+        var d = t + .2 + j * .14; s.el(c, 'rise', d, .5);
+        s.el(Q('.nf-chip.is-fill', c), 'pop', d + .28, .45);
+      });
+      t += .3 + Q('.nf-card', g).length * .14;
+    });
+    var band = q('.nf-band', fl);
+    if (band) { s.el(band, 'slide', t + .1, .55); t += .6; }
+    return t;
+  }
+
+  // 対応表（.nf-map）：条件 → 矢印が伸びる → 対応、を1行ずつ
+  RECIPES.map = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    mapSeq(s, q('.nf-map', fig), 0);
+    tail(s, fig);
+  };
+  function mapSeq(s, mp, t0) {
+    var t = t0;
+    [].forEach.call(mp.children, function (c) {
+      if (c.classList.contains('nf-sec')) { if (t > t0) t += .2; s.el(c, 'fade', t, .4); t += .12; }
+      else if (c.classList.contains('nf-key')) s.el(c, 'slide', t, .45);
+      else if (c.classList.contains('nf-arr')) s.el(c, 'growx', t + .18, .35);
+      else if (c.classList.contains('nf-val')) { s.el(c, 'rise', t + .3, .5); t += .34; }
+    });
+    return t + .25;
+  }
+
+  // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
+  RECIPES.gallery = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), items = Q('.nf-item', fig);
+    items.forEach(function (it, k) {
+      s.el(it, 'pop', .05 + k * .12, .5);
+      s.el(q('.nf-flag', it), 'stamp', .05 + k * .12 + .4, .45);
+    });
+    tail(s, fig);
+  };
+
+  // 棒の比較（.nf-meters を含む模式図。P-SILI など）：輪郭 → 矢印 → 肺がふくらむ → 棒が伸びる
+  RECIPES.meters = function (fig) {
+    var F = new Fig(fig, .9), last = null;
+    Q('.nf-panel', fig).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45);
+      if (svg) {
+        s.el(Q('.nf-ln, .nf-fb', svg), 'fade', .08, .45);
+        s.el(Q('.nf-guide', svg), 'fade', .2, .45);
+        Q('.nf-fa', svg).forEach(function (e) {
+          if (e.hasAttribute('transform')) inflate(s, e, .4, .9); else s.el(e, 'pop', .3, .6);
+        });
+        s.el(Q('.nf-sa, .nf-sd', svg), 'fade', .55, .4, .05);
+        s.el(Q('.nf-soft-d', svg), 'pop', 1.15, .45, .08);
+      }
+      Q('.nf-meters dt', pn).forEach(function (dt, i) {
+        var d = .6 + i * .12, dd = dt.nextElementSibling;
+        s.el(dt, 'fade', d, .4);
+        if (dd) { s.el(q('.nf-bar', dd), 'growx', d + .08, .6); s.el(q('.nf-bv', dd), 'fade', d + .45, .4); }
+      });
+    });
+    tail(last, fig);
+  };
+  // transform 属性で拡大してある図形を、元の大きさから拡大後へ動かす（属性は最後に元へ戻す）
+  function inflate(s, el, t0, dur) {
+    var tf = el.getAttribute('transform') || '';
+    var m = tf.match(/translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)\s*scale\(\s*([-\d.]+)(?:[ ,]+([-\d.]+))?\s*\)/);
+    if (!m) { s.el(el, 'fade', t0, dur); return; }
+    var cx = +m[1], cy = +m[2], sx = +m[3], sy = +(m[4] || m[3]);
+    s.track(t0, dur, function (p) {
+      var e = easeIO(p), kx = (1 / sx) + (1 - 1 / sx) * e, ky = (1 / sy) + (1 - 1 / sy) * e;
+      el.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + (sx * kx).toFixed(4) + ' ' + (sy * ky).toFixed(4) + ') translate(' + (-cx) + ' ' + (-cy) + ')');
+    }, null, function () { el.setAttribute('transform', tf); });
+  }
+
+  // 画像に印のある図（img[data-mo-sign]）：パネルが現れ、赤丸のサインが1回だけ脈打つ。
+  // 印と説明カードの数が同じなら、番号の順にカードと一緒に出す（①〜④など）
+  RECIPES.signs = function (fig) {
+    var F = new Fig(fig, .12), imgs = Q('img[data-mo-sign]', fig), cards = Q('.nf-callouts > *', fig), last = null;
+    imgs.forEach(function (img) {
+      var pn = img.closest('.nf-panel') || img.parentNode, s = last = new Scene(F, pn), rs = rings(img);
+      if (pn.classList.contains('nf-panel')) {
+        s.el(pn, 'rise', 0, .5);
+      } else {
+        s.el(img.closest('.mo-imgwrap') || img, 'fade', 0, .45);
+      }
+      var sync = imgs.length === 1 && rs.length > 1 && cards.length === rs.length;
+      rs.forEach(function (r, j) {
+        var d = .45 + j * (sync ? .5 : .25);
+        s.el(r, 'ring', d, 1);
+        if (sync) s.el(cards[j], 'rise', d, .5);
+      });
+      if (sync) cards = [];
+    });
+    if (last) {
+      var t = last.total;
+      cards.forEach(function (c, k) { last.el(c, 'rise', t + k * .18, .5); });
+      last.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot', fig), 'fade', t + .1, .45);
+    }
+  };
+
+  // 階段・手順の鎖（.nf-steps）：図の中身を上から順に組み立てる。
+  // 上の模式図 → 前提の帯 → 段が1つずつ（段の間の矢印が先に）→ 下に続く流れ図・対応表 → 戻りの線（右から左へ）→ 説明カード → 注記
+  // アイコンの並ぶ鎖（装置の構成など）は、段が出そろう間にガスの粒が左から右へ流れる
+  RECIPES.steps = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), nf = q('.nf', fig), t = 0;
+    [].forEach.call(nf.children, function (c) {
+      var cl = c.classList;
+      if (c.tagName === 'IMG') { s.el(c, 'fade', t, .5); t += .2; }
+      else if (cl.contains('nf-steps')) t = stepsSeq(s, c, t);
+      else if (cl.contains('nf-flow')) t = flowSeq(s, c, t);
+      else if (cl.contains('nf-map')) t = mapSeq(s, c, t);
+      else if (cl.contains('nf-return')) { s.el(c, 'wipel', t + .05, .85); t += .95; }
+      else if (cl.contains('nf-band')) { s.el(c, 'slide', t + .05, .55); t += .45; }
+      else if (cl.contains('nf-sec')) { s.el(c, 'fade', t, .4); t += .2; }
+      else if (cl.contains('nf-callouts')) {
+        Q(':scope > *', c).forEach(function (x, k) { s.el(x, 'rise', t + k * .22, .5); });
+        t += c.children.length * .22 + .1;
+      }
+      else if (cl.contains('nf-foot') || cl.contains('nf-legend')) s.el(c, 'fade', t, .45);
+    });
+  };
+  function stepsSeq(s, el, t0) {
+    var st = Q(':scope > .nf-step', el), GAP = .3;
+    st.forEach(function (x, k) {
+      var d = t0 + .1 + k * GAP;
+      s.el(x, x.classList.contains('is-goal') ? 'pop' : 'rise', d, .5);
+      s.el(Q('.nf-chip.is-fill', x), 'pop', d + .3, .45, .1);
+    });
+    var end = t0 + .1 + st.length * GAP + .2;
+    if (el.classList.contains('is-chain') && Q('svg.nf-ico', el).length > 1) {
+      gas(s, el, t0 + .3, 2.3);
+      end = Math.max(end, t0 + 1.75);
+    }
+    return end;
+  }
+  // ガスの粒：アイコンの中心を順につないだ道を左（上）から流れる。段の並びが縦（スマホ）でも同じ道を測って流す
+  function gas(s, box, t0, dur) {
+    var N = 10, TRAVEL = 1.15, lay = null, dots = [], path = null;
+    function measure() {
+      var b = box.getBoundingClientRect(), p = [];
+      Q('svg.nf-ico', box).forEach(function (ic, k) {
+        var r = ic.getBoundingClientRect(), c = { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+        if (k === 0) p.push({ x: c.x - r.width / 2, y: c.y });
+        p.push(c);
+      });
+      var acc = [0];
+      for (var i = 1; i < p.length; i++) acc.push(acc[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+      path = { p: p, acc: acc, L: acc[acc.length - 1] || 1 };
+    }
+    function along(u) {
+      var d = clamp(u) * path.L, i = 1;
+      while (i < path.acc.length - 1 && path.acc[i] < d) i++;
+      var a = path.p[i - 1], b = path.p[i], seg = (path.acc[i] - path.acc[i - 1]) || 1, f = (d - path.acc[i - 1]) / seg;
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      if (p > 0 && !path) measure();
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / TRAVEL;
+        if (!path || u <= 0 || u >= 1 || p >= 1) { o.style.opacity = 0; return; }
+        var pt = along(easeIO(u));
+        o.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
+        o.style.opacity = u < .08 ? u / .08 : u > .86 ? (1 - u) / .14 : 1;
+      });
+    }, function () {
+      path = null;
+      lay = D.createElement('span'); lay.className = 'mo-gas-lay'; lay.setAttribute('aria-hidden', 'true');
+      for (var k = 0; k < N; k++) { var o = D.createElement('i'); o.className = 'mo-gas'; lay.appendChild(o); dots.push(o); }
+      box.appendChild(lay);
+    }, function () { if (lay) lay.remove(); lay = null; dots = []; path = null; });
+  }
+
+  // 頭文字カード（.nf-acro）：カードが1枚ずつ来て頭文字が弾む → 注意の札が押される
+  RECIPES.acro = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), cs = Q('.nf-ac', fig);
+    cs.forEach(function (c, k) {
+      var d = .05 + k * .17;
+      s.el(c, 'rise', d, .5); s.el(q('.nf-lt', c), 'pop', d + .12, .5);
+    });
+    s.el(Q('.nf-ac .nf-chip', fig), 'stamp', .05 + cs.length * .17 + .35, .45, .1);
+    tail(s, fig);
+  };
+
+  // 範囲の横棒（.nf-range）：行ごとに、名前 → 背景の帯 → 棒が左から伸びる → 点が置かれる → 値。
+  // 下の段（.is-dn＝実測）がある図は、上の段（設定）を全行に出してから、実測を上から順に重ねる
+  RECIPES.range = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), rg = q('.nf-range', fig), rows = Q('.nf-rt', rg), late = [];
+    var two = !!q('.nf-rt .is-dn', rg), ROW = .2;
+    s.el(Q('.nf-raxis, .nf-rat', rg), 'fade', 0, .45);
+    rows.forEach(function (rt, k) {
+      var d = .08 + k * ROW, j = 0;
+      s.el(rt.previousElementSibling, 'slide', d, .45);
+      s.el(Q('.nf-zone', rt), 'fade', d, .5);
+      [].forEach.call(rt.children, function (e) {
+        if (e.classList.contains('nf-zone')) return;
+        if (two && e.classList.contains('is-dn')) { late.push({ e: e, k: k }); return; }
+        var dot = e.classList.contains('nf-rd');
+        s.el(e, dot ? 'dotp' : 'barx', d + .15 + j * .14, dot ? .45 : .5); j++;
+      });
+      s.el(rt.nextElementSibling, 'fade', d + .2 + j * .14, .45);
+    });
+    var t2 = .08 + rows.length * ROW + .45, seen = {}, n = 0;
+    late.forEach(function (o) {
+      if (!(o.k in seen)) seen[o.k] = n++;
+      var dot = o.e.classList.contains('nf-rd');
+      s.el(o.e, dot ? 'dotp' : 'barx', t2 + seen[o.k] * .28 + (dot ? .3 : 0), dot ? .45 : .5);
+    });
+    tail(s, fig);
+  };
+
+  // グラフ（data-mo="chart"）：パネルごとに 見出し → 軸 → 閾値 → 線を時間軸に沿って描く。
+  // 点・棒・値・帯は、描く線がその x に来たときに出る。data-mo-at で個別に時刻を変える：
+  //   frame（軸と一緒）／thr（閾値と一緒）／x（その x に線が来たとき。軸の文字に見える値の札に付ける）／end（線を描き終えてから順に）／last（最後）
+  // 面（塗りのある大きな path）は線と一緒に左から現れる
+  // SVG に data-mo-panel="washout" があれば、死腔の洗い出し（たまったCO₂が流れに押し出される）として動かす
+  RECIPES.chart = function (fig) {
+    var F = new Fig(fig, .5), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('svg', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      if (svg.getAttribute('data-mo-panel') === 'washout') washout(s, svg); else chart(s, svg);
+    });
+    tail(last, fig);
+  };
+  function chart(s, svg) {
+    var T0 = .5, frame = [], thr = [], series = [], marks = [], ends = [], lasts = [], axes = [];
+    [].forEach.call(svg.children, function (e) {
+      var tag = e.tagName, cl = e.classList, at = e.getAttribute('data-mo-at');
+      if (tag === 'defs' || tag === 'title' || tag === 'desc') return;
+      if (cl.contains('nf-axis')) axes.push(e);
+      if (at === 'frame') frame.push(e); else if (at === 'thr') thr.push(e);
+      else if (at === 'end') ends.push(e); else if (at === 'last') lasts.push(e); else if (at === 'x') marks.push(e);
+      else if (/nf-(axis|grid|tick|zero)/.test(e.getAttribute('class') || '') || (tag === 'text' && !cl.contains('nf-tb'))) frame.push(e);
+      else if (cl.contains('nf-thr')) thr.push(e);
+      else if (isSeries(e)) series.push(e);
+      else marks.push(e);
+    });
+    function isSeries(e) {
+      var tag = e.tagName, cl = e.classList;
+      if (cl.contains('nf-sa') || cl.contains('nf-sd') || !/^(path|line|polyline)$/.test(tag)) return false;
+      if (tag === 'path' && W.getComputedStyle(e).fill !== 'none') return false;
+      return cl.contains('nf-wave') || e.getBBox().width >= 30;
+    }
+    function bx(list) {
+      var b = null;
+      list.forEach(function (e) { var r = e.getBBox(); b = b ? { a: Math.min(b.a, r.x), b: Math.max(b.b, r.x + r.width) } : { a: r.x, b: r.x + r.width }; });
+      return b;
+    }
+    var R = bx(series.length ? series : axes.length ? axes : marks) || { a: 0, b: 1 };
+    var TD = series.length ? 1.4 : 1.0, W0 = (R.b - R.a) || 1;
+    function tx(x) { return T0 + TD * clamp((x - R.a) / W0); }
+    s.el(frame, 'fade', .1, .4);
+    s.el(thr, 'fade', .3, .45);
+    var fills = marks.filter(function (e) { return /^(path|polygon)$/.test(e.tagName) && e.getBBox().width >= 30 && !/nf-zone/.test(e.getAttribute('class') || ''); });
+    if (series.length) { marks = marks.filter(function (e) { return fills.indexOf(e) < 0; }); sweep(s, svg, series, T0, TD, fills); }
+    var bars = [];
+    marks.forEach(function (e) {
+      var r = e.getBBox(), cx = r.x + r.width / 2, tag = e.tagName, cl = e.getAttribute('class') || '';
+      if (/nf-zone/.test(cl)) { s.el(e, 'fade', tx(cx) - .1, .6); return; }
+      if (tag === 'rect' && r.width >= 20 && r.width <= W0 * .4) { s.el(e, 'growu', tx(cx), .6); bars.push(r); return; }
+      if (tag === 'text') return;
+      if (r.width >= 30 && /^(path|polygon)$/.test(tag)) { s.el(e, 'fade', tx(r.x), .6); return; }
+      if ((tag === 'line' || tag === 'path') && r.height < 6 && r.width >= 12) { s.el(e, 'growx', tx(cx), .4); return; }
+      s.el(e, /^(circle|rect|ellipse|path|polygon)$/.test(tag) && r.width < 30 && r.height < 30 ? 'pop' : 'fade', tx(cx), .42);
+    });
+    marks.forEach(function (e) {   // 値の文字：棒の上の数字は棒と一緒に数え上がる。それ以外は点のあとに弾む
+      if (e.tagName !== 'text') return;
+      var r = e.getBBox(), cx = r.x + r.width / 2, bar = null;
+      bars.forEach(function (b) { if (cx >= b.x && cx <= b.x + b.width) bar = b; });
+      if (bar && /^\s*\d+(\.\d+)?\s*$/.test(e.textContent)) {
+        var C = counter(e), t = tx(bar.x + bar.width / 2);
+        s.el(e, 'fade', t, .3);
+        if (C) s.track(t, .6, function (p) { C.set(p); }, null, function () { C.done(); });
+        return;
+      }
+      s.el(e, 'pop', tx(cx) + .12, .42);
+    });
+    var t = T0 + TD + .15;
+    ends.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .12, e.tagName === 'rect' ? .6 : .42); });
+    if (ends.length) t += ends.length * .12 + .3;
+    lasts.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .1, e.tagName === 'rect' ? .7 : .45); });
+  }
+  // 死腔の洗い出し：管の中にたまったCO₂の粒が、高流量の矢印が来ると右の出口へ押し出される（最後は元の位置）
+  function washout(s, svg) {
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var co2 = kids.filter(function (e) { return e.tagName === 'circle'; });
+    var jet = kids.filter(function (e) { return /a[LX]\)/.test(e.getAttribute('marker-end') || ''); });
+    kids.forEach(function (e) {
+      if (co2.indexOf(e) >= 0 || jet.indexOf(e) >= 0) return;
+      var tb = e.tagName === 'text' && e.classList.contains('nf-tb');
+      s.el(e, tb ? 'pop' : 'fade', tb ? 1.75 : .1, .45);
+    });
+    s.el(jet, 'slide', .35, .6);
+    var home = co2.map(function (c) { return { x: +c.getAttribute('cx'), y: +c.getAttribute('cy') }; });
+    var minX = Math.min.apply(null, home.map(function (h) { return h.x; }));
+    s.track(.45, 1.5, function (p) {
+      co2.forEach(function (c, k) {
+        var h = home[k], f = easeIO(clamp((p * 1.5 - k * .04) / 1.05));
+        var x0 = 78 + (h.x - minX) * .55, y0 = 100 + (h.y - 100) * .55;   // 管の中に寄せた位置から
+        c.setAttribute('cx', (x0 + (h.x - x0) * f).toFixed(1)); c.setAttribute('cy', (y0 + (h.y - y0) * f).toFixed(1));
+      });
+    }, null, function () { co2.forEach(function (c, k) { c.setAttribute('cx', home[k].x); c.setAttribute('cy', home[k].y); }); });
+  }
+
+  // 既定：パネル → 説明カード → 注記
+  RECIPES.panels = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), pn = Q('.nf-panel', fig);
+    if (!pn.length) pn = Q(':scope > .nf > *:not(.nf-callouts):not(.nf-foot):not(.nf-legend)', fig);
+    s.el(pn, 'rise', 0, .55, .2);
+    tail(s, fig);
+  };
+
+  // ボンベの持ち時間（.mo-tank）：時間を縮め、2本が同時に減っていく。空になったところで持ち時間が出る
+  RECIPES.tank = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), tk = q('.mo-tank', fig);
+    var MAX = parseFloat(tk.getAttribute('data-max') || 10), SPD = parseFloat(tk.getAttribute('data-sec-per-min') || .4);
+    var clock = q('[data-mo-clock]', tk), raw = clock ? clock.textContent : '';
+    var rows = Q('.mo-tk-row', tk).map(function (r) {
+      return { r: r, min: parseFloat(r.getAttribute('data-min')), gas: q('.mo-tk-gas', r), bar: q('.mo-tk-bar', r),
+               val: q('.mo-tk-val', r), track: q('.mo-tk-track', r), cur: null };
+    });
+    s.el(Q('.mo-tk-row', tk), 'rise', 0, .5, .15);
+    s.el(q('.mo-tk-head', tk), 'fade', 0, .4);
+    var T0 = .55, DUR2 = MAX * SPD;
+    s.track(T0, DUR2, function (p) {
+      var m = MAX * p;
+      if (clock) clock.textContent = p >= 1 ? raw : m.toFixed(1);
+      rows.forEach(function (o) {
+        var f = clamp(m / o.min);
+        o.gas.style.setProperty('--g', (1 - f).toFixed(4));
+        o.bar.style.transform = 'scaleX(' + f.toFixed(4) + ')';
+        o.val.style.opacity = f >= 1 ? 1 : 0;
+        o.val.style.transform = f >= 1 ? 'none' : 'scale(.8)';
+        o.cur.style.left = (m / MAX * 100) + '%';
+        o.cur.style.opacity = p > 0 && p < 1 ? '' : 0;
+      });
+    }, function () {
+      rows.forEach(function (o) {
+        o.val.style.transition = 'opacity .3s ease, transform .4s cubic-bezier(.3,1.5,.5,1)';
+        o.cur = D.createElement('span'); o.cur.className = 'mo-tk-cur'; o.track.appendChild(o.cur);
+      });
+    }, function () {
+      if (clock) clock.textContent = raw;
+      rows.forEach(function (o) {
+        o.gas.style.removeProperty('--g'); o.bar.style.transform = ''; o.val.style.opacity = ''; o.val.style.transform = '';
+        if (o.cur) o.cur.remove();
+      });
+    });
+    tail(s, fig);
+  };
+
+  function recipeFor(fig) {
+    var name = fig.getAttribute('data-mo');
+    if (name) return name;
+    if (fig.classList.contains('mo-ip')) return 'intro';
+    if (q('.mo-tank', fig)) return 'tank';
+    if (q('.nf-steps', fig)) return 'steps';        // 手順の鎖の下に流れ図・対応表が続く図もここで組み立てる
+    if (q('.nf-acro', fig)) return 'acro';
+    if (q('.nf-range', fig)) return 'range';
+    if (q('.nf-flow', fig)) return 'flow';
+    if (q('.nf-map', fig)) return 'map';
+    if (q('.nf-gallery', fig)) return 'gallery';
+    if (q('.nf-meters', fig)) return 'meters';
+    if (q('img[data-mo-sign]', fig)) return 'signs';
+    if (q('svg .nf-wave', fig)) return 'wave';
+    if (q('svg.nf-draw', fig)) return 'circuit';
+    return 'panels';
+  }
+
+  // ================= 本文の動き =================
+  function seen(nodes, cb, th) {
+    if (!nodes.length) return;
+    var io = new IntersectionObserver(function (es) {
+      es.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) { io.unobserve(e.target); cb(e.target, i); });
+    }, { threshold: th || 0, rootMargin: '0px 0px -8% 0px' });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+  var REVEAL = [];   // [要素, 見えたときの処理]
+
+  function body() {
+    var main = q('main'); if (!main) return;
+    // 1) かたまりが下から現れる
+    var blocks = Q('.box, .tablewrap, details.rd-ev, .rd-check, .rd-dodont:not(.is-choice), .rd-stats, .rd-points, figure.fig, .figread, .mo-ip', main)
+      .filter(function (el) { return !el.parentNode.closest('.mo-rv, figure.fig, .box'); });
+    blocks.forEach(function (el) { el.classList.add('mo-rv'); });
+    seen(blocks, function (el, i) { el.style.transitionDelay = Math.min(i * .06, .3) + 's'; el.classList.add('mo-in'); });
+    REVEAL.push(blocks);
+    // 2) 章見出し・節見出し
+    var hs = Q('.rd > h2, .rd > h3', main);
+    hs.forEach(function (h) { h.classList.add('mo-h'); });
+    seen(hs, function (h) { h.classList.add('mo-in'); }, .4);
+    REVEAL.push(hs);
+    // 3) 「この章のポイント」を1行ずつ
+    var pts = Q('.rd-points', main);
+    pts.forEach(function (b) {
+      Q('li, .rd-points-f', b).forEach(function (li, k) { li.classList.add('mo-li'); li.style.setProperty('--dd', (.2 + k * .14) + 's'); });
+    });
+    seen(pts, function (b) { Q('.mo-li', b).forEach(function (li) { li.classList.add('mo-in'); }); }, .3);
+    REVEAL.push(Q('.rd-points .mo-li', main));
+    // 4) 節頭の結論の一文にマーカー（出典タグは除く）
+    var leads = Q('.rd .rd-lead:not(.is-sub)', main), marks = [];
+    leads.forEach(function (p) {
+      var run = [];
+      function flush() {
+        if (!run.length) return;
+        var sp = D.createElement('span'); sp.className = 'mo-mark';
+        run[0].parentNode.insertBefore(sp, run[0]); run.forEach(function (n) { sp.appendChild(n); }); run = []; marks.push(sp);
+      }
+      [].slice.call(p.childNodes).forEach(function (n) { if (n.nodeType === 1 && n.classList.contains('src')) flush(); else run.push(n); });
+      flush();
+    });
+    seen(leads, function (p) { setTimeout(function () { Q('.mo-mark', p).forEach(function (m) { m.classList.add('mo-in'); }); }, 220); }, .9);
+    REVEAL.push(marks);
+    // 5) 表の行を順に（25行まで）
+    Q('table', main).forEach(function (tb) {
+      if (tb.closest('figure.fig')) return;
+      var rows = Q('tbody tr', tb); if (!rows.length || rows.length > 25) return;
+      rows.forEach(function (r) { r.classList.add('mo-row'); });
+      seen([tb], function () { rows.forEach(function (r, k) { r.style.transitionDelay = Math.min(.1 + k * .045, .9) + 's'; r.classList.add('mo-in'); }); });
+      REVEAL.push(rows);
+    });
+    // 6) 2択の囲み：左右から
+    var ch = Q('.rd-dodont.is-choice', main);
+    ch.forEach(function (c) { if (c.children[0]) c.children[0].classList.add('mo-cl'); if (c.children[1]) c.children[1].classList.add('mo-cr'); });
+    seen(ch, function (c) { c.classList.add('mo-in'); }, .25);
+    REVEAL.push(ch);
+    // 7) 数値チップのカウントアップ
+    var stats = Q('.rd-stats', main);
+    seen(stats, function (b) {
+      Q('.rd-stat', b).forEach(function (st, k) {
+        setTimeout(function () { st.classList.add('mo-in'); }, k * 120);
+        var v = q('.rd-stat-v', st), C = v && counter(v); if (!C) return;
+        var t0 = null, delay = 150 + k * 120;
+        C.set(0);
+        function fr(ts) { if (t0 === null) t0 = ts + delay; var p = clamp((ts - t0) / 900); C.set(p); if (p < 1) requestAnimationFrame(fr); }
+        requestAnimationFrame(fr);
+        FINAL.push(C.done);
+      });
+    }, .5);
+  }
+  var FINAL = [];
+
+  // ================= 読了バーの章の刻みと、目次の現在地 =================
+  function chrome() {
+    var hs = Q('main h2[id^="s"]');
+    if (hs.length && D.getElementById('rs-progress')) {
+      var box = D.createElement('div'); box.id = 'mo-ticks'; box.setAttribute('aria-hidden', 'true'); D.body.appendChild(box);
+      var marks = hs.map(function () { var i = D.createElement('i'); box.appendChild(i); return i; });
+      var fr = [];
+      var place = function () {
+        var max = R.scrollHeight - W.innerHeight;
+        fr = hs.map(function (h, k) {
+          var f = max > 0 ? clamp((h.getBoundingClientRect().top + W.pageYOffset - 90) / max) : 0;
+          marks[k].style.left = (f * 100) + '%'; return f;
+        });
+        mark();
+      };
+      var mark = function () {
+        var max = R.scrollHeight - W.innerHeight, f = max > 0 ? W.pageYOffset / max : 0;
+        marks.forEach(function (m, k) { m.classList.toggle('on', fr[k] <= f + .0005); });
+      };
+      W.addEventListener('scroll', mark, { passive: true });
+      W.addEventListener('resize', place);
+      W.addEventListener('load', place);
+      if (W.ResizeObserver) new ResizeObserver(function () { place(); }).observe(q('main'));
+      place();
+    }
+    var nav = D.getElementById('rs-nav');
+    if (nav) {
+      var ind = D.createElement('span'); ind.className = 'mo-navind'; ind.setAttribute('aria-hidden', 'true');
+      nav.insertBefore(ind, nav.firstChild);
+      var first = true, busy = false;
+      var upd = function () {
+        busy = false;
+        var a = q('a.on', nav);
+        if (!a || !a.offsetHeight) { ind.style.opacity = 0; return; }
+        if (first) ind.style.transition = 'none';
+        ind.style.height = a.offsetHeight + 'px';
+        ind.style.transform = 'translateY(' + a.offsetTop + 'px)';
+        ind.style.opacity = 1;
+        if (first) { void ind.offsetWidth; ind.style.transition = ''; first = false; }
+      };
+      W.addEventListener('scroll', function () {
+        if (busy) return; busy = true;
+        requestAnimationFrame(function () { requestAnimationFrame(upd); });   // 目次側の更新（rs-js）のあとに動かす
+      }, { passive: true });
+      W.addEventListener('resize', upd);
+      setTimeout(upd, 80);
+    }
+  }
+
+  // ================= 起動 =================
+  function finishAll() {
+    R.classList.add('mo-done');
+    FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.finish(); }); });
+    REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+    FINAL.forEach(function (fn) { try { fn(); } catch (e) {} });
+  }
+
+  function start() {
+    R.classList.add('mo-on');
+    var figs = Q('.mo-ip, main figure.fig').filter(function (f) { return f.getAttribute('data-mo') !== 'none'; });
+    figs.forEach(function (fig) {
+      var name = recipeFor(fig), n0 = FIGS.length;
+      if (!RECIPES[name]) return;
+      try {
+        RECIPES[name](fig);
+        for (var i = n0; i < FIGS.length; i++) FIGS[i].scenes.forEach(function (s) { s.reset(); });
+      } catch (err) {
+        for (var j = n0; j < FIGS.length; j++) FIGS[j].undo();
+        FIGS.length = n0;
+        if (W.console) console.warn('resident motion: ' + name + ' を飛ばしました', err);
+      }
+    });
+    body();
+    chrome();
+    W.addEventListener('beforeprint', finishAll);
+    W.ResMo = { figs: FIGS, finishAll: finishAll };
+
+    if (TEST && TEST.seek != null) {             // 点検：全部をその時刻で止める
+      R.classList.add('mo-paused');
+      R.style.setProperty('--mo-seek', TEST.seek + 's');
+      FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.seek(TEST.seek, f.offsetOf(s)); }); });
+      REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+      return;
+    }
+    FIGS.forEach(function (f) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var sc = e.target._moScene;
+          if (!sc || sc.state !== 0 || !e.isIntersecting) return;
+          if (e.intersectionRatio >= .3 || e.intersectionRect.height >= W.innerHeight * .4) { io.unobserve(e.target); sc.play(f.offsetOf(sc)); }
+        });
+      }, { threshold: [0, .1, .2, .3, .5] });
+      f.scenes.forEach(function (s) { s.trigger._moScene = s; io.observe(s.trigger); });
+    });
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>

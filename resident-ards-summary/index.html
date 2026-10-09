@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ARDSの換気設定 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ARDSの換気設定と自発呼吸 — 要約</h1>
+<p class="sub">解説「ARDSの換気設定と自発呼吸」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>身長でVT、ΔPで上限</b><span>VTは予測体重で6 mL/kg、Pplat 30未満。そのうえでΔPを15未満に抑える</span></div>
+<div><b>PEEPと自発呼吸は測る</b><span>PEEPは表から始め、R/I 0.5以上の肺だけ上げる。自発呼吸はホールドで測って安全域に入れる</span></div>
+<div><b>P/F 150未満は早く腹臥位</b><span>1日16時間以上。筋弛緩・ステロイド・ECMOは患者ごとに考えて足す</span></div>
+</div>
+
+<h2><span class="n">2</span>ARDSの肺は「硬い」のではなく「小さい」<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s2">詳しく</a></h2>
+<ul>
+<li><b>換気に使える含気肺（baby lung）が縮んでいる</b>。呼吸系コンプライアンス（Crs）はbaby lungの大きさにおおむね比例する。だから体格（VT/kg）ではなく残った肺に合わせて換気する — <b>VT/kgではなく、VT/baby lung</b></li>
+<li><b>ΔP＝Pplat−総PEEP＝VT÷Crs</b>は「残った肺に対してどれだけ伸ばしたか」を表す。PBW 70 kg・VT 420 mL（6 mL/kg）でも、Crs 50ならΔP 8.4、Crs 20ならΔP 21で上限を超える</li>
+<li><b>呼吸数もエネルギーを増やす</b>：9 RCT・3,562例の統合でΔPが死亡と最も強く関連した。ΔPの影響は呼吸数の4倍（4×ΔP＋呼吸数で釣り合いを見る）</li>
+</ul>
+
+<h2><span class="n">3</span>受動換気の設定<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>目標・範囲</th><th>根拠と注意</th></tr></thead>
+<tbody>
+<tr><td>一回換気量</td><td>6（4〜8）mL/kg PBW</td><td>ATS 2024 強い推奨。ARMAで院内死亡31.0%対39.8%（12 mL/kg）。実体重で計算しない</td></tr>
+<tr><td>プラトー圧</td><td>30 cmH₂O未満</td><td>吸気ポーズで測る。高めのPEEPを探るときは28〜30を上限に</td></tr>
+<tr><td>駆動圧</td><td>15 cmH₂O未満</td><td>観察データと論説の提案（RCT未検証）。完全受動・総PEEPで測り、AOPがあればPplat−AOP</td></tr>
+<tr><td>PEEP</td><td>PEEP/FiO₂表から</td><td>高めを探るのはP/F 200以下でR/I 0.5以上だけ。上限はPplat・経肺圧・右室</td></tr>
+<tr><td>酸素・CO₂</td><td>PaO₂ 60〜80（SpO₂ 90〜95%）、pH 7.25超</td><td>急性脳損傷の併存では高CO₂を反射的に許容しない</td></tr>
+</tbody>
+</table></div>
+<ul class="chk">
+<li>身長を測り<b>PBW</b>をカルテに書く</li>
+<li>吸気ポーズで<b>Pplat</b>、呼気ポーズで<b>総PEEP</b></li>
+<li>呼吸数は18〜22から、<b>pHとPaCO₂</b>で調整</li>
+<li><b>1時間後</b>に血液ガスと力学を測り直す</li>
+</ul>
+
+<h2><span class="n">4</span>自発呼吸は消さずに測る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s4">詳しく</a></h2>
+<ul>
+<li><b>強い吸気努力は患者自身の肺を傷める（P-SILI）</b>。VT 6 mL/kgでも背側は局所で約15 mL/kg相当まで伸ばされうる（ペンデルフト）。VTやΔPの表示からは見えない</li>
+<li><b>害はU字</b>：努力が少なすぎても横隔膜が萎縮する。呼気終末閉塞（P0.1 1〜4・ΔPocc 7〜15）と吸気ホールド（PMI 0〜6）で測って帯に入れる（専門家の合意の目安）</li>
+<li><b>非同調は鎮静を深める前に型を見分ける</b>（flow starvation・早期切り替え・二段呼吸・リバーストリガー）。まず人工呼吸器側を調整する</li>
+</ul>
+
+<h2><span class="n">5</span>重症度で上る治療の階段 — 下の段は外さない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s5">詳しく</a></h2>
+<div class="flow" role="img" aria-label="全例で肺保護換気、P/F 200以下でリクルータビリティを測ってPEEPを探り、P/F 150未満で腹臥位と筋弛緩、EOLIA基準でVV-ECMOを相談する">
+<div class="f-top">全例：VT 6 mL/kg PBW・Pplat 30未満・ΔP 15未満、PEEPは表から</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>P/F 150未満（同じ条件で測り直して）</b><ul><li>腹臥位を挿管36時間以内に、1日16時間以上（PROSEVA：28日死亡32.8%→16.0%）</li><li>酸素化が良くならなくてもやめない</li></ul></div>
+<div class="f-col"><b>換気と鎮静を整えても届かない</b><ul><li>筋弛緩は一律にせず、使うなら48時間以内で見直す</li><li>ROSE（浅い鎮静が対照）では90日死亡に差なし</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>EOLIA基準でECMOセンターに相談</b>：人工呼吸7日未満で、P/F 50未満が3時間超、P/F 80未満が6時間超、またはpH 7.25未満かつPaCO₂ 60以上が6時間超</div>
+</div>
+
+<h2><span class="n">6</span>肺の外も守る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s6">詳しく</a></h2>
+<div class="three">
+<div><b>保守的輸液</b><span>ショックがなければ早くバランス中立へ。FACTTで死亡は不変だが人工呼吸器フリー日数が増えた</span></div>
+<div><b>右室を見る</b><span>20〜25%に右室機能障害。肺炎・ΔP 18以上・P/F 150未満・PaCO₂ 48以上なら心エコー</span></div>
+<div><b>ステロイドは病因で</b><span>病因が決まればその病気のレジメン。発症14日以降の開始と突然の中止は避ける</span></div>
+</div>
+
+<h2><span class="n">7</span>しないこと — 酸素化を上げても予後は変わらない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s5">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>治療</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td>長時間のリクルートメント手技</td><td><span class="x">しない</span>。ARTで28日死亡55.3%対49.3%、気圧外傷も増加（ATS 2024 強く反対）</td></tr>
+<tr><td>吸入NO・プロスタサイクリン</td><td>酸素化は改善するが生存は改善しない。時間稼ぎに限る</td></tr>
+<tr><td>HFOV・ECCO₂R</td><td>HFOVはルーチン使用に強く反対。ECCO₂RはRESTで無益中止、出血が増加</td></tr>
+</tbody>
+</table></div>
+
+<p class="note">出典：本編の主要文献（ATS ARDSガイドライン 2024；ESICM 2023；独墺瑞S3 2025；Intensive Care Med 2026 総説；ARMA；Amato N Engl J Med 2015；PROSEVA；ROSE；EOLIA ほか）。ΔPの閾値は前向きRCTで検証されていないので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

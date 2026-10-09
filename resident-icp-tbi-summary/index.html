@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>頭蓋内圧管理と重症頭部外傷 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>頭蓋内圧管理と重症頭部外傷 — 要約</h1>
+<p class="sub">解説「頭蓋内圧管理と重症頭部外傷」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>薬より先にTier zero</b><span>モニタの誤差・全身要因・頸部と胸腹腔の圧を先に潰す</span></div>
+<div><b>22の線ではなく帯で</b><span>15〜25は波形と持続時間を足して決め、1段ずつ上げる</span></div>
+<div><b>全身管理で二次損傷を防ぐ</b><span>等張の輸液・狭いPaCO₂・発熱を作らない</span></div>
+</div>
+
+<h2><span class="n">2</span>頭蓋内は硬い箱 — 数字を疑い、所見は重ねて読む<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#s2">詳しく</a></h2>
+<ul>
+<li><b>ICPは正常5〜15 mmHg、CPP＝MAP−ICP</b>：逃げ道は髄液（脊髄へ）と静脈血（胸腔へ）の2本。頸部の固定物・高い胸腔内圧・腹腔内圧が道を塞ぐ。代償が尽きると圧は跳ね上がるので、正常値は「余裕がある」を意味しない</li>
+<li><b>ICPを大きく上げる全身要因は5つ</b>：低Na・発熱・不穏と疼痛・低血圧・PaCO₂上昇。高浸透圧療法の前にこの5つを確かめる</li>
+<li><b>数字はまずモニタを疑う</b>：EVD開放中の値は設定高以下にしか出ないので、閉じて測り直す。実質内プローブは数日で平均0.75 mmHgドリフトする</li>
+<li><b>診察もCTも単独では除外に使えない</b>：瞳孔散大の感度28.2%。最も効く脳底槽の消失・圧排でも陰性尤度比0.23。ICPが高い患者の約7割は瞳孔が正常</li>
+<li><b>波形と非侵襲モニタ</b>：P2/P1が1超は平均値より先に予備能の枯渇を示す。TCD・ONSDの誤差は±7〜15 mmHgと侵襲的モニタの1桁上なので、2つ以上を診察・画像に重ねる</li>
+</ul>
+
+<h2><span class="n">3</span>動く — 帯で判断し、1段ずつ上げる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="Tier zeroで全身と体位を整えたうえで、持続するICPを15未満・15〜25・25超の帯で読む。グレーゾーンは波形と持続時間と非侵襲モニタで決め、Tier 1から順に上げる">
+<div class="f-top">Tier zero：一回換気量6〜8 mL/kg・PaCO₂ 35〜38、0.9%食塩水で容量を保ちMAP 80以上、頭部正中・30〜45度、RASS 0〜−2、37.5℃未満、血糖110〜180、Hb 7超</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>持続するICPの帯</b><ul><li>15未満：強化は不要</li><li>15〜25：波形（P2/P1）・持続時間（18〜20が数時間）・非侵襲モニタ2つの一致で決める</li><li>25超：アーチファクトと可逆的要因を除いて原則介入</li></ul></div>
+<div class="f-col"><b>Tierを上げる</b><ul><li>Tier 1：高浸透圧療法・深い鎮静・EVD、CPP 60〜70</li><li>Tier 2：過換気（PaCO₂ 32〜35）・MAPチャレンジ・筋弛緩の試験投与</li><li>Tier 3：二次減圧開頭・バルビツレート昏睡・軽度低体温35〜36℃</li></ul></div>
+</div>
+<div class="f-bot">モニタが無くても、画像か診察でヘルニアを疑えばTier 1を始め、脳神経外科を呼ぶ</div>
+</div>
+<ul>
+<li><b>高浸透圧療法は副作用の向きで選ぶ</b>：20%マンニトール0.5〜1 g/kgか3%食塩水150 mL。転帰に差はない（CENTER-TBI）。容量を保ちたいなら高張食塩水（Na 155〜160が上限の目安）、容量過負荷ならマンニトール（浸透圧ギャップで追う）</li>
+<li><b>CPP目標はMAPチャレンジで決める</b>：MAPを10上げて20分、ICPが下がれば自動調節能は保たれており高いMAPを保つ（CPP 70前後）。上がれば昇圧薬を戻す（CPP 60前後）。実施中は他の治療を動かさない</li>
+<li><b>Tier 2・3は出口を決めて使う</b>：過換気は戻す条件を同時に指示。減圧開頭の機能予後の益は12か月で見える。予防的低体温は2つのRCT（B-HYPO・POLAR）で転帰を改善せず、救済だけ</li>
+</ul>
+
+<h2><span class="n">4</span>TBIの全身管理 — 張度・CO₂・体温<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>目安</th><th>理由・注意</th></tr></thead>
+<tbody>
+<tr><td>輸液</td><td>0.9%食塩水などの等張晶質液</td><td>乳酸リンゲルはやや低張。SAFE-TBIで4%アルブミンは死亡33.2%対20.4%（張度が害の正体か）</td></tr>
+<tr><td>換気</td><td>PaO₂ 80〜120・PaCO₂ 35〜45、クライシス中は35〜38</td><td>PEEPは肺で決める。1 cmH₂Oあたりの平均ICP上昇は+0.118 mmHg</td></tr>
+<tr><td>体温</td><td>37.5℃未満</td><td>発熱を作らない。予防的に冷やさない</td></tr>
+<tr><td>輸血・血糖</td><td>Hb 7、血糖110〜180</td><td>Hb 10と7で不良転帰は同じ（HEMOTION）。110未満の厳格管理は代謝危機を増やす</td></tr>
+<tr><td>TXA</td><td>受傷3時間以内・軽症〜中等症に1 g＋1 g/8時間</td><td>CRASH-3の主要評価は差なし、GCS 9〜15でRR 0.78。重症では利益が示されていない</td></tr>
+<tr><td>Na</td><td>下げない。低Naは高張食塩水で</td><td>SIADHでもCSWでも安全。CSWを総量制限すると脳灌流が落ちる。多尿＝尿崩症と決めつけない</td></tr>
+<tr><td>けいれん・透析</td><td>予防投与1週間。透析はCRRTを選ぶ</td><td>意識が戻らなければ脳波。透析不均衡でICPが上がる</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>ICUの後半と落とし穴<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#s5">詳しく</a></h2>
+<ul>
+<li><b>抜管はGCSではなく気道防御能で</b>：低いGCSだけで遅らせても成功率は上がらず、肺炎が増える。VISAGE 3点以上はPPV 90%だが感度62%なので、低得点を抜管しない理由にしない</li>
+<li><b>PSHは除外診断</b>：敗血症・離脱・悪性症候群・非けいれん性重積を除いてからPSH-AMで点数化。引き金を減らし、オピオイド・プロプラノロール・α2作動薬などを組み合わせる</li>
+<li><b>予後は鎮静を外し、72時間以上待ち、2つ以上の所見で</b>：抗凝固の再開も「しない」を既定にせず、時期を決めて話し合う</li>
+</ul>
+<ul class="chk">
+<li><b>22超</b>だけで高浸透圧療法へ飛ばない</li>
+<li><b>ICP正常</b>で安心しない（波形を見る）</li>
+<li><b>EVD開放中</b>の値で判断しない</li>
+<li><b>非侵襲モニタ1つ</b>で判断しない</li>
+<li><b>過換気</b>を漫然と続けない</li>
+<li><b>記録</b>は実測値・持続時間・ピーク値で</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Taccone ICM 2026；Hawryluk ICM 2022；Viarasilpa Curr Neurol Neurosci Rep 2025；Fernando BMJ 2019；B-ICONIC ICM 2026；NCS脳浮腫ガイドライン 2020；CRASH-3 Lancet 2019；HEMOTION 2024；POLAR JAMA 2018 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

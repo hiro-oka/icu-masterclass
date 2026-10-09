@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ライン・カテーテル 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ライン・カテーテル — 要約</h1>
+<p class="sub">解説「ライン・カテーテル」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>入れる前に1文で、毎日「今日も要るか」</b><span>入れないことが最大の感染対策。母数そのものを消す</span></div>
+<div><b>入れるなら積み上げ、熱では替えない</b><span>4点確認・無菌・乾燥待ち・広げる前の視認。発熱はペア培養が先</span></div>
+<div><b>動脈ラインとカフは平均しない</b><span>高さ→カフ→ゼロ→波形→閉塞の順に潰し、臨床像に合うほうを採る</span></div>
+</div>
+
+<h2><span class="n">2</span>入れない・早く抜く — 効果の桁が違う<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s1">詳しく</a></h2>
+<ul>
+<li><b>入れる前に1文で言う</b>：「今、何を測る・何に使うか」が言えなければ入れない。静脈路確保困難ではCVCの前にエコーガイドの末梢路（2回以上失敗した例の84%でCVCが不要になった）</li>
+<li><b>種類は先端の位置と留置期間で</b>：ミッドラインは30日未満、PICCは最長約1年。末梢静脈路は定期交換しない</li>
+<li><b>バンドルは割り算、入れないことは母数</b>：チェックリスト＋訓練でCLABSI 3.2→0.50/1,000カテーテル日（単一施設の前後比較）。不要なRRT開始群のCRBSIは10%対5%</li>
+</ul>
+
+<h2><span class="n">3</span>入れるとき — 4点・無菌・乾燥・視認<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s2">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>手順</th><th>数字・根拠</th><th>やること</th></tr></thead>
+<tbody>
+<tr><td>刺す前の4点</td><td>内頸周囲の破格はがん患者の36%</td><td>装置の習熟・破格・血栓（圧迫で虚脱するか）・径と深さを声に出す</td></tr>
+<tr><td>無菌</td><td>マキシマルバリアプリコーション</td><td>CVC・PICC・末梢・動脈とも同じ基準。プローブにも滅菌シースとゲル</td></tr>
+<tr><td>消毒</td><td>0.5%アルコール性CHGでコロニゼーションHR 0.33（CRBSIは差なし）</td><td>30秒塗って30秒乾かす（ポビドンヨードなら2分）</td></tr>
+<tr><td>広げる前</td><td>エコーガイドでも先端が胸腔内にあった9 Fr CVCの症例</td><td>ダイレーター前に針先とワイヤを短軸と長軸で見る。留置後のX線は省かない</td></tr>
+<tr><td>血小板1万〜5万</td><td>PACERで輸血を省くと出血4.8%→11.9%</td><td>エコーガイドでもCVC前の輸血1単位を省かない</td></tr>
+</tbody>
+</table></div>
+<p>部位でエコーが減らすものは違う：内頸は失敗RR 0.14・総合併症71%減、大腿は初回成功率（RR 1.73）だけ、PICCは静脈炎と血栓が減る代わりに逸脱が32%対2.1%と増える。</p>
+
+<h2><span class="n">4</span>入れた後 — 発熱しても反射的に替えない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s3">詳しく</a></h2>
+<ul>
+<li><b>入れ替えの3割は感染疑い、証明された感染は4.4%</b>：AKIKI副次解析（598本）。入れ替え理由は機能不全52.2%・感染疑い32.2%。大腿と内頸で入れ替えもCRBSIも差なし</li>
+<li><b>培養の出し方で診断が決まる</b>：抗菌薬の前にカテーテルと末梢静脈のペア血液培養（DTPか3倍のコロニー数）。カテ先培養はCRBSIを疑って抜いたときだけ半定量か定量で</li>
+<li><b>ドレッシング</b>：ポリウレタンは7日ごと、ガーゼは72時間ごと。PICC閉塞を減らすのはデバイスより看護師教育（RR 0.31）。閉塞はウロキナーゼ2回失敗で抜去</li>
+<li><b>昇圧薬のラインは物理で動く</b>：重大イベントの25%以上がシリンジ交換の前後。繋ぐ前に満たし、ポンプの高さを変えず、患者に最も近い活栓に繋ぐ</li>
+<li><b>気管チューブは専用ファスナー</b>：逸脱3.9%対10.3%、口唇潰瘍も減る。人工呼吸期間と死亡は変わらない</li>
+</ul>
+
+<h2><span class="n">5</span>動脈ライン — 平均せず順番に潰す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="動脈ラインとカフのMAP差が10 mmHgを超えたら、臨床評価、高さ、カフサイズ、ゼロ較正、波形、回路の閉塞の順に潰す。低灌流の徴候があれば低いほうを真とする">
+<div class="f-top">MAPで比べて差が10 mmHg超 → 平均せずに順番に潰す（10 cmずれると約7.5 mmHg）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>技術的な原因</b><ul><li>高さ：トランスデューサはフレボスタティック軸か</li><li>カフ：腕の直径より約20%大きい幅か</li><li>ゼロ較正→波形（ファストフラッシュ）→回路の閉塞（加圧バッグ約300 mmHg）</li></ul></div>
+<div class="f-col"><b>それでも残るなら</b><ul><li>低灌流の徴候があれば低いほうを真とする</li><li>なければ頻回の再評価を条件に高いほうを暫定で</li><li>高用量昇圧薬で橈骨だけ低いなら大腿動脈ラインを考える</li></ul></div>
+</div>
+<div class="f-bot">差の大きさより「片方だけがMAP 65をまたいでいないか」。動脈ラインとカフは同じ側の腕で測る</div>
+</div>
+<ul>
+<li><b>橈骨は初回で入れる</b>：失敗は約25%。手関節皺から4〜10 cm近位、30〜45度以下、カテーテル／血管径比45%未満、留置長の65%以上を血管内に。アレンテスト異常だけで橈骨を諦めない（陰性予測値18〜99%）</li>
+<li><b>ダンピングは脈圧を動かし、MAPは残す</b>。PPVは自発呼吸なし・1回換気量約8 mL/kg以上・不整脈なしのときだけ</li>
+</ul>
+
+<h2><span class="n">6</span>経鼻胃管・合併症・抜去<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-lines/#s5">詳しく</a></h2>
+<ul>
+<li><b>経鼻胃管</b>：意識障害は側臥位で（初回成功66.7%→89.3%、粘膜出血25.9%→5.4%）。カプノで言えるのは「気道ではない」だけ、エコーの判定不能は誤留置として扱い（27.5%が誤留置）、最後はX線で胃を確かめる</li>
+<li><b>カテーテル関連血栓は増大するかで決める</b>：毎日のPOCUSで16.9%。1枚の画像ではフィブリン鞘と分けられない。うまく入っても重症ほど疑う</li>
+<li><b>肺動脈破裂</b>：抗凝固中は死亡50〜75%で死因は窒息。気道確保と肺の隔離が先、止血は経カテーテル塞栓</li>
+<li><b>抜去は機能→感染の根拠→必要性の順に問う</b>：目的が終われば機能に問題がなくても抜く。抜去理由をカルテに書く</li>
+</ul>
+<ul class="chk">
+<li><b>「エコーで見たから」</b>ワイヤの確認を省かない</li>
+<li><b>発熱したから</b>ラインを交換しない</li>
+<li><b>AラインとカフのMAP</b>を平均して記録しない</li>
+<li><b>カプノ陰性</b>を「胃にある」と読まない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SHM ポジションステートメント 2019；NEJM 2025 エディトリアル；Yasuda 2017；IDSA 2009；AKIKI副次解析；PACER NEJM 2023；Wu ICM 2023 と往復書簡；Eur J Anaesthesiol 2023；ETTS Crit Care 2019；J Vasc Access 2024；動脈ラインとカフの乖離 2025；Crit Care 2026（カプノグラフィ）；CHEST 2021 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

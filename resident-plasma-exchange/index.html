@@ -1,0 +1,3026 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>血漿交換（TPE）</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+  --note:#6b3fa0; --note-soft:#f1ecf9;
+  --danger:#b3261e; --danger-soft:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --code:#1e2329;
+    --note:#c4a7ea; --note-soft:#241c33;
+    --danger:#f2857c; --danger-soft:#3a1c1a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.95; letter-spacing:.01em;
+}
+main{max-width:860px; margin:0 auto; padding:2.2rem 1.1rem 5rem}
+h1{font-size:1.66rem; line-height:1.4; margin:0 0 .4rem; letter-spacing:-.01em}
+.sub{color:var(--muted); font-size:.94rem; margin:0 0 1.2rem}
+h2{font-size:1.2rem; margin:2.8rem 0 .8rem; padding-left:.6rem; border-left:4px solid var(--accent); line-height:1.5; scroll-margin-top:.6rem}
+h2 .no{display:inline-block; font-size:.74rem; letter-spacing:.1em; color:var(--muted); font-weight:700; margin-right:.5rem; vertical-align:.14em}
+h3{font-size:1.02rem; margin:1.8rem 0 .45rem; color:var(--accent); scroll-margin-top:.6rem}
+h4{font-size:.95rem; margin:1.2rem 0 .35rem}
+p{margin:1.05rem 0; line-height:2.0}
+ul,ol{padding-left:1.3rem; margin:.7rem 0}
+li{margin:.3rem 0}
+strong{font-weight:700}
+u{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px}
+.box p{line-height:1.95}
+.box{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.05rem; margin:1.2rem 0; background:var(--accent-soft)}
+.box.warn{background:var(--warn-soft); border-color:var(--warn)}
+.box.good{background:var(--good-soft); border-color:var(--good)}
+.box.danger{background:var(--danger-soft); border-color:var(--danger)}
+.box.plain{background:var(--code)}
+.box p:first-child{margin-top:0}
+.box p:last-child, .box ul:last-child, .box ol:last-child, .box .tablewrap:last-child{margin-bottom:0}
+.box .label{display:block; font-weight:700; font-size:.85rem; letter-spacing:.04em; margin-bottom:.35rem}
+.box.danger .label{color:var(--danger)}
+.box.warn .label{color:var(--warn)}
+.box.good .label{color:var(--good)}
+.toc{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem; background:var(--code); margin:1.4rem 0 2rem}
+.toc .label{display:block; font-weight:700; font-size:.83rem; letter-spacing:.08em; color:var(--muted); margin-bottom:.5rem}
+.toc ol{margin:0; padding-left:1.2rem; font-size:.93rem}
+.toc li{margin:.24rem 0}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid var(--line)}
+.toc a:hover{color:var(--accent); border-color:var(--accent)}
+.tablewrap{overflow-x:auto; margin:1rem 0; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem; line-height:1.6}
+table.wide{min-width:680px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top}
+th{background:var(--code); font-weight:700}
+tbody tr:nth-child(even) td{background:color-mix(in srgb, var(--code) 45%, transparent)}
+td.num{white-space:nowrap; font-variant-numeric:tabular-nums}
+caption{caption-side:top; text-align:left; font-weight:700; font-size:.9rem; padding:.2rem 0 .45rem; color:var(--fg)}
+code{background:var(--code); padding:.1rem .35rem; border-radius:4px; font-size:.9em}
+.src{display:inline; font-size:.72rem; font-weight:400; color:var(--muted);
+  white-space:nowrap; padding:0; border:0; background:none; letter-spacing:0}
+.src::before{content:"["}
+.src::after{content:"]"}
+.src+.src{margin-left:.25em}
+li>.src, p>.src, td>.src{margin-left:.35em}
+.split{color:var(--danger); font-weight:700}
+.ok{color:var(--accent); font-weight:700}
+td.grp{background:var(--accent-soft); font-size:.85rem; letter-spacing:.02em; padding-top:.5rem; padding-bottom:.5rem}
+td.num strong{font-size:1.02em}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.5rem 0 1.2rem; font-size:.84rem; align-items:center}
+.meta{display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.5rem 0 1.2rem; font-size:.82rem}
+.meta span{border:1px solid var(--line); border-radius:999px; padding:.12rem .65rem; color:var(--muted)}
+.kicker{font-size:.78rem; letter-spacing:.12em; color:var(--accent); font-weight:700; margin:0 0 .45rem}
+.chk{list-style:none; padding-left:0}
+.chk li{position:relative; padding-left:1.7rem; margin:.35rem 0}
+.chk li::before{content:"☐"; position:absolute; left:0; top:0; font-size:1.05rem; color:var(--accent)}
+hr{border:0; border-top:1px solid var(--line); margin:2.2rem 0}
+.refs{font-size:.85rem; color:var(--muted)}
+.refs li{margin:.22rem 0}
+.top{display:block; text-align:right; font-size:.8rem; margin:.4rem 0 0}
+.top a{color:var(--muted); text-decoration:none}
+figure.fig{margin:1.5rem 0; padding:.9rem .9rem .1rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); break-inside:avoid; page-break-inside:avoid}
+figure.fig svg{display:block; width:100%; height:auto; margin:0 auto}
+figure.fig img{display:block; width:100%; height:auto; margin:0 auto; border-radius:6px}
+figure.fig figcaption{font-size:.85rem; line-height:1.7; color:var(--muted); margin:.7rem 0 .8rem; padding-top:.55rem; border-top:1px solid var(--line)}
+figure.fig figcaption b{color:var(--fg); font-weight:700}
+@media (prefers-color-scheme: dark){
+  figure.fig svg{filter:brightness(1.5) saturate(.95)}
+  figure.fig img{filter:brightness(.92)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:1.4rem .7rem 3.5rem}
+  table{font-size:.83rem}
+}
+@media print{
+  @page{margin:12mm 10mm}
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
+  :root{
+    --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+    --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+    --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+    --note:#6b3fa0; --note-soft:#f1ecf9;
+    --danger:#b3261e; --danger-soft:#fdecea;
+  }
+  body{background:var(--bg); color:var(--fg)}
+  body{font-size:9.2pt; line-height:1.5}
+  main{max-width:none; padding:0}
+  h1{font-size:16pt} h2{font-size:11.5pt; margin:14pt 0 5pt; break-after:avoid; page-break-after:avoid}
+  h3{font-size:10pt; margin:9pt 0 3pt; break-after:avoid; page-break-after:avoid}
+  a{text-decoration:none}
+  .toc{break-after:page; page-break-after:always}
+  .tablewrap{overflow:visible}
+  table{min-width:0 !important; width:100%; font-size:8pt; break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .box{break-inside:avoid; page-break-inside:avoid}
+  figure.fig{break-inside:avoid; page-break-inside:avoid}
+  figure.fig svg, figure.fig img{filter:none !important; max-width:100%}
+  figure.fig figcaption{font-size:7.6pt}
+  .top{display:none}
+}
+
+/* ===== 部（Part）見出し ===== */
+h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
+  background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
+h2.part .pn{display:block; font-size:.72rem; letter-spacing:.14em; opacity:.85; font-weight:700; margin-bottom:.15rem}
+p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-height:1.85}
+.toc li.p{margin-top:.5rem; font-weight:700}
+.toc li.p a{color:var(--accent)}
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
+/* ===== 共有ツール（リンクコピー / PDF） ===== */
+.tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
+.tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
+  border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;-webkit-appearance:none}
+.tools .btn.pri{background:var(--accent);color:#fff}
+.tools .btn.pri:hover{filter:brightness(1.08)}
+.tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.tools .btn.sec:hover{background:var(--accent);color:#fff}
+.tools .btn:active{transform:translateY(1px)}
+.tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+@media print{.tools{display:none !important}}
+
+/* ===== スコア計算機（Murray） ===== */
+.calc{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:1.4rem 0; background:var(--bg)}
+.calc-h{padding:.85rem 1.1rem; border-bottom:1px solid var(--line); background:var(--accent-soft)}
+.calc-h b{font-size:.98rem; color:var(--accent)}
+.calc-h span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+.calc-b{padding:.9rem 1.1rem}
+.crow{display:flex; flex-wrap:wrap; gap:.4rem .7rem; align-items:center; padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>.cl{flex:0 0 13.5rem; font-size:.87rem; font-weight:700}
+.crow>.cl small{display:block; font-weight:400; color:var(--muted); font-size:.76rem}
+.opts{display:flex; flex-wrap:wrap; gap:.35rem; flex:1}
+.opts button{font:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--fg); cursor:pointer; white-space:nowrap}
+.opts button:hover{border-color:var(--accent); color:var(--accent)}
+.opts button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+.calc-out{display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; align-items:center;
+  padding:.9rem 1.1rem; border-top:1px solid var(--line); background:var(--accent-soft)}
+.calc-score{font-size:2.1rem; font-weight:800; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+.calc-score small{font-size:.8rem; font-weight:500; color:var(--muted); margin-left:.2rem}
+.calc-msg{flex:1; min-width:15rem; font-size:.84rem; line-height:1.75}
+.calc.hot .calc-out{background:var(--danger-soft)}
+.calc.hot .calc-score{color:var(--danger)}
+.calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.figread{font-size:.92rem; color:var(--fg); margin:-.4rem 0 1.2rem; padding:.55rem .9rem; border-left:3px solid var(--line); line-height:1.75}
+.figread strong{color:var(--accent)}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
+
+/* ===== リファレンスUI（apply-reference-style.py が付与）===== */
+:root{ --sidebar-w: 288px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+
+/* 進捗バー */
+#rs-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* モバイル上部バー */
+#rs-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:10px;padding:0 12px}
+#rs-topbar .t{font-weight:700;font-size:14px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+#rs-burger{border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  border-radius:8px;width:40px;height:36px;font-size:17px;cursor:pointer}
+
+/* サイドバー */
+#rs-side{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);z-index:55;
+  background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .22s ease}
+#rs-side .hd{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#rs-side .hd .ttl{font-weight:800;font-size:14px;line-height:1.4;color:var(--fg)}
+#rs-side .hd .sb{font-size:11px;color:var(--muted);margin-top:3px}
+#rs-search{width:100%;margin-top:10px;padding:8px 10px;font-size:13px;
+  border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+#rs-search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#rs-hits{font-size:11px;color:var(--muted);margin-top:6px;min-height:14px}
+#rs-nav{overflow-y:auto;padding:10px 8px 24px;flex:1}
+#rs-nav a{display:block;padding:6px 10px;margin:1px 0;border-radius:7px;
+  color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.45;
+  border-left:3px solid transparent}
+#rs-nav a:hover{background:var(--accent-soft);color:var(--fg)}
+#rs-nav a.lv3{padding-left:22px;font-size:12px;opacity:.9}
+#rs-nav a.on{background:var(--accent-soft);color:var(--accent);
+  border-left-color:var(--accent);font-weight:700}
+#rs-nav a.hit{outline:1px dashed var(--accent)}
+#rs-scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;display:none}
+
+/* 本文: サイドバー分を body の padding で空け、main は残り幅の中で中央寄せ
+   （margin-left と max-width の併用だと広い画面で右だけ余る）*/
+body{padding-left:var(--sidebar-w)}
+main{margin:0 auto;max-width:1080px;padding:32px 40px 96px}
+
+/* 見出しが固定バーに隠れないように */
+h2,h3{scroll-margin-top:16px}
+
+/* 表を読みやすく */
+.rs-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+  border:1px solid var(--line);border-radius:10px}
+.rs-tw>table{margin:0;border:0;min-width:520px}
+.rs-tw thead th{position:sticky;top:0;z-index:2;background:var(--bg);
+  box-shadow:inset 0 -1px 0 var(--line)}
+
+/* 検索ハイライト */
+mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
+
+/* トップへ */
+#rs-top{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  font-size:17px;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+
+@media (min-width: 1600px){ main{max-width:1180px} }
+
+@media (max-width: 1000px){
+  #rs-topbar{display:flex}
+  #rs-side{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rs-side.open{transform:none}
+  #rs-side.open ~ #rs-scrim{display:block}
+  body{padding-left:0}
+  main{padding:70px 16px 90px;max-width:none}
+  .rs-tw>table{min-width:460px}
+}
+
+@media print{
+  #rs-side,#rs-topbar,#rs-scrim,#rs-top,#rs-progress{display:none !important}
+  body{padding-left:0 !important}
+  main{margin:0 !important;padding:0 !important;max-width:none !important}
+  .rs-tw{overflow:visible !important;border:0 !important}
+  .rs-tw>table{min-width:0 !important}
+  .rs-tw thead th{position:static !important}
+  table,tr,.box{break-inside:avoid;page-break-inside:avoid}
+  h2{break-after:avoid;page-break-after:avoid}
+  mark.rs-mk{font-weight:700}
+}
+/* ===== /リファレンスUI ===== */
+
+
+/* ===== 読みやすさ：文字の階層と配色（2026-09-26 試作・見本は ICU年次レポート2025） =====
+   章見出し ＞ 節見出し ＞ 章の導入文 ＞ 本文 ＞ 表・図の説明・出典タグ の順に大きさと色で差をつける。
+   大きさ・余白は画面だけ（@media screen）。色・囲み・表は印刷にも効かせる。 */
+:root{
+  --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+  --rule:#d5e3ea; --lead-bg:#f2f8fb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --navy:#e8eef4; --ink:#dde3ea; --accent-ink:#6cc8ea; --stripe:#1a1f25; --th-bg:#16323f;
+    --rule:#2f4652; --lead-bg:#13262f;
+  }
+}
+@media print{
+  :root{
+    --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+    --rule:#d5e3ea; --lead-bg:#f2f8fb;
+  }
+}
+
+/* --- 色（画面・印刷共通） --- */
+body{color:var(--ink)}
+h1,h2,h3,h4{color:var(--navy)}
+strong{color:var(--accent-ink)}
+.ok{color:var(--accent-ink)}
+.ng{color:var(--danger); font-weight:700}
+.box.warn strong{color:var(--warn)}
+.box.danger strong{color:var(--danger)}
+h2 .no{color:var(--accent)}
+h3{color:var(--navy)}
+
+/* 出典タグ：小さく薄く */
+.src{font-size:.66rem; color:var(--muted); opacity:.8; letter-spacing:0}
+
+/* 囲み：種類ごとに色と見出しラベルを分ける */
+.box{border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px;
+  padding:1rem 1.2rem 1.05rem; background:var(--accent-soft)}
+.box.good{border-color:color-mix(in srgb, var(--good) 35%, transparent); border-left-color:var(--good); background:var(--good-soft)}
+.box.warn{border-color:color-mix(in srgb, var(--warn) 35%, transparent); border-left-color:var(--warn); background:var(--warn-soft)}
+.box.danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent); border-left-color:var(--danger); background:var(--danger-soft)}
+.box.plain{border-color:var(--line); border-left-color:var(--muted); background:var(--code)}
+.box .label{display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.06em; line-height:1.5;
+  color:#fff; background:var(--accent); border-radius:999px; padding:.18em .95em .22em; margin-bottom:.6rem}
+.box.good .label{color:#fff; background:var(--good)}
+.box.warn .label{color:#fff; background:var(--warn)}
+.box.danger .label{color:#fff; background:var(--danger)}
+.box.plain .label{color:#fff; background:var(--muted)}
+.box.good .label::before{content:"✓ "}
+.box.warn .label::before{content:"! "}
+.box.danger .label::before{content:"✕ "}
+@media (prefers-color-scheme: dark){
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#15181c}
+}
+@media print{
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#fff}
+}
+
+/* 表：本文より小さく、見出し行に色、1行おきの薄い背景、横罫だけ */
+table{font-size:.86rem; line-height:1.65}
+th,td{border:0; border-bottom:1px solid var(--line); padding:.55rem .7rem}
+th{background:var(--th-bg); color:var(--navy); border-bottom:2px solid var(--accent)}
+.rs-tw thead th{background:var(--th-bg); box-shadow:inset 0 -2px 0 var(--accent)}
+tbody tr:nth-child(even) td{background:var(--stripe)}
+tbody td:first-child{font-weight:600; color:var(--navy)}
+td.num{font-weight:600; color:var(--navy); font-variant-numeric:tabular-nums}
+caption{font-size:.92rem; color:var(--navy); padding:.75rem .8rem .6rem; line-height:1.6}
+.rs-tw{border-color:var(--rule)}
+td .src{font-size:.62rem}
+
+/* 図の説明・読み方 */
+figure.fig figcaption{font-size:.8rem}
+.figread{border-left-color:var(--accent); background:var(--lead-bg); border-radius:0 8px 8px 0; font-size:.9rem}
+.refs{font-size:.8rem}
+
+/* --- 大きさ・行長・余白（画面だけ） --- */
+@media screen{
+  body{font-size:17px; line-height:1.85; letter-spacing:.015em}
+  /* 本文の行長：1行およそ40〜45字。表だけは横幅いっぱいまで広げる */
+  main{max-width:1040px}
+  @media (min-width:1600px){ main{max-width:1080px} }
+  main > *:not(.tablewrap):not(.rs-tw){max-width:47rem}
+  p{margin:0 0 1.15em; line-height:1.85}
+  li{margin:.35em 0; line-height:1.8}
+  h1{font-size:2rem; font-weight:800; line-height:1.35; margin:.2rem 0 .6rem}
+  .sub{font-size:1rem; line-height:1.75}
+
+  /* 章見出し：上に余白と区切り線、§番号を色付きで大きく */
+  h2{font-size:1.6rem; font-weight:800; line-height:1.4; letter-spacing:.01em;
+    margin:4.6rem 0 1.1rem; padding:1.5rem 0 0; border-left:0; border-top:1px solid var(--line);
+    position:relative}
+  h2::before{content:""; position:absolute; top:-2px; left:0; width:64px; height:3px; background:var(--accent)}
+  h2 .no{display:inline-block; font-size:1.2em; font-weight:800; letter-spacing:0; color:var(--accent);
+    margin-right:.45em; vertical-align:baseline}
+
+  /* 章の導入文（h2 直後の段落）：本文よりひと回り大きく */
+  h2:not(#refs) + p{font-size:1.1em; line-height:1.85; color:var(--navy);
+    background:var(--lead-bg); border-radius:10px; padding:1rem 1.25rem 1.1rem; margin:0 0 2rem}
+  h2:not(#refs) + p::before{content:"この章のねらい"; display:block; width:max-content;
+    font-size:.72rem; font-weight:700; letter-spacing:.12em; line-height:1.5; color:#fff; background:var(--accent);
+    border-radius:999px; padding:.15em .9em .2em; margin-bottom:.55rem}
+  h2:not(#refs) + p strong{color:var(--accent-ink)}
+
+  /* 節見出し */
+  h3{font-size:1.22rem; font-weight:800; line-height:1.5; margin:2.9rem 0 .8rem;
+    padding-left:.7rem; border-left:4px solid var(--accent)}
+  h4{font-size:1.02rem; margin:1.6rem 0 .5rem}
+
+  .box{margin:1.5rem 0}
+  .box p, .box li{font-size:.96em; line-height:1.8}
+  .top{font-size:.76rem; margin:1.4rem 0 0}
+}
+@media screen and (prefers-color-scheme: dark){
+  h2:not(#refs) + p::before{color:#15181c}
+}
+@media screen and (max-width:1000px){
+  body{font-size:16px; line-height:1.85}
+  h1{font-size:1.6rem}
+  h2{font-size:1.36rem; margin-top:3.6rem; padding-top:1.2rem}
+  h3{font-size:1.1rem; margin-top:2.4rem}
+  h2:not(#refs) + p{font-size:1.06em; padding:.85rem 1rem .95rem}
+  .box{padding:.9rem 1rem .95rem}
+}
+@media print{
+  h2{border-left:0; border-top:1.5pt solid var(--accent); padding-top:4pt}
+  h2 .no{font-size:1.15em; color:var(--accent); vertical-align:baseline}
+  h2:not(#refs) + p{font-size:1.05em; color:var(--navy)}
+  h3{border-left:3pt solid var(--accent); padding-left:4pt}
+  th,td{padding:3pt 4pt}
+}
+
+/* ===== 重要表（表13）：ページの中でひと目で見つかるように ===== */
+.rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
+table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
+table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; color:#fff; background:var(--danger); border-radius:999px;
+  padding:.1em .8em .15em; margin-right:.6em; vertical-align:.1em}
+table.key thead th, .rs-tw table.key thead th{background:var(--accent); color:#fff; border-bottom:0; box-shadow:none}
+table.key td{border-bottom:1.5px solid var(--rule); vertical-align:top}
+table.key td:first-child{font-weight:800; color:var(--accent-ink); font-size:1.02em; min-width:10em}
+table.key td:nth-child(2){min-width:9em}
+table.key td.num{white-space:normal; font-weight:400; color:var(--ink)}
+table.key td:nth-child(2) strong{color:var(--navy); font-weight:800}
+table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-weight:800; color:var(--accent-ink);
+  font-variant-numeric:tabular-nums; line-height:1.4}
+@media (prefers-color-scheme: dark){
+  table.key thead th, .rs-tw table.key thead th{color:#15181c}
+}
+@media print{
+  table.key thead th, .rs-tw table.key thead th{color:#fff}
+  .rs-tw:has(> table.key){border:1.5pt solid var(--accent) !important; box-shadow:none}
+}
+/* スマホ：1行＝1枚のカードに切り替える */
+@media screen and (max-width:640px){
+  .rs-tw:has(> table.key){overflow:visible; border:0; box-shadow:none; border-radius:0}
+  .rs-tw > table.key{min-width:0 !important; width:100%}
+  table.key, table.key caption, table.key tbody, table.key tr, table.key td{display:block}
+  table.key caption{border:2px solid var(--accent); border-radius:10px; margin-bottom:.8rem}
+  table.key thead{display:none}
+  table.key tr{border:2px solid var(--accent); border-radius:10px; overflow:hidden; margin:0 0 .9rem;
+    background:var(--bg); box-shadow:0 2px 10px rgba(0,132,181,.12)}
+  table.key tbody tr:nth-child(even) td{background:transparent}
+  table.key td{border-bottom:1px solid var(--line); padding:.55rem .85rem}
+  table.key td:last-child{border-bottom:0}
+  table.key td:first-child{background:var(--accent-soft) !important; font-size:1.05em; line-height:1.55;
+    border-bottom:1px solid var(--rule)}
+  table.key td:not(:first-child)::before{content:attr(data-label); display:block; font-size:.72rem;
+    font-weight:700; letter-spacing:.06em; color:var(--muted); margin-bottom:.1rem}
+}
+/* ===== /読みやすさ ===== */
+
+/* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
+td.num{white-space:normal}
+
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
+:root{--sidebar-w:300px}
+@media screen and (min-width:1001px){
+  main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
+}
+main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
+#rs-nav a{font-size:14px; line-height:1.5}
+#rs-nav a.lv3{font-size:13px}
+#rs-side .hd .ttl{font-size:15px}
+#rs-topbar .t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
+/* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
+.refs li, main a{overflow-wrap:anywhere}
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
+   手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
+   （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
+   文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
+
+figure.fig .nf{font-size:.95em; line-height:1.65; color:var(--ink,var(--fg))}
+figure.fig .nf *{box-sizing:border-box}
+/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない（アイコン・凡例の小さな SVG も含む） */
+figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !important}
+
+/* ---- 共通：チップ（道具名・区分） ---- */
+.nf-chip{display:inline-block; font-weight:700; font-size:.92em; line-height:1.45; white-space:nowrap;
+  padding:.06em .75em .1em; border-radius:999px; border:1.5px solid var(--accent);
+  color:var(--accent-ink,var(--accent)); background:var(--bg)}
+.nf-chip.is-fill{background:var(--accent); color:var(--bg)}
+.nf-chip.is-muted{border-color:var(--muted); color:var(--muted)}
+.nf-chip.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-chip.is-warn{border-color:var(--warn); color:var(--warn)}
+.nf-plus{font-weight:700; color:var(--muted); margin:0 .15em}
+
+/* ---- 1. 判断の流れ（nf-flow）：根 → 群 → カード → 結論帯 ---- */
+.nf-flow{display:flex; flex-direction:column}
+.nf-root{position:relative; align-self:center; margin-bottom:1.1em; padding:.5em 1.6em .55em; border-radius:10px;
+  background:var(--accent); color:var(--bg); font-weight:800; font-size:1.06em; text-align:center; line-height:1.5}
+.nf-root::after{content:""; position:absolute; left:50%; top:100%; width:2px; height:1.1em; margin-left:-1px; background:var(--rule,var(--line))}
+.nf-groups{position:relative; display:grid; grid-template-columns:var(--nf-cols, 2fr 3fr); gap:.9em; padding-top:1.1em}
+/* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
+.nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
+  border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
+.nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
+.nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
+.nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
+  border-radius:10px; background:var(--code)}
+.nf-gh{align-self:center; font-size:.84em; font-weight:700; letter-spacing:.08em; color:var(--muted); line-height:1.4}
+.nf-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9.5em), 1fr)); gap:.55em; flex:1}
+.nf-card{display:flex; flex-direction:column; gap:.4em; padding:.6em .8em .7em; background:var(--bg);
+  border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:8px}
+.nf-q{font-weight:700; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-a{line-height:1.8}
+.nf-note{font-size:.86em; color:var(--muted); line-height:1.5}
+
+/* 結論帯（図の結論・例外を1本で示す） */
+.nf-band{display:flex; flex-wrap:wrap; align-items:baseline; gap:.2em .6em; margin-top:1em; padding:.7em 1.05em .75em;
+  border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-left:5px solid var(--danger);
+  border-radius:10px; background:var(--danger-soft); line-height:1.6}
+.nf-band .nf-bh{color:var(--danger); font-weight:800}
+.nf-band .nf-to{color:var(--danger); font-weight:800}
+.nf-band.is-accent{border-color:color-mix(in srgb, var(--accent) 40%, transparent); border-left-color:var(--accent); background:var(--accent-soft)}
+.nf-band.is-accent .nf-bh, .nf-band.is-accent .nf-to{color:var(--accent-ink,var(--accent))}
+
+/* ---- 2. 対応表型（nf-map）：条件 → 対応 を行で並べる ---- */
+.nf-map{display:grid; grid-template-columns:minmax(7.5em, 1fr) 2.2em minmax(0, 2.4fr); row-gap:.55em; align-items:stretch}
+.nf-sec{grid-column:1 / -1; font-weight:800; color:var(--accent-ink,var(--accent)); line-height:1.5}
+.nf-sec:not(:first-child){margin-top:.7em; padding-top:.9em; border-top:1px solid var(--rule,var(--line))}
+.nf-sec.is-danger{color:var(--danger)}
+.nf-key, .nf-val{display:flex; align-items:center; padding:.5em .9em; border-radius:8px; line-height:1.55;
+  border:1.5px solid var(--accent)}
+.nf-key{justify-content:center; text-align:center; font-weight:700; color:var(--navy,var(--fg)); background:var(--bg)}
+.nf-val{font-weight:600; background:var(--accent-soft)}
+.nf-arr{display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:800; font-size:1.1em}
+.nf-key.is-muted, .nf-val.is-muted{border-color:var(--muted)}
+.nf-val.is-muted{background:var(--code)}
+.nf-key.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-val.is-danger{border-color:var(--danger); background:var(--danger-soft)}
+.nf-val.is-strong{background:var(--accent); color:var(--bg); border-color:var(--accent)}
+.nf-arr.is-danger{color:var(--danger)}
+
+/* ---- 3. 階段・タイムライン（nf-steps）：左から右へ段階が進む ---- */
+.nf-steps{display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:.55em; counter-reset:nfstep; align-items:end}
+.nf-step{position:relative; padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line);
+  border-top:4px solid var(--accent); border-radius:8px; margin-top:calc(var(--lv, 0) * 1.2em)}
+.nf-step::before{counter-increment:nfstep; content:counter(nfstep); display:inline-flex; align-items:center; justify-content:center;
+  width:1.6em; height:1.6em; margin-right:.4em; border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:.85em}
+.nf-steps.is-time .nf-step::before{content:none}
+.nf-step .nf-when{display:block; font-size:.84em; font-weight:700; color:var(--muted)}
+
+/* ---- 4. 図版パネル（SVG の模式図・グラフ） ---- */
+.nf-panels{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap:1.1em 1.6em; justify-items:center}
+.nf-panel{width:100%; max-width:34rem; container-type:inline-size; container-name:nfp}
+.nf-panels.is-one .nf-panel{max-width:46rem}
+.nf-pt{margin:0 0 .1em; text-align:center; font-weight:800; font-size:1.02em; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-ps{margin:0 0 .45em; text-align:center; font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-svg{display:block; width:100%; height:auto; overflow:visible}
+/* SVG の文字：書体は本文を継承。大きさは viewBox の単位（幅 460 の図で 15 ≒ 本文と同じ） */
+.nf-svg text{fill:var(--ink,var(--fg)); font-variant-numeric:tabular-nums}
+.nf-svg .nf-t{font-size:15px}
+.nf-svg .nf-ts{font-size:13px; fill:var(--muted)}
+.nf-svg .nf-tb{font-weight:700}
+.nf-svg .nf-ta{fill:var(--accent-ink,var(--accent))}
+.nf-svg .nf-tw{fill:var(--warn)}
+.nf-svg .nf-td{fill:var(--danger)}
+.nf-svg .nf-axis{stroke:var(--muted); stroke-width:1.5; fill:none}
+.nf-svg .nf-tick{stroke:var(--muted); stroke-width:1.2}
+.nf-svg .nf-grid{stroke:var(--line); stroke-width:1; fill:none}
+.nf-svg .nf-zero{stroke:var(--muted); stroke-width:1; opacity:.55}
+.nf-svg .nf-wave{stroke:var(--accent); stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-wave.is-danger{stroke:var(--danger)}
+.nf-svg .nf-thr{stroke:var(--warn); stroke-width:2; stroke-dasharray:6 5; fill:none}
+.nf-svg .nf-dim{stroke:var(--warn); stroke-width:2; fill:none}
+.nf-svg .nf-guide{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:3 4; fill:none}
+.nf-svg .nf-ln{stroke:var(--muted); stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-fa{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fb{fill:var(--bg); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fm{fill:var(--code); stroke:var(--muted); stroke-width:2}
+.nf-svg .nf-fd{fill:var(--danger-soft); stroke:var(--danger); stroke-width:2}
+.nf-svg .nf-sa{stroke:var(--accent); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sd{stroke:var(--danger); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sw{stroke:var(--warn); fill:none; stroke-linecap:round}
+.nf-svg .nf-mk-a{fill:var(--accent)} .nf-svg .nf-mk-d{fill:var(--danger)} .nf-svg .nf-mk-w{fill:var(--warn)} .nf-svg .nf-mk-m{fill:var(--muted)}
+.nf-svg .nf-soft-d{fill:var(--danger); opacity:.22}
+/* パネルが細いとき（スマホ・印刷の2段組）は SVG の文字を単位上で大きくし、実寸を本文に近づける */
+@container nfp (max-width: 30rem){ .nf-svg .nf-t{font-size:17px} .nf-svg .nf-ts{font-size:15px} }
+@container nfp (max-width: 24rem){ .nf-svg .nf-t{font-size:19.5px} .nf-svg .nf-ts{font-size:17px} }
+/* 文字を入れない横長の模式図（ラベルは下の HTML で出す） */
+.nf-draw{display:block; width:100%; max-width:46rem; height:auto; margin:0 auto}
+.nf-labels{display:grid; grid-template-columns:var(--nf-lcols, 1fr 1fr 1fr); max-width:46rem; margin:.1em auto 0;
+  text-align:center; font-weight:700; color:var(--navy,var(--fg)); line-height:1.45}
+.nf-labels small{display:block; font-weight:400; font-size:.84em; color:var(--muted)}
+/* 凡例・注記 */
+.nf-legend{display:flex; flex-wrap:wrap; justify-content:center; gap:.35em 1.3em; margin:.7em 0 0; font-size:.88em; color:var(--muted); line-height:1.5}
+.nf-legend > span{display:inline-flex; align-items:center; gap:.45em}
+.nf-sw-line{display:inline-block; width:1.9em; border-top:3px solid var(--accent)}
+.nf-sw-line.is-dash{border-top:2px dashed var(--warn)}
+.nf-sw-line.is-danger{border-top-color:var(--danger)}
+.nf-foot{margin:.5em 0 0; font-size:.84em; color:var(--muted); text-align:right; line-height:1.5}
+/* 説明カード（図の下で要素ごとの意味を並べる） */
+.nf-callouts{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:.6em; margin-top:.8em}
+.nf-callout{padding:.6em .9em .7em; border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:8px; background:var(--accent-soft); line-height:1.6}
+.nf-callout .nf-ch{display:block; font-weight:800; color:var(--accent-ink,var(--accent))}
+.nf-callout.is-danger{border-left-color:var(--danger); background:var(--danger-soft)}
+.nf-callout.is-danger .nf-ch{color:var(--danger)}
+.nf-callout.is-muted{border-left-color:var(--muted); background:var(--code)}
+.nf-callout.is-muted .nf-ch{color:var(--navy,var(--fg))}
+/* 棒の比較（小さな横棒。数値の無い大小比較に使う） */
+.nf-meters{display:grid; grid-template-columns:auto 1fr; gap:.3em .7em; align-items:center; margin:.5em 0 0; font-size:.9em; line-height:1.45}
+.nf-meters dt{color:var(--navy,var(--fg)); font-weight:600}
+.nf-meters dd{margin:0; display:flex; align-items:center; gap:.5em}
+.nf-bar{display:inline-block; height:.7em; width:calc(var(--v, .5) * 8em); border-radius:999px; background:var(--accent)}
+.nf-bar.is-danger{background:var(--danger)}
+.nf-meters .nf-bv{font-size:.9em; color:var(--muted)}
+
+/* ---- 5. 画像＋HTMLラベル（nf-gallery）：絵が要るものだけ画像。文字は画像に入れない ---- */
+.nf-gallery{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(46%, 9rem), 1fr)); gap:.9em .7em}
+.nf-item{text-align:center}
+figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8px; background:#fff; border:1px solid var(--line)}
+.nf-name{margin-top:.4em; font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-desc{font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-item.is-absent img{opacity:.55}
+.nf-item.is-absent .nf-name{color:var(--muted)}
+.nf-flag{display:inline-block; margin-top:.2em; font-size:.8em; font-weight:700; color:var(--danger);
+  border:1.5px solid var(--danger); border-radius:999px; padding:0 .7em .05em; line-height:1.5}
+
+/* ---- 6. 3列の小さなパネル（nf-panels.is-3）：viewBox 幅 300 の SVG を横に3つ並べる（小さな多重グラフ・3つの作用） ----
+   幅 460 の既定より文字を単位上で大きくし、パソコン幅（1枚 約270px）でも本文に近い実寸を保つ。スマホでは1列 */
+.nf-panels.is-3{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1em 1.2em}
+.nf-panels.is-3 .nf-panel{max-width:none}
+.nf-panels.is-3 .nf-svg .nf-t{font-size:17px}
+.nf-panels.is-3 .nf-svg .nf-ts{font-size:15px}
+@container nfp (min-width: 18rem){ .nf-panels.is-3 .nf-svg .nf-t{font-size:15px} .nf-panels.is-3 .nf-svg .nf-ts{font-size:13.5px} }
+/* 凡例の中の小さな記号（SVG）。.nf-svg の幅100%を打ち消す */
+figure.fig .nf-legend svg.nf-sw{display:inline-block; width:1.15em; height:1.15em; margin:0; overflow:visible; flex:none}
+
+/* ---- 7. 物の流れの鎖（nf-steps.is-time.is-chain）：装置の構成など。段の間に矢印、各段に文字なしアイコン ---- */
+.nf-steps.is-chain{gap:1.7em; align-items:stretch}
+.nf-steps.is-chain .nf-step{margin-top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3em}
+.nf-steps.is-chain .nf-step:not(:first-child)::after{content:""; position:absolute; top:50%; left:-1.45em; width:1.2em; height:1.2em;
+  transform:translateY(-50%); background:var(--accent); clip-path:polygon(0 32%, 52% 32%, 52% 0, 100% 50%, 52% 100%, 52% 68%, 0 68%)}
+figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; margin:.1em auto .15em}
+.nf-step .nf-q{color:var(--navy,var(--fg)); font-weight:700; line-height:1.45}
+.nf-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:.3em}
+
+/* ---- 8. 頭文字カード（nf-acro）：語呂合わせ（HI-FLOW など）。左→右・上→下で頭文字が読める ---- */
+.nf-acro{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.6em}
+.nf-ac{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.7em; row-gap:.15em; align-content:start;
+  padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line); border-radius:8px}
+.nf-lt{grid-row:1 / span 3; align-self:start; display:flex; align-items:center; justify-content:center; width:1.9em; height:1.9em;
+  border-radius:50%; background:var(--accent-soft); color:var(--accent-ink,var(--accent)); font-weight:800; font-size:1.3em; line-height:1}
+.nf-en{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-ja{font-size:.94em; line-height:1.6}
+.nf-ac .nf-chip{justify-self:start; font-size:.84em}
+.nf-ac.is-key{border-color:var(--accent); background:var(--accent-soft)}
+.nf-ac.is-key .nf-lt{background:var(--accent); color:var(--bg)}
+
+/* ---- 9. 範囲の横棒（nf-range）：病態ごとの設定値の範囲を1本の数直線に並べる。数値は --a / --b（軸は --lo〜--hi） ---- */
+.nf-range{--lo:0; --hi:60; display:grid; grid-template-columns:minmax(8em, 14em) minmax(0, 1fr) minmax(7em, 12em);
+  column-gap:1em; row-gap:.3em; align-items:center}
+.nf-rl{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4; text-align:right}
+.nf-rl small{display:block; font-weight:400; font-size:.82em; color:var(--muted)}
+.nf-rv{font-size:.9em; line-height:1.45}
+.nf-rt{position:relative; height:2.2em; border-right:1px solid var(--line);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:calc(100% / var(--nf-div, 6)) 100%}
+.nf-zone, .nf-rb, .nf-rx{position:absolute; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+  width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-zone{top:0; bottom:0; background:color-mix(in srgb, var(--muted) 13%, transparent)}
+.nf-zone.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+.nf-rb{top:50%; height:.8em; transform:translateY(-50%); border-radius:999px; background:var(--accent)}
+.nf-rb.is-soft{background:color-mix(in srgb, var(--accent) 38%, transparent)}
+.nf-rb.is-muted{background:var(--muted)}
+.nf-rx{top:50%; height:0; border-top:2px dashed var(--accent)}
+.nf-rx::after{content:""; position:absolute; right:-1px; top:-1px; transform:translateY(-50%); border-style:solid;
+  border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent)}
+.nf-rd{position:absolute; top:50%; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:1.05em; height:1.05em;
+  transform:translate(-50%, -50%); border-radius:50%; background:var(--accent); border:2.5px solid var(--accent)}
+.nf-rd.is-open{background:var(--bg)}
+.nf-rd.is-muted{background:var(--muted); border-color:var(--muted)}
+.nf-raxis{grid-column:2; position:relative; height:1.5em; font-size:.86em; color:var(--muted); font-variant-numeric:tabular-nums}
+.nf-raxis span{position:absolute; top:0; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); transform:translateX(-50%); line-height:1.5}
+.nf-rat{grid-column:2; text-align:center; font-size:.9em; line-height:1.5}
+/* 範囲の横棒の追加（HFNC 図11）：2段のトラック（上＝設定、下＝実測）・四角の点・誤差の線（IQR・±SD） */
+.nf-rt.is-2{height:3.4em}
+.nf-rt .is-up{top:30%} .nf-rt .is-dn{top:71%}
+.nf-rd.is-sq{border-radius:2px; width:.95em; height:.95em}
+.nf-rw{position:absolute; top:50%; height:0; transform:translateY(-1px); border-top:2px solid var(--accent);
+  left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-rw::before, .nf-rw::after{content:""; position:absolute; top:-.42em; height:.84em; left:-1px; border-left:2px solid var(--accent)}
+.nf-rw::after{left:auto; right:-1px}
+.nf-rw.is-muted{border-top-color:var(--muted)}
+.nf-rw.is-muted::before, .nf-rw.is-muted::after{border-left-color:var(--muted)}
+/* 凡例の面（背景帯の見本） */
+.nf-sw-box{display:inline-block; width:1.4em; height:.95em; border-radius:3px; background:color-mix(in srgb, var(--muted) 18%, transparent)}
+.nf-sw-box.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+/* SVG の背景帯（模式図の領域分け） */
+.nf-svg .nf-zone-m{fill:var(--muted); opacity:.16}
+.nf-svg .nf-zone-a{fill:var(--accent); opacity:.13}
+.nf-svg .nf-zone-d{fill:var(--danger); opacity:.13}
+
+/* ---- 10. 番号つきの鎖（nf-steps.is-chain.is-text）：アイコンなしの手順を矢印でつなぐ（HFNC 図8・10・12）。
+   is-check＝確かめる段（灰）、is-goal＝終点（塗り）。戻り道は .nf-return、下の判断へは .nf-join でつなぐ ---- */
+.nf-steps.is-chain.is-text .nf-step{justify-content:flex-start}
+.nf-steps.is-chain.is-text .nf-step::before{margin:0 0 .1em}
+.nf-step.is-check{border-top-color:var(--muted)}
+.nf-step.is-check::before{background:var(--muted)}
+.nf-step.is-goal{background:var(--accent); border-color:var(--accent)}
+.nf-steps.is-chain .nf-step.is-goal{justify-content:center}
+.nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:var(--bg)}
+.nf-step.is-goal::before{background:var(--bg); color:var(--accent-ink,var(--accent))}
+.nf-join{align-self:center; width:2px; height:1.3em; margin:.3em 0 .3em; background:var(--rule,var(--line))}
+/* 戻り道：最後の段から最初の段へ戻る破線の U 字（段が4つなら両端 12.5%。--nf-rl / --nf-rr で調整） */
+.nf-return{position:relative; margin-top:.35em; padding-top:1.75em; text-align:center; color:var(--danger); font-weight:800; line-height:1.5}
+.nf-return::before{content:""; position:absolute; top:0; left:var(--nf-rl,12.5%); right:var(--nf-rr,12.5%); height:1.15em;
+  border:2px dashed var(--danger); border-top:0; border-radius:0 0 12px 12px}
+.nf-return::after{content:""; position:absolute; top:-.45em; left:var(--nf-rl,12.5%); transform:translateX(-50%); margin-left:1px;
+  border-style:solid; border-width:0 6px 10px 6px; border-color:transparent transparent var(--danger) transparent}
+/* 図の前提を上に置く帯 */
+.nf-band.is-top{margin:0 0 1.1em}
+
+/* ---- スマホ：流れ図と対応表は縦に並べ替える。SVG は縮むので文字は上の @container で補う ---- */
+@media screen and (max-width:640px){
+  .nf-panels.is-3{grid-template-columns:minmax(0, 1fr)}
+  .nf-acro{grid-template-columns:minmax(0, 1fr)}
+  .nf-steps.is-chain{gap:1.7em}
+  .nf-steps.is-chain .nf-step{display:grid; grid-template-columns:4.6em minmax(0, 1fr); column-gap:.8em; row-gap:.2em;
+    align-items:center; justify-items:start; text-align:left}
+  .nf-steps.is-chain svg.nf-ico{grid-row:1 / span 3; height:2.9em; margin:0}
+  .nf-steps.is-chain .nf-chips{justify-content:flex-start}
+  .nf-steps.is-chain .nf-step:not(:first-child)::after{top:-1.45em; left:50%; transform:translateX(-50%) rotate(90deg)}
+  .nf-steps.is-chain.is-text .nf-step{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.6em; row-gap:.1em;
+    justify-items:start; text-align:left}
+  .nf-steps.is-chain.is-text .nf-step::before{grid-row:1 / span 2; grid-column:1; align-self:start; margin:.15em 0 0}
+  .nf-steps.is-chain.is-text .nf-step > *{grid-column:2}
+  .nf-return{padding:.45em .9em .5em; border:2px dashed var(--danger); border-radius:10px}
+  .nf-return::before, .nf-return::after{content:none}
+  .nf-range{grid-template-columns:minmax(0, 1fr); row-gap:.15em}
+  .nf-rl{text-align:left; margin-top:.55em}
+  .nf-raxis, .nf-rat{grid-column:1}
+  figure.fig .nf{font-size:.94em}
+  .nf-groups{grid-template-columns:1fr}
+  .nf-cards{grid-template-columns:1fr}
+  .nf-band{display:block}
+  .nf-band .nf-bh{display:block; margin-bottom:.2em}
+  .nf-band .nf-to{margin-right:.3em}
+  .nf-labels small{display:none}
+  .nf-groups::before{left:50%; right:auto; width:2px; border:0; background:var(--rule,var(--line)); border-radius:0}
+  .nf-map{grid-template-columns:1fr; row-gap:.2em}
+  .nf-map .nf-arr{transform:rotate(90deg); height:1.5em}
+  .nf-map .nf-key + .nf-arr + .nf-val{margin-bottom:1em}
+  .nf-steps{grid-auto-flow:row; grid-auto-columns:auto}
+  .nf-step{margin-top:0}
+}
+/* ---- 印刷：色は画面と同じ（本文の print-color-adjust:exact を継承）。文字は紙の本文に合わせる ---- */
+@media print{
+  figure.fig .nf{font-size:.95em}
+  .nf-panels{grid-template-columns:1fr 1fr}
+  .nf-panels.is-one{grid-template-columns:1fr}
+  .nf-panel .nf-svg .nf-t{font-size:15px}
+  .nf-panel .nf-svg .nf-ts{font-size:13px}
+  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before, .nf-ac.is-key .nf-lt, .nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:#fff}
+  .nf-step.is-goal::before{color:var(--accent)}
+  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
+  .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* readable (readable.css) — 章の「読ませ方」部品（2026-09-27 試作・NIV §5）
+   手引き：readable-guide.md。クラスはすべて rd- で始める。章は <section class="rd"> で包む。
+   色は本文の :root 変数（--accent / --accent-soft / --good / --danger / --line / --muted / --bg / --code /
+   --navy / --ink / --accent-ink / --rule）だけを使う。書体は指定しない（本文から継承）。
+   2026-09-27 NIV 全章に適用。「根拠を見る」は開いた状態が既定（<details class="rd-ev" open>）。 */
+
+:root{ --rd-on-accent:#ffffff }
+@media (prefers-color-scheme: dark){ :root{ --rd-on-accent:#15181c } }
+@media print{ :root{ --rd-on-accent:#ffffff } }
+
+/* ---- 文字の階層（本文16px・行間1.9・段落間を広く／補足14px・グレー） ---- */
+@media screen{
+  .rd > p:not([class]), .rd > ul > li, .rd > ol > li{font-size:16px; line-height:1.9}
+  .rd > p:not([class]){margin:0 0 1.5em}
+  .rd > ul, .rd > ol{margin:0 0 1.6em; padding-left:1.4em}
+  .rd > ul > li, .rd > ol > li{margin:.45em 0}
+
+  /* 章見出し：番号つきの色帯 */
+  .rd > h2{display:flex; align-items:center; gap:.9rem; font-size:1.7rem; font-weight:800; line-height:1.4;
+    margin:4.8rem 0 1.6rem; padding:.6rem 1.2rem .6rem 0; border:0; border-radius:12px; overflow:hidden;
+    background:var(--accent-soft); color:var(--navy)}
+  .rd > h2::before{display:none}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-.6rem 0; padding:0 1.1rem;
+    background:var(--accent); color:var(--rd-on-accent); font-size:.9em; font-weight:800; letter-spacing:.02em}
+
+  /* 節見出し：左に太い線と十分な上余白 */
+  .rd > h3{font-size:1.32rem; font-weight:800; line-height:1.5; margin:4rem 0 1.1rem;
+    padding:.15rem 0 .15rem .85rem; border-left:6px solid var(--accent)}
+  /* 小見出し：色つきの小さな印＋下線。リード文より「見出し」に見えるように色を変える */
+  .rd > h4{font-size:1.1rem; font-weight:800; margin:2.8rem 0 .8rem; padding:0 0 .35rem .95rem;
+    border-bottom:1px solid var(--line); color:var(--accent-ink,var(--accent)); position:relative}
+  .rd > h4::before{content:""; position:absolute; left:0; top:.42em; width:.5rem; height:.5rem;
+    border-radius:2px; background:var(--accent)}
+
+  /* リード文：段落の1文目＝結論。少し大きく・やや太く */
+  .rd .rd-lead{font-size:1.14rem; font-weight:700; line-height:1.75; color:var(--navy); margin:0 0 .75em}
+  .rd .rd-lead.is-sub{font-size:1.03rem}
+  /* 節の途中に置くリード文（h4 を立てない小さな話題の切り替え）は、上に余白を取って区切りを見せる */
+  .rd > :not(h3):not(h4) + .rd-lead.is-sub{margin-top:2.2rem}
+
+  /* 補足（注意書き・但し書き） */
+  .rd .rd-note{font-size:14px; line-height:1.8; color:var(--muted); margin:.4rem 0 1.6rem}
+  .rd .rd-check + .rd-note, .rd .rd-dodont + .rd-note{margin-top:-1.3rem}
+  .rd .figread{margin-bottom:1.8rem}
+  .rd .rs-tw{margin:1.2rem 0 1.8rem}
+}
+@media screen and (max-width:1000px){
+  .rd > h2{font-size:1.36rem; gap:.7rem; margin-top:3.8rem}
+  .rd > h3{font-size:1.16rem; margin-top:3.2rem}
+  .rd .rd-lead{font-size:1.08rem}
+  .rd .rd-lead.is-sub{font-size:1.02rem}
+}
+
+/* ---- 1. この章のポイント（章の冒頭・3行） ---- */
+.rd-points{border:2px solid var(--accent); border-radius:14px; padding:1rem 1.3rem .9rem; margin:0 0 2.6rem; background:var(--bg)}
+.rd-points-h{font-size:.8rem !important; font-weight:800; letter-spacing:.14em; color:var(--accent-ink,var(--accent)); margin:0 0 .3rem !important}
+.rd-points ol{list-style:none; counter-reset:rdp; margin:0; padding:0}
+.rd-points li{counter-increment:rdp; position:relative; margin:0; padding:.6rem 0 .6rem 2.7rem;
+  font-size:1.14rem; font-weight:700; line-height:1.55; color:var(--navy); border-top:1px dashed var(--rule,var(--line))}
+.rd-points li:first-child{border-top:0}
+.rd-points li::before{content:counter(rdp); position:absolute; left:0; top:.62rem; width:1.85rem; height:1.85rem;
+  border-radius:50%; background:var(--accent); color:var(--rd-on-accent); font-size:.95rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center; line-height:1}
+@media screen and (max-width:640px){
+  .rd-points{padding:.9rem 1rem .8rem}
+  .rd-points li{font-size:1.04rem; padding-left:2.4rem}
+  .rd-stat{flex:1 1 12rem}
+  .rd-stat-v{font-size:2rem}
+}
+.rd-points-f{font-size:14px !important; line-height:1.75; color:var(--muted); margin:.5rem 0 0 !important;
+  padding-top:.6rem; border-top:1px solid var(--line)}
+
+/* ---- 2. 根拠（灰色・小さめ）。既定は開いた状態（open）で、読者が見出しを押すと閉じられる ---- */
+details.rd-ev{margin:-.5rem 0 1.8rem; color:var(--muted)}
+details.rd-ev[open]{border-left:3px solid var(--rule,var(--line)); background:var(--code); border-radius:0 8px 8px 0;
+  padding-bottom:.1rem}
+details.rd-ev > summary{cursor:pointer; list-style:none; display:inline-block; padding:.2rem .85rem; font-size:13px;
+  font-weight:700; letter-spacing:.04em; color:var(--muted); background:var(--code); border:1px solid var(--line);
+  border-radius:999px; max-width:100%}
+details.rd-ev[open] > summary{border:0; background:transparent; border-radius:0; padding:.45rem .9rem .25rem}
+details.rd-ev > summary::-webkit-details-marker{display:none}
+details.rd-ev > summary::before{content:"▸"; display:inline-block; margin-right:.45em; transition:transform .15s}
+details.rd-ev[open] > summary::before{transform:rotate(90deg)}
+details.rd-ev > summary:hover{color:var(--accent-ink,var(--accent))}
+details.rd-ev p{font-size:14px; line-height:1.8; color:var(--muted); margin:0; padding:0 .95rem .75rem}
+details.rd-ev ul, details.rd-ev ol{margin:0 .95rem .75rem; padding-left:1.2em}
+details.rd-ev li{font-size:14px; line-height:1.75; color:var(--muted); margin:.2em 0}
+details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
+details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
+details.rd-ev table{font-size:.8rem}
+
+/* ---- 3. 当院の数値チップ ---- */
+.rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
+.rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
+  border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
+.rd-stat-v{display:block; font-size:2.3rem; font-weight:800; line-height:1.15; color:var(--accent-ink,var(--accent));
+  font-variant-numeric:tabular-nums; letter-spacing:0}
+.rd-stat-v small{font-size:.4em; font-weight:700; color:var(--muted); margin-left:.25em; letter-spacing:.02em}
+.rd-stat-k{display:block; font-size:13px; font-weight:700; line-height:1.5; color:var(--muted); margin-top:.2rem}
+
+/* ---- 4. 手順チェックリスト ---- */
+.rd-check{border:1px solid color-mix(in srgb, var(--good) 35%, transparent); border-left:5px solid var(--good);
+  background:var(--good-soft); border-radius:10px; padding:.9rem 1.2rem .7rem; margin:1.4rem 0 2rem}
+.rd-check-h{font-size:.86rem !important; font-weight:800; letter-spacing:.06em; color:var(--good); margin:0 0 .3rem !important}
+.rd-check ol{list-style:none; counter-reset:rdc; margin:0; padding:0}
+.rd-check li{counter-increment:rdc; position:relative; margin:0; padding:.55rem 0 .55rem 2.5rem;
+  font-size:15.5px; line-height:1.8; border-top:1px solid color-mix(in srgb, var(--good) 18%, transparent)}
+.rd-check li:first-child{border-top:0}
+.rd-check li::before{content:counter(rdc); position:absolute; left:0; top:.68rem; width:1.55rem; height:1.55rem;
+  border:2px solid var(--good); border-radius:5px; background:var(--bg); color:var(--good);
+  font-size:.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; line-height:1}
+
+/* ---- 5. やる／やらない（左右2列）。is-choice は「条件→選択」の2択に使う ---- */
+.rd-dodont{display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.4rem 0 2rem}
+.rd-dodont > div{border:1.5px solid var(--line); border-radius:12px; padding:.85rem 1.1rem .6rem}
+.rd-dodont p, .rd-dodont li{font-size:15px; line-height:1.75}
+.rd-dodont p{margin:0 0 .5rem}
+.rd-dodont ul{margin:0 0 .4rem; padding-left:1.2em}
+.rd-dodont li{margin:.25em 0}
+.rd-dd-h{font-size:1.05rem !important; font-weight:800; line-height:1.5; margin:0 0 .4rem !important}
+.rd-do{border-color:var(--good) !important; background:var(--good-soft)}
+.rd-dont{border-color:var(--danger) !important; background:var(--danger-soft)}
+.rd-do .rd-dd-h{color:var(--good)} .rd-do .rd-dd-h::before{content:"○ "}
+.rd-dont .rd-dd-h{color:var(--danger)} .rd-dont .rd-dd-h::before{content:"✕ "}
+.rd-dodont.is-choice > div{border-color:var(--accent) !important; background:var(--accent-soft)}
+.rd-dodont.is-choice .rd-dd-h{color:var(--accent-ink,var(--accent))}
+.rd-dodont.is-choice .rd-dd-h::before{content:none}
+@media (max-width:640px){ .rd-dodont{grid-template-columns:1fr} }
+
+/* ---- 印刷：色を保ち、根拠は開いて出す ---- */
+@media print{
+  .rd, .rd *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .rd > h2{display:flex; align-items:center; gap:6pt; padding:3pt 6pt 3pt 0; border:0; background:var(--accent-soft)}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-3pt 0; padding:0 6pt;
+    background:var(--accent); color:var(--rd-on-accent)}
+  .rd > h3{border-left:4pt solid var(--accent); padding-left:5pt}
+  .rd .rd-lead{font-weight:700; color:var(--navy)}
+  details.rd-ev::details-content{content-visibility:visible; display:block}
+  details.rd-ev{break-inside:auto}
+  details.rd-ev > summary::before{content:""}
+  .rd-points, .rd-check, .rd-dodont, .rd-stats{break-inside:avoid; page-break-inside:avoid}
+  .rd-stat-v{font-size:18pt}
+}
+
+/* linked resource card (2026-10-06) — 姉妹資料へのリンクカード */
+.xl-card{display:flex; gap:1rem; align-items:center; margin:1.6rem 0; padding:1.1rem 1.3rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--accent-soft); text-decoration:none !important; color:var(--fg)}
+.xl-card:hover{box-shadow:0 2px 14px rgba(0,132,181,.22)}
+.xl-card .xl-b{display:block; min-width:0}
+.xl-card .xl-k{display:block; font-size:.74rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink,var(--accent))}
+.xl-card .xl-t{display:block; font-size:1.15rem; font-weight:800; color:var(--navy,var(--fg)); line-height:1.45; margin-top:.15rem}
+.xl-card .xl-s{display:block; font-size:.9rem; color:var(--muted); line-height:1.6; margin-top:.25rem}
+.xl-card .xl-go{flex:none; margin-left:auto; font-weight:700; font-size:.9rem; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.45em 1.1em; white-space:nowrap}
+.xl-card.is-small{padding:.75rem 1.1rem; margin:1.1rem 0}
+.xl-card.is-small .xl-t{font-size:1.02rem}
+@media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
+@media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
+/* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
+/* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+   手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
+   ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
+     HTMLのまま（＝最終状態）で表示される。隠す指定はすべて .mo-on の下に書く。
+   ・1回動いて止まる。ループ・点滅・揺れ続けは使わない。動かすのは opacity / transform / stroke-dashoffset だけ。
+   ・色は本文の :root 変数（--accent / --accent-soft / --danger / --danger-soft / --line / --muted / --bg / --code / --navy / --ink）。 */
+
+@media screen{
+/* ---------- 1. 図の中の動き（場面 = scene。要素ごとに .mo-pre → .mo-go） ---------- */
+.mo-x{--mo-del:calc(var(--d, 0s) + var(--mo-o, 0s) - var(--mo-seek, 0s))}
+.mo-on .mo-pre.mo-fade, .mo-on .mo-pre.mo-rise, .mo-on .mo-pre.mo-pop,
+.mo-on .mo-pre.mo-slide, .mo-on .mo-pre.mo-slider, .mo-on .mo-pre.mo-stamp{opacity:0}
+.mo-on .mo-pre.mo-growx{transform:scaleX(0)}
+.mo-on .mo-pre.mo-growy{transform:scaleY(0)}
+.mo-on .mo-pre.mo-draw{stroke-dashoffset:1}
+.mo-on .mo-pre.mo-growu{transform:scaleY(0)}
+.mo-on .mo-pre.mo-barx{scale:0 1}
+.mo-on .mo-pre.mo-dotp{opacity:0}
+.mo-on .mo-pre.mo-wipel{clip-path:inset(-1em -1em -1em 100%)}
+svg .mo-growu{transform-box:fill-box; transform-origin:center bottom}
+.mo-barx{transform-origin:left center}
+.mo-draw{stroke-dasharray:1}
+.mo-growx{transform-origin:left center}
+.mo-growy{transform-origin:center top}
+svg .mo-pop, svg .mo-stamp{transform-box:fill-box; transform-origin:center}
+svg .mo-growx{transform-box:fill-box}
+svg .mo-growy{transform-box:fill-box}
+.mo-on .mo-go.mo-fade{animation:mo-fade var(--mo-t, .45s) ease-out var(--mo-del) both}
+.mo-on .mo-go.mo-rise{animation:mo-rise var(--mo-t, .55s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-pop{animation:mo-pop var(--mo-t, .5s) cubic-bezier(.3,1.45,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slide{animation:mo-slide var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slider{animation:mo-slider var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-stamp{animation:mo-stamp var(--mo-t, .45s) cubic-bezier(.3,1.3,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growx{animation:mo-growx var(--mo-t, .45s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growy{animation:mo-growy var(--mo-t, .35s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-draw{animation:mo-draw var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growu{animation:mo-growy var(--mo-t, .6s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-barx{animation:mo-barx var(--mo-t, .5s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-dotp{animation:mo-dotp var(--mo-t, .45s) cubic-bezier(.3,1.5,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-wipel{animation:mo-wipel var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+/* 終わりの値は書かない（to を省く）＝元の opacity・transform 属性に戻って止まる */
+@keyframes mo-fade{from{opacity:0}}
+@keyframes mo-rise{from{opacity:0; transform:translateY(12px)}}
+@keyframes mo-pop{from{opacity:0; transform:scale(.82)}}
+@keyframes mo-slide{from{opacity:0; transform:translateX(-18px)}}
+@keyframes mo-slider{from{opacity:0; transform:translateX(18px)}}
+@keyframes mo-stamp{from{opacity:0; transform:scale(1.5) rotate(-6deg)}}
+@keyframes mo-growx{from{transform:scaleX(0)}}
+@keyframes mo-growy{from{transform:scaleY(0)}}
+@keyframes mo-draw{from{stroke-dashoffset:1}}
+/* HTMLの棒・点（範囲の横棒など）は transform を持つので、独立した scale プロパティで動かす */
+@keyframes mo-barx{from{scale:0 1}}
+@keyframes mo-dotp{from{opacity:0; scale:.2}}
+/* 戻りの線：右（最後の段）から左（最初の段）へ。HTML要素だけに使うので終わりの値を書いてよい（終わると外れる） */
+@keyframes mo-wipel{from{clip-path:inset(-1em -1em -1em 100%)} to{clip-path:inset(-1em -1em -1em 0)}}
+
+/* 装置の鎖のガスの粒（JSが作り、流れ終わると消す） */
+.mo-on .nf-steps.is-chain{position:relative}
+.mo-gas-lay{position:absolute; left:0; top:0; width:0; height:0; pointer-events:none; z-index:2}
+.mo-gas{position:absolute; left:-5px; top:-5px; width:10px; height:10px; border-radius:50%; opacity:0;
+  background:var(--accent); box-shadow:0 0 0 2px var(--bg), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+
+/* 疑似要素の線（判断の流れの幹・階段の矢印）：持ち主の --mo-del を継承して伸びる */
+.mo-on .nf-root.mo-pre::after, .mo-on .nf-groups.mo-pre::before{transform:scaleY(0)}
+.mo-on .nf-root.mo-go::after, .mo-on .nf-groups.mo-go::before{transform-origin:center top;
+  animation:mo-growy .32s cubic-bezier(.3,.7,.2,1) calc(var(--mo-del) + var(--mo-ld, 0s)) both}
+.mo-on .nf-root.mo-go::after{--mo-ld:.3s}
+.mo-on .nf-step.mo-pre::after, .mo-on .nf-return.mo-pre::before, .mo-on .nf-return.mo-pre::after{opacity:0}
+.mo-on .nf-step.mo-go::after{animation:mo-fade .3s ease-out calc(var(--mo-del) - .12s) both}
+.mo-on .nf-return.mo-go::before, .mo-on .nf-return.mo-go::after{animation:mo-fade .4s ease-out var(--mo-del) both}
+
+/* 画像の上の印（赤丸のサイン・番号）：1回だけ脈打って消える。画像そのものは変えない */
+.mo-imgwrap{position:relative; display:block}
+.mo-ring{position:absolute; border-radius:50%; pointer-events:none; opacity:0;
+  border:3px solid var(--danger); box-shadow:0 0 0 6px color-mix(in srgb, var(--danger) 18%, transparent)}
+.mo-ring.is-accent{border-color:var(--accent); box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent)}
+.mo-on .mo-go.mo-ring{animation:mo-ping var(--mo-t, 1s) cubic-bezier(.25,.6,.3,1) var(--mo-del) both}
+@keyframes mo-ping{0%{opacity:0; transform:scale(.72)} 28%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)}}
+
+/* 波形を時間軸に沿って描くときのカーソル（JSが作り、描き終わると消す） */
+.mo-cur{stroke:var(--accent); stroke-width:1.5; opacity:.35}
+.mo-tip{fill:var(--accent); stroke:var(--bg); stroke-width:2}
+.mo-pt{fill:var(--accent); stroke:var(--bg); stroke-width:1.5}
+
+/* もう一度：図の枠の上辺に載せる。動き終わってから出す */
+.mo-on .mo-fig{position:relative}
+.mo-replay{position:absolute; top:-.95em; right:.9em; z-index:3; font:inherit; font-size:12px; font-weight:700; line-height:1;
+  color:var(--accent-ink, var(--accent)); background:var(--bg); border:1.5px solid var(--accent); border-radius:999px;
+  padding:.45em .9em .5em; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .3s, background .15s}
+.mo-replay:hover{background:var(--accent-soft)}
+.mo-replay:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mo-end > .mo-replay{opacity:1; pointer-events:auto}
+
+/* ---------- 2. 本文の動き（スクロールで1回） ---------- */
+.mo-on .mo-rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo-on .mo-rv.mo-in{opacity:1; transform:none}
+/* 章見出し：色帯が左から拭き出され、下に線が引かれる */
+.mo-on .rd > h2.mo-h{position:relative; clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in{clip-path:inset(0 0 0 0)}
+.mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
+  transform:scaleX(0); transform-origin:left center; transition:transform .9s .3s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in::after{transform:scaleX(1)}
+.mo-on .rd > h3.mo-h{opacity:0; transform:translateX(-12px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h3.mo-h.mo-in{opacity:1; transform:none}
+/* 「この章のポイント」：1行ずつ。番号の丸が弾む */
+.mo-on .rd-points li.mo-li{opacity:0; transform:translateX(-10px); transition:opacity .45s ease var(--dd, 0s), transform .5s cubic-bezier(.2,.7,.2,1) var(--dd, 0s)}
+.mo-on .rd-points li.mo-li::before{transform:scale(0); transition:transform .45s cubic-bezier(.3,1.6,.5,1) calc(var(--dd, 0s) + .12s)}
+.mo-on .rd-points li.mo-li.mo-in{opacity:1; transform:none}
+.mo-on .rd-points li.mo-li.mo-in::before{transform:none}
+.mo-on .rd-points .rd-points-f.mo-li{opacity:0; transition:opacity .6s ease var(--dd, 0s)}
+.mo-on .rd-points .rd-points-f.mo-li.mo-in{opacity:1}
+/* 節頭の結論の一文：下3分の1にマーカーを引く（画面だけ。印刷・PDFには出さない） */
+.mo-on .mo-mark{background-image:linear-gradient(transparent 64%, color-mix(in srgb, var(--accent) 24%, transparent) 64%, color-mix(in srgb, var(--accent) 24%, transparent) 94%, transparent 94%);
+  background-repeat:no-repeat; background-size:0% 100%; transition:background-size 1.1s cubic-bezier(.45,.1,.25,1)}
+.mo-on .mo-mark.mo-in{background-size:100% 100%}
+/* 表の行・選択肢の2枚：順に */
+.mo-on tr.mo-row{opacity:0; transition:opacity .4s ease}
+.mo-on tr.mo-row.mo-in{opacity:1}
+.mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
+.mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 数値チップ：カウントアップ中は幅を固定して揺れない */
+.mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
+.mo-on .rd-stat{transition:box-shadow .5s ease}
+.mo-on .rd-stat.mo-in{box-shadow:0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent)}
+}
+
+/* ---------- 3. 読了プログレスバーと目次の現在地 ---------- */
+.mo-on #rs-progress{height:4px; background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, var(--bg)), var(--accent));
+  box-shadow:0 0 10px color-mix(in srgb, var(--accent) 45%, transparent); border-radius:0 3px 3px 0}
+#mo-ticks{position:fixed; top:0; left:0; right:0; height:4px; z-index:61; pointer-events:none}
+#mo-ticks i{position:absolute; top:0; width:2px; height:4px; margin-left:-1px; background:color-mix(in srgb, var(--muted) 45%, transparent); transition:background .3s}
+#mo-ticks i.on{background:var(--bg)}
+.mo-on #rs-nav{position:relative}
+.mo-on #rs-nav a.on{border-left-color:transparent}
+.mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
+
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+.mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
+  background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
+.mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
+.mo-ip-wave path{fill:none; stroke:#7fd3f2; stroke-width:2.2; stroke-linejoin:round; }
+.mo-ip-k{position:relative; margin:0 0 .15rem !important; font-size:.78rem !important; letter-spacing:.18em; font-weight:800; color:#7fd3f2}
+.mo-ip-h{position:relative; margin:0 0 1.05rem !important; font-size:1.42rem !important; font-weight:800; line-height:1.45; color:#fff}
+.mo-ip-g{position:relative; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.7rem}
+a.mo-ip-t{display:flex; flex-direction:column; gap:.15rem; padding:.85rem 1rem .9rem; border-radius:12px; text-decoration:none; color:inherit;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:background .2s, border-color .2s}
+a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,.55)}
+.mo-ip-l{font-size:12.5px; font-weight:700; letter-spacing:.06em; color:#a9c7d8}
+.mo-ip-v{font-size:2.15rem; font-weight:800; line-height:1.15; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+.mo-ip-v small{font-size:.42em; font-weight:700; color:#a9c7d8; margin-left:.3em; letter-spacing:.02em}
+.mo-ip-v .mo-ip-or{font-size:.55em; color:#a9c7d8; margin:0 .25em}
+.mo-ip-v.is-word{font-size:1.65rem}
+.mo-ip-pop{display:inline-block}
+.mo-ip-v small{white-space:nowrap}
+.mo-ip-v.is-long{white-space:nowrap}   /* 「30〜60」「0.21〜1.0」など幅のある値。スマホでは字を小さくして1行に収める */
+.mo-ip-s{font-size:13px; line-height:1.6; color:#cfe0ea}
+.mo-ip-n{position:relative; margin:.8rem 0 0 !important; font-size:12px !important; color:#a9c7d8; text-align:right}
+@media (max-width:820px){ .mo-ip-g{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:460px){
+  .mo-ip{padding:2.7rem 1rem 1.05rem; border-radius:14px}
+  .mo-ip-h{font-size:1.2rem !important}
+  .mo-ip-g{gap:.5rem}
+  a.mo-ip-t{padding:.7rem .75rem .75rem}
+  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem} .mo-ip-v.is-long{font-size:1.38rem}
+  .mo-ip-v.is-long small{font-size:.5em; margin-left:.2em}
+  .mo-ip-s{font-size:12px}
+}
+
+/* ---------- 5. ボンベの持ち時間（.mo-tank）：時間を縮めて2本を比べる ---------- */
+.mo-tank{--tk-c:var(--accent)}
+.mo-tk-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.2em 1em; margin:0 0 .7em}
+.mo-tk-clock{font-weight:800; color:var(--navy, var(--fg)); font-size:1.05em}
+.mo-tk-clock b{display:inline-block; min-width:2.6em; text-align:right; font-size:1.5em; color:var(--accent-ink, var(--accent)); font-variant-numeric:tabular-nums}
+.mo-tk-note{font-size:.84em; color:var(--muted)}
+.mo-tk-rows{position:relative; display:grid; gap:1.05em}
+.mo-tk-row{display:grid; grid-template-columns:3.1em minmax(0, 1fr) 6.4em; column-gap:.8em; row-gap:.25em; align-items:center}
+.mo-tk-row.is-danger{--tk-c:var(--danger)}
+.mo-tk-lab{grid-column:1 / -1; font-weight:700; color:var(--navy, var(--fg)); line-height:1.5}
+.mo-tk-lab small{font-weight:400; color:var(--muted); font-size:.88em}
+.mo-tk-cyl{position:relative; justify-self:center; width:1.9em; height:3.4em; border:2px solid var(--tk-c); border-radius:.75em .75em .5em .5em; background:var(--bg); overflow:hidden}
+.mo-tk-cyl::before{content:""; position:absolute; left:50%; top:-1px; width:.7em; height:.32em; margin-left:-.35em; border-radius:0 0 3px 3px; background:var(--tk-c)}
+.mo-tk-gas{position:absolute; left:0; right:0; bottom:0; height:100%; background:color-mix(in srgb, var(--tk-c) 34%, var(--bg)); transform-origin:center bottom; transform:scaleY(var(--g, 0))}
+.mo-tk-track{position:relative; height:1.5em; border-radius:6px; background:var(--code);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:20% 100%; box-shadow:inset -1px 0 0 var(--line)}
+.mo-tk-bar{position:absolute; left:0; top:.22em; bottom:.22em; width:calc(var(--v) * 100%); border-radius:4px; transform-origin:left center;
+  background:linear-gradient(90deg, var(--tk-c) calc(var(--lo, 1) * 100%), color-mix(in srgb, var(--tk-c) 38%, var(--bg)) 0)}
+.mo-tk-zone{position:absolute; top:0; bottom:0; left:calc(var(--a) / 10 * 100%); width:calc((var(--b) - var(--a)) / 10 * 100%);
+  background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--danger) 45%, transparent) 0 3px, transparent 3px 7px); border-radius:3px; z-index:1}
+.mo-tk-val{font-weight:800; color:var(--tk-c); font-size:1.15em; line-height:1.3; font-variant-numeric:tabular-nums}
+.mo-tk-axis{position:relative; height:1.3em; margin:.35em 0 0 calc(3.1em + .8em); margin-right:calc(6.4em + .8em); color:var(--muted)}
+.mo-tk-axis span{position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; font-size:.8em; font-variant-numeric:tabular-nums}
+.mo-tk-cur{position:absolute; top:-.3em; bottom:-.3em; width:2px; margin-left:-1px; background:var(--navy, var(--fg)); opacity:.55; pointer-events:none}
+@media (max-width:460px){
+  .mo-tk-row{grid-template-columns:2.2em minmax(0, 1fr) 5.6em; column-gap:.5em}
+  .mo-tk-axis{margin-left:calc(2.2em + .5em); margin-right:calc(5.6em + .5em)}
+  .mo-tk-val{font-size:.92em; white-space:nowrap}
+}
+
+/* 点検用（window.RESMO_TEST）：全部の動きをその時刻で止める */
+.mo-paused .mo-go, .mo-paused .mo-go::before, .mo-paused .mo-go::after{animation-play-state:paused !important}
+.mo-paused .mo-rv, .mo-paused .mo-h, .mo-paused .mo-h::after, .mo-paused .mo-li, .mo-paused .mo-li::before, .mo-paused .mo-mark,
+.mo-paused tr.mo-row, .mo-paused .mo-cl, .mo-paused .mo-cr{transition:none !important}
+
+/* ---------- 6. 印刷・PDF：隠す指定はすべて @media screen の中なので、紙には常に最終状態が出る ---------- */
+@media print{
+  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind, .mo-gas-lay{display:none !important}
+  .mo-ip{color:var(--ink, #26333f); background:#fff !important; border:1.5pt solid var(--accent); box-shadow:none; padding:8pt 10pt; margin:6pt 0 10pt;
+    break-inside:avoid; page-break-inside:avoid}
+  .mo-ip-wave, .mo-ip-n{display:none}
+  .mo-ip-k, .mo-ip-l, .mo-ip-v small, .mo-ip-v .mo-ip-or, .mo-ip-n{color:var(--accent-ink, #0a6e96) !important}
+  .mo-ip-h, .mo-ip-v{color:var(--navy, #1d3348) !important}
+  .mo-ip-h{font-size:12pt !important; margin-bottom:5pt !important}
+  .mo-ip-s{color:var(--ink, #26333f) !important; font-size:7.6pt}
+  .mo-ip-g{grid-template-columns:repeat(3, minmax(0, 1fr)) !important; gap:4pt}
+  a.mo-ip-t{background:var(--accent-soft, #e8f4fa) !important; border:0; padding:4pt 6pt}
+  .mo-ip-v{font-size:15pt} .mo-ip-v.is-word{font-size:12pt}
+  .mo-tank, .mo-tank *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
+}
+/* /resident motion (resident-motion.css) */
+</style>
+</head>
+<body data-refstyle="1">
+<div id="rs-progress"></div>
+<div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">血漿交換（TPE）</span></div>
+<aside id="rs-side"><div class="hd"><div class="ttl">血漿交換（TPE）</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#s1" title="§1 TPEの仕組み — 透析では抜けない「蛋白ごと」を抜き、必要なら補う">§1 TPEの仕組み</a>
+<a class="lv3" href="#rs-s1-1" title="1-1. 定義 — 血漿を分けて捨て、置換液で戻す">1-1. 定義</a>
+<a class="lv3" href="#rs-s1-2" title="1-2. 何が抜けるか — 大きな分子と、蛋白に結合した物質">1-2. 何が抜けるか</a>
+<a class="lv3" href="#rs-s1-3" title="1-3. 膜分離と遠心分離 — 装置で、要るカテーテルと抜ける量が変わる">1-3. 膜分離と遠心分離</a>
+<a class="lv2" href="#s2" title="§2 処方の量 — 1〜1.5血漿量で6〜8割、戻ってくる分は回数で抜く">§2 処方の量</a>
+<a class="lv3" href="#rs-s2-1" title="2-1. 推定血漿量 — 式で求め、標準は1.0〜1.5倍">2-1. 推定血漿量</a>
+<a class="lv3" href="#rs-s2-2" title="2-2. 除去は指数関数で頭打ちになる — 1倍で約6割、1.5倍で約8割">2-2. 除去は指数関数で頭打ちになる</a>
+<a class="lv3" href="#rs-s2-3" title="2-3. 回数と間隔 — IgGは血管外から戻るので、隔日〜連日で重ねる">2-3. 回数と間隔</a>
+<a class="lv2" href="#s3" title="§3 置換液と抗凝固 — FFPは補うときに使い、クエン酸はCaを奪う">§3 置換液と抗凝固</a>
+<a class="lv3" href="#rs-s3-1" title="3-1. 置換液 — アルブミンが基本で、補充が治療になる病態と出血の危険があるときはFFP">3-1. 置換液</a>
+<a class="lv3" href="#rs-s3-2" title="3-2. 抗凝固 — クエン酸は出血が少ないが、Caを奪う">3-2. 抗凝固</a>
+<a class="lv2" href="#s4" title="§4 一緒に抜けるもの — 薬はTPEの後に入れ、合併症を先回りする">§4 一緒に抜けるもの</a>
+<a class="lv3" href="#rs-s4-1" title="4-1. 抜けやすい薬 — Vd 0.2 L/kg未満かつ蛋白結合率80%超">4-1. 抜けやすい薬</a>
+<a class="lv3" href="#rs-s4-2" title="4-2. 投与の時刻 — 静注薬はTPEの直前と施行中を避け、1日1回の薬は後に">4-2. 投与の時刻</a>
+<a class="lv3" href="#rs-s4-3" title="4-3. 合併症 — 全体で5〜36%、最も多いのはカテーテルの機能不全">4-3. 合併症</a>
+<a class="lv3" href="#rs-s4-4" title="4-4. TPE後に読めなくなる検査 — CRP・INR・LDHの低下を改善と読まない">4-4. TPE後に読めなくなる検査</a>
+<a class="lv2" href="#s5" title="§5 適応の読み方 — カテゴリーは位置づけ、グレードは確からしさ">§5 適応の読み方</a>
+<a class="lv3" href="#rs-s5-1" title="5-1. カテゴリーの定義 — IからIVは「治療の中での位置」を表す">5-1. カテゴリーの定義</a>
+<a class="lv3" href="#rs-s5-2" title="5-2. グレードの定義 — 1か2が推奨の強さ、AからCが確からしさ">5-2. グレードの定義</a>
+<a class="lv3" href="#rs-s5-3" title="5-3. ICUで出会う適応 — 急ぐ4つと、研究段階のもの">5-3. ICUで出会う適応</a>
+<a class="lv2" href="#s6" title="§6 TTPとTMA — 疑った時点で、4〜8時間以内にTPEを始める">§6 TTPとTMA</a>
+<a class="lv3" href="#rs-s6-1" title="6-1. 定義 — ADAMTS13が欠け、超巨大vWFが血小板血栓を作る">6-1. 定義</a>
+<a class="lv3" href="#rs-s6-2" title="6-2. DICとTMAを分ける — 血小板減少＋MAHAを見たら、凝固と血圧を見る">6-2. DICとTMAを分ける</a>
+<a class="lv3" href="#rs-s6-3" title="6-3. TTPの治療 — 全例ICUで連日TPE、重症はカプラシズマブとリツキシマブを初回から">6-3. TTPの治療</a>
+<a class="lv3" href="#rs-s6-4" title="6-4. 終え方と難治の判定 — TTP以外のTMAには広げない">6-4. 終え方と難治の判定</a>
+<a class="lv2" href="#s7" title="§7 神経疾患 — GBS・MGクリーゼ・自己免疫性脳炎では、IVIGと並ぶ一次治療">§7 神経疾患</a>
+<a class="lv3" href="#rs-s7-1" title="7-1. ギラン・バレー症候群 — TPEとIVIGは同等で、併用は上乗せにならない">7-1. ギラン・バレー症候群</a>
+<a class="lv3" href="#rs-s7-2" title="7-2. 重症筋無力症クリーゼ — 効果は3〜6週しか続かないので、免疫抑制を同時に始める">7-2. 重症筋無力症クリーゼ</a>
+<a class="lv3" href="#rs-s7-3" title="7-3. 自己免疫性脳炎 — 重症ならステロイドにTPEかIVIGを重ね、反応が遅いのを前提にする">7-3. 自己免疫性脳炎</a>
+<a class="lv2" href="#s8" title="§8 肺腎と肝 — 抗GBM病は急ぎ、ANCAはルーチンにせず、肝不全は移植へつなぐ">§8 肺腎と肝</a>
+<a class="lv3" href="#rs-s8-1" title="8-1. 抗GBM病 — TPE＋シクロホスファミド＋ステロイドを早く始める">8-1. 抗GBM病</a>
+<a class="lv3" href="#rs-s8-2" title="8-2. ANCA関連血管炎 — PEXIVASで、Crの値やDAHによらずカテゴリーIIIになった">8-2. ANCA関連血管炎</a>
+<a class="lv3" href="#rs-s8-3" title="8-3. 急性肝不全 — TPEは唯一推奨される肝補助で、移植までの時間を稼ぐ">8-3. 急性肝不全</a>
+<a class="lv2" href="#s9" title="§9 敗血症とその他 — 理屈はあるが、多くはまだ個別判断の適応">§9 敗血症とその他</a>
+<a class="lv3" href="#rs-s9-1" title="9-1. 敗血症 — 短期死亡が下がるシグナルはあるが、SSC 2026は「用いないことを提案」">9-1. 敗血症</a>
+<a class="lv3" href="#rs-s9-2" title="9-2. その他の適応 — 過粘稠度・中毒・甲状腺クリーゼ・HIT・高トリグリセリド血症">9-2. その他の適応</a>
+<a class="lv2" href="#s10" title="§10 落とし穴 — 待ちすぎ、抜きすぎ、抜けたものの見落とし">§10 落とし穴</a>
+<a class="lv3" href="#rs-s10-1" title="10-1. 待ちすぎ — TTPを「DICだろう」と見る、検査の結果を待つ">10-1. 待ちすぎ</a>
+<a class="lv3" href="#rs-s10-2" title="10-2. 量と回数の誤り — 少なすぎる交換、TPEだけで終わる治療">10-2. 量と回数の誤り</a>
+<a class="lv3" href="#rs-s10-3" title="10-3. 抜けたものの見落とし — 薬・Ca・凝固因子・INR">10-3. 抜けたものの見落とし</a>
+<a class="lv3" href="#rs-s10-4" title="10-4. 依頼と申し送り — 6項目を書き、終了の基準を最初に決める">10-4. 依頼と申し送り</a>
+<a class="lv2" href="#refs" title="主要文献">主要文献</a>
+</nav></aside>
+<div id="rs-scrim"></div>
+
+<main>
+
+<p class="kicker">ST. LUKE'S ICU ／ BEDSIDE MANUAL</p>
+<h1 id="top">血漿交換（TPE）</h1>
+<p class="sub">何を抜き、何を戻し、何が一緒に抜けるか — 仕組み・処方の量・置換液と抗凝固・一緒に抜けるもの・適応の読み方・TTPとTMA・神経疾患・肺腎と肝・敗血症とその他・落とし穴</p>
+
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+
+<div class="tools">
+  <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
+  <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
+</div>
+
+<section class="mo-ip" aria-label="血漿交換（TPE） — 最初に押さえる6点">
+<svg class="mo-ip-wave" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 Q62.5,12 125,40 T250,40 T375,40 T500,40 T625,40 T750,40 T875,40 T1000,40"/></svg>
+<p class="mo-ip-k">ST. LUKE'S ICU ／ PLASMA EXCHANGE</p>
+<p class="mo-ip-h">血漿交換（TPE） — 最初に押さえる6点</p>
+<p class="mo-ip-sub">大きな数字は国際的なガイドラインと総説（ASFA第9版・ICM2022・CritCare2026）。注釈は要点と出典</p>
+<div class="mo-ip-g">
+<a class="mo-ip-t" href="#rs-s6-3"><span class="mo-ip-l">TTPでTPEを始めるまで（時間）</span><span class="mo-ip-v is-long"><span data-mo-count>4〜8</span><small>以内</small></span><span class="mo-ip-s">疑った時点で始め、ADAMTS13の結果を待たない。未治療なら死亡90%</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ASFA第9版（I／1A）</span></a>
+<a class="mo-ip-t" href="#rs-s2-1"><span class="mo-ip-l">1回の交換量（推定血漿量の倍）</span><span class="mo-ip-v is-long"><span data-mo-count>1.0〜1.5</span></span><span class="mo-ip-s">急性肝不全の高用量TPEだけは1回8〜12 L</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ASFA第9版</span></a>
+<a class="mo-ip-t" href="#rs-s2-2"><span class="mo-ip-l">1回目で下がる割合（%）</span><span class="mo-ip-v is-long"><span data-mo-count>65〜75</span></span><span class="mo-ip-s">2回目は23%、3回目は9%の上乗せ。IgGは血管外から戻る</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ICM2022・CritCare2026</span></a>
+<a class="mo-ip-t" href="#rs-s3-1"><span class="mo-ip-l">置換液に混ぜる晶質液の上限（%）</span><span class="mo-ip-v"><span data-mo-count>30</span><small>まで</small></span><span class="mo-ip-s">超えると低血圧。使うなら交換の最初に入れる</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ICM2022</span></a>
+<a class="mo-ip-t" href="#rs-s4-1"><span class="mo-ip-l">抜けやすい薬の分布容積（L/kg）</span><span class="mo-ip-v"><span data-mo-count>0.2</span><small>未満</small></span><span class="mo-ip-s">蛋白結合率80%超と重なると抜けやすい。静注薬は施行中に落とさない</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>CritCare2026</span></a>
+<a class="mo-ip-t" href="#rs-s4-3"><span class="mo-ip-l">命に関わる合併症（%／回）</span><span class="mo-ip-v is-long"><span data-mo-count>1〜2</span></span><span class="mo-ip-s">アナフィラキシー様反応と重度の低血圧。最も多いのはカテーテルの機能不全（32%）</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ICM2022</span></a>
+</div>
+<p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
+</section>
+
+<p>血漿交換（TPE）は、透析では抜けない自己抗体や蛋白結合物質を抜き、FFPで置き換えれば足りない蛋白を補える治療です。その代わり、凝固因子・Ca・投与したばかりの薬まで一緒に抜けます。この資料で持ち帰るのは、①適応はASFAのカテゴリーとグレードの両方で読み、TTPは疑った時点で4〜8時間以内に始める、②1回は推定血漿量の1.0〜1.5倍で、戻ってくるIgGは回数と並行する免疫抑制で抑える、③置換液（アルブミンかFFPか）と、一緒に抜けるもの（Ca・凝固因子・薬）への手当てを処方の前に決める、の3点です。</p>
+
+<div class="box good">
+<span class="label">要点 — この資料の手順を1行で</span>
+<p>病因物質が血漿中にあるかを確かめ、ASFAのカテゴリーとグレードで適応を判断し、推定血漿量の1.0〜1.5倍・置換液・抗凝固・回数・終了の基準を決め、薬の投与時刻をTPEの後に寄せ、施行中はイオン化Caと血圧を、施行後は凝固を追います<span class="src vault">ASFA2023</span><span class="src vault">ICM2022</span>。</p>
+</div>
+
+<section class="rd">
+<h2 id="s1"><span class="no">§1</span>TPEの仕組み — 透析では抜けない「蛋白ごと」を抜き、必要なら補う</h2>
+
+<p>治療的血漿交換（TPE：therapeutic plasma exchange）は、血液を体外に出して血漿だけを分け、捨てた分をアルブミンか新鮮凍結血漿（FFP）で置き換える治療です。この章では、TPEが透析と何が違うのか、2つの分離方式で何が変わるのかを確かめます。CRRTの回路と抗凝固そのものは<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/">AKIと腎代替療法</a>に譲ります。</p>
+
+<h3 id="rs-s1-1">1-1. 定義 — 血漿を分けて捨て、置換液で戻す</h3>
+<p class="rd-lead">TPEは、血漿を自動で取り除き（plasmapheresis）、FFPかアルブミンでできた適切な液で置き換える（exchange）治療で、血漿の分離には遠心分離か、透過性のきわめて高い膜を使います<span class="src vault">CritCare2016</span><span class="src vault">ICM2022</span>。</p>
+<p>治療的アフェレーシスは、血液から血漿か血球（赤血球・白血球・血小板）を取り除く治療の総称で、そのうち血漿を取り除いて置き換えるものがTPEです<span class="src vault">ICM2022</span>。用語は文献によって揺れるので、この資料ではTPE（血漿交換）で統一します（表1）。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表1｜血漿を扱う体外治療の用語 — <span class="ok">捨てて置き換えるのがTPE、捨てないのが吸着</span></caption>
+<thead><tr><th>用語</th><th>何をするか</th><th>置換液</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>TPE（単純血漿交換、PE・PLEX）</td><td>分けた血漿をすべて捨て、置換液で戻す</td><td>要る（アルブミン・FFP・晶質液の組み合わせ）</td><td>CritCare2016・ICM2022</td></tr>
+<tr><td>高用量TPE（TPE-HV）</td><td>1回に推定血漿量の2倍を超えて交換する。急性肝不全で1回8〜12 L</td><td>要る（主に血漿）</td><td>ASFA2023</td></tr>
+<tr><td>免疫吸着（IA）</td><td>分けた血漿をカラムに通して抗体を吸着し、血漿は体に戻す</td><td>要らない</td><td>ASFA2023</td></tr>
+<tr><td>膜分離TPE（mTPE）</td><td>中空糸膜で分子の大きさにより血漿を分ける。RRTの装置と共用できる</td><td>—</td><td>ICM2022・CritCare2024</td></tr>
+<tr><td>遠心分離TPE（cTPE）</td><td>比重の差で血漿を分ける</td><td>—</td><td>ICM2022・CritCare2024</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="rs-s1-2">1-2. 何が抜けるか — 大きな分子と、蛋白に結合した物質</h3>
+<p class="rd-lead">透析の膜を通るのは蛋白に結合していない小さな分子だけですが、TPEは蛋白ごと血漿を捨てるので、自己抗体・免疫複合体・クリオグロブリン・超巨大vWF・蛋白結合性の毒素まで抜けます（表2）<span class="src vault">CritCare2024</span><span class="src vault">CritCare2026</span>。</p>
+<p>FFPで置き換えれば、足りない蛋白を同時に補えます。TTPではADAMTS13の補充と自己抗体の除去の両方が治療になり、急性肝不全では毒素を除きながら凝固因子を補います<span class="src vault">ICM2022</span><span class="src vault">APT2026</span>。IgGが枯渇している患者では、血漿で置き換えることで不足したIgGを補えます<span class="src vault">ICM2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表2｜透析とTPEで抜けるもの — <span class="ok">違いは「蛋白に結合しているか」と「分子の大きさ」</span></caption>
+<thead><tr><th>項目</th><th>透析・CRRT</th><th>TPE</th></tr></thead>
+<tbody>
+<tr><td>抜ける物質</td><td>水と、蛋白に結合していない小〜中分子（尿素・K・アンモニアなど）</td><td>血漿中のすべて（自己抗体・免疫複合体・クリオグロブリン・超巨大vWF・サイトカイン・蛋白結合物質）</td></tr>
+<tr><td>蛋白結合率の高い薬</td><td>抜けにくい（膜を通るのは遊離型だけ）</td><td>結合型ごと抜ける</td></tr>
+<tr><td>補えるもの</td><td>電解質・重炭酸</td><td>FFPならADAMTS13・凝固因子・IgG</td></tr>
+<tr><td>TPEで効率よく抜ける物質の条件</td><td>—</td><td>同定・測定できる、高分子量、分布容積が小さい（主に血漿中にある）、半減期が長い、代謝回転が遅い</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">出典はCritCare2024（物質）、CritCare2026（蛋白結合）、ICM2022（効率よく抜ける条件）<span class="src vault">CritCare2024</span><span class="src vault">CritCare2026</span><span class="src vault">ICM2022</span>。</p>
+<p>ここから2つの実務上の帰結が出ます。1つは、TPEが効くのは「悪いものが血漿の中にある病気」に限られることです（§5-1のMcLeod基準）。もう1つは、悪いもの以外も一緒に抜けることです。凝固因子・投与したばかりの薬・IVIGやリツキシマブなどの抗体製剤がそれにあたります（§4）。</p>
+
+<h3 id="rs-s1-3">1-3. 膜分離と遠心分離 — 装置で、要るカテーテルと抜ける量が変わる</h3>
+<p class="rd-lead">膜分離は血流150〜200 mL/分が要り透析用カテーテルが前提で、処理した血漿の30〜35%しか抜けないため、同じ量を抜くのに遠心分離の3〜4倍の血漿を処理します（表3）<span class="src vault">ICM2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表3｜膜分離と遠心分離 — <span class="ok">ICUで多いのは膜分離、効率が高いのは遠心分離</span></caption>
+<thead><tr><th>項目</th><th>膜分離（mTPE）</th><th>遠心分離（cTPE）</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>分け方</td><td>中空糸膜で分子の大きさにより濾す</td><td>比重の差で分ける</td><td>ICM2022</td></tr>
+<tr><td>必要な血流</td><td class="num">150〜200 mL/分</td><td class="num">50〜120 mL/分</td><td>ICM2022</td></tr>
+<tr><td>血管アクセス</td><td>透析用カテーテル（例 13.5 Fr）</td><td>末梢18Gや7 Frの3内腔CVCでも回せる</td><td>ICM2022</td></tr>
+<tr><td>血漿の取り出し効率</td><td>処理した血漿の30〜35%。同じ量に3〜4倍の処理が要る</td><td>Hct 80%以上まで濃縮でき、効率が高い</td><td>ICM2022</td></tr>
+<tr><td>除去の違い</td><td colspan="2">IgGの除去速度は同等、フィブリノゲンは同等ではない</td><td>ICM2022</td></tr>
+<tr><td>所要時間（912件）</td><td class="num">中央値135分</td><td class="num">中央値120分</td><td>CritCare2026</td></tr>
+<tr><td>向く場面</td><td>CRRTの装置と統合でき、循環の不安定な重症患者で好まれる</td><td>安定した患者。輸血部・アフェレーシス部門で多い</td><td>CritCare2024・ICM2022</td></tr>
+<tr><td>合併症の頻度</td><td colspan="2">同程度</td><td>ICM2022</td></tr>
+</tbody>
+</table>
+</div>
+<p>PICC（末梢挿入型中心静脈カテーテル）は、脱血の陰圧でつぶれるのでTPEには使えません<span class="src vault">ICM2022</span>。血小板減少や凝固障害がある患者では、カテーテルの留置そのものが出血の危険を伴います<span class="src vault">NEJM2025</span>。手技前の血小板の目安は<a href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#rs-s4-3">ICUの輸血戦略</a>にあります。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-steps is-chain is-text">
+<div class="nf-step"><div class="nf-q">脱血</div><div class="nf-note">膜分離は透析用カテーテル、遠心分離は末梢18Gでも可。PICCは不可</div></div>
+<div class="nf-step"><div class="nf-q">抗凝固</div><div class="nf-note">クエン酸（ACD-A）かヘパリン。クエン酸はCaを奪う</div></div>
+<div class="nf-step"><div class="nf-q">分離</div><div class="nf-note">膜（大きさ）か遠心（比重）で血漿を分ける</div></div>
+<div class="nf-step"><div class="nf-q">廃棄</div><div class="nf-note">血漿を捨てる。抗体・毒素と一緒に凝固因子・薬も出ていく</div></div>
+<div class="nf-step is-goal"><div class="nf-q">置換して返血</div><div class="nf-note">アルブミンかFFP（晶質液は30%まで）を血球と混ぜて戻す</div></div>
+</div><p class="nf-foot">模式図。ICM2022・CritCare2026・ASFA2023の記述から作成</p></div>
+<figcaption>図1. TPEの回路 — 5つの段で何が起きるか。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 左から順に血液が流れます。合併症は段ごとに起きる場所が決まっていて、脱血でカテーテルの合併症、抗凝固で低Ca血症、廃棄で凝固因子と薬の喪失、置換でアレルギーと血圧の変動が起きます<span class="src vault">ICM2022</span>。§3と§4はこの順に並んでいます。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s2"><span class="no">§2</span>処方の量 — 1〜1.5血漿量で6〜8割、戻ってくる分は回数で抜く</h2>
+
+<p>TPEの1回の量は「推定血漿量（TPV：total plasma volume）の何倍か」で表します。この章では、なぜ1〜1.5倍が標準なのか、なぜ回数を重ねるのかを、除去の動態から確かめます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>1回は推定血漿量の1.0〜1.5倍で処方する</li>
+<li>量を増やすより回数を重ねる</li>
+<li>IgGは戻るので免疫抑制を並べる</li>
+</ol>
+</div>
+
+<h3 id="rs-s2-1">2-1. 推定血漿量 — 式で求め、標準は1.0〜1.5倍</h3>
+<p class="rd-lead">推定血漿量は体重・身長・Hctから式（Nadler式など）で求め、ASFAは大半の適応で1回にその1.0〜1.5倍を交換するよう勧めています<span class="src vault">CritCare2026</span><span class="src vault">ASFA2023</span>。</p>
+<p>肥満・るいそう・妊娠・体外循環の併用では推定がずれるので、式の選び方と補正が要ります<span class="src vault">ASFA2023</span>。体重あたりの量で処方する試験もあり、PEXIVASは実体重あたり60 mL/kg、GBSの標準量は合計200〜250 mL/kgを5回（1回あたり40〜50 mL/kg）でした<span class="src vault">CritCare2026</span><span class="src vault">NatRevNeurol2019</span>。例外は急性肝不全の高用量TPEで、1回8〜12 Lを交換します（§8-3）<span class="src vault">ASFA2023</span>。</p>
+
+<h3 id="rs-s2-2">2-2. 除去は指数関数で頭打ちになる — 1倍で約6割、1.5倍で約8割</h3>
+<p class="rd-lead">血管内にとどまる物質なら、1回目で65〜75%、2回目で23%、3回目で9%が上乗せで下がり、1回の量を増やしても除去は頭打ちになります（図2）<span class="src vault">ICM2022</span><span class="src vault">CritCare2026</span>。</p>
+<figure class="fig" data-mo="chart">
+<div class="nf"><div class="nf-panels"><div class="nf-panel"><svg class="nf-svg" viewBox="0 0 460 330" role="img" aria-label="交換量と除去率の模式図。1倍で約6割、1.5倍で約8割、2倍で約9割弱と頭打ちになる"><text class="nf-ts" x="62" y="252.0" dy=".35em" text-anchor="end">0</text><line class="nf-grid" x1="70" y1="196.0" x2="436" y2="196.0"/><text class="nf-ts" x="62" y="196.0" dy=".35em" text-anchor="end">25</text><line class="nf-grid" x1="70" y1="140.0" x2="436" y2="140.0"/><text class="nf-ts" x="62" y="140.0" dy=".35em" text-anchor="end">50</text><line class="nf-grid" x1="70" y1="84.0" x2="436" y2="84.0"/><text class="nf-ts" x="62" y="84.0" dy=".35em" text-anchor="end">75</text><line class="nf-grid" x1="70" y1="28.0" x2="436" y2="28.0"/><text class="nf-ts" x="62" y="28.0" dy=".35em" text-anchor="end">100</text><line class="nf-tick" x1="70.0" y1="252" x2="70.0" y2="257"/><text class="nf-ts" x="70.0" y="274" text-anchor="middle">0</text><line class="nf-tick" x1="131.0" y1="252" x2="131.0" y2="257"/><text class="nf-ts" x="131.0" y="274" text-anchor="middle">0.5</text><line class="nf-tick" x1="192.0" y1="252" x2="192.0" y2="257"/><text class="nf-ts" x="192.0" y="274" text-anchor="middle">1</text><line class="nf-tick" x1="253.0" y1="252" x2="253.0" y2="257"/><text class="nf-ts" x="253.0" y="274" text-anchor="middle">1.5</text><line class="nf-tick" x1="314.0" y1="252" x2="314.0" y2="257"/><text class="nf-ts" x="314.0" y="274" text-anchor="middle">2</text><line class="nf-tick" x1="375.0" y1="252" x2="375.0" y2="257"/><text class="nf-ts" x="375.0" y="274" text-anchor="middle">2.5</text><line class="nf-tick" x1="436.0" y1="252" x2="436.0" y2="257"/><text class="nf-ts" x="436.0" y="274" text-anchor="middle">3</text><line class="nf-axis" x1="70" y1="252" x2="70" y2="28"/><line class="nf-axis" x1="70" y1="252" x2="436" y2="252"/><text class="nf-t" transform="translate(22 140.0) rotate(-90)" text-anchor="middle">血管内の物質が減る割合（%）</text><text class="nf-t" x="253.0" y="316" text-anchor="middle">1回の交換量（推定血漿量の何倍か）</text><rect class="nf-zone-a" x="192.0" y="28" width="61.0" height="224" data-mo-at="last"/><text class="nf-ts nf-ta" x="222.5" y="240" text-anchor="middle" data-mo-at="last">推奨域</text><path class="nf-wave" stroke-width="3" fill="none" d="M70.0,252.0 L76.1,241.1 L82.2,230.7 L88.3,220.8 L94.4,211.4 L100.5,202.5 L106.6,193.9 L112.7,185.9 L118.8,178.2 L124.9,170.8 L131.0,163.9 L137.1,157.2 L143.2,150.9 L149.3,144.9 L155.4,139.2 L161.5,133.8 L167.6,128.6 L173.7,123.7 L179.8,119.1 L185.9,114.6 L192.0,110.4 L198.1,106.4 L204.2,102.6 L210.3,98.9 L216.4,95.5 L222.5,92.2 L228.6,89.0 L234.7,86.1 L240.8,83.2 L246.9,80.5 L253.0,78.0 L259.1,75.5 L265.2,73.2 L271.3,71.0 L277.4,68.9 L283.5,66.9 L289.6,65.0 L295.7,63.2 L301.8,61.5 L307.9,59.9 L314.0,58.3 L320.1,56.8 L326.2,55.4 L332.3,54.1 L338.4,52.8 L344.5,51.6 L350.6,50.5 L356.7,49.4 L362.8,48.3 L368.9,47.3 L375.0,46.4 L381.1,45.5 L387.2,44.6 L393.3,43.8 L399.4,43.1 L405.5,42.3 L411.6,41.6 L417.7,41.0 L423.8,40.3 L429.9,39.7 L436.0,39.2"/><circle cx="192.0" cy="110.4" r="5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2" data-mo-at="x"/><text class="nf-t nf-ta nf-tb" x="182.0" y="102.4" text-anchor="end" data-mo-at="x">63%</text><circle cx="253.0" cy="78.0" r="5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2" data-mo-at="x"/><text class="nf-t nf-ta nf-tb" x="243.0" y="70.0" text-anchor="end" data-mo-at="x">78%</text><circle cx="314.0" cy="58.3" r="5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2" data-mo-at="x"/><text class="nf-t nf-ta nf-tb" x="322.0" y="76.3" text-anchor="start" data-mo-at="x">86%</text><circle cx="436.0" cy="39.2" r="5" style="fill:var(--accent);stroke:var(--accent);stroke-width:2" data-mo-at="x"/><text class="nf-t nf-ta nf-tb" x="436.0" y="61.2" text-anchor="end" data-mo-at="x">95%</text></svg></div></div><p class="nf-foot">模式図。血管内だけにあり、施行中に再分布も産生もない物質を仮定した1コンパートメントモデル（減る割合＝1−e<sup>−交換量</sup>）。数値は説明用</p></div>
+<figcaption>図2. 交換量と除去率 — 1.5倍を超えると増やした分ほどは減らない。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 横軸は1回の交換量、縦軸は血管内の物質が減る割合です。ティールの帯がASFAの推奨域（1.0〜1.5倍）で、ここで6〜8割が下がります<span class="src vault">ASFA2023</span>。2倍にしても86%、3倍でも95%で、交換量を倍にしても除去は倍になりません（回数で補う理由は§2-3）。</p>
+<p>実臨床ではこの推奨が守られていません。ドイツの三次病院の約1,000件では45%が1.0倍未満で、0.4〜1.0倍しか交換していない施設の報告もあります<span class="src vault">CritCare2026</span><span class="src vault">ICM2022</span>。背景には、血液製剤の費用を十分に反映しない定額の償還がある可能性が指摘されています<span class="src vault">CritCare2026</span>。</p>
+
+<h3 id="rs-s2-3">2-3. 回数と間隔 — IgGは血管外から戻るので、隔日〜連日で重ねる</h3>
+<p class="rd-lead">IgMは9割超が血管内にあり少ない回数で下がりきりますが、IgGは血管内に25〜30%しかなく、抜いても血管外から戻るので、隔日〜連日で回数を重ねます<span class="src vault">ICM2022</span>。</p>
+<p>標準的な1回（1.2 TPV）で抜けるのは、IgGで約10 g、IgMで約0.3 gです<span class="src vault">ICM2022</span>。大きな物質が血管外から血管内へ戻るには数時間〜数日かかるので、1〜1.5倍を超えて1回で大量に交換するより、間隔を空けて繰り返すほうが効率的かもしれません<span class="src vault">ICM2022</span>。</p>
+<div class="box warn">
+<span class="label">注意 — TPEは抗体の産生を止めない</span>
+<p>TPEは今ある抗体を抜くだけで、作るのは止めません。免疫抑制（ステロイド・シクロホスファミド・リツキシマブ）を並行しないと、再分布と産生でリバウンドします。重症筋無力症でTPEの効果が3〜6週しか続かないのはこのためです<span class="src vault">ASFA2023</span>。</p>
+</div>
+<p>疾患ごとの回数の目安は§5の表9にあります。終了の基準（TTPなら血小板とLDH、抗GBM病なら抗体の消失）は、開始のときに決めて書いておきます（§10-4）<span class="src vault">ASFA2023</span>。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s3"><span class="no">§3</span>置換液と抗凝固 — FFPは補うときに使い、クエン酸はCaを奪う</h2>
+
+<p>置換液と抗凝固は、TPEの合併症の大半を決めます。この章では、アルブミンとFFPの使い分け、クエン酸とヘパリンの違いを確かめます。FFPそのものの適応（数字を直すために使わない）は<a href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#rs-s4-6">ICUの輸血戦略</a>、CRRTでのクエン酸の管理は<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#rs-s6-3">AKIと腎代替療法</a>が詳しく扱います。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>置換液は基本アルブミン、補うときはFFP</li>
+<li>連日アルブミンならフィブリノゲンを追う</li>
+<li>クエン酸ではイオン化Caを先に測る</li>
+</ol>
+</div>
+
+<h3 id="rs-s3-1">3-1. 置換液 — アルブミンが基本で、補充が治療になる病態と出血の危険があるときはFFP</h3>
+<p class="rd-lead">置換液はアルブミンが最も多く（アレルギー・TRALI・感染が少ない）、ADAMTS13を補うTTP、凝固障害や出血の危険があるとき、侵襲的な手技の前には血漿（FFP）を使います（表4）<span class="src vault">ICM2022</span><span class="src vault">ASFA2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表4｜置換液の使い分け — <span class="ok">FFPは「補うこと」に意味があるときに</span></caption>
+<thead><tr><th>置換液</th><th>向く場面</th><th>起こりうること</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>5%アルブミン</td><td>凝固障害のない自己抗体疾患（GBS・MG・自己免疫性脳炎、DAHのないANCA関連血管炎・抗GBM病）</td><td>凝固因子とIgGを補えない。連日でフィブリノゲンが枯渇する。アルブミンは酸性なのでTPE後に代謝性アシドーシスがみられることがある</td><td>ICM2022・ASFA2023</td></tr>
+<tr><td>血漿（FFP）</td><td>補充が治療になるTTP、凝固障害がある病態（急性肝不全・DAHを伴う抗GBM病とANCA関連血管炎）、出血の危険・侵襲的手技の前、心肺バイパス直前のHIT、AAGに結合する薬の中毒</td><td>アレルギー・アナフィラキシー様反応。クエン酸負荷による低Ca血症と代謝性アルカローシス（クエン酸1分子から重炭酸3分子）。急性肝不全ではINRが予後指標に使えなくなる</td><td>ICM2022・ASFA2023・JHEPRep2024</td></tr>
+<tr><td>晶質液（生食など）</td><td>費用とドナー曝露を減らすために一部に混ぜる。過粘稠度症候群</td><td>置換量の30%を超えると低血圧。使うなら交換の最初に入れる</td><td>ICM2022</td></tr>
+</tbody>
+</table>
+</div>
+<p>アルブミンで連日交換すると、凝固因子・フィブリノゲン・線溶因子が補われずに減っていきます。DAHや術後の出血がある患者では、フィブリノゲンと血小板を追い、必要ならFFPに切り替えます<span class="src vault">ASFA2023</span><span class="src vault">ICM2022</span>。晶質液を最後に入れると、水が血管外へ移って低血圧を起こしやすくなるので、使うなら最初に入れます<span class="src vault">ICM2022</span>。</p>
+
+<h3 id="rs-s3-2">3-2. 抗凝固 — クエン酸は出血が少ないが、Caを奪う</h3>
+<p class="rd-lead">世界のアフェレーシス登録では手技の73%がクエン酸抗凝固で、クエン酸はヘパリンより出血が少ない一方、症候性の低Ca血症が多く、Caの予防投与で防げます<span class="src vault">ICM2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表5｜クエン酸とヘパリン — <span class="ok">クエン酸は出血、ヘパリンはアンチトロンビンに注意</span></caption>
+<thead><tr><th>項目</th><th>クエン酸（ACD-A）</th><th>ヘパリン</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>出血</td><td>少ない。HITなど出血リスクの高い病態で好まれる</td><td>クエン酸より多い</td><td>ICM2022・ASFA2023</td></tr>
+<tr><td>主な問題</td><td>イオン化Caを下げる（口周囲のしびれ・テタニー・不整脈）。膜分離は血流が多いぶんクエン酸が多く入る</td><td>回路で薬とアンチトロンビンが失われ、効きが落ちる。アルブミンだけで置き換えるとさらに落ちうる</td><td>ICM2022・ASFA2023</td></tr>
+<tr><td>肝不全</td><td>代謝が遅れ、重い低Ca血症になりやすい。全血とACD-Aの比を調整するか、Caを持続投与する</td><td>—</td><td>ASFA2023</td></tr>
+<tr><td>施行前に測るもの</td><td colspan="2">イオン化Ca・Mg・K</td><td>ICM2022</td></tr>
+</tbody>
+</table>
+</div>
+<p>以前は遠心分離にクエン酸、膜分離にヘパリンが一般的でしたが、今は膜分離でもクエン酸を使います<span class="src vault">ICM2022</span>。血流に合わせてクエン酸の量を、排液量に合わせてCaの補充を自動で調整する膜分離の装置では、低Ca血症の危険が下がります<span class="src vault">ICM2022</span>。クエン酸もヘパリンも使えないときは、エポプロステノールという選択肢もあります<span class="src vault">ICM2022</span>。</p>
+<div class="box warn">
+<span class="label">注意 — FFP置換では、抗凝固と置換液の両方からクエン酸が入る</span>
+<p>保存血漿にもクエン酸が含まれるので、FFPで置き換えるTPEは、抗凝固のクエン酸と合わせて低Ca血症と代謝性アルカローシスを起こしやすくなります<span class="src vault">ICM2022</span>。クエン酸抗凝固と血漿置換は、低Ca血症と感覚異常の危険因子です<span class="src vault">ICM2022</span>。肝不全でこの2つが重なると、Caの持続投与は必須です<span class="src vault">ASFA2023</span>。</p>
+</div>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s4"><span class="no">§4</span>一緒に抜けるもの — 薬はTPEの後に入れ、合併症を先回りする</h2>
+
+<p>TPEの日に起きる問題の多くは、抜けるべきでないものが抜けることから起きます。この章では、抜けやすい薬の見分け方と投与の時刻、合併症の頻度、TPE後に読めなくなる検査を確かめます。抗菌薬のPK/PDそのものは<a href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/">重症患者の抗菌薬PK／PD</a>に譲ります。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>低Vd・高蛋白結合の薬が抜けやすい</li>
+<li>静注薬はTPEの直前と施行中に入れない</li>
+<li>TPE後のCRPやINRで病勢を読まない</li>
+</ol>
+</div>
+
+<h3 id="rs-s4-1">4-1. 抜けやすい薬 — Vd 0.2 L/kg未満かつ蛋白結合率80%超</h3>
+<p class="rd-lead">TPEで抜けやすいのは、分布容積（Vd）が小さく（0.2 L/kg未満）、蛋白結合率が高く（80%超）、血管内にとどまり、内因性クリアランスが落ちている薬で、モノクローナル抗体やIVIGもよく抜けます<span class="src vault">CritCare2026</span><span class="src vault">ICM2022</span>。</p>
+<p>Vdが小さい薬ほど体内の量が血漿に集まっているので、血漿を捨てると失う割合が大きくなります<span class="src vault">CritCare2026</span>。逆に、内因性クリアランスが大きい薬ではTPEの上乗せは小さく、メロペネム（約15.5 L/時）に4 Lを2時間で交換するTPEを足しても、総クリアランスは17.5 L/時にしかなりません<span class="src vault">CritCare2026</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表6：抗菌薬の除去率）</summary>
+<div class="tablewrap">
+<table class="wide">
+<caption>表6｜TPEで報告された抗感染症薬の除去率 — <span class="ok">0.01〜79.4%と幅が広く、多くは小さい</span></caption>
+<thead><tr><th>薬</th><th>報告された除去率（%）</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>ゲンタマイシン</td><td class="num">4.95〜60</td><td>親水性・低Vd。複数の報告で意味のある除去</td></tr>
+<tr><td>バンコマイシン</td><td class="num">3.2〜48.5</td><td>報告間で解釈が割れる。TPE前後でTDMを取る</td></tr>
+<tr><td>セフトリアキソン</td><td class="num">5.4〜33</td><td>低Vd・高蛋白結合の条件に最も合うが、報告が割れる</td></tr>
+<tr><td>ピペラシリン</td><td class="num">9</td><td>小さい</td></tr>
+<tr><td>セフェピム</td><td class="num">2.1〜6.7</td><td>小さい</td></tr>
+<tr><td>メロペネム</td><td class="num">1.37〜2.16（別報告で4.15〜40.66）</td><td>内因性クリアランスが大きく、上乗せは小さい</td></tr>
+<tr><td>ミカファンギン</td><td class="num">40</td><td>蛋白結合99%超・小さいVd（1例報告）</td></tr>
+<tr><td>リポソーマルアムホテリシンB</td><td class="num">40</td><td>1例報告</td></tr>
+<tr><td>ボリコナゾール</td><td class="num">0.02〜16.15</td><td>脂溶性でVdが大きく、影響は小さい</td></tr>
+</tbody>
+</table>
+</div>
+<p>32報告・22薬剤の文献レビューによる<span class="src vault">CritCare2026</span>。根拠の多くは症例報告1〜数本で、置換液や交換量が報告ごとに違います。</p>
+</details>
+
+<h3 id="rs-s4-2">4-2. 投与の時刻 — 静注薬はTPEの直前と施行中を避け、1日1回の薬は後に</h3>
+<p class="rd-lead">静注薬はTPEの直前と施行中を避け、経口薬はTPE前4時間以内を避け、1日1回の薬はTPEの後に投与し、多くの研究は次のTPEまで24〜36時間を空けています（図3）<span class="src vault">ICM2022</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-map">
+<div class="nf-sec">TPEの前</div>
+<div class="nf-key">アミノグリコシド</div><div class="nf-arr">→</div><div class="nf-val is-strong">時間が近ければTPEの前に投与し、ピークと初期分布の時間を取ってから始める</div>
+<div class="nf-key">経口薬</div><div class="nf-arr">→</div><div class="nf-val">TPE前4時間以内を避ける（吸収と再分布を済ませる）</div>
+<div class="nf-sec">TPEの最中</div>
+<div class="nf-key">静注薬</div><div class="nf-arr">→</div><div class="nf-val is-danger">落とさない。入れた分の大部分を捨てることになる</div>
+<div class="nf-sec">TPEの後</div>
+<div class="nf-key">1日1回の薬</div><div class="nf-arr">→</div><div class="nf-val is-strong">TPEの後に投与する</div>
+<div class="nf-key">βラクタム</div><div class="nf-arr">→</div><div class="nf-val">大きな除去が予想されるときだけ追加投与を個別に考える</div>
+<div class="nf-key">バンコマイシン</div><div class="nf-arr">→</div><div class="nf-val">TPE前後でTDMを取り、TPE後の値で次の量を決める</div>
+<div class="nf-key">IVIG・リツキシマブ</div><div class="nf-arr">→</div><div class="nf-val">TPEの後に。TTPではリツキシマブとTPEを18〜24時間空ける</div>
+<div class="nf-key">CRP・LDH・凝固</div><div class="nf-arr">→</div><div class="nf-val is-muted">TPEで下がり、何時間も続く。改善と読まない</div>
+</div><p class="nf-foot">抗菌薬の時刻はすべて専門家見解で、エビデンスに基づく推奨ではない（CritCare2026）。経口薬・1日1回の薬・検査はICM2022、リツキシマブの間隔はASFA2023</p></div>
+<figcaption>図3. TPEの日の時間割 — 前・最中・後に分けて薬と採血を置く。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上から時間の順です。赤は「最中に静注薬を落とさない」の1つだけで、ここが最も多い失敗です<span class="src vault">CritCare2026</span>。投与時刻とTPEの開始時刻を1行に並べて確認すると、この表の大半は守れます。</p>
+<ul>
+<li>敗血症の初回抗菌薬はTPEのために遅らせません。TPEの準備時間が分布の時間になることはありますが、それに頼ってよいという根拠はありません<span class="src vault">CritCare2026</span></li>
+<li>抗てんかん薬では、蛋白結合率の高いカルバマゼピンとクロバザムをTPEの後に投与します。バルプロ酸はVdが小さく蛋白結合率が高いので、低アルブミン血症とTPEの影響を強く受けます。濃度を測ります<span class="src vault">ICM2026 ASM</span></li>
+<li>連続してTPEを受ける患者では、治療域の狭い薬ほどTDMを行い、採血の時刻はTPE後の再分布による濃度のリバウンドを考えて決めます<span class="src vault">ICM2022</span></li>
+<li>RRTも必要なときは、致死的な電解質異常でRRTを急ぐ場合を除き、原則TPEを先にします<span class="src vault">ICM2022</span></li>
+</ul>
+
+<h3 id="rs-s4-3">4-3. 合併症 — 全体で5〜36%、最も多いのはカテーテルの機能不全</h3>
+<p class="rd-lead">TPEの有害事象は全体で5〜36%で、重症患者ではカテーテルの機能不全が32%と最も多く、命に関わる合併症（アナフィラキシー様反応・重度の低血圧）はセッションの1〜2%です（表7）<span class="src vault">ICM2022</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表7｜TPEの合併症 — <span class="ok">起きる場所（アクセス・抗凝固・置換液）で分けて予防する</span></caption>
+<thead><tr><th>合併症</th><th>頻度・特徴</th><th>先回りの手</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>有害事象全体</td><td class="num">5〜36%</td><td>血管アクセス・置換液・抗凝固で変わる</td><td>ICM2022</td></tr>
+<tr><td>カテーテルの機能不全</td><td class="num">32%（重症患者で最多）</td><td>装置に合ったカテーテル（膜分離は透析用）</td><td>ICM2022</td></tr>
+<tr><td>カテーテル関連感染・気胸・局所出血</td><td class="num">0.4〜1.6%</td><td>留置の手技と管理</td><td>ICM2022</td></tr>
+<tr><td>出血</td><td class="num">10%未満（重症患者）</td><td>連日アルブミンではフィブリノゲンと血小板を追う</td><td>ICM2022・ASFA2023</td></tr>
+<tr><td>アナフィラキシー様反応・重度の低血圧</td><td class="num">セッションの1〜2%</td><td>FFP置換で多い。晶質液は30%まで、使うなら最初に</td><td>ICM2022</td></tr>
+<tr><td>低Ca血症（しびれ・テタニー・不整脈）</td><td>クエン酸抗凝固と血漿置換で多い</td><td>施行前にイオン化Caを測り、Caを予防投与する</td><td>ICM2022</td></tr>
+<tr><td>血圧の変動</td><td>GBSの自律神経障害で増幅される</td><td>施行中の血圧と心拍を細かく追う</td><td>ASFA2023</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">合併症の頻度は、膜分離と遠心分離で同程度です<span class="src vault">ICM2022</span>。</p>
+
+<h3 id="rs-s4-4">4-4. TPE後に読めなくなる検査 — CRP・INR・LDHの低下を改善と読まない</h3>
+<p class="rd-lead">CRP・クレアチニン・ビリルビン・トロポニン・BNP・LDH・凝固検査はTPEで下がり、何時間も続きうるので、TPE後の値で炎症の制御や病勢の改善を判断しません<span class="src vault">ICM2022</span>。</p>
+<p>急性肝不全でFFPに置き換えた後のINRは、補った凝固因子の値で、肝の回復を表しません<span class="src vault">JHEPRep2024</span>。TTPの経過を見るLDHも同じ理由で、採血をTPEの前に寄せると読み違えが減ります<span class="src vault">ICM2022</span>。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s5"><span class="no">§5</span>適応の読み方 — カテゴリーは位置づけ、グレードは確からしさ</h2>
+
+<p>TPEの適応は、米国アフェレーシス学会（ASFA）のガイドラインで判断します。第9版（2023年）は91疾患・166適応を、カテゴリー（治療上の位置づけ）とグレード（推奨の強さとエビデンスの確からしさ）の2軸で並べています。この章では2軸の読み方と、ICUで出会う適応の全体像をつかみます。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>カテゴリーとグレードを必ず両方読む</li>
+<li>カテゴリーIは「第一選択として確立」の意味</li>
+<li>ICUで急ぐのはTTP・抗GBM病・GBS・肝不全</li>
+</ol>
+</div>
+
+<h3 id="rs-s5-1">5-1. カテゴリーの定義 — IからIVは「治療の中での位置」を表す</h3>
+<p class="rd-lead">カテゴリーIは第一選択、IIは第二選択として確立、IIIは役割が未確立で個別に判断、IVは無効か有害で、行うなら倫理委員会の承認が望ましい適応です（表8）<span class="src vault">ASFA2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表8｜ASFAのカテゴリー — <span class="ok">エビデンスの強さではなく治療上の位置づけ</span></caption>
+<thead><tr><th>カテゴリー</th><th>意味</th><th>第9版の件数（166適応中）</th></tr></thead>
+<tbody>
+<tr><td>I</td><td>第一選択として確立（単独、または他の治療と併用）</td><td class="num">27</td></tr>
+<tr><td>II</td><td>第二選択として確立（単独、または他の治療と併用）</td><td class="num">44</td></tr>
+<tr><td>III</td><td>最適な役割が未確立。個別に判断する</td><td class="num">91</td></tr>
+<tr><td>IV</td><td>無効、または有害を示す／示唆するエビデンスがある</td><td class="num">4</td></tr>
+</tbody>
+</table>
+</div>
+<p>カテゴリーIIIの91件のうち62%（56件）はグレード2C、つまり症例集積レベルの根拠にとどまります<span class="src vault">ASFA2023</span>。ASFAは新しい適応を認めるときに、①病因物質が血漿中にあるという機序の妥当性、②TPEでその異常が実際に是正されること、③臨床的に意味のある改善があること、の3つを確かめます（McLeod基準）<span class="src vault">ASFA2023</span>。この3つは、カテゴリーIIIの患者で「やるか」を考えるときの問いにもなります。</p>
+
+<h3 id="rs-s5-2">5-2. グレードの定義 — 1か2が推奨の強さ、AからCが確からしさ</h3>
+<p class="rd-lead">グレードはGRADEに沿っており、数字（1＝強い推奨、2＝弱い推奨）とアルファベット（A＝高、B＝中、C＝低〜非常に低）の組み合わせで、カテゴリーとは独立に付きます<span class="src vault">ASFA2023</span>。</p>
+<p>「カテゴリーIだから強い根拠がある」と読み替えると誤ります。抗GBM病のびまん性肺胞出血（DAH）はカテゴリーIでもグレード1C、ANCA関連血管炎はカテゴリーIIIでもグレード1Bです<span class="src vault">ASFA2023</span>。前者は「RCTはないが、やらない選択肢はない」、後者は「良質なRCTがあり、その結果が否定的だった」という意味です（§8-2）。</p>
+<div class="box warn">
+<span class="label">注意 — ASFAは「いつ・どこで」を決めていない</span>
+<p>ASFAのガイドラインは、緊急度（今すぐか、数日以内か、待機か）と実施場所（ICUか病棟か外来か）を規定していません。「今すぐ始めるか」は、疾患ごとの記述（TTPは4〜8時間以内、抗GBM病のDAHは低い閾値で、GBSは発症7日以内）から読み取ります<span class="src vault">ASFA2023</span>。</p>
+</div>
+
+<h3 id="rs-s5-3">5-3. ICUで出会う適応 — 急ぐ4つと、研究段階のもの</h3>
+<p class="rd-lead">ICUで「疑ったら待たずに始める」のはTTP（I／1A）、重症のGBS（I／1A）、抗GBM病のDAH（I／1C）、急性肝不全への高用量TPE（I／1A）で、敗血症（III／2A）や薬物中毒（III／2C）は個別判断です（表9）<span class="src vault">ASFA2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表9｜ICUで出会う主な適応（ASFA第9版） — <span class="ok">疾患ごとに処理量・回数・置換液まで決まっている</span></caption>
+<thead><tr><th>疾患・適応</th><th>カテゴリー／グレード</th><th>1回の処理量</th><th>回数・間隔</th><th>置換液</th><th>詳しくは</th></tr></thead>
+<tbody>
+<tr><td>TTP</td><td>I／1A</td><td>1〜1.5 TPV</td><td>連日。血小板15万/µL以上・LDH正常が2〜3日続くまで</td><td>血漿（または血漿＋アルブミン）</td><td>§6</td></tr>
+<tr><td>ギラン・バレー症候群（一次治療）</td><td>I／1A</td><td>1〜1.5 TPV</td><td>10〜14日で5〜6回、隔日〜連日</td><td>アルブミンまたは血漿</td><td>§7-1</td></tr>
+<tr><td>重症筋無力症（クリーゼ・急性増悪）</td><td>I／1B</td><td>1〜1.5 TPV</td><td>10〜14日で3〜6回</td><td>アルブミン</td><td>§7-2</td></tr>
+<tr><td>抗NMDA受容体脳炎</td><td>I／1C</td><td>1〜1.5 TPV</td><td>1〜3週で5〜12回</td><td>アルブミン</td><td>§7-3</td></tr>
+<tr><td>抗GBM病（DAHあり）</td><td>I／1C</td><td>1〜1.5 TPV</td><td>連日、最大10回程度。最低10〜20日</td><td>アルブミン（DAHでは血漿）</td><td>§8-1</td></tr>
+<tr><td>抗GBM病（透析非依存）</td><td>I／1B</td><td>同上</td><td>同上</td><td>同上</td><td>§8-1</td></tr>
+<tr><td>ANCA関連血管炎（MPA・GPA）</td><td>III／1B</td><td>1〜1.5 TPV</td><td>中央値7回・14日</td><td>アルブミン（DAHでは血漿）</td><td>§8-2</td></tr>
+<tr><td>急性肝不全（高用量TPE）</td><td>I／1A</td><td>1回8〜12 L</td><td>連日</td><td>血漿</td><td>§8-3</td></tr>
+<tr><td>敗血症・多臓器不全</td><td>III／2A</td><td>1〜1.5 TPV</td><td>連日</td><td>血漿</td><td>§9-1</td></tr>
+<tr><td>過粘稠度症候群（症候性）</td><td>I／1B</td><td>1〜1.5 TPV</td><td>1〜3回、連日〜隔日</td><td>アルブミンまたは血漿</td><td>§9-2</td></tr>
+<tr><td>キノコ中毒（アマトキシン）</td><td>II／2C</td><td>1〜2 TPV</td><td>連日、症状が消えるまで</td><td>アルブミン</td><td>§9-2</td></tr>
+<tr><td>薬物過量・咬傷</td><td>III／2C</td><td>1〜2 TPV</td><td>同上</td><td>アルブミン（AAG結合薬は血漿）</td><td>§9-2</td></tr>
+<tr><td>HIT（難治・術前）</td><td>III／2C</td><td>1〜1.5 TPV</td><td>連日または隔日</td><td>アルブミンまたは血漿</td><td>§9-2</td></tr>
+<tr><td>造血幹細胞移植後TMA</td><td>III／2C</td><td>1〜1.5 TPV</td><td>連日</td><td>—</td><td>§6-4</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">TPV＝推定血漿量（total plasma volume）。AAG＝α1酸性糖蛋白。出典はすべてASFA第9版<span class="src vault">ASFA2023</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-map">
+<div class="nf-sec">疑った時点で始める（その日のうちに）</div>
+<div class="nf-key">TTP</div><div class="nf-arr">→</div><div class="nf-val is-danger">4〜8時間以内に開始。ADAMTS13の結果を待たない（I／1A）</div>
+<div class="nf-key">抗GBM病のDAH</div><div class="nf-arr">→</div><div class="nf-val is-danger">低い閾値で始める。DAHの9割が反応（I／1C）</div>
+<div class="nf-key">重症のGBS</div><div class="nf-arr">→</div><div class="nf-val is-strong">TPEかIVIGを発症7日以内に（I／1A）</div>
+<div class="nf-key">急性肝不全</div><div class="nf-arr">→</div><div class="nf-val is-strong">移植へのブリッジとして高用量TPE（I／1A）</div>
+<div class="nf-sec">免疫抑制と並べて計画的に</div>
+<div class="nf-key">MGクリーゼ・自己免疫性脳炎</div><div class="nf-arr">→</div><div class="nf-val">IVIGと並ぶ一次治療（I／1B〜1C）</div>
+<div class="nf-key">過粘稠度症候群</div><div class="nf-arr">→</div><div class="nf-val">1〜3回で粘稠度を下げ、化学療法へ（I／1B）</div>
+<div class="nf-sec">ルーチンにはしない（個別判断）</div>
+<div class="nf-key">ANCA関連血管炎</div><div class="nf-arr">→</div><div class="nf-val is-muted">PEXIVAS後はCr・DAHによらずIII</div>
+<div class="nf-key">敗血症・薬物中毒</div><div class="nf-arr">→</div><div class="nf-val is-muted">III。研究の枠内か、条件のそろう中毒に限る</div>
+</div><p class="nf-foot">括弧内はASFA第9版のカテゴリー／グレード。急ぐかどうかはASFAの各疾患の記述から読み取ったもの</p></div>
+<figcaption>図4. ICUのTPE適応を急ぐ順に並べる。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 上の段ほど「待つこと自体が害になる」適応です<span class="src vault">ASFA2023</span>。中段は免疫抑制と並べて日程を組む適応、下段はカテゴリーIIIで、行うなら理由を記録に残します。カテゴリーの数字ではなく、疾患の時間軸で並べている点に注意してください。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s6"><span class="no">§6</span>TTPとTMA — 疑った時点で、4〜8時間以内にTPEを始める</h2>
+
+<p>TPEの適応の中で、待つことが最も危険なのがTTPです。血漿交換なしでは死亡率90%で、「敗血症性DICだろう」と数日見ることがそのまま予後を決めます。この章では、DICとTMAの見分け方、TPEの始め方と終え方、TTP以外のTMAでの位置づけを確かめます。血小板減少の鑑別全体は<a href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#rs-s4-2">ICUの輸血戦略</a>、HITは<a href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s4">抗凝固・VTE予防・HIT</a>にあります。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>凝固と血圧でDICとTMAを分ける</li>
+<li>TTPを疑ったら結果を待たずにTPE</li>
+<li>終える基準を最初に決めておく</li>
+</ol>
+</div>
+
+<h3 id="rs-s6-1">6-1. 定義 — ADAMTS13が欠け、超巨大vWFが血小板血栓を作る</h3>
+<p class="rd-lead">TTPは、vWFを切る酵素ADAMTS13の活性が10%未満に落ち、切られずに残った超巨大vWFが微小血管に血小板血栓を作る病気で、未治療なら死亡率90%です<span class="src vault">ASFA2023</span><span class="src vault">CritCare2018</span>。</p>
+<p>TTPはTMA（血栓性微小血管障害症）の代表で、もう1つの代表がHUSです。HUSは志賀毒素産生大腸菌によるSTEC-HUSと、補体制御の異常による非典型HUS（aHUS）に分かれます<span class="src vault">CritCare2018</span>。TPEはTTPで、欠けた酵素の補充（FFP）と自己抗体の除去の両方を担います<span class="src vault">CritCare2018</span>。</p>
+<p>古典的な「発熱・血小板減少・微小血管障害性溶血性貧血（MAHA）・腎障害・神経障害」の五徴は一部を欠くことが多く、そろうのを待つと遅れます<span class="src vault">CritCare2018</span>。頻度はTTPが推定6例/100万人に対して、ICUのDICは患者の9〜19%で、桁が違います<span class="src vault">CritCare2018</span>。だから集中治療医はDICを先に考えやすく、それが遅れの原因になります。</p>
+<p>TPE＋ステロイドの時代になって、死亡率は9〜21%まで下がりました。ICUの研究6本では、人工呼吸が30〜50%、RRTが0〜19%、院内死亡が4.3〜34.9%です<span class="src vault">ICM2019</span>。急性腎障害は58.7%に起こり、そのうち42.6%が6か月後に慢性腎臓病になります<span class="src vault">ICM2019</span>。</p>
+
+<h3 id="rs-s6-2">6-2. DICとTMAを分ける — 血小板減少＋MAHAを見たら、凝固と血圧を見る</h3>
+<p class="rd-lead">血小板減少にMAHA（Coombs陰性・LDH上昇・臓器障害）が伴ったら凝固プロファイル（PT・aPTT・Dダイマー）を見て、正常ならTMA、異常ならDICと考え、TMAならADAMTS13を出しながらTPEを始めます（図5）<span class="src vault">CritCare2018</span>。</p>
+<figure class="fig">
+<div class="nf"><div class="nf-flow"><div class="nf-root">血小板減少（15万/mm³未満、または25%超の低下）＋MAHA（Coombs陰性・LDH上昇・臓器障害）</div><div class="nf-groups is-rows"><div class="nf-group"><div class="nf-gh">凝固プロファイル異常 → DIC</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">多い背景</div><div class="nf-a">敗血症。血圧は正常か低い</div></div><div class="nf-card"><div class="nf-q">治療</div><div class="nf-a">原因（敗血症）を治療する</div></div></div></div><div class="nf-group"><div class="nf-gh">凝固プロファイル正常 → TMA</div><div class="nf-cards"><div class="nf-card"><div class="nf-q">ADAMTS13 5〜10%未満</div><div class="nf-a"><span class="nf-chip is-fill">TTP → 血漿交換</span></div></div><div class="nf-card"><div class="nf-q">ADAMTS13が保たれ、STEC陽性</div><div class="nf-a">STEC-HUS → 支持療法</div></div><div class="nf-card"><div class="nf-q">ADAMTS13が保たれ、STEC陰性</div><div class="nf-a">aHUS → 原因の治療（±エクリズマブ）</div></div></div></div></div><div class="nf-band"><span class="nf-bh">結果を待たない</span><span class="nf-to">→</span><span>ADAMTS13の結果が出るまでの間はPLASMICスコアで重度欠乏の確率を見積もり、TTPを疑えばTPEを始める</span></div></div><p class="nf-foot">CritCare2018のアルゴリズムを日本語にしたもの。PLASMICスコアは迅速測定ができない施設の代替として同論文が挙げる唯一の道具</p></div>
+<figcaption>図5. DICとTMAを分け、TMAの原因を確定する2段構え。</figcaption>
+</figure>
+<p class="figread"><strong>図の読み方</strong> — 最初の分岐は凝固です。DICは凝固因子を消費するのでPT・aPTTが延び、TMAは凝固カスケードが大きく崩れないので正常に近くなります<span class="src vault">CritCare2018</span>。TMAの枝でTTPだけが塗りの札（すぐにTPE）で、下の帯が「結果を待たない」ための手当てです。</p>
+<p>ADAMTS13の採血は、TPEの前に、ヘパリンの入っていない検体で行います<span class="src vault">ICM2019</span>。PLASMICスコアが6〜7点なら、重度欠乏の予測は感度90%・特異度92%・陽性的中率72%・陰性的中率98%でした（外部検証112例、AUC 0.94）<span class="src vault">ICM2019</span>。</p>
+<ul>
+<li>破砕赤血球はDICにも出ます。有無ではなく程度で読みます（TTP・HUSは高度の溶血）<span class="src vault">CritCare2018</span></li>
+<li>血圧は、HUSで高く、DICで正常か低いのが目安ですが、DICが必ず低血圧とは限りません<span class="src vault">CritCare2018</span></li>
+<li>重度の血小板減少はTTPと敗血症性DICの両方で起こり、程度だけでは分けられません<span class="src vault">CritCare2018</span></li>
+</ul>
+
+<h3 id="rs-s6-3">6-3. TTPの治療 — 全例ICUで連日TPE、重症はカプラシズマブとリツキシマブを初回から</h3>
+<p class="rd-lead">TTPを疑ったら全例をICUに入れ、診断の確定を待たずにTPEを始め（ASFAは4〜8時間以内、ICUの専門家声明は診断から6時間以内）、1日1回、血漿（FFP）で約60 mL/kg（推定血漿量の約1.5倍）を交換します（表10）<span class="src vault">ASFA2023</span><span class="src vault">ICM2019</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表10｜TTPの初期治療 — <span class="ok">TPEは酵素の補充と抗体の除去、薬は抗体と血栓を止める</span></caption>
+<thead><tr><th>治療</th><th>中身</th><th>推奨の強さ・根拠</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>ICU入室</td><td>疑い例も全例。軽症に見えても重症と同等に死亡・治療抵抗の危険がある</td><td>弱い推奨（suggest）</td><td>ICM2019・MAGMAT ICM2023</td></tr>
+<tr><td>TPE</td><td>血漿輸注より優先。診断から6時間以内（ASFAは疑ってから4〜8時間以内）に、1日1回、FFPで約60 mL/kg（約1.5倍血漿量）</td><td>強い推奨。ASFA I／1A</td><td>ICM2019・ASFA2023</td></tr>
+<tr><td>ステロイド</td><td>TPEと併用。プレドニゾロン換算1 mg/kg/日を21日。重症ではメチルプレドニゾロン1 gを3日</td><td>強い推奨</td><td>ICM2019</td></tr>
+<tr><td>カプラシズマブ（抗vWF A1ドメイン）</td><td>重症例では初回から。HERCULES（145例）で血栓塞栓・再発・TTP関連死の複合が12%対49%、2試験の統合でTTP関連死は0/107対5/110。出血は65%対48%と増える</td><td>強い推奨</td><td>ICM2019・HERCULES NEJM2019</td></tr>
+<tr><td>リツキシマブ</td><td>再発例には必須、重症例は初回から。効き始めまで10〜14日。TPEで抜けるので、TPEの開始から18〜24時間空けて投与する</td><td>再発は強い、初回は弱い推奨</td><td>ICM2019・ASFA2023</td></tr>
+<tr><td>硫酸マグネシウムの上乗せ</td><td>血小板の回復を早めなかった（両群とも中央値4日、HR 0.93、95%CI 0.58〜1.48）。75%がカプラシズマブ併用の試験</td><td>RCTで無効</td><td>MAGMAT ICM2023</td></tr>
+</tbody>
+</table>
+</div>
+<p>TPEがTTPの標準治療になったのは、1991年のRCTで血漿輸注より優れていたためです<span class="src vault">ASFA2023</span><span class="src vault">Rock NEJM1991</span>。ICUの専門家声明の「60 mL/kg＝1.5倍」は本文と表で表記が揺れており、ASFAは1〜1.5 TPVとしています<span class="src vault">ICM2019</span><span class="src vault">ASFA2023</span>。</p>
+<div class="box warn">
+<span class="label">注意 — TTPの血小板は「足さない」</span>
+<p>血小板輸血は、脳出血などの致死的な出血に限ります。中心静脈カテーテルは熟練者がエコーガイドで入れ、そのために血小板を輸血しません。デスモプレシン・バソプレシン・トラネキサム酸も避けます<span class="src vault">ICM2019</span>。</p>
+</div>
+
+<h3 id="rs-s6-4">6-4. 終え方と難治の判定 — TTP以外のTMAには広げない</h3>
+<p class="rd-lead">TPEは血小板15万/µL超が48時間以上（ASFAは血小板15万以上とLDH正常が2〜3日）続いたら終え、開始5日目に血小板が戻らず溶血が続けば難治として治療を強めます<span class="src vault">ICM2019</span><span class="src vault">ASFA2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表11｜TTPのTPEの終え方と、難治・予後不良の目安 — <span class="ok">終了の基準は文献で少しずつ違う</span></caption>
+<thead><tr><th>項目</th><th>基準</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>TPEの終了</td><td>血小板15万/µL超が48時間以上</td><td>ICM2019</td></tr>
+<tr><td>TPEの終了（別の基準）</td><td>血小板15万/µL以上とLDH正常が2〜3日続くまで。漸減（週3回→2回→1回）が再燃を防ぐ明確な根拠はない</td><td>ASFA2023</td></tr>
+<tr><td>TPEの終了（別の基準）</td><td>血小板が15万/µLを超えた後、さらに2回行って終える。7日以内にADAMTS13活性が10%を超えれば治療反応と関連する</td><td>ICM2022</td></tr>
+<tr><td>ICU退室の目安</td><td>TPEを減らすか止められた、溶血が消えた、血小板15万/µL超</td><td>ICM2019</td></tr>
+<tr><td>難治の判定</td><td>開始5日目に血小板が戻らず溶血が続く、または心・神経症状が重い。二次治療はTPE 1日2回とステロイドパルスで、重症度に応じてビンクリスチンかシクロホスファミドを足す。脾摘は最後の手段</td><td>ICM2019</td></tr>
+<tr><td>予後不良因子</td><td>60歳超、トロポニンI上昇（0.25 µg/L超で心・脳の合併症が多い）、昏迷・けいれん・昏睡、LDHの持続高値。2日目の血小板1.5万/µL未満は難治と関連</td><td>ICM2019</td></tr>
+</tbody>
+</table>
+</div>
+<p>TTP以外のTMAに、TPEの効果をそのまま広げてはいけません<span class="src vault">ASFA2023</span><span class="src vault">CritCare2018</span>。</p>
+<ul>
+<li>造血幹細胞移植後のTMAはIII／2Cで、TTPの原理を外挿しているにすぎません。82例の症例集積で奏効52%でも、最終生存は20%でした<span class="src vault">ASFA2023</span></li>
+<li>aHUSは補体の病気で、原因の治療とエクリズマブが軸です。STEC-HUSは支持療法です<span class="src vault">CritCare2018</span></li>
+<li>破局的抗リン脂質抗体症候群（CAPS）はカテゴリーIです<span class="src vault">ASFA2023</span></li>
+</ul>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s7"><span class="no">§7</span>神経疾患 — GBS・MGクリーゼ・自己免疫性脳炎では、IVIGと並ぶ一次治療</h2>
+
+<p>自己抗体が神経や神経筋接合部を攻撃する病気では、TPEは抗体を数時間で減らせる数少ない手段です。ただし抗体の産生は止まらないので、免疫療法の「つなぎ」として使います。この章では3つの病気で、TPEをいつ・何回・何と組み合わせるかを確かめます。呼吸筋の評価と人工呼吸からの離脱は<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>、けいれんの管理は<a href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/">てんかん重積のICU管理</a>に譲ります。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>GBSはTPEかIVIGを発症7日以内に始める</li>
+<li>MGクリーゼは免疫抑制を並行して始める</li>
+<li>重症の脳炎は5〜10日で二次治療へ上げる</li>
+</ol>
+</div>
+
+<h3 id="rs-s7-1">7-1. ギラン・バレー症候群 — TPEとIVIGは同等で、併用は上乗せにならない</h3>
+<p class="rd-lead">GBSでは、TPE（I／1A、RCT 21件・1874例）とIVIGの効果は同等で、どちらかを始めます。TPEは発症7日以内の開始が支持されています（表12）<span class="src vault">ASFA2023</span><span class="src vault">NatRevNeurol2019</span>。</p>
+<p>定義から確かめます。GBSは急性に進む上行性の感覚運動ニューロパチーで、90%を占める脱髄型（AIDP）は12時間〜28日で極期に達し、25%が人工呼吸を要します<span class="src vault">ASFA2023</span>。電気生理の異常と髄液の蛋白細胞解離が古典的な所見ですが、発症早期にはどちらも正常なことがあります<span class="src vault">NatRevNeurol2019</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表12｜GBSの免疫療法 — <span class="ok">TPEとIVIGは同等、併用やステロイドの上乗せは効かない</span></caption>
+<thead><tr><th>治療</th><th>量・回数</th><th>位置づけ</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>TPE</td><td>合計200〜250 mL/kgの血漿を5回で交換（ASFAでは1〜1.5 TPVを10〜14日で5〜6回）</td><td>I／1A。発症7日以内の開始を支持（Cochrane）</td><td>NatRevNeurol2019・ASFA2023</td></tr>
+<tr><td>IVIG</td><td>0.4 g/kg/日を5日間</td><td>TPEと同等。投与が容易で広く使える</td><td>NatRevNeurol2019</td></tr>
+<tr><td>免疫吸着（IA）</td><td>最大3 TPV</td><td>I／1B</td><td>ASFA2023</td></tr>
+<tr><td>TPE→IVIGの併用</td><td>—</td><td>国際RCT（383例）で単独と差なし</td><td>ASFA2023・NatRevNeurol2019</td></tr>
+<tr><td>IVIGへのステロイド上乗せ</td><td>—</td><td>有効の根拠が不十分</td><td>NatRevNeurol2019</td></tr>
+</tbody>
+</table>
+</div>
+<p>標準量のTPEかIVIGを受けても、約40%は最初の4週間で改善が見えません。これは無効という意味ではなく、治療がなければもっと悪化していた可能性を含みます<span class="src vault">NatRevNeurol2019</span>。IVIGが効かなかった後にTPEを足す効果は分かっていません。一方、治療後の再燃（5〜10%）には追加のTPEが有効です<span class="src vault">ASFA2023</span>。</p>
+<p>TPEは初期の研究でIVIGより中断が多い可能性が示されており、GBSでは自律神経障害による血圧の変動がTPEの体外循環で増幅されます<span class="src vault">NatRevNeurol2019</span><span class="src vault">ASFA2023</span>。施行中は血圧と心拍を細かく追います。</p>
+<div class="box warn">
+<span class="label">注意 — 治療が遅れるのは「診断の遅れ」から</span>
+<p>GBS 100例の後ろ向き解析では、来院から24時間以内に免疫療法を始められたのは半数でした<span class="src vault">JNeurolSci2022</span>。呼吸困難の自覚がなくても呼吸不全は進むので、全例で呼吸機能を測り続けます<span class="src vault">NatRevNeurol2019</span>。座位から臥位でFVCが25%を超えて落ちる、1呼吸で数えられる数が25未満、といった所見は横隔膜の弱さを示します<span class="src vault">MuscleNerve2024</span>。</p>
+</div>
+
+<h3 id="rs-s7-2">7-2. 重症筋無力症クリーゼ — 効果は3〜6週しか続かないので、免疫抑制を同時に始める</h3>
+<p class="rd-lead">クリーゼ・急性増悪へのTPEはI／1Bで、10〜14日で3〜6回行い、効果が3〜6週で切れるため免疫抑制療法の導入・調整を並行します<span class="src vault">ASFA2023</span>。</p>
+<p>クリーゼは呼吸筋の筋力低下で挿管・人工呼吸を要した状態で、死亡率は5〜10%です<span class="src vault">ASFA2023</span>。TPEは数時間で自己抗体を下げ、一回換気量を増やして呼吸困難の自覚を改善します<span class="src vault">ASFA2023</span><span class="src vault">MuscleNerve2024</span>。</p>
+<ul>
+<li>TPEとIVIGはおおむね同等です。メタ解析では、TPEは人工呼吸期間を、IVIGは在院日数を短くする傾向があります<span class="src vault">ASFA2023</span></li>
+<li>抗MuSK抗体陽性ではTPEがIVIGより効く可能性があります（比較試験はない）。抗体陰性のMGでもTPEは効きます<span class="src vault">ASFA2023</span></li>
+<li>置換液はアルブミンです<span class="src vault">ASFA2023</span></li>
+</ul>
+
+<h3 id="rs-s7-3">7-3. 自己免疫性脳炎 — 重症ならステロイドにTPEかIVIGを重ね、反応が遅いのを前提にする</h3>
+<p class="rd-lead">抗NMDA受容体脳炎はI／1C、LGI1・CASPR2などVGKC複合体抗体関連疾患はII／1Bで、一次治療はステロイドパルスにIVIGかTPEを組み合わせ、重症では5〜10日で二次治療（リツキシマブ・シクロホスファミド）へ上げます<span class="src vault">ASFA2023</span><span class="src vault">AdvSci2026</span>。</p>
+<p>自己免疫性脳炎は約70%が集中治療を要し、ICU滞在は平均22日に及びます<span class="src vault">AdvSci2026</span>。一次治療はメチルプレドニゾロン1 g/日を3〜5日、IVIG総量2 g/kg、またはTPE 5〜7回を10〜14日で隔日に行います<span class="src vault">AdvSci2026</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表13｜自己免疫性脳炎でTPEを優先しうる場面 — <span class="ok">急速進行・自律神経障害・難治性けいれん・中枢性低換気</span></caption>
+<thead><tr><th>場面</th><th>一次治療の組み立て</th></tr></thead>
+<tbody>
+<tr><td>急速に進行する</td><td rowspan="4">重症例ではステロイドに（IVIGかTPE）を最初から併用する。この4場面ではTPEを優先しうる</td></tr>
+<tr><td>重い自律神経障害</td></tr>
+<tr><td>難治性てんかん重積</td></tr>
+<tr><td>中枢性低換気</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">表はカナダのコンセンサスをまとめた総説による<span class="src vault">AdvSci2026</span>。</p>
+<p>TPEの反応は全身性の抗体疾患より遅れます。抗原提示と抗体産生が血液脳関門の内側で起きるため、血液の抗体を下げても髄液側に効くまで時間がかかるからです<span class="src vault">ASFA2023</span>。脳波でextreme delta brushが見えたら、免疫療法を早く強くする根拠になります<span class="src vault">QJM2026</span>。卵巣奇形腫などの原因腫瘍があれば摘出も一次治療に含まれ、一次治療で反応するのは約半数、残りはリツキシマブやシクロホスファミドを要します<span class="src vault">ASFA2023</span>。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s8"><span class="no">§8</span>肺腎と肝 — 抗GBM病は急ぎ、ANCAはルーチンにせず、肝不全は移植へつなぐ</h2>
+
+<p>腎と肺を同時に壊す病気（肺腎症候群）と急性肝不全は、TPEの評価が近年大きく動いた領域です。ANCA関連血管炎は1本のRCTでカテゴリーが下がり、急性肝不全はRCTでカテゴリーIになりました。肝不全の診療全体は<a href="https://hiro-oka.github.io/icu-masterclass/resident-liver-failure/#rs-s3-5">ICUの肝障害と肝不全</a>にあり、この章はTPEの部分だけを扱います。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>抗GBM病のDAHは低い閾値ですぐ始める</li>
+<li>ANCA関連血管炎はルーチンに足さない</li>
+<li>急性肝不全はTPEで移植までつなぐ</li>
+</ol>
+</div>
+
+<h3 id="rs-s8-1">8-1. 抗GBM病 — TPE＋シクロホスファミド＋ステロイドを早く始める</h3>
+<p class="rd-lead">抗GBM病は、DAHあり（I／1C）と透析非依存（I／1B）がカテゴリーIで、早く始めるほど生命と腎の予後がよく、DAHは90%が反応するので低い閾値で始めます<span class="src vault">ASFA2023</span>。</p>
+<p>定義を確かめます。抗GBM病（旧称Goodpasture症候群）は、IV型コラーゲンα3鎖に対する抗体が急速進行性糸球体腎炎を起こし、25〜60%にDAHを合併します<span class="src vault">ASFA2023</span>。標準治療はTPE＋シクロホスファミド＋ステロイドです。TPEは導入期に連日で最大10回程度行い、抗体が消えるまで（通常2週）最低10〜20日続けます<span class="src vault">ASFA2023</span>。</p>
+<ul>
+<li>初診時Cr 5.7 mg/dL以上・透析依存でDAHがなければIII／2Bです。糸球体が不可逆に壊れていて腎の回復が乏しいためです<span class="src vault">ASFA2023</span></li>
+<li>30〜40%はANCAも陽性（二重陽性）で、再発しやすく経過も重くなります<span class="src vault">ASFA2023</span></li>
+<li>原因の見えないARDSでは、抗GBM病は「永続的な腎機能喪失を防ぐために緊急の免疫抑制と血漿交換が要る」見逃せない鑑別です<span class="src vault">ICM2026 ミミッカー</span></li>
+</ul>
+
+<h3 id="rs-s8-2">8-2. ANCA関連血管炎 — PEXIVASで、Crの値やDAHによらずカテゴリーIIIになった</h3>
+<p class="rd-lead">MPA・GPAへのTPEは、PEXIVAS（704例）が12か月の末期腎不全・死亡の複合を減らせなかったことを受けて、第9版でCrの値やDAHの有無にかかわらずIII／1Bに統一されました<span class="src vault">ASFA2023</span><span class="src vault">PEXIVAS NEJM2020</span>。</p>
+<p>以前はCr 5.7 mg/dL以上やDAH合併ではカテゴリーIIでした<span class="src vault">ASFA2023</span>。PEXIVASの副次解析では、Cr 5.7以上やDAH合併でTPE群が有利な傾向がありますが、信頼区間は広く、検出力不足の可能性があります<span class="src vault">ASFA2023</span>。米国リウマチ学会は、活動性糸球体腎炎の全例へのルーチンTPEにも、DAHへのルーチンTPEにも反対しています<span class="src vault">ASFA2023</span>。</p>
+<div class="box warn">
+<span class="label">注意 — PEXIVAS以前の総説は「早期TPE」と書いている</span>
+<p>DAHの総説（2010年）は、ANCA関連血管炎とGoodpasture症候群のDAHでは早期のTPEが選択肢になると書いています<span class="src vault">Chest2010</span>。産褥3日目の大量喀血が血管炎の初発症状で、ステロイド＋TPEで23日目に退院した症例もあります<span class="src vault">IJOA2018</span>。読むときは発表年を確かめ、今はANCA関連のDAHにTPEを「ルーチンには行わない」前提で、出血と腎障害の重さから個別に判断します<span class="src vault">ASFA2023</span>。</p>
+</div>
+<p>DAHを疑う手がかりは、喀血・貧血・びまん性陰影・低酸素です。喀血は3人に1人で欠けるので、喀血がなくても残りがそろえば疑います<span class="src vault">Chest2010</span>。</p>
+
+<h3 id="rs-s8-3">8-3. 急性肝不全 — TPEは唯一推奨される肝補助で、移植までの時間を稼ぐ</h3>
+<p class="rd-lead">急性肝不全では、高用量TPE（1回8〜12 L、血漿量の約3倍）が移植なし生存を59%対48%に改善し（全生存は差なし）、ASFAはI／1A、通常量のTPEはIII／2Bとしています（表14）<span class="src vault">ASFA2023</span><span class="src vault">Larsen JHepatol2016</span>。</p>
+<p>TPEは解毒と免疫調節の両方の作用をもち、自然回復か移植までの橋渡しとして、あるいは移植が禁忌のときに使います<span class="src vault">JHEPRep2024</span>。人工肝補助（MARS など）は生存を改善できておらず、TPEが現行ガイドラインで唯一推奨される肝補助療法です<span class="src vault">JHEPRep2024</span>。一般ICUで使われる体外補助はCRRTと急性肝不全へのTPEだけ、という整理もあります<span class="src vault">Anaesthesia2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表14｜急性肝不全へのTPEのRCT — <span class="ok">移植なし生存は改善、全生存は未証明</span></caption>
+<thead><tr><th>試験</th><th>方法</th><th>結果</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>Larsen 2016（RCT 183例）</td><td>高用量TPE（1回8〜12 L）</td><td>移植なし生存59%対48%。全生存は差なし</td><td>ASFA2023</td></tr>
+<tr><td>Maiwall 2022（RCT）</td><td>標準量TPE</td><td>21日移植なし生存75%対45%。炎症性メディエーターとDAMPsが減った</td><td>ASFA2023</td></tr>
+<tr><td>早期CRRTのパイロットRCT（90例、脳浮腫を伴うALF）</td><td>標準量TPEに入室12時間以内のCRRTを重ねる</td><td>28日生存（ITT）は変わらず。最初の7日間の死亡は減った（HR 0.12）</td><td>APT2026</td></tr>
+</tbody>
+</table>
+</div>
+<p>近年は1.5〜2倍の低用量でも有害事象が少なく有効と示唆されていますが、高用量との直接比較は限られます<span class="src vault">JHEPRep2024</span>。TPEは大きな分子を、CRRTはアンモニアなどの小さな分子を除くので、両者は補い合うと考えられています<span class="src vault">APT2026</span>。</p>
+<div class="box warn">
+<span class="label">注意 — FFPで置き換えた後のINRで回復を判断しない</span>
+<p>TPEの置換液はFFPが優先されます。FFPで凝固因子が補われるので、TPEの後はINRが肝の回復を表さなくなり、予後指標として使えません<span class="src vault">JHEPRep2024</span><span class="src vault">ASFA2023</span>。移植の基準を判断するときは、TPE前の値と臨床経過で読みます。</p>
+</div>
+<p>慢性肝疾患の急性増悪（ACLF）では評価が割れます。京都コンセンサスは「肝移植への橋渡しとして実施しうる」（推奨Strong）とし、APASL 2019は有望だがエビデンスの質は低い（1, C）、ICM 2023は「役割は検証中」としています<span class="src vault">HepatolInt2025</span><span class="src vault">HepatolInt2019</span><span class="src vault">ICM2023 ACLF</span>。ASFAはACLFに独立した推奨を与えていません<span class="src vault">ASFA2023</span>。</p>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s9"><span class="no">§9</span>敗血症とその他 — 理屈はあるが、多くはまだ個別判断の適応</h2>
+
+<p>敗血症へのTPEは、炎症性メディエーターを抜き、足りない抗凝固蛋白やADAMTS13を補うという理屈がそろっています。それでもガイドラインは標準治療にしていません。この章では、その理由と、敗血症以外でICUが出会うカテゴリーII〜IIIの適応を確かめます。敗血症の血液浄化全般（ポリミキシンB血液灌流など）は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/">敗血症の診断・抗菌薬・感染源管理</a>の範囲です。</p>
+<div class="rd-points">
+<p class="rd-points-h">この章のポイント</p>
+<ol>
+<li>敗血症へのTPEはルーチンにしない</li>
+<li>短期死亡のシグナルは長期では消える</li>
+<li>中毒・過粘稠度は条件がそろうときだけ</li>
+</ol>
+</div>
+
+<h3 id="rs-s9-1">9-1. 敗血症 — 短期死亡が下がるシグナルはあるが、SSC 2026は「用いないことを提案」</h3>
+<p class="rd-lead">SSC 2026は、血液吸着・高用量血液濾過・血漿交換をまとめて「用いないことを提案」（条件付き・確実性very low）とし、ASFAもIII／2Aで、結論は進行中の多施設RCT（EXCHANGE-2など）待ちです<span class="src vault">SSC2026</span><span class="src vault">ASFA2023</span>。</p>
+<p>SSC 2026が更新したレビューでは、血漿交換の4 RCTで短期（28〜30日）死亡のRRは0.64（95%CI 0.46〜0.89、low）でした<span class="src vault">SSC2026</span>。それでも反対の提案になったのは、最も効果の大きい初期の試験が20年以上前のもので、長期死亡では利益が消える手法が多いためです<span class="src vault">SSC2026</span>。</p>
+<details class="rd-ev" open><summary>根拠を見る（表15：敗血症へのTPEの研究）</summary>
+<div class="tablewrap">
+<table class="wide">
+<caption>表15｜敗血症へのTPEの主な研究 — <span class="ok">観察研究とRCTの結果が食い違う</span></caption>
+<thead><tr><th>研究</th><th>対象・方法</th><th>結果</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>観察研究（歴史対照）</td><td>敗血症・多臓器不全</td><td>生存60〜87%対20〜40%</td><td>ASFA2023</td></tr>
+<tr><td>Busund 2002（最大のRCT）</td><td>敗血症性ショック</td><td>28日死亡33%対54%。交絡を調整するとp=0.07</td><td>ASFA2023</td></tr>
+<tr><td>Rimmer 2014（メタ解析）</td><td>敗血症</td><td>全体では有意差なし。成人のサブグループでのみ有意</td><td>ASFA2023</td></tr>
+<tr><td>Weng 2021（RCT 112例）</td><td>敗血症関連DIC。TPE・ヘパリン・SHAMの3群</td><td>TPEで28日累積生存が上がった</td><td>ICM2023 凝固</td></tr>
+<tr><td>Stahl 2020（31例）</td><td>発症12時間未満、ノルアドレナリン0.4 µg/kg/分超の早期敗血症性ショック</td><td>凝固促進因子の除去と抗凝固因子の補充で、凝固の不均衡が部分的に和らいだ</td><td>ICM2023 凝固</td></tr>
+<tr><td>SSC 2026のレビュー（4 RCT）</td><td>敗血症・敗血症性ショック</td><td>短期死亡RR 0.64（0.46〜0.89、low）</td><td>SSC2026</td></tr>
+</tbody>
+</table>
+</div>
+<p>敗血症の血液浄化の総説は、ASFAの分類をIII／2Bと書いています<span class="src vault">CritCare2024</span>。ASFA第9版の原文は2Aで、旧版を引いた可能性があります。どちらでもカテゴリーIIIで、ルーチンには使わない点は同じです<span class="src vault">ASFA2023</span>。</p>
+</details>
+<p>表現型で治療を選ぶ立場からは、マクロファージ活性化様症候群（MALS：フェリチン4,420 ng/mL超）、免疫血栓症、血小板減少関連多臓器不全（TAMOF）・TMAが、TPEを試す候補に挙がっています<span class="src vault">JIntensiveCare2026</span>。ただしこれは試験の対象を絞るための整理で、TPEの効果が示されたわけではありません。</p>
+
+<h3 id="rs-s9-2">9-2. その他の適応 — 過粘稠度・中毒・甲状腺クリーゼ・HIT・高トリグリセリド血症</h3>
+<p class="rd-lead">敗血症以外でICUが出会う適応は、症候性の過粘稠度症候群（I／1B）を除くとカテゴリーII〜IIIで、「その病態でTPEが何を抜くのか」を言えるときだけ考えます（表16）<span class="src vault">ASFA2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表16｜敗血症以外の個別判断の適応 — <span class="ok">TPEは主役ではなく、時間を稼ぐ補助</span></caption>
+<thead><tr><th>病態</th><th>ASFA</th><th>TPEを考える条件</th><th>主役の治療</th><th>出典</th></tr></thead>
+<tbody>
+<tr><td>過粘稠度症候群（Waldenström・骨髄腫）</td><td>I／1B</td><td>眼底出血・意識障害などの症状がある。1回で粘稠度が20〜30%下がる</td><td>化学療法・免疫療法をTPEの後すぐに</td><td>ASFA2023</td></tr>
+<tr><td>キノコ中毒（アマトキシン）</td><td>II／2C</td><td>曝露24〜48時間以内に始める</td><td>支持療法</td><td>ASFA2023</td></tr>
+<tr><td>薬物過量</td><td>III／2C</td><td>蛋白結合率80%超かつVd 0.2 L/kg未満の薬に限る</td><td>透析・血液吸着（EXTRIP）</td><td>ASFA2023</td></tr>
+<tr><td>甲状腺クリーゼ</td><td>II</td><td>従来治療が効かない、チオナミドが使えない（肝不全など）、チオナミドで重い副作用、急いで術前に安定させたい</td><td>チオナミド→1時間以上後にヨウ素</td><td>JCEM2026</td></tr>
+<tr><td>HIT</td><td>III／2C</td><td>重症例の初期治療、難治例、未分画ヘパリンを避けられない緊急心臓血管外科手術の術前</td><td>ヘパリン中止と治療用量の非ヘパリン抗凝固薬</td><td>ASFA2023・NEJM2015</td></tr>
+<tr><td>免疫チェックポイント阻害薬の重い有害事象</td><td>III（第9版で新設）</td><td>ステロイドで足りないとき</td><td>ステロイド</td><td>ICM2025</td></tr>
+<tr><td>高トリグリセリド血症による膵炎</td><td>III</td><td>TGを早く下げたいとき。通常1回でTGが約67%下がるが、転帰への影響は不明</td><td>インスリン静注（TGを下げるが同じく転帰への影響は不明）</td><td>BMJ2020</td></tr>
+<tr><td>HBV関連クリオグロブリン血症性血管炎</td><td>—</td><td>症状のある血管炎でクリオグロブリン500 mg/dL超（KDIGOは試みを推奨）</td><td>抗ウイルス薬</td><td>CJASN2022</td></tr>
+<tr><td>抗MDA5抗体陽性皮膚筋炎の急速進行性間質性肺炎</td><td>—</td><td>併用免疫抑制で抵抗性のとき（生存の改善と関連した報告）</td><td>ステロイド＋免疫抑制薬の併用</td><td>JClinMed2024</td></tr>
+</tbody>
+</table>
+</div>
+<p>HITの抗凝固の選び方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s4">抗凝固・VTE予防・HIT</a>、甲状腺クリーゼの薬物治療は<a href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s5">血糖管理・DKA・内分泌緊急症</a>にあります。HITでは、心肺バイパス前のTPEで抗体が陰性化しても、7日以内に新たな血栓イベントが出た報告があります<span class="src vault">ASFA2023</span>。</p>
+<div class="box warn">
+<span class="label">注意 — 中毒のTPEは「薬の性質」で決まる</span>
+<p>透析は蛋白に結合していない薬しか抜けませんが、TPEは結合型ごと抜けます。そのためTPEが意味をもつのは、蛋白結合率が高く、分布容積が小さく血管内にとどまる薬です<span class="src vault">ASFA2023</span><span class="src vault">CritCare2026</span>。α1酸性糖蛋白（AAG）に強く結合する薬（イミプラミン・プロプラノロール・クロルプロマジンなど）では、置換液を血漿にします<span class="src vault">ASFA2023</span>。</p>
+</div>
+</section>
+
+<section class="rd">
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="s10"><span class="no">§10</span>落とし穴 — 待ちすぎ、抜きすぎ、抜けたものの見落とし</h2>
+
+<p>TPEの失敗は3つの型に分かれます。始めるべきときに待つ、量や回数を誤る、一緒に抜けたもの（薬・Ca・凝固因子）を見落とす、です。最後に、依頼と引き継ぎで書く項目をまとめます。</p>
+
+<h3 id="rs-s10-1">10-1. 待ちすぎ — TTPを「DICだろう」と見る、検査の結果を待つ</h3>
+<p class="rd-lead">TPEで最も取り返しがつかないのは開始の遅れで、TTPを敗血症性DICとして数日見ること、ADAMTS13や自己抗体の結果を待つことが典型です<span class="src vault">CritCare2018</span><span class="src vault">ASFA2023</span>。</p>
+<ul>
+<li>凝固と血圧でDICとTMAを分け、TMAならADAMTS13の結果を待たずにTPEを始める（§6-2）<span class="src vault">CritCare2018</span></li>
+<li>GBSは診断が遅れやすく、24時間以内に治療を始められたのは半数だった（§7-1）<span class="src vault">JNeurolSci2022</span></li>
+<li>抗GBM病のDAHは低い閾値で始める。Crが上がってからでは腎は戻りにくい（§8-1）<span class="src vault">ASFA2023</span></li>
+</ul>
+
+<h3 id="rs-s10-2">10-2. 量と回数の誤り — 少なすぎる交換、TPEだけで終わる治療</h3>
+<p class="rd-lead">1.0倍未満の交換は珍しくなく、免疫抑制を並べずにTPEだけで終えると、抗体は血管外から戻り、産生も続いてリバウンドします<span class="src vault">CritCare2026</span><span class="src vault">ASFA2023</span>。</p>
+<ul>
+<li>ドイツの三次病院の約1,000件では、45%のTPEが推定血漿量の1.0倍未満だった（§2-2）<span class="src vault">CritCare2026</span></li>
+<li>ANCA関連血管炎に、PEXIVAS以前の感覚でTPEをルーチンに足す（§8-2）<span class="src vault">ASFA2023</span></li>
+<li>カテゴリーだけを見て「Iだから強い根拠がある」と考える。グレードも読む（§5-2）<span class="src vault">ASFA2023</span></li>
+</ul>
+
+<h3 id="rs-s10-3">10-3. 抜けたものの見落とし — 薬・Ca・凝固因子・INR</h3>
+<p class="rd-lead">TPEの日の合併症の多くは、一緒に抜けたものと、入れたクエン酸から起きます。投与時刻とTPEの開始時刻を1行に並べ、施行後に凝固とイオン化Caを測れば大半は防げます<span class="src vault">CritCare2026</span><span class="src vault">ASFA2023</span>。</p>
+<div class="rd-dodont">
+<div class="rd-do"><p class="rd-dd-h">やる</p><ul>
+<li>薬の投与はTPEの後に寄せ、TPE中の点滴は止めておく（§4-2）</li>
+<li>クエン酸ではイオン化Caを測り、肝不全ではCaの持続投与を前提にする（§3-2）</li>
+<li>アルブミン置換が続く日はフィブリノゲンを追う（§3-1）</li>
+</ul></div>
+<div class="rd-dont"><p class="rd-dd-h">やらない</p><ul>
+<li>IVIGを入れた直後にTPEをして、IVIGを捨てる</li>
+<li>急性肝不全で、FFP置換後のINRの改善を「肝の回復」と読む</li>
+<li>敗血症の初回抗菌薬を、TPEの準備のために遅らせる</li>
+</ul></div>
+</div>
+<p class="rd-note">出典は§3・§4の各節<span class="src vault">CritCare2026</span><span class="src vault">JHEPRep2024</span><span class="src vault">ASFA2023</span>。</p>
+
+<h3 id="rs-s10-4">10-4. 依頼と申し送り — 6項目を書き、終了の基準を最初に決める</h3>
+<p class="rd-lead">ASFAが挙げる6項目（適応・併存症と併用薬・技術的事項・回数と頻度・終了の基準・タイミングと場所）は、そのまま依頼と申し送りの骨格になります<span class="src vault">ASFA2023</span>。</p>
+<div class="rd-check">
+<p class="rd-check-h">TPEを依頼するときに書くこと</p>
+<ol>
+<li>適応：診断・重症度・その疾患のカテゴリーとグレード</li>
+<li>併存症と併用薬：抜ける薬、IVIG・リツキシマブの予定、肝不全・出血傾向</li>
+<li>技術的事項：処理量（推定血漿量の何倍か）・置換液・抗凝固・アクセス</li>
+<li>回数と頻度：連日か隔日か、何回の予定か</li>
+<li>終了の基準：臨床と検査で何を見て止めるか（TTPなら血小板15万/µL以上とLDH正常が2〜3日）</li>
+<li>タイミングと場所：今すぐか数日以内か、ICUで行うか</li>
+</ol>
+</div>
+<p class="rd-note">終了の基準を最初に書いておくと、「いつまで続けるか」を毎日議論し直さずに済みます<span class="src vault">ASFA2023</span>。</p>
+</section>
+
+<p class="top"><a href="#top">▲ 先頭へ</a></p>
+
+<h2 id="refs">主要文献</h2>
+<p style="font-size:.9rem;color:var(--muted)">本文中の［ ］は出典です（ガイドライン・原著論文・総説）。文献はガイドラインと総論、TTP・TMA、神経疾患、肺腎症候群、肝不全、敗血症、その他の適応の順に並べています。</p>
+<ol class="refs">
+<li>Connelly-Smith L, et al. Guidelines on the Use of Therapeutic Apheresis in Clinical Practice – Evidence-Based Approach from the Writing Committee of the American Society for Apheresis: The Ninth Special Issue. J Clin Apher. 2023;38(2):77-278. doi:10.1002/jca.22043</li>
+<li>Bauer PR, Ostermann M, Russell L, Robba C, David S, Ferreyro BL, et al; Nine-I Investigators. Plasma exchange in the intensive care unit: a narrative review. Intensive Care Med. 2022;48(10). doi:10.1007/s00134-022-06793-z</li>
+<li>Nachtigall MB, Schmidt JJ, Scherneck S, Flechtner J, David S, Kielstein JT; EXCHANGE-2 study group. Dosing of anti-infective drugs in patients undergoing therapeutic plasma exchange – considerations for practical application: a narrative review. Crit Care. 2026. doi:10.1186/s13054-026-06306-0</li>
+<li>Villa G, et al. Nomenclature for renal replacement therapy and blood purification techniques in critically ill patients: practical applications. Crit Care. 2016. doi:10.1186/s13054-016-1456-5</li>
+<li>Use of extracorporeal blood purification therapies in sepsis: the current paradigm, available evidence, and future perspectives. Crit Care. 2024. doi:10.1186/s13054-024-05220-7</li>
+<li>Azoulay E, Bauer PR, Mariotte E, Russell L, Knoebl P, Martin-Loeches I, et al; Nine-i Investigators. Expert statement on the ICU management of patients with thrombotic thrombocytopenic purpura. Intensive Care Med. 2019;45:1518-1539. doi:10.1007/s00134-019-05736-5</li>
+<li>Thrombocytopenia in the ICU: disseminated intravascular coagulation and thrombotic microangiopathies—what intensivists need to know. Crit Care. 2018. doi:10.1186/s13054-018-2073-2</li>
+<li>Magnesium sulphate in patients with thrombotic thrombocytopenic purpura (MAGMAT): a randomised, double-blind, superiority trial. Intensive Care Med. 2023. doi:10.1007/s00134-023-07178-6</li>
+<li>Rock GA, et al. Comparison of plasma exchange with plasma infusion in the treatment of thrombotic thrombocytopenic purpura. N Engl J Med. 1991;325:393-397.</li>
+<li>Scully M, et al. Caplacizumab treatment for acquired thrombotic thrombocytopenic purpura (HERCULES). N Engl J Med. 2019;380:335-346.</li>
+<li>Heparin-Induced Thrombocytopenia (Clinical Practice). N Engl J Med. 2015. doi:10.1056/NEJMcp1411910</li>
+<li>Tumor Lysis Syndrome (Review Article). N Engl J Med. 2025. doi:10.1056/NEJMra2300923</li>
+<li>Leonhard SE, et al. Diagnosis and management of Guillain–Barré syndrome in ten steps. Nat Rev Neurol. 2019;15:671-683.</li>
+<li>Plasma Exchange/Sandoglobulin Guillain-Barré Syndrome Trial Group. Randomised trial of plasma exchange, intravenous immunoglobulin, and combined treatments in Guillain-Barré syndrome. Lancet. 1997;349:225-230.</li>
+<li>Kenan G, Armon C, et al. ギラン・バレー症候群の診断と治療開始の遅れ（単施設100例の後ろ向き研究）. J Neurol Sci. 2022.</li>
+<li>Evaluation and management of dyspnea as the dominant presenting feature in neuromuscular disorders (AANEM). Muscle Nerve. 2024. doi:10.1002/mus.28243</li>
+<li>Autoimmune Encephalitis in Acute Care—Pathology, Diagnosis, and Management. Adv Sci. 2026. doi:10.1002/advs.202519049</li>
+<li>Extreme delta brush EEG pattern in anti-NMDA receptor encephalitis. QJM. 2026. doi:10.1093/qjmed/hcag049</li>
+<li>Antiseizure medication dosing and monitoring in the intensive care unit: a practical narrative review. Intensive Care Med. 2026. doi:10.1007/s00134-026-08550-y</li>
+<li>Walsh M, et al. Plasma exchange and glucocorticoids in severe ANCA-associated vasculitis (PEXIVAS). N Engl J Med. 2020;382:622-631.</li>
+<li>Diffuse Alveolar Hemorrhage. Chest. 2010. doi:10.1378/chest.08-2084</li>
+<li>Berman DJ, Knibbs N, Friedman L, Rocco M. Postpartum hemoptysis as presenting sign of longstanding vasculitis. Int J Obstet Anesth. 2018.</li>
+<li>Acute respiratory distress mimickers: a practical approach for intensivists. Intensive Care Med. 2026. doi:10.1007/s00134-026-08496-1</li>
+<li>Larsen FS, Schmidt LE, Bernsmeier C, et al. High-volume plasma exchange in patients with acute liver failure: an open randomised controlled trial. J Hepatol. 2016;64:69-78.</li>
+<li>Maiwall R, Bajpai M, Singh A, et al. Standard-volume plasma exchange improves outcomes in patients with acute liver failure: a randomized controlled trial. Clin Gastroenterol Hepatol. 2022;20:e831-e854.</li>
+<li>Acute liver failure: A practical update. JHEP Rep. 2024. doi:10.1016/j.jhepr.2024.101131</li>
+<li>Maiwall R, Bajpai M, Pasupuleti SSR, et al. Pre-emptive initiation of continuous renal replacement therapy in patients with acute liver failure with cerebral edema improves outcomes: a randomized controlled trial. Aliment Pharmacol Ther. 2026. doi:10.1111/apt.70794</li>
+<li>Liver intensive care for the general intensivist. Anaesthesia. 2023. doi:10.1111/anae.15956</li>
+<li>Acute-on-chronic liver failure (ACLF): the 'Kyoto Consensus'—steps from Asia. Hepatol Int. 2025. doi:10.1007/s12072-024-10773-4</li>
+<li>Acute-on-chronic liver failure: consensus recommendations of the Asian Pacific association for the study of the liver (APASL): an update. Hepatol Int. 2019. doi:10.1007/s12072-019-09946-3</li>
+<li>Intensive care management of acute-on-chronic liver failure. Intensive Care Med. 2023. doi:10.1007/s00134-023-07149-x</li>
+<li>Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026. Crit Care Med. 2026. doi:10.1097/CCM.0000000000007075</li>
+<li>How to manage coagulopathies in critically ill patients. Intensive Care Med. 2023. doi:10.1007/s00134-023-06980-6</li>
+<li>Update on sepsis treatment. J Intensive Care. 2026. doi:10.1186/s40560-026-00898-z</li>
+<li>Approach to the patient with thyroid storm. J Clin Endocrinol Metab. 2026. doi:10.1210/clinem/dgag054</li>
+<li>Life-threatening immune-related adverse events in the intensive care unit: a narrative review. Intensive Care Med. 2025. doi:10.1007/s00134-025-08155-x</li>
+<li>高トリグリセリド血症と急性膵炎のマネジメント（臨床トピック）. BMJ. 2020.</li>
+<li>Acute Kidney Injury in Patients with Liver Disease. Clin J Am Soc Nephrol. 2022;17(11):1674.</li>
+<li>The Management of Interstitial Lung Disease in the ICU: A Comprehensive Review. J Clin Med. 2024;13(22):6657.</li>
+</ol>
+
+</main><script id="rs-tools-js">
+(function(){
+  var cp=document.getElementById('rs-copy');
+  if(cp){cp.addEventListener('click',function(){
+    // ==公開URLは固定==。ローカル（file://）で開いても正しいリンクが取れるようにする
+    var t=cp.getAttribute('data-url'), old='🔗 リンクをコピー';
+    function done(){cp.textContent='✓ コピーしました';setTimeout(function(){cp.textContent=old;},1800);}
+    function fallback(){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly','');
+        ta.style.cssText='position:fixed;top:-9999px';
+        document.body.appendChild(ta); ta.select();
+        var ok=document.execCommand('copy'); document.body.removeChild(ta);
+        if(ok){done();return;}
+      }catch(e){}
+      window.prompt('このURLをコピーしてください', t);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,fallback);
+    }else{fallback();}
+  });}
+  var pd=document.getElementById('rs-pdf');
+  if(pd){pd.addEventListener('click',function(){
+    // 折りたたみがあれば開いてから印刷（印刷で中身が欠けるのを防ぐ）
+    [].slice.call(document.querySelectorAll('details')).forEach(function(d){d.open=true;});
+    window.print();
+  });}
+})();
+</script><script id="rs-tpl-js">
+(function(){
+  [].slice.call(document.querySelectorAll('.tpl-h .cp')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.dataset.tpl); if(!pre) return;
+      var t=pre.innerText, old=b.textContent;
+      function done(){b.textContent='✓ コピーしました'; b.classList.add('done');
+        setTimeout(function(){b.textContent=old; b.classList.remove('done');},1800);}
+      function fb(){
+        try{ var ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly','');
+          ta.style.cssText='position:fixed;top:-9999px'; document.body.appendChild(ta); ta.select();
+          var ok=document.execCommand('copy'); document.body.removeChild(ta); if(ok){done();return;} }catch(e){}
+        window.prompt('この内容をコピーしてください', t);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+  });
+})();
+</script><button id="rs-top" aria-label="先頭へ">↑</button>
+<script id="rs-js">
+(function(){
+  var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),
+      burger=document.getElementById('rs-burger'), nav=document.getElementById('rs-nav'),
+      inp=document.getElementById('rs-search'), hits=document.getElementById('rs-hits'),
+      bar=document.getElementById('rs-progress'), top=document.getElementById('rs-top'),
+      cur=document.getElementById('rs-cur');
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));})
+                 .filter(Boolean);
+
+  function close(){ side.classList.remove('open'); }
+  burger && burger.addEventListener('click',function(){ side.classList.toggle('open'); });
+  scrim && scrim.addEventListener('click',close);
+  nav.addEventListener('click',function(e){ if(e.target.tagName==='A' && window.innerWidth<=1000) close(); });
+
+  // scroll-spy ＋ 進捗 ＋ 現在地表示
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(h>0?(y/h*100):0)+'%';
+      top.style.display = y>500 ? 'block' : 'none';
+      var idx=0;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=90) idx=i; }
+      links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+      if(cur && heads[idx]) cur.textContent=heads[idx].textContent.trim();
+      var on=nav.querySelector('a.on');
+      if(on && on.offsetTop < nav.scrollTop) nav.scrollTop = on.offsetTop-60;
+      if(on && on.offsetTop > nav.scrollTop+nav.clientHeight-40) nav.scrollTop = on.offsetTop-nav.clientHeight+80;
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // インクリメンタル検索（本文をハイライトし、目次も絞る）
+  var main=document.querySelector('main'), timer=null;
+  function clearMarks(){
+    main.querySelectorAll('mark.rs-mk').forEach(function(m){
+      var p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+    });
+  }
+  function search(q){
+    clearMarks();
+    links.forEach(function(a){ a.classList.remove('hit'); a.style.display=''; });
+    if(!q){ hits.textContent=''; return; }
+    var lc=q.toLowerCase(), n=0, first=null;
+    var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,{acceptNode:function(nd){
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var t=nd.parentNode.tagName;
+      if(t==='SCRIPT'||t==='STYLE') return NodeFilter.FILTER_REJECT;
+      return nd.nodeValue.toLowerCase().indexOf(lc)>=0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+    var targets=[],nd;
+    while((nd=w.nextNode())) targets.push(nd);
+    targets.forEach(function(node){
+      var s=node.nodeValue, low=s.toLowerCase(), frag=document.createDocumentFragment(), i=0, j;
+      while((j=low.indexOf(lc,i))>=0){
+        if(j>i) frag.appendChild(document.createTextNode(s.slice(i,j)));
+        var mk=document.createElement('mark'); mk.className='rs-mk'; mk.textContent=s.substr(j,q.length);
+        frag.appendChild(mk); if(!first) first=mk; n++; i=j+q.length;
+      }
+      if(i<s.length) frag.appendChild(document.createTextNode(s.slice(i)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    // 目次側: 該当セクションだけ残す
+    links.forEach(function(a,i){
+      var el=heads[i]; if(!el) return;
+      var stop=heads[i+1], has=false, cur2=el;
+      while(cur2 && cur2!==stop && !(stop && cur2.contains && cur2.contains(stop))){
+        if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
+        if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
+        cur2=cur2.nextElementSibling;
+      }
+      a.classList.toggle('hit',has); a.style.display = has ? '' : 'none';
+    });
+    hits.textContent = n ? (n+' 件 — Enterで先頭へ') : '該当なし';
+    inp._first=first;
+  }
+  inp.addEventListener('input',function(){
+    clearTimeout(timer); var q=inp.value.trim();
+    timer=setTimeout(function(){ search(q); },160);
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && inp._first){ inp._first.scrollIntoView({block:'center'}); }
+    if(e.key==='Escape'){ inp.value=''; search(''); }
+  });
+  // "/" で検索にフォーカス
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/' && document.activeElement!==inp){ e.preventDefault(); side.classList.add('open'); inp.focus(); }
+  });
+  top.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // 表を横スクロール容器で包む
+  [].slice.call(main.querySelectorAll('table')).forEach(function(t){
+    if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
+    var d=document.createElement('div'); d.className='rs-tw';
+    t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+<script id="rd-js">
+(function(){
+  window.addEventListener('beforeprint',function(){
+    [].slice.call(document.querySelectorAll('details.rd-ev')).forEach(function(d){d.open=true;});
+  });
+})();
+</script>
+<script id="mo-js">
+// resident motion (resident-motion.js) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+// 手引き：resident-motion-guide.md。体裁は resident-motion.css。クラス・データ属性は mo- で始める。
+// ・スクロールで画面に入ったら1回だけ動いて止まる。動き終わった図には「↻ もう一度」を出す
+// ・動きを減らす設定・印刷・PDF（Headless Chrome）・JSが無い環境では何もしない＝HTMLのまま（最終状態）
+// ・HTMLは最終状態で書く。JSは「最初の状態に戻してから最終状態まで動かす」だけで、最後は必ず元のHTMLに戻す
+// ・点検用：window.RESMO_TEST = {seek: 秒} を先に置くと、全部の図をその時刻で止めて表示する
+(function () {
+  'use strict';
+  var D = document, R = D.documentElement, W = window;
+  var TEST = W.RESMO_TEST || null;
+  function mm(q) { return !!(W.matchMedia && W.matchMedia(q).matches); }
+  var STATIC = !TEST && (mm('(prefers-reduced-motion: reduce)') || mm('print') ||
+    /HeadlessChrome/.test(navigator.userAgent) || navigator.webdriver ||
+    !('IntersectionObserver' in W) || !W.requestAnimationFrame || !W.CSS || !CSS.supports('animation-delay', 'calc(1s - 1s)'));
+  if (STATIC) return;
+
+  var NS = 'http://www.w3.org/2000/svg', UID = 0;
+  function Q(s, r) { return [].slice.call((r || D).querySelectorAll(s)); }
+  function q(s, r) { return (r || D).querySelector(s); }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+  function easeIO(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function E(tag, attrs, parent) {
+    var e = D.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var DUR = { fade: .45, rise: .55, pop: .5, slide: .5, slider: .5, stamp: .45, growx: .45, growy: .35, growu: .6, draw: .8, ring: 1, line: 0,
+              barx: .5, dotp: .45, wipel: .8 };
+
+  // ================= 場面（scene）：図の中の要素を時刻つきで並べる =================
+  var FIGS = [];
+  function Fig(root, stagger) {
+    this.root = root; this.scenes = []; this.stagger = stagger || .45;
+    root.classList.add('mo-fig'); FIGS.push(this);
+    var f = this, b = D.createElement('button');
+    b.type = 'button'; b.className = 'mo-replay'; b.textContent = '↻ もう一度';
+    b.setAttribute('aria-label', 'この図の動きをもう一度再生');
+    b.addEventListener('click', function () { f.replay(); });
+    root.appendChild(b); this.btn = b;
+  }
+  Fig.prototype.check = function () {
+    var done = this.scenes.every(function (s) { return s.state === 2; });
+    this.root.classList.toggle('mo-end', done);
+  };
+  Fig.prototype.offsetOf = function (sc) {   // 横に並んだ場面は順番にずらす（縦に並べば同時）
+    var top = sc.trigger.getBoundingClientRect().top, k = 0;
+    for (var i = 0; i < this.scenes.length && this.scenes[i] !== sc; i++) {
+      if (Math.abs(this.scenes[i].trigger.getBoundingClientRect().top - top) < 40) k++;
+    }
+    return k * this.stagger;
+  };
+  Fig.prototype.replay = function () {
+    var f = this; f.root.classList.remove('mo-end');
+    f.scenes.forEach(function (s) { s.play(f.offsetOf(s)); });
+  };
+  Fig.prototype.undo = function () {        // 部品の組み立てに失敗したら、手を付けずに元のHTMLへ戻す
+    this.scenes.forEach(function (s) { s.state = 2; s.clean(); });
+    if (this.btn.parentNode) this.btn.parentNode.removeChild(this.btn);
+    this.root.classList.remove('mo-fig');
+  };
+
+  function Scene(fig, trigger) {
+    this.fig = fig; this.trigger = trigger || fig.root;
+    this.els = []; this.tracks = []; this.total = 0; this.state = 0; this.raf = 0;
+    fig.scenes.push(this);
+  }
+  // 要素を1つ（または配列）登録する。kind: fade / rise / pop / slide / slider / stamp / growx / growy / draw / ring / line
+  //   growu＝SVGの棒が下から伸びる／barx・dotp＝HTMLの棒と点（transform を持つ要素でも使える scale プロパティで動かす）／wipel＝右から左へ拭き出す
+  Scene.prototype.el = function (el, kind, d, t, step) {
+    var s = this;
+    if (!el) return s;
+    if (el.nodeType !== 1) { [].forEach.call(el, function (e, k) { s.el(e, kind, d + k * (step || 0), t); }); return s; }
+    if (el._moS === s) return s;   // 同じ要素を2回登録しない（先に登録した動きを使う）
+    el._moS = s;
+    var svg = el instanceof SVGElement;
+    if (svg && el.hasAttribute('transform') && /rise|pop|slide|stamp|grow/.test(kind)) kind = 'fade';
+    if (kind === 'draw') {
+      var dash = W.getComputedStyle(el).strokeDasharray;
+      if (!svg || el.hasAttribute('marker-end') || el.hasAttribute('marker-start') || (dash && dash !== 'none')) kind = 'fade';
+      else el.setAttribute('pathLength', '1');
+    }
+    var dur = t || DUR[kind];
+    s.els.push({ el: el, kind: kind, d: d, t: dur });
+    s.total = Math.max(s.total, d + dur);
+    return s;
+  };
+  // JSで動かすもの（波形の掃引・粒・数字・ボンベ）。fn(p) は p=0〜1。setup で部品を作り、end で消す
+  Scene.prototype.track = function (t0, dur, fn, setup, end) {
+    this.tracks.push({ t0: t0, dur: dur, fn: fn, setup: setup, end: end, live: false });
+    this.total = Math.max(this.total, t0 + dur);
+    return this;
+  };
+  Scene.prototype.render = function (t) {
+    this.tracks.forEach(function (k) {
+      if (!k.live && k.setup) { k.setup(); }
+      k.live = true; k.fn(clamp((t - k.t0) / k.dur), t);
+    });
+  };
+  Scene.prototype.prime = function (off) {
+    this.els.forEach(function (o) {
+      var c = o.el.classList;
+      c.remove('mo-go'); c.add('mo-x', 'mo-' + o.kind, 'mo-pre');
+      o.el.style.setProperty('--d', o.d + 's');
+      o.el.style.setProperty('--mo-t', o.t + 's');
+      o.el.style.setProperty('--mo-o', (off || 0) + 's');
+    });
+  };
+  Scene.prototype.reset = function () { this.prime(0); this.render(0); this.state = 0; };
+  Scene.prototype.go = function () {
+    void this.fig.root.offsetWidth;
+    this.els.forEach(function (o) { o.el.classList.remove('mo-pre'); o.el.classList.add('mo-go'); });
+  };
+  Scene.prototype.play = function (off) {
+    var s = this; off = off || 0;
+    cancelAnimationFrame(s.raf); s.state = 1; s.fig.check();
+    s.prime(off); s.render(-off); s.go();
+    var t0 = performance.now();
+    function fr(now) {
+      var t = (now - t0) / 1000 - off;
+      s.render(t);
+      if (t < s.total + .05) s.raf = requestAnimationFrame(fr); else s.finish();
+    }
+    s.raf = requestAnimationFrame(fr);
+  };
+  Scene.prototype.seek = function (t, off) {   // 点検用：時刻 t で止める
+    this.prime(off); this.go(); this.render(t - (off || 0)); this.state = 1;
+  };
+  Scene.prototype.clean = function () {
+    this.els.forEach(function (o) {
+      o.el.classList.remove('mo-go', 'mo-pre');
+      o.el.style.removeProperty('--mo-o');
+    });
+    this.tracks.forEach(function (k) { if (k.live && k.end) k.end(); k.live = false; });
+  };
+  Scene.prototype.finish = function () {
+    cancelAnimationFrame(this.raf);
+    if (this.state === 2) return;
+    this.render(1e6); this.clean(); this.state = 2; this.fig.check();
+  };
+
+  // ================= 部品 =================
+  // 数字のカウントアップ：要素の最初の文字列の中の数字だけを 0 から数える。最後は必ず元の文字列に戻す
+  function counter(el) {
+    var node = null;
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var n = el.childNodes[i];
+      if (n.nodeType === 3 && /\d/.test(n.nodeValue)) { node = n; break; }
+    }
+    if (!node) return null;
+    var raw = node.nodeValue, parts = raw.split(/(\d+(?:\.\d+)?)/), nums = [];
+    for (var j = 1; j < parts.length; j += 2) {
+      var dec = (parts[j].split('.')[1] || '').length, v = parseFloat(parts[j]);
+      if (v.toFixed(dec) !== parts[j]) return null;     // 0埋めなど、数え直すと形が変わる数字は数えない
+      nums.push({ i: j, v: v, dec: dec });
+    }
+    return {
+      set: function (p) {
+        if (p >= 1) { node.nodeValue = raw; return; }
+        var e = easeOut(p), out = parts.slice();
+        nums.forEach(function (o) { out[o.i] = (o.v * e).toFixed(o.dec); });
+        node.nodeValue = out.join('');
+      },
+      done: function () { node.nodeValue = raw; }
+    };
+  }
+  function countTrack(s, el, t0, dur) {
+    var C = counter(el); if (!C) return;
+    var inl = W.getComputedStyle(el).display === 'inline';
+    s.track(t0, dur || .9, function (p) { C.set(p); }, function () {
+      if (inl) { el.classList.add('mo-cnt'); el.style.minWidth = el.getBoundingClientRect().width + 'px'; }
+    }, function () { C.done(); el.style.minWidth = ''; el.classList.remove('mo-cnt'); });
+  }
+
+  // 波形を時間軸に沿って左から描く（モニターの掃引）。点線のカーソルと先端の点は描き終わると消える
+  function sweep(s, svg, waves, t0, dur, fills) {
+    fills = fills || [];
+    if (!waves.length) return;
+    var bb = null;
+    waves.forEach(function (w) {
+      var b = w.getBBox();
+      bb = bb ? { x0: Math.min(bb.x0, b.x), x1: Math.max(bb.x1, b.x + b.width), y0: Math.min(bb.y0, b.y), y1: Math.max(bb.y1, b.y + b.height) }
+              : { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height };
+    });
+    var id = 'mo-clip-' + (++UID), defs = q('defs', svg) || E('defs', {}, svg);
+    var cp = E('clipPath', { id: id }, defs);
+    var rect = E('rect', { x: bb.x0 - 6, y: -9999, width: 0, height: 99999 }, cp);
+    var cur = null, tips = [], samples = null;
+    function sample() {   // 各波形の (x, y) を道のり順に拾い、x からその時点の y を引けるようにする
+      samples = waves.map(function (w) {
+        var L = w.getTotalLength(), n = Math.max(60, Math.min(600, Math.round(L / 2))), xs = [], ys = [], mx = -1e9;
+        for (var i = 0; i <= n; i++) {
+          var pt = w.getPointAtLength(L * i / n);
+          mx = Math.max(mx, pt.x); xs.push(mx); ys.push(pt.y);
+        }
+        return { xs: xs, ys: ys, a: xs[0], b: mx };
+      });
+    }
+    function yAt(sm, x) {
+      var lo = 0, hi = sm.xs.length - 1;
+      while (lo < hi) { var mid = (lo + hi + 1) >> 1; if (sm.xs[mid] <= x) lo = mid; else hi = mid - 1; }
+      return sm.ys[lo];
+    }
+    s.track(t0, dur, function (p) {
+      var x = bb.x0 + (bb.x1 - bb.x0) * p;
+      rect.setAttribute('width', p > 0 ? Math.max(0, x - bb.x0 + 6) : 0);
+      var on = p > 0 && p < 1;
+      cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.style.opacity = on ? '' : 0;
+      tips.forEach(function (c, k) {   // 線の始まりより左・終わりより右では先端の点を出さない（線が途中から始まるグラフ）
+        var sm = samples[k], inside = x >= sm.a - 1 && x <= sm.b + 1;
+        c.setAttribute('cx', x); c.setAttribute('cy', yAt(sm, x)); c.style.opacity = on && inside ? '' : 0;
+      });
+    }, function () {
+      if (!samples) sample();
+      waves.concat(fills).forEach(function (w) { w.setAttribute('clip-path', 'url(#' + id + ')'); });
+      cur = E('line', { 'class': 'mo-cur', y1: bb.y0 - 10, y2: bb.y1 + 10 }, svg);
+      tips = waves.map(function () { return E('circle', { 'class': 'mo-tip', r: 5.5 }, svg); });
+    }, function () {
+      waves.concat(fills).forEach(function (w) { w.removeAttribute('clip-path'); });
+      if (cur) cur.remove();
+      tips.forEach(function (c) { c.remove(); }); tips = [];
+    });
+  }
+
+  // 画像の上の印（data-mo-sign="左,上,幅,高さ;…" ％）。1回だけ脈打つ
+  function rings(img) {
+    var spec = img.getAttribute('data-mo-sign'); if (!spec) return [];
+    var wrap = img.parentNode;
+    if (!wrap.classList.contains('mo-imgwrap')) {
+      wrap = D.createElement('span'); wrap.className = 'mo-imgwrap';
+      img.parentNode.insertBefore(wrap, img); wrap.appendChild(img);
+      var mw = img.style.maxWidth; if (mw) { wrap.style.maxWidth = mw; wrap.style.margin = img.style.margin; }
+    }
+    var tone = img.getAttribute('data-mo-sign-tone');
+    return spec.split(';').map(function (b) {
+      var v = b.split(',').map(parseFloat), r = D.createElement('span'), pad = 1.2;
+      r.className = 'mo-ring' + (tone ? ' is-' + tone : ''); r.setAttribute('aria-hidden', 'true');
+      r.style.left = (v[0] - pad) + '%'; r.style.top = (v[1] - pad * 1.6) + '%';
+      r.style.width = (v[2] + 2 * pad) + '%'; r.style.height = (v[3] + 3.2 * pad) + '%';
+      wrap.appendChild(r);
+      return r;
+    });
+  }
+
+  // ================= 図の型ごとの動き =================
+  var RECIPES = {};
+
+  // 冒頭の導入パネル：見出し → 圧の波形が描かれる → 6枚が順に → 数字が数え上がる
+  RECIPES.intro = function (root) {
+    var F = new Fig(root), s = new Scene(F);
+    s.el(q('.mo-ip-k', root), 'fade', 0, .4).el(q('.mo-ip-h', root), 'slide', .08, .6);
+    s.el(q('.mo-ip-wave path', root), 'draw', .1, 1.5);
+    Q('.mo-ip-t', root).forEach(function (t, k) {
+      var d = .32 + k * .09;
+      s.el(t, 'rise', d, .55);
+      Q('[data-mo-count]', t).forEach(function (c) { countTrack(s, c, d + .1, .9); });
+      Q('.mo-ip-pop', t).forEach(function (e, j) { s.el(e, 'pop', d + .25 + j * .2, .45); });
+    });
+    s.el(q('.mo-ip-n', root), 'fade', 1.3, .5);
+  };
+
+  // 波形（.nf-wave を含む SVG）：軸 → 閾値 → 波形を時間軸に沿って描く → 注記
+  RECIPES.wave = function (fig) {
+    var F = new Fig(fig, .55), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('.nf-wave', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      s.el(Q('.nf-axis, .nf-tick, .nf-grid, .nf-zero', svg), 'fade', .1, .4);
+      s.el(Q('text.nf-ts, text.nf-t:not(.nf-tb)', svg), 'fade', .14, .4);
+      s.el(Q('.nf-thr', svg), 'fade', .35, .45);
+      var T0 = .45, TD = 1.4;
+      sweep(s, svg, Q('.nf-wave', svg), T0, TD);
+      var ann = Q('.nf-guide, .nf-dim, .nf-sa, .nf-sd, text.nf-tb', svg).filter(function (e) { return e.getAttribute('opacity') !== '0'; });
+      ann.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', T0 + TD + .02 + k * .1, .42); });
+    });
+    tail(last, fig);
+  };
+
+  // 図の下の凡例・注記・説明カード：最後の場面の終わりに続けて出す
+  function tail(s, fig, gap) {
+    if (!s) return;
+    var t = s.total + (gap || .05);
+    Q('.nf-callouts > *', fig).forEach(function (c, k) { s.el(c, 'rise', t + k * .18, .5); });
+    s.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot, :scope > .nf > .nf-band', fig), 'fade', t + .1, .45);
+  }
+
+  // 物の流れの模式図（svg.nf-draw）：左から右へ順に組み上がる。太い管があれば粒が流れ、
+  // 管の途中から出る矢印（意図的リーク）に沿って一部の粒が外へ抜ける。赤い矢印（意図しない漏れ）は最後
+  RECIPES.circuit = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), svg = q('svg.nf-draw', fig);
+    var vb = svg.viewBox.baseVal, X0 = vb.x, XW = vb.width || 1, SPAN = 1.7;
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var tubes = kids.filter(function (e) { return e.tagName === 'path' && parseFloat(e.getAttribute('stroke-width')) >= 14; });
+    var reds = kids.filter(function (e) { return e.classList.contains('nf-sd'); });
+    var flow = tubes.length ? tubes[tubes.length - 1] : null;
+    var exits = [];
+    function xd(e) { var b = e.getBBox(); return .1 + (b.x - X0) / XW * SPAN; }
+    kids.forEach(function (e) {
+      if (reds.indexOf(e) >= 0) return;
+      if (tubes.indexOf(e) >= 0) { s.el(e, 'draw', .12, .9); return; }
+      var big = /aL|aX/.test(e.getAttribute('marker-end') || '');
+      if (big && flow) exits.push(e);
+      s.el(e, e.tagName === 'circle' ? 'pop' : 'fade', xd(e) + (big ? .25 : 0), big ? .55 : .42);
+    });
+    var tEnd = .1 + SPAN + .25;
+    reds.forEach(function (e, k) { s.el(e, 'pop', tEnd + k * .08, .45); });
+    var labs = Q('.nf-labels > *', fig), acc = 0;
+    var cols = (getComputedStyle(q('.nf-labels', fig) || fig).gridTemplateColumns || '').split(' ').map(parseFloat);
+    var tot = cols.reduce(function (a, b) { return a + (b || 0); }, 0) || 1;
+    labs.forEach(function (l, k) {
+      var c = cols[k] || tot / labs.length, mid = (acc + c / 2) / tot; acc += c;
+      s.el(l, 'rise', .1 + mid * SPAN + (k === labs.length - 1 && reds.length ? .5 : 0), .5);
+    });
+    if (flow) particles(s, svg, flow, exits, .5, 2.6);
+    tail(s, fig, .1);
+  };
+  function particles(s, svg, tube, exits, t0, dur) {
+    var N = 16, g = null, dots = [], L = 0, portAt = [];
+    function at(path, f) { return path.getPointAtLength(path.getTotalLength() * clamp(f)); }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / .95;                        // 管を流れる時間 0.95 秒
+        var x, y, op = 1;
+        if (u <= 0) { o.c.style.opacity = 0; return; }
+        if (o.exit && u * L >= o.s0) {                       // ポートで外へ抜ける
+          var v = (u * L - o.s0) / (L * .45); var pt = at(o.exit, v); x = pt.x; y = pt.y; op = 1 - clamp((v - .55) / .45);
+        } else {
+          var pt2 = at(tube, u); x = pt2.x; y = pt2.y; op = o.exit ? 1 : 1 - clamp((u - .85) / .15);
+        }
+        if (p >= 1) op = 0;
+        o.c.setAttribute('cx', x); o.c.setAttribute('cy', y); o.c.style.opacity = Math.max(0, op);
+      });
+    }, function () {
+      L = tube.getTotalLength();
+      portAt = exits.map(function (e) {                      // 抜け口の始点に最も近い管の位置
+        var a = e.getPointAtLength(0), best = 0, bd = 1e9;
+        for (var i = 0; i <= 200; i++) { var pt = tube.getPointAtLength(L * i / 200), dd = (pt.x - a.x) * (pt.x - a.x) + (pt.y - a.y) * (pt.y - a.y); if (dd < bd) { bd = dd; best = L * i / 200; } }
+        return bd < 40 * 40 ? best : -1;
+      });
+      g = E('g', { 'aria-hidden': 'true' }, svg);
+      for (var k = 0; k < N; k++) {
+        var ex = (k % 2 === 1 && exits.length) ? k % (exits.length * 2) >> 1 : -1;
+        if (ex >= 0 && portAt[ex] < 0) ex = -1;
+        dots.push({ c: E('circle', { 'class': 'mo-pt', r: 4.5 }, g), exit: ex >= 0 ? exits[ex] : null, s0: ex >= 0 ? portAt[ex] : 0 });
+      }
+    }, function () { if (g) g.remove(); dots = []; });
+  }
+
+  // 判断の流れ（.nf-flow）：根 → 幹が伸びる → 群 → カード → 結論帯
+  RECIPES.flow = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    flowSeq(s, q('.nf-flow', fig), 0);
+    tail(s, fig);
+  };
+  // 判断の流れの中身を時刻 t0 から並べ、終わりの時刻を返す（流れ図の中・手順の鎖の下でも使う）
+  function flowSeq(s, fl, t0) {
+    s.el(q(':scope > .nf-join', fl), 'fade', t0, .3);
+    s.el(q('.nf-root', fl), 'pop', t0, .45);
+    s.el(q('.nf-groups', fl), 'line', t0 + .55, .35);
+    var t = t0 + .75;
+    Q('.nf-group', fl).forEach(function (g) {
+      s.el(g, 'rise', t, .5); s.el(q('.nf-gh', g), 'fade', t + .12, .4);
+      Q('.nf-card', g).forEach(function (c, j) {
+        var d = t + .2 + j * .14; s.el(c, 'rise', d, .5);
+        s.el(Q('.nf-chip.is-fill', c), 'pop', d + .28, .45);
+      });
+      t += .3 + Q('.nf-card', g).length * .14;
+    });
+    var band = q('.nf-band', fl);
+    if (band) { s.el(band, 'slide', t + .1, .55); t += .6; }
+    return t;
+  }
+
+  // 対応表（.nf-map）：条件 → 矢印が伸びる → 対応、を1行ずつ
+  RECIPES.map = function (fig) {
+    var F = new Fig(fig), s = new Scene(F);
+    mapSeq(s, q('.nf-map', fig), 0);
+    tail(s, fig);
+  };
+  function mapSeq(s, mp, t0) {
+    var t = t0;
+    [].forEach.call(mp.children, function (c) {
+      if (c.classList.contains('nf-sec')) { if (t > t0) t += .2; s.el(c, 'fade', t, .4); t += .12; }
+      else if (c.classList.contains('nf-key')) s.el(c, 'slide', t, .45);
+      else if (c.classList.contains('nf-arr')) s.el(c, 'growx', t + .18, .35);
+      else if (c.classList.contains('nf-val')) { s.el(c, 'rise', t + .3, .5); t += .34; }
+    });
+    return t + .25;
+  }
+
+  // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
+  RECIPES.gallery = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), items = Q('.nf-item', fig);
+    items.forEach(function (it, k) {
+      s.el(it, 'pop', .05 + k * .12, .5);
+      s.el(q('.nf-flag', it), 'stamp', .05 + k * .12 + .4, .45);
+    });
+    tail(s, fig);
+  };
+
+  // 棒の比較（.nf-meters を含む模式図。P-SILI など）：輪郭 → 矢印 → 肺がふくらむ → 棒が伸びる
+  RECIPES.meters = function (fig) {
+    var F = new Fig(fig, .9), last = null;
+    Q('.nf-panel', fig).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45);
+      if (svg) {
+        s.el(Q('.nf-ln, .nf-fb', svg), 'fade', .08, .45);
+        s.el(Q('.nf-guide', svg), 'fade', .2, .45);
+        Q('.nf-fa', svg).forEach(function (e) {
+          if (e.hasAttribute('transform')) inflate(s, e, .4, .9); else s.el(e, 'pop', .3, .6);
+        });
+        s.el(Q('.nf-sa, .nf-sd', svg), 'fade', .55, .4, .05);
+        s.el(Q('.nf-soft-d', svg), 'pop', 1.15, .45, .08);
+      }
+      Q('.nf-meters dt', pn).forEach(function (dt, i) {
+        var d = .6 + i * .12, dd = dt.nextElementSibling;
+        s.el(dt, 'fade', d, .4);
+        if (dd) { s.el(q('.nf-bar', dd), 'growx', d + .08, .6); s.el(q('.nf-bv', dd), 'fade', d + .45, .4); }
+      });
+    });
+    tail(last, fig);
+  };
+  // transform 属性で拡大してある図形を、元の大きさから拡大後へ動かす（属性は最後に元へ戻す）
+  function inflate(s, el, t0, dur) {
+    var tf = el.getAttribute('transform') || '';
+    var m = tf.match(/translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)\s*scale\(\s*([-\d.]+)(?:[ ,]+([-\d.]+))?\s*\)/);
+    if (!m) { s.el(el, 'fade', t0, dur); return; }
+    var cx = +m[1], cy = +m[2], sx = +m[3], sy = +(m[4] || m[3]);
+    s.track(t0, dur, function (p) {
+      var e = easeIO(p), kx = (1 / sx) + (1 - 1 / sx) * e, ky = (1 / sy) + (1 - 1 / sy) * e;
+      el.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + (sx * kx).toFixed(4) + ' ' + (sy * ky).toFixed(4) + ') translate(' + (-cx) + ' ' + (-cy) + ')');
+    }, null, function () { el.setAttribute('transform', tf); });
+  }
+
+  // 画像に印のある図（img[data-mo-sign]）：パネルが現れ、赤丸のサインが1回だけ脈打つ。
+  // 印と説明カードの数が同じなら、番号の順にカードと一緒に出す（①〜④など）
+  RECIPES.signs = function (fig) {
+    var F = new Fig(fig, .12), imgs = Q('img[data-mo-sign]', fig), cards = Q('.nf-callouts > *', fig), last = null;
+    imgs.forEach(function (img) {
+      var pn = img.closest('.nf-panel') || img.parentNode, s = last = new Scene(F, pn), rs = rings(img);
+      if (pn.classList.contains('nf-panel')) {
+        s.el(pn, 'rise', 0, .5);
+      } else {
+        s.el(img.closest('.mo-imgwrap') || img, 'fade', 0, .45);
+      }
+      var sync = imgs.length === 1 && rs.length > 1 && cards.length === rs.length;
+      rs.forEach(function (r, j) {
+        var d = .45 + j * (sync ? .5 : .25);
+        s.el(r, 'ring', d, 1);
+        if (sync) s.el(cards[j], 'rise', d, .5);
+      });
+      if (sync) cards = [];
+    });
+    if (last) {
+      var t = last.total;
+      cards.forEach(function (c, k) { last.el(c, 'rise', t + k * .18, .5); });
+      last.el(Q(':scope > .nf > .nf-legend, :scope > .nf > .nf-foot', fig), 'fade', t + .1, .45);
+    }
+  };
+
+  // 階段・手順の鎖（.nf-steps）：図の中身を上から順に組み立てる。
+  // 上の模式図 → 前提の帯 → 段が1つずつ（段の間の矢印が先に）→ 下に続く流れ図・対応表 → 戻りの線（右から左へ）→ 説明カード → 注記
+  // アイコンの並ぶ鎖（装置の構成など）は、段が出そろう間にガスの粒が左から右へ流れる
+  RECIPES.steps = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), nf = q('.nf', fig), t = 0;
+    [].forEach.call(nf.children, function (c) {
+      var cl = c.classList;
+      if (c.tagName === 'IMG') { s.el(c, 'fade', t, .5); t += .2; }
+      else if (cl.contains('nf-steps')) t = stepsSeq(s, c, t);
+      else if (cl.contains('nf-flow')) t = flowSeq(s, c, t);
+      else if (cl.contains('nf-map')) t = mapSeq(s, c, t);
+      else if (cl.contains('nf-return')) { s.el(c, 'wipel', t + .05, .85); t += .95; }
+      else if (cl.contains('nf-band')) { s.el(c, 'slide', t + .05, .55); t += .45; }
+      else if (cl.contains('nf-sec')) { s.el(c, 'fade', t, .4); t += .2; }
+      else if (cl.contains('nf-callouts')) {
+        Q(':scope > *', c).forEach(function (x, k) { s.el(x, 'rise', t + k * .22, .5); });
+        t += c.children.length * .22 + .1;
+      }
+      else if (cl.contains('nf-foot') || cl.contains('nf-legend')) s.el(c, 'fade', t, .45);
+    });
+  };
+  function stepsSeq(s, el, t0) {
+    var st = Q(':scope > .nf-step', el), GAP = .3;
+    st.forEach(function (x, k) {
+      var d = t0 + .1 + k * GAP;
+      s.el(x, x.classList.contains('is-goal') ? 'pop' : 'rise', d, .5);
+      s.el(Q('.nf-chip.is-fill', x), 'pop', d + .3, .45, .1);
+    });
+    var end = t0 + .1 + st.length * GAP + .2;
+    if (el.classList.contains('is-chain') && Q('svg.nf-ico', el).length > 1) {
+      gas(s, el, t0 + .3, 2.3);
+      end = Math.max(end, t0 + 1.75);
+    }
+    return end;
+  }
+  // ガスの粒：アイコンの中心を順につないだ道を左（上）から流れる。段の並びが縦（スマホ）でも同じ道を測って流す
+  function gas(s, box, t0, dur) {
+    var N = 10, TRAVEL = 1.15, lay = null, dots = [], path = null;
+    function measure() {
+      var b = box.getBoundingClientRect(), p = [];
+      Q('svg.nf-ico', box).forEach(function (ic, k) {
+        var r = ic.getBoundingClientRect(), c = { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+        if (k === 0) p.push({ x: c.x - r.width / 2, y: c.y });
+        p.push(c);
+      });
+      var acc = [0];
+      for (var i = 1; i < p.length; i++) acc.push(acc[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+      path = { p: p, acc: acc, L: acc[acc.length - 1] || 1 };
+    }
+    function along(u) {
+      var d = clamp(u) * path.L, i = 1;
+      while (i < path.acc.length - 1 && path.acc[i] < d) i++;
+      var a = path.p[i - 1], b = path.p[i], seg = (path.acc[i] - path.acc[i - 1]) || 1, f = (d - path.acc[i - 1]) / seg;
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    }
+    s.track(t0, dur, function (p) {
+      var t = p * dur;
+      if (p > 0 && !path) measure();
+      dots.forEach(function (o, k) {
+        var u = (t - k * .12) / TRAVEL;
+        if (!path || u <= 0 || u >= 1 || p >= 1) { o.style.opacity = 0; return; }
+        var pt = along(easeIO(u));
+        o.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
+        o.style.opacity = u < .08 ? u / .08 : u > .86 ? (1 - u) / .14 : 1;
+      });
+    }, function () {
+      path = null;
+      lay = D.createElement('span'); lay.className = 'mo-gas-lay'; lay.setAttribute('aria-hidden', 'true');
+      for (var k = 0; k < N; k++) { var o = D.createElement('i'); o.className = 'mo-gas'; lay.appendChild(o); dots.push(o); }
+      box.appendChild(lay);
+    }, function () { if (lay) lay.remove(); lay = null; dots = []; path = null; });
+  }
+
+  // 頭文字カード（.nf-acro）：カードが1枚ずつ来て頭文字が弾む → 注意の札が押される
+  RECIPES.acro = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), cs = Q('.nf-ac', fig);
+    cs.forEach(function (c, k) {
+      var d = .05 + k * .17;
+      s.el(c, 'rise', d, .5); s.el(q('.nf-lt', c), 'pop', d + .12, .5);
+    });
+    s.el(Q('.nf-ac .nf-chip', fig), 'stamp', .05 + cs.length * .17 + .35, .45, .1);
+    tail(s, fig);
+  };
+
+  // 範囲の横棒（.nf-range）：行ごとに、名前 → 背景の帯 → 棒が左から伸びる → 点が置かれる → 値。
+  // 下の段（.is-dn＝実測）がある図は、上の段（設定）を全行に出してから、実測を上から順に重ねる
+  RECIPES.range = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), rg = q('.nf-range', fig), rows = Q('.nf-rt', rg), late = [];
+    var two = !!q('.nf-rt .is-dn', rg), ROW = .2;
+    s.el(Q('.nf-raxis, .nf-rat', rg), 'fade', 0, .45);
+    rows.forEach(function (rt, k) {
+      var d = .08 + k * ROW, j = 0;
+      s.el(rt.previousElementSibling, 'slide', d, .45);
+      s.el(Q('.nf-zone', rt), 'fade', d, .5);
+      [].forEach.call(rt.children, function (e) {
+        if (e.classList.contains('nf-zone')) return;
+        if (two && e.classList.contains('is-dn')) { late.push({ e: e, k: k }); return; }
+        var dot = e.classList.contains('nf-rd');
+        s.el(e, dot ? 'dotp' : 'barx', d + .15 + j * .14, dot ? .45 : .5); j++;
+      });
+      s.el(rt.nextElementSibling, 'fade', d + .2 + j * .14, .45);
+    });
+    var t2 = .08 + rows.length * ROW + .45, seen = {}, n = 0;
+    late.forEach(function (o) {
+      if (!(o.k in seen)) seen[o.k] = n++;
+      var dot = o.e.classList.contains('nf-rd');
+      s.el(o.e, dot ? 'dotp' : 'barx', t2 + seen[o.k] * .28 + (dot ? .3 : 0), dot ? .45 : .5);
+    });
+    tail(s, fig);
+  };
+
+  // グラフ（data-mo="chart"）：パネルごとに 見出し → 軸 → 閾値 → 線を時間軸に沿って描く。
+  // 点・棒・値・帯は、描く線がその x に来たときに出る。data-mo-at で個別に時刻を変える：
+  //   frame（軸と一緒）／thr（閾値と一緒）／x（その x に線が来たとき。軸の文字に見える値の札に付ける）／end（線を描き終えてから順に）／last（最後）
+  // 面（塗りのある大きな path）は線と一緒に左から現れる
+  // SVG に data-mo-panel="washout" があれば、死腔の洗い出し（たまったCO₂が流れに押し出される）として動かす
+  RECIPES.chart = function (fig) {
+    var F = new Fig(fig, .5), last = null;
+    Q('.nf-panel', fig).filter(function (p) { return q('svg', p); }).forEach(function (pn) {
+      var s = last = new Scene(F, pn), svg = q('svg', pn);
+      s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
+      if (svg.getAttribute('data-mo-panel') === 'washout') washout(s, svg); else chart(s, svg);
+    });
+    tail(last, fig);
+  };
+  function chart(s, svg) {
+    var T0 = .5, frame = [], thr = [], series = [], marks = [], ends = [], lasts = [], axes = [];
+    [].forEach.call(svg.children, function (e) {
+      var tag = e.tagName, cl = e.classList, at = e.getAttribute('data-mo-at');
+      if (tag === 'defs' || tag === 'title' || tag === 'desc') return;
+      if (cl.contains('nf-axis')) axes.push(e);
+      if (at === 'frame') frame.push(e); else if (at === 'thr') thr.push(e);
+      else if (at === 'end') ends.push(e); else if (at === 'last') lasts.push(e); else if (at === 'x') marks.push(e);
+      else if (/nf-(axis|grid|tick|zero)/.test(e.getAttribute('class') || '') || (tag === 'text' && !cl.contains('nf-tb'))) frame.push(e);
+      else if (cl.contains('nf-thr')) thr.push(e);
+      else if (isSeries(e)) series.push(e);
+      else marks.push(e);
+    });
+    function isSeries(e) {
+      var tag = e.tagName, cl = e.classList;
+      if (cl.contains('nf-sa') || cl.contains('nf-sd') || !/^(path|line|polyline)$/.test(tag)) return false;
+      if (tag === 'path' && W.getComputedStyle(e).fill !== 'none') return false;
+      return cl.contains('nf-wave') || e.getBBox().width >= 30;
+    }
+    function bx(list) {
+      var b = null;
+      list.forEach(function (e) { var r = e.getBBox(); b = b ? { a: Math.min(b.a, r.x), b: Math.max(b.b, r.x + r.width) } : { a: r.x, b: r.x + r.width }; });
+      return b;
+    }
+    var R = bx(series.length ? series : axes.length ? axes : marks) || { a: 0, b: 1 };
+    var TD = series.length ? 1.4 : 1.0, W0 = (R.b - R.a) || 1;
+    function tx(x) { return T0 + TD * clamp((x - R.a) / W0); }
+    s.el(frame, 'fade', .1, .4);
+    s.el(thr, 'fade', .3, .45);
+    var fills = marks.filter(function (e) { return /^(path|polygon)$/.test(e.tagName) && e.getBBox().width >= 30 && !/nf-zone/.test(e.getAttribute('class') || ''); });
+    if (series.length) { marks = marks.filter(function (e) { return fills.indexOf(e) < 0; }); sweep(s, svg, series, T0, TD, fills); }
+    var bars = [];
+    marks.forEach(function (e) {
+      var r = e.getBBox(), cx = r.x + r.width / 2, tag = e.tagName, cl = e.getAttribute('class') || '';
+      if (/nf-zone/.test(cl)) { s.el(e, 'fade', tx(cx) - .1, .6); return; }
+      if (tag === 'rect' && r.width >= 20 && r.width <= W0 * .4) { s.el(e, 'growu', tx(cx), .6); bars.push(r); return; }
+      if (tag === 'text') return;
+      if (r.width >= 30 && /^(path|polygon)$/.test(tag)) { s.el(e, 'fade', tx(r.x), .6); return; }
+      if ((tag === 'line' || tag === 'path') && r.height < 6 && r.width >= 12) { s.el(e, 'growx', tx(cx), .4); return; }
+      s.el(e, /^(circle|rect|ellipse|path|polygon)$/.test(tag) && r.width < 30 && r.height < 30 ? 'pop' : 'fade', tx(cx), .42);
+    });
+    marks.forEach(function (e) {   // 値の文字：棒の上の数字は棒と一緒に数え上がる。それ以外は点のあとに弾む
+      if (e.tagName !== 'text') return;
+      var r = e.getBBox(), cx = r.x + r.width / 2, bar = null;
+      bars.forEach(function (b) { if (cx >= b.x && cx <= b.x + b.width) bar = b; });
+      if (bar && /^\s*\d+(\.\d+)?\s*$/.test(e.textContent)) {
+        var C = counter(e), t = tx(bar.x + bar.width / 2);
+        s.el(e, 'fade', t, .3);
+        if (C) s.track(t, .6, function (p) { C.set(p); }, null, function () { C.done(); });
+        return;
+      }
+      s.el(e, 'pop', tx(cx) + .12, .42);
+    });
+    var t = T0 + TD + .15;
+    ends.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .12, e.tagName === 'rect' ? .6 : .42); });
+    if (ends.length) t += ends.length * .12 + .3;
+    lasts.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', t + k * .1, e.tagName === 'rect' ? .7 : .45); });
+  }
+  // 死腔の洗い出し：管の中にたまったCO₂の粒が、高流量の矢印が来ると右の出口へ押し出される（最後は元の位置）
+  function washout(s, svg) {
+    var kids = [].slice.call(svg.children).filter(function (e) { return e.tagName !== 'defs'; });
+    var co2 = kids.filter(function (e) { return e.tagName === 'circle'; });
+    var jet = kids.filter(function (e) { return /a[LX]\)/.test(e.getAttribute('marker-end') || ''); });
+    kids.forEach(function (e) {
+      if (co2.indexOf(e) >= 0 || jet.indexOf(e) >= 0) return;
+      var tb = e.tagName === 'text' && e.classList.contains('nf-tb');
+      s.el(e, tb ? 'pop' : 'fade', tb ? 1.75 : .1, .45);
+    });
+    s.el(jet, 'slide', .35, .6);
+    var home = co2.map(function (c) { return { x: +c.getAttribute('cx'), y: +c.getAttribute('cy') }; });
+    var minX = Math.min.apply(null, home.map(function (h) { return h.x; }));
+    s.track(.45, 1.5, function (p) {
+      co2.forEach(function (c, k) {
+        var h = home[k], f = easeIO(clamp((p * 1.5 - k * .04) / 1.05));
+        var x0 = 78 + (h.x - minX) * .55, y0 = 100 + (h.y - 100) * .55;   // 管の中に寄せた位置から
+        c.setAttribute('cx', (x0 + (h.x - x0) * f).toFixed(1)); c.setAttribute('cy', (y0 + (h.y - y0) * f).toFixed(1));
+      });
+    }, null, function () { co2.forEach(function (c, k) { c.setAttribute('cx', home[k].x); c.setAttribute('cy', home[k].y); }); });
+  }
+
+  // 既定：パネル → 説明カード → 注記
+  RECIPES.panels = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), pn = Q('.nf-panel', fig);
+    if (!pn.length) pn = Q(':scope > .nf > *:not(.nf-callouts):not(.nf-foot):not(.nf-legend)', fig);
+    s.el(pn, 'rise', 0, .55, .2);
+    tail(s, fig);
+  };
+
+  // ボンベの持ち時間（.mo-tank）：時間を縮め、2本が同時に減っていく。空になったところで持ち時間が出る
+  RECIPES.tank = function (fig) {
+    var F = new Fig(fig), s = new Scene(F), tk = q('.mo-tank', fig);
+    var MAX = parseFloat(tk.getAttribute('data-max') || 10), SPD = parseFloat(tk.getAttribute('data-sec-per-min') || .4);
+    var clock = q('[data-mo-clock]', tk), raw = clock ? clock.textContent : '';
+    var rows = Q('.mo-tk-row', tk).map(function (r) {
+      return { r: r, min: parseFloat(r.getAttribute('data-min')), gas: q('.mo-tk-gas', r), bar: q('.mo-tk-bar', r),
+               val: q('.mo-tk-val', r), track: q('.mo-tk-track', r), cur: null };
+    });
+    s.el(Q('.mo-tk-row', tk), 'rise', 0, .5, .15);
+    s.el(q('.mo-tk-head', tk), 'fade', 0, .4);
+    var T0 = .55, DUR2 = MAX * SPD;
+    s.track(T0, DUR2, function (p) {
+      var m = MAX * p;
+      if (clock) clock.textContent = p >= 1 ? raw : m.toFixed(1);
+      rows.forEach(function (o) {
+        var f = clamp(m / o.min);
+        o.gas.style.setProperty('--g', (1 - f).toFixed(4));
+        o.bar.style.transform = 'scaleX(' + f.toFixed(4) + ')';
+        o.val.style.opacity = f >= 1 ? 1 : 0;
+        o.val.style.transform = f >= 1 ? 'none' : 'scale(.8)';
+        o.cur.style.left = (m / MAX * 100) + '%';
+        o.cur.style.opacity = p > 0 && p < 1 ? '' : 0;
+      });
+    }, function () {
+      rows.forEach(function (o) {
+        o.val.style.transition = 'opacity .3s ease, transform .4s cubic-bezier(.3,1.5,.5,1)';
+        o.cur = D.createElement('span'); o.cur.className = 'mo-tk-cur'; o.track.appendChild(o.cur);
+      });
+    }, function () {
+      if (clock) clock.textContent = raw;
+      rows.forEach(function (o) {
+        o.gas.style.removeProperty('--g'); o.bar.style.transform = ''; o.val.style.opacity = ''; o.val.style.transform = '';
+        if (o.cur) o.cur.remove();
+      });
+    });
+    tail(s, fig);
+  };
+
+  function recipeFor(fig) {
+    var name = fig.getAttribute('data-mo');
+    if (name) return name;
+    if (fig.classList.contains('mo-ip')) return 'intro';
+    if (q('.mo-tank', fig)) return 'tank';
+    if (q('.nf-steps', fig)) return 'steps';        // 手順の鎖の下に流れ図・対応表が続く図もここで組み立てる
+    if (q('.nf-acro', fig)) return 'acro';
+    if (q('.nf-range', fig)) return 'range';
+    if (q('.nf-flow', fig)) return 'flow';
+    if (q('.nf-map', fig)) return 'map';
+    if (q('.nf-gallery', fig)) return 'gallery';
+    if (q('.nf-meters', fig)) return 'meters';
+    if (q('img[data-mo-sign]', fig)) return 'signs';
+    if (q('svg .nf-wave', fig)) return 'wave';
+    if (q('svg.nf-draw', fig)) return 'circuit';
+    return 'panels';
+  }
+
+  // ================= 本文の動き =================
+  function seen(nodes, cb, th) {
+    if (!nodes.length) return;
+    var io = new IntersectionObserver(function (es) {
+      es.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) { io.unobserve(e.target); cb(e.target, i); });
+    }, { threshold: th || 0, rootMargin: '0px 0px -8% 0px' });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+  var REVEAL = [];   // [要素, 見えたときの処理]
+
+  function body() {
+    var main = q('main'); if (!main) return;
+    // 1) かたまりが下から現れる
+    var blocks = Q('.box, .tablewrap, details.rd-ev, .rd-check, .rd-dodont:not(.is-choice), .rd-stats, .rd-points, figure.fig, .figread, .mo-ip', main)
+      .filter(function (el) { return !el.parentNode.closest('.mo-rv, figure.fig, .box'); });
+    blocks.forEach(function (el) { el.classList.add('mo-rv'); });
+    seen(blocks, function (el, i) { el.style.transitionDelay = Math.min(i * .06, .3) + 's'; el.classList.add('mo-in'); });
+    REVEAL.push(blocks);
+    // 2) 章見出し・節見出し
+    var hs = Q('.rd > h2, .rd > h3', main);
+    hs.forEach(function (h) { h.classList.add('mo-h'); });
+    seen(hs, function (h) { h.classList.add('mo-in'); }, .4);
+    REVEAL.push(hs);
+    // 3) 「この章のポイント」を1行ずつ
+    var pts = Q('.rd-points', main);
+    pts.forEach(function (b) {
+      Q('li, .rd-points-f', b).forEach(function (li, k) { li.classList.add('mo-li'); li.style.setProperty('--dd', (.2 + k * .14) + 's'); });
+    });
+    seen(pts, function (b) { Q('.mo-li', b).forEach(function (li) { li.classList.add('mo-in'); }); }, .3);
+    REVEAL.push(Q('.rd-points .mo-li', main));
+    // 4) 節頭の結論の一文にマーカー（出典タグは除く）
+    var leads = Q('.rd .rd-lead:not(.is-sub)', main), marks = [];
+    leads.forEach(function (p) {
+      var run = [];
+      function flush() {
+        if (!run.length) return;
+        var sp = D.createElement('span'); sp.className = 'mo-mark';
+        run[0].parentNode.insertBefore(sp, run[0]); run.forEach(function (n) { sp.appendChild(n); }); run = []; marks.push(sp);
+      }
+      [].slice.call(p.childNodes).forEach(function (n) { if (n.nodeType === 1 && n.classList.contains('src')) flush(); else run.push(n); });
+      flush();
+    });
+    seen(leads, function (p) { setTimeout(function () { Q('.mo-mark', p).forEach(function (m) { m.classList.add('mo-in'); }); }, 220); }, .9);
+    REVEAL.push(marks);
+    // 5) 表の行を順に（25行まで）
+    Q('table', main).forEach(function (tb) {
+      if (tb.closest('figure.fig')) return;
+      var rows = Q('tbody tr', tb); if (!rows.length || rows.length > 25) return;
+      rows.forEach(function (r) { r.classList.add('mo-row'); });
+      seen([tb], function () { rows.forEach(function (r, k) { r.style.transitionDelay = Math.min(.1 + k * .045, .9) + 's'; r.classList.add('mo-in'); }); });
+      REVEAL.push(rows);
+    });
+    // 6) 2択の囲み：左右から
+    var ch = Q('.rd-dodont.is-choice', main);
+    ch.forEach(function (c) { if (c.children[0]) c.children[0].classList.add('mo-cl'); if (c.children[1]) c.children[1].classList.add('mo-cr'); });
+    seen(ch, function (c) { c.classList.add('mo-in'); }, .25);
+    REVEAL.push(ch);
+    // 7) 数値チップのカウントアップ
+    var stats = Q('.rd-stats', main);
+    seen(stats, function (b) {
+      Q('.rd-stat', b).forEach(function (st, k) {
+        setTimeout(function () { st.classList.add('mo-in'); }, k * 120);
+        var v = q('.rd-stat-v', st), C = v && counter(v); if (!C) return;
+        var t0 = null, delay = 150 + k * 120;
+        C.set(0);
+        function fr(ts) { if (t0 === null) t0 = ts + delay; var p = clamp((ts - t0) / 900); C.set(p); if (p < 1) requestAnimationFrame(fr); }
+        requestAnimationFrame(fr);
+        FINAL.push(C.done);
+      });
+    }, .5);
+  }
+  var FINAL = [];
+
+  // ================= 読了バーの章の刻みと、目次の現在地 =================
+  function chrome() {
+    var hs = Q('main h2[id^="s"]');
+    if (hs.length && D.getElementById('rs-progress')) {
+      var box = D.createElement('div'); box.id = 'mo-ticks'; box.setAttribute('aria-hidden', 'true'); D.body.appendChild(box);
+      var marks = hs.map(function () { var i = D.createElement('i'); box.appendChild(i); return i; });
+      var fr = [];
+      var place = function () {
+        var max = R.scrollHeight - W.innerHeight;
+        fr = hs.map(function (h, k) {
+          var f = max > 0 ? clamp((h.getBoundingClientRect().top + W.pageYOffset - 90) / max) : 0;
+          marks[k].style.left = (f * 100) + '%'; return f;
+        });
+        mark();
+      };
+      var mark = function () {
+        var max = R.scrollHeight - W.innerHeight, f = max > 0 ? W.pageYOffset / max : 0;
+        marks.forEach(function (m, k) { m.classList.toggle('on', fr[k] <= f + .0005); });
+      };
+      W.addEventListener('scroll', mark, { passive: true });
+      W.addEventListener('resize', place);
+      W.addEventListener('load', place);
+      if (W.ResizeObserver) new ResizeObserver(function () { place(); }).observe(q('main'));
+      place();
+    }
+    var nav = D.getElementById('rs-nav');
+    if (nav) {
+      var ind = D.createElement('span'); ind.className = 'mo-navind'; ind.setAttribute('aria-hidden', 'true');
+      nav.insertBefore(ind, nav.firstChild);
+      var first = true, busy = false;
+      var upd = function () {
+        busy = false;
+        var a = q('a.on', nav);
+        if (!a || !a.offsetHeight) { ind.style.opacity = 0; return; }
+        if (first) ind.style.transition = 'none';
+        ind.style.height = a.offsetHeight + 'px';
+        ind.style.transform = 'translateY(' + a.offsetTop + 'px)';
+        ind.style.opacity = 1;
+        if (first) { void ind.offsetWidth; ind.style.transition = ''; first = false; }
+      };
+      W.addEventListener('scroll', function () {
+        if (busy) return; busy = true;
+        requestAnimationFrame(function () { requestAnimationFrame(upd); });   // 目次側の更新（rs-js）のあとに動かす
+      }, { passive: true });
+      W.addEventListener('resize', upd);
+      setTimeout(upd, 80);
+    }
+  }
+
+  // ================= 起動 =================
+  function finishAll() {
+    R.classList.add('mo-done');
+    FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.finish(); }); });
+    REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+    FINAL.forEach(function (fn) { try { fn(); } catch (e) {} });
+  }
+
+  function start() {
+    R.classList.add('mo-on');
+    var figs = Q('.mo-ip, main figure.fig').filter(function (f) { return f.getAttribute('data-mo') !== 'none'; });
+    figs.forEach(function (fig) {
+      var name = recipeFor(fig), n0 = FIGS.length;
+      if (!RECIPES[name]) return;
+      try {
+        RECIPES[name](fig);
+        for (var i = n0; i < FIGS.length; i++) FIGS[i].scenes.forEach(function (s) { s.reset(); });
+      } catch (err) {
+        for (var j = n0; j < FIGS.length; j++) FIGS[j].undo();
+        FIGS.length = n0;
+        if (W.console) console.warn('resident motion: ' + name + ' を飛ばしました', err);
+      }
+    });
+    body();
+    chrome();
+    W.addEventListener('beforeprint', finishAll);
+    W.ResMo = { figs: FIGS, finishAll: finishAll };
+
+    if (TEST && TEST.seek != null) {             // 点検：全部をその時刻で止める
+      R.classList.add('mo-paused');
+      R.style.setProperty('--mo-seek', TEST.seek + 's');
+      FIGS.forEach(function (f) { f.scenes.forEach(function (s) { s.seek(TEST.seek, f.offsetOf(s)); }); });
+      REVEAL.forEach(function (list) { list.forEach(function (el) { el.classList.add('mo-in'); }); });
+      return;
+    }
+    FIGS.forEach(function (f) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var sc = e.target._moScene;
+          if (!sc || sc.state !== 0 || !e.isIntersecting) return;
+          if (e.intersectionRatio >= .3 || e.intersectionRect.height >= W.innerHeight * .4) { io.unobserve(e.target); sc.play(f.offsetOf(sc)); }
+        });
+      }, { threshold: [0, .1, .2, .3, .5] });
+      f.scenes.forEach(function (s) { s.trigger._moScene = s; io.observe(s.trigger); });
+    });
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>VV-ECMO 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>VV-ECMO 実戦管理ガイド — 要約</h1>
+<p class="sub">解説「VV-ECMO 実戦管理ガイド」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師・臨床工学技士</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/#s4">詳しく</a></h2>
+<div class="three">
+<div><b>SaO₂は分数で決まる</b><span>ECMO流量÷心拍出量。典型は80〜90%で、低くても呼吸器を上げない・VAに変えない</span></div>
+<div><b>肺は休ませる</b><span>Pplat &lt; 25・駆動圧 ≤ 15・PEEP ≥ 10。目標に届かなければ回路側（血流量・sweep）で対応する</span></div>
+<div><b>CO₂を急に下げない</b><span>最初の24時間でexcess CO₂を50%超下げず、48〜72時間で正常化する</span></div>
+</div>
+
+<h2><span class="n">2</span>適応はEOLIA基準 — 「挿管から7日未満」を最初に聞く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/#s2">詳しく</a></h2>
+<ul>
+<li><b>前提3つすべて</b>：人工呼吸7日未満／FiO₂ ≥ 80%・VT 6 mL/kg PBW・PEEP ≥ 10で最適化済み／腹臥位と筋弛緩薬を試した</li>
+<li><b>生理学的基準のどれか1つ</b>：P/F &lt; 50が3時間超／P/F &lt; 80が6時間超／pH &lt; 7.25かつPaCO₂ ≥ 60が6時間超（呼吸数35/分まで上げたうえで）</li>
+<li><b>絶対禁忌は1つだけ</b>：脱カニュレーションまでに回復が見込めないこと。年齢・免疫抑制・人工呼吸7日超は相対禁忌で、BMI &gt; 40は禁忌ではない</li>
+<li><b>初日に家族へ</b>：「時間を区切った試行」として、無益性による中止の可能性を開始前に伝える。重症ARDSの院内死亡29〜43%、支持期間は多くが9〜14日</li>
+</ul>
+
+<h2><span class="n">3</span>早見表 — 指示簿に写す数値<a class="more" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/#quick">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>目標・範囲</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>血流量</td><td>酸素供給 ≥ 240 mL/m²/分（80 kg・Hb 12で約4 L/分）。導入時2 L/分から</td><td>上限はカニューレ径で5〜6。低流量は血栓を作る</td></tr>
+<tr><td>Sweep gas</td><td>導入時2 L/分から漸増、以後PaCO₂で調整</td><td>日常では0にしない（0は離脱試験だけ）</td></tr>
+<tr><td>FDO₂</td><td>1.0で開始し維持期も1.0</td><td>下げるのは離脱の第1段</td></tr>
+<tr><td>SaO₂／PaCO₂</td><td>80〜90%（前提つきで70%台も許容）／35〜45 mmHg</td><td>乳酸・心拍出量・Hbを並べて見る</td></tr>
+<tr><td>回路の圧</td><td>脱血圧 &gt; −100 mmHg／肺後圧 &lt; 300 mmHg</td><td>送血側SaO₂ &lt; 98%なら人工肺の異常</td></tr>
+<tr><td>抗凝固</td><td>ヘパリン20〜50 U/kg/時。ACT 180〜220秒、APTT正常の1.5〜2倍</td><td>ACTはトレンド、判断はAPTT。強さは両論あり</td></tr>
+<tr><td>Lung rest</td><td>Pplat &lt; 25・PEEP ≥ 10・呼吸回数4〜15・FiO₂ 30〜50%</td><td>VTの目標は置かない。ルーチンのリクルートメントはしない</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>低酸素・回路トラブルは「流量を上げない」から<a class="more" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/#s9">詳しく</a></h2>
+<div class="flow" role="img" aria-label="SaO2が上がらないとき、まず再循環を疑う。流量を上げるほど再循環が増え有効流量が減ることがある。原因はVO2増大、再循環、高心拍出、人工肺の機能低下、自己肺の悪化、Hb低値。呼吸器設定を上げない、VAに変えない">
+<div class="f-top">SaO₂が上がらない → 呼吸器を上げる前に、6つの原因を順に見る</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>まず再循環</b><ul><li>脱血側SO₂ &gt; 75%、SaO₂−脱血側SO₂ &lt; 10%なら疑う</li><li>流量を上げると有効流量がかえって減ることがある。先に落としてみて、カニューレの間隔と向きを見る</li></ul></div>
+<div class="f-col"><b>ほかの5つ</b><ul><li>VO₂増大（発熱・不穏・シバリング）・高心拍出</li><li>人工肺の機能低下・自己肺の悪化・Hb低値</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>呼吸器設定を上げない・VAに変えない</b>。PaCO₂が高ければsweepを、SaO₂が低ければ血流量と再循環を見る</div>
+</div>
+<ul>
+<li><b>回路の圧で場所を絞る</b>：脱血圧だけが大きな陰圧＝脱血不良（チャタリングの初手は回転数を下げる）／肺前後の差圧が開く＝人工肺の目詰まり／肺前も肺後も上がる＝送血側の閉塞</li>
+<li><b>VV-ECMO中の心停止は胸骨圧迫が要る</b>（VAとは逆）。ALSの前に回路を確かめる（空気混入・カニューレ抜去ならクランプ）</li>
+<li><b>自発呼吸が出たら測る</b>：P0.1・Pocc（7〜15 cmH₂Oが安全域）。努力が強ければ原因を潰し、次にsweepを上げる。鎮静を足すのは最後</li>
+</ul>
+
+<h2><span class="n">5</span>離脱は血流量を保ったままガスだけ切る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/vv-ecmo/#s12">詳しく</a></h2>
+<ul>
+<li><b>始めてよい条件</b>：FiO₂ ≤ 60%・PEEP ≤ 10・PaO₂ ≥ 70、VT ≤ 6 mL/kg PBW・Pplat ≤ 28・呼吸数 ≤ 28、胸部X線の改善。溢水は先に整える</li>
+<li><b>3段</b>：FDO₂を約20%刻みで0.21まで → sweepを0.5〜1 L/分刻みで1 L/分まで → sweep offで2〜3時間以上観察。血流量は一度も下げない</li>
+<li><b>判定</b>：sweep offでPaO₂ ≥ 70・PaCO₂とpHが許容範囲・呼吸努力が増えない、の3つがそろえば抜去へ</li>
+</ul>
+<ul class="chk">
+<li><b>夜間に</b>「PaCO₂がまだ高い」でsweepを上げない</li>
+<li><b>導入翌朝</b>のX線でカニューレ先端の位置と間隔を見る</li>
+<li><b>毎日</b>今日はどの相か（6相）をラウンドで決める</li>
+<li><b>抜去24時間後</b>にDVTを評価する</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ELSO 2021；ANZ 2026 GRADE GL；EOLIA；Crit Care 2026 6相；ICM 2026；JCM 2024；Medicina 2024；ELSO栄養 2026 ほか）。SaO₂の許容下限と抗凝固の強さは結論が出ていません。数値は本編の早見表と施設の手順で確かめてください。</p>
+</main>
+</body>
+</html>

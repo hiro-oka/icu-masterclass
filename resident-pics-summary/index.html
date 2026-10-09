@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PICSと退室後のフォロー 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>PICSとICU退室後のフォロー — 要約</h1>
+<p class="sub">解説「PICSとICU退室後のフォロー」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>入室の日から動いている</b><span>資源は在室中の上流（ABCDEF・浅い鎮静・せん妄予防）に置く。ただし「それで防げる」とは説明しない</span></div>
+<div><b>退室のときに測って渡す</b><span>MRC・握力・嚥下・向精神薬を書き、病棟へ4項目（リハビリ・離床・栄養・残るリスク）を手渡す</span></div>
+<div><b>足すより継ぐ</b><span>外来や専門役割を足すより途切れを埋める。短い評価を3・6・12か月に繰り返し、家族には接点を複数置く</span></div>
+</div>
+
+<h2><span class="n">2</span>PICSは傘 — 半年後も残る前提で退室を設計する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s1">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>領域</th><th>頻度の目安</th></tr></thead>
+<tbody>
+<tr><td>ICU関連筋力低下</td><td>人工呼吸患者の25〜75%。1年後も最大筋力は健常対照の約50%減</td></tr>
+<tr><td>抜管後嚥下障害</td><td>36〜44%、6か月後もなお23%</td></tr>
+<tr><td>新しい痛み</td><td>退室3か月で33.2%、最多は肩（42.2%）</td></tr>
+<tr><td>抑うつ・不安・PTSD</td><td>25〜46%・約30%・約20%。妄想的記憶は38.5%で、その約6割はせん妄と診断されていない</td></tr>
+<tr><td>家族（PICS-F）</td><td>家族の20〜60%。1か月で44.9%が離職、1年で36.7%が貯蓄を失う</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>長期の予後を最も決めるのは入室前の状態</b>：90日後のフレイルの最強の予測因子は発症前のCFS（aOR 2.03）。入室0〜24時間に家族から発症前の生活を聞いて書く</li>
+</ul>
+
+<h2><span class="n">3</span>ICUで防ぐ — 上流は必要条件だが十分条件ではない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s3">詳しく</a></h2>
+<ul>
+<li><b>ABCDEFバンドルは実施した分だけ効く</b>：遵守が高いほどせん妄・人工呼吸期間・再入室・院内死亡が減る（15,000人超）。認知の手当ての窓は入室から最初の48時間（深鎮静とベンゾジアゼピンを避ける）</li>
+<li><b>それでもPICSは消えない</b>：遵守97%どうしの比較で、12か月に動いたのはIADLとQOLだけ。認知・PTSD・生存は関連しなかった</li>
+<li><b>量を増やす設計は負けた</b>：高蛋白2.0 g/kg/日は180日QOLを悪化（PRECISe）、離床量2.75倍でも12か月まで差なし（EVER）。蛋白は1.3 g/kg/日を上限に、離床は時間ではなく到達段階で見る</li>
+</ul>
+
+<h2><span class="n">4</span>退室のときに測って書き、4項目を手渡す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="入室時に発症前の生活を聞き、在室中にせん妄と筋力と嚥下を測り、退室時に筋力と4項目を病棟へ渡し、退院時に向精神薬の中止計画を書く">
+<div class="f-top">入室0〜24時間：家族から発症前CFS・ADLを聞く（新規の障害と元からの障害を分ける唯一の手段）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>在室中</b><ul><li>毎シフトRASS→CAM-ICU、身体抑制の有無</li><li>協力できたらMRC sum score・握力</li><li>抜管直後に嚥下スクリーニング、陽性は言語聴覚士へ</li></ul></div>
+<div class="f-col"><b>退室時</b><ul><li>MRC 48未満はCIW、55以下は予後の閾値。握力（男11・女7 kg未満）も書く</li><li>病棟へ：リハビリ計画・離床目標・栄養目標・残るリスク</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>退院時</b>：ICUで始めた向精神薬に適応と中止計画を1行書く（新規処方の42.8%に裏づけ診断の記録なし）</div>
+<div class="f-bot">緊急ICU再入室（2.9%）の約半数は退室後5日以内で、院内死亡は3.8倍（JIPAD 69,594件）。病棟での見守りは最初の5日に集中させる</div>
+</div>
+
+<h2><span class="n">5</span>退室後は2段階で、3・6・12か月に繰り返す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s5">詳しく</a></h2>
+<div class="tw"><table class="row">
+<thead><tr><th>段</th><th>身体</th><th>認知</th><th>精神</th></tr></thead>
+<tbody>
+<tr><td>Step 1（全員・退院後3か月）</td><td>TUG＋握力</td><td>Mini-Cog＋ANT</td><td>PHQ-4＋GAD-2</td></tr>
+<tr><td>Step 2（陽性の領域だけ）</td><td>2MWT/6MWT＋SPPB</td><td>TMT A-B＋MoCA/MMSE</td><td>PHQ-8＋GAD-7＋IES-R/PCL-5</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>精神は1回の陰性で終えない</b>：敗血症生存者のPTSDの26%は後から発症する。「ICUで何が見えていたか」「新しい痛みは、肩は」を直接聞く</li>
+<li><b>優先するのは</b>入室前に自立していた60〜79歳、併存疾患が多い患者（FCI 2以上でのみリハビリでQOLが改善）</li>
+</ul>
+
+<h2><span class="n">6</span>「足す」より「継ぐ」<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s6">詳しく</a></h2>
+<ul>
+<li><b>単発の場や専門役割を足す型は陰性か有害</b>：ICUダイアリーは3か月PTSDを減らさず、退室後の多職種コンサルテーション（Suivi-Rea）は1年後の不良転帰を増やし（調整OR 1.49）、家族ナースの新設（FICUS）は全8アウトカムで差なし</li>
+<li><b>外来を置くなら</b>院内（身体・認知・精神）と地域をつなぐハブにする。予後改善は約束しない</li>
+</ul>
+
+<h2><span class="n">7</span>家族はPICS-Fの当事者<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s7">詳しく</a></h2>
+<ul class="chk">
+<li>①入室後数日以内に<b>家族のニーズ</b>を把握</li>
+<li>②退室時（死亡時）に<b>支援カード</b>を渡す</li>
+<li>③転棟後に<b>電話を1本</b>入れる</li>
+<li>④退院後3か月以内に<b>フォローの会話</b>（6か月IES-R −6.8）</li>
+<li>面会を開き<b>構造化した家族教育</b>と組む（1年時PTSD 30.5%→21%）</li>
+<li>遺族には<b>別建て</b>の支援（同じ伴走で悪化した）</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Singapore Med J 2026；Intensive Care Med 2024〜2026；Crit Care 2023・2026；Crit Care Med 2019・2026；Lancet 2024；日集中医誌 2025 ほか）。頻度は研究ごとに尺度と時点が違うので、本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HFNC 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>HFNC（高流量鼻カニュラ） — 要約</h1>
+<p class="sub">解説「HFNC（高流量鼻カニュラ）」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/#s2">詳しく</a></h2>
+<div class="three">
+<div><b>流量は薬の用量</b><span>流量は支持、FiO₂は目標SpO₂、温度は忍容で動かす。陽圧は口を閉じたときだけ</span></div>
+<div><b>低酸素はHFNC、高CO₂はNIV</b><span>低酸素で努力が残ればNIVか挿管へ。HFNCが減らすのは挿管で、死亡ではない</span></div>
+<div><b>始めると同時に基準を書く</b><span>挿管基準とROXの判定時刻（2・6・12時間）を開始時に指示に書く</span></div>
+</div>
+
+<h2><span class="n">2</span>流量が薬の用量 — 陽圧換気ではない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/#s2">詳しく</a></h2>
+<ul>
+<li><b>つまみは3つだけ</b>：流量30〜60 L/分（加温加湿）、FiO₂ 0.21〜1.0、温度。要は呼吸不全患者の吸気ピーク流量（30〜60 L/分以上）を満たすことで、呼吸数の低下はその帰結</li>
+<li><b>陽圧は口を閉じたときだけ</b>：60 L/分で閉口6.8 cmH₂O、開口0.8 cmH₂O。「口を閉じて鼻で呼吸してください」と伝え、眠って口が開く患者ではPEEP効果を期待しない</li>
+<li><b>CPAPやNIVの代わりではない</b>：設定値としてのPEEPも吸気の補助もない。「酸素化の障害か、換気の障害か」で方式を選ぶ</li>
+<li><b>「楽に見える」は努力が減った証拠ではない</b>：呼吸数とSpO₂がよくなっても、落ち着いた外見の下で強い吸気努力が続いていることがある</li>
+</ul>
+
+<h2><span class="n">3</span>低酸素はHFNC、高CO₂はNIV — 減らすのは挿管<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>病態・場面</th><th>使い方</th><th>根拠・注意</th></tr></thead>
+<tbody>
+<tr><td>de novo低酸素性</td><td>第一選択。30〜40 L/分で始め、10分以内に忍容できる最大（50〜60）へ。FiO₂ 1.0からSpO₂ 92〜96%へ</td><td>SOHO（1,110例）：挿管42.4%対48.4%、28日死亡14.6%対14.6%。最低48時間</td></tr>
+<tr><td>高CO₂血症（COPD）</td><td>NIVが先。HFNCはpH 7.25以上で、監視とNIVへの移行ができるときの次善。30前後から、SpO₂ 88〜92%</td><td>「初期30 L/分」を採った試験は無く、実測は忍容性で30前後</td></tr>
+<tr><td>挿管前</td><td>前酸素化はNIVが軸。P/F約120の重症ではHFNC 60 L/分を上乗せ</td><td>OPTINIV</td></tr>
+<tr><td>抜管後</td><td>低〜中リスクは予防的HFNCを24時間。高リスクは予防的NIV（1日12時間以上）＋休止中HFNC 50 L/分を48時間</td><td>低リスクで72時間再挿管4.9%対12.2%。HIGH-WEANで7日再挿管11.8%対18.2%</td></tr>
+<tr><td>続けてはいけない</td><td>呼吸停止の切迫・呼吸性アシドーシスを伴う高CO₂血症・心原性肺水腫</td><td>挿管かNIVを選ぶ</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>免疫不全は特別扱いしない</b>（同じプロトコル、挿管は予測スコアでなく臨床評価で）。<b>術後は対象を絞る</b>（心臓・胸部手術の高リスクか肥満）。<b>抜管後に悪化してからの救済は効果未確立</b>で、再挿管を判断する時刻を決める</li>
+<li><b>家族への説明</b>：「挿管を避けられる可能性は上がるが、生存率が上がる治療ではない」</li>
+</ul>
+
+<h2><span class="n">4</span>2・6・12時間のROXで判定し、挿管基準は開始時に書く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/#s6">詳しく</a></h2>
+<div class="flow" role="img" aria-label="開始と同時に挿管基準と判定時刻を書く。ROX指数をSpO2とFiO2の比を呼吸数で割って求め、2・6・12時間に測る。4.88以上なら挿管リスクが低い。失敗を示す値は2時間2.85未満、6時間3.47未満、12時間3.85未満">
+<div class="f-top">開始時：挿管基準と、血液ガス1時間・ROX 2・6・12時間の実時刻を指示に書く</div>
+<div class="f-arr">▼ ROX＝（SpO₂／FiO₂）÷呼吸数。例：SpO₂ 92%・FiO₂ 0.6・呼吸数28なら5.5</div>
+<div class="f-cols">
+<div class="f-col"><b>続けてよいサイン</b><ul><li>2・6・12時間で4.88以上なら挿管リスクが低い</li><li>単発の値より伸びているかを見る</li></ul></div>
+<div class="f-col"><b>挿管を議論するサイン</b><ul><li>2時間2.85未満・6時間3.47未満・12時間3.85未満</li><li>12時間で3.85〜4.88なら1〜2時間後に測り直す</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>基準を満たしたら時刻を待たずに挿管</b>。ROXは予測指標で、単独の挿管トリガーにしない</div>
+</div>
+<ul>
+<li><b>挿管基準の例（SOHO型）</b>：呼吸数 &gt; 40・呼吸筋疲労・pH &lt; 7.35・SpO₂ &lt; 92%またはP/F &lt; 100（FiO₂ 80%以上）のうち2項目以上、またはSpO₂ &lt; 80%の反復・心停止・循環不安定・意識低下のどれか1つ</li>
+<li><b>ROX以外の失敗のサイン</b>：酸素化も呼吸数も改善しない、胸腹部の非同調、全身的重症度の増加</li>
+</ul>
+
+<h2><span class="n">5</span>外し方・困ったとき・移動<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hfnc/#s7">詳しく</a></h2>
+<ul class="chk">
+<li><b>下げるのはFiO₂が先</b>、呼吸数25未満を確かめてから流量を下げる</li>
+<li><b>高リスクの抜管後</b>は24時間で機械的に外さない</li>
+<li><b>不快なら流量より先に温度</b>を下げる。困ったら口・流量・FiO₂・温度を見直す</li>
+<li><b>移動前にボンベの持ち時間</b>を計算（500 LでHFNC 50 L/分なら約10分）</li>
+</ul>
+<ul>
+<li><b>覚醒下腹臥位</b>を併用するなら1日8時間以上を目標に時間を記録する。<b>治療の上限</b>として使うなら、その意図をカルテに書く</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ATS 2026；ERS 2022；HFNC GL ICM 2020；SOHO NEJM 2026；FLORALI NEJM 2015；Roca AJRCCM 2019；Roca ICM 2024；Hernández JAMA 2016；HIGH-WEAN JAMA 2019；OPTINIV ICM 2016 ほか）。ROXの閾値は単一コホートの導出値なので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

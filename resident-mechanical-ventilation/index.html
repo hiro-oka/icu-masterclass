@@ -1204,6 +1204,15 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .nf-svg .vw-int{fill:var(--accent-ink,var(--accent)); font-weight:700}
 /* 日本語を文節で折り返す（対応ブラウザのみ。見出し・図・要点枠） */
 .rd > h2, .rd > h3, .rd-points li, .nf, .mo-ip, .box .label, .xl-card{word-break:auto-phrase}
+/* 冒頭パネル：本文へのリンクを2つ持つカード（div）。カード全体は透明なリンクで覆い、注記のリンクだけ前に出す */
+div.mo-ip-t{position:relative; display:flex; flex-direction:column; gap:.15rem; padding:.85rem 1rem .9rem; border-radius:12px; color:inherit;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:background .2s, border-color .2s}
+div.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,.55)}
+div.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-cover{position:absolute; inset:0; border-radius:12px; z-index:1}
+a.mo-ip-in{position:relative; z-index:2; color:#ffd59a; text-decoration:underline; text-underline-offset:2px}
+@media (max-width:460px){ div.mo-ip-t{padding:.7rem .75rem .75rem} }
+@media print{ div.mo-ip-t{background:var(--accent-soft, #e8f4fa) !important; border:0; padding:4pt 6pt} a.mo-ip-in{color:#8a5a00 !important} }
 /* /01 人工呼吸の基礎 */
 </style>
 </head>
@@ -1224,7 +1233,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="lv3" href="#rs-s3-2" title="3-2. Trigger — 立ち上がり直前のへこみがあれば患者、なければ時間">3-2. Triggerはへこみで</a>
 <a class="lv3" href="#rs-s3-3" title="3-3. Target — 圧を決めれば量が結果、量を決めれば圧が結果">3-3. Targetは圧か量か</a>
 <a class="lv3" href="#rs-s3-4" title="3-4. Termination — PSVは流量の低下で終わる。ETSの向きは直感と逆">3-4. TerminationとETS</a>
-<a class="lv3" href="#rs-s3-5" title="3-5. 最初の設定は仮の値 — VTは予測体重で6 mL/kg、Pplat 30未満・ΔP 15未満を守る">3-5. 最初の設定</a>
+<a class="lv3" href="#rs-s3-5" title="3-5. 最初の設定は仮の値 — VTは予測体重で正常肺6〜8 mL/kg、Pplat 30未満・ΔP 15未満を守る">3-5. 最初の設定</a>
 <a class="lv2" href="#s4" title="§4 グラフィックの見方 — ピーク圧は抵抗、プラトー圧は硬さ。運動方程式で3つに分けて読む">§4 グラフィックの見方</a>
 <a class="lv3" href="#rs-s4-1" title="4-1. 定義 — 運動方程式：画面の圧は「流す分」「膨らませる分」「PEEP」の和">4-1. 運動方程式</a>
 <a class="lv3" href="#rs-s4-2" title="4-2. 吸気ポーズで、ピーク圧とプラトー圧を分ける">4-2. 吸気ポーズ</a>
@@ -1281,18 +1290,18 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
 
-<section class="mo-ip" aria-label="人工呼吸の基礎 — 最初に押さえる6つの数字">
+<section class="mo-ip" aria-label="人工呼吸の基礎 — 最初に押さえる6つ">
 <svg class="mo-ip-wave" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 Q62.5,12 125,40 T250,40 T375,40 T500,40 T625,40 T750,40 T875,40 T1000,40"/></svg>
 <p class="mo-ip-k">ST. LUKE'S ICU ／ MECHANICAL VENTILATION</p>
-<p class="mo-ip-h">人工呼吸の基礎 — 最初に押さえる6つの数字</p>
-<p class="mo-ip-sub">大きな数字は国際的な推奨と主要研究（独墺瑞S3 2025・ARDS Network・ATS/CHEST 2017 ほか）。注釈は要点と出典</p>
+<p class="mo-ip-h">人工呼吸の基礎 — <span style="white-space:nowrap">最初に押さえる6つ</span></p>
+<p class="mo-ip-sub">数字は国際的な推奨と主要研究（ARDS Network・独墺瑞S3 2025・Amato 2015）、言葉は挿管から抜管までの覚え方</p>
 <div class="mo-ip-g">
-<a class="mo-ip-t" href="#rs-s3-5"><span class="mo-ip-l">一回換気量（mL/kg PBW）</span><span class="mo-ip-v"><span data-mo-count>6</span><small>（4〜8）</small></span><span class="mo-ip-s">身長と性別から計算した予測体重で決める。実体重は使わない</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ARDS Network・独墺瑞S3 2025</span></a>
+<div class="mo-ip-t"><a class="mo-ip-cover" href="#rs-s3-5" aria-label="一回換気量 — 本文3-5へ"></a><span class="mo-ip-l">一回換気量（mL/kg PBW）</span><span class="mo-ip-v is-long"><span data-mo-count>6〜8</span><small>正常肺</small></span><span class="mo-ip-s">身長と性別から計算した予測体重で決める。実体重は使わない</span><span class="mo-ip-x"><span class="mo-ip-xk">注</span><a class="mo-ip-in" href="#rs-s7-2"><span style="white-space:nowrap">ARDSは6（4〜8）</span> <span style="white-space:nowrap">→ §7</span></a></span></div>
 <a class="mo-ip-t" href="#rs-s4-2"><span class="mo-ip-l">プラトー圧（cmH₂O）</span><span class="mo-ip-v"><span data-mo-count>30</span><small>未満</small></span><span class="mo-ip-s">吸気ポーズで流量を止めて読む。ピーク圧ではない</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ARDS Network・独墺瑞S3 2025</span></a>
 <a class="mo-ip-t" href="#rs-s7-3"><span class="mo-ip-l">駆動圧 ΔP（cmH₂O）</span><span class="mo-ip-v"><span data-mo-count>15</span><small>未満</small></span><span class="mo-ip-s">プラトー圧 − 総PEEP。完全に受動の条件で測る</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>Amato 2015・Boyle ICM 2026。S3 2025の14以下と同じ線</span></a>
-<a class="mo-ip-t" href="#rs-s4-5"><span class="mo-ip-l">呼気終末ホールド（秒）</span><span class="mo-ip-v"><span data-mo-count>5</span><small>まで</small></span><span class="mo-ip-s">1呼吸ぶん閉じて、総PEEPと吸気努力を読む</span><span class="mo-ip-x"><span class="mo-ip-xk">要点</span>ダブルトリガーの型の鑑別にも使う（Dianti ICM 2020）</span></a>
-<a class="mo-ip-t" href="#rs-s8-2"><span class="mo-ip-l">SBT（分）</span><span class="mo-ip-v"><span data-mo-count>30</span></span><span class="mo-ip-s">PSV 5〜8 cmH₂Oで行う。Tピースで2時間かける必要はない</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ATS/CHEST 2017・Burns Crit Care 2017</span></a>
-<a class="mo-ip-t" href="#rs-s2-3"><span class="mo-ip-l">補助換気への切り替え（P/F）</span><span class="mo-ip-v"><span data-mo-count>150</span><small>超</small></span><span class="mo-ip-s">250まで待つと抜管成功が平均2.3日遅れた。PEEP 8以上なら200が目安</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>単施設の標的試験模倣。厳密な閾値ではない</span></a>
+<a class="mo-ip-t" href="#s1"><span class="mo-ip-l">挿管の適応</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">ABC-DO</span></span><span class="mo-ip-s">気道・呼吸・循環・意識（GCS＜8点）・その他（気道熱傷など）</span><span class="mo-ip-x"><span class="mo-ip-xk">要点</span>単一の閾値はない。抜管前の<span style="white-space:nowrap">ABC-Drs.</span>と対で覚える</span></a>
+<a class="mo-ip-t" href="#s3"><span class="mo-ip-l">モードの分解</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">3T's</span></span><span class="mo-ip-s">Trigger・Target・Terminationの組み合わせで、PCV・VCV・PSVが決まる</span><span class="mo-ip-x"><span class="mo-ip-xk">要点</span>圧を決めれば量が結果、量を決めれば圧が結果</span></a>
+<a class="mo-ip-t" href="#s8"><span class="mo-ip-l">抜管までの道筋</span><span class="mo-ip-v is-word"><span class="mo-ip-pop">SAT → SBT</span></span><span class="mo-ip-s">毎日、鎮静を止めて覚醒を、補助をほぼ外して呼吸を確かめ、通ったら<span style="white-space:nowrap">ABC-Drs.</span>で抜管</span><span class="mo-ip-x"><span class="mo-ip-xk">出典</span>ATS/CHEST 2017</span></a>
 </div>
 <p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
 </section>
@@ -1450,8 +1459,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>ETSはピーク吸気流量に対する割合で表され、数値を大きくすると、まだ流量が高いうちに吸気を切るため吸気時間は短くなります。数値を小さくすると流量がもっと落ちるまで待つため、吸気時間は長くなります<span class="src vault">Mojoli ICM2016</span>。触る前にこの向きを声に出して確かめると、変更が意図と逆に働く事故を防げます。</p>
 </div>
 
-<h3 id="rs-s3-5">3-5. 最初の設定は仮の値 — VTは予測体重で6 mL/kg、Pplat 30未満・ΔP 15未満を守る</h3>
-<p class="rd-lead">挿管直後は患者トリガーのVCVかPCVで、一回換気量を予測体重（PBW）あたり6（4〜8）mL/kg、I:E 1:2程度から始め、プラトー圧30 cmH₂O未満・ΔP 15 cmH₂O未満をモードによらない安全域として守ります（表3）<span class="src vault">S3 2025</span><span class="src ext">Amato NEJM2015</span><span class="src ext">Boyle ICM2026</span>。</p>
+<h3 id="rs-s3-5">3-5. 最初の設定は仮の値 — VTは予測体重で正常肺6〜8 mL/kg、Pplat 30未満・ΔP 15未満を守る</h3>
+<p class="rd-lead">挿管直後は患者トリガーのVCVかPCVで、一回換気量を予測体重（PBW）あたり、正常肺は6〜8 mL/kg（ARDSは6（4〜8）mL/kg、§7）、I:E 1:2程度から始め、プラトー圧30 cmH₂O未満・ΔP 15 cmH₂O未満をモードによらない安全域として守ります（表3）<span class="src vault">SOCCA2024</span><span class="src vault">S3 2025</span><span class="src ext">Amato NEJM2015</span><span class="src ext">Boyle ICM2026</span>。</p>
 <p style="text-align:center">男性のPBW（kg）＝ 50 ＋ 0.91 ×（身長cm − 152.4）<br>女性のPBW（kg）＝ 45.5 ＋ 0.91 ×（身長cm − 152.4）</p>
 <div class="rd-stats">
 <div class="rd-stat"><span class="rd-stat-v">380<small>mL前後</small></span><span class="rd-stat-k">身長170 cmの男性（PBW約64 kg）の6 mL/kg</span></div>
@@ -1463,7 +1472,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <thead><tr><th>項目</th><th>初期値の目安</th><th>調整の考え方</th></tr></thead>
 <tbody>
 <tr><td>モード</td><td>VCVまたはPCV（A/C）、患者トリガー</td><td>力学が不安定な超急性期は、圧を監視しやすいVCVも選択肢</td></tr>
-<tr><td>一回換気量</td><td>6（4〜8）mL/kg PBW</td><td>予測体重で計算する。ARDSでない肺でも6〜8 mL/kg PBW（合併症の資料の<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#rs-s5-2">5-2</a>）</td></tr>
+<tr><td>一回換気量</td><td>正常肺は6〜8 mL/kg PBW<span class="src vault">SOCCA2024</span></td><td>予測体重で計算する。ARDSは6（4〜8）mL/kg PBW（§7）<span class="src vault">S3 2025</span>。ARDSでない肺の根拠は合併症の資料の<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#rs-s5-2">5-2</a>）</td></tr>
 <tr><td>呼吸数</td><td>ガイドラインの推奨なし<span class="src vault">S3 2025</span></td><td>PaCO₂と時定数を見て調整。速くしすぎるとauto-PEEPの原因になる（§4-5）</td></tr>
 <tr><td>PEEP</td><td>5〜6 cmH₂Oから<span class="src vault">SOCCA2024</span></td><td>陽圧換気の開始直後に静脈還流が最も落ちるので、低めから漸増する（挿管の資料の<a href="https://hiro-oka.github.io/icu-masterclass/resident-airway/#rs-s8-2">8-2</a>）</td></tr>
 <tr><td>FiO₂</td><td>SpO₂ 92〜95%に収まる最小量<span class="src vault">SOCCA2024</span></td><td>挿管直後の100%のまま固定しない（§5-2）</td></tr>
@@ -1839,7 +1848,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s7-2">7-2. 古典的な肺保護換気は土台 — ただし3つの要素が抜けている</h3>
 <p class="rd-lead">古典的な肺保護換気は「VT 6 mL/kg PBW・FiO₂とPEEPの対応表による十分なPEEP・プラトー圧30 cmH₂O以下」で、ARMA試験（861例）では12 mL/kgに比べて院内死亡を39.8%から31.0%に下げました<span class="src ext">ARMA NEJM2000</span>。</p>
-<p>世界的に認められた土台ですが、3つの指標にはそれぞれ抜けている要素があります（表14）。</p>
+<p>ARDSの一回換気量は6（4〜8）mL/kg PBWです<span class="src vault">S3 2025</span>。世界的に認められた土台ですが、3つの指標にはそれぞれ抜けている要素があります（表14）。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表14｜古典的な肺保護換気の3つの限界 — <span class="ok">指標が見ているものと、見ていないもの</span></caption>

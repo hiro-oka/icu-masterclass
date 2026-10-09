@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>低ナトリウム血症 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>低ナトリウム血症 — 要約</h1>
+<p class="sub">解説「低ナトリウム血症」を当直で使う要点に絞った2ページ版。「詳しく」から本編へ移れます。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>入口はNa値より症状</b><span>重篤なら診断を待たずに3%食塩水で4〜6上げて止める。時間は「確実に急性」のときだけ使う</span></div>
+<div><b>上限と測る時刻を先に書く</b><span>24時間10・48時間18、ODS高リスクは任意の24時間8。上限は目標ではない</span></div>
+<div><b>原因を除いた日は測る日</b><span>過剰補正の主因は水利尿。原因は尿浸透圧と尿Naで読み、SIADは水制限が効くかを先に判定する</span></div>
+</div>
+
+<h2><span class="n">2</span>最初の1時間 — 症状で入口を決める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="血糖と血清浸透圧で非低張性を外し、神経症状の重さで分ける。重篤なら3%食塩水で4から6上げて止め、どの枝でも補正上限を守る">
+<div class="f-top">血糖と血清浸透圧で非低張性を外す。治療するのは275 mOsm/kg未満だけ</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>重篤（けいれん・昏睡・呼吸窮迫）</b><ul><li>3%食塩水100〜150 mLを10〜40分で、2〜3回まで</li><li>1〜2時間で4〜6上がったら止める。正常化を狙わない</li><li>末梢静脈でよい。各ボーラス後にNaを測る</li></ul></div>
+<div class="f-col"><b>中等度（嘔吐のない嘔気・頭痛・混乱）</b><ul><li>急性が確実、Na 110未満・急な低下・頭蓋内疾患・てんかんがあれば重篤と同じ</li><li>どれもなければ150 mLを1回入れ、診断を並行して進める</li><li>SAH・頭部外傷を伴えば、症状が軽くても緊急</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>どの枝でも上限を守る</b>：確実に48時間未満でなければ、24時間10・48時間18（高リスクは任意の24時間8）を超えない</div>
+<div class="f-bot">ボーラスと持続は過剰補正に差なし（SALSA 17.2%対24.2%）。低Kを補うときはKの分（2 mmol/kgでNa 4上昇）も上昇量に数える</div>
+</div>
+
+<h2><span class="n">3</span>上限は24時間10・高リスク8 — 測る時刻と一緒に書く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>中身</th></tr></thead>
+<tbody>
+<tr><td>上限（低リスク）</td><td>最初の24時間10、48時間18（米欧で一致。18は20ではない）</td></tr>
+<tr><td>上限（高リスク）</td><td>任意の24時間8。慢性でNa 110未満・アルコール・肝疾患・低K・低栄養。判定できない間は8を使う</td></tr>
+<tr><td>測る間隔</td><td>ボーラスの後ごと、持続中は4時間ごと（KCl併用は2時間ごと）。Na 120未満の入院は最初少なくとも8時間ごと</td></tr>
+<tr><td>ODSの経過</td><td>過剰補正の1〜7日後に二相性で出る。初期のMRIが正常でも否定できない</td></tr>
+</tbody>
+</table></div>
+<ul class="chk">
+<li>ODS高リスク条件の有無と<b>採用する上限</b></li>
+<li>緊急補正の目標<b>4〜6</b>と、届いたら止めること</li>
+<li>Naを測る時刻（<b>実時刻</b>）と、尿量<b>100 mL/時超</b>で連絡</li>
+<li>上限に近づいたときの<b>受け皿</b>（5%ブドウ糖・デスモプレシン）</li>
+</ul>
+
+<h2><span class="n">4</span>過剰補正の主因は水利尿 — 押し戻しを手順で<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s5">詳しく</a></h2>
+<ul>
+<li><b>引き金</b>：循環血液量の補充、サイアザイド・SSRIの中止、ステロイド補充、栄養の再開。ODS 83例の93.1%は等張生食だけだった（スウェーデン）。「高張食塩水を使っていない」は安全の根拠にならない</li>
+<li><b>上振れの段階</b>：上昇5までならデスモプレシン2 µg皮下注、6〜8なら5%ブドウ糖2〜3 mL/kg/時を2〜3時間追加</li>
+<li><b>上限を超えたら</b>：Naを上げる治療をすべて止め、5%ブドウ糖2〜4 mL/kg/時（4 mL/kgでNa約1低下）とデスモプレシン1〜3 µg（8〜12時間ごと）で、上限のすぐ下まで戻す</li>
+<li><b>トルバプタンで上がりすぎたら5%ブドウ糖だけ</b>：V2受容体が塞がれていてデスモプレシンは効かない。治した後に高Naへ振り切らせない</li>
+</ul>
+
+<h2><span class="n">5</span>原因は尿浸透圧でADH、尿NaでRAASを読む<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s6">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>尿所見</th><th>読み</th><th>代表的な原因</th></tr></thead>
+<tbody>
+<tr><td>尿浸透圧100未満</td><td>ADHは止まっている</td><td>原発性多飲症・低溶質摂取（ビール多飲、紅茶とトースト）</td></tr>
+<tr><td>100以上＋尿Na 30以下</td><td>ADHあり、腎はNaを保持</td><td>嘔吐・下痢・出血、心不全・肝硬変</td></tr>
+<tr><td>100以上＋尿Na 30超</td><td>ADHあり、Naは出ている</td><td>SIAD（最多）、コルチゾール欠乏、重度甲状腺機能低下、RSW</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>体液量の視診は当てにならない</b>（感度50〜70%）。血液と尿を同時に採る。利尿薬中は尿Naが上がり、嘔吐では尿Clで読む</li>
+<li><b>SIADは除外診断</b>：朝のコルチゾールと甲状腺機能を測ってから書き、「何がADHを出させているか」も書く。尿が生食より濃ければ、生食でもNaは下がる（脱塩）</li>
+</ul>
+
+<h2><span class="n">6</span>SIAD — 水制限が効くかを先に読む<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s7">詳しく</a></h2>
+<ul>
+<li><b>水制限は39〜55%で効かない</b>。尿量1.5 L/日未満、尿浸透圧500超、Fürst比（尿Na＋尿K）÷血清Na 1以上、尿Na 130超のどれかがあれば、初日から二次治療を準備する。始めたら3日で見切る</li>
+<li><b>尿素</b>15〜60 g/日：26研究462例でODS 0例。循環血液量減少・腎不全・肝不全には使わない。フロセミド＋食塩錠は効果が示されなかった</li>
+<li><b>トルバプタン</b>：入院で7.5 mg/日から、Naを6〜8時間ごとに測る。水制限は併用せず、高張食塩水とは併用しない</li>
+</ul>
+
+<h2><span class="n">7</span>ICUの場面で初手が変わる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/#s8">詳しく</a></h2>
+<div class="three">
+<div><b>SAH・脳損傷</b><span>水制限は禁忌。生食基盤の輸液で正常Naを保ち、高張食塩水はSIADでもRSWでも安全な第一選択</span></div>
+<div><b>肝硬変</b><span>9割が高容量性。利尿薬・βブロッカー・下剤を止める。尿素とバプタンは原則使わず、上限は高リスク側の8</span></div>
+<div><b>術後・院内発症</b><span>疼痛・悪心・オピオイドでADHが出ている。低張輸液を止め、自分たちが作っていないかを毎日見直す</span></div>
+</div>
+
+<p class="note">出典：本編の主要文献（欧州低Na血症ガイドライン 2014；JAMA 2022；N Engl J Med 2023；Nephrol Dial Transplant 2024；J Am Soc Nephrol 2025；Clin Kidney J 2026；SALSA JAMA Intern Med 2021；NEJM Evid 2023 ほか）。用量と上限は文書ごとに少しずつ違うので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>心原性ショック 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>心原性ショックと強心薬 — 要約</h1>
+<p class="sub">解説「心原性ショックと強心薬」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>血圧でなく灌流で疑う</b><span>乳酸・尿量・四肢・意識で疑い、SCAI病期をカルテに書いて毎日付け直す</span></div>
+<div><b>表現型を言ってから薬</b><span>低血圧か・正常血圧か・右室優位か・LVOT閉塞か。最小量・最短期間で使う</span></div>
+<div><b>軌跡でエスカレーション</b><span>生存を変えたのは早期の責任病変PCIと厳選集団の微小軸流ポンプだけ。出口戦略を先に決める</span></div>
+</div>
+
+<h2><span class="n">2</span>灌流で疑い、SCAI病期を毎日付け直す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/#s2">詳しく</a></h2>
+<ul>
+<li><b>低血圧は定義の要件ではない</b>：血圧が保たれた心原性ショックが心臓ICUの15%以上を占め、死亡の増加と関連する。院内死亡は40%超のまま20年改善していない</li>
+<li><b>SUSPECT CSで疑う</b>：乳酸2 mmol/L超・尿量0.5 mL/kg/時未満・CRT 2秒超・意識変容。心エコーでLVOT VTIなど前後で比べられる数字を1つ残す（14 cm未満で1回拍出量低下）</li>
+<li><b>うっ血は3分の1の患者にない</b>：灌流（cold／warm）とうっ血（wet／dry）を別々に評価する。cold &amp; dryが見逃しやすい</li>
+<li><b>SCAI病期（A〜E）は「動く分類」</b>：最初の24時間で大半が移動し、Bが最も悪化しやすい。Eに一度触れるとC・D止まりより死亡が2倍以上</li>
+</ul>
+
+<h2><span class="n">3</span>薬は表現型で選び、最小量・最短で使う<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/#s4">詳しく</a></h2>
+<p>まずMAP 65〜75 mmHgを守り、表現型を口に出し、心係数2.2超・尿量30 mL/時超などの目標を置く。他剤に勝った血管作動薬を示したRCTは無い。</p>
+<div class="tw"><table>
+<thead><tr><th>表現型（頻度）</th><th>第一選択</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>古典的な左室優位（約65%）</td><td>ノルアドレナリン。灌流不足ならドブタミン（2.5 µg/kg/分から）を足す</td><td>灌流は足りて低血圧だけならバソプレシンを足す</td></tr>
+<tr><td>血管拡張の合併（15〜20%）</td><td>血管収縮を主軸に、バソプレシンを足す</td><td>重症度・予後が悪い型</td></tr>
+<tr><td>正常血圧（15%以上）</td><td>ドブタミンか血管拡張薬（ニトロプルシド・ニトログリセリン）</td><td>昇圧薬からは入らない</td></tr>
+<tr><td>右室優位</td><td>1剤目はバソプレシン</td><td><span class="x">フェニレフリンは避ける</span>（§5）</td></tr>
+<tr><td>動的LVOT閉塞</td><td>輸液＋純粋な血管収縮薬＋β遮断</td><td><span class="x">強心薬を止める</span>。典型はたこつぼ</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>ドブタミンとミルリノンに転帰の差はない</b>（DOREMI：49%対54%、RR 0.90）。ミルリノンは半減期が長く腎排泄なので、腎機能悪化例では避ける</li>
+<li><b>アドレナリンとドパミンは使わない</b>：アドレナリンは乳酸を約2倍にし難治性ショックを増やす（OptimaCC）。ドパミンは不整脈を増やす（SOAP II：24.1%対12.4%）</li>
+<li><b>AMIが原因なら責任病変だけを早く開ける</b>：CULPRIT-SHOCKで30日死亡が絶対8.2%減。残りの枝は後日</li>
+</ul>
+
+<h2><span class="n">4</span>反応は単回値でなく軌跡で読み、エスカレーションを決める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/#s5">詳しく</a></h2>
+<div class="flow" role="img" aria-label="乳酸を2〜3時間ごとに同じ部位で測り、8時間値と下がり方で読む。乳酸クリアランス・利尿・肝機能・腎機能・ScvO2の5指標の経時変化で判断し、CI 2.2未満の持続、乳酸2.2超の持続、SCAI DかEならショックチームでtMCSを検討する">
+<div class="f-top">乳酸は正常化まで2〜3時間ごとに同じ部位で測る。8時間値3.1 mmol/Lが入室時値より予後をよく予測</div>
+<div class="f-arr">▼ 5つの指標の経時変化を見る</div>
+<div class="f-cols">
+<div class="f-col"><b>見る5指標</b><ul><li>乳酸クリアランス・利尿と除うっ血の失敗</li><li>肝機能・腎機能・ScvO₂の連続的悪化</li></ul></div>
+<div class="f-col"><b>tMCSを検討するサイン</b><ul><li>CI 2.2未満の持続・乳酸2.2超の持続</li><li>SCAI DかE</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>多職種のショックチームで検討</b>。PACは「入れた数字で何を決めるか」を先に決めてから入れる</div>
+</div>
+<ul>
+<li><b>乳酸が下がらないとき</b>：ScvO₂低値・PCO₂ギャップ高値なら流量を上げる／網状皮斑・CRT延長だけ残るなら過剰な昇圧を避ける／肝腎障害ならクリアランス低下を疑う</li>
+<li><b>PACで読む</b>：左室優位はPCWP 15超、右室優位はRAP 15超でPCWPは比較的正常。RAP/PCWP比0.6超、PAPi（AMI-CSで0.9未満）</li>
+</ul>
+
+<h2><span class="n">5</span>tMCSは出口戦略を先に、右室は後負荷を上げない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-cardiogenic-shock/#s6">詳しく</a></h2>
+<ul>
+<li><b>死亡を減らしたのは2つだけ</b>：AMI-CSへの早期血行再建（SHOCK）と、厳選したSTEMI-CSへの微小軸流ポンプ（DanGer Shock：180日死亡が絶対12.7%減）。IABPのルーチン使用と早期VA-ECMOは死亡を減らさない</li>
+<li><b>入れる前に</b>：回復・恒久的MCS・移植のどれへの橋渡しか、高度の大動脈弁逆流（IABP・Impellaは禁忌）と末梢動脈疾患を確かめる。VA-ECMOは後負荷を上げるので、張る左室と右上肢のSpO₂（差異性低酸素）を見張る</li>
+<li><b>離脱</b>は2〜4時間ごとに0.5〜1 L/分ずつ。緩和ケアの相談はtMCS開始と同時に考える</li>
+<li><b>右室優位</b>：CVP 9〜12の窓に置き18〜20を超えたら下げる。MAPを平均肺動脈圧より高く、1剤目はバソプレシン。挿管はできるだけ避け、するならPEEP 3〜5から</li>
+</ul>
+<ul class="chk">
+<li><b>血圧が保たれていても</b>乳酸・尿量・四肢・意識で疑う</li>
+<li><b>SCAI B</b>を「まだショックではない」と放置しない</li>
+<li><b>大口径アクセス</b>は1〜2時間ごとに部位と下肢を診る</li>
+<li><b>単発の乳酸</b>で可逆性を決めない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ACC 2025；CHEST Crit Care 2024；Circulation 2026；Crit Care 2024 RAND panel；SHOCK NEJM 1999；CULPRIT-SHOCK NEJM 2017；DanGer Shock NEJM 2024；DOREMI NEJM 2021；ECLS-SHOCK NEJM 2023；2026 ESC HF GL ほか）。数値目標・デバイスの選択図・離脱の速度の多くは専門家合意で、RCTの結果ではありません。</p>
+</main>
+</body>
+</html>

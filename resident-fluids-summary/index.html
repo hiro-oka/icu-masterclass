@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>輸液の判断 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+.f-cols.c3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:640px){ .f-cols.c3{grid-template-columns:1fr} }
+@media print{ .f-cols.c3{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>輸液の判断 — 要約</h1>
+<p class="sub">解説「輸液の判断 — 反応性の評価と製剤の選択」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>「入れるか」はCOの変化で</b><span>血圧ではなく心拍出量で判定。低灌流・耐容性・反応性を別々に問い、1回の判定を使い回さない</span></div>
+<div><b>「何を」は既定がバランス晶質液</b><span>生食は頭蓋内圧亢進と低Clなどに限る。アルブミンは第一選択にしない</span></div>
+<div><b>「どれだけ」は小分けに試す</b><span>輸液チャレンジで試し、隠れ輸液を含めて総量を数え、溜まったら利尿薬のプロトコルで引く</span></div>
+</div>
+
+<h2><span class="n">2</span>輸液は薬 — 心拍出量が増えなければ、害だけが残る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s1">詳しく</a></h2>
+<ul>
+<li><b>反応性＝1回の輸液でCOが15%以上増えること</b>。Frank-Starling曲線の急峻部か平坦部かは、CVPのような「高さ」ではなく、前負荷を動かして「傾き」で測る</li>
+<li><b>等張晶質液は1/3しか血管内に残らない</b>：500 mLなら目安150 mL。腹水・胸水・浮腫があればさらに減る</li>
+<li><b>ショックの型で役割が違う</b>：出血性は止血と血液製剤、非出血性の低容量は晶質液が主役、分布性は急峻部にいる間だけ、心原性・閉塞性はほとんど役割がない</li>
+</ul>
+
+<h2><span class="n">3</span>「入れるか」は3つに分けて問い、条件に合うテストを選ぶ<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="低灌流があるか、入れて耐えられるか、入れたら心拍出量が増えるかの3段階。どこかで止まれば入れない">
+<div class="f-cols c3">
+<div class="f-col"><b>①低灌流はあるか</b><ul><li>乳酸・CRT・mottling・乏尿</li><li>なければ血圧が低くても議論を打ち切る</li></ul></div>
+<div class="f-col"><b>②耐えられるか</b><ul><li>エコーで急性肺性心を除外</li><li>Bライン・CVPの上がり方・酸素化</li></ul></div>
+<div class="f-col"><b>③反応性はあるか</b><ul><li>判定は血圧ではなくCO・SV・VTI</li><li>陽性で、かつCOが低すぎるときだけ入れる</li></ul></div>
+</div>
+</div>
+<div class="tw"><table>
+<thead><tr><th>テスト</th><th>反応あり</th><th>使える条件・注意</th></tr></thead>
+<tbody>
+<tr><td>PLR</td><td>CO/CI 10%以上（1分以内）</td><td>自発呼吸・不整脈でも可。<b>腹腔内圧12以上では偽陰性73%</b>（陽性は信じてよい）</td></tr>
+<tr><td>PPV／SVV</td><td>12%以上（9〜13%は灰色域）</td><td>調節換気・Vt 8以上・洞調律・閉胸が前提。Vt 6では一点の値は無効</td></tr>
+<tr><td>Vtチャレンジ</td><td>PPVが絶対値で3.5%以上上昇</td><td>Vt 6→8を1分。低Vt下の第一選択の1つ</td></tr>
+<tr><td>EEO</td><td>CO 5%以上</td><td>呼気終末で15秒止める。低Vt・ARDS・腹臥位・腹腔内圧上昇でも精度を保つ</td></tr>
+<tr><td>輸液チャレンジ</td><td>CO/CI 15%以上</td><td>晶質液500 mLを15〜20分。最終確認だが「入れてしまう」</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>IVC・E/e′・VExUSは反応性の指標ではない</b>。VExUSはうっ血の評価法</li>
+<li><b>反応性は消えもの</b>：反応者の49%は30分後に非反応に。敗血症性ショックでは来院時57%→8時間後3%。「500 mL/15分、投与後にLVOT VTIを再検」まで1セットで指示する</li>
+</ul>
+
+<h2><span class="n">4</span>「何を」— 既定はバランス晶質液、例外は狭い<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s5">詳しく</a></h2>
+<ul>
+<li><b>生食はClが血漿の約1.4倍</b>（154 mEq/L）。3大RCTの統合（31,359例）でバランス晶質液は死亡OR 0.94と動かず、<b>新規RRTはOR 0.86</b>（確実性high）で減る。院内の既定値ごと入れ替える。「Kが入っているから危ない」は否定されている</li>
+<li><b>アルブミンは第一選択にしない</b>：SAFE・ALBIOSで死亡は変わらず、小児のFEASTでは増えた（RR 1.45）。ICTMGの14推奨中12は「使わない」。HESとゼラチンは使わない</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>この所見なら</th><th>既定値から外れる</th></tr></thead>
+<tbody>
+<tr><td>頭蓋内圧亢進・TBI</td><td><b>生食</b>（乳酸リンゲルは273〜278 mOsm/kgで低張。アルブミンも避ける）</td></tr>
+<tr><td>Cl 110以上・HCO₃⁻ 20未満</td><td>生食を使っていたら低Clの製剤へ</td></tr>
+<tr><td>嘔吐・胃管による低Cl</td><td>生食を選ぶ（数少ない積極的な適応）</td></tr>
+<tr><td>肝硬変</td><td>大量腹水穿刺（5 L超）とSBP（診断時1.5 g/kg、48時間後1 g/kg）でアルブミンを追加</td></tr>
+<tr><td>Na 145超</td><td>蘇生液より先に、薬剤の希釈液と維持液のNaを疑う</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>「どれだけ」— 輸液チャレンジで決め、総量を数える<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s7">詳しく</a></h2>
+<ul>
+<li><b>投与前にTROLを決める</b>：Type（製剤）・Rate（速度）・Objective（CO/CI 10%以上の増加）・Limits（CVPの過度な上昇・肺機能悪化で止める）。COが増えなければその1本で止める</li>
+<li><b>隠れ輸液を数える</b>：ICUの総輸液のうち蘇生輸液は1割に満たず、栄養33%・薬剤の希釈33%・維持輸液25%。Na投与量の中央値は224.5 mmol/日で、希釈液を5%ブドウ糖に替えるとNa 150超が20%→6.6%</li>
+<li><b>止める基準は「目標に届いたら」ではなく「害のサインが出たら」</b>。チャートの水分バランスは体重と±6 kgずれる推定値として読む</li>
+</ul>
+
+<h2><span class="n">6</span>溜まった水は害になる — 引くときはプロトコルで<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s9">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th></th><th>絞る（de-escalation）</th><th>引く（deresuscitation）</th></tr></thead>
+<tbody>
+<tr><td>始める時期</td><td>急性蘇生の完了と同時（安定化相）</td><td>体液貯留が臓器機能を害しているとき（脱蘇生相）</td></tr>
+<tr><td>手段</td><td>維持輸液・薬剤希釈液の見直し</td><td><b>利尿薬のプロトコル化</b>（ESICM、moderate）。他の適応がない限外濾過はしない</td></tr>
+<tr><td>安全域</td><td>—</td><td>net UFは1.75 mL/kg/時前後から死亡上昇、2.8以上で明らか。除水中も乳酸・CRT・尿量を見る</td></tr>
+</tbody>
+</table></div>
+<ul class="chk">
+<li><b>血圧で反応性を判定</b>しない。COで判定する</li>
+<li><b>「反応性あり」＝「入れる」</b>ではない。健常人も反応する</li>
+<li><b>心不全の既往だけ</b>で初期輸液を絞らない（急性非代償なら最初の3時間10〜15 mL/kgが目安）</li>
+<li><b>製剤より総量</b>を先に議論する</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ESICM輸液ガイドライン Part1〜3 2024〜2025；SSC 2026；SMART・BaSICS・PLUS；SAFE・ALBIOS・FEAST；ICTMG Chest 2024；Monnet ICM 2022・2024；Kaufman CCM 2023；Malbrain ICM 2022 ほか）。テストの閾値は研究ごとに定義が違うので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

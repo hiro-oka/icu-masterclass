@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>昇圧薬と難治性ショック 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>昇圧薬と難治性ショック — 要約</h1>
+<p class="sub">解説「昇圧薬と難治性ショック」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>早く始め、65で止める</b><span>ノルアドレナリンは輸液の完了も中心静脈路も待たず0.05から。MAP 65が既定、上げるなら確かめて戻す</span></div>
+<div><b>低いうちに列を変える</b><span>0.2〜0.25で立ち止まって可逆的要因を洗い、増量で粘らずバソプレシンとステロイドを足す</span></div>
+<div><b>難治性は灌流で判定する</b><span>量だけで呼ばない。事故を減らすのは単位の固定とシリンジ交換の手技化</span></div>
+</div>
+
+<h2><span class="n">2</span>昇圧薬はMAPを買う薬 — 灌流は別に確かめる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s1">詳しく</a></h2>
+<ul>
+<li><b>ノルアドレナリンは静脈も締める</b>：非ストレスト容量をストレスト容量へ戻し、静脈還流を増やす。「輸液を入れ切ってから昇圧薬」は生理学的な必然ではない</li>
+<li><b>MAPが上がっても灌流が良くなったとは限らない</b>：MAP 65→85で16%の患者は心拍出量が24%落ち、CRTも乳酸もそれを見分けなかった。MAPを見たら次にCRT・尿量・意識を言う</li>
+<li><b>増やせばいつまでも効くわけではない</b>：受容体は脱感作する（1 µg/kg/分あたりで飽和）。増量より別の列（V1a）を足すか、ステロイドで受容体の機能を戻す</li>
+</ul>
+
+<h2><span class="n">3</span>ノルアドレナリンで、輸液も中心静脈路も待たずに始める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s2">詳しく</a></h2>
+<ul>
+<li><b>第一選択はノルアドレナリン</b>。ドパミンは不整脈が倍（SOAP II 24.1%対12.4%）、JIPADで用量依存的に死亡増のため徐脈例だけ。フェニレフリンは蘇生に使わない</li>
+<li><b>輸液と並行して始める</b>：CENSER（0.05 µg/kg/分固定）で6時間後のショックコントロール76.1%対48.4%。ARISE FLUIDSでは転帰は変わらず、「早く始めても害はない」まで</li>
+<li><b>太い末梢静脈から</b>（肘窩より中枢）低用量で始め、48時間を超える前に中心静脈へ移す予定を書く。ARISE FLUIDSの末梢投与600例超で関連する重篤な有害事象なし</li>
+<li><b>一度はエコーで心臓を見る</b>：3〜5%は敗血症誘発性心原性ショック。低心拍出・右室優位（1剤目はバソプレシン）・動的LVOT閉塞で薬の選び方が変わる</li>
+</ul>
+
+<h2><span class="n">4</span>MAP 65を既定にし、上げるなら確かめて戻す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s3">詳しく</a></h2>
+<ul>
+<li><b>上げても死亡は減らず、高齢者では害</b>：SEPSISPAMで80〜85を狙っても28日死亡は不変、新規心房細動が増加。65歳以上のOPTPRESSでは90日死亡39.3%対28.6%。慢性高血圧の既往を理由に上げない（65歳以上は60〜65を提案）</li>
+<li><b>MAPチャレンジ</b>：上げる前にCRT・尿量・意識・乳酸とLVOT VTIを記録 → 1段だけ上げる → 直後にVTIが15%以上落ちれば戻す → 数時間で灌流が改善しなければ65へ戻す（提案段階の手技）</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>集団</th><th>MAP目標</th></tr></thead>
+<tbody>
+<tr><td>心原性ショック</td><td>65〜75＋心係数2.2超</td></tr>
+<tr><td>急性脊髄損傷</td><td>75〜80以上・90〜95以下を3〜7日</td></tr>
+<tr><td>外傷性出血（止血まで）</td><td>許容的低血圧 50〜60（重症頭部外傷の合併は収縮期110超）</td></tr>
+<tr><td>肝腎症候群</td><td>ベースライン＋15 mmHg（相対値）</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>2剤目は低いうちに — 増量で粘らず、別の列を足す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="0.05で始め、0.2で立ち止まって5つを洗い直し、0.25到達から3時間以内にバソプレシンとステロイドを足し、6時間で難治性かを判定する">
+<div class="f-top">0.05で開始 → 0.2で立ち止まる → 0.25到達から3時間以内に列を足す → 6時間で判定（µg/kg/分・base）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>0.2：増量の前に5つを洗い直す</b><ul><li>感染源（ドレーンは引けているか）</li><li>輸液（反応性と耐容性）</li><li>内分泌と代謝（ステロイド・pH 7.20以下・低Ca）</li><li>鎮静（プロポフォール。RASS 0〜−2に）</li><li>心機能と測定（LVOT閉塞・右室。橈骨は大腿より最大13低い）</li></ul></div>
+<div class="f-col"><b>0.25：バソプレシンとステロイド</b><ul><li>バソプレシンは固定用量 0.03 IU/分（1.8 U/時）、上限は文献で0.04〜0.06。3時間以内の追加で28日死亡が5ポイント低い（観察研究）</li><li>指趾の色と血清Naを見張る</li><li>ヒドロコルチゾン200 mg/日は死亡を下げないが、昇圧薬からの離脱を約1日縮める</li></ul></div>
+</div>
+</div>
+<p class="cap">0.2を目安にするのは、ピークが0.2以下から0.2〜0.4へ移るだけで院内死亡が16.5%から31.9%に上がるため。量より増え方の軌跡（指数関数的に増えるか）で足す早さを決める。</p>
+
+<h2><span class="n">6</span>難治性は量でなく灌流で判定する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s5">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>6時間の時点の定義</th><th>該当</th><th>28日死亡</th></tr></thead>
+<tbody>
+<tr><td>NEE 0.5超だけ</td><td>13.8%</td><td>47.9%（7割強は低灌流を伴わない）</td></tr>
+<tr><td>NEE 0.5超＋CRT 3秒超＋乳酸非低下</td><td>3.9%</td><td>73.6%（4人に1人は生存）</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>合意基準は4要素</b>：輸液反応性なし・NEE 0.5超・乳酸かCRTの異常・（混合性なら）エコーで他のショックを除外。数字は予後の断定ではなく、<b>カンファと家族面談を前倒しする引き金</b>に使う</li>
+<li><b>最終手段は「血圧は上がる、生存は不明」</b>：アドレナリン追加・メチレンブルー・血液浄化・β遮断薬。アンジオテンシンIIは国内未承認。セレプレシンはノルアドレナリンを41%減らしても死亡は不変だった</li>
+</ul>
+
+<h2><span class="n">7</span>安全に流す — 単位を固定し、交換を手技にする<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vasopressors/#s6">詳しく</a></h2>
+<ul>
+<li><b>文献の用量はbase換算で読む</b>：酒石酸水素塩は基剤の約2倍、塩酸塩は約1.2倍の数字になる。単位と希釈濃度は院内で1つに固定する</li>
+<li><b>重大な血行動態イベントの25%以上はシリンジ交換の前後</b>：早送りで回路を満たしてから患者に近い活栓へ、ポンプの高さを動かさない、閉塞解除は圧を抜いてから。0.5 mL/時未満の流量を避ける</li>
+<li><b>離脱は順序より切り方</b>：バソプレシンは一気に止めず0.01〜0.02 IU/分ずつ漸減。止めた数時間後の多尿は尿崩症を疑う。ミドドリンは離脱を早めない</li>
+</ul>
+<ul class="chk">
+<li><b>MAPの数字で安心</b>しない。次にCRT・尿量・意識を言う</li>
+<li><b>増量で粘って</b>から2剤目に移らない</li>
+<li><b>増量の前に鎮静</b>を下げられないか1回言う</li>
+<li><b>代用アウトカム</b>（MAP上昇・昇圧薬減量）で薬を採らない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SSC 2026；CENSER；ARISE FLUIDS NEJM 2026；SOAP II；SEPSISPAM NEJM 2014；OPTPRESS ICM 2025；VANISH；ADRENAL；ANDROMEDA-SHOCK-2 二次解析；SCCM・ESICM合意；微量持続静注の患者安全10項目 EJA 2023 ほか）。2剤目の時期は観察研究に基づくので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

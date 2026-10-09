@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>早期離床 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>早期離床 — 要約</h1>
+<p class="sub">解説「早期離床」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>ベッド安静を既定にしない</b><span>筋は入室した日から壊れる。入室2〜3日以内に動かし始める</span></div>
+<div><b>時間ではなく高さで管理</b><span>離床時間を延ばしても転帰は動かなかった。その日の最高IMSを記録し、立位を目指す</span></div>
+<div><b>強度は一律にしない</b><span>昇圧薬・深い鎮静・糖尿病が重なれば高用量を課さない。低酸素は椅子に出さない理由にしない</span></div>
+</div>
+
+<h2><span class="n">2</span>動かさない代償と、測る3つの物差し<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#s2">詳しく</a></h2>
+<ul>
+<li><b>筋は入室して数時間で壊れ始める</b>：ICU-AWは人工呼吸患者の約半数。初週に筋量の約15%を失い、喪失は週を追って加速する（大腿四頭筋は第1週1日約2%、第2週約3%）</li>
+<li><b>「作れない」のではなく「壊しすぎる」</b>：筋線維は約22%小さく、合成は健常と差がなく分解だけが高い。第一手は不要な深鎮静・筋弛緩薬・ステロイドを減らし、不動の日数を短くすること</li>
+<li><b>障害は退院で終わらない</b>：5年生存者の37.7%に運動能力の異常が残り、その60.2%は筋が制限因子。勝負は退室後の1年まで続く</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>物差し</th><th>線</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>筋力（MRC）</td><td>48未満で診断、55以下でも長期予後に響く</td><td>ICU-AWは除外診断。非対称・眼症状・散瞳・自律神経症状があれば別の疾患を探す。退室時の値を申し送る</td></tr>
+<tr><td>到達（IMS）</td><td>2以上がベッド外、4（立位）が効果の線</td><td>毎日「その日の最高IMS」を1項目記録する</td></tr>
+<tr><td>参加（RASS）</td><td>−2〜0</td><td>−3以下の日は離床を強める相談ではなく、鎮静を浅くできるかの相談。鎮痛が先</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">3</span>エビデンス — 推奨は「通常より多く」、試験は「時間を延ばす」を否定した<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#s3">詳しく</a></h2>
+<ul>
+<li><b>PADIS 2025</b>：施設の通常より強化した離床を条件付きで提案。58 RCT・8,038例でICU-AWはRR 0.77（100人あたり9人減、高確実性）。強い推奨のあるガイドラインはない</li>
+<li><b>TEAM（750例）</b>：1日21分を9分と比べても180日の転帰は変わらず、有害事象が増えた</li>
+<li><b>平均ゼロの下に利益と害</b>：TEAMの個別効果の解析で害側を特徴づけたのは昇圧薬・深い鎮静（RASS中央値−4）・糖尿病。IMS 2止まりで長いセッションを重ねると28日死亡が増え、IMS 4以上に届けば害は消えた</li>
+<li><b>EVER（169例）</b>：量を2.75倍にしても機能は動かず、立位に届いた患者だけが良かった（予後の反映かもしれない）</li>
+<li><b>矛盾しない</b>：通常が低ければ上乗せが効き、すでに動いていれば時間を足しても効かない。まず自施設の通常が端座位・立位まで届いているかを確かめる</li>
+</ul>
+
+<h2><span class="n">4</span>どう動くか — 今日の上限は3点で決める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="朝の回診で鎮痛とRASSを確かめ、昇圧薬・鎮静・糖尿病の3点で今日の上限を決め、目標IMSと中止基準を宣言し、夕方に最高IMSを記録する">
+<div class="f-top">朝の回診：鎮痛とRASSを確かめ、昇圧薬・鎮静・糖尿病の3点で今日の上限を決め、「今日の目標IMS」と中止基準を宣言する。夕方に最高IMSを記録</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>強度を上げる</b><ul><li>3点とも当てはまらない（予定手術後など）：立位（IMS 4）以上を狙い、頻度と時間を上げる</li><li>酸素化が悪い自発呼吸：控える理由にならない。椅子座位の候補</li></ul></div>
+<div class="f-col"><b>上限を決める・上げない</b><ul><li>昇圧薬が増量中なら強度を上げる判断を保留。RASS −3以下なら先に鎮静を相談</li><li>3点が重なる：IMS 0〜2にとどめ、20分超のセッションを重ねない</li></ul></div>
+</div>
+<p class="cap">3点はTEAM試験の二次解析と総説の整理による。RCTで検証された閾値ではない。</p>
+</div>
+<ul>
+<li><b>安全基準は施設の手順で文書にする</b>：例はEVER（RASS −2〜+1、PEEP 10未満・FiO₂ 0.6以下、SpO₂ 90%超、収縮期90〜200・平均65〜110、心拍60〜130、昇圧薬を増量していない）</li>
+<li><b>ノルアド下で危ないのは起き上がる瞬間</b>：有害事象は1%で用量と関連せず、ベッド外（OR 3.3）と関連。目安はベッド上0.33・ベッド外0.20 µg/kg/分（検証された安全域ではない）。唯一の重篤事象は0.14で起きた</li>
+<li><b>椅子に3時間でP/F差26</b>：椅子＋13・ベッド−13。受動移乗でも同じで重篤な有害事象はゼロ。ただし軽微な事象は増えるので、出してからが観察の本番</li>
+<li><b>機器より人と時間</b>：NMESはICU-AW RR 0.48だが在室日数・死亡は動かず、離床の代わりにとどまる</li>
+</ul>
+
+<h2><span class="n">5</span>特殊な集団と落とし穴<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#s5">詳しく</a></h2>
+<ul>
+<li><b>体格・気管切開・フレイルで控えない</b>：BMI 40以上でも早期歩行は安全で実行可能。スピーチバルブを着けたまま運動してよい。フレイル患者は同じ指示でも動ける量が少なくなる</li>
+<li><b>脳卒中は別</b>：発症24〜48時間に段階的に始め、24時間以内の高用量は行わない（COR 3: Harm）</li>
+</ul>
+<ul class="chk">
+<li><b>酸素化が悪い</b>から離床は明日、にしない</li>
+<li><b>全員を強く</b>動かさない</li>
+<li><b>時間</b>ではなく到達の高さで指示する</li>
+<li><b>筋力低下</b>はまず左右対称かを見る</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（PADIS 2018・2025；TEAM NEJM 2022；TEAM二次解析 ICM 2025・AJRCCM 2024/2026；EVER ICM 2026；Hodgson ICM 2026；Latronico Crit Care 2023；Lindholz Crit Care 2022；Fossat ICM 2026；Nakanishi CCM 2023 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

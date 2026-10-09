@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>抗菌薬PK／PD 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>重症患者の抗菌薬PK／PD — 要約</h1>
+<p class="sub">解説「重症患者の抗菌薬PK／PD」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>初回はVd、維持はCL</b><span>初回量は腎機能やRRTで減らさない。維持量だけを実測CrClとRRTの設定で作り直す</span></div>
+<div><b>βラクタムは負荷→延長投与</b><span>推算式では見えないARC（実測CrCl 130以上）と高MIC株を最優先にする</span></div>
+<div><b>多すぎる側を毎日探す</b><span>神経症状と腎機能で過剰曝露を見張る。増やすと決めたら減らす日も決める</span></div>
+</div>
+
+<h2><span class="n">2</span>原理 — 初回量は容れ物、維持量は出ていく速さ<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#s1">詳しく</a></h2>
+<ul>
+<li><b>初回量はVdで決まる</b>：用量＝Vd×目標濃度。メロペネムのVdが0.25→0.45 L/kgに広がれば必要量は約1.8倍で、腎機能はこの計算に出てこない</li>
+<li><b>効くのは遊離型だけ</b>：ICU患者の40%超はアルブミン2.5 g/dL未満。高蛋白結合薬（CTRX・CEZ・エルタペネム・エキノカンジン・テイコプラニン）は早く抜けるので、総濃度が基準内でも安心しない</li>
+<li><b>効き方は3種類</b>：βラクタムは時間（%fT&gt;MIC）、アミノグリコシドはピーク（Cmax/MIC）、バンコマイシンはAUC24/MIC。親水性の薬は輸液・浮腫・腎機能で、親油性の薬は体格・肝機能・ECMO回路で動く</li>
+</ul>
+
+<h2><span class="n">3</span>PKを崩す要因と時間軸 — 入れ切る・合わせる・仕上げる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="0〜24時間は負荷量をVdで決めて入れ切る。24〜48時間は維持量をCLで作り直す。48時間以降は実測MICとTDMで仕上げる。どの時間帯でも多すぎる側を同時に見る">
+<div class="f-top">0〜24時間：負荷量を入れ切る（腎機能・RRTで減らさない）。ピペラシリン8 g・セフタジジム4 g・セフェピム4 gは3時間、メロペネム2 gは30分</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>24〜48時間：維持量を合わせる</b><ul><li>ARC（実測CrCl 130以上）は増やす。メロペネムは2 g・8時間ごと</li><li>AKIが進めば減らす。ECMO＋RRTは薬剤師と共同で設計</li></ul></div>
+<div class="f-col"><b>48時間以降：仕上げる</b><ul><li>MICが判明したら実測MICで目標を置き直す（同定前33%→後71%）</li><li>MICが1段上がれば%fT&gt;MICやAUC/MICは半分</li></ul></div>
+</div>
+<div class="f-bot">ARCは推算式（CG・CKD-EPI・MDRD）では見えない。親水性の抗菌薬を使う初週は8時間蓄尿の実測CrClを毎日。RRT中は濃度不足4〜5%に対し過剰濃度が25〜35%（SMARRT）</div>
+</div>
+
+<h2><span class="n">4</span>延長・持続投与とTDM<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>論点</th><th>数字</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>βラクタムの延長・持続投与</td><td>18 RCT・9,108例で短期死亡RR 0.91（0.85〜0.97）</td><td>SSC2026で強い推奨。BLING III単独は90日死亡OR 0.91（P=.08）でも統合すると減る。負荷は省かない</td></tr>
+<tr><td>実装の3点</td><td>ライン・配合・安定性</td><td>メロペネムは5%ブドウ糖に溶かさず、6〜8時間ごとにつなぐ</td></tr>
+<tr><td>βラクタムのTDM</td><td>TARGET（249例）・DOLPHIN（388例）とも陰性</td><td>目標達成は上がるが転帰は動かない。SSC2026は条件付き。結果が遅いぶん予測で先回り</td></tr>
+<tr><td>バンコマイシン</td><td>AUC24/MIC 400〜600</td><td>トラフだけで監視しない。24〜48時間以内にベイズ推定で調整。AKIの主犯はPIPC/TAZ併用（調整OR 3.29）</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>多すぎる側 — 神経毒性の閾値は高くない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-antibiotic-pkpd/#s6">詳しく</a></h2>
+<ul>
+<li><b>閾値</b>：セフェピムのトラフ22 mg/L超（持続投与は定常状態35 mg/L超）で患者の50%に神経毒性。メロペネムはトラフ64 mg/L超、ピペラシリン（タゾバクタムなし）は360 mg/L超</li>
+<li><b>意識障害はせん妄と決める前に抗菌薬を疑う</b>：ACORN（2,511例）でセフェピムはPIPC/TAZより神経障害が多く、AKIも死亡も差がなかった。CTRXでも高齢・腎不全で脳症が起こる</li>
+<li><b>回路と体格</b>：RRTは負荷そのまま、維持は排液流量と残存腎機能で。ECMOで増量を考えるのは蛋白結合70%超かつ高脂溶性（Log P&gt;2）の薬。肥満は親水性か親油性かで増やし方を変える</li>
+</ul>
+<ul class="chk">
+<li><b>初回か維持か</b>をオーダーのたびに口に出す</li>
+<li><b>腎機能</b>は推算値ではなく実測値で語る</li>
+<li><b>増量した日</b>に見直す日をカルテに書く</li>
+<li><b>投与設計</b>で薬の選択と感染源の制御の誤りは埋まらない（MERINO 30日死亡12.3%対3.7%）</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Roger J Intensive Med 2024；SSC2026 CCM 2026；IDSA 2026 耐性GNB；BLING III・持続投与メタ解析 JAMA 2024；SMARRT CID 2021；ACORN JAMA 2023；MERINO JAMA 2018 ほか）。用量は教育目的の記載で、使う前に原著・添付文書・薬剤部の基準と照合してください。PK/PDの標的値の多くはin vitro・観察研究に基づきます。</p>
+</main>
+</body>
+</html>

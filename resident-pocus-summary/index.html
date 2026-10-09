@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>POCUS・重症エコー 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>POCUS・重症エコー — 要約</h1>
+<p class="sub">解説「POCUS・重症エコー」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>不安定なら早く当てる</b><span>当てれば54%で方針が変わるのに、ショックで1時間以内に当たったのは7%</span></div>
+<div><b>所見は事前確率を動かす補助</b><span>単一の数値で輸液・抜管・蘇生中止を決めず、介入の前後で同じ断面を撮り直す</span></div>
+<div><b>刺すなら全部位でリアルタイムガイド</b><span>静的マーキングはランドマーク法より合併症が多い（36%対24%）</span></div>
+</div>
+
+<h2><span class="n">2</span>未分化ショックはRUSHで型を絞り、心原性は数値で残す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/#s2">詳しく</a></h2>
+<ul>
+<li><b>POCUSガイド蘇生</b>：18 RCTでショックの28日死亡RR 0.88。輸液量も強心薬量も変わらず、効いているのはショック解除の速さ。質の指標は実施率と実施までの時間</li>
+<li><b>RUSHはpump→tank→pipes</b>：心臓（タンポナーデ・高度の左室不全・右室拡大）→前負荷と体液（IVC・Bライン・胸水・腹水）→大血管（大動脈瘤・解離・下肢近位DVT）。外傷はeFAST、心停止はFEER</li>
+<li><b>窓は4つ、ICUの主戦場は心窩部</b>：出なければ左側臥位・呼吸の位相合わせ・右側方からのIVC・造影へ進む</li>
+<li><b>心原性を疑ったらLVOT VTI</b>：14 cm未満で1回拍出量低下、12 cm未満は予後不良。PWを弁の約5 mm手前に置き3回測って平均。強心薬を上げる前にSAMとLVOT圧較差（30 mmHg超）を確かめる</li>
+<li><b>右室は1指標で読まない</b>：TAPSE/PASP比0.4 mm/mmHg未満が単独指標より有害事象を予測</li>
+</ul>
+
+<h2><span class="n">3</span>輸液でエコーは補助 — IVCは式を書き、VExUSはうっ血だけ<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="エコーで輸液を考える5段：明らかな血液量減少か、危険な心疾患はないか、肺うっ血はないか、全身うっ血はないか、どれだけ効きそうか">
+<div class="f-top">低灌流があるときだけ輸液が選択肢。心エコー→肺→VExUS→効果予測の順に当てる</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>入れてよいかの確認</b><ul><li>明らかな血液量減少（kissing walls・呼気末IVC 10 mm以下）なら待たずに入れる</li><li>危険な心疾患（RV/LV比0.6超・重症弁膜症）、肺うっ血、VExUS高リスクを外す</li></ul></div>
+<div class="f-col"><b>効果の予測</b><ul><li>PLRなどでLVOT VTIの変化を測る（SV増加10%以上が反応性）</li><li>閾値に機械的に従わない</li></ul></div>
+</div>
+</div>
+<ul>
+<li><b>IVCの式は2つ</b>：虚脱率は分母が最大径、IVCVIは分母が最小径。閾値の混用が最大の事故なので、使った式・換気条件・体位を記録に書く。中間の値で輸液を決めない</li>
+<li><b>VExUSは反応性の指標ではない</b>：IVC 2 cm超から肝静脈・門脈・腎内静脈でgrade化。長期の肺高血圧・心嚢液・器質的な高度三尖弁逆流は高gradeでも除水しない</li>
+</ul>
+
+<h2><span class="n">4</span>肺はアーチファクト、横隔膜は原因探し<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>場面</th><th>使い方</th><th>限界</th></tr></thead>
+<tbody>
+<tr><td>Aライン／Bライン</td><td>水平は空気、垂直（1視野3本以上）は水か線維化</td><td>Aラインは気胸でも出る。区別はスライディング</td></tr>
+<tr><td>肺エコースコア</td><td>12領域・0〜36点で前日との差を見る</td><td>予後・治療反応の閾値と診断には使わない</td></tr>
+<tr><td>気胸</td><td>スライディングが見えれば否定、lung pointで確定</td><td>消失だけで気胸と決めない（無気肺・肺気腫・癒着）</td></tr>
+<tr><td>右胸水</td><td>VIPサイン（感度0.85・特異度0.86）</td><td>陽性はドレナージの適応ではない</td></tr>
+<tr><td>横隔膜</td><td>10%以上の菲薄化＝萎縮、移動距離2 cm未満＝機能不全</td><td><span class="x">抜管の成否は予測しない</span>。厚み分画の閾値は合意なし</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>穿刺・心停止・ECMO・脳 — 目的を絞り、陰性で除外しない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-pocus/#s6">詳しく</a></h2>
+<ul>
+<li><b>穿刺</b>：刺す前に短軸で破格・血栓・径・深さ。ダイレーターの前に針先とワイヤを短軸と長軸で確かめる。エコーで確かめても胸腔内誤留置は起こるので留置後のX線は省かない。末梢の困難例はCVCの前にエコーガイド末梢路</li>
+<li><b>心停止</b>：心窩部に固定し、問いを3つ（圧迫が効いているか・心収縮・可逆的原因）に絞る。画像は10秒未満。心静止と判定された10〜35%に心収縮があるので、動いて見えないことを蘇生中止の根拠にしない</li>
+<li><b>VA-ECMO</b>：毎日9項目を同じ順で。大動脈弁が開いているかを最初に共有する</li>
+<li><b>脳・搬送</b>：ONSDは頭蓋内圧亢進の除外に強いが確定とCTの代わりにはしない。搬送中のeFASTは陽性で動く確定にだけ使い、判定不能を安心材料にしない</li>
+</ul>
+<ul class="chk">
+<li><b>問いを1つ</b>決めてから当てる</li>
+<li><b>所見は数値で</b>、式・換気条件・体位とセットで記録する</li>
+<li><b>介入の前後で</b>同じ断面を撮り直す</li>
+<li><b>能力は件数でなく</b>指導者が画像と解釈を見て確かめる</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SCCM 2024改訂 CCM 2025；18 RCTメタ解析 CCM 2024；英国178 ICU ICM 2024；Rev Cardiovasc Med 2026；ICM 2025 輸液5ステップ；VExUS Ultrasound J 2024；肺エコー国際推奨 ICM 2026；EXODUS 2022；SHM J Hosp Med 2019 ほか）。VA-ECMOの9項目など数値の一部は単施設の実践に基づく提案なので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

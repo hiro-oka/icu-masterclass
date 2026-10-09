@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>敗血症の初期蘇生 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>敗血症の初期蘇生 — 要約</h1>
+<p class="sub">解説「敗血症の初期蘇生」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#s2">詳しく</a></h2>
+<div class="three">
+<div><b>最初の数時間は4本を並行で</b><span>抗菌薬・感染源・250〜500 mLずつの輸液・早めの昇圧薬。30 mL/kgをノルマにしない</span></div>
+<div><b>血圧ではなく灌流で決める</b><span>CRT・乳酸・CO₂較差で足すか止めるかを決め、反応しなければ末梢からノルアドレナリンへ</span></div>
+<div><b>相を口に出し、脱蘇生を宣言する</b><span>毎日「いまどの相か」を言い、蘇生が終わったら自分で脱蘇生を宣言する</span></div>
+</div>
+
+<h2><span class="n">2</span>低血圧は「水が足りない」とは限らない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#s1">詳しく</a></h2>
+<ul>
+<li><b>本体は血管拡張</b>：「容れ物」が急に大きくなった状態に近い。初期蘇生後も続く低血圧には輸液の上乗せではなく昇圧薬で応える</li>
+<li><b>入れるほど漏れる</b>：晶質液が1時間後に血管内に残るのは生理食塩水で20〜30%、緩衝晶質液で35〜40%。敗血症ではグリコカリックスが剝がれてさらに下がる</li>
+<li><b>同じ500 mLでも相で意味が変わる</b>：救命（R）では薬、脱蘇生（E）では害の上乗せ</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>相</th><th>目的</th><th>輸液の意味</th></tr></thead>
+<tbody>
+<tr><td>R 救命</td><td>生命と両立する最小限のMAP・COを保ち、灌流を戻す</td><td>救命的な薬。MAP・拡張期血圧に応じて昇圧薬</td></tr>
+<tr><td>O 最適化</td><td>灌流の指標を正常化する</td><td>反応性と耐容性がある患者にだけ</td></tr>
+<tr><td>S 安定化</td><td>臓器支持と合併症の最小化、ゼロバランス</td><td>ほぼ不要。維持輸液は止める</td></tr>
+<tr><td>E 脱蘇生</td><td>灌流を損なわずに塩と水を引き、治療を降ろす</td><td>害。利尿薬で除水、昇圧薬を離脱</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">3</span>最初の72時間 — 足す判断から、足さない・引く判断へ<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="0分で培養と抗菌薬と小分けの輸液、30分から3時間で反応しなければ昇圧薬、3から24時間は反応性がある患者だけに輸液、24から72時間はゼロバランス、72時間以降は脱蘇生">
+<div class="f-top">0分：血液培養 → 抗菌薬（ショックなら1時間以内）＋緩衝晶質液250〜500 mL＋感染源の相談（6時間以内）</div>
+<div class="f-arr">▼ 1本ごとに CRT・mottling・MAP・SV を見る</div>
+<div class="f-cols">
+<div class="f-col"><b>30分〜3時間：最大の分岐点</b><ul><li>30 mL/kg前後でPLR＋SVなどで反応性を確かめる</li><li>反応しなければ輸液を止め、末梢からノルアドレナリンでMAP 65（65歳以上は60〜65も可）</li></ul></div>
+<div class="f-col"><b>3〜72時間：最適化→安定化</b><ul><li>輸液は反応性のある患者にだけ。隠れ輸液（栄養・薬剤希釈・維持輸液）を帳簿に載せる</li><li>24時間以降はゼロバランス、惰性の維持輸液をやめる</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>72時間〜：脱蘇生を宣言</b>し、利尿薬のプロトコルで1日バランス＋300 mL未満（陰性が望ましい）</div>
+</div>
+<ul>
+<li><b>30 mL/kgはノルマではない</b>：ESICMは上限（very low）、SSC2026は下限（low）として示すが、小分けと再評価なら両方に整合する。BMI 30超は補正体重か理想体重で計算</li>
+<li><b>絞っても良くならないが、絞って害が出るわけでもない</b>：CLASSICでICU内輸液1,798 mL対3,811 mLでも90日死亡42.3%対42.1%。目的は過剰投与の回避</li>
+<li><b>製剤の既定は緩衝晶質液</b>。生理食塩水は頭蓋内圧亢進・致死的高K血症などに限る。アルブミンは第一選択にせず、HESは使わない</li>
+<li><b>MAPを80〜85に上げても死亡は減らない</b>（SEPSISPAM：新規心房細動が増加）。末梢のノルアドレナリンは48時間未満・低用量の橋渡しで、中心静脈路への切り替えを予定する</li>
+</ul>
+
+<h2><span class="n">4</span>灌流は3系統で読み、1つの数字で決めない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>系統</th><th>読み方</th><th>正常化</th></tr></thead>
+<tbody>
+<tr><td>皮膚</td><td><b>CRT</b>は15秒押して指尖3秒・膝5秒超で異常。<b>mottling</b>は膝から外側へ0〜5点（6時間後1点上昇ごとに14日死亡OR 2.26）</td><td>6〜8時間</td></tr>
+<tr><td>静脈血</td><td><b>ScvO₂</b>は最も速い。<b>CO₂較差</b>は乳酸・ScvO₂が正常でも蘇生不足を拾う（目標6 mmHg未満を挙げる立場も）</td><td>最速／6〜8時間</td></tr>
+<tr><td>乳酸</td><td>重症度の目印。低灌流以外（カテコラミン・肝障害）でも上がる。単独で輸液の引き金や目標にしない</td><td>24時間以上</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>輸液の適応は3段階</b>：①低灌流があるか（なければ血圧が低くても入れない）→ ②入れて大丈夫か（右室不全・肺水腫なら入れない）→ ③反応性があるか（なければ昇圧薬へ）。反応性は来院時57%、8時間後は3%</li>
+<li><b>速い指標が戻れば足すのをやめる</b>：CRT・ScvO₂・CO₂較差が戻っていれば、乳酸の遷延だけで輸液を追加しない</li>
+<li><b>6時間で3点をそろえて見直す</b>：昇圧薬量0.5 µg/kg/min超だけなら28日死亡47.9%、CRT 3秒超と乳酸の非低下がそろうと73.6%。可逆的要因の洗い直し・家族面談のきっかけにする（4人に1人は生存）</li>
+</ul>
+
+<h2><span class="n">5</span>蘇生が終わったら、脱蘇生を自分で宣言する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#s5">詳しく</a></h2>
+<ul class="chk">
+<li><b>昇圧薬</b>が増量中・高用量継続中ではない</li>
+<li><b>低灌流</b>がCRT・mottling・乳酸のどれにも残っていない</li>
+<li><b>容量負荷</b>（維持輸液・栄養・希釈を含む）を続けていない</li>
+<li>3つを満たした日に<b>宣言し、プランに1行</b>書く</li>
+</ul>
+<ul>
+<li><b>除水は利尿薬のプロトコルで</b>（ESICM、確実性moderate）。始める前に反応性を測り直し、除水中もCRT・乳酸を見張る。他の適応がないのに除水のためだけにRRTを始めない</li>
+<li><b>背景で初手を変える</b>：心不全の既往だけで初期輸液を絞らない（急性非代償性心不全では最初の3時間10〜15 mL/kgを上限側の目安）。IAP 12以上ではPLRを信じない。頭蓋内圧亢進は生理食塩水</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SSC 2026；ESICM輸液ガイドライン 2025；CLASSIC NEJM 2022；SEPSISPAM NEJM 2014；ANDROMEDA-SHOCK・同-2 二次解析；De Backer Crit Care 2022；Pantet COCC 2025 ほか）。初期輸液量の推奨は確実性が低いので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

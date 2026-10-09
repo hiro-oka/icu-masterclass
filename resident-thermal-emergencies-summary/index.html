@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>体温の救急（熱中症・低体温） 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>体温の救急（熱中症・低体温） — 要約</h1>
+<p class="sub">解説「体温の救急（熱中症・低体温）」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>設定温度が動いたかを最初に問う</b><span>熱射病・悪性症候群などの高体温に解熱薬は効かない。冷却と原因ごとの治療を選ぶ</span></div>
+<div><b>熱射病は速度で冷やす</b><span>認知から30分以内に39℃未満、0.155℃/分以上。単独で出せる氷水浸漬が第一選択</span></div>
+<div><b>中枢で測り、数字だけで決めない</b><span>低体温は体温で重症度を決めない。ICUの発熱は下げる前に「なぜ上がったか」</span></div>
+</div>
+
+<h2><span class="n">2</span>発熱と高体温は別物 — 解熱薬には作用する相手がいない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s1">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>病態</th><th>セットポイント</th><th>初手</th></tr></thead>
+<tbody>
+<tr><td>熱射病</td><td>正常（解熱薬は無効）</td><td>氷水浸漬など能動的冷却を最速で開始</td></tr>
+<tr><td>悪性高熱症</td><td>正常</td><td>トリガー物質の中止＋ダントロレン＋冷却</td></tr>
+<tr><td>悪性症候群・セロトニン症候群</td><td>正常</td><td>原因薬剤の中止＋専門医コンサルト</td></tr>
+<tr><td>感染性発熱</td><td>上方修正</td><td>感染源の精査と治療。解熱は目的（転帰か快適性か）を明記</td></tr>
+<tr><td>偶発性低体温</td><td>—</td><td>循環・意識・併存症で重症度を評価し、静かに扱う</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>冷却の速さは熱の逃げ道で決まる</b>：水を使う伝導が速く、14法の最速と最遅で89倍違う</li>
+<li><b>中枢で測り、部位を途中で変えない</b>：膀胱・食道・肺動脈のサーミスタが基準。口腔・鼓膜は中枢温から1〜2度ずれ、腋窩・側頭動脈は冷却の判断に使わない</li>
+</ul>
+
+<h2><span class="n">3</span>熱射病 — 深部体温40℃超＋意識の異常で、時計を主語に動く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="熱射病を認知した時刻を起点に、5分で冷却と採血、15分で冷却速度、30分で39℃未満を確かめ、24〜72時間はCKとAKIを追う">
+<div class="f-top">0分：深部体温40℃超＋意識異常で熱射病と宣言し、時刻を書く ▶ 5分以内に測定部位を1つ決めて最速の冷却と採血</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>15分の関門</b><ul><li>℃/分＝（開始時体温−現在体温）÷経過分数</li><li>0.155に届かなければ30分を待たずに格上げ（浸漬へ切り替え、手段を追加）</li></ul></div>
+<div class="f-col"><b>30分の関門</b><ul><li>深部体温39℃未満に届いたか</li><li>未達なら手段・中断・測定部位のどれが原因かを言葉にする</li></ul></div>
+</div>
+<div class="f-bot">24〜72時間：CKのピーク。体温が下がってもAKIを監視する。最初の5分でCK・K・P・Ca・Cr・肝逸脱酵素・凝固・血液ガスを採る</div>
+</div>
+<ul>
+<li><b>「熱中症＝軽症」を壊す</b>：ICU管理を要する熱射病の死亡は60%に近づき、生存者の約30%に長期の認知・運動障害が残る。意識障害が出たら熱射病として動く</li>
+<li><b>古典的と労作性は記載で分け、冷却では分けない</b>：古典的熱射病の死亡は0〜71.4%。高齢者でも手加減しない</li>
+</ul>
+
+<h2><span class="n">4</span>冷却は手段ではなく速度で評価する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>冷却法（SCCM 2025の14法から）</th><th>℃/分</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>氷水浸漬（1〜5℃）</td><td>0.178</td><td>単独で0.155を超える。第一選択</td></tr>
+<tr><td>9〜12℃水への浸漬</td><td>0.154</td><td>ぎりぎり境界上。氷水ができないときの次善</td></tr>
+<tr><td>冷水浸漬（14〜17℃）</td><td>0.102</td><td>3位以下はすべて基準未満</td></tr>
+<tr><td>市販アイスパック</td><td>0.021</td><td>目標の約1/7。「冷却を始めた」にならない</td></tr>
+<tr><td>蒸散冷却（ミスト＋扇風機）</td><td>0.002</td><td>14法中最下位（扇風機単独0.057より遅い）</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>浸漬は危険を手順で潰して回す</b>：頭は水面から出し、深部温を連続表示。凍傷・床の水・電極外れ・蘇生の妨げを先に養生する。ロードレースの現場浸漬で搬送は10%</li>
+<li><b>薬で下げない</b>：ダントロレンは使わない（強い推奨。死亡RR 1.01）。アセトアミノフェン・NSAIDs・サリチル酸の解熱目的のルーチン使用も避ける</li>
+</ul>
+
+<h2><span class="n">5</span>季節外れの高体温と横紋筋融解症<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s4">詳しく</a></h2>
+<ul>
+<li><b>38.9℃を超えたら非感染性を考える</b>：セロトニン症候群・悪性高熱症・悪性症候群・甲状腺クリーゼ・熱中症・急性溶血性輸血反応・重症薬疹。直近の薬の変更を必ず聞く。ただし41.1℃超でも感染は否定できない</li>
+<li><b>悪性高熱症は熱射病と薬が逆</b>：トリガーを止め、冷却にダントロレンを重ねる。甲状腺クリーゼは抗甲状腺薬が先、ヨウ素は後</li>
+<li><b>CKのピークは1〜3日後</b>：前日比40〜50%ずつ下がらなければ損傷の継続かコンパートメント症候群。AKIは13〜46%、CK 5,000〜10,000で危険が上がる。古典的4徴がそろうのは10%だけ</li>
+<li><b>輸液は等張晶質液</b>：初期は尿量200〜300 mL/時、CK 5,000未満まで。マンニトールと尿アルカリ化はルーチンにしない。RRTでミオグロビンは除けない</li>
+</ul>
+
+<h2><span class="n">6</span>低体温とICUの発熱<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-thermal-emergencies/#s6">詳しく</a></h2>
+<ul>
+<li><b>低体温は体温だけで重症度を決めない</b>：都市部では深部体温が院内死亡と関連しない（5Aスケール）。徐脈と意識障害は低体温の帰結と読み、静かに動かす。循環が崩れるほど侵襲的に温め、心停止では温まるまで死亡宣告を急がない</li>
+<li><b>解熱しても生存は変わらない</b>：5RCT・1,413例でHR 0.91（0.75–1.10）、体温差は72時間で消える。発熱がない敗血症は死亡が発熱例の2倍で、むしろ警戒する</li>
+<li><b>静注アセトアミノフェン1gで51.9%がMAP 15%以上低下</b>：谷は投与後約30分で、解熱とは無関係、予測できない。全例で投与後30分〜1時間はバイタルを密に見る</li>
+<li><b>目標は病態で違う</b>：心停止後は37.5℃以下を36〜72時間保ち、熱射病のように急降下させない。術後の最高体温と死亡はU字で、36.0℃未満の調整OR 2.15</li>
+</ul>
+<ul class="chk">
+<li><b>熱射病</b>に解熱薬を出さない</li>
+<li><b>15分</b>で℃/分を計算する</li>
+<li><b>腋窩・鼓膜</b>で冷却を判断しない</li>
+<li><b>下がった後</b>もCKとAKIを追う</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SCCM 熱射病GL Crit Care Med 2025；Epstein &amp; Yanovich NEJM 2019；ICU発熱評価GL Crit Care Med 2023；Ten tips ICM 2023；横紋筋融解症 CHEST 2026；5Aスケール JIC 2019；発熱IPDメタ解析 ICM 2019；静注アセトアミノフェン CCM 2016；JIPAD術後体温 Can J Anesth 2025；Resuscitation 2025 ほか）。数字は教育目的の記載で、原著と照合して使ってください。</p>
+</main>
+</body>
+</html>

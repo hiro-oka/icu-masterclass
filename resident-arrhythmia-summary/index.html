@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>不整脈と一時的ペーシング 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ICUの不整脈と一時的ペーシング — 要約</h1>
+<p class="sub">解説「ICUの不整脈と一時的ペーシング」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>AFは誘因が点火した結果</b><span>薬の前に破綻の有無と誘因（K・Mg・容量・痛み・発熱・カテコラミン）を見る</span></div>
+<div><b>LVEFで選び、110未満で止める</b><span>洞調律化も抗凝固も急がない。退室サマリーに「新規発症AFあり」と1行</span></div>
+<div><b>徐脈は低灌流で決める</b><span>TCPで時間を買い、TVPは3つのつまみと抜去予定までセットで立ち上げる</span></div>
+</div>
+
+<h2><span class="n">2</span>頻脈を見たら、薬の前に「破綻」と「誘因」<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s2">詳しく</a></h2>
+<ul>
+<li><b>ICUの6人に1人に起き、入室2日目に多い</b>：心臓手術以外のICUでAF 15.6%、発症は中央値40時間、診断の59%は持続心電図モニタ</li>
+<li><b>12誘導を1枚取る</b>：「150/分で一定」は2:1の心房粗動、3種類以上のP波は多源性心房頻拍、PM患者で規則正しい130/分前後はPMT（マグネットで止まる）</li>
+<li><b>誘因を1つずつ潰す</b>：循環血液量減少・低K・低Mg・疼痛・発熱・虚血・β遮断薬の中断・カテコラミン過量（とくにドパミン・アドレナリン）。ただし血行動態が崩れていれば是正を待たずに心拍数制御を始める</li>
+<li><b>下げる前に測る</b>：心エコーでLVEF（40%が薬の分かれ目）とLAVI、乳酸・CRT・ScvO₂の基準値。110/分前後の頻脈は代償なので削りすぎない</li>
+</ul>
+
+<h2><span class="n">3</span>薬はLVEFで選び、心拍数110/分未満で止める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>場面</th><th>選ぶもの</th><th>根拠・注意</th></tr></thead>
+<tbody>
+<tr><td>血行動態が破綻</td><td>即時の電気的除細動。誘因の是正と薬をセットで</td><td>ESC I C。24時間後の洞調律は23%</td></tr>
+<tr><td>LVEF &gt;40%</td><td>β遮断薬（ランジオロール）かアミオダロン</td><td>CAFEで両者に差なし。ジゴキシン・Ca拮抗薬は第一選択にしない</td></tr>
+<tr><td>LVEF ≤40%</td><td>β遮断薬および／またはジゴキシン</td><td><span class="x">ジルチアゼム・ベラパミルは使わない</span></td></tr>
+<tr><td>WPW症候群</td><td>電気的除細動</td><td><span class="x">レートコントロール薬はすべて禁忌</span>（静注アミオダロンも）</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>ランジオロール</b>：ボーラスなしで1 µg/kg/分（1γ）から、15〜20分ごとに1γずつ上げ、初期目標の安静時110/分未満で止める。95/分未満は高度な心拍出量モニタリングがあるときだけ</li>
+<li><b>STRESS-LはAFの試験ではない</b>：敗血症性ショックの洞性頻脈をランジオロールで下げて死亡が悪い方向（28日37.1%対25.4%）。洞性頻脈は叩かない</li>
+</ul>
+
+<h2><span class="n">4</span>戻すのも抗凝固も急がず、退室サマリーに1行<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s4">詳しく</a></h2>
+<ul>
+<li><b>待てるなら待つ</b>：原因を治せば自然に洞調律へ戻るのは24時間で55〜66%、48時間で最大83%（wait-and-see、ESC IIa B）</li>
+<li><b>発症24時間超は抗凝固なしで除細動しない</b>（ESC III C）。急性期のルーチン抗凝固は脳卒中を減らさず出血を増やす（8.6%対7.2%）ので、ICU在室中の治療的抗凝固はルーチンにしない</li>
+<li><b>再頻脈は普通に起こる</b>：レート達成後24時間で59〜80%が再び頻脈。薬を積み増す前に誘因へ戻る（KとMgは補正後も下がる）</li>
+<li><b>退室サマリーに「ICU在室中に新規発症AFあり」</b>：過剰死亡は退院後90日に集中し、5年でAF再入院42.7%対7.0%。退院時と3か月後にリズムと心エコー、CHA₂DS₂-VAで抗凝固を判断</li>
+</ul>
+
+<h2><span class="n">5</span>徐脈は「今夜もつか」と「元に戻るか」に分ける<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s5">詳しく</a></h2>
+<div class="flow" role="img" aria-label="緊急性は心拍数ではなく低灌流5項目で決める。原因の治療を同時に始め、アトロピンが無効ならすぐTCPで時間を買い、長く要りそうならTVPで橋をかける。原因が戻れば抜去、戻らなければ恒久ペースメーカーへ">
+<div class="f-top">緊急性は心拍数でなく低灌流5項目（低血圧・意識障害・ショック・虚血性胸部症状・急性心不全）で決める</div>
+<div class="f-arr">▼ 血液ガス1本と薬歴で戻せる原因を同時に探す（虚血・低酸素・高K・β遮断薬・Ca拮抗薬・ジゴキシン）</div>
+<div class="f-cols">
+<div class="f-col"><b>時間を買う</b><ul><li>アトロピンが無効ならすぐTCP</li><li>0 mAから上げ、脈・動脈圧・SpO₂脈波でmechanical captureを確かめる</li></ul></div>
+<div class="f-col"><b>橋をかける</b><ul><li>TVPは内頸静脈から、透視かエコーガイドで、バルーン先端カテーテル</li><li>48時間を目安に最短で</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>原因が戻れば抜去、戻らなければ恒久PMへ</b>。一時的ペーシングと恒久PMは別の問い</div>
+</div>
+<p class="cap">通常不要：無症候性の洞徐脈・1度房室ブロックだけ・安定したMobitz I・「HR 50未満」という数字だけ。</p>
+
+<h2><span class="n">6</span>つまみは3つ、トラブルは接続から、毎日「今日抜けないか」<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#s7">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>つまみ</th><th>決め方</th><th>応える現象</th></tr></thead>
+<tbody>
+<tr><td>RATE</td><td>血圧・心拍出量・虚血を見ながら。絶対の正解はない</td><td>—</td></tr>
+<tr><td>OUTPUT（mA）</td><td>捕捉閾値の2〜3倍（閾値1.5 mAなら3〜4.5 mA）</td><td>spikeの後にQRSが出ない（捕捉不全）</td></tr>
+<tr><td>SENSITIVITY（mV）</td><td>感知閾値の1/2以下。<b>mVは小さいほど高感度</b></td><td>拾わない→mVを下げる／拾いすぎ→mVを上げる</td></tr>
+</tbody>
+</table></div>
+<ul class="chk">
+<li><b>spikeが出ない</b>ときは電源・電池・接続から見る</li>
+<li><b>閾値が上がったら</b>出力を上げ続けず、リード移動・穿孔・高K・アシドーシスを並べる</li>
+<li><b>VVIで血圧が下がったら</b>ペースメーカー症候群（房室同期の喪失）を疑う</li>
+<li><b>帰室したら</b>モニタのフィルタをオフ、ペーシング感知をオン</li>
+<li><b>電池交換</b>はもう1台に載せ替えてから</li>
+<li><b>回診では</b>閾値の推移と抜去予定日を言う。48時間超で合併症が増える</li>
+</ul>
+<ul>
+<li><b>心停止では普通に蘇生する</b>：paced QRSがあっても脈がなければPEA。ICDへのマグネットは頻拍治療を止めるだけで、徐脈ペーシングは通常変わらない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ESC 2024 AF GL；ESC 2021 ペーシング GL；欧州Delphi Crit Care 2026；Chest 2018；CAFE HTA 2021；AFIB-ICU CCM 2023；RACE 7 ACWAS；STRESS-L JAMA 2023；JACC 2017；AHA 2025 ほか）。OUTPUT「2〜3倍」・SENSITIVITY「1/2以下」は実務の定石で、査読総説の裏づけは弱い。用量は施設の採用薬と添付文書を優先してください。</p>
+</main>
+</body>
+</html>

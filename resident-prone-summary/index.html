@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>腹臥位療法 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>腹臥位療法 — 要約</h1>
+<p class="sub">解説「腹臥位療法 — 早く、16時間以上、肺保護換気に上乗せ」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s3">詳しく</a></h2>
+<div class="three">
+<div><b>その日のうちに16時間以上</b><span>換気を整えてもP/F 150未満なら、連日1回16時間以上を行う</span></div>
+<div><b>酸素化やΔPで判定しない</b><span>終了は仰臥位4時間後の3条件、中止は即時中止基準か2回続く悪化だけ</span></div>
+<div><b>事故は回した後に起きる</b><span>2〜4時間ごとに頭・腕・眼を見直し、栄養とVAP予防を止めない</span></div>
+</div>
+
+<h2><span class="n">2</span>効いたのは体位ではなく、PROSEVAの処方<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s1">詳しく</a></h2>
+<ul>
+<li><b>PROSEVA（466例）</b>：P/F 150未満の挿管ARDSに16時間以上の腹臥位を6 mL/kg PBWの肺保護換気に上乗せし、28日死亡32.8%→16.0%、90日死亡41.0%→23.6%（NNT 約6）。要るのは材料ではなく人手と手順</li>
+<li><b>それ以前の4試験が陰性だった理由</b>：VTが大きい（実体重8〜10 mL/kg）・短い（6〜8時間）・重症度を絞らない・開始が遅い・プロトコルがばらばら。どれか1つ崩すと効かない</li>
+<li><b>問題は「効くか」より「届いているか」</b>：強い推奨を得た数少ない治療だが、LUNG SAFEでは重症ARDSの20%未満にしか行われていない</li>
+<li><b>機序は肺を開くより均す</b>：背側の虚脱は水ではなく重し（心臓・縦隔・腹腔）のせい。腹臥位で経肺圧の縦の勾配が平らになり、過膨張と虚脱が同時に減る。酸素化はすぐ上がるが、肺保護の効果は数時間かけて出る</li>
+</ul>
+
+<h2><span class="n">3</span>適応は最適化後のP/F 150未満 — 12時間は下限<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s3">詳しく</a></h2>
+<div class="tw"><table class="hb">
+<thead><tr><th>項目</th><th>処方</th><th>根拠・注意</th></tr></thead>
+<tbody>
+<tr><td>始める</td><td>P/F 150未満（PEEP 5以上）</td><td>VT 4〜8 mL/kg PBW・Pplat 30未満に整え、可逆的な原因を直して測り直す。「日勤帯まで待つ」は先送り</td></tr>
+<tr><td>1回の時間</td><td>16時間以上を連日</td><td>ESICM 2023の強い推奨。PROSEVAの実効は平均約17時間。24時間を超えても上乗せはない</td></tr>
+<tr><td>鎮静・筋弛緩</td><td>常用しない</td><td>ROSEでルーチンの筋弛緩に利益なし。回す間だけ深くするのは一時的</td></tr>
+<tr><td>循環が不安定</td><td>理由にしない</td><td>右室の後負荷が下がる。PROSEVAの心停止は6.8%対13.5%で腹臥位群が少ない</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>続ける・やめるは決めた基準だけで<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="腹臥位を1回16時間以上、予定の時刻まで続ける。途中で中止するのは即時中止基準か、2セッション続けてP/Fが20%以上低下したときだけ。仰臥位に戻して4時間後にP/F150以上、PEEP10以下、FiO2 0.6以下をすべて満たせば終了を検討">
+<div class="f-top">腹臥位を1回16時間以上 — 予定の時刻まで続ける</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>途中で中止するのは2つだけ</b><ul><li>即時中止基準：事故抜管・心停止・治療抵抗性の循環虚脱・管理できない頭蓋内圧上昇など</li><li>2セッション続けてP/Fが20%以上低下</li></ul></div>
+<div class="f-col"><b>仰臥位に戻して4時間後</b><ul><li>P/F 150以上・PEEP 10以下・FiO₂ 0.6以下をすべて満たせば終了を検討</li><li>1つでも満たさなければ翌日も繰り返す</li></ul></div>
+</div>
+<div class="f-bot">これでは決めない → 腹臥位中のP/Fの上がり方・ΔP・エラスタンス・画像所見</div>
+</div>
+<ul>
+<li><b>酸素化の反応は予後と無関係</b>：PROSEVAで酸素化が悪化した43例のうち39例（91%）が28日生存。「反応あり」の割合は物差しで68%〜45%と動く</li>
+<li><b>ΔPも選別に使えない</b>：ΔPは平均13→11 cmH₂Oに下がるが、改善は90日死亡を予測しない（OR 1.14）</li>
+<li><b>腹臥位中の数字の読み方</b>：Pplatの上昇はチューブ・分泌物・気胸・腹部の圧迫を除いてから胸壁と読む。輸液はPPV・SVVで決めず、EEOかVTチャレンジで</li>
+</ul>
+
+<h2><span class="n">5</span>5人以上・2段階で回し、回した後の16時間を守る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s5">詳しく</a></h2>
+<ul>
+<li><b>侵襲手技と同じ3段のチェック</b>：手技前確認・タイムアウト・サインアウト。人員は気道担当を含め5名以上（胸腔ドレーンで＋1、ECMOで＋2）、号令は頭側の気道担当1人</li>
+<li><b>側臥位を経由して90度ずつ</b>回し、直後にETCO₂の波形とチューブの挿入長を確かめる。スイマーズポジションは肩の外転80度以内、頭高位20〜30度</li>
+<li><b>心停止は腹臥位のまま胸骨圧迫</b>（両肩甲骨の間）。仰臥位に戻すのは無効なときだけ</li>
+</ul>
+<ul class="chk">
+<li><b>2〜4時間ごと</b>に頭と上肢を左右入れ替え、同じ間隔で眼を見る</li>
+<li><b>2時間ごと</b>に褥瘡の好発部位を除圧する（回す前に被覆材）</li>
+<li><b>経腸栄養</b>は回転の前後だけ止め、腹臥位中も続ける</li>
+<li><b>VAP予防</b>を続ける（腹臥位はVAPを減らさない）</li>
+</ul>
+
+<h2><span class="n">6</span>覚醒下腹臥位は時間の治療 — 挿管を遅らせる理由にしない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-prone/#s9">詳しく</a></h2>
+<ul>
+<li><b>効くのは1日8時間を超えてから</b>：2〜5時間の試験はそろって陰性、12時間のLiu 2024で挿管17%対27%。指示に今日の目標時間を書き、合計時間と中断の理由を記録する</li>
+<li><b>非COVIDでは根拠が薄い</b>：挿管は減るが（RR 0.74）死亡は減らない。SpO₂ではなく呼吸数・努力・意識・pHで挿管を判断する</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（PROSEVA NEJM 2013；ESICM 2023；ATS 2024；ICS/FICM 2019；Albert AJRCCM 2014；Caccioppola Crit Care 2026；Zalucky Crit Care 2026；ROSE NEJM 2019；Ehrmann ICM 2026 ほか）。終了基準はガイドラインに正式な記載がなくPROSEVAの基準によるので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>フレイルと高齢重症患者 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>フレイルと高齢重症患者 — 要約</h1>
+<p class="sub">解説「フレイルと高齢重症患者」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>年齢ではなく予備能で語る</b><span>CFSは入室前2か月の生活を家族や施設から聞いてつけ、何点で切ったかを必ず添える</span></div>
+<div><b>CFS×SOFAの2軸で判断する</b><span>年齢を閾値にしない。入室と同時に治療の上限を項目単位で決め、迷えば期限付きの試み</span></div>
+<div><b>家族には「どこへ帰れるか」</b><span>死亡率より退院先から話す。退室時・退院時に測り直し、転院の経路を厚く支える</span></div>
+</div>
+
+<h2><span class="n">2</span>測る — 入室前の生活を聞き、カットオフを添える<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s2">詳しく</a></h2>
+<ul>
+<li><b>フレイル＝ストレスから戻ってこられるかを表す予備能</b>：併存疾患の数でも障害でも暦年齢でもない。CFSは1〜9の階段で、9は最重度のフレイルではなく生命予後が短い終末期を指す</li>
+<li><b>3つの問い（1〜2分）</b>：移動（買い物に一人で行けたか）・身の回り（入浴・排泄・食事のどこに手が要るか）・この半年の変化。挿管・鎮静された「今」ではなく入室前2か月を、2つ以上の情報源で</li>
+<li><b>数字にはカットオフを添える</b>：同じ414例でCFS≥4なら54%、≥6なら22%（2.5倍）。道具でも違い、同じ患者でCFS 29.8%、Frailty Index 44.8%</li>
+<li><b>取れなかったことも書く</b>：百寿者ではCFSの54.7%が欠損し、欠損は偏って起きる。空欄は「フレイルなし」と誤読されるので「評価不能（理由）」と書き、翌朝に取り直す</li>
+</ul>
+
+<h2><span class="n">3</span>何が予後を決めるか — 年齢より予備能、死亡より退院先<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>軸</th><th>数字</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>年齢</td><td>選ばれた高齢者（VIP2・百寿者460例）では効かず、DPC 51万例の敗血症では院内死亡8.3%→24.9%（90歳以上）</td><td>矛盾しない。年齢は入室の閾値に使わず、家族への説明に正直に使う</td></tr>
+<tr><td>退院先</td><td>JIPADで80代のICU死亡5.4%、自宅に帰らない40.0%。90代は7.2%と53.1%</td><td>「生きて出られるか」より「どこへ帰れるか」</td></tr>
+<tr><td>長期生存</td><td>自宅以外へ退院した57,652例の4年生存はフレイル32.5%対64.3%（調整HR 1.50）</td><td>相対的な影響は65歳未満で最大（HR 1.73）。若さで割り引かない</td></tr>
+<tr><td>フレイルは動く</td><td>FORECASTで入室時29.8%→退院時54.6%→6か月34.1%</td><td>入室時・ICU退室時・退院時の3点で測り直す</td></tr>
+<tr><td>施設</td><td>JIPAD 80歳以上への生命維持治療は施設で約10倍（標準化治療比0.24〜2.34）</td><td>強度を上げても院内生存は変わらない。要るのは利益のある患者を見分けること</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>判断する — 2軸で見て「入れる、ただしここまで」<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="電話で3つの問い、15分でCFS、30分で2軸、60分で家族と上限を決める流れ">
+<div class="f-top">0分 電話で3つの問い ▶ 15分 CFS確定 ▶ 30分 CFS×SOFAで型を見る ▶ 60分 家族と上限を決める</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>CFS高値</b><ul><li>×SOFA高値：治療目標の話し合いを早く始め、入室と同時に上限を項目単位で</li><li>×SOFA低値：軽症に「見える」だけ。VIP2で84歳・SOFA 3の型の30日死亡17%。安易に病棟へ返さない</li></ul></div>
+<div class="f-col"><b>CFS低値（頑健）</b><ul><li>×SOFA高値：年齢を理由に断らず通常どおり治療する（93歳・SOFA 4でも7%の型がある）</li><li>決めきれなければ期限付きの試み（例：72時間）と再評価の項目を家族と先に共有</li></ul></div>
+</div>
+<div class="f-bot">上限は CPR・挿管・人工呼吸・昇圧薬・RRT を別々に決める。DNARが決めるのは心停止時だけ。制限は看取りではない（Ethicus-2で差し控え後も34.9%が生存退院）</div>
+</div>
+<ul>
+<li><b>家族への伝え方</b>：①今できること、②いつまで、③その後どうするか、④心停止時の扱い、を分けて約束する</li>
+<li><b>入室したら離床とせん妄</b>：FORECASTでフレイル患者に差がついたのは離床とせん妄だけで、どちらも介入できる。「無理をさせない」に流れず、むしろ強める</li>
+</ul>
+
+<h2><span class="n">5</span>病態ごとの数字 — 生存は回復ではない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s5">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>病態</th><th>知っておく数字</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>心停止後</td><td>TTM2で6か月死亡 fit 40%・prefrail 75%・frail 84%・severely frail 92%。重度フレイルは予後予測29%なのにWLST 66%</td><td>フレイルだけで差し控えを決めず、96時間後の予後予測を予定どおり</td></tr>
+<tr><td>敗血症性ショック</td><td>OPTPRESS生存者の69.6%が90日後CFS 5以上。最強の予測因子は発症前CFS（1点でOR 2.03）</td><td>生存と回復を分けて家族に話す</td></tr>
+<tr><td>誤嚥性肺炎</td><td>85歳以上の80.1%が自宅に帰らない</td><td>全診断の80代40.0%の約2倍。全体の数字では甘すぎる</td></tr>
+<tr><td>血液悪性腫瘍</td><td>12か月生存は入室時CFS 1–3で34%、6–9で14%</td><td>断る根拠ではなく治療目標の話し合いの材料</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">6</span>家族と退院、落とし穴<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s6">詳しく</a></h2>
+<ul>
+<li><b>退院支援は転院の経路を厚く</b>：フレイルの悪影響は他院転院（HR 1.56）とリハビリ転院（1.52）で大きく、高齢者施設（0.94）では有意でない。CFSの推移と治療の上限を情報提供書に書く</li>
+<li><b>指針は答えをくれない</b>：SCCM 2026・ESICM 2025とも強い推奨はゼロ。一致したのは老年医学的ケアモデルだけ</li>
+<li><b>予言を自分で当てない</b>：制限が転帰を作り「やはり予後不良」と確かめる輪が回る。制限の理由と範囲を項目ごとに残す。CFSを門前払いの道具にしない</li>
+</ul>
+<ul class="chk">
+<li><b>年齢の隣にCFS</b>とカットオフを書く</li>
+<li><b>DNAR</b>の一語で上限を済ませない</li>
+<li><b>退室時のCFS</b>を入室時から転記しない</li>
+<li><b>事後解析の関連</b>で治療を変えない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Cecconi ICM 2024；VIP2；FORECAST；Mehta CCM 2025；Munshi ICM 2024；JIPAD高齢者 ICM 2024；Shiotsuka 2026；TTM2二次解析；OPTPRESS事後解析；Sekiya JIC 2026；SCCM 2026；ESICM 2025 ほか）。数字は教育目的の記載で、原著と照合して使ってください。</p>
+</main>
+</body>
+</html>

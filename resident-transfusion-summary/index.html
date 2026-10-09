@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ICUの輸血戦略 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ICUの輸血戦略 — 要約</h1>
+<p class="sub">解説「ICUの輸血戦略」を当直で使う要点に絞った2ページ版。「詳しく」から本編へ移れます。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>最初に「出血しているか」</b><span>出血して血行動態が不安定なら、閾値の議論をやめて大量出血の運びに切り替える</span></div>
+<div><b>非出血はHb 7〜8</b><span>1単位ずつ入れて測り直す。9〜10側に上げるのは急性脳損傷・急性冠症候群・高心リスクの3集団だけ</span></div>
+<div><b>血小板とFFPは場面で使う</b><span>数字を直すために入れない。貧血は採血を減らして作らない</span></div>
+</div>
+
+<h2><span class="n">2</span>赤血球輸血の閾値（非出血）<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s2">詳しく</a></h2>
+<div class="tw"><table class="hb">
+<thead><tr><th>集団</th><th>Hb</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td>重症患者全般（既定）</td><td>7〜8 g/dL</td><td>61試験・27,639例で30日死亡は差なし（RR 1.01）。1単位ずつ入れて測り直す</td></tr>
+<tr><td>急性消化管出血</td><td>7〜8 g/dL</td><td>制限的で30日死亡が減る（RR 0.68）。強い推奨</td></tr>
+<tr><td>急性脳損傷</td><td>9 g/dL</td><td>TBI・SAH・脳内出血。180日の不良神経学的転帰が減った（TRAIN、RR 0.86）</td></tr>
+<tr><td>急性冠症候群</td><td>9〜10側</td><td>制限的で6か月の心臓死が9.0%対6.1%（MINT）。制限的戦略をとらない</td></tr>
+<tr><td>高心リスク</td><td>9〜10側を検討</td><td>制限的で心不全中心の心合併症が9.9%対5.9%（TOP）</td></tr>
+<tr><td>心臓外科周術期</td><td>7.5〜8 g/dL</td><td>7.5 g/dLの制限的戦略が非劣性（TRICS-III）</td></tr>
+<tr><td>敗血症性ショック</td><td>7 g/dL</td><td>9と7で90日死亡に差なし（TRISS）。がん患者でもリベラルは乳酸を改善せず、血栓13%対1%（TRANSPORT）</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>Hb 7〜9のグレーゾーン</b>：既存のCVとAラインから同時採血し、ScvO₂&lt;65〜70%・O₂ER&gt;30%なら1単位入れて測り直す。ScvO₂&gt;70%・O₂ER&lt;30%なら今日は入れない（未検証で、プロトコルではなく判断の共通言語）</li>
+<li><b>乳酸とトロポニンの単独上昇は輸血の理由にしない</b>。33研究のメタ解析で輸血後の乳酸は動かなかった</li>
+<li><b>害の焦点は感染より循環と肺</b>：累積3単位までは院内感染を増やさない（OR 0.63）。TACOはICU患者の5.5%。輸血後6時間はTACOとTRALIを見張る</li>
+</ul>
+
+<h2><span class="n">3</span>血小板・FFP・DIC — 数字ではなく場面で<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s4">詳しく</a></h2>
+<ul>
+<li><b>血小板減少は輸血の前に外す</b>：ヘパリン曝露ならHIT（4Tスコア）、溶血・破砕赤血球で凝固正常ならTTP・HUS（その場でADAMTS13。TTPは血漿交換なしで死亡90%）、臨床像と合わなければ偽性（クエン酸管で採り直す）</li>
+<li><b>予防的血小板は10 G/L</b>（20〜30に上げても出血は減らない）。手技前はCVCで20、腰椎穿刺で50 G/L。輸血後24時間の増加が15 G/L未満なら不応として抗HLA抗体を調べる</li>
+<li><b>血小板10〜50 G/LのCVC</b>：輸血を省くと出血が4.8%から11.9%に増えた（PACER）。基本は1単位入れて留置し、ICU・エコーガイド下・内頸か大腿の3条件がそろうときだけ省略を考える</li>
+<li><b>FFPは数字を直すために使わない</b>：予防投与で罹病も死亡も減らした研究はない。CVC・穿刺・内視鏡の前にもルーチンに入れない</li>
+<li><b>DICは出血型か血栓型か</b>を毎日言葉にする。抗凝固薬はマーカーを改善しても死亡を変えなかった（SCARLET 26.8%対29.4%）ので、ルーチンに使わない</li>
+</ul>
+
+<h2><span class="n">4</span>大量出血 — 決め打ちで始め、検査が返ったら狙って足す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s5">詳しく</a></h2>
+<div class="flow" role="img" aria-label="大量出血ではMTPを起動して決め打ちの比率で始め、凝固検査が返ったら目標指向に切り替え、止血後24時間以内に血栓予防を始める">
+<div class="f-top">0分：MTPを起動し、凝固も同時に出す（重症外傷の約1/3は到着時すでに凝固障害）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>0〜30分　決め打ち</b><ul><li>FFP:赤血球≥1:2、またはフィブリノゲン＋赤血球で開始</li><li>トラネキサム酸：受傷3時間以内に1 gを10分、続けて1 gを8時間</li><li>イオン化Ca・加温。SBP 80〜90（TBIはMAP≥80）</li></ul></div>
+<div class="f-col"><b>30〜60分　切り替え</b><ul><li>凝固検査（または粘弾性検査）が返ったら目標指向へ</li><li>フィブリノゲン≤1.5 g/Lで補充し、初回は3〜4 g</li><li>目標：血小板&gt;50（TBIは&gt;100）・iCa&gt;1 mmol/L・体温&gt;36℃・pH&gt;7.35</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>止血を確かめたら24時間以内に血栓予防</b>：外傷性凝固障害は出血の病気で始まり、線溶シャットダウンを経て血栓の病気で終わる</div>
+<div class="f-bot">抗凝固薬内服中の外傷：VKAはPCC＋ビタミンK1 5〜10 mg、ダビガトランはイダルシズマブ5 g、Xa阻害薬はPCC 25〜50 U/kg</div>
+</div>
+
+<h2><span class="n">5</span>貧血を作らない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s6">詳しく</a></h2>
+<ul class="chk">
+<li><b>小容量採血管</b>で輸血が100例あたり9.84単位減る</li>
+<li>Aライン・CVCに<b>閉鎖式採血</b>（採血喪失が半分）</li>
+<li>毎朝のルーチン採血を<b>毎日見直し</b>、1本にまとめる</li>
+<li>静注鉄は効くが<b>10日以降</b>（＋0.31 g/dL）</li>
+<li>EPOは輸血を12%減らすが<b>ルーチンには使わない</b></li>
+<li>経口鉄はICUではほとんど効かない</li>
+</ul>
+
+<h2><span class="n">6</span>一般の閾値をそのまま当てはめない場面<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-transfusion/#s7">詳しく</a></h2>
+<div class="three">
+<div><b>ECMO中</b><span>根拠のある閾値はない。ELSOのHb 7〜12は実践の記述。ECMOの手順に従う</span></div>
+<div><b>妊娠・産科出血</b><span>既定は7 g/dLだが出血の徴候は隠れやすい。分娩後出血は3時間以内のトラネキサム酸（RR 0.69）</span></div>
+<div><b>がん・血液悪性腫瘍</b><span>閾値は既定のまま。APLは70〜80%にDIC。血液悪性腫瘍のDICにトラネキサム酸は使わない</span></div>
+</div>
+
+<p class="note">出典：本編の主要文献（CHEST 2025 輸血ガイドライン；Cochrane；TRAIN JAMA 2024；Intensive Care Med 2024・2026；Front Med 2026；欧州外傷出血ガイドライン第6版 Crit Care 2023 ほか）。集団別の試験の数字は総説の表に依拠するものがあり、原著との食い違いもあるので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

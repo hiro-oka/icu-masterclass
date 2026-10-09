@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>電解質と酸塩基 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>電解質と酸塩基 — 要約</h1>
+<p class="sub">解説「電解質と酸塩基」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/#themes">詳しく</a></h2>
+<div class="three">
+<div><b>Naの上限は向きが逆</b><span>低Naは上げすぎでODS、慢性高Naは下げすぎで脳浮腫。上限は治療の前に書き、高Naは入れたNaを足し算してから下げる</span></div>
+<div><b>高Kは心電図を待たない</b><span>カルシウム→細胞内シフト→体外除去→原因検索の順に動く</span></div>
+<div><b>アシドーシスは原因アニオンまで</b><span>補正AGで読み、重炭酸はCO₂を吐ける患者に選んで使う</span></div>
+</div>
+
+<h2><span class="n">2</span>Na — 低Naは上限と測る時刻、高Naは足し算から<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/#s1">詳しく</a></h2>
+<ul>
+<li><b>低Na（Na 135未満）</b>：血清Naは塩と水の比で、ICUで多いのは分母の水が増える側。指示簿に先に3行（上限：24時間で10・48時間で18、ODS高リスクは8／測る間隔：最初の24時間は4〜6時間ごと／尿量100 mL/時超でNaを測り、超えそうならデスモプレシン＋5%ブドウ糖）。過剰補正の主因は水利尿で、Kの補充もNaを上げる</li>
+<li><b>高Na（Na 145以上）</b>：自由水の欠乏に、医療者が入れたNa（生食で溶いた薬剤・クエン酸・重炭酸・栄養）が重なる。薬剤の希釈液を5%ブドウ糖に替えると重症高Na血症が20%→6.6%に</li>
+<li><b>下げ方</b>：循環が不安定なら等張液で容量を先に。慢性は24時間で10〜12以下の低下に留める。多尿は尿浸透圧・血漿浸透圧・尿中Naで鑑別し、尿崩症の中枢性と腎性はデスモプレシンへの反応で分ける</li>
+</ul>
+
+<h2><span class="n">3</span>カリウム — 高Kは4段の順番を固定する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="心電図に異常があれば全例、正常でもK 6.0超なら始める。カルシウム、インスリン＋ブドウ糖とサルブタモール、体外除去、原因検索の順。インスリンの後は血糖を6点で測る">
+<div class="f-top">心電図に異常があれば全例、正常でもK 6.0 mmol/L超なら始める（K 5.5〜7.0でテント状T波は25%未満。心電図で除外しない）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>①カルシウム ②細胞内へ</b><ul><li>10%グルコン酸Ca 10〜20 mL。伝導を戻すがKは下げない。末梢から塩化Caは使わない</li><li>インスリン5〜10単位＋ブドウ糖（腎不全・非糖尿病・低体重は5単位）。サルブタモールは単剤で使わない</li></ul></div>
+<div class="f-col"><b>③体外へ ④原因</b><ul><li>ループ利尿薬・K吸着薬・透析。吸着薬で透析の判断を先送りしない</li><li>重炭酸のK低下効果は無視できる。RAAS阻害薬は止めずにKを制御</li></ul></div>
+</div>
+<div class="f-bot">インスリンを入れたら血糖を30・60・90・120・180・240分に測る（低血糖は入院患者の17.2%）。海外の用量は本邦製剤の濃度に換算する</div>
+</div>
+<ul>
+<li><b>低K（3.5未満）</b>：K 2.5以上で症状も心電図変化もなければ経口。KCl静注は40 mEq/L以下に希釈し20 mEq/時以下。難治ならMgを先に測る。補正後6人に1人が高Kに転じる</li>
+</ul>
+
+<h2><span class="n">4</span>Ca・Mg・P — 1つだけ直さず、「低い＝補正」の反射を止める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>治療の線と手順</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>高Ca</td><td>intact PTHから入る。生食＋ゾレドロン酸（効果は24〜36時間後）、難治ならCaを補わない持続KRT</td><td>ICUでは約66%が悪性腫瘍、AKIを82%に合併。イオン化Caで判定</td></tr>
+<tr><td>Mg</td><td>0.5 mmol/L未満と症候例。静注20 mmolを3〜4時間</td><td>低Mgは低K・低Caを起こす。心ブロック・重症筋無力症では非経口を避ける</td></tr>
+<tr><td>P</td><td>0.30 mmol/L未満と症候例。経腸が第一選択</td><td>無症候の補正で利益を示したRCTはない。リフィーディングだけはカロリーを絞って上げる</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>酸塩基 — 原因アニオンまで言い、重炭酸は選んで使う<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-electrolytes/#s5">詳しく</a></h2>
+<ul>
+<li><b>4手順で読む</b>：①補正AG＝実測AG＋2.5×（4.0−Alb）（低Albは代謝性アシドーシスを隠す）②Winterの式（予測PaCO₂＝1.5×HCO₃⁻＋8±2）③ΔAGとΔHCO₃⁻ ④特異的検査</li>
+<li><b>原因アニオンで意味が違う</b>：院内死亡は乳酸性56%・SIG性39%・高Cl性29%。高Cl性は生食の副産物であることが多く、晶質液の既定はバランス製剤（生食は頭蓋内圧亢進・致死的高Kに残す）</li>
+<li><b>重炭酸</b>：pH 7.20未満なら4.2%を250 mL/60分、pH約7.30を目標に24時間で1,000 mLまで。減るのはRRT導入（ARR 16%・NNT 6.3）で90日死亡は変わらない（pH 7.10以下の層でだけ減る可能性）。投与前に低Kと低イオン化Caを補正し、Naを追う。CO₂を吐けない患者と心停止では使わず、DKAでは不利</li>
+</ul>
+<ul class="chk">
+<li><b>1つを見たら</b>K・Mg・Ca・Pを一緒に確かめる</li>
+<li><b>カルシウム</b>を入れて高K治療を止めない</li>
+<li><b>「代謝性アシドーシス」</b>で報告を終えない</li>
+<li><b>正常化</b>を目指して重炭酸を入れ続けない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（JAMA 2022 低Na；ICM 2026 高Na・高Ca；BMJ 2026 高K；NDT 2007 低K；JCM 2024 低P；SALT-ED NEJM 2018；BICAR-ICU 1・2 と統合IPD Crit Care 2026；CHEST Crit Care 2026 ほか）。低Na血症の全体は単独の資料（低ナトリウム血症）にあります。</p>
+</main>
+</body>
+</html>

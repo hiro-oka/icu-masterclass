@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>人工呼吸器関連合併症の予防と管理 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>人工呼吸器関連合併症の予防と管理 — 要約</h1>
+<p class="sub">解説「人工呼吸器関連合併症の予防と管理 — VAP・VILI・VIDD」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>VAPは毎日確かめる仕組みで減らす</b><span>頭位30度以上・カフ圧の実測（20〜30 cmH₂O）・消毒薬を使わない口腔ケア</span></div>
+<div><b>ARDSでなくてもVT 6〜8 mL/kg</b><span>予測体重で設定し、プラトー圧と駆動圧（15 cmH₂O未満）を毎日測る</span></div>
+<div><b>横隔膜は補助の多すぎでも少なすぎでも傷む</b><span>吸気努力をホールドで測り、Pocc 7〜15 cmH₂Oの帯に入れる</span></div>
+</div>
+
+<h2><span class="n">2</span>共通の予防 — 曝露を減らすことが3つすべてに効く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s1">詳しく</a></h2>
+<ul>
+<li><b>鎮静を浅く、毎日離脱を評価し、早く抜く</b>：挿管を避けられればHFNC・NIV、SATとSBT、早期離床。人工呼吸期間・死亡と最も一貫して関連し、VAP・VILI・VIDDのすべてを減らす。予防どうしがぶつかったら肺保護を優先する</li>
+<li><b>早期の気管切開はVAP予防にならない</b>：早期対晩期のRCTでVAP・生存に差がなく、TracManでも30日死亡は同じ</li>
+<li><b>VAPは挿管直後の1週間に、カフの上から入る</b>：2日を超える人工呼吸の5〜40%に起き、1日あたりのリスクは最初の5日間が最も高い。予防は挿管したその日から。入口は口腔の定着・カフ上の貯留・カフの襞からの微小誤嚥・チューブ内のバイオフィルムの4つ</li>
+</ul>
+
+<h2><span class="n">3</span>VAP予防 — 「VAP率」ではなく患者のアウトカムで選ぶ<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>予防策</th><th>判断</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>頭位挙上</td><td>続ける</td><td>30度以上を「保つ」。搬送・処置のあとに戻し忘れない。研究は少ないが安全で安価</td></tr>
+<tr><td>カフ圧</td><td>続ける</td><td>20〜30 cmH₂Oを少なくとも8時間ごとに実測。用手管理でも約4回に1回は外れ、多くは低すぎ</td></tr>
+<tr><td>声門下吸引</td><td>選んで使う</td><td>数日以上の人工呼吸が見込まれる患者に。VAP率は下げるが人工呼吸期間・死亡は動かない</td></tr>
+<tr><td>口腔ケア</td><td>消毒薬なし</td><td>クロルヘキシジンは死亡を増やす方向（OR 1.25）。<span class="x">日本では口腔粘膜への使用が禁忌</span></td></tr>
+<tr><td>やめるもの</td><td>行わない</td><td>銀コーティングチューブ・吸引前の生食注入（死亡増加の傾向）、回路の定期交換、側臥位頭低位</td></tr>
+<tr><td>薬で菌を減らす策</td><td>全例には使わない</td><td>SDD/SODは耐性菌の少ない環境の根拠。挿管直後の予防的抗菌薬は早期VAPを減らすが死亡は不変</td></tr>
+</tbody>
+</table></div>
+<p>PPIは大規模RCTで肺炎を増やさず（肺炎またはC. difficile感染16.8%対16.9%）、出血リスクのある患者の出血予防として使い、経腸栄養の確立後やICU退室時に続ける理由を確かめる。</p>
+
+<h2><span class="n">4</span>バンドル — 項目を足すより、測って返す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s4">詳しく</a></h2>
+<ul>
+<li><b>中身は国内の5項目で足りる</b>：手指衛生・回路を頻回に交換しない・過鎮静の回避・離脱の可否を毎日評価・仰臥位で管理しない</li>
+<li><b>VAPを半分以下にしたのは仕組み</b>：教育・遵守率の測定・定期的なフィードバック。Pneumonia Zero（181 ICU）で9.83→4.34/1000人工呼吸日。ただしほぼすべて前後比較</li>
+<li><b>こぼれやすい3場面</b>：ICU外で挿管され24時間超待機（VAPの調整OR 3.29）、腹臥位の日（回転前に栄養を止めて胃管を吸引）、抜管後（予定手術では抜管後肺炎がVAPの約8倍。嚥下スクリーニングを）</li>
+<li><b>VAP率は数え方で4〜42%動く</b>：毎日のPEEPとFiO₂の最小値を記録し、PEEP 3以上かFiO₂ 0.20以上の上昇が2暦日を超えて続けば、肺炎以外も含めて原因を探す</li>
+</ul>
+
+<h2><span class="n">5</span>VILIと圧損傷 — 毎日測り、毎日の画像で探す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s5">詳しく</a></h2>
+<ul>
+<li><b>ARDSでない患者の初期設定</b>：VT 6〜8 mL/kg PBW、プラトー圧30 cmH₂O以下。PReVENT（961例）で約7対9 mL/kgに差はなく、削り続ける利益は見えない。予防的な高PEEPは院内死亡を減らさない（22 RCT）</li>
+<li><b>駆動圧は正しく測る</b>：受動的な条件でプラトー圧から総PEEPを引く。吸気努力があると過小、auto-PEEPを引き忘れると過大に出る。呼吸数と吸気流量の上げすぎもメカニカルパワーを増やす</li>
+<li><b>圧損傷は挿管から平均3.7日</b>：肺保護の範囲内でも起きる（ARDSの近年RCTで約3〜10%）。気胸はドレナージ、縦隔気腫は多くが保存で、まず圧を下げる。皮下気腫の進行と血圧低下がそろえば緊張性を疑う</li>
+<li><b>気管支胸膜瘻は平均気道内圧で減らす</b>：VTとPEEPを下げ、吸気時間を短く、呼吸数を少なく。ドレーンは吸引から水封へ</li>
+</ul>
+
+<h2><span class="n">6</span>VIDD — 吸気努力を測り、帯に入れ、早く離脱する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s7">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>指標（ホールドで測る）</th><th>目安</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>Pocc（呼気終末閉塞）</td><td>7〜15 cmH₂O</td><td>小さすぎは過補助（萎縮）、大きすぎは過少補助（損傷・P-SILI）</td></tr>
+<tr><td>P0.1</td><td>1〜4 cmH₂O</td><td>機種の準閉塞法では約4分の1に出る（ハミルトンは約1.0で高ドライブ）</td></tr>
+<tr><td>予測ΔPL,dyn</td><td>22未満</td><td>Pinsp＋2/3×Pocc。超えるなら努力が帯の中でも肺保護を優先</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>努力の大きさより同調</b>：呼気に入っても続く収縮（リバーストリガー・早すぎるサイクルオフ）を波形で見つけて直す。どの目標値も前向きに検証された閾値ではなく専門家の合意</li>
+<li><b>離脱が進まなければ全身から</b>：敗血症・電解質（P・Mg・K・Ca）・甲状腺・栄養と高血糖・ステロイドの累積量。横隔膜エコーで抜管の可否を決めない（予測したのは咳の強さ）</li>
+<li><b>最良の横隔膜保護は最も早い離脱</b>：吸気筋トレーニングはMIPの50%以上の負荷で離脱を助ける（OR 3.11）</li>
+</ul>
+<ul class="chk">
+<li><b>SATとSBT</b>を今日評価したか</li>
+<li><b>頭位30度以上</b>に戻したか</li>
+<li><b>カフ圧</b>を実測したか</li>
+<li><b>PPI</b>を続ける理由があるか</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Papazian ICM 2020；Torres ERJ 2017；Krone ICM 2024；De Pascale ICM 2026；Álvarez-Lerma CCM 2018；Landelle ICM 2018；Simonis JAMA 2018；Pettenuzzo Crit Care 2021；Belletti CCM 2022；Grotberg CCM 2021；Goligher ICM 2024；van den Berg Curr Opin Crit Care 2025；Rosà Crit Care 2026 ほか）。数字は教育目的の記載で、原著と照合して使ってください。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>抗凝固・VTE予防・HIT 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>抗凝固・VTE予防・HIT — 要約</h1>
+<p class="sub">解説「抗凝固・VTE予防・HIT」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>予防は24時間以内にLMWH、途切れさせない</b><span>処置で止めたら再開日を書く。IPCは代わりであって上乗せではない</span></div>
+<div><b>薬は背景で、期間は型で決める</b><span>経口はDOACが既定。延長期は半量。周術期はブリッジしない</span></div>
+<div><b>HITは30分で4Tスコア</b><span>4点以上はヘパリンを全部止め、治療用量の代替抗凝固を同時に始める</span></div>
+</div>
+
+<h2><span class="n">2</span>ICUの患者は全員が血栓の条件の中にいる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s1">詳しく</a></h2>
+<ul>
+<li><b>予防下でも起きる</b>：院内のPE・下肢DVTは2.2%、入室前3か月のVTEも3.6%（28人に1人）。危険因子は腎代替療法（OR 3.5）と呼吸不全（OR 2.0）</li>
+<li><b>敗血症とがんは血栓の側に振れる</b>：敗血症は免疫血栓と線溶シャットダウン。がんは血栓リスク4〜7倍。DICそのものへの抗凝固薬はルーチンにしない（SCARLETで28日死亡26.8%対29.4%）</li>
+</ul>
+
+<h2><span class="n">3</span>VTE予防 — LMWHが既定<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="入室時は禁忌の有無でLMWHか機械的予防かを分け、毎日は予防が途切れていないかを確かめる">
+<div class="f-top">入室24時間以内：活動性出血・頭蓋内出血・6〜12時間以内の手術予定・血小板5万未満がないか</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>禁忌なし → LMWH（1B）</b><ul><li>PROTECT（3,764例）でPEが1.3%対2.3%（HR 0.51）。大出血は差なし</li><li>重度腎障害はUFH・ダルテパリン・エノキサパリン減量</li></ul></div>
+<div class="f-col"><b>禁忌あり → 機械的予防（1B）</b><ul><li>禁忌が外れたら薬物予防へ戻す</li><li>PREVENTでIPCの上乗せはDVTを減らさず。上乗せは超高リスクの選択例だけ（2B）</li></ul></div>
+</div>
+<div class="f-bot">毎日：処置で中断したままになっていないか（その日のうちに再開、指示簿に再開日）。弾性ストッキング単独は推奨されない（1B）</div>
+</div>
+<ul>
+<li><b>絞る場面</b>：歩ける整形外科処置後（膝関節鏡・下腿ギプス）はNNT 167以上でルーチンにしない。HAS-BLEDを予防量ヘパリンの出血予測に転用しない</li>
+<li><b>COVID-19</b>：治療用量が効いたのは臓器補助のない患者だけ。重症例は予防用量</li>
+<li><b>特殊な集団</b>：肝硬変は凝固検査の異常で予防を控えない。外傷は止血から24時間以内に始める</li>
+</ul>
+
+<h2><span class="n">4</span>治療用量 — 薬は背景で、期間は型で<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>論点</th><th>推奨</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>初期の非経口</td><td>UFHよりLMWH（1／B-R）</td><td>事前確率が高く出血リスクが低ければ画像の確定前に始めてよい</td></tr>
+<tr><td>経口</td><td>VKAよりDOAC。<span class="x">例外</span>は血栓性APS（VKA・1／A）、妊娠・授乳（LMWH）、Child-Pugh C</td><td>体重・CrCl・年齢を確かめてから指示を書く</td></tr>
+<tr><td>抗Xa測定</td><td>体重ベース投与のほとんどでルーチンは不要（3：No Benefit）</td><td>重度腎不全・高度肥満・妊娠に絞る。aPTTが伸びないだけで増量しない</td></tr>
+<tr><td>期間</td><td>主要な可逆的因子は3〜6か月、非誘発性は延長（1／A）</td><td>延長期は半量DOAC。RENOVEで出血9.9%対15.2%、再発2.2%対1.8%</td></tr>
+<tr><td>回路</td><td>ECMOはUFHでACT正常上限の約1.5倍。CRRTは全身抗凝固が要らなければクエン酸</td><td>RCAはヘパリン比で出血OR 0.27</td></tr>
+</tbody>
+</table></div>
+<p>ICUの新規AFに急性期のルーチン抗凝固はしない（出血だけ8.6%対7.2%に増えた）。深部静脈から3 cm以内の表在静脈血栓は治療用量で。</p>
+
+<h2><span class="n">5</span>HIT — 15分で分母、30分でスコア、60分で代替薬<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s4">詳しく</a></h2>
+<ul>
+<li><b>典型像</b>：第5〜10病日に1〜3日で落ち、最低値は4万〜8万。確定例の約50%に血栓。UFHはLMWHより最大10倍多い</li>
+<li><b>分母はヘパリン開始後の最高値</b>：術後は術前値でなく術後1週の反応性ピーク。偽性血小板減少はクエン酸採血で潰す</li>
+<li><b>4Tスコア</b>：0〜3点は陰性的中率0.998で検査を出さずにヘパリン継続可。4〜5点（陽性的中率0.14）と6〜8点（0.64）はヘパリンを全部止め、治療用量の代替抗凝固（アルガトロバン等）を始め、抗体を出して結果は待たない</li>
+<li><b>同じ60分でやらないこと</b>：予防用量で妥協しない、ワルファリンを始めない、予防的血小板輸血をしない。ヘパリンロック・回路のプライミング・コーティングカテーテルも止める</li>
+<li><b>抗体の陽性的中率は2〜15%</b>：陽性だけで決めず、強陽性か機能的検査で裏づける。アルガトロバンは肝障害・DICでaPTTが偽って伸びる。ワルファリンは血小板15万超が2日続いてから</li>
+</ul>
+
+<h2><span class="n">6</span>中和と周術期 — 再開日を同じ画面に書く<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-anticoagulation/#s5">詳しく</a></h2>
+<ul>
+<li><b>薬剤名を確定して標準の2剤</b>：ダビガトランはイダルシズマブ5 g、Xa阻害薬は4F-PCC 25〜50 IU/kg、ワルファリンは4F-PCC＋ビタミンK。プロタミンはLMWHに約60%、フォンダパリヌクスに無効。アンデキサネットはANNEXA-Iで血栓10%対5.6%となり撤退した</li>
+<li><b>止血したら48〜72時間で再開を計画</b>：RE-VERSE ADの30日血栓塞栓（4.8%）の大半は再開していない患者で起きた。頭蓋内出血は大幅に延期</li>
+<li><b>ブリッジしない</b>：BRIDGEで大出血だけ増え、ACC/AHA 2024は3：Harm。DOACは腎機能と出血リスクで決めた日数だけ止めて戻す（高リスク・腎機能正常でDay −2〜+3）</li>
+<li><b>抗血小板薬</b>：出血にルーチンの血小板輸血はしない（1／C-LD）。一次予防のアスピリンは利益と害がほぼ同じ大きさ</li>
+</ul>
+<ul class="chk">
+<li><b>HIT</b>でヘパリンを止めるだけで終えない</li>
+<li><b>処置で止めた予防</b>を止めたままにしない</li>
+<li><b>中和薬</b>を出した画面で再開日を書く</li>
+<li><b>全例にIPC</b>を足さない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ICM 2023 総説；PROTECT；PREVENT；POT-KAST/CAST；ATTACC・ACTIV-4a・REMAP-CAP NEJM 2021；VTE治療GL Circulation 2026；RENOVE；HIT総説 NEJM 2015；Cuker 2012；RE-VERSE AD；ANNEXA-I；欧州外傷出血GL Crit Care 2023；ACC/AHA Circulation 2024；BRIDGE；PAUSE ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>てんかん重積のICU管理 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>てんかん重積のICU管理 — 要約</h1>
+<p class="sub">解説「てんかん重積のICU管理」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>5分で宣言、体重で計算</b><span>ベンゾジアゼピンをルートを待たずに入れる</span></div>
+<div><b>第2選択は速く出せる1剤</b><span>10分で負荷し、流し始めたら挿管・麻酔薬・脳波を並走させる</span></div>
+<div><b>止まっても脳波で確かめる</b><span>ICUの抗てんかん薬は臓器・体外循環・相互作用で用量を設計する</span></div>
+</div>
+
+<h2><span class="n">2</span>時間の病気 — 遅れるほど薬が効かなくなる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#s1">詳しく</a></h2>
+<ul>
+<li><b>5分以上か、意識が戻らないまま反復すれば重積</b>：救急隊の到着時にまだけいれんしていれば重積。BZD＋1剤で止まらなければ難治性（RSE）、麻酔薬を始めて24時間以上続けば超難治性（SRSE）</li>
+<li><b>発作が続くとGABA<sub>A</sub>受容体が膜から減る</b>：BZD・プロポフォール・バルビツレートが時間とともに効かなくなる。負荷投与を少量から様子見しない理由</li>
+<li><b>震えが止まっても終わったとは限らない</b>：止まったと判断された25%で電気的活動が続き、subtle SEの死亡は65%。原因不明の昏睡の8%はNCSE</li>
+</ul>
+
+<h2><span class="n">3</span>最初の60分 — 体重で計算し、次の段を並走させる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#s2">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>時刻</th><th>やること</th><th>同時に走らせること</th></tr></thead>
+<tbody>
+<tr><td>0〜5分</td><td>気道・循環を整え、血糖・Na・妊娠反応。重積と宣言する</td><td>静脈路はブドウ糖を含まない輸液で。低血糖なら50%ブドウ糖50 mL＋チアミン100 mg</td></tr>
+<tr><td>5〜10分</td><td>ロラゼパム0.1 mg/kg（1回最大4 mg、反復可）。ルートがなければミダゾラム10 mg筋注</td><td>RAMPARTで到着時の停止73.4%対63.4%（経路の差＝時間の差）</td></tr>
+<tr><td>10〜30分</td><td>第2選択を10分で負荷。BZDで止まっても再発予防に追加</td><td>挿管・麻酔薬・持続脳波の準備。頭部CT、必要なら髄液・自己抗体・薬物</td></tr>
+<tr><td>30〜60分</td><td>止まらなければRSE。挿管し、脳波下で麻酔薬の持続へ</td><td>低血圧には輸液と昇圧薬。長時間作用型の筋弛緩薬は使わない</td></tr>
+</tbody>
+</table></div>
+<div class="tw"><table>
+<thead><tr><th>第2選択</th><th>負荷量（10分で）</th><th>60分の停止・注意</th></tr></thead>
+<tbody>
+<tr><td>レベチラセタム</td><td>60 mg/kg（上限4,500 mg）</td><td>47%。相互作用が少ない</td></tr>
+<tr><td>ホスフェニトイン</td><td>20 mgPE/kg（上限1,500 mgPE）</td><td>45%。心電図・血圧を監視</td></tr>
+<tr><td>バルプロ酸</td><td>40 mg/kg（上限3,000 mg）</td><td>46%。肝疾患・カルバペネム併用では使わない</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>「1 g固定」は過少投与</b>：68 kgならレベチラセタムは4,080 mg。指示には体重と計算後の量の両方を書く。3剤に差はない（ESETT）ので、悩むべきは効かなかった半分の段取り</li>
+<li><b>RSEの麻酔薬</b>に優劣のエビデンスはなく、治療目標・作用機序・副作用で選び、目標は脳波で決める。SRSE（死亡25〜49%）の免疫療法は自己免疫を疑う所見があるときに</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>RSEの麻酔薬</th><th>負荷・維持</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>ミダゾラム</td><td>0.2 mg/kg、0.1〜0.4 mg/kg/時</td><td>低血圧と呼吸抑制が少ない。腎障害・肥満で蓄積</td></tr>
+<tr><td>プロポフォール</td><td>1〜2 mg/kg、1〜3 mg/kg/時</td><td>覚醒が早い。4〜5 mg/kg/時超か48時間超で注入症候群</td></tr>
+<tr><td>バルビツレート</td><td>1〜2 mg/kg、2〜5 mg/kg/時</td><td>覚醒が遅れる。循環不全・イレウス。国内でSEの保険適用なし</td></tr>
+<tr><td>ケタミン</td><td>1.5 mg/kg、1〜15 mg/kg/時</td><td>NMDA受容体に作用。循環への影響は軽い</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>止めながら探す — ミミックと原因<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#s3">詳しく</a></h2>
+<ul>
+<li><b>本当に発作か</b>：イベント後の失見当識は発作を、先行する嘔気・発汗は失神を示唆。失禁と外傷は区別に使えない。ESETT登録例の10%は心因性非てんかん発作（PNES）だったが、印象だけで標準治療を止めない。心電図を必ず取る</li>
+<li><b>原因検索は最初のBZDと同時に</b>：血糖は全員でバイタルと同時に。服薬不遵守・相互作用を尋ねる。CTは新規発作の最大17%で管理を変えた。髄液に白血球があれば証明されるまで髄膜炎として扱う</li>
+<li><b>新規発症で原因がつかなければNORSE</b>：原因不明52%、自己免疫・傍腫瘍37%。「難治だから免疫療法」ではなく所見で決める</li>
+</ul>
+
+<h2><span class="n">5</span>脳波と、ICUの抗てんかん薬<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#s4">詳しく</a></h2>
+<ul>
+<li><b>治療後30分で意識が戻らなければ脳波</b>：けいれん重積の治療後も14〜33%に非けいれん性発作が残る。簡易脳波でも60〜90%は検出できる</li>
+<li><b>定義</b>：電気的発作は10秒以上、電気的重積は10分連続か60分中20%以上。qEEGのトレンドで拾ったら生の波形で確かめてから治療を上げる</li>
+<li><b>CRRTは排液流量で、減らさず増やす</b>：排液3 L/時超ならレベチラセタム500〜1,500 mgを6〜12時間ごと。過大腎クリアランスでも増量が要る。フェニトインとバルプロ酸は遊離型を測る</li>
+<li><b>バルプロ酸とカルバペネムは併用しない</b>：単回投与後に濃度が70%超下がり、増量で克服できない</li>
+<li><b>特殊な状況</b>：アルコール離脱はBZD、イソニアジド中毒はピリドキシン5 g（フェニトインは役に立たない）。子癇は硫酸マグネシウム4 gを20分＋2 g/時。心停止後の重積も一律に予後不良とは言えない</li>
+</ul>
+<ul class="chk">
+<li><b>静脈路</b>を探し続けず筋注する</li>
+<li><b>「止まった＝終わった」</b>と考えない</li>
+<li><b>長時間作用型の筋弛緩薬</b>で発作を隠さない</li>
+<li><b>低血糖・低酸素・低血圧</b>を後回しにしない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（VA Cooperative Study NEJM 1998；RAMPART NEJM 2012；ESETT NEJM 2019；J-NCCG 2024；Teran Emerg Med Pract 2015；Alkhachroum ICM 2022；Webb ICM 2026；Chakraborty CCM 2019 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

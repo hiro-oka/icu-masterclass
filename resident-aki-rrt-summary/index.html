@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AKIと腎代替療法 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>AKIと腎代替療法 — 要約</h1>
+<p class="sub">解説「AKIと腎代替療法 — 始めどきと回し方」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>AKIに効く薬はない</b><span>乏尿に反射的に輸液せず、腎を傷める要因を除き、腎保護バンドルを実行する</span></div>
+<div><b>緊急適応がなければ待つ</b><span>BUN 112 mg/dL未満なら最大72時間、見張りながら待つ</span></div>
+<div><b>始めたら3つを毎日数字で</b><span>届いた量・今日の水分バランス・やめどきを確かめる</span></div>
+</div>
+
+<h2><span class="n">2</span>AKIの見方 — 全身の病気で、Crだけでは決めない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s1">詳しく</a></h2>
+<ul>
+<li><b>KDIGOはCrと尿量の2軸</b>：どちらで拾ったかで予後が違う（ステージ1を尿量だけで満たすと院内死亡12%、両方で32%）</li>
+<li><b>乏尿は輸液反応性の指標ではない</b>：敗血症性AKIは虚血ではなく、乏尿の約半数は輸液で尿が増えない。腎灌流圧＝MAP−腎静脈圧なので、静脈うっ血と腹腔内高血圧（12 mmHg以上）も鑑別に入れる</li>
+<li><b>手札はバンドルの実行</b>：KDIGO腎保護バンドル（血行動態と輸液の最適化・腎毒性薬と造影剤の回避・腎機能の定期評価・血糖管理）は高リスク術後で中等度以上のAKIを27.1%→17.7%に。すべて実行できたのは31%</li>
+<li><b>Crが上がったら先に外す</b>：トリメトプリム・シメチジンやVCM＋PIPC/TAZ併用ではGFRが落ちなくてもCrが上がる（偽性AKI）。シスタチンC・尿量・BUNで確かめ、Crだけで薬を変えない</li>
+<li><b>造影剤とAKIの因果は未証明</b>：予防の生食はeGFR 30未満かAKIのある患者だけ。控えすぎのほうが害になりうる</li>
+</ul>
+
+<h2><span class="n">3</span>始めどき — 緊急適応から順に確かめる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="緊急適応があれば待たずに始める。なければBUN 112未満で最大72時間、見張りながら待つ。BUN 140まで引っ張らない。重症の代謝性アシドーシスには重炭酸を先に">
+<div class="f-top">緊急適応（薬物治療に抵抗する高K血症・代謝性アシドーシス、体液過剰による低酸素、透析で除ける中毒）が1つでもあれば待たない。KDIGOステージ3だけでは始めない</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>なければ待つ</b><ul><li>BUN 112 mg/dL未満で最大72時間。尿量・バランス・pH・K・酸素化を6〜8時間ごとに見て期限を書く</li><li>早く始めても90日死亡は43.9%対43.7%（STARRT-AKI）。待機群の38〜49%は透析を受けずに済んだ</li></ul></div>
+<div class="f-col"><b>待ちすぎない・先に一手</b><ul><li>BUN 140まで引っ張ると60日死亡HR 1.65（AKIKI 2）</li><li>pH 7.20未満＋ショック＋中等症以上のAKIは4.2%重炭酸250 mLを60分で。RRTは50%→35%に減るが死亡は変わらない</li></ul></div>
+</div>
+</div>
+
+<h2><span class="n">4</span>回し方 — 指示は9項目、量は「届いた量」で<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>目安</th><th>理由・注意</th></tr></thead>
+<tbody>
+<tr><td>モダリティ</td><td>CRRTは不安定な血行動態・頭蓋内圧亢進・急性肝不全・大量除水で</td><td>CRRTとIHDで死亡は変わらない。ゆっくり引けることが理由</td></tr>
+<tr><td>用量</td><td>処方25 mL/kg/時で実効20〜25</td><td>届くのは処方の約8割。実効10を割ると尿素が下がらない。高用量に利益なし</td></tr>
+<tr><td>抗凝固</td><td>出血リスクと代謝能で選ぶ</td><td>クエン酸は出血RR 0.30だが死亡RR 0.97、代謝性合併症5.17倍。回路寿命は目標ではない</td></tr>
+<tr><td>アクセス</td><td>13〜13.5 Fr、エコーガイド。大腿でも内頸でも</td><td>鎖骨下は避け、先端位置を確かめる</td></tr>
+<tr><td>除水</td><td>「今日のバランス目標 −○L」から逆算</td><td>死亡と関連したのは速度ではなく達成したバランス。除水ゼロ（死亡79%）の理由を毎日言う</td></tr>
+<tr><td>栄養・抗菌薬</td><td>蛋白1.7〜2.5 g/kg/日。抗菌薬の初回量は減らさない</td><td>BUNで蛋白を絞らない。RRT中は過剰濃度（25〜35%）のほうが多い</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">5</span>トラブルとやめどき<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s6">詳しく</a></h2>
+<ul>
+<li><b>クエン酸中の低Ca</b>：tCa/iCa比2.5以上なら蓄積（Caを足しても再発。血流を下げ排液を上げる）、2.5未満なら正味の喪失（Caを増やす）。対処が正反対</li>
+<li><b>離脱の第一の合図</b>は利尿薬なしの尿量60 mL/時超（400 mL/日超）。必要性を毎日評価する。止めて72時間後（D4）にUNDERSCOREが2点以上ならカテーテル抜去を考える（AUC 0.86・PPV 90%）</li>
+<li><b>特殊な場面</b>：急性脳損傷はCRRTにして透析量を絞る。肝腎症候群は血管収縮薬でMAPを15上げ72時間で見切る。高齢者の導入は1年死亡54.5%を共有し期限付きで始める</li>
+</ul>
+<ul class="chk">
+<li><b>乏尿</b>に輸液ボーラスを繰り返さない</li>
+<li><b>処方量</b>を実効量と思い込まない</li>
+<li><b>退室時</b>にRRTの経過と止めた薬の再開を書く</li>
+<li><b>退院後1年死亡</b>約28%。腎臓内科の紹介を考える</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（STARRT-AKI NEJM 2020；AKIKI NEJM 2016；IDEAL-ICU NEJM 2018；AKIKI 2 Lancet 2021；BICARICU-2 JAMA 2025；RICH JAMA 2020；JSEPTIC Crit Care 2014；UNDERSCORE ICM 2026 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

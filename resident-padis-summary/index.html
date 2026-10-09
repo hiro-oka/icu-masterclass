@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PADIS 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>PADIS（鎮痛・鎮静・せん妄） — 要約</h1>
+<p class="sub">解説「PADIS — 鎮痛・鎮静・せん妄」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>鎮静薬より先に鎮痛</b><span>不穏には痛み→不快→覚醒度→せん妄の順に測る</span></div>
+<div><b>鎮静は深さと時間</b><span>薬の名前ではない。RASS −2〜0を毎日測り、浅さはバンドルで保つ</span></div>
+<div><b>せん妄は予防と原因の是正</b><span>抗精神病薬は危険な興奮の短期コントロールだけ。中止条件をセットで</span></div>
+</div>
+
+<h2><span class="n">2</span>3つは1つの管理 — 測る順番を固定する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/#s2">詳しく</a></h2>
+<div class="flow" role="img" aria-label="不穏のコールでは痛み、不快、覚醒度、せん妄、補助換気中なら呼吸の順に測る。陽性は原因検索の入口">
+<div class="f-top">不穏のコール：痛み（NRSかCPOT/BPS）→ 不快（体位・チューブ・口渇・便秘・尿閉）→ 覚醒度（RASS）→ せん妄（CAM-ICU）→ 呼吸</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>物差し</b><ul><li>話せればNRS、話せなければCPOT（3点以上で鎮痛を考える）かBPS</li><li>RASSは4時間ごと、目標−2〜0。呼吸努力は測っていない</li><li>RASS −3以上を通ってからCAM-ICUかICDSC。実臨床のCAM-ICU感度は80%</li></ul></div>
+<div class="f-col"><b>陽性は原因検索の入口</b><ul><li>まず低血糖・高血糖・高CO₂・高Na・ミダゾラムの蓄積・セフェピムの神経毒性</li><li>続けて低酸素・感染・電解質・尿閉・便秘・疼痛・眼鏡や補聴器</li><li>鎮静を止めて48時間覚めなければMRIと脳波</li></ul></div>
+</div>
+</div>
+<ul>
+<li><b>深鎮静には請求書がつく</b>：妄想的記憶（38.5%）があるとPTSD症状は3か月6.7%→12か月18.1%。完全健忘でもPTSDは減らない</li>
+<li><b>せん妄は脳の臓器障害</b>：人工呼吸とショックの48%。多数派は見逃されやすい低活動型。BRAIN-ICUでは退院3か月後の26%がアルツハイマー病相当の認知機能。最多の表現型は鎮静薬関連（せん妄日の63%）</li>
+</ul>
+
+<h2><span class="n">3</span>鎮痛 — 鎮静より先に、処置の前に、時刻表で<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/#s3">詳しく</a></h2>
+<ul>
+<li><b>非薬物の介入を時刻表で</b>：体位・チューブ・便秘・尿閉・口渇への対処が土台。氷水スワブとリップ保湿を1時間ごとに組んだ群は、求めに応じた群より口渇が改善した</li>
+<li><b>オピオイドは背景で選ぶ</b>：不安定な循環・腎肝障害・気管支攣縮ではフェンタニル系。非オピオイドを併用し、呼吸抑制のない範囲で漸増。少量ケタミンでも幻覚が26%対7%に増える</li>
+<li><b>処置痛は先に入れる</b>：胸腔ドレーン抜去なら10分前に氷と鎮痛薬。投与30〜60分後の再評価を同時に指示し、72時間を超えたら減量の計画を立てる</li>
+</ul>
+
+<h2><span class="n">4</span>鎮静 — 薬の名前より深さと時間<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/#s4">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>事実</th><th>数字</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>主鎮静薬を替えても同じ</td><td>SPICE III 90日死亡29.1%対29.1%、A2Bも優越せず</td><td>DEXは転帰ではなく運用上の理由で選ぶ。徐脈・離脱・中止後の上室頻拍を説明する</td></tr>
+<tr><td>筋弛緩の害は深鎮静</td><td>深鎮静を入れると関連は消え、深鎮静は死亡OR 1.38</td><td>筋弛緩を切ったら、その日のうちに浅くする</td></tr>
+<tr><td>ABCDEFは用量反応</td><td>完全実施で7日死亡HR 0.32、せん妄OR 0.60、抑制OR 0.37</td><td>完璧を待たずに始める。A（鎮痛）を先に固める</td></tr>
+<tr><td>吸入鎮静はARDSで有害</td><td>SESARで90日生存47.1%対55.7%</td><td>処理脳波・吸入鎮静・敗血症でのDEX切り替えはルーチンにしない</td></tr>
+</tbody>
+</table></div>
+<p>深鎮静（RASS −2より深い）だった日を毎日カルテに数字で残す。非同調への初手は鎮静の追加ではなく、設定と原因の確認。</p>
+
+<h2><span class="n">5</span>せん妄・睡眠・離脱<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-padis/#s5">詳しく</a></h2>
+<ul>
+<li><b>抗精神病薬はせん妄を短くしない</b>：MIND-USA・REDUCEとも陰性で、PADIS 2025は推奨を出せていない。予防にも治療にも定時で使わない</li>
+<li><b>標的は危険な興奮だけ</b>：RASS +2〜+4で危害が迫るときに静注ハロペリドール2.5 mg（70歳以上は1.25 mgも可）。CAM-ICUかICDSCが続けて陰性なら止める。ベンゾジアゼピンは例外（アルコール離脱）を除き使わない</li>
+<li><b>予防の中身</b>：ベンゾジアゼピンを外し、SATとSBT、早期離床、家族を入れる（訂正しない・否定しない・議論しない）。身体抑制は指示・記録・家族通知・解除の再評価時刻を残す。退室時に「何が見えていましたか」と聞く</li>
+<li><b>睡眠</b>：鎮静は睡眠ではない。清明ならRCSQ、それ以外は看護観察で測る。処置をまとめ、アラームを耳元から離す</li>
+<li><b>離脱</b>：オピオイド72時間超で16.7%、DEX 3日以上で64%に徴候。DEXを止めたら24時間は心拍数を見る。アルコール離脱はベンゾジアゼピンを症状に合わせて（固定より必要量100 mg対425 mg）</li>
+</ul>
+<ul class="chk">
+<li><b>不穏</b>にプロポフォールを足す前にCPOT</li>
+<li><b>静かな患者</b>を「落ち着いている」と読まない</li>
+<li><b>ハロペリドール</b>を出しっぱなしにしない</li>
+<li><b>「せん妄です」</b>で精査を止めない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（PADIS 2018・Focused Update 2025；eCASH ICM 2016；Pun CCM 2019；SPICE III NEJM 2019；A2B JAMA 2025；SESAR JAMA 2025；MIND-USA NEJM 2018；REDUCE JAMA 2018；Wongtangman CCM 2021；Kooken ICM 2025 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

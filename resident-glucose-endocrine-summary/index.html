@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>血糖・内分泌緊急症 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>血糖管理と内分泌緊急症 — 要約</h1>
+<p class="sub">解説「血糖管理と内分泌緊急症」の要点を絞った2ページ版。「詳しく」から本編へ。DKA・HHSは「DKA・HHS」の要約へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>血糖は180で始め、正常域を狙わない</b><span>持続静注で始め、低血糖は測定とプロトコルの仕組みで防ぐ</span></div>
+<div><b>内分泌緊急症は結果を待たない</b><span>副腎危機・下垂体卒中・甲状腺クリーゼは採血だけして治療を始める</span></div>
+<div><b>順序だけは崩さない</b><span>ステロイドが先で甲状腺ホルモンは後。チオナミドが先でヨウ素は1時間以上後</span></div>
+</div>
+
+<h2><span class="n">2</span>ICUの血糖 — 仕組みで低血糖を消す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s1">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>事実</th><th>数字</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>厳格管理は報われない</td><td>成人44 RCTで院内・ICU死亡は不変、重症低血糖RR 3.75。NICE-SUGARで90日死亡27.5%対24.9%</td><td>80〜110は検証済みの仕組みがそろうときだけ</td></tr>
+<tr><td>始める線</td><td>180以上が24時間以内に2回。上限はおよそ180〜200（SCCM 140〜200、ADA 140〜180）</td><td>ICUでは持続静注。先に高血糖を作る輸液・栄養・薬を確かめる</td></tr>
+<tr><td>測り方</td><td>不安定な間は1時間以内。意思決定支援ツールで中等度低血糖RR 0.74</td><td>ショック・浮腫では指先血でなく動脈血か静脈血。インスリン量はCGMでなくPOCか検査室の値で</td></tr>
+<tr><td>個別化は未検証</td><td>CONTROLINGで死亡は改善せず、中等度低血糖31.2%対15.8%</td><td>目標を上げることと、正常域まで下げないことは別の話</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>低血糖は70未満で遅れずに治療</b>：54未満がレベル2。看護師が始められる院内共通の手順を全インスリン指示に組み込む。鎮静中は症状がほぼすべて隠れるので、測って見つける</li>
+<li><b>栄養とステロイド</b>：インスリンは基礎・栄養・補正の3つで組む。経腸栄養が急に止まったらブドウ糖で埋める手順を指示に入れる</li>
+<li><b>DKAはケトンで診断し、ケトンで終える</b>：βOHB 3.0以上で診断、0.6未満で解消。約10%は血糖200未満の正常血糖DKA</li>
+</ul>
+
+<h2><span class="n">3</span>周術期の血糖<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s2">詳しく</a></h2>
+<ul>
+<li><b>HbA1cだけで延期しない</b>：周術期の血糖のほうが転帰に効く。外来で250超の重度の高血糖は予定手術を延期する</li>
+<li><b>当日朝は薬ごとに</b>：インスリン以外の糖尿病薬と速効型は中止、NPHは半量、持効型は適量なら継続。1型糖尿病は基礎インスリンを絶やさない</li>
+<li><b>術中は180未満、術後は食前100〜140</b>：80〜100を狙う強化療法は合併症を減らさず、害になりうる</li>
+<li><b>SGLT2阻害薬は3日前に中止</b>（エルツグリフロジンは4日前）。術後に血糖正常のAG開大アシドーシスがあればβOHBを測る</li>
+</ul>
+
+<h2><span class="n">4</span>副腎と下垂体 — ステロイドが先<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="内分泌緊急症を疑ったら採血だけして結果は待たない。副腎危機はヒドロコルチゾン100 mgと生理食塩液、下垂体卒中はステロイド補充とCT・MRI、甲状腺クリーゼはチオナミド・β遮断・ヒドロコルチゾンを同時に、ヨウ素は1時間以上後">
+<div class="f-top">疑ったら：コルチゾール・ACTH・甲状腺ホルモンを採血だけして、結果は待たずに始める</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>副腎危機</b><ul><li>倦怠・消化器症状・低Na、ステロイド内服中の嘔吐・下痢</li><li>ヒドロコルチゾン100 mg静注と生理食塩液を同時に</li></ul></div>
+<div class="f-col"><b>下垂体卒中</b><ul><li>突然の激しい頭痛、視覚障害・眼球運動麻痺。くも膜下出血と紛らわしい</li><li>評価を待たずにステロイド補充、CT・MRIと脳神経外科</li></ul></div>
+</div>
+<div class="f-bot">下垂体機能低下で甲状腺ホルモンを先に補うと副腎クリーゼを誘発する。グルココルチコイドが先</div>
+</div>
+<ul>
+<li><b>CIRCIは負荷試験で選ばない</b>：増分は分布容積の増大で小さく出る。手がかりは輸液抵抗性の低血圧に、低血糖と原因不明の好酸球増多。投与は昇圧薬の量と時間で決める</li>
+<li><b>高いコルチゾールは頑張りの証拠ではない</b>：ICU患者では対照の3.5倍。クリアランス低下とCBG低下が重なる</li>
+<li><b>副腎を抑える薬を数える</b>：エトミデート（単回でも数日）、ケトコナゾール、3週間超かつヒドロコルチゾン30 mg/日超のステロイド</li>
+<li><b>シーハン症候群は原因不明の低Naで見つかる</b>：低Na 59%（中央値119）。基礎コルチゾール3 µg/dL未満は単独で診断的</li>
+<li><b>ICIの内分泌障害</b>：下垂体炎最大9%、平均9週で発症。頭痛に低血圧・低血糖・低Naが重なれば疑う</li>
+</ul>
+
+<h2><span class="n">5</span>甲状腺クリーゼ — チオナミドの1時間以上後にヨウ素<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-glucose-endocrine/#s5">詳しく</a></h2>
+<ul>
+<li><b>臨床で診断</b>：ホルモン値では区別できない。BWPS 45以上、JTA/JES基準で判断を補う。死亡は5〜12%、ガイドラインに沿うと30日死亡5.5%</li>
+<li><b>同時に始める</b>：チオナミド（PTU 500〜1,000 mg→250 mgを4時間ごと、またはMMI 60〜80 mg/日）、βブロッカー（プロプラノロールかエスモロール）、ヒドロコルチゾン100 mg→8時間ごと</li>
+<li><b>ヨウ素は1時間以上後</b>：逆にすると甲状腺にホルモンの材料を配る。飲めなくてもPTUは経鼻胃管か直腸から。解熱はアセトアミノフェンと冷却で、アスピリンは使わない</li>
+<li><b>1つの診断で止まらない</b>：DKAとの同時発症は死亡15%。両方を並行して治療する</li>
+</ul>
+<ul class="chk">
+<li><b>血糖が下がらない</b>ときはまず投与経路を確かめる</li>
+<li><b>鎮静中</b>に「症状がないから低血糖ではない」と考えない</li>
+<li><b>説明のつかない乳酸</b>には低い閾値でチアミン</li>
+<li><b>ヨウ素</b>をチオナミドより先に入れない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（SCCM血糖管理GL 2024；ADA Standards of Care 2026；Gunst Crit Care 2026・Med Clin North Am 2026；Simha JAMA 2019；Husebye Lancet 2021；Sobolewska Front Endocrinol 2024；Briet Endocr Rev 2015；Karaca Pituitary 2025；Kopp JCEM 2026；JTA/JES 2016；Amrein Crit Care 2011 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

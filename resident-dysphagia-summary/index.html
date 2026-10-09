@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ICUの嚥下障害 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ICUの嚥下障害 — 要約</h1>
+<p class="sub">解説「ICUの嚥下障害」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/#s2">詳しく</a></h2>
+<div class="three">
+<div><b>症状ではなく手順で拾う</b><span>誤嚥の半数超はむせない。抜管は気道保護で決め、不合格を絶食の判決にしない</span></div>
+<div><b>中身より着手の早さ</b><span>治療で確実に減るのは肺炎だけ。1日遅れるごとに調整OR 1.09</span></div>
+<div><b>回避策の代償を知る</b><span>誤嚥性肺炎はAMPC/CVAを5日。絶食・胃管・カフは無害な回避策ではない</span></div>
+</div>
+
+<h2><span class="n">2</span>ICUでは機序が重なり、症状では拾えない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/#s1">詳しく</a></h2>
+<ul>
+<li><b>壊れる機序は6つ</b>：口腔咽頭・喉頭の外傷、神経筋の筋力低下、喉頭感覚の低下、意識の変容、胃食道逆流、呼吸と嚥下の非同調。抜管直後の患者は複数を同時に持つ</li>
+<li><b>絶食でも唾液は誤嚥する</b>：健常者は1日1,000回を超えて飲み込み、主な目的は約0.5 mL/分で出る唾液の除去</li>
+<li><b>頻度は3〜62%</b>（抜管後は20〜84%、気管切開では93%）。幅は病態ではなく測り方の違い</li>
+<li><b>silent aspirationが50%超</b>：咳もつかえ感も湿性嗄声もないまま、画像で誤嚥が見つかる。「むせなかった」を判断材料にしない</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>道具</th><th>使い方</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>3オンス水飲みテスト</td><td>90 mLを中断せず飲む。飲みきれない・1分以内の咳やむせ・流涎か湿性の声で不合格</td><td>感度96.5%・特異度48.7%。不合格の約半数は誤嚥していない＝STへの入口</td></tr>
+<tr><td>FEES・VFSS</td><td>疑ったら器械で確かめる</td><td>所見はPAS（どこまで入ったか×出せたか、8段階）で残す</td></tr>
+<tr><td>下顎の可動性</td><td>高齢者の下顎角を指で支え、約1 cm以上動けば可動性あり</td><td>可動性ありは退院時の常食5.3%（なし50.1%）。食形態が下がる側の徴候</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">3</span>抜管は呼吸ではなく気道保護で決め、抜管後は状態から順に<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="抜管前は咳嗽、絞扼反射、嚥下、追視を言い切る。抜管後は覚醒と座位保持を確かめ、高リスク項目を確認してから3オンス水飲みテスト、不合格ならSTへ">
+<div class="f-top">抜管前：咳嗽・絞扼反射・嚥下・追視の4項目を口頭で言い切る</div>
+<div class="f-arr">▼ 脳損傷の抜管失敗の67%は分泌物過多。RSBI・P/F・PaCO₂は成功と失敗で差がなかった</div>
+<div class="f-cols">
+<div class="f-col"><b>抜管後：時間ではなく状態</b><ul><li>覚醒と座位保持がNoなら、絶食のまま再評価</li><li>Yesなら高リスク項目を確かめて水飲みテストへ</li></ul></div>
+<div class="f-col"><b>その日のうちに着手</b><ul><li>STを待たず、訓練を受けたICUスタッフがスクリーニング</li><li>再挿管の91%は抜管後5日以内。この間は再評価を続ける</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>不合格はSTへ</b>。治療開始が1日遅れるごとに遷延性嚥下障害または院内死亡の調整OR 1.09</div>
+</div>
+<ul>
+<li><b>治療の期待値を下げる</b>：22試験のレビューで減ったのは肺炎だけ（RR 0.71）、誤嚥と経口再開は動かない。それでも抜管後の嚥下リハは迷わず始める（経口再開が0.85日早まり、肺炎はOR 0.24）。器具が要らず害の少ない舌口蓋抵抗・顎引き抵抗・呼吸筋の訓練から選ぶ</li>
+</ul>
+
+<h2><span class="n">4</span>誤嚥性肺炎は2要件で診断し、AMPC/CVAを5日<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/#s5">詳しく</a></h2>
+<ul>
+<li><b>診断</b>：①急性下気道感染の徴候と新しい浸潤影による肺炎に、②嚥下障害・誤嚥の証拠かリスク因子を伴う背側の病変を合わせる。画像はまず造影なしの胸部CT。抗菌薬の対象は化学性肺臓炎や機械的閉塞ではなく、この誤嚥性肺炎だけ</li>
+<li><b>誤嚥の直後に抗菌薬を始めない</b>：ARDSがなければ48〜72時間観察し、診断基準を満たしたときだけ開始。ステロイドも吸入も足さない</li>
+<li><b>AMPC/CVAを経口優先で</b>：嫌気性菌は記録された感染の2〜4%で、メトロニダゾールやクリンダマイシンは足さない。72時間で安定していれば5日で終え、膿瘍・膿胸がなければ7日を超えない</li>
+<li><b>予防は絶食ではない</b>：体位・口腔ケア・薬の棚卸し。85歳以上は院内死亡39.3%（JIPAD）で、発症を治療方針を話し合う契機にする。重症例・VAPは重症市中肺炎の考え方に従う</li>
+</ul>
+
+<h2><span class="n">5</span>経鼻胃管と気管切開 — 無害な回避策ではない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/#s6">詳しく</a></h2>
+<ul>
+<li><b>経鼻胃管は嚥下を妨げる</b>：留置中は舌骨の移動距離が0.81 cm、抜去30分後に1.14 cmへ戻る。誤嚥性肺炎の再発も防がない。入れにくければ側臥位（初回成功66.7%→89.3%）。カプノグラフィは気道を除外するだけで、初回使用前はX線で確かめる</li>
+<li><b>気管切開ではカフを脱気して食べさせる方向へ</b>：カフ圧は20〜30 cmH₂O、離脱中は脱気（不顕性誤嚥は膨張23%対脱気7%）。スピーチバルブはカフを完全に脱気してから付ける。抜去は24時間キャッピングではなく、8時間あたり吸引2回以下で判断（REDECAP：抜去まで13日→6日）</li>
+</ul>
+<ul class="chk">
+<li><b>胃管の留置日数</b>を毎日数え、抜く日を回診の議題にする</li>
+<li><b>声帯</b>：抜管後の喘鳴と繰り返す誤嚥では神経筋疾患を疑う</li>
+<li><b>単呼吸カウント25未満</b>で呼吸筋力低下を疑い、吸気と咳を別々に評価</li>
+<li><b>申し送り</b>は「経口不可」でなく、今の段階と次の評価の予定</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（Macht CCM 2013；Godet 2017；Suiter 2008；Duncan ICM 2020；SKR/SRLF 2026；仏感染症学会 IDNow 2025；REDECAP 2020；JIPAD JIC 2026 ほか）。嚥下障害の治療はエビデンスが薄い領域なので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

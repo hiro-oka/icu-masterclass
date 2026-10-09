@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ICUの判断はなぜ外れるか 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>ICUの判断はなぜ外れるか — 要約</h1>
+<p class="sub">解説「ICUの判断はなぜ外れるか」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>誤りをバイアスとノイズに分ける</b><span>ノイズは注意力では減らない。手順の固定と独立した判断の平均化で減らす</span></div>
+<div><b>症候群のラベルで推論を止めない</b><span>「どこの感染か／感染でないなら何か」を返し、翌朝に入室時の診断を見直す</span></div>
+<div><b>予測モデルとAIは一貫性の道具</b><span>AUCより先に、どこで何例で検証したか、較正、出力を誰が検証するかを問う</span></div>
+</div>
+
+<h2><span class="n">2</span>誤りは2種類 — 一定方向のずれと、ばらつき<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s1">詳しく</a></h2>
+<ul>
+<li><b>バイアス（系統誤差）とノイズ（ランダム誤差）</b>：「アンカリングに気をつけよう」はバイアスの対策。ノイズは複数の人が同じ症例を判断しないと見えない</li>
+<li><b>ICUはくじ引きになりうる</b>：臨床医ごとの水準の差、患者特性への重みづけの差、疲労・時間帯による差。ノイズは打ち消し合わず蓄積する</li>
+<li><b>経験は一貫性を保証しない</b>：経験豊富な医師の死亡予測は医学生より有意に正確とはいえなかった。標準から外した理由を記録して見返す</li>
+</ul>
+
+<h2><span class="n">3</span>診断エラーは技術では減っていない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s2">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>物差し</th><th>数字</th><th>読み方</th></tr></thead>
+<tbody>
+<tr><td>剖検（834例）</td><td>主要な乖離18.5%、治療を変えていたはずのclass I 7.5%。25年間横ばい</td><td>見落としの上位6疾患：肺塞栓・肺炎・二次性腹膜炎・侵襲性アスペルギルス症・感染性心内膜炎・心筋梗塞</td></tr>
+<tr><td>カルテレビュー</td><td>予定外入室256例の7.0%。24時間以内に気づけたのは33.3%</td><td>誤った作業診断18件中7件が「敗血症」。最終診断は膿瘍・穿孔・心内膜炎や感染でない病態</td></tr>
+<tr><td>症候群の定義</td><td>ARDSの臨床定義は剖検に対し感度75%・特異度84%。VAP「浸潤影＋2基準」は64.8%・36%</td><td>症候群名がついても診断が済んだとは考えない</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>その場でやる</b>：原因不明の増悪では6疾患を声に出して除外し心電図をとる（剖検例でICU滞在中にとられていたのは55%）。48〜72時間で反応が想定と違えば「今、初診なら何を考えるか」</li>
+</ul>
+
+<h2><span class="n">4</span>ノイズを減らす — 手順を固定し、独立した判断を平均する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s4">詳しく</a></h2>
+<ul>
+<li><b>一貫性はそれだけで効く</b>：同じ827例で医師の院内死亡予測AUC 0.68、APACHE IV 0.83。差の正体は賢さではなく全例に同じ重みを当てること</li>
+<li><b>4人で平均するとノイズは1/2</b>（判断数の平方根で減る）。ただし上級医が先に話すと独立性が崩れる。意見は同時に出し、最も影響力の強い人が最後に話す</li>
+<li><b>予測モデルは3点で読む</b>：識別能（AUC）・較正・外的妥当性。APACHE III-jはJIPADでAUROC 0.915のままSMR 0.48（死亡を2倍以上に見積もる）</li>
+</ul>
+<div class="flow" role="img" aria-label="予定外入室から72時間の見直しの機会を時間軸に固定する">
+<div class="f-top">予定外入室：ラベルを感染源まで分解させ、作業診断をカルテに1行で書く</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>0〜6時間・翌朝</b><ul><li>6疾患のうち除外できていないものを挙げ、心電図・培養・画像を埋める</li><li>翌朝のカンファで「入室時の診断と今の診断は同じか」</li></ul></div>
+<div class="f-col"><b>48〜72時間・退室後</b><ul><li>反応が想定どおりでなければ診断タイムアウト</li><li>退室後の外来とRRSの事後検証で「診断名が変わったか」</li></ul></div>
+</div>
+<div class="f-bot">最大の穴は翌朝。予定外入室の診断エラーの3件に2件は24時間以内に気づけていない</div>
+</div>
+
+<h2><span class="n">5</span>予測が結果を作る領域 — 予後の判断と中止の判断を分ける<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s5">詳しく</a></h2>
+<ul>
+<li><b>自己成就的予言</b>：不良所見がWLSTを招き、WLSTが不良転帰を作り、予測が当たったように見える</li>
+<li><b>早期WLSTを除いた心停止後101例</b>：14日以内に不良マーカー2つ以上なら良好転帰0/16。瞳孔＋角膜反射の偽陽性率は繰り返し測れば3.0%、初回値だけでは18.2%</li>
+<li><b>72時間以降・2つ以上・会話を分ける</b>（ERC/ESICM 2025）：2つ以上は横方向、繰り返しは時間方向の平均化。0〜1個なら家族にも「まだ分からない」を保つ</li>
+</ul>
+
+<h2><span class="n">6</span>AIを3層に分けて読む<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s6">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>層</th><th>できること</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>予測AI</td><td>「起こる確率」の早期警告</td><td>関連にしか依拠せず、何をすべきかは言えない</td></tr>
+<tr><td>行動可能なAI</td><td>治療の選択肢を比べる（因果推論）</td><td>時間依存性の交絡を排除しきれない。出た規則は仮説として扱う</td></tr>
+<tr><td>生成AI・LLM</td><td>記録の整形・要約、明示された事実の抽出</td><td>同じ入力に同じ出力を返さず、文献を作ることがある。意思決定に入るなら一次資料で検証</td></tr>
+</tbody>
+</table></div>
+<p><b>never-skillingを防ぐ</b>：AI支援のPOCUS研修で、画像から判定できた割合は50.0%対81.8%。研修はAIを切った状態で「その画像で判断できるか」を測る。</p>
+
+<h2><span class="n">7</span>エビデンスのノイズと落とし穴<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-judgment/#s7">詳しく</a></h2>
+<ul>
+<li><b>統合推定値はバイアスリスク層別と並べる</b>：せん妄予防のメラトニンは高リスク試験RR 0.46、低リスク試験RR 0.86（交互作用P=0.01）</li>
+<li><b>観察研究とRCTが逆なら</b>：時間平均した曝露・適応による交絡・不死時間バイアスを疑う</li>
+</ul>
+<ul class="chk">
+<li><b>申し送りの病名</b>をそのまま次に渡さない</li>
+<li><b>上級医</b>はカンファで最後に話す</li>
+<li><b>AUCだけ</b>で道具を判断しない</li>
+<li><b>「忙しかった」</b>で振り返りを終えない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ノイズ Crit Care 2025；Tejerina 2012；Bergl CCM 2019；JROD JIC 2021；心停止後予後予測 Crit Care 2026；ERC/ESICM 2025；AI未来 ICM 2023 ほか）。数字は教育目的の記載で、原著と照合して使ってください。</p>
+</main>
+</body>
+</html>

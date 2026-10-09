@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>栄養療法 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>重症患者の栄養療法 — 要約</h1>
+<p class="sub">解説「重症患者の栄養療法」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>早く始めて、ショックの腸には入れない</b><span>48時間以内に少量のEN。足りなくてもPNは7〜9日まで足さない</span></div>
+<div><b>エネルギーは5〜7日で、蛋白は盛らない</b><span>急性期は自前の糖と足し算になる。蛋白は1週目に1.3 g/kg/日まで</span></div>
+<div><b>胃残の数字で止めず、リスクは開始前に拾う</b><span>不耐は所見の組み合わせで。リフィーディングは診断を3要件で</span></div>
+</div>
+
+<h2><span class="n">2</span>量の誤解 — 思ったほど高代謝ではない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s1">詳しく</a></h2>
+<ul>
+<li><b>消費量は中央値25 kcal/kg/日</b>：433例・1,194回の間接熱量測定で、山は入室10日目ごろ。「高代謝」は11%。予測式は初日を過大、10日目前後を過小に見積もる</li>
+<li><b>急性期は足し算であふれる</b>：内因性の糖産生は外から入れても止まらない。害なのは早く始めることではなく、早く多く入れること</li>
+<li><b>蛋白は入れても筋にならない</b>：吸収したアミノ酸のうち筋に使えるのは60%。「多いほど良い」という観察研究の関連は、適応交絡と不死時間バイアスで説明できた</li>
+</ul>
+
+<h2><span class="n">3</span>評価と開始 — 48時間以内に腸を使う<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s2">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>場面</th><th>推奨と根拠</th><th>使い方</th></tr></thead>
+<tbody>
+<tr><td>入室時</td><td>栄養評価は前提（GLIM）。7〜10日以内に再評価</td><td>体重は実測。何日食べていないかを家族にも聞く</td></tr>
+<tr><td>開始</td><td>48時間以内のEN開始は日本版GL総論で唯一の強い推奨（1B）。感染性合併症は1000人あたり148件減</td><td>示されたのは「早く腸を使う」こと。「早く目標量」ではない</td></tr>
+<tr><td>ショック</td><td>不安定な循環でENを提案しない（2D）。NUTRIREA-2で腸管虚血HR 3.84</td><td>昇圧薬を減らしている時期に少量で慎重に</td></tr>
+<tr><td>足りないとき</td><td>SPNを提案しない（2A・唯一の確実性「高」）。EPaNICで2年後の死亡19.8%対20.5%</td><td>7〜9日まではPNを足さない</td></tr>
+<tr><td>経路</td><td>経路で死亡は変わらない（CALORIES 33.1%対34.2%）。胃内に持続投与が基本</td><td>誤嚥リスクが高い・胃で耐えられなければ幽門後</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>量 — エネルギーは病期で増やし、蛋白は盛らない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s3">詳しく</a></h2>
+<div class="flow" role="img" aria-label="病期ごとのエネルギー投与の目安。早期急性期は約25%、後期急性期は50〜80%、後期は80〜100%">
+<div class="f-top">目標量に対する投与量の目安（総説の統合。ESPENは急性期を消費量の70%以下に）</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>急性期（0〜7日）</b><ul><li>早期急性期 0〜3日：約25%（10〜20 kcal/kg/日）</li><li>後期急性期 3〜7日：50〜80%</li><li>フル量を急いだ大規模試験で、上回った項目は1つもない（EDEN・PERMIT・TARGET・NUTRIREA-3）</li></ul></div>
+<div class="f-col"><b>後期（7日以降）と回復期</b><ul><li>80〜100%に届くのは7日以降</li><li>敗血症後2週目には約47 kcal/kg/日という報告</li><li>ICUを出た後に減らしたままにしない</li></ul></div>
+</div>
+<div class="f-bot">プロポフォールの脂質・ブドウ糖輸液・CRRTのクエン酸（約218 kcal/日）も数え、実際に入った総エネルギーを毎日1つの数字にする</div>
+</div>
+<ul>
+<li><b>蛋白は1週目に1.3 g/kg/日まで</b>：EFFORT Protein・PRECISe・TARGET Proteinはいずれも利益なし。PRECISe（2.0対1.3）は6か月のQOLが悪化。AKIやRRTで害のシグナル</li>
+<li><b>間接熱量測定は使えれば使う</b>：予測式が実測の±10%以内に入るのは21〜68%。ただし測るだけで離脱成功は変わらなかった（58%対50%）</li>
+</ul>
+
+<h2><span class="n">5</span>投与中に見るもの — 所見の組み合わせで<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s4">詳しく</a></h2>
+<ul>
+<li><b>胃残の数字だけで止めない</b>：GRVは誤嚥の予測因子として根拠が乏しい。量・性状・腹部所見・画像・乳酸を組み合わせる</li>
+<li><b>低リスク所見と高リスク所見を分ける</b>：膨満・悪心・便秘は速度を保つか一時中断して観察。新しい膨満に乳酸上昇・血圧低下が伴えばNOMIを疑い、すぐ止める</li>
+<li><b>下痢はENのせいにする前に薬と感染</b>：ENの不耐は下痢の20%未満。ソルビトール含有薬・抗菌薬・クロストリディオイデスを先に見る</li>
+<li><b>足すもの・足さないもの</b>：プレ／シンバイオティクスは推奨、グルタミン・アルギニン強化は提案しない。メトクロプラミドは心房細動13.8%対1.6%で漫然と続けない。血糖は180 mg/dL未満</li>
+</ul>
+
+<h2><span class="n">6</span>リフィーディング症候群と特殊な状況<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition/#s5">詳しく</a></h2>
+<ul>
+<li><b>リスクは4項目で拾う</b>：3か月で10%超の体重減少か低栄養、7日以上の絶食、問題のある飲酒、嘔吐・下痢・吸収不良。2つ以上なら開始前からチアミン。発症は開始72時間以内に集中する</li>
+<li><b>診断は3要件すべて</b>：必要量の50%以上を24時間、72時間以内にリンが30%以上低下、電解質異常の症状。低リン血症だけでは呼ばない。発症したら2日間カロリーを絞る（20 kcal/時で60日生存91%対78%）</li>
+<li><b>肥満</b>：BMI 30超は実体重あたり11〜14 kcal/kg/日。肥満パラドックスは投与量を増やす理由にならない</li>
+<li><b>AKI・CRRT・ECMO</b>：CRRTはアミノ酸を1日10〜15 g捨て、カロリーを足す。ECMOも禁忌がなければ早期にEN、最初の3日は目標の70%未満、蛋白は1.3 g/kg/日まで</li>
+<li><b>微量栄養素</b>：CRPが10 mg/L超だと再分布で血中濃度が下がる。高用量ビタミンCはLOVITで不良（44.5%対38.5%）</li>
+</ul>
+<ul class="chk">
+<li><b>胃残200 mL</b>で反射的に止めない</li>
+<li><b>入りが悪い</b>から3日目にPNを足さない</li>
+<li><b>昇圧薬を増やした日</b>は栄養を見直す日</li>
+<li><b>蛋白を2 g/kg/日</b>以上入れない</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（日本版重症患者栄養療法GL 2024；ESPEN 2019・2023；ASPEN 2016・2022；Patel NEJM 2026；NUTRIREA-2 Lancet 2018；NUTRIREA-3 2023；TARGET NEJM 2018；EPaNIC；PRECISe Lancet 2024；EFFORT Protein Lancet 2023；AuSPEN 2025；Doig Lancet Respir Med 2015；ELSO ASAIO 2026 ほか）。用量・設定は教育目的の記載で、使う前に原著・添付文書・各施設の基準と照合してください。</p>
+</main>
+</body>
+</html>

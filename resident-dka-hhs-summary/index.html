@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>DKA・HHS 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 文例 */
+.ex{border-left:4px solid var(--good); background:var(--good-soft); border-radius:0 8px 8px 0; padding:.45rem .8rem; font-size:.88rem; line-height:1.7; margin:.3rem 0 .6rem}
+.ex .ng{color:var(--danger); font-weight:700}
+.ex .ok{color:var(--good); font-weight:700}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+.row th,.row td{text-align:center}
+.row th:first-child,.row td:first-child{text-align:left}
+.hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+.f-cols.c3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:640px){ .f-cols.c3{grid-template-columns:1fr} }
+@media print{ .f-cols.c3{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>DKA・HHS（高血糖緊急症） — 要約</h1>
+<p class="sub">解説「DKA・HHS」と「正常血糖DKA」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>Kを見てからインスリン</b><span>輸液・インスリン・Kを同時に計画する。K 3.5未満なら補充を先にして、インスリンは待つ</span></div>
+<div><b>血糖が下がっても止めない</b><span>250 mg/dL未満でブドウ糖を足して続ける。DKAの解消は血中βOHB 0.6 mmol/L未満で判定</span></div>
+<div><b>HHSは輸液が主役</b><span>浸透圧は毎時3〜8 mOsm/kgを超えて下げない。混合型は2つの目標を並べて追う</span></div>
+</div>
+
+<h2><span class="n">2</span>診断 — ケトンは血中βOHB、浸透圧は計算する<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/#s2">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>DKA（3項目すべて）</th><th>HHS（4項目すべて）</th></tr></thead>
+<tbody>
+<tr><td>血糖</td><td>200 mg/dL以上、または糖尿病の既往</td><td>600 mg/dL以上</td></tr>
+<tr><td>ケトン</td><td>βOHB 3.0 mmol/L以上</td><td>βOHB 3.0未満</td></tr>
+<tr><td>酸塩基</td><td>pH 7.3未満かつ／またはHCO₃⁻ 18未満</td><td>pH 7.3以上かつHCO₃⁻ 15以上</td></tr>
+<tr><td>浸透圧</td><td>—</td><td>有効浸透圧300 mOsm/kg超</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>両方を満たせば混合型</b>：3分の1以上を占め、院内死亡が最も高い。血糖600未満でも有効浸透圧（2×Na＋血糖、mmol/L）を計算する</li>
+<li><b>尿ケトンに頼らない</b>：試験紙はβOHBを拾わず、回復期にはかえって強く見える。SGLT2阻害薬では偽陰性になりうる</li>
+<li><b>重症度</b>：βOHB 6.0超・pH 7.0未満・HCO₃⁻ 10未満・昏迷で重症。JIPADのICU入室DKA 866例の院内死亡はpHによらず3〜6%で、入室先はpHだけで決めない</li>
+</ul>
+
+<h2><span class="n">3</span>3本柱を同時に — 輸液・インスリン・K<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="輸液、インスリン、カリウムの3列を同時に進め、血糖250未満でブドウ糖を足してインスリンを続ける">
+<div class="f-top">最初の1時間：晶質液を始め、静脈血ガス・βOHB・電解質・心電図を出し、誘因を探す</div>
+<div class="f-arr">▼</div>
+<div class="f-cols c3">
+<div class="f-col"><b>輸液</b><ul><li>2〜4時間は500〜1,000 mL/時</li><li>高齢・心腎・妊婦は250 mLずつ</li><li>生食でも平衡液でもよい</li></ul></div>
+<div class="f-col"><b>インスリン</b><ul><li>0.1単位/kg/時の固定速度</li><li>ボーラスは原則なし</li><li>軽症DKA・HHSは0.05</li></ul></div>
+<div class="f-col"><b>カリウム</b><ul><li>3.5未満：補充を先に</li><li>5.0未満：1 Lに20〜30 mmol</li><li>4〜5を保ち4時間ごと</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>血糖250未満</b>：インスリンを0.05に減らしてブドウ糖を足し、DKA 150〜200・HHS 200〜250を保つ</div>
+<div class="f-bot">重炭酸はpH 7.0未満だけ、リンは筋力低下＋P 1.0未満だけ。K 2.5以下は院内死亡OR 4.9</div>
+</div>
+
+<h2><span class="n">4</span>HHS — 浸透圧を急いで下げない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/#s8">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>指標</th><th>上限・目安</th></tr></thead>
+<tbody>
+<tr><td>血糖の低下</td><td>毎時90〜120 mg/dLを超えない。高血糖の解消には通常8〜10時間</td></tr>
+<tr><td>血清Naの低下</td><td>24時間で10 mmol/Lを超えない（浸透圧性脱髄症候群の予防）</td></tr>
+<tr><td>浸透圧の低下</td><td>毎時3.0〜8.0 mOsm/kg。血清浸透圧は4時間ごとに追う</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>水分欠乏は9〜12 L</b>。輸液で意識が戻ることがある。速度は併存症に合わせ、混合型にも同じ上限を使う</li>
+<li><b>初期のNa上昇だけで低張液に替えない</b>（血糖100 mg/dL低下でNa 1.6上昇）。0.45%食塩水は輸液とインスリンが十分なのに浸透圧が下がらないときだけ</li>
+<li><b>血栓予防</b>：血栓が疑われなければ予防量の低分子ヘパリン。意識が変われば早めに頭部画像</li>
+</ul>
+
+<h2><span class="n">5</span>解消と皮下インスリンへの切り替え<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-dka-hhs/#s9">詳しく</a></h2>
+<ul class="chk">
+<li>DKA：<b>βOHB 0.6未満</b>かつpH 7.3以上またはHCO₃⁻ 18以上</li>
+<li>HHS：浸透圧<b>300未満</b>・尿量0.5 mL/kg/時超・意識改善・血糖250未満</li>
+<li>AGと尿ケトンは<b>解消の判定に使わない</b></li>
+<li>生食後のHCO₃⁻低値は<b>高Cl性</b>を疑い、βOHBで読む</li>
+<li>皮下インスリンは<b>静注をやめる前に重ねる</b>（重ねずに切らない）</li>
+<li>1日総量<b>0.5〜0.6単位/kg</b>（高齢・腎不全は約0.3）、40〜60%を基礎</li>
+</ul>
+
+<h2><span class="n">6</span>正常血糖DKA — 血糖で除外しない<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-edka/">詳しく</a></h2>
+<div class="three">
+<div><b>AG開大ならβOHB</b><span>血糖200未満のDKAで、約10%を占める。SGLT2阻害薬使用者のDKAの43.6%が血糖250未満。最終内服の日時を記録する</span></div>
+<div><b>最初からブドウ糖</b><span>インスリンと同時に5%か10%ブドウ糖（7.5 g/時＝D5 150 mL/時が目安）。血糖が下がればインスリンでなくブドウ糖を増やす</span></div>
+<div><b>48時間以上は止めない</b><span>SGLT2阻害薬の最終投与から48時間以上、ケトンが消えるまで静注を続ける。糖を含む維持輸液だけでは足りないことが多い</span></div>
+</div>
+
+<p class="note">出典：本編の主要文献（高血糖緊急症の国際コンセンサス Diabetes Care 2024；ADA Standards of Care 2026；Intensive Care Med 2023・2024；Crit Care Med 2019；J Crit Care Med 2026；Curr Diab Rep 2025；Crit Care Explor 2026 ほか）。閾値は文書ごとに少しずつ違うので、方針の根拠にする前に本編と原著で確かめてください。</p>
+</main>
+</body>
+</html>

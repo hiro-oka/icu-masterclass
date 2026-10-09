@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>重症市中肺炎 要約</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --code:#f4f6f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --danger:#f2857c; --danger-soft:#3a1c1a; --code:#1e2329;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.8; letter-spacing:.01em}
+main{max-width:860px; margin:0 auto; padding:1.8rem 16px 3rem}
+a{color:var(--accent); overflow-wrap:anywhere}
+.kicker{margin:0; font-size:.74rem; font-weight:800; letter-spacing:.16em; color:var(--accent)}
+h1{font-size:1.5rem; line-height:1.4; margin:.2rem 0 .3rem}
+.sub{margin:0 0 .5rem; color:var(--muted); font-size:.9rem}
+.meta{margin:0 0 1rem; color:var(--muted); font-size:.8rem}
+.meta span+span::before{content:"／"; margin:0 .4em}
+.go{display:inline-block; margin:.1rem 0 .4rem; padding:.35rem .9rem; border:1.5px solid var(--accent); border-radius:999px;
+  font-size:.86rem; font-weight:700; text-decoration:none}
+h2{font-size:1.08rem; line-height:1.5; margin:1.5rem 0 .55rem; padding:.15rem .6rem; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 6px 6px 0}
+h2 .n{color:var(--accent); margin-right:.45em}
+h2 a.more{float:right; font-size:.75rem; font-weight:600; margin-top:.2rem}
+p{margin:.3rem 0 .6rem}
+ul,ol{margin:.2rem 0 .6rem; padding-left:1.3em}
+li{margin:.12rem 0}
+.three{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:.4rem 0 .4rem}
+.three div{border:1.5px solid var(--accent); border-top-width:5px; border-radius:10px; padding:.5rem .75rem; background:var(--bg)}
+.three b{display:block; font-size:.98rem; line-height:1.5; color:var(--accent)}
+.three span{display:block; font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:.2rem}
+/* 流れ図 */
+.flow{border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--bg)}
+.f-top,.f-bot,.f-out{border-radius:8px; padding:.45rem .7rem; font-size:.9rem; line-height:1.6}
+.f-top{background:var(--accent); color:var(--bg); font-weight:700; text-align:center}
+.f-arr{text-align:center; color:var(--muted); line-height:1.1; font-size:.95rem; margin:.15rem 0}
+.f-cols{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.f-col{border:1.5px solid var(--accent); border-radius:8px; padding:.4rem .7rem}
+.f-col b{display:block; color:var(--accent); font-size:.9rem}
+.f-col ul{margin:.15rem 0 0; font-size:.85rem; line-height:1.6}
+.f-out{border:1.5px solid var(--good); background:var(--good-soft)}
+.f-out b{color:var(--good)}
+.f-bot{border:1.5px dashed var(--muted); color:var(--muted); font-size:.84rem; margin-top:.45rem}
+.cap{font-size:.8rem; color:var(--muted); margin:.3rem 0 0}
+/* 表 */
+.tw{overflow-x:auto; margin:.3rem 0 .6rem}
+table{border-collapse:collapse; width:100%; font-size:.86rem; line-height:1.6}
+th,td{border-bottom:1px solid var(--line); padding:.35rem .5rem; text-align:left; vertical-align:top}
+th{background:var(--accent-soft); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+td .x{color:var(--danger); font-weight:700}
+/* チェックリスト */
+.chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
+.chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
+.chk li::before{content:""; position:absolute; left:0; top:.25em; width:1em; height:1em; border:1.5px solid var(--good); border-radius:3px}
+.chk b{color:var(--good)}
+.note{font-size:.8rem; color:var(--muted); border-top:1px solid var(--line); margin-top:1.2rem; padding-top:.5rem; line-height:1.7}
+@media (max-width:640px){
+  .three,.f-cols,.chk{grid-template-columns:1fr}
+  h2 a.more{float:none; display:block; margin:0}
+  td:first-child{white-space:normal}
+}
+@media print{
+  @page{size:A4; margin:11mm 12mm}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
+    --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
+  body{font-size:9.5pt; line-height:1.55}
+  main{max-width:none; padding:0}
+  h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
+  .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
+  .chk{grid-template-columns:1fr 1fr}
+  .flow,.tw,.three{break-inside:avoid}
+  p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
+  .go{display:none}
+}
+</style>
+<body>
+<main>
+<p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
+<h1>重症市中肺炎（sCAP） — 要約</h1>
+<p class="sub">解説「重症市中肺炎（sCAP）」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/">解説の本編を開く →</a>
+
+<h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/#s1">詳しく</a></h2>
+<div class="three">
+<div><b>重症は基準で判定する</b><span>ICUにいるかではなくATS/IDSA基準で。病棟で遅れてsCAPになる患者（死亡48%）を見逃さない</span></div>
+<div><b>βラクタム＋マクロライド</b><span>広域化は分離歴か「90日以内の入院かつ非経口抗菌薬」のときだけ。48時間で狭め、重症は5日以上</span></div>
+<div><b>ステロイドは絞って入れる</b><span>重症・非インフルエンザ・高炎症・早期の患者に。インフルエンザには入れない</span></div>
+</div>
+
+<h2><span class="n">2</span>見つける — 基準で判定し、検体をセットで出す<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/#s2">詳しく</a></h2>
+<ul>
+<li><b>重症の定義</b>：大基準（昇圧薬を要するショック／人工呼吸を要する呼吸不全）1つ、または小基準3つ以上（呼吸数30以上・P/F 250以下・多葉性浸潤影・錯乱・BUN 20以上・白血球4,000未満・血小板10万未満・体温36℃未満・積極的な輸液を要する低血圧）</li>
+<li><b>転帰</b>：ICUのCAPは30日死亡約30%、1年死亡47%。第4〜7病日に悪化した患者は死亡48%（入院時からなら17%）。最大30%は無熱なので、病棟では呼吸数・酸素需要・意識を毎日見る</li>
+<li><b>スコアは用途で</b>：PSI・CURB-65は帰す判断用でICUの要否は予測しない。強力な呼吸補助の予測はSMART-COP</li>
+<li><b>重症なら検体セット</b>：血液培養・下気道検体・肺炎球菌とレジオネラの尿中抗原・呼吸器ウイルスPCRを抗菌薬の前に（ただし遅らせない）。PCTで抗菌薬を始める判断はしない</li>
+</ul>
+
+<h2><span class="n">3</span>抗菌薬 — 入口と出口を最初に決める<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/#s3">詳しく</a></h2>
+<div class="tw"><table>
+<thead><tr><th>場面</th><th>レジメン・判断</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>リスク因子なし</td><td>セフトリアキソン2 g/日＋アジスロマイシン</td><td>足すのはキノロンではなくマクロライド。狭めても免疫調節目的で続けてよい</td></tr>
+<tr><td>緑膿菌・MRSAのリスク</td><td>抗緑膿菌βラクタム＋マクロライド／3GC＋マクロライド＋リネゾリド</td><td>入院歴だけ・施設入所歴だけでは広域にしない（HCAPは廃止）</td></tr>
+<tr><td>インフルエンザ</td><td>オセルタミビルを追加、抗菌薬も省かない</td><td>発症からの日数を問わない</td></tr>
+<tr><td>48時間・3〜4日目</td><td>培養で狭める。CRPが30〜40%下がったか</td><td>MRSA鼻腔スワブ陰性なら抗MRSA薬を切る</td></tr>
+<tr><td>期間</td><td>非重症は安定後5日未満（最短3日）、<span class="x">重症は5日以上</span></td><td>重症の5日以上はATS 2026の強い推奨。短期治療のRCTに重症はいない</td></tr>
+</tbody>
+</table></div>
+
+<h2><span class="n">4</span>ステロイドと呼吸補助<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/#s4">詳しく</a></h2>
+<div class="flow" role="img" aria-label="重症CAPにはステロイドを入れNNT 17。非重症とインフルエンザには入れない。用法はヒドロコルチゾン200 mg/日の持続。呼吸補助はHFNCから始め、呼吸数・努力・一回換気量で見切る">
+<div class="f-top">重症CAPには入れる（死亡9.8%対15.1%、NNT 17）。非重症（強い推奨で投与しない）とインフルエンザ（ICU死亡HR 1.32）には入れない</div>
+<div class="f-arr">▼</div>
+<div class="f-cols">
+<div class="f-col"><b>当たりやすい患者と用法</b><ul><li>重症化から24時間以内・P/F 300未満・CRPやIL-6高値。72時間超では期待しにくい</li><li>ヒドロコルチゾン200 mg/日の持続。血糖をq4〜6時間（140〜180 mg/dL）</li></ul></div>
+<div class="f-col"><b>呼吸補助</b><ul><li>de novoの低酸素はHFNCから（挿管RR 0.76）。COPD増悪・心原性肺水腫の合併はNIV</li><li>SpO₂ではなく呼吸数・努力・一回換気量（9〜9.5 mL/kg超）で見切る</li></ul></div>
+</div>
+<div class="f-arr">▼</div>
+<div class="f-out"><b>ARDSに進んだら</b>標準どおり：VT 6 mL/kg・プラトー30未満・駆動圧15未満、P/F 150未満で腹臥位16時間以上、基準を満たせばVV-ECMOを相談</div>
+</div>
+
+<h2><span class="n">5</span>原因別の一手と、改善しないとき<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-scap/#s6">詳しく</a></h2>
+<ul>
+<li><b>誤嚥</b>：嫌気性菌が記録されるのは2〜4%。標準のCAPレジメンでよく、メトロニダゾールは足さない（例外は歯性疾患・肺膿瘍・膿胸）</li>
+<li><b>レジオネラ</b>：尿中抗原は血清群1だけで感度70〜90%。陰性でも否定せず下気道PCR。βラクタムは効かず、レボフロキサシンかアジスロマイシン</li>
+<li><b>非改善は3系統</b>：届いていない（耐性菌・MRSA・レジオネラ）／合併症（膿胸・膿瘍）／感染ではない（器質化肺炎・血管炎・薬剤性・心原性肺水腫）。5〜7日目は診断を疑い直しCTと気管支鏡、免疫不全なら初日からCTとBAL</li>
+</ul>
+<ul class="chk">
+<li><b>無熱</b>で肺炎を否定しない</li>
+<li><b>ウイルス陽性</b>でも入院例の抗菌薬を省かない</li>
+<li><b>ステロイド中</b>はCRPと白血球を治療反応の目安にしない</li>
+<li><b>退室時</b>に抗菌薬・ステロイドの終了日と心血管リスクを引き継ぐ</li>
+</ul>
+
+<p class="note">出典：本編の主要文献（ATS CAP 2026・ATS/IDSA 2019 AJRCCM；ERS/ESICM/ESCMID/ALAT 2023 ERJ；Dequin ICM 2026；Pitre ICM 2025；CAPE COD NEJM 2023；REMAP-CAP JAMA 2025 ほか）。ATS 2026はIDSAの承認がなく、推奨のエビデンスの質はすべて「低」か「非常に低い」です。用量は使う前に原著・添付文書・薬剤部の基準と照合してください。</p>
+</main>
+</body>
+</html>

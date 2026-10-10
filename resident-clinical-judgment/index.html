@@ -1230,7 +1230,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">ICUの判断はなぜ外れるか</h1>
 <p class="sub">誤りをバイアスとノイズに分け、個人の注意ではなく仕組みで減らす — 誤りの2つの型・診断エラーの実測・見逃しの構造・ノイズを減らす・予測が結果を作る領域・AIを3層で読む・エビデンスのノイズ・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-11</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1576,6 +1576,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s5-3">5-3. 「72時間以降・2つ以上・中止の判断と分ける」は、単一指標のノイズと早期閉鎖への対策</h3>
 <p class="rd-lead">ERC/ESICM 2025は、ROSC後72時間以降（GCS運動反応&lt;6が前提）に、6項目（瞳孔＋角膜反射消失・N20 SSEP両側消失・高度に悪性のEEG・NSE・status myoclonus・画像）のうち2つ以上がそろったときにだけ不良と判断し、予後予測の会話とWLSTの会話を同じ場で混ぜないよう求めています<span class="src ext">ERC/ESICM2025</span>。</p>
 <p>2つ以上を求めるのは「平均化でノイズが減る」の応用で（横方向）、繰り返し測るのは時間方向の平均化です。72時間は情報が出そろう前に結論を固定するアンカリングへの予防線で、中止の判断との分離は自己成就の連鎖を運用で断つ設計です。0〜1個のときは家族にも「まだ分からない」を保ち、72時間・7日前後・12〜14日の3点で見直します。手順の詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-post-arrest/#s5">心停止後ケア</a>が正本です。</p>
+<p>同じ構造は心停止後に限りません。行動で反応しない急性脳損傷患者の15〜25%には、脳波やfMRIでしか分からない「隠れた意識」（CMD）があり、CMDありでは12か月で自立に戻った割合が44%（7/16）、なしでは14%（12/84）でした。既存の予後データ自体が早期の治療中止で悪いほうへ偏っているので、予後スコアをそのまま「回復の見込みなし」の根拠にせず、「反応がない＝意識がない、ではない」と伝え、72時間以内の断定を避け、CRS-Rで時間をおいて繰り返し評価します。ナラティブレビューで、紹介される介入研究の多くは小規模です<span class="src vault">CMD JIntensiveCare2024</span>。</p>
 <div class="box warn"><span class="label">注意 — NSEのカットオフが割れているのは価値判断</span><p>ガイドラインは&gt;60 µg/L、研究側は≥90 µg/Lで、割れているのは技術の差ではなく「偽悲観（本当は良くなる人を諦めること）をどれだけ避けたいか」という価値判断です。使っている測定系とカットオフがどちらの水準かを確かめます<span class="src ext">ERC/ESICM2025</span><span class="src vault">心停止後予後予測CC2026</span>。物差しそのものも更新中で、治療側の介入（低体温・非STEの即時冠動脈造影・PaCO₂やMAPの目標）が軒並み中立だった一方、予後予測では血中ニューロフィラメント軽鎖（NFL）・瞳孔計のNPi・拡散テンソル画像の白質FAが前進しています<span class="src vault">心停止後焦点ICM2019</span>。</p></div>
 <p>予後をまだ判定できない段階で悲観的に伝えると、家族の心の準備が先回りし、その後の方針の議論が「もう良くならないのだから」という前提に流れます。早く伝えなかったと問われることへの恐れが踏み込みを生むこともあり、日本の医療者で訴訟への恐怖が強かったこと（§3-4）を踏まえると、説明のタイミングを型で決めておくことは、個々の医師の負担と説明のばらつきを同時に減らします。</p>
 </section>
@@ -1609,6 +1610,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s6-1">6-1. 予測AI — 確率は告げても、何をすべきかは導けない</h3>
 <p class="rd-lead">予測AIは関連（association）だけに依拠するので「何をすべきか」を導けず、「緩和ケアのコンサルトとノルアドレナリンの投与はどちらも死亡を強く示唆するが、どちらかを止めれば死亡確率が下がると考えるのは合理的でない」という例がその限界を示します<span class="src vault">AI未来ICM2023</span>。</p>
 <p>JIPADで学習した深層学習モデルはICU死亡AUC 0.94・院内死亡0.91で、ICU退室からの日数によらず1年を通じて0.91〜0.95を保ち、ゲーム理論に基づくSHAPで寄与の大きい順に選んだ上位20変数だけのモデルでも従来のスコアより高いAUCでした<span class="src vault">DNN-SHAP ACPM2022</span>。一方で、導入で外部検証と較正の不足を問題にしながら報告の中心はAUCで、上位20変数の外部検証のコホートも明示されていません。§4-4の3点は、予測AIの論文そのものにも向けます。</p>
+<p>もう1つ、AI論文は「どの段階の証拠まで来ているか」で読みます。VILIの検出・予防AI 52研究を「技術性能→外部検証→プロセス→代理指標→VILIの直接証拠→患者アウトカム」の段階に並べると、大半は技術開発と後ろ向き検証にとどまり、唯一のRCTもシミュレーション上で非同調の検出を見たものでした。VILIには正解ラベルがなく、ΔP・メカニカルパワー・非同調を「AIの正解」にする研究は、その代理指標の妥当性も同時に問われます（表14の#2）。「精度が高い」と「患者が良くなる」は別物です<span class="src vault">VILI-AI CC2026</span>。</p>
 
 <h3 id="rs-s6-2">6-2. 行動可能なAI — 因果を言うには時間依存性の交絡を越える必要があり、観察データは「直せる」こともある</h3>
 <p class="rd-lead">ICUの治療は逐次的な意思決定の連鎖なので、治療の選択肢を比べるAIは単純な回帰や傾向スコアマッチングでは足りない時間依存性の交絡に向き合う必要があり、強化学習で導いたバソプレシン開始ルール（ルールに近い開始で院内死亡の調整OR 0.81、0.73–0.91）も、プロトコルの根拠ではなく仮説として扱います<span class="src vault">AI未来ICM2023</span><span class="src vault">バソプレシンRL JAMA2025</span>。</p>
@@ -1679,7 +1681,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td>2</td><td>教師ラベルの質</td><td>ラベルは誰がつけたか。評価者間のばらつきを測ったか。一貫しない専門家判断で学習するとモデルに誤差が入る <span class="src ext">Sylolypavan NPJDM2023</span></td></tr>
 <tr><td>3</td><td>外的妥当性</td><td>自施設のデータで較正を確かめたか。開発集団と自施設の患者像は違わないか</td></tr>
 <tr><td>4</td><td>上流の工程</td><td>AIが処理できる入力を誰がどう選んでいるか（画質不良の除外など）</td></tr>
-<tr><td>5</td><td>アラートの閾値</td><td>何%で、何分前に鳴らすか。アラーム疲労を見積もったか</td></tr>
+<tr><td>5</td><td>アラートの閾値</td><td>何%で、何分前に鳴らすか。アラーム疲労を見積もったか。ICUのアラームの72〜99%は偽または無意味とされる <span class="src vault">ICUイノベーションICM2026</span></td></tr>
 <tr><td>6</td><td>監督責任者</td><td>出力を誰が検証するか。誤った出力を臨床医に見せると判断の精度は下がる <span class="src ext">Jabbour JAMA2023</span></td></tr>
 <tr><td>7</td><td>教育の設計</td><td>研修医のnever-skillingをどう防ぐか。推論を言葉にさせる仕組みがあるか</td></tr>
 <tr><td>8</td><td>プライバシー</td><td>患者識別情報がモデル提供者に渡らない構成か</td></tr>
@@ -1822,6 +1824,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Moons KGM, et al. PROBAST: Explanation and Elaboration. <em>Ann Intern Med</em>. 2019（PROBAST AnnInternMed2019）</li>
 <li>Collins GS, et al. TRIPOD+AI statement. <em>BMJ</em>. 2024（TRIPOD+AI BMJ2024）</li>
 <li>早期WLSTを除外した心停止後の神経予後予測（101例）. <em>Crit Care</em>. 2026（心停止後予後予測CC2026）</li>
+<li>Egawa S, Ader J, Claassen J. 急性脳損傷後の意識回復（ナラティブレビュー）. <em>J Intensive Care</em>. 2024（CMD JIntensiveCare2024）</li>
 <li>ERC・ESICM 心停止後ケアガイドライン2025. <em>Resuscitation</em>. 2025（ERC/ESICM2025）</li>
 <li>心停止後ケアの焦点（エディトリアル）. <em>Intensive Care Med</em>. 2019（心停止後焦点ICM2019）</li>
 <li>集中治療における人工知能の未来（What's New）. <em>Intensive Care Med</em>. 2023（AI未来ICM2023）</li>
@@ -1846,6 +1849,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>生理学で導く人工呼吸と境界つき自動化（ミニレビュー）. <em>World J Crit Care Med</em>. 2026（生理学的人工呼吸WJCCM2026）</li>
 <li>AIがICUで普及しない3つの理由 — データの質・倫理的法的側面・教育（AI普及障壁）</li>
 <li>AIは臨床の働き手を減らすとは限らない（Perspective）. <em>N Engl J Med</em>. 2026（AI雇用NEJM2026）</li>
+<li>VILIの早期検出・予防のためのAI（スコーピングレビュー・52研究）. <em>Crit Care</em>. 2026（VILI-AI CC2026）</li>
+<li>ICUのイノベーションを価値に変える枠組み（ナラティブレビュー）. <em>Intensive Care Med</em>. 2026（ICUイノベーションICM2026）</li>
 <li>PEEP設定にAIとデジタルツインを使う準備はできているか（Correspondence）. <em>Intensive Care Med</em>. 2024（PEEP-AI ICM2024）</li>
 <li>メタ解析が食い違うとき（Editorial）. <em>Crit Care</em>. 2026（メタ解析Editorial CC2026）</li>
 <li>ハロペリドールとせん妄 — MIND-USAとAID-ICU（What's New）. <em>Intensive Care Med</em>. 2023（ハロペリドールMIND-AID ICM2023）</li>
@@ -2282,14 +2287,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
   // 波形（.nf-wave を含む SVG）：軸 → 閾値 → 波形を時間軸に沿って描く → 注記
   RECIPES.wave = function (fig) {
-    var F = new Fig(fig, .55), last = null;
+    // data-mo-dur＝掃引の秒数（人工呼吸器の画面のように数呼吸ぶん流すときに長くする）／data-mo-sync＝横に並ぶパネルを同時に
+    var dur = parseFloat(fig.getAttribute('data-mo-dur')) || 1.4;
+    var F = new Fig(fig, fig.hasAttribute('data-mo-sync') ? .001 : .55), last = null;
     Q('.nf-panel', fig).filter(function (p) { return q('.nf-wave', p); }).forEach(function (pn) {
       var s = last = new Scene(F, pn), svg = q('svg', pn);
       s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
       s.el(Q('.nf-axis, .nf-tick, .nf-grid, .nf-zero', svg), 'fade', .1, .4);
       s.el(Q('text.nf-ts, text.nf-t:not(.nf-tb)', svg), 'fade', .14, .4);
       s.el(Q('.nf-thr', svg), 'fade', .35, .45);
-      var T0 = .45, TD = 1.4;
+      var T0 = .45, TD = dur;
       sweep(s, svg, Q('.nf-wave', svg), T0, TD);
       var ann = Q('.nf-guide, .nf-dim, .nf-sa, .nf-sd, text.nf-tb', svg).filter(function (e) { return e.getAttribute('opacity') !== '0'; });
       ann.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', T0 + TD + .02 + k * .1, .42); });

@@ -1174,6 +1174,15 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
 }
 /* /resident motion (resident-motion.css) */
+/* 31 栄養（2026-10-10）— 冒頭の案内（はじめての方へ）とボタン */
+.tools a.btn{display:inline-flex;align-items:center;text-decoration:none}
+.tools a.btn.pri,.tools a.btn.pri:visited,.tools a.btn.pri:hover{color:#fff;text-decoration:none}
+@media (max-width:480px){.tools{gap:.4rem}.tools .btn{padding:.6rem .8rem}}
+.start{border:2px solid var(--accent);border-radius:12px;background:var(--bg);padding:.75rem 1rem .8rem;margin:.9rem 0 .6rem}
+.start-k{display:inline-block;margin:0 0 .3rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:999px;padding:.12rem .7rem}
+.start-t{margin:0;font-size:.95rem;line-height:1.75}
+.start-t a{font-weight:800;color:var(--accent);white-space:nowrap}
+@media print{.start{display:none}}
 </style>
 </head>
 <body data-refstyle="1">
@@ -1226,9 +1235,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">重症患者の栄養療法</h1>
 <p class="sub">早く始めて、ゆっくり増やす — 量の誤解・入室時の評価と48時間以内のEN・病期で増やすエネルギーと盛らない蛋白・不耐の見方・リフィーディング症候群・特殊な状況と落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-10</span></p>
+
+<div class="start">
+  <p class="start-k">はじめての方へ</p>
+  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition-lecture/">🎞 スライド</a> で全体をつかんでください。量の誤解・評価と開始・量・投与中に見るもの・リフィーディング症候群・特殊な状況と落とし穴の6章で、1枚ずつ要点だけを→キーやスワイプで送って読めます。2ページの <a href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition-summary/">📝 サマリー</a> もあります。詳しく知りたいところは、目次から本文へ進んでください。</p>
+</div>
 
 <div class="tools">
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition-lecture/">🎞 スライド</a>
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-nutrition-summary/">📝 サマリー</a>
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>

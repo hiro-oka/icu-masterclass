@@ -81,16 +81,16 @@ td .x{color:var(--danger); font-weight:700}
   td:first-child{white-space:normal}
 }
 @media print{
-  @page{size:A4; margin:11mm 12mm}
+  @page{size:A4; margin:9mm 11mm}
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
     --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
-  body{font-size:9.5pt; line-height:1.55}
+  body{font-size:9.3pt; line-height:1.5}
   main{max-width:none; padding:0}
   h1{font-size:15pt} h2{font-size:10.6pt; margin:.75rem 0 .35rem; break-after:avoid}
   .three{grid-template-columns:repeat(3,1fr)} .f-cols{grid-template-columns:1fr 1fr}
   .chk{grid-template-columns:1fr 1fr}
-  .flow,.tw,.three{break-inside:avoid}
+  .flow,.tw,.three{break-inside:avoid} h2{margin-top:.6rem}
   p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
   .go{display:none}
 }
@@ -100,13 +100,13 @@ td .x{color:var(--danger); font-weight:700}
 <p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
 <h1>NIV・NPPV — 要約</h1>
 <p class="sub">解説「NIV・NPPV（非侵襲的換気）実戦管理ガイド」の要点を絞った2ページ版。「詳しく」から本編へ。</p>
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-10</span></p>
 <a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-niv/">解説の本編を開く →</a>
 
 <h2><span class="n">1</span>持ち帰る3点<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-niv/#s3">詳しく</a></h2>
 <div class="three">
 <div><b>病態で選ぶ</b><span>高CO₂血症と心原性肺水腫はNIV。de novo低酸素はまずHFNC</span></div>
-<div><b>効く最小の圧で</b><span>低い圧（例：IPAP 10／EPAP 5）で始める。リークはゼロを目指して締め上げない</span></div>
+<div><b>効く最小の圧で</b><span>S/TモードIPAP 8／EPAP 4で始め、IPAPは原則15以下。リークはゼロを目指して締め上げない</span></div>
 <div><b>60分で判定する</b><span>開始前に失敗基準と挿管の段取りを書き、呼吸数・pH・HACORで続けるか挿管かを決める</span></div>
 </div>
 
@@ -130,7 +130,7 @@ td .x{color:var(--danger); font-weight:700}
 <div class="tw"><table>
 <thead><tr><th>項目</th><th>始め方</th><th>動かし方</th></tr></thead>
 <tbody>
-<tr><td>IPAP／EPAP</td><td>例：10／5 cmH₂O（総説はIPAP 10〜12から）</td><td>IPAPはVT 6〜8 mL/kg PBWを得る最小に。20〜24 cmH₂O超は不快と胃膨満が増える</td></tr>
+<tr><td>IPAP／EPAP</td><td>例：S/Tモード 8／4 cmH₂O（論文の例は10／5）</td><td>IPAPはVT 6〜8 mL/kg PBWを得る最小に。原則15 cmH₂O以下で、それ以上が必要なら挿管を考える（文献では20〜24超で不快と胃膨満）</td></tr>
 <tr><td>EPAP</td><td>4〜6 cmH₂O</td><td>酸素化を見て5〜8へ。CO₂再呼吸防止に4以上。肥満は8超も可</td></tr>
 <tr><td>30分後の血液ガス</td><td>開始前と比べる</td><td>高CO₂が残ればIPAPを上げて差を広げる。低酸素が残ればFiO₂かEPAP（EPAPを上げたらIPAPも同じだけ）</td></tr>
 <tr><td>モード</td><td>呼吸努力があればS/T</td><td>酸素化だけの問題ならCPAP。病名ではなく呼吸努力で選び直す</td></tr>

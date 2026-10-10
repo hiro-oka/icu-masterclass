@@ -303,6 +303,17 @@ section{position:relative}
   #embers,.smoke{display:none}
 }
 
+
+/* number reveal (no count-up) */
+.tile .big,.kv .v .em{position:relative;display:inline-block;opacity:0;transform:translateY(16px) scale(.94);filter:blur(6px);transition:opacity .5s ease .15s,transform .6s cubic-bezier(.3,1.4,.5,1) .15s,filter .5s ease .15s}
+.tile.in .big,.kv.in .v .em{opacity:1;transform:none;filter:none}
+.tile .big:after,.kv .v .em:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);opacity:0;pointer-events:none}
+.tile.dark .big:after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent)}
+.tile.in .big:after,.kv.in .v .em:after{animation:numSheen 1s ease .55s 1 forwards}
+@keyframes numSheen{0%{left:-40%;opacity:1}100%{left:120%;opacity:0}}
+.kv .row:nth-child(2) .em{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){.tile .big,.kv .v .em{opacity:1!important;transform:none!important;filter:none!important}.tile .big:after,.kv .v .em:after{display:none}}
+
 /* responsive */
 @media (max-width:900px){
   .bento{grid-template-columns:repeat(2,1fr)}
@@ -352,6 +363,8 @@ section{position:relative}
   .steps li:before{transform:none!important}
   .pc .ph img,.wide img{transform:none!important}
   #embers,.blob,.cue,.progress,.smoke,.wave{display:none!important}
+  .tile .big,.kv .v .em{opacity:1!important;transform:none!important;filter:none!important}
+  .tile .big:after,.kv .v .em:after{display:none!important}
   .tile.dark:before{display:none}
   .place:before{display:none}
   html{font-size:10pt}

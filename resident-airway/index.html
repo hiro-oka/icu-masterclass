@@ -1174,6 +1174,13 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
 }
 /* /resident motion (resident-motion.css) */
+.btn.pri,.tools a.btn.pri:visited,.tools a.btn.pri:hover{color:#fff;text-decoration:none}
+@media (max-width:480px){.tools{gap:.4rem}.tools .btn{padding:.6rem .8rem}}
+.start{border:2px solid var(--accent);border-radius:12px;background:var(--bg);padding:.75rem 1rem .8rem;margin:.9rem 0 .6rem}
+.start-k{display:inline-block;margin:0 0 .3rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:999px;padding:.12rem .7rem}
+.start-t{margin:0;font-size:.95rem;line-height:1.75}
+.start-t a{font-weight:800;color:var(--accent);white-space:nowrap}
+@media print{.start{display:none}}
 </style>
 </head>
 <body data-refstyle="1">
@@ -1243,9 +1250,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">重症患者の気道管理・挿管</h1>
 <p class="sub">「入るか」より「入れる過程で崩れないか」 — 何が危ないか・評価・手順・前酸素化・循環・器具・撤退・挿管後の15分・場面別・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-10</span></p>
+
+<div class="start">
+  <p class="start-k">はじめての方へ</p>
+  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/resident-airway-lecture/">🎞 スライド</a> で全体をつかんでください。危ないのは「もたない」・評価・手順・前酸素化・循環・ビデオ喉頭鏡・撤退・挿管後の15分の8章で、1枚ずつ要点だけを→キーやスワイプで送って読めます。2ページの <a href="https://hiro-oka.github.io/icu-masterclass/resident-airway-summary/">📝 サマリー</a> もあります。詳しく知りたいところは、目次から本文へ進んでください。</p>
+</div>
 
 <div class="tools">
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-airway-lecture/">🎞 スライド</a>
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-airway-summary/">📝 サマリー</a>
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>
@@ -1571,7 +1585,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td class="num"><strong>0分</strong></td><td>導入（ケタミンまたはエトミデート＋筋弛緩薬）。プロポフォールは使わない</td></tr>
 <tr><td class="num">+45〜90秒</td><td>喉頭鏡を入れるまで陽圧換気を続ける（NIVの継続かバッグマスク換気）。喉頭展開はスニッフィング位へ移す</td></tr>
 <tr><td class="num">+1〜2分</td><td>初回からビデオ喉頭鏡＋スタイレット。声門を100%見せに行かず、視野を妥協して気管に入れる</td></tr>
-<tr><td>挿管直後</td><td>波形カプノグラフィ5〜7呼吸。PEEP 5〜6から。筋弛緩薬を使ったら鎮痛・鎮静を接続するところまでが1つの手順。カフ圧を測る</td></tr>
+<tr><td>挿管直後</td><td>波形カプノグラフィ5〜7呼吸。PEEP 5〜6から。筋弛緩薬を使ったら鎮痛・鎮静を接続するところまでが1つの手順。カフ圧を26 cmH₂O（既定）に測って合わせる</td></tr>
 <tr><td class="num"><strong>+1〜15分</strong></td><td>血圧を1〜3分ごとに測る。術者・看護師はベッドサイドを離れない（低血圧発症の中央値は11分） <span class="src vault">JCritCare2012</span></td></tr>
 <tr><td class="num">+15分〜</td><td>肺保護換気の設定。輸液は動的指標で反応性を確かめてから。深さの確認（聴診・胸部X線）</td></tr>
 </tbody>
@@ -1889,7 +1903,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s6-5">6-5. 直接喉頭鏡の技術も残す — チューブのサイズは比較試験がない</h3>
 <p class="rd-lead">停電や機器の故障に備えて、全員が直接喉頭鏡での挿管技術を保ち、そのときも筋弛緩薬とスタイレットを省きません<span class="src ext">SOCCA2024</span><span class="src ext">AJRCCM2025</span>。</p>
-<p>資源の限られた環境でビデオ喉頭鏡が使えないことは国際デルファイでも認識されており、経験豊富な術者では直接喉頭鏡も許容されます<span class="src ext">SOCCA2024</span>。緊急挿管のチューブのサイズを比べたRCTは1本もありません。人工呼吸を受けるICU患者の最大半数に声帯の損傷が起こり、呼吸・発声・嚥下に影響しうるため、著者は緊急に必要な試験だとしています<span class="src vault">AJRCCM2025</span>。今は体格に見合った標準的なサイズを選び、カフ圧を管理する（§8-2）以上の指針はありません。</p>
+<p>資源の限られた環境でビデオ喉頭鏡が使えないことは国際デルファイでも認識されており、経験豊富な術者では直接喉頭鏡も許容されます<span class="src ext">SOCCA2024</span>。緊急挿管のチューブのサイズを比べたRCTは1本もありません。人工呼吸を受けるICU患者の最大半数に声帯の損傷が起こり、呼吸・発声・嚥下に影響しうるため、著者は緊急に必要な試験だとしています<span class="src vault">AJRCCM2025</span>。今は体格に見合った標準的なサイズを選び、カフ圧を26 cmH₂Oを既定に測って保つ（§8-2）以上の指針はありません。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
@@ -2071,9 +2085,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tr><td>PEEP</td><td class="num">初期 5〜6 cmH₂O から漸増</td><td>陽圧換気開始直後は静脈還流が最も落ちる（1-3）。安定してから目標値へ <span class="src vault">JIntensiveCare2026H</span></td></tr>
 <tr><td>プラトー圧</td><td class="num">≤30 cmH₂O</td><td>肺コンプライアンスが不良なら一回換気量を6 mL/kg未満まで下げる必要が生じうる</td></tr>
 <tr><td>SpO₂目標</td><td class="num">92〜95%</td><td>FiO₂を100%のまま固定せず、早めに下げて範囲に収める（酸素化の目標は公開資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-oxygen-targets/">酸素化目標と高酸素の害</a>」）</td></tr>
-<tr><td>カフ圧</td><td class="num">20〜30 cmH₂O</td><td>挿管後の定型作業として実測する</td></tr>
+<tr><td>カフ圧</td><td class="num">26 cmH₂O（既定）</td><td>挿管後の定型作業として圧計で実測する。文献の推奨域は20〜30 cmH₂O</td></tr>
 </tbody>
 </table>
+<p class="rd-note">カフ圧の文献では：推奨域は20〜30 cmH₂O（20を割ると微量誤嚥、30を超えると気管粘膜の虚血が増える）。既定の26 cmH₂Oはその中ほどで、資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>」の§5-5と同じ値です。</p>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">駆動圧の数値目標はSOCCAデルファイでも合意に至りませんでした<span class="src ext">SOCCA2024</span>。目安は駆動圧15 cmH₂O未満（Amato 2015の観察データ、Boyle ICM 2026論説の提案。＝14以下で独墺瑞S3 2025と同じ線）で、RCTで検証された閾値ではありません。肺保護換気・PEEP・駆動圧は公開資料「ARDSの換気設定と自発呼吸」の<a href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#s3">§3</a>、ARDSでない患者のVILIは「人工呼吸器関連合併症の予防と管理」の<a href="https://hiro-oka.github.io/icu-masterclass/resident-vent-complications/#s5">§5</a>、換気モードと初期設定の考え方は公開資料「人工呼吸の基礎」の<a href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#rs-s3-5">3-5</a>が正本です。</p>
 </div>
 

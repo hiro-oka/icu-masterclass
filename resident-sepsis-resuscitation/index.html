@@ -1177,6 +1177,15 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* 段を3列で折り返す時系列（2026-10-07） */
 .nf-steps.is-wrap3{grid-auto-flow:row; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch}
 @media screen and (max-width:640px){ .nf-steps.is-wrap3{grid-template-columns:minmax(0,1fr)} }
+/* 10 敗血症の初期蘇生（2026-10-10）— 冒頭の案内（はじめての方へ）とボタン */
+.tools a.btn{display:inline-flex;align-items:center;text-decoration:none}
+.tools a.btn.pri,.tools a.btn.pri:visited,.tools a.btn.pri:hover{color:#fff;text-decoration:none}
+@media (max-width:480px){.tools{gap:.4rem}.tools .btn{padding:.6rem .8rem}}
+.start{border:2px solid var(--accent);border-radius:12px;background:var(--bg);padding:.75rem 1rem .8rem;margin:.9rem 0 .6rem}
+.start-k{display:inline-block;margin:0 0 .3rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;color:#fff;background:var(--accent);border-radius:999px;padding:.12rem .7rem}
+.start-t{margin:0;font-size:.95rem;line-height:1.75}
+.start-t a{font-weight:800;color:var(--accent);white-space:nowrap}
+@media print{.start{display:none}}
 </style>
 </head>
 <body data-refstyle="1">
@@ -1219,9 +1228,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">敗血症の初期蘇生</h1>
 <p class="sub">灌流で決め、相で切り替える — 病態・最初の数時間・灌流の読み方・毎日の見直し・脱蘇生・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-07</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-10</span></p>
+
+<div class="start">
+  <p class="start-k">はじめての方へ</p>
+  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation-lecture/">🎞 スライド</a> で全体をつかんでください。病態と相・最初の数時間・灌流の読み方・毎日の見直し・脱蘇生・落とし穴と背景の6章で、1枚ずつ要点だけを→キーやスワイプで送って読めます。2ページの <a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation-summary/">📝 サマリー</a> もあります。詳しく知りたいところは、目次から本文へ進んでください。</p>
+</div>
 
 <div class="tools">
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation-lecture/">🎞 スライド</a>
+  <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation-summary/">📝 サマリー</a>
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
   <p class="note" id="rs-note">PDF は「送信先：PDF に保存」を選んでください。目次・ボタンは印刷されません。</p>
 </div>

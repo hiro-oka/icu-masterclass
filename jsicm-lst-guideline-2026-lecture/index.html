@@ -148,6 +148,17 @@ body.overview #ov{display:grid}
 .pimg{border-radius:10px}
 .card.rd .h{color:var(--red)}
 .h.sm{letter-spacing:0}
+/* 2行見出し：意味の切れ目（auto-phrase）で、行の長さを釣り合わせて折る。2行になったら一段下げ・行間1.28（.two は JS が付ける） */
+.h,.tile .lb,.band2,.quote p,.formula,.stepc .h{text-wrap:balance}
+/* ラベル（.lab・.flab・表見出し）は balance にしない：「本人の意思を／確認できる」のように意味の切れ目が崩れるため */
+.h{line-height:1.32}
+.h.two{font-size:33px;line-height:1.28;letter-spacing:.01em}
+.h.sm.two{font-size:29px}
+.stepc .h.two{font-size:46px}
+.lab.two,.flab.two{line-height:1.3}
+.quote p{line-height:1.42}
+.quote p.two{font-size:44px;line-height:1.38}
+.card>.h.two+*{margin-top:10px}
 /* 表紙・章扉・おわり（紺のグラデーション。写真があれば大きく敷く、無ければ紺の無地＋細い同心円） */
 .tcover,.tdoor{background:linear-gradient(120deg,#0a2133 0%,var(--navy) 45%,var(--navy2) 100%);color:#fff}
 .tcover .ph,.tdoor .ph{position:absolute;inset:0;overflow:hidden}
@@ -328,6 +339,12 @@ document.addEventListener('touchend',e=>{if(tx===null)return; const dx=e.changed
   if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){ if(dx<0) next(); else prev(); }},{passive:true});
 window.addEventListener('resize',fit);
 fit();
+// 2行になった見出しに .two を付ける（文字を一段下げ・行間を詰める）。下げて1行に戻るなら付けない（2026-10-10 本人「2行はOK、チープにしない」）
+document.fonts.ready.then(function(){const S='.h,.lab,.flab,.quote p,.mtq';
+  const lines=el=>{const lh=parseFloat(getComputedStyle(el).lineHeight)||1; return Math.round(el.offsetHeight/lh)};
+  cells.forEach(c=>{const was=c.classList.contains('cur'); c.classList.add('cur');
+    c.querySelectorAll(S).forEach(el=>{if(lines(el)>=2){el.classList.add('two'); if(lines(el)<2) el.classList.remove('two');}});
+    if(!was) c.classList.remove('cur');});});
 const h=parseInt((location.hash||'').replace('#',''));
 show(isNaN(h)?0:h-1, q.get('end')?'end':0);
 if(q.get('check')){ // 点検用：全ステップを出して、はみ出し・見出しの折り返しを書き出す
@@ -337,7 +354,7 @@ if(q.get('check')){ // 点検用：全ステップを出して、はみ出し・
     const fr=f.getBoundingClientRect(), sc=fr.width/1600;
     f.querySelectorAll('.title,.h,.lab,.cap,th').forEach(el=>{const lh=parseFloat(getComputedStyle(el).lineHeight); const n=Math.round(el.getBoundingClientRect().height/sc/lh);
       if(el.matches('.title,.cap')&&el.scrollWidth>el.clientWidth+1) out.push('p'+(j+1)+' 1行に収まらない：'+el.textContent.slice(0,40));
-      else if(!el.matches('.title,.cap')&&n>=2&&el.matches('.h')) out.push('p'+(j+1)+' 見出しが'+n+'行：'+el.textContent.slice(0,40));});
+      else if(!el.matches('.title,.cap')&&n>=3&&el.matches('.h')) out.push('p'+(j+1)+' 見出しが'+n+'行（2行までにする）：'+el.textContent.slice(0,40));});
     const bodyEl=f.querySelector('.body');
     f.querySelectorAll('.body *').forEach(el=>{const r=el.getBoundingClientRect(); if(r.width===0||el.closest('.ph')) return;
       if(r.bottom>fr.top+(900-70)*sc+1||r.right>fr.left+(1600-50)*sc+1){ if(!el.querySelector('*')) out.push('p'+(j+1)+' 本文が枠外：'+(el.textContent||el.tagName).slice(0,40)); }

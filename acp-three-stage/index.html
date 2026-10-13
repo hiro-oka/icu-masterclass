@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>なぜACPはうまくいかないのか</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+  --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+  --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+  --note:#6b3fa0; --note-soft:#f1ecf9;
+  --danger:#b3261e; --danger-soft:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15181c; --fg:#e6e9ed; --muted:#a2acb8; --line:#2c323a;
+    --accent:#4bb8e0; --accent-soft:#10303c; --warn:#e0a458; --warn-soft:#3a2d18;
+    --good:#5fc39b; --good-soft:#123024; --code:#1e2329;
+    --note:#c4a7ea; --note-soft:#241c33;
+    --danger:#f2857c; --danger-soft:#3a1c1a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.95; letter-spacing:.01em;
+}
+main{max-width:860px; margin:0 auto; padding:2.2rem 1.1rem 5rem}
+h1{font-size:1.66rem; line-height:1.4; margin:0 0 .4rem; letter-spacing:-.01em}
+.sub{color:var(--muted); font-size:.94rem; margin:0 0 1.2rem}
+h2{font-size:1.2rem; margin:2.8rem 0 .8rem; padding-left:.6rem; border-left:4px solid var(--accent); line-height:1.5; scroll-margin-top:.6rem}
+h2 .no{display:inline-block; font-size:.74rem; letter-spacing:.1em; color:var(--muted); font-weight:700; margin-right:.5rem; vertical-align:.14em}
+h3{font-size:1.02rem; margin:1.8rem 0 .45rem; color:var(--accent); scroll-margin-top:.6rem}
+h4{font-size:.95rem; margin:1.2rem 0 .35rem}
+p{margin:1.05rem 0; line-height:2.0}
+ul,ol{padding-left:1.3rem; margin:.7rem 0}
+li{margin:.3rem 0}
+strong{font-weight:700}
+u{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:2px}
+.box p{line-height:1.95}
+.box{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.05rem; margin:1.2rem 0; background:var(--accent-soft)}
+.box.warn{background:var(--warn-soft); border-color:var(--warn)}
+.box.good{background:var(--good-soft); border-color:var(--good)}
+.box.danger{background:var(--danger-soft); border-color:var(--danger)}
+.box.plain{background:var(--code)}
+.box p:first-child{margin-top:0}
+.box p:last-child, .box ul:last-child, .box ol:last-child, .box .tablewrap:last-child{margin-bottom:0}
+.box .label{display:block; font-weight:700; font-size:.85rem; letter-spacing:.04em; margin-bottom:.35rem}
+.box.danger .label{color:var(--danger)}
+.box.warn .label{color:var(--warn)}
+.box.good .label{color:var(--good)}
+.toc{border:1px solid var(--line); border-radius:10px; padding:.9rem 1.1rem; background:var(--code); margin:1.4rem 0 2rem}
+.toc .label{display:block; font-weight:700; font-size:.83rem; letter-spacing:.08em; color:var(--muted); margin-bottom:.5rem}
+.toc ol{margin:0; padding-left:1.2rem; font-size:.93rem}
+.toc li{margin:.24rem 0}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid var(--line)}
+.toc a:hover{color:var(--accent); border-color:var(--accent)}
+.tablewrap{overflow-x:auto; margin:1rem 0; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:.87rem; line-height:1.6}
+table.wide{min-width:680px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top}
+th{background:var(--code); font-weight:700}
+tbody tr:nth-child(even) td{background:color-mix(in srgb, var(--code) 45%, transparent)}
+td.num{white-space:nowrap; font-variant-numeric:tabular-nums}
+caption{caption-side:top; text-align:left; font-weight:700; font-size:.9rem; padding:.2rem 0 .45rem; color:var(--fg)}
+code{background:var(--code); padding:.1rem .35rem; border-radius:4px; font-size:.9em}
+.src{display:inline; font-size:.72rem; font-weight:400; color:var(--muted);
+  white-space:nowrap; padding:0; border:0; background:none; letter-spacing:0}
+.src::before{content:"["}
+.src::after{content:"]"}
+.src+.src{margin-left:.25em}
+li>.src, p>.src, td>.src{margin-left:.35em}
+.split{color:var(--danger); font-weight:700}
+.ok{color:var(--accent); font-weight:700}
+td.grp{background:var(--accent-soft); font-size:.85rem; letter-spacing:.02em; padding-top:.5rem; padding-bottom:.5rem}
+td.num strong{font-size:1.02em}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.5rem 0 1.2rem; font-size:.84rem; align-items:center}
+.meta{display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.5rem 0 1.2rem; font-size:.82rem}
+.meta span{border:1px solid var(--line); border-radius:999px; padding:.12rem .65rem; color:var(--muted)}
+.kicker{font-size:.78rem; letter-spacing:.12em; color:var(--accent); font-weight:700; margin:0 0 .45rem}
+.chk{list-style:none; padding-left:0}
+.chk li{position:relative; padding-left:1.7rem; margin:.35rem 0}
+.chk li::before{content:"☐"; position:absolute; left:0; top:0; font-size:1.05rem; color:var(--accent)}
+hr{border:0; border-top:1px solid var(--line); margin:2.2rem 0}
+.refs{font-size:.85rem; color:var(--muted)}
+.refs li{margin:.22rem 0}
+.top{display:block; text-align:right; font-size:.8rem; margin:.4rem 0 0}
+.top a{color:var(--muted); text-decoration:none}
+figure.fig{margin:1.5rem 0; padding:.9rem .9rem .1rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); break-inside:avoid; page-break-inside:avoid}
+figure.fig svg{display:block; width:100%; height:auto; margin:0 auto}
+figure.fig img{display:block; width:100%; height:auto; margin:0 auto; border-radius:6px}
+figure.fig figcaption{font-size:.85rem; line-height:1.7; color:var(--muted); margin:.7rem 0 .8rem; padding-top:.55rem; border-top:1px solid var(--line)}
+figure.fig figcaption b{color:var(--fg); font-weight:700}
+@media (prefers-color-scheme: dark){
+  figure.fig svg{filter:brightness(1.5) saturate(.95)}
+  figure.fig img{filter:brightness(.92)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:1.4rem .7rem 3.5rem}
+  table{font-size:.83rem}
+}
+@media print{
+  @page{margin:12mm 10mm}
+  /* 画面と同じ配色でPDF化する（2026-09-13 印刷配色）。背景・アクセント色を落とさない */
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  /* Macがダークモードでも紙は明るい配色で出す（配色は :root の明パレットと同値） */
+  :root{
+    --bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec;
+    --accent:#0084b5; --accent-soft:#e8f4fa; --warn:#b45309; --warn-soft:#fdf3e3;
+    --good:#0f7a52; --good-soft:#e7f5ef; --code:#f4f6f8;
+    --note:#6b3fa0; --note-soft:#f1ecf9;
+    --danger:#b3261e; --danger-soft:#fdecea;
+  }
+  body{background:var(--bg); color:var(--fg)}
+  body{font-size:9.2pt; line-height:1.5}
+  main{max-width:none; padding:0}
+  h1{font-size:16pt} h2{font-size:11.5pt; margin:14pt 0 5pt; break-after:avoid; page-break-after:avoid}
+  h3{font-size:10pt; margin:9pt 0 3pt; break-after:avoid; page-break-after:avoid}
+  a{text-decoration:none}
+  .toc{break-after:page; page-break-after:always}
+  .tablewrap{overflow:visible}
+  table{min-width:0 !important; width:100%; font-size:8pt; break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .box{break-inside:avoid; page-break-inside:avoid}
+  figure.fig{break-inside:avoid; page-break-inside:avoid}
+  figure.fig svg, figure.fig img{filter:none !important; max-width:100%}
+  figure.fig figcaption{font-size:7.6pt}
+  .top{display:none}
+}
+
+/* ===== 部（Part）見出し ===== */
+h2.part{margin:3.6rem 0 1rem; padding:.9rem 1.1rem; border-left:0; border-radius:8px;
+  background:var(--accent); color:#fff; font-size:1.12rem; line-height:1.5}
+h2.part .pn{display:block; font-size:.72rem; letter-spacing:.14em; opacity:.85; font-weight:700; margin-bottom:.15rem}
+p.partlead{margin:.5rem 0 1.8rem; font-size:.88rem; color:var(--muted); line-height:1.85}
+.toc li.p{margin-top:.5rem; font-weight:700}
+.toc li.p a{color:var(--accent)}
+
+/* ===== コピペ用テンプレート ===== */
+.tpl{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:1.1rem 0}
+.tpl-h{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  padding:.55rem .85rem; background:var(--accent-soft); border-bottom:1px solid var(--line)}
+.tpl-h b{font-size:.9rem; color:var(--accent); flex:1; min-width:12rem}
+.tpl-h .cp{font:inherit; font-size:.78rem; font-weight:700; padding:.3rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); background:var(--bg); color:var(--accent); cursor:pointer; white-space:nowrap}
+.tpl-h .cp:hover{background:var(--accent); color:#fff}
+.tpl-h .cp.done{background:var(--good); border-color:var(--good); color:#fff}
+.tpl pre{margin:0; padding:.85rem; font-size:.82rem; line-height:1.85; white-space:pre-wrap;
+  word-break:break-word; background:var(--bg); font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media print{.tpl-h .cp{display:none}}
+
+/* ===== 共有ツール（リンクコピー / PDF） ===== */
+.tools{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 1.6rem}
+.tools .btn{font:inherit;font-size:.85rem;font-weight:700;line-height:1.4;
+  border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;border:1px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;-webkit-appearance:none}
+.tools .btn.pri{background:var(--accent);color:#fff}
+.tools .btn.pri:hover{filter:brightness(1.08)}
+.tools .btn.sec{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.tools .btn.sec:hover{background:var(--accent);color:#fff}
+.tools .btn:active{transform:translateY(1px)}
+.tools .note{flex-basis:100%;font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+@media print{.tools{display:none !important}}
+
+/* ===== スコア計算機（Murray） ===== */
+.calc{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:1.4rem 0; background:var(--bg)}
+.calc-h{padding:.85rem 1.1rem; border-bottom:1px solid var(--line); background:var(--accent-soft)}
+.calc-h b{font-size:.98rem; color:var(--accent)}
+.calc-h span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+.calc-b{padding:.9rem 1.1rem}
+.crow{display:flex; flex-wrap:wrap; gap:.4rem .7rem; align-items:center; padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>.cl{flex:0 0 13.5rem; font-size:.87rem; font-weight:700}
+.crow>.cl small{display:block; font-weight:400; color:var(--muted); font-size:.76rem}
+.opts{display:flex; flex-wrap:wrap; gap:.35rem; flex:1}
+.opts button{font:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--fg); cursor:pointer; white-space:nowrap}
+.opts button:hover{border-color:var(--accent); color:var(--accent)}
+.opts button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+.calc-out{display:flex; flex-wrap:wrap; gap:.7rem 1.2rem; align-items:center;
+  padding:.9rem 1.1rem; border-top:1px solid var(--line); background:var(--accent-soft)}
+.calc-score{font-size:2.1rem; font-weight:800; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+.calc-score small{font-size:.8rem; font-weight:500; color:var(--muted); margin-left:.2rem}
+.calc-msg{flex:1; min-width:15rem; font-size:.84rem; line-height:1.75}
+.calc.hot .calc-out{background:var(--danger-soft)}
+.calc.hot .calc-score{color:var(--danger)}
+.calc .reset{font:inherit; font-size:.78rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.figread{font-size:.92rem; color:var(--fg); margin:-.4rem 0 1.2rem; padding:.55rem .9rem; border-left:3px solid var(--line); line-height:1.75}
+.figread strong{color:var(--accent)}
+.calc-in{display:flex; flex-wrap:wrap; gap:.65rem .9rem; align-items:flex-end}
+.calc-in label{display:flex; flex-direction:column; gap:.22rem; flex:1 1 8.6rem; min-width:8.6rem;
+  font-size:.76rem; color:var(--muted); line-height:1.35}
+.calc-in label b{font-size:.87rem; color:var(--fg)}
+.calc-in input{font:inherit; font-size:1.02rem; padding:.38rem .5rem; margin-top:.1rem;
+  border:1px solid var(--line); border-radius:7px; background:var(--bg); color:var(--fg);
+  width:100%; font-variant-numeric:tabular-nums}
+.calc-in input:focus{outline:2px solid var(--accent); outline-offset:1px}
+.calc-pre{display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin-top:.85rem;
+  padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; color:var(--muted)}
+.calc-pre button{font:inherit; font-size:.78rem; padding:.28rem .65rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--accent); cursor:pointer}
+.calc-pre button:hover{border-color:var(--accent)}
+@media print{.opts button{border-color:#999} .calc{break-inside:avoid} .calc .reset{display:none}
+  .calc-pre{display:none}
+  .calc-in input{border-color:#999}}
+
+/* ===== リファレンスUI（apply-reference-style.py が付与）===== */
+:root{ --sidebar-w: 288px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+
+/* 進捗バー */
+#rs-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* モバイル上部バー */
+#rs-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:10px;padding:0 12px}
+#rs-topbar .t{font-weight:700;font-size:14px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+#rs-burger{border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  border-radius:8px;width:40px;height:36px;font-size:17px;cursor:pointer}
+
+/* サイドバー */
+#rs-side{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);z-index:55;
+  background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .22s ease}
+#rs-side .hd{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#rs-side .hd .ttl{font-weight:800;font-size:14px;line-height:1.4;color:var(--fg)}
+#rs-side .hd .sb{font-size:11px;color:var(--muted);margin-top:3px}
+#rs-search{width:100%;margin-top:10px;padding:8px 10px;font-size:13px;
+  border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+#rs-search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#rs-hits{font-size:11px;color:var(--muted);margin-top:6px;min-height:14px}
+#rs-nav{overflow-y:auto;padding:10px 8px 24px;flex:1}
+#rs-nav a{display:block;padding:6px 10px;margin:1px 0;border-radius:7px;
+  color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.45;
+  border-left:3px solid transparent}
+#rs-nav a:hover{background:var(--accent-soft);color:var(--fg)}
+#rs-nav a.lv3{padding-left:22px;font-size:12px;opacity:.9}
+#rs-nav a.on{background:var(--accent-soft);color:var(--accent);
+  border-left-color:var(--accent);font-weight:700}
+#rs-nav a.hit{outline:1px dashed var(--accent)}
+#rs-scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;display:none}
+
+/* 本文: サイドバー分を body の padding で空け、main は残り幅の中で中央寄せ
+   （margin-left と max-width の併用だと広い画面で右だけ余る）*/
+body{padding-left:var(--sidebar-w)}
+main{margin:0 auto;max-width:1080px;padding:32px 40px 96px}
+
+/* 見出しが固定バーに隠れないように */
+h2,h3{scroll-margin-top:16px}
+
+/* 表を読みやすく */
+.rs-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;
+  border:1px solid var(--line);border-radius:10px}
+.rs-tw>table{margin:0;border:0;min-width:520px}
+.rs-tw thead th{position:sticky;top:0;z-index:2;background:var(--bg);
+  box-shadow:inset 0 -1px 0 var(--line)}
+
+/* 検索ハイライト */
+mark.rs-mk{background:#ffe27a;color:#1f2328;border-radius:2px;padding:0 1px}
+
+/* トップへ */
+#rs-top{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);
+  font-size:17px;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,.13)}
+
+@media (min-width: 1600px){ main{max-width:1180px} }
+
+@media (max-width: 1000px){
+  #rs-topbar{display:flex}
+  #rs-side{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rs-side.open{transform:none}
+  #rs-side.open ~ #rs-scrim{display:block}
+  body{padding-left:0}
+  main{padding:70px 16px 90px;max-width:none}
+  .rs-tw>table{min-width:460px}
+}
+
+@media print{
+  #rs-side,#rs-topbar,#rs-scrim,#rs-top,#rs-progress{display:none !important}
+  body{padding-left:0 !important}
+  main{margin:0 !important;padding:0 !important;max-width:none !important}
+  .rs-tw{overflow:visible !important;border:0 !important}
+  .rs-tw>table{min-width:0 !important}
+  .rs-tw thead th{position:static !important}
+  table,tr,.box{break-inside:avoid;page-break-inside:avoid}
+  h2{break-after:avoid;page-break-after:avoid}
+  mark.rs-mk{font-weight:700}
+}
+/* ===== /リファレンスUI ===== */
+
+
+/* ===== 読みやすさ：文字の階層と配色（2026-09-26 試作・見本は ICU年次レポート2025） =====
+   章見出し ＞ 節見出し ＞ 章の導入文 ＞ 本文 ＞ 表・図の説明・出典タグ の順に大きさと色で差をつける。
+   大きさ・余白は画面だけ（@media screen）。色・囲み・表は印刷にも効かせる。 */
+:root{
+  --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+  --rule:#d5e3ea; --lead-bg:#f2f8fb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --navy:#e8eef4; --ink:#dde3ea; --accent-ink:#6cc8ea; --stripe:#1a1f25; --th-bg:#16323f;
+    --rule:#2f4652; --lead-bg:#13262f;
+  }
+}
+@media print{
+  :root{
+    --navy:#1d3348; --ink:#26333f; --accent-ink:#0a6e96; --stripe:#f2f7fa; --th-bg:#e9f3f8;
+    --rule:#d5e3ea; --lead-bg:#f2f8fb;
+  }
+}
+
+/* --- 色（画面・印刷共通） --- */
+body{color:var(--ink)}
+h1,h2,h3,h4{color:var(--navy)}
+strong{color:var(--accent-ink)}
+.ok{color:var(--accent-ink)}
+.ng{color:var(--danger); font-weight:700}
+.box.warn strong{color:var(--warn)}
+.box.danger strong{color:var(--danger)}
+h2 .no{color:var(--accent)}
+h3{color:var(--navy)}
+
+/* 出典タグ：小さく薄く */
+.src{font-size:.66rem; color:var(--muted); opacity:.8; letter-spacing:0}
+
+/* 囲み：種類ごとに色と見出しラベルを分ける */
+.box{border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px;
+  padding:1rem 1.2rem 1.05rem; background:var(--accent-soft)}
+.box.good{border-color:color-mix(in srgb, var(--good) 35%, transparent); border-left-color:var(--good); background:var(--good-soft)}
+.box.warn{border-color:color-mix(in srgb, var(--warn) 35%, transparent); border-left-color:var(--warn); background:var(--warn-soft)}
+.box.danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent); border-left-color:var(--danger); background:var(--danger-soft)}
+.box.plain{border-color:var(--line); border-left-color:var(--muted); background:var(--code)}
+.box .label{display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.06em; line-height:1.5;
+  color:#fff; background:var(--accent); border-radius:999px; padding:.18em .95em .22em; margin-bottom:.6rem}
+.box.good .label{color:#fff; background:var(--good)}
+.box.warn .label{color:#fff; background:var(--warn)}
+.box.danger .label{color:#fff; background:var(--danger)}
+.box.plain .label{color:#fff; background:var(--muted)}
+.box.good .label::before{content:"✓ "}
+.box.warn .label::before{content:"! "}
+.box.danger .label::before{content:"✕ "}
+@media (prefers-color-scheme: dark){
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#15181c}
+}
+@media print{
+  .box .label, .box.good .label, .box.warn .label, .box.danger .label, .box.plain .label{color:#fff}
+}
+
+/* 表：本文より小さく、見出し行に色、1行おきの薄い背景、横罫だけ */
+table{font-size:.86rem; line-height:1.65}
+th,td{border:0; border-bottom:1px solid var(--line); padding:.55rem .7rem}
+th{background:var(--th-bg); color:var(--navy); border-bottom:2px solid var(--accent)}
+.rs-tw thead th{background:var(--th-bg); box-shadow:inset 0 -2px 0 var(--accent)}
+tbody tr:nth-child(even) td{background:var(--stripe)}
+tbody td:first-child{font-weight:600; color:var(--navy)}
+td.num{font-weight:600; color:var(--navy); font-variant-numeric:tabular-nums}
+caption{font-size:.92rem; color:var(--navy); padding:.75rem .8rem .6rem; line-height:1.6}
+.rs-tw{border-color:var(--rule)}
+td .src{font-size:.62rem}
+
+/* 図の説明・読み方 */
+figure.fig figcaption{font-size:.8rem}
+.figread{border-left-color:var(--accent); background:var(--lead-bg); border-radius:0 8px 8px 0; font-size:.9rem}
+.refs{font-size:.8rem}
+
+/* --- 大きさ・行長・余白（画面だけ） --- */
+@media screen{
+  body{font-size:17px; line-height:1.85; letter-spacing:.015em}
+  /* 本文の行長：1行およそ40〜45字。表だけは横幅いっぱいまで広げる */
+  main{max-width:1040px}
+  @media (min-width:1600px){ main{max-width:1080px} }
+  main > *:not(.tablewrap):not(.rs-tw){max-width:47rem}
+  p{margin:0 0 1.15em; line-height:1.85}
+  li{margin:.35em 0; line-height:1.8}
+  h1{font-size:2rem; font-weight:800; line-height:1.35; margin:.2rem 0 .6rem}
+  .sub{font-size:1rem; line-height:1.75}
+
+  /* 章見出し：上に余白と区切り線、§番号を色付きで大きく */
+  h2{font-size:1.6rem; font-weight:800; line-height:1.4; letter-spacing:.01em;
+    margin:4.6rem 0 1.1rem; padding:1.5rem 0 0; border-left:0; border-top:1px solid var(--line);
+    position:relative}
+  h2::before{content:""; position:absolute; top:-2px; left:0; width:64px; height:3px; background:var(--accent)}
+  h2 .no{display:inline-block; font-size:1.2em; font-weight:800; letter-spacing:0; color:var(--accent);
+    margin-right:.45em; vertical-align:baseline}
+
+  /* 章の導入文（h2 直後の段落）：本文よりひと回り大きく */
+  h2:not(#refs) + p{font-size:1.1em; line-height:1.85; color:var(--navy);
+    background:var(--lead-bg); border-radius:10px; padding:1rem 1.25rem 1.1rem; margin:0 0 2rem}
+  h2:not(#refs) + p::before{content:"この章のねらい"; display:block; width:max-content;
+    font-size:.72rem; font-weight:700; letter-spacing:.12em; line-height:1.5; color:#fff; background:var(--accent);
+    border-radius:999px; padding:.15em .9em .2em; margin-bottom:.55rem}
+  h2:not(#refs) + p strong{color:var(--accent-ink)}
+
+  /* 節見出し */
+  h3{font-size:1.22rem; font-weight:800; line-height:1.5; margin:2.9rem 0 .8rem;
+    padding-left:.7rem; border-left:4px solid var(--accent)}
+  h4{font-size:1.02rem; margin:1.6rem 0 .5rem}
+
+  .box{margin:1.5rem 0}
+  .box p, .box li{font-size:.96em; line-height:1.8}
+  .top{font-size:.76rem; margin:1.4rem 0 0}
+}
+@media screen and (prefers-color-scheme: dark){
+  h2:not(#refs) + p::before{color:#15181c}
+}
+@media screen and (max-width:1000px){
+  body{font-size:16px; line-height:1.85}
+  h1{font-size:1.6rem}
+  h2{font-size:1.36rem; margin-top:3.6rem; padding-top:1.2rem}
+  h3{font-size:1.1rem; margin-top:2.4rem}
+  h2:not(#refs) + p{font-size:1.06em; padding:.85rem 1rem .95rem}
+  .box{padding:.9rem 1rem .95rem}
+}
+@media print{
+  h2{border-left:0; border-top:1.5pt solid var(--accent); padding-top:4pt}
+  h2 .no{font-size:1.15em; color:var(--accent); vertical-align:baseline}
+  h2:not(#refs) + p{font-size:1.05em; color:var(--navy)}
+  h3{border-left:3pt solid var(--accent); padding-left:4pt}
+  th,td{padding:3pt 4pt}
+}
+
+/* ===== 重要表（表13）：ページの中でひと目で見つかるように ===== */
+.rs-tw:has(> table.key){border:2px solid var(--accent); box-shadow:0 2px 12px rgba(0,132,181,.14)}
+table.key caption{background:var(--accent-soft); border-bottom:1px solid var(--rule)}
+table.key caption::before{content:"ここを押さえる"; display:inline-block; font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; color:#fff; background:var(--danger); border-radius:999px;
+  padding:.1em .8em .15em; margin-right:.6em; vertical-align:.1em}
+table.key thead th, .rs-tw table.key thead th{background:var(--accent); color:#fff; border-bottom:0; box-shadow:none}
+table.key td{border-bottom:1.5px solid var(--rule); vertical-align:top}
+table.key td:first-child{font-weight:800; color:var(--accent-ink); font-size:1.02em; min-width:10em}
+table.key td:nth-child(2){min-width:9em}
+table.key td.num{white-space:normal; font-weight:400; color:var(--ink)}
+table.key td:nth-child(2) strong{color:var(--navy); font-weight:800}
+table.key td:nth-child(3) strong{display:inline-block; font-size:1.18em; font-weight:800; color:var(--accent-ink);
+  font-variant-numeric:tabular-nums; line-height:1.4}
+@media (prefers-color-scheme: dark){
+  table.key thead th, .rs-tw table.key thead th{color:#15181c}
+}
+@media print{
+  table.key thead th, .rs-tw table.key thead th{color:#fff}
+  .rs-tw:has(> table.key){border:1.5pt solid var(--accent) !important; box-shadow:none}
+}
+/* スマホ：1行＝1枚のカードに切り替える */
+@media screen and (max-width:640px){
+  .rs-tw:has(> table.key){overflow:visible; border:0; box-shadow:none; border-radius:0}
+  .rs-tw > table.key{min-width:0 !important; width:100%}
+  table.key, table.key caption, table.key tbody, table.key tr, table.key td{display:block}
+  table.key caption{border:2px solid var(--accent); border-radius:10px; margin-bottom:.8rem}
+  table.key thead{display:none}
+  table.key tr{border:2px solid var(--accent); border-radius:10px; overflow:hidden; margin:0 0 .9rem;
+    background:var(--bg); box-shadow:0 2px 10px rgba(0,132,181,.12)}
+  table.key tbody tr:nth-child(even) td{background:transparent}
+  table.key td{border-bottom:1px solid var(--line); padding:.55rem .85rem}
+  table.key td:last-child{border-bottom:0}
+  table.key td:first-child{background:var(--accent-soft) !important; font-size:1.05em; line-height:1.55;
+    border-bottom:1px solid var(--rule)}
+  table.key td:not(:first-child)::before{content:attr(data-label); display:block; font-size:.72rem;
+    font-weight:700; letter-spacing:.06em; color:var(--muted); margin-bottom:.1rem}
+}
+/* ===== /読みやすさ ===== */
+
+/* 長い数値セル（td.num）が折り返されず他の列を潰さないよう、折り返しを許す（NIV資料と共通） */
+td.num{white-space:normal}
+
+/* 2026-09-26 レイアウト調整：両脇の余白を詰める・表と本文の幅をそろえる・目次の文字を大きくする */
+:root{--sidebar-w:300px}
+@media screen and (min-width:1001px){
+  main{max-width:1240px !important; margin:0 auto !important; padding:32px 40px 96px !important}
+}
+main > *:not(.tablewrap):not(.rs-tw){max-width:none !important}
+#rs-nav a{font-size:14px; line-height:1.5}
+#rs-nav a.lv3{font-size:13px}
+#rs-side .hd .ttl{font-size:15px}
+#rs-topbar .t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rs-topbar{left:0;right:0;max-width:100vw;box-sizing:border-box;overflow:hidden}
+/* 長いURL・DOIは途中で折り返す（文献リストのURL1本でスマホが横にはみ出していた） */
+.refs li, main a{overflow-wrap:anywhere}
+/* native figures (native-fig.css) — 図を本文と同じ部品で作る（2026-09-26 図表の統一）
+   手引き：native-figure-guide.md。クラスは nf- で始める。色は本文の :root 変数だけを使う
+   （--accent / --accent-soft / --danger / --warn / --line / --muted / --bg / --code。--ink・--navy・--rule・--accent-ink は無ければ代替）。
+   文字の書体は指定しない（本文から継承）。SVG の <text> にも font-family を書かない。 */
+
+figure.fig .nf{font-size:.95em; line-height:1.65; color:var(--ink,var(--fg))}
+figure.fig .nf *{box-sizing:border-box}
+/* 旧来の図用フィルタ（暗色時に SVG を明るくする）を部品の SVG には掛けない（アイコン・凡例の小さな SVG も含む） */
+figure.fig svg.nf-svg, figure.fig .nf-svg, figure.fig .nf svg{filter:none !important}
+
+/* ---- 共通：チップ（道具名・区分） ---- */
+.nf-chip{display:inline-block; font-weight:700; font-size:.92em; line-height:1.45; white-space:nowrap;
+  padding:.06em .75em .1em; border-radius:999px; border:1.5px solid var(--accent);
+  color:var(--accent-ink,var(--accent)); background:var(--bg)}
+.nf-chip.is-fill{background:var(--accent); color:var(--bg)}
+.nf-chip.is-muted{border-color:var(--muted); color:var(--muted)}
+.nf-chip.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-chip.is-warn{border-color:var(--warn); color:var(--warn)}
+.nf-plus{font-weight:700; color:var(--muted); margin:0 .15em}
+
+/* ---- 1. 判断の流れ（nf-flow）：根 → 群 → カード → 結論帯 ---- */
+.nf-flow{display:flex; flex-direction:column}
+.nf-root{position:relative; align-self:center; margin-bottom:1.1em; padding:.5em 1.6em .55em; border-radius:10px;
+  background:var(--accent); color:var(--bg); font-weight:800; font-size:1.06em; text-align:center; line-height:1.5}
+.nf-root::after{content:""; position:absolute; left:50%; top:100%; width:2px; height:1.1em; margin-left:-1px; background:var(--rule,var(--line))}
+.nf-groups{position:relative; display:grid; grid-template-columns:var(--nf-cols, 2fr 3fr); gap:.9em; padding-top:1.1em}
+/* 根から各群へ分かれる線（群が2つのときの左右中心 = 20% と 70%） */
+.nf-groups::before{content:""; position:absolute; top:0; left:var(--nf-bl,20%); right:var(--nf-br,30%); height:1.1em;
+  border:2px solid var(--rule,var(--line)); border-bottom:0; border-radius:8px 8px 0 0}
+/* 群を縦に積む（群が2つで、カードが多く横に並べると窮屈なとき。NIV・HFNCの「障害と場面で決める」図） */
+.nf-groups.is-rows{grid-template-columns:minmax(0, 1fr)}
+.nf-groups.is-rows::before{left:50%; right:auto; width:2px; margin-left:-1px; border:0; border-radius:0; background:var(--rule,var(--line))}
+.nf-group{display:flex; flex-direction:column; gap:.6em; padding:.65em .7em .75em; border:1px solid var(--rule,var(--line));
+  border-radius:10px; background:var(--code)}
+.nf-gh{align-self:center; font-size:.84em; font-weight:700; letter-spacing:.08em; color:var(--muted); line-height:1.4}
+.nf-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9.5em), 1fr)); gap:.55em; flex:1}
+.nf-card{display:flex; flex-direction:column; gap:.4em; padding:.6em .8em .7em; background:var(--bg);
+  border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:8px}
+.nf-q{font-weight:700; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-a{line-height:1.8}
+.nf-note{font-size:.86em; color:var(--muted); line-height:1.5}
+
+/* 結論帯（図の結論・例外を1本で示す） */
+.nf-band{display:flex; flex-wrap:wrap; align-items:baseline; gap:.2em .6em; margin-top:1em; padding:.7em 1.05em .75em;
+  border:1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-left:5px solid var(--danger);
+  border-radius:10px; background:var(--danger-soft); line-height:1.6}
+.nf-band .nf-bh{color:var(--danger); font-weight:800}
+.nf-band .nf-to{color:var(--danger); font-weight:800}
+.nf-band.is-accent{border-color:color-mix(in srgb, var(--accent) 40%, transparent); border-left-color:var(--accent); background:var(--accent-soft)}
+.nf-band.is-accent .nf-bh, .nf-band.is-accent .nf-to{color:var(--accent-ink,var(--accent))}
+
+/* ---- 2. 対応表型（nf-map）：条件 → 対応 を行で並べる ---- */
+.nf-map{display:grid; grid-template-columns:minmax(7.5em, 1fr) 2.2em minmax(0, 2.4fr); row-gap:.55em; align-items:stretch}
+.nf-sec{grid-column:1 / -1; font-weight:800; color:var(--accent-ink,var(--accent)); line-height:1.5}
+.nf-sec:not(:first-child){margin-top:.7em; padding-top:.9em; border-top:1px solid var(--rule,var(--line))}
+.nf-sec.is-danger{color:var(--danger)}
+.nf-key, .nf-val{display:flex; align-items:center; padding:.5em .9em; border-radius:8px; line-height:1.55;
+  border:1.5px solid var(--accent)}
+.nf-key{justify-content:center; text-align:center; font-weight:700; color:var(--navy,var(--fg)); background:var(--bg)}
+.nf-val{font-weight:600; background:var(--accent-soft)}
+.nf-arr{display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:800; font-size:1.1em}
+.nf-key.is-muted, .nf-val.is-muted{border-color:var(--muted)}
+.nf-val.is-muted{background:var(--code)}
+.nf-key.is-danger{border-color:var(--danger); color:var(--danger)}
+.nf-val.is-danger{border-color:var(--danger); background:var(--danger-soft)}
+.nf-val.is-strong{background:var(--accent); color:var(--bg); border-color:var(--accent)}
+.nf-arr.is-danger{color:var(--danger)}
+
+/* ---- 3. 階段・タイムライン（nf-steps）：左から右へ段階が進む ---- */
+.nf-steps{display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:.55em; counter-reset:nfstep; align-items:end}
+.nf-step{position:relative; padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line);
+  border-top:4px solid var(--accent); border-radius:8px; margin-top:calc(var(--lv, 0) * 1.2em)}
+.nf-step::before{counter-increment:nfstep; content:counter(nfstep); display:inline-flex; align-items:center; justify-content:center;
+  width:1.6em; height:1.6em; margin-right:.4em; border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:.85em}
+.nf-steps.is-time .nf-step::before{content:none}
+.nf-step .nf-when{display:block; font-size:.84em; font-weight:700; color:var(--muted)}
+
+/* ---- 4. 図版パネル（SVG の模式図・グラフ） ---- */
+.nf-panels{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap:1.1em 1.6em; justify-items:center}
+.nf-panel{width:100%; max-width:34rem; container-type:inline-size; container-name:nfp}
+.nf-panels.is-one .nf-panel{max-width:46rem}
+.nf-pt{margin:0 0 .1em; text-align:center; font-weight:800; font-size:1.02em; color:var(--navy,var(--fg)); line-height:1.5}
+.nf-ps{margin:0 0 .45em; text-align:center; font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-svg{display:block; width:100%; height:auto; overflow:visible}
+/* SVG の文字：書体は本文を継承。大きさは viewBox の単位（幅 460 の図で 15 ≒ 本文と同じ） */
+.nf-svg text{fill:var(--ink,var(--fg)); font-variant-numeric:tabular-nums}
+.nf-svg .nf-t{font-size:15px}
+.nf-svg .nf-ts{font-size:13px; fill:var(--muted)}
+.nf-svg .nf-tb{font-weight:700}
+.nf-svg .nf-ta{fill:var(--accent-ink,var(--accent))}
+.nf-svg .nf-tw{fill:var(--warn)}
+.nf-svg .nf-td{fill:var(--danger)}
+.nf-svg .nf-axis{stroke:var(--muted); stroke-width:1.5; fill:none}
+.nf-svg .nf-tick{stroke:var(--muted); stroke-width:1.2}
+.nf-svg .nf-grid{stroke:var(--line); stroke-width:1; fill:none}
+.nf-svg .nf-zero{stroke:var(--muted); stroke-width:1; opacity:.55}
+.nf-svg .nf-wave{stroke:var(--accent); stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-wave.is-danger{stroke:var(--danger)}
+.nf-svg .nf-thr{stroke:var(--warn); stroke-width:2; stroke-dasharray:6 5; fill:none}
+.nf-svg .nf-dim{stroke:var(--warn); stroke-width:2; fill:none}
+.nf-svg .nf-guide{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:3 4; fill:none}
+.nf-svg .nf-ln{stroke:var(--muted); stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round}
+.nf-svg .nf-fa{fill:var(--accent-soft); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fb{fill:var(--bg); stroke:var(--accent); stroke-width:2}
+.nf-svg .nf-fm{fill:var(--code); stroke:var(--muted); stroke-width:2}
+.nf-svg .nf-fd{fill:var(--danger-soft); stroke:var(--danger); stroke-width:2}
+.nf-svg .nf-sa{stroke:var(--accent); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sd{stroke:var(--danger); fill:none; stroke-linecap:round; stroke-linejoin:round}
+.nf-svg .nf-sw{stroke:var(--warn); fill:none; stroke-linecap:round}
+.nf-svg .nf-mk-a{fill:var(--accent)} .nf-svg .nf-mk-d{fill:var(--danger)} .nf-svg .nf-mk-w{fill:var(--warn)} .nf-svg .nf-mk-m{fill:var(--muted)}
+.nf-svg .nf-soft-d{fill:var(--danger); opacity:.22}
+/* パネルが細いとき（スマホ・印刷の2段組）は SVG の文字を単位上で大きくし、実寸を本文に近づける */
+@container nfp (max-width: 30rem){ .nf-svg .nf-t{font-size:17px} .nf-svg .nf-ts{font-size:15px} }
+@container nfp (max-width: 24rem){ .nf-svg .nf-t{font-size:19.5px} .nf-svg .nf-ts{font-size:17px} }
+/* 文字を入れない横長の模式図（ラベルは下の HTML で出す） */
+.nf-draw{display:block; width:100%; max-width:46rem; height:auto; margin:0 auto}
+.nf-labels{display:grid; grid-template-columns:var(--nf-lcols, 1fr 1fr 1fr); max-width:46rem; margin:.1em auto 0;
+  text-align:center; font-weight:700; color:var(--navy,var(--fg)); line-height:1.45}
+.nf-labels small{display:block; font-weight:400; font-size:.84em; color:var(--muted)}
+/* 凡例・注記 */
+.nf-legend{display:flex; flex-wrap:wrap; justify-content:center; gap:.35em 1.3em; margin:.7em 0 0; font-size:.88em; color:var(--muted); line-height:1.5}
+.nf-legend > span{display:inline-flex; align-items:center; gap:.45em}
+.nf-sw-line{display:inline-block; width:1.9em; border-top:3px solid var(--accent)}
+.nf-sw-line.is-dash{border-top:2px dashed var(--warn)}
+.nf-sw-line.is-danger{border-top-color:var(--danger)}
+.nf-foot{margin:.5em 0 0; font-size:.84em; color:var(--muted); text-align:right; line-height:1.5}
+/* 説明カード（図の下で要素ごとの意味を並べる） */
+.nf-callouts{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:.6em; margin-top:.8em}
+.nf-callout{padding:.6em .9em .7em; border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:8px; background:var(--accent-soft); line-height:1.6}
+.nf-callout .nf-ch{display:block; font-weight:800; color:var(--accent-ink,var(--accent))}
+.nf-callout.is-danger{border-left-color:var(--danger); background:var(--danger-soft)}
+.nf-callout.is-danger .nf-ch{color:var(--danger)}
+.nf-callout.is-muted{border-left-color:var(--muted); background:var(--code)}
+.nf-callout.is-muted .nf-ch{color:var(--navy,var(--fg))}
+/* 棒の比較（小さな横棒。数値の無い大小比較に使う） */
+.nf-meters{display:grid; grid-template-columns:auto 1fr; gap:.3em .7em; align-items:center; margin:.5em 0 0; font-size:.9em; line-height:1.45}
+.nf-meters dt{color:var(--navy,var(--fg)); font-weight:600}
+.nf-meters dd{margin:0; display:flex; align-items:center; gap:.5em}
+.nf-bar{display:inline-block; height:.7em; width:calc(var(--v, .5) * 8em); border-radius:999px; background:var(--accent)}
+.nf-bar.is-danger{background:var(--danger)}
+.nf-meters .nf-bv{font-size:.9em; color:var(--muted)}
+
+/* ---- 5. 画像＋HTMLラベル（nf-gallery）：絵が要るものだけ画像。文字は画像に入れない ---- */
+.nf-gallery{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(46%, 9rem), 1fr)); gap:.9em .7em}
+.nf-item{text-align:center}
+figure.fig .nf-item img{display:block; width:100%; height:auto; border-radius:8px; background:#fff; border:1px solid var(--line)}
+.nf-name{margin-top:.4em; font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-desc{font-size:.86em; color:var(--muted); line-height:1.5}
+.nf-item.is-absent img{opacity:.55}
+.nf-item.is-absent .nf-name{color:var(--muted)}
+.nf-flag{display:inline-block; margin-top:.2em; font-size:.8em; font-weight:700; color:var(--danger);
+  border:1.5px solid var(--danger); border-radius:999px; padding:0 .7em .05em; line-height:1.5}
+
+/* ---- 6. 3列の小さなパネル（nf-panels.is-3）：viewBox 幅 300 の SVG を横に3つ並べる（小さな多重グラフ・3つの作用） ----
+   幅 460 の既定より文字を単位上で大きくし、パソコン幅（1枚 約270px）でも本文に近い実寸を保つ。スマホでは1列 */
+.nf-panels.is-3{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1em 1.2em}
+.nf-panels.is-3 .nf-panel{max-width:none}
+.nf-panels.is-3 .nf-svg .nf-t{font-size:17px}
+.nf-panels.is-3 .nf-svg .nf-ts{font-size:15px}
+@container nfp (min-width: 18rem){ .nf-panels.is-3 .nf-svg .nf-t{font-size:15px} .nf-panels.is-3 .nf-svg .nf-ts{font-size:13.5px} }
+/* 凡例の中の小さな記号（SVG）。.nf-svg の幅100%を打ち消す */
+figure.fig .nf-legend svg.nf-sw{display:inline-block; width:1.15em; height:1.15em; margin:0; overflow:visible; flex:none}
+
+/* ---- 7. 物の流れの鎖（nf-steps.is-time.is-chain）：装置の構成など。段の間に矢印、各段に文字なしアイコン ---- */
+.nf-steps.is-chain{gap:1.7em; align-items:stretch}
+.nf-steps.is-chain .nf-step{margin-top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3em}
+.nf-steps.is-chain .nf-step:not(:first-child)::after{content:""; position:absolute; top:50%; left:-1.45em; width:1.2em; height:1.2em;
+  transform:translateY(-50%); background:var(--accent); clip-path:polygon(0 32%, 52% 32%, 52% 0, 100% 50%, 52% 100%, 52% 68%, 0 68%)}
+figure.fig svg.nf-ico{display:block; width:auto; height:3.6em; max-width:100%; margin:.1em auto .15em}
+.nf-step .nf-q{color:var(--navy,var(--fg)); font-weight:700; line-height:1.45}
+.nf-chips{display:flex; flex-wrap:wrap; justify-content:center; gap:.3em}
+
+/* ---- 8. 頭文字カード（nf-acro）：語呂合わせ（HI-FLOW など）。左→右・上→下で頭文字が読める ---- */
+.nf-acro{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.6em}
+.nf-ac{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.7em; row-gap:.15em; align-content:start;
+  padding:.6em .8em .7em; background:var(--bg); border:1px solid var(--line); border-radius:8px}
+.nf-lt{grid-row:1 / span 3; align-self:start; display:flex; align-items:center; justify-content:center; width:1.9em; height:1.9em;
+  border-radius:50%; background:var(--accent-soft); color:var(--accent-ink,var(--accent)); font-weight:800; font-size:1.3em; line-height:1}
+.nf-en{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4}
+.nf-ja{font-size:.94em; line-height:1.6}
+.nf-ac .nf-chip{justify-self:start; font-size:.84em}
+.nf-ac.is-key{border-color:var(--accent); background:var(--accent-soft)}
+.nf-ac.is-key .nf-lt{background:var(--accent); color:var(--bg)}
+
+/* ---- 9. 範囲の横棒（nf-range）：病態ごとの設定値の範囲を1本の数直線に並べる。数値は --a / --b（軸は --lo〜--hi） ---- */
+.nf-range{--lo:0; --hi:60; display:grid; grid-template-columns:minmax(8em, 14em) minmax(0, 1fr) minmax(7em, 12em);
+  column-gap:1em; row-gap:.3em; align-items:center}
+.nf-rl{font-weight:700; color:var(--navy,var(--fg)); line-height:1.4; text-align:right}
+.nf-rl small{display:block; font-weight:400; font-size:.82em; color:var(--muted)}
+.nf-rv{font-size:.9em; line-height:1.45}
+.nf-rt{position:relative; height:2.2em; border-right:1px solid var(--line);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:calc(100% / var(--nf-div, 6)) 100%}
+.nf-zone, .nf-rb, .nf-rx{position:absolute; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%);
+  width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-zone{top:0; bottom:0; background:color-mix(in srgb, var(--muted) 13%, transparent)}
+.nf-zone.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+.nf-rb{top:50%; height:.8em; transform:translateY(-50%); border-radius:999px; background:var(--accent)}
+.nf-rb.is-soft{background:color-mix(in srgb, var(--accent) 38%, transparent)}
+.nf-rb.is-muted{background:var(--muted)}
+.nf-rx{top:50%; height:0; border-top:2px dashed var(--accent)}
+.nf-rx::after{content:""; position:absolute; right:-1px; top:-1px; transform:translateY(-50%); border-style:solid;
+  border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent)}
+.nf-rd{position:absolute; top:50%; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:1.05em; height:1.05em;
+  transform:translate(-50%, -50%); border-radius:50%; background:var(--accent); border:2.5px solid var(--accent)}
+.nf-rd.is-open{background:var(--bg)}
+.nf-rd.is-muted{background:var(--muted); border-color:var(--muted)}
+.nf-raxis{grid-column:2; position:relative; height:1.5em; font-size:.86em; color:var(--muted); font-variant-numeric:tabular-nums}
+.nf-raxis span{position:absolute; top:0; left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); transform:translateX(-50%); line-height:1.5}
+.nf-rat{grid-column:2; text-align:center; font-size:.9em; line-height:1.5}
+/* 範囲の横棒の追加（HFNC 図11）：2段のトラック（上＝設定、下＝実測）・四角の点・誤差の線（IQR・±SD） */
+.nf-rt.is-2{height:3.4em}
+.nf-rt .is-up{top:30%} .nf-rt .is-dn{top:71%}
+.nf-rd.is-sq{border-radius:2px; width:.95em; height:.95em}
+.nf-rw{position:absolute; top:50%; height:0; transform:translateY(-1px); border-top:2px solid var(--accent);
+  left:calc((var(--a) - var(--lo)) / (var(--hi) - var(--lo)) * 100%); width:calc((var(--b) - var(--a)) / (var(--hi) - var(--lo)) * 100%)}
+.nf-rw::before, .nf-rw::after{content:""; position:absolute; top:-.42em; height:.84em; left:-1px; border-left:2px solid var(--accent)}
+.nf-rw::after{left:auto; right:-1px}
+.nf-rw.is-muted{border-top-color:var(--muted)}
+.nf-rw.is-muted::before, .nf-rw.is-muted::after{border-left-color:var(--muted)}
+/* 凡例の面（背景帯の見本） */
+.nf-sw-box{display:inline-block; width:1.4em; height:.95em; border-radius:3px; background:color-mix(in srgb, var(--muted) 18%, transparent)}
+.nf-sw-box.is-accent{background:color-mix(in srgb, var(--accent) 16%, transparent)}
+/* SVG の背景帯（模式図の領域分け） */
+.nf-svg .nf-zone-m{fill:var(--muted); opacity:.16}
+.nf-svg .nf-zone-a{fill:var(--accent); opacity:.13}
+.nf-svg .nf-zone-d{fill:var(--danger); opacity:.13}
+
+/* ---- 10. 番号つきの鎖（nf-steps.is-chain.is-text）：アイコンなしの手順を矢印でつなぐ（HFNC 図8・10・12）。
+   is-check＝確かめる段（灰）、is-goal＝終点（塗り）。戻り道は .nf-return、下の判断へは .nf-join でつなぐ ---- */
+.nf-steps.is-chain.is-text .nf-step{justify-content:flex-start}
+.nf-steps.is-chain.is-text .nf-step::before{margin:0 0 .1em}
+.nf-step.is-check{border-top-color:var(--muted)}
+.nf-step.is-check::before{background:var(--muted)}
+.nf-step.is-goal{background:var(--accent); border-color:var(--accent)}
+.nf-steps.is-chain .nf-step.is-goal{justify-content:center}
+.nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:var(--bg)}
+.nf-step.is-goal::before{background:var(--bg); color:var(--accent-ink,var(--accent))}
+.nf-join{align-self:center; width:2px; height:1.3em; margin:.3em 0 .3em; background:var(--rule,var(--line))}
+/* 戻り道：最後の段から最初の段へ戻る破線の U 字（段が4つなら両端 12.5%。--nf-rl / --nf-rr で調整） */
+.nf-return{position:relative; margin-top:.35em; padding-top:1.75em; text-align:center; color:var(--danger); font-weight:800; line-height:1.5}
+.nf-return::before{content:""; position:absolute; top:0; left:var(--nf-rl,12.5%); right:var(--nf-rr,12.5%); height:1.15em;
+  border:2px dashed var(--danger); border-top:0; border-radius:0 0 12px 12px}
+.nf-return::after{content:""; position:absolute; top:-.45em; left:var(--nf-rl,12.5%); transform:translateX(-50%); margin-left:1px;
+  border-style:solid; border-width:0 6px 10px 6px; border-color:transparent transparent var(--danger) transparent}
+/* 図の前提を上に置く帯 */
+.nf-band.is-top{margin:0 0 1.1em}
+
+/* ---- スマホ：流れ図と対応表は縦に並べ替える。SVG は縮むので文字は上の @container で補う ---- */
+@media screen and (max-width:640px){
+  .nf-panels.is-3{grid-template-columns:minmax(0, 1fr)}
+  .nf-acro{grid-template-columns:minmax(0, 1fr)}
+  .nf-steps.is-chain{gap:1.7em}
+  .nf-steps.is-chain .nf-step{display:grid; grid-template-columns:4.6em minmax(0, 1fr); column-gap:.8em; row-gap:.2em;
+    align-items:center; justify-items:start; text-align:left}
+  .nf-steps.is-chain svg.nf-ico{grid-row:1 / span 3; height:2.9em; margin:0}
+  .nf-steps.is-chain .nf-chips{justify-content:flex-start}
+  .nf-steps.is-chain .nf-step:not(:first-child)::after{top:-1.45em; left:50%; transform:translateX(-50%) rotate(90deg)}
+  .nf-steps.is-chain.is-text .nf-step{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:.6em; row-gap:.1em;
+    justify-items:start; text-align:left}
+  .nf-steps.is-chain.is-text .nf-step::before{grid-row:1 / span 2; grid-column:1; align-self:start; margin:.15em 0 0}
+  .nf-steps.is-chain.is-text .nf-step > *{grid-column:2}
+  .nf-return{padding:.45em .9em .5em; border:2px dashed var(--danger); border-radius:10px}
+  .nf-return::before, .nf-return::after{content:none}
+  .nf-range{grid-template-columns:minmax(0, 1fr); row-gap:.15em}
+  .nf-rl{text-align:left; margin-top:.55em}
+  .nf-raxis, .nf-rat{grid-column:1}
+  figure.fig .nf{font-size:.94em}
+  .nf-groups{grid-template-columns:1fr}
+  .nf-cards{grid-template-columns:1fr}
+  .nf-band{display:block}
+  .nf-band .nf-bh{display:block; margin-bottom:.2em}
+  .nf-band .nf-to{margin-right:.3em}
+  .nf-labels small{display:none}
+  .nf-groups::before{left:50%; right:auto; width:2px; border:0; background:var(--rule,var(--line)); border-radius:0}
+  .nf-map{grid-template-columns:1fr; row-gap:.2em}
+  .nf-map .nf-arr{transform:rotate(90deg); height:1.5em}
+  .nf-map .nf-key + .nf-arr + .nf-val{margin-bottom:1em}
+  .nf-steps{grid-auto-flow:row; grid-auto-columns:auto}
+  .nf-step{margin-top:0}
+}
+/* ---- 印刷：色は画面と同じ（本文の print-color-adjust:exact を継承）。文字は紙の本文に合わせる ---- */
+@media print{
+  figure.fig .nf{font-size:.95em}
+  .nf-panels{grid-template-columns:1fr 1fr}
+  .nf-panels.is-one{grid-template-columns:1fr}
+  .nf-panel .nf-svg .nf-t{font-size:15px}
+  .nf-panel .nf-svg .nf-ts{font-size:13px}
+  .nf-root, .nf-chip.is-fill, .nf-val.is-strong, .nf-step::before, .nf-ac.is-key .nf-lt, .nf-step.is-goal .nf-q, .nf-step.is-goal .nf-note{color:#fff}
+  .nf-step.is-goal::before{color:var(--accent)}
+  .nf-root, .nf-band, .nf-map, .nf-gallery, .nf-panel, .nf-range, .nf-acro, .nf-steps{break-inside:avoid; page-break-inside:avoid}
+  .nf-lt, .nf-ac.is-key .nf-lt{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+
+/* readable (readable.css) — 章の「読ませ方」部品（2026-09-27 試作・NIV §5）
+   手引き：readable-guide.md。クラスはすべて rd- で始める。章は <section class="rd"> で包む。
+   色は本文の :root 変数（--accent / --accent-soft / --good / --danger / --line / --muted / --bg / --code /
+   --navy / --ink / --accent-ink / --rule）だけを使う。書体は指定しない（本文から継承）。
+   2026-09-27 NIV 全章に適用。「根拠を見る」は開いた状態が既定（<details class="rd-ev" open>）。 */
+
+:root{ --rd-on-accent:#ffffff }
+@media (prefers-color-scheme: dark){ :root{ --rd-on-accent:#15181c } }
+@media print{ :root{ --rd-on-accent:#ffffff } }
+
+/* ---- 文字の階層（本文16px・行間1.9・段落間を広く／補足14px・グレー） ---- */
+@media screen{
+  .rd > p:not([class]), .rd > ul > li, .rd > ol > li{font-size:16px; line-height:1.9}
+  .rd > p:not([class]){margin:0 0 1.5em}
+  .rd > ul, .rd > ol{margin:0 0 1.6em; padding-left:1.4em}
+  .rd > ul > li, .rd > ol > li{margin:.45em 0}
+
+  /* 章見出し：番号つきの色帯 */
+  .rd > h2{display:flex; align-items:center; gap:.9rem; font-size:1.7rem; font-weight:800; line-height:1.4;
+    margin:4.8rem 0 1.6rem; padding:.6rem 1.2rem .6rem 0; border:0; border-radius:12px; overflow:hidden;
+    background:var(--accent-soft); color:var(--navy)}
+  .rd > h2::before{display:none}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-.6rem 0; padding:0 1.1rem;
+    background:var(--accent); color:var(--rd-on-accent); font-size:.9em; font-weight:800; letter-spacing:.02em}
+
+  /* 節見出し：左に太い線と十分な上余白 */
+  .rd > h3{font-size:1.32rem; font-weight:800; line-height:1.5; margin:4rem 0 1.1rem;
+    padding:.15rem 0 .15rem .85rem; border-left:6px solid var(--accent)}
+  /* 小見出し：色つきの小さな印＋下線。リード文より「見出し」に見えるように色を変える */
+  .rd > h4{font-size:1.1rem; font-weight:800; margin:2.8rem 0 .8rem; padding:0 0 .35rem .95rem;
+    border-bottom:1px solid var(--line); color:var(--accent-ink,var(--accent)); position:relative}
+  .rd > h4::before{content:""; position:absolute; left:0; top:.42em; width:.5rem; height:.5rem;
+    border-radius:2px; background:var(--accent)}
+
+  /* リード文：段落の1文目＝結論。少し大きく・やや太く */
+  .rd .rd-lead{font-size:1.14rem; font-weight:700; line-height:1.75; color:var(--navy); margin:0 0 .75em}
+  .rd .rd-lead.is-sub{font-size:1.03rem}
+  /* 節の途中に置くリード文（h4 を立てない小さな話題の切り替え）は、上に余白を取って区切りを見せる */
+  .rd > :not(h3):not(h4) + .rd-lead.is-sub{margin-top:2.2rem}
+
+  /* 補足（注意書き・但し書き） */
+  .rd .rd-note{font-size:14px; line-height:1.8; color:var(--muted); margin:.4rem 0 1.6rem}
+  .rd .rd-check + .rd-note, .rd .rd-dodont + .rd-note{margin-top:-1.3rem}
+  .rd .figread{margin-bottom:1.8rem}
+  .rd .rs-tw{margin:1.2rem 0 1.8rem}
+}
+@media screen and (max-width:1000px){
+  .rd > h2{font-size:1.36rem; gap:.7rem; margin-top:3.8rem}
+  .rd > h3{font-size:1.16rem; margin-top:3.2rem}
+  .rd .rd-lead{font-size:1.08rem}
+  .rd .rd-lead.is-sub{font-size:1.02rem}
+}
+
+/* ---- 1. この章のポイント（章の冒頭・3行） ---- */
+.rd-points{border:2px solid var(--accent); border-radius:14px; padding:1rem 1.3rem .9rem; margin:0 0 2.6rem; background:var(--bg)}
+.rd-points-h{font-size:.8rem !important; font-weight:800; letter-spacing:.14em; color:var(--accent-ink,var(--accent)); margin:0 0 .3rem !important}
+.rd-points ol{list-style:none; counter-reset:rdp; margin:0; padding:0}
+.rd-points li{counter-increment:rdp; position:relative; margin:0; padding:.6rem 0 .6rem 2.7rem;
+  font-size:1.14rem; font-weight:700; line-height:1.55; color:var(--navy); border-top:1px dashed var(--rule,var(--line))}
+.rd-points li:first-child{border-top:0}
+.rd-points li::before{content:counter(rdp); position:absolute; left:0; top:.62rem; width:1.85rem; height:1.85rem;
+  border-radius:50%; background:var(--accent); color:var(--rd-on-accent); font-size:.95rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center; line-height:1}
+@media screen and (max-width:640px){
+  .rd-points{padding:.9rem 1rem .8rem}
+  .rd-points li{font-size:1.04rem; padding-left:2.4rem}
+  .rd-stat{flex:1 1 12rem}
+  .rd-stat-v{font-size:2rem}
+}
+.rd-points-f{font-size:14px !important; line-height:1.75; color:var(--muted); margin:.5rem 0 0 !important;
+  padding-top:.6rem; border-top:1px solid var(--line)}
+
+/* ---- 2. 根拠（灰色・小さめ）。既定は開いた状態（open）で、読者が見出しを押すと閉じられる ---- */
+details.rd-ev{margin:-.5rem 0 1.8rem; color:var(--muted)}
+details.rd-ev[open]{border-left:3px solid var(--rule,var(--line)); background:var(--code); border-radius:0 8px 8px 0;
+  padding-bottom:.1rem}
+details.rd-ev > summary{cursor:pointer; list-style:none; display:inline-block; padding:.2rem .85rem; font-size:13px;
+  font-weight:700; letter-spacing:.04em; color:var(--muted); background:var(--code); border:1px solid var(--line);
+  border-radius:999px; max-width:100%}
+details.rd-ev[open] > summary{border:0; background:transparent; border-radius:0; padding:.45rem .9rem .25rem}
+details.rd-ev > summary::-webkit-details-marker{display:none}
+details.rd-ev > summary::before{content:"▸"; display:inline-block; margin-right:.45em; transition:transform .15s}
+details.rd-ev[open] > summary::before{transform:rotate(90deg)}
+details.rd-ev > summary:hover{color:var(--accent-ink,var(--accent))}
+details.rd-ev p{font-size:14px; line-height:1.8; color:var(--muted); margin:0; padding:0 .95rem .75rem}
+details.rd-ev ul, details.rd-ev ol{margin:0 .95rem .75rem; padding-left:1.2em}
+details.rd-ev li{font-size:14px; line-height:1.75; color:var(--muted); margin:.2em 0}
+details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
+details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
+details.rd-ev table{font-size:.8rem}
+
+/* ---- 3. 当院の数値チップ ---- */
+.rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
+.rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
+  border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
+.rd-stat-v{display:block; font-size:2.3rem; font-weight:800; line-height:1.15; color:var(--accent-ink,var(--accent));
+  font-variant-numeric:tabular-nums; letter-spacing:0}
+.rd-stat-v small{font-size:.4em; font-weight:700; color:var(--muted); margin-left:.25em; letter-spacing:.02em}
+.rd-stat-k{display:block; font-size:13px; font-weight:700; line-height:1.5; color:var(--muted); margin-top:.2rem}
+
+/* ---- 4. 手順チェックリスト ---- */
+.rd-check{border:1px solid color-mix(in srgb, var(--good) 35%, transparent); border-left:5px solid var(--good);
+  background:var(--good-soft); border-radius:10px; padding:.9rem 1.2rem .7rem; margin:1.4rem 0 2rem}
+.rd-check-h{font-size:.86rem !important; font-weight:800; letter-spacing:.06em; color:var(--good); margin:0 0 .3rem !important}
+.rd-check ol{list-style:none; counter-reset:rdc; margin:0; padding:0}
+.rd-check li{counter-increment:rdc; position:relative; margin:0; padding:.55rem 0 .55rem 2.5rem;
+  font-size:15.5px; line-height:1.8; border-top:1px solid color-mix(in srgb, var(--good) 18%, transparent)}
+.rd-check li:first-child{border-top:0}
+.rd-check li::before{content:counter(rdc); position:absolute; left:0; top:.68rem; width:1.55rem; height:1.55rem;
+  border:2px solid var(--good); border-radius:5px; background:var(--bg); color:var(--good);
+  font-size:.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; line-height:1}
+
+/* ---- 5. やる／やらない（左右2列）。is-choice は「条件→選択」の2択に使う ---- */
+.rd-dodont{display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.4rem 0 2rem}
+.rd-dodont > div{border:1.5px solid var(--line); border-radius:12px; padding:.85rem 1.1rem .6rem}
+.rd-dodont p, .rd-dodont li{font-size:15px; line-height:1.75}
+.rd-dodont p{margin:0 0 .5rem}
+.rd-dodont ul{margin:0 0 .4rem; padding-left:1.2em}
+.rd-dodont li{margin:.25em 0}
+.rd-dd-h{font-size:1.05rem !important; font-weight:800; line-height:1.5; margin:0 0 .4rem !important}
+.rd-do{border-color:var(--good) !important; background:var(--good-soft)}
+.rd-dont{border-color:var(--danger) !important; background:var(--danger-soft)}
+.rd-do .rd-dd-h{color:var(--good)} .rd-do .rd-dd-h::before{content:"○ "}
+.rd-dont .rd-dd-h{color:var(--danger)} .rd-dont .rd-dd-h::before{content:"✕ "}
+.rd-dodont.is-choice > div{border-color:var(--accent) !important; background:var(--accent-soft)}
+.rd-dodont.is-choice .rd-dd-h{color:var(--accent-ink,var(--accent))}
+.rd-dodont.is-choice .rd-dd-h::before{content:none}
+@media (max-width:640px){ .rd-dodont{grid-template-columns:1fr} }
+
+/* ---- 印刷：色を保ち、根拠は開いて出す ---- */
+@media print{
+  .rd, .rd *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .rd > h2{display:flex; align-items:center; gap:6pt; padding:3pt 6pt 3pt 0; border:0; background:var(--accent-soft)}
+  .rd > h2 .no{align-self:stretch; display:flex; align-items:center; margin:-3pt 0; padding:0 6pt;
+    background:var(--accent); color:var(--rd-on-accent)}
+  .rd > h3{border-left:4pt solid var(--accent); padding-left:5pt}
+  .rd .rd-lead{font-weight:700; color:var(--navy)}
+  details.rd-ev::details-content{content-visibility:visible; display:block}
+  details.rd-ev{break-inside:auto}
+  details.rd-ev > summary::before{content:""}
+  .rd-points, .rd-check, .rd-dodont, .rd-stats{break-inside:avoid; page-break-inside:avoid}
+  .rd-stat-v{font-size:18pt}
+}
+
+/* linked resource card (2026-10-06) — 姉妹資料へのリンクカード */
+.xl-card{display:flex; gap:1rem; align-items:center; margin:1.6rem 0; padding:1.1rem 1.3rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--accent-soft); text-decoration:none !important; color:var(--fg)}
+.xl-card:hover{box-shadow:0 2px 14px rgba(0,132,181,.22)}
+.xl-card .xl-b{display:block; min-width:0}
+.xl-card .xl-k{display:block; font-size:.74rem; font-weight:700; letter-spacing:.1em; color:var(--accent-ink,var(--accent))}
+.xl-card .xl-t{display:block; font-size:1.15rem; font-weight:800; color:var(--navy,var(--fg)); line-height:1.45; margin-top:.15rem}
+.xl-card .xl-s{display:block; font-size:.9rem; color:var(--muted); line-height:1.6; margin-top:.25rem}
+.xl-card .xl-go{flex:none; margin-left:auto; font-weight:700; font-size:.9rem; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.45em 1.1em; white-space:nowrap}
+.xl-card.is-small{padding:.75rem 1.1rem; margin:1.1rem 0}
+.xl-card.is-small .xl-t{font-size:1.02rem}
+@media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
+@media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
+/* /linked resource card */
+/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+.mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
+.mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
+a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
+.mo-ip-xk{display:inline-block; margin-right:.45em; padding:0 .42em; border-radius:4px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.6; vertical-align:.08em; background:rgba(255,196,110,.16); color:#ffd59a}
+@media (max-width:460px){
+  .mo-ip-sub{font-size:11.5px !important; margin:-.6rem 0 .85rem !important} .mo-ip-x{font-size:11.5px}
+}
+@media print{
+  .mo-ip-sub{color:var(--ink, #26333f) !important; font-size:8pt !important; margin:-3pt 0 4pt !important}
+  .mo-ip-x{color:var(--ink, #26333f) !important; font-size:7.2pt; border-top-color:rgba(10,110,150,.3)}
+  .mo-ip-xk{background:#fff3df !important; color:#8a5a00 !important}
+}
+/* resident motion (resident-motion.css) — レジデント教育HTMLの動きの共通部品（2026-10-05）
+   手引き：resident-motion-guide.md。クラス・データ属性は mo- で始める。
+   ・動きは resident-motion.js が <html> に .mo-on を付けたときだけ。JSが無い・動きを減らす設定・印刷・PDFでは
+     HTMLのまま（＝最終状態）で表示される。隠す指定はすべて .mo-on の下に書く。
+   ・1回動いて止まる。ループ・点滅・揺れ続けは使わない。動かすのは opacity / transform / stroke-dashoffset だけ。
+   ・色は本文の :root 変数（--accent / --accent-soft / --danger / --danger-soft / --line / --muted / --bg / --code / --navy / --ink）。 */
+
+@media screen{
+/* ---------- 1. 図の中の動き（場面 = scene。要素ごとに .mo-pre → .mo-go） ---------- */
+.mo-x{--mo-del:calc(var(--d, 0s) + var(--mo-o, 0s) - var(--mo-seek, 0s))}
+.mo-on .mo-pre.mo-fade, .mo-on .mo-pre.mo-rise, .mo-on .mo-pre.mo-pop,
+.mo-on .mo-pre.mo-slide, .mo-on .mo-pre.mo-slider, .mo-on .mo-pre.mo-stamp{opacity:0}
+.mo-on .mo-pre.mo-growx{transform:scaleX(0)}
+.mo-on .mo-pre.mo-growy{transform:scaleY(0)}
+.mo-on .mo-pre.mo-draw{stroke-dashoffset:1}
+.mo-on .mo-pre.mo-growu{transform:scaleY(0)}
+.mo-on .mo-pre.mo-barx{scale:0 1}
+.mo-on .mo-pre.mo-dotp{opacity:0}
+.mo-on .mo-pre.mo-wipel{clip-path:inset(-1em -1em -1em 100%)}
+svg .mo-growu{transform-box:fill-box; transform-origin:center bottom}
+.mo-barx{transform-origin:left center}
+.mo-draw{stroke-dasharray:1}
+.mo-growx{transform-origin:left center}
+.mo-growy{transform-origin:center top}
+svg .mo-pop, svg .mo-stamp{transform-box:fill-box; transform-origin:center}
+svg .mo-growx{transform-box:fill-box}
+svg .mo-growy{transform-box:fill-box}
+.mo-on .mo-go.mo-fade{animation:mo-fade var(--mo-t, .45s) ease-out var(--mo-del) both}
+.mo-on .mo-go.mo-rise{animation:mo-rise var(--mo-t, .55s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-pop{animation:mo-pop var(--mo-t, .5s) cubic-bezier(.3,1.45,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slide{animation:mo-slide var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-slider{animation:mo-slider var(--mo-t, .5s) cubic-bezier(.2,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-stamp{animation:mo-stamp var(--mo-t, .45s) cubic-bezier(.3,1.3,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growx{animation:mo-growx var(--mo-t, .45s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growy{animation:mo-growy var(--mo-t, .35s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-draw{animation:mo-draw var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+.mo-on .mo-go.mo-growu{animation:mo-growy var(--mo-t, .6s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-barx{animation:mo-barx var(--mo-t, .5s) cubic-bezier(.3,.7,.2,1) var(--mo-del) both}
+.mo-on .mo-go.mo-dotp{animation:mo-dotp var(--mo-t, .45s) cubic-bezier(.3,1.5,.5,1) var(--mo-del) both}
+.mo-on .mo-go.mo-wipel{animation:mo-wipel var(--mo-t, .8s) cubic-bezier(.45,.1,.25,1) var(--mo-del) both}
+/* 終わりの値は書かない（to を省く）＝元の opacity・transform 属性に戻って止まる */
+@keyframes mo-fade{from{opacity:0}}
+@keyframes mo-rise{from{opacity:0; transform:translateY(12px)}}
+@keyframes mo-pop{from{opacity:0; transform:scale(.82)}}
+@keyframes mo-slide{from{opacity:0; transform:translateX(-18px)}}
+@keyframes mo-slider{from{opacity:0; transform:translateX(18px)}}
+@keyframes mo-stamp{from{opacity:0; transform:scale(1.5) rotate(-6deg)}}
+@keyframes mo-growx{from{transform:scaleX(0)}}
+@keyframes mo-growy{from{transform:scaleY(0)}}
+@keyframes mo-draw{from{stroke-dashoffset:1}}
+/* HTMLの棒・点（範囲の横棒など）は transform を持つので、独立した scale プロパティで動かす */
+@keyframes mo-barx{from{scale:0 1}}
+@keyframes mo-dotp{from{opacity:0; scale:.2}}
+/* 戻りの線：右（最後の段）から左（最初の段）へ。HTML要素だけに使うので終わりの値を書いてよい（終わると外れる） */
+@keyframes mo-wipel{from{clip-path:inset(-1em -1em -1em 100%)} to{clip-path:inset(-1em -1em -1em 0)}}
+
+/* 装置の鎖のガスの粒（JSが作り、流れ終わると消す） */
+.mo-on .nf-steps.is-chain{position:relative}
+.mo-gas-lay{position:absolute; left:0; top:0; width:0; height:0; pointer-events:none; z-index:2}
+.mo-gas{position:absolute; left:-5px; top:-5px; width:10px; height:10px; border-radius:50%; opacity:0;
+  background:var(--accent); box-shadow:0 0 0 2px var(--bg), 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)}
+
+/* 疑似要素の線（判断の流れの幹・階段の矢印）：持ち主の --mo-del を継承して伸びる */
+.mo-on .nf-root.mo-pre::after, .mo-on .nf-groups.mo-pre::before{transform:scaleY(0)}
+.mo-on .nf-root.mo-go::after, .mo-on .nf-groups.mo-go::before{transform-origin:center top;
+  animation:mo-growy .32s cubic-bezier(.3,.7,.2,1) calc(var(--mo-del) + var(--mo-ld, 0s)) both}
+.mo-on .nf-root.mo-go::after{--mo-ld:.3s}
+.mo-on .nf-step.mo-pre::after, .mo-on .nf-return.mo-pre::before, .mo-on .nf-return.mo-pre::after{opacity:0}
+.mo-on .nf-step.mo-go::after{animation:mo-fade .3s ease-out calc(var(--mo-del) - .12s) both}
+.mo-on .nf-return.mo-go::before, .mo-on .nf-return.mo-go::after{animation:mo-fade .4s ease-out var(--mo-del) both}
+
+/* 画像の上の印（赤丸のサイン・番号）：1回だけ脈打って消える。画像そのものは変えない */
+.mo-imgwrap{position:relative; display:block}
+.mo-ring{position:absolute; border-radius:50%; pointer-events:none; opacity:0;
+  border:3px solid var(--danger); box-shadow:0 0 0 6px color-mix(in srgb, var(--danger) 18%, transparent)}
+.mo-ring.is-accent{border-color:var(--accent); box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent)}
+.mo-on .mo-go.mo-ring{animation:mo-ping var(--mo-t, 1s) cubic-bezier(.25,.6,.3,1) var(--mo-del) both}
+@keyframes mo-ping{0%{opacity:0; transform:scale(.72)} 28%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(1.3)}}
+
+/* 波形を時間軸に沿って描くときのカーソル（JSが作り、描き終わると消す） */
+.mo-cur{stroke:var(--accent); stroke-width:1.5; opacity:.35}
+.mo-tip{fill:var(--accent); stroke:var(--bg); stroke-width:2}
+.mo-pt{fill:var(--accent); stroke:var(--bg); stroke-width:1.5}
+
+/* もう一度：図の枠の上辺に載せる。動き終わってから出す */
+.mo-on .mo-fig{position:relative}
+.mo-replay{position:absolute; top:-.95em; right:.9em; z-index:3; font:inherit; font-size:12px; font-weight:700; line-height:1;
+  color:var(--accent-ink, var(--accent)); background:var(--bg); border:1.5px solid var(--accent); border-radius:999px;
+  padding:.45em .9em .5em; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .3s, background .15s}
+.mo-replay:hover{background:var(--accent-soft)}
+.mo-replay:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mo-end > .mo-replay{opacity:1; pointer-events:auto}
+
+/* ---------- 2. 本文の動き（スクロールで1回） ---------- */
+.mo-on .mo-rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo-on .mo-rv.mo-in{opacity:1; transform:none}
+/* 章見出し：色帯が左から拭き出され、下に線が引かれる */
+.mo-on .rd > h2.mo-h{position:relative; clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in{clip-path:inset(0 0 0 0)}
+.mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
+  transform:scaleX(0); transform-origin:left center; transition:transform .9s .3s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in::after{transform:scaleX(1)}
+.mo-on .rd > h3.mo-h{opacity:0; transform:translateX(-12px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h3.mo-h.mo-in{opacity:1; transform:none}
+/* 「この章のポイント」：1行ずつ。番号の丸が弾む */
+.mo-on .rd-points li.mo-li{opacity:0; transform:translateX(-10px); transition:opacity .45s ease var(--dd, 0s), transform .5s cubic-bezier(.2,.7,.2,1) var(--dd, 0s)}
+.mo-on .rd-points li.mo-li::before{transform:scale(0); transition:transform .45s cubic-bezier(.3,1.6,.5,1) calc(var(--dd, 0s) + .12s)}
+.mo-on .rd-points li.mo-li.mo-in{opacity:1; transform:none}
+.mo-on .rd-points li.mo-li.mo-in::before{transform:none}
+.mo-on .rd-points .rd-points-f.mo-li{opacity:0; transition:opacity .6s ease var(--dd, 0s)}
+.mo-on .rd-points .rd-points-f.mo-li.mo-in{opacity:1}
+/* 節頭の結論の一文：下3分の1にマーカーを引く（画面だけ。印刷・PDFには出さない） */
+.mo-on .mo-mark{background-image:linear-gradient(transparent 64%, color-mix(in srgb, var(--accent) 24%, transparent) 64%, color-mix(in srgb, var(--accent) 24%, transparent) 94%, transparent 94%);
+  background-repeat:no-repeat; background-size:0% 100%; transition:background-size 1.1s cubic-bezier(.45,.1,.25,1)}
+.mo-on .mo-mark.mo-in{background-size:100% 100%}
+/* 表の行・選択肢の2枚：順に */
+.mo-on tr.mo-row{opacity:0; transition:opacity .4s ease}
+.mo-on tr.mo-row.mo-in{opacity:1}
+.mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
+.mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 数値チップ：カウントアップ中は幅を固定して揺れない */
+.mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
+.mo-on .rd-stat{transition:box-shadow .5s ease}
+.mo-on .rd-stat.mo-in{box-shadow:0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent)}
+}
+
+/* ---------- 3. 読了プログレスバーと目次の現在地 ---------- */
+.mo-on #rs-progress{height:4px; background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, var(--bg)), var(--accent));
+  box-shadow:0 0 10px color-mix(in srgb, var(--accent) 45%, transparent); border-radius:0 3px 3px 0}
+#mo-ticks{position:fixed; top:0; left:0; right:0; height:4px; z-index:61; pointer-events:none}
+#mo-ticks i{position:absolute; top:0; width:2px; height:4px; margin-left:-1px; background:color-mix(in srgb, var(--muted) 45%, transparent); transition:background .3s}
+#mo-ticks i.on{background:var(--bg)}
+.mo-on #rs-nav{position:relative}
+.mo-on #rs-nav a.on{border-left-color:transparent}
+.mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
+
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+.mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
+  background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
+.mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
+.mo-ip-wave path{fill:none; stroke:#7fd3f2; stroke-width:2.2; stroke-linejoin:round; }
+.mo-ip-k{position:relative; margin:0 0 .15rem !important; font-size:.78rem !important; letter-spacing:.18em; font-weight:800; color:#7fd3f2}
+.mo-ip-h{position:relative; margin:0 0 1.05rem !important; font-size:1.42rem !important; font-weight:800; line-height:1.45; color:#fff}
+.mo-ip-g{position:relative; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.7rem}
+a.mo-ip-t{display:flex; flex-direction:column; gap:.15rem; padding:.85rem 1rem .9rem; border-radius:12px; text-decoration:none; color:inherit;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:background .2s, border-color .2s}
+a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,.55)}
+.mo-ip-l{font-size:12.5px; font-weight:700; letter-spacing:.06em; color:#a9c7d8}
+.mo-ip-v{font-size:2.15rem; font-weight:800; line-height:1.15; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+.mo-ip-v small{font-size:.42em; font-weight:700; color:#a9c7d8; margin-left:.3em; letter-spacing:.02em}
+.mo-ip-v .mo-ip-or{font-size:.55em; color:#a9c7d8; margin:0 .25em}
+.mo-ip-v.is-word{font-size:1.65rem}
+.mo-ip-pop{display:inline-block}
+.mo-ip-v small{white-space:nowrap}
+.mo-ip-v.is-long{white-space:nowrap}   /* 「30〜60」「0.21〜1.0」など幅のある値。スマホでは字を小さくして1行に収める */
+.mo-ip-s{font-size:13px; line-height:1.6; color:#cfe0ea}
+.mo-ip-n{position:relative; margin:.8rem 0 0 !important; font-size:12px !important; color:#a9c7d8; text-align:right}
+@media (max-width:820px){ .mo-ip-g{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:460px){
+  .mo-ip{padding:2.7rem 1rem 1.05rem; border-radius:14px}
+  .mo-ip-h{font-size:1.2rem !important}
+  .mo-ip-g{gap:.5rem}
+  a.mo-ip-t{padding:.7rem .75rem .75rem}
+  .mo-ip-v{font-size:1.75rem} .mo-ip-v.is-word{font-size:1.3rem} .mo-ip-v.is-long{font-size:1.38rem}
+  .mo-ip-v.is-long small{font-size:.5em; margin-left:.2em}
+  .mo-ip-s{font-size:12px}
+}
+
+/* ---------- 5. ボンベの持ち時間（.mo-tank）：時間を縮めて2本を比べる ---------- */
+.mo-tank{--tk-c:var(--accent)}
+.mo-tk-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.2em 1em; margin:0 0 .7em}
+.mo-tk-clock{font-weight:800; color:var(--navy, var(--fg)); font-size:1.05em}
+.mo-tk-clock b{display:inline-block; min-width:2.6em; text-align:right; font-size:1.5em; color:var(--accent-ink, var(--accent)); font-variant-numeric:tabular-nums}
+.mo-tk-note{font-size:.84em; color:var(--muted)}
+.mo-tk-rows{position:relative; display:grid; gap:1.05em}
+.mo-tk-row{display:grid; grid-template-columns:3.1em minmax(0, 1fr) 6.4em; column-gap:.8em; row-gap:.25em; align-items:center}
+.mo-tk-row.is-danger{--tk-c:var(--danger)}
+.mo-tk-lab{grid-column:1 / -1; font-weight:700; color:var(--navy, var(--fg)); line-height:1.5}
+.mo-tk-lab small{font-weight:400; color:var(--muted); font-size:.88em}
+.mo-tk-cyl{position:relative; justify-self:center; width:1.9em; height:3.4em; border:2px solid var(--tk-c); border-radius:.75em .75em .5em .5em; background:var(--bg); overflow:hidden}
+.mo-tk-cyl::before{content:""; position:absolute; left:50%; top:-1px; width:.7em; height:.32em; margin-left:-.35em; border-radius:0 0 3px 3px; background:var(--tk-c)}
+.mo-tk-gas{position:absolute; left:0; right:0; bottom:0; height:100%; background:color-mix(in srgb, var(--tk-c) 34%, var(--bg)); transform-origin:center bottom; transform:scaleY(var(--g, 0))}
+.mo-tk-track{position:relative; height:1.5em; border-radius:6px; background:var(--code);
+  background-image:linear-gradient(to right, var(--line) 1px, transparent 1px); background-size:20% 100%; box-shadow:inset -1px 0 0 var(--line)}
+.mo-tk-bar{position:absolute; left:0; top:.22em; bottom:.22em; width:calc(var(--v) * 100%); border-radius:4px; transform-origin:left center;
+  background:linear-gradient(90deg, var(--tk-c) calc(var(--lo, 1) * 100%), color-mix(in srgb, var(--tk-c) 38%, var(--bg)) 0)}
+.mo-tk-zone{position:absolute; top:0; bottom:0; left:calc(var(--a) / 10 * 100%); width:calc((var(--b) - var(--a)) / 10 * 100%);
+  background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--danger) 45%, transparent) 0 3px, transparent 3px 7px); border-radius:3px; z-index:1}
+.mo-tk-val{font-weight:800; color:var(--tk-c); font-size:1.15em; line-height:1.3; font-variant-numeric:tabular-nums}
+.mo-tk-axis{position:relative; height:1.3em; margin:.35em 0 0 calc(3.1em + .8em); margin-right:calc(6.4em + .8em); color:var(--muted)}
+.mo-tk-axis span{position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; font-size:.8em; font-variant-numeric:tabular-nums}
+.mo-tk-cur{position:absolute; top:-.3em; bottom:-.3em; width:2px; margin-left:-1px; background:var(--navy, var(--fg)); opacity:.55; pointer-events:none}
+@media (max-width:460px){
+  .mo-tk-row{grid-template-columns:2.2em minmax(0, 1fr) 5.6em; column-gap:.5em}
+  .mo-tk-axis{margin-left:calc(2.2em + .5em); margin-right:calc(5.6em + .5em)}
+  .mo-tk-val{font-size:.92em; white-space:nowrap}
+}
+
+/* 点検用（window.RESMO_TEST）：全部の動きをその時刻で止める */
+.mo-paused .mo-go, .mo-paused .mo-go::before, .mo-paused .mo-go::after{animation-play-state:paused !important}
+.mo-paused .mo-rv, .mo-paused .mo-h, .mo-paused .mo-h::after, .mo-paused .mo-li, .mo-paused .mo-li::before, .mo-paused .mo-mark,
+.mo-paused tr.mo-row, .mo-paused .mo-cl, .mo-paused .mo-cr{transition:none !important}
+
+/* ---------- 6. 印刷・PDF：隠す指定はすべて @media screen の中なので、紙には常に最終状態が出る ---------- */
+@media print{
+  .mo-ring, .mo-replay, .mo-cur, .mo-tip, .mo-pt, .mo-tk-cur, #mo-ticks, .mo-navind, .mo-gas-lay{display:none !important}
+  .mo-ip{color:var(--ink, #26333f); background:#fff !important; border:1.5pt solid var(--accent); box-shadow:none; padding:8pt 10pt; margin:6pt 0 10pt;
+    break-inside:avoid; page-break-inside:avoid}
+  .mo-ip-wave, .mo-ip-n{display:none}
+  .mo-ip-k, .mo-ip-l, .mo-ip-v small, .mo-ip-v .mo-ip-or, .mo-ip-n{color:var(--accent-ink, #0a6e96) !important}
+  .mo-ip-h, .mo-ip-v{color:var(--navy, #1d3348) !important}
+  .mo-ip-h{font-size:12pt !important; margin-bottom:5pt !important}
+  .mo-ip-s{color:var(--ink, #26333f) !important; font-size:7.6pt}
+  .mo-ip-g{grid-template-columns:repeat(3, minmax(0, 1fr)) !important; gap:4pt}
+  a.mo-ip-t{background:var(--accent-soft, #e8f4fa) !important; border:0; padding:4pt 6pt}
+  .mo-ip-v{font-size:15pt} .mo-ip-v.is-word{font-size:12pt}
+  .mo-tank, .mo-tank *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  figure.fig.mo-tkfig{break-inside:avoid; page-break-inside:avoid}
+}
+/* /resident motion (resident-motion.css) */
+
+/* ===== このページだけの部品：会話の吹き出し・肝の枠・図の小物 ===== */
+.talk{display:flex; flex-direction:column; gap:.7rem; margin:1.2rem 0 1.8rem; padding:1rem 1.1rem;
+  border:1px solid var(--line); border-radius:12px; background:var(--code)}
+.talk-h{font-size:.82rem; font-weight:800; letter-spacing:.08em; color:var(--muted); margin:0 0 .1rem}
+.bub{position:relative; max-width:88%; padding:.6rem .95rem .65rem; border-radius:14px; line-height:1.75; font-size:.96em;
+  background:var(--bg); border:1px solid var(--line)}
+.bub .who{display:block; font-size:.74rem; font-weight:800; letter-spacing:.06em; color:var(--muted); margin-bottom:.15rem}
+.bub.dr{align-self:flex-start; background:var(--accent-soft); border-color:color-mix(in srgb, var(--accent) 35%, transparent);
+  border-top-left-radius:4px}
+.bub.dr .who{color:var(--accent-ink,var(--accent))}
+.bub.fam{align-self:flex-end; border-top-right-radius:4px}
+.bub.ng{border-color:color-mix(in srgb, var(--danger) 45%, transparent); background:var(--danger-soft)}
+.bub.ng .who{color:var(--danger)}
+.bub .stg{display:inline-block; font-size:.72rem; font-weight:800; letter-spacing:.04em; color:var(--bg); background:var(--accent);
+  border-radius:999px; padding:.02em .7em .06em; margin-right:.45em; vertical-align:.08em}
+.bub.ng .stg{background:var(--danger)}
+.talk .pause{align-self:center; font-size:.8rem; color:var(--muted); letter-spacing:.2em}
+.kimo{border:2.5px solid var(--accent); border-radius:14px; padding:1.1rem 1.3rem 1rem; margin:1.6rem 0 2.4rem;
+  background:var(--accent-soft); box-shadow:0 2px 14px color-mix(in srgb, var(--accent) 16%, transparent)}
+.kimo-h{display:inline-block; font-size:.82rem !important; font-weight:800; letter-spacing:.12em; color:var(--bg);
+  background:var(--accent); border-radius:999px; padding:.15em 1em .2em; margin:0 0 .6rem !important}
+.kimo .big{font-size:1.24rem; font-weight:800; line-height:1.6; color:var(--navy); margin:0 0 .7rem}
+.kimo .big em{font-style:normal; color:var(--accent-ink,var(--accent))}
+.kimo ol{list-style:none; counter-reset:km; margin:.4rem 0 .6rem; padding:0; display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem}
+.kimo ol li{counter-increment:km; margin:0; padding:.6rem .8rem .7rem; background:var(--bg); border:1px solid var(--line);
+  border-top:4px solid var(--accent); border-radius:8px; font-size:.95em; line-height:1.6}
+.kimo ol li::before{content:counter(km); display:inline-flex; align-items:center; justify-content:center; width:1.5em; height:1.5em;
+  border-radius:50%; background:var(--accent); color:var(--bg); font-weight:800; font-size:.85em; margin-right:.4em}
+.kimo ol li b{color:var(--navy)}
+.kimo .foot{font-size:.9rem; line-height:1.75; color:var(--ink,var(--fg)); margin:.5rem 0 0}
+@media screen and (max-width:640px){ .kimo ol{grid-template-columns:1fr} .bub{max-width:100%} }
+.nf-steps.strength .nf-step{font-size:.92em; line-height:1.6}
+.nf-steps.strength .nf-step .nf-q{display:block; margin-bottom:.25em}
+.nf-steps.strength .nf-step .say{display:block; color:var(--ink,var(--fg))}
+.nf-steps.strength .nf-step .nf-when{margin-top:.35em; font-weight:500}
+.nf-steps.strength .nf-step.is-ng{border-top-color:var(--danger); background:var(--danger-soft)}
+.nf-steps.strength .nf-step.is-ng::before{background:var(--danger)}
+.nf-scale{display:flex; justify-content:space-between; font-size:.8em; font-weight:700; color:var(--muted); margin:.5em .2em 0}
+@media screen and (max-width:640px){
+  .nf-steps.strength{grid-auto-flow:row; grid-auto-columns:auto}
+  .nf-steps.strength .nf-step{margin-top:0}
+  .nf-scale{display:none}
+}
+.legend-sw{display:inline-block; width:.95em; height:.95em; border-radius:3px; vertical-align:-.1em; margin-right:.3em}
+@media print{ .talk, .kimo{break-inside:avoid; page-break-inside:avoid} .kimo{box-shadow:none} }
+
+</style>
+<style id="slide-btn-css">.slide-btn-wrap{margin:.4rem 0 .8rem}.slide-btn{display:inline-block;padding:.45rem 1.1rem;border-radius:999px;background:linear-gradient(120deg,#0d2b3e,#0b4a68);color:#fff!important;text-decoration:none;font-weight:600;font-size:.95rem;letter-spacing:.04em}.slide-btn:hover{opacity:.9}@media print{.slide-btn-wrap{display:none!important}}</style></head>
+<body data-refstyle="1">
+<div id="rs-progress"></div>
+<div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">なぜACPはうまくいかないのか</span></div>
+<aside id="rs-side"><div class="hd"><div class="ttl">なぜACPはうまくいかないのか</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#s0" title="§0 要点 — 3行まとめと、この連載の肝">§0 要点</a>
+<a class="lv2" href="#s1" title="§1 連載10回の構成">§1 連載10回の構成</a>
+<a class="lv2" href="#s2" title="§2 3ステージ — 順番を守ることがすべて">§2 3ステージ</a>
+<a class="lv3" href="#s2-1" title="よくある失敗と、ゴールが要る理由">よくある失敗と、ゴールが要る理由</a>
+<a class="lv3" href="#s2-2" title="SDMをパソコン選びで考える">SDMをパソコン選びで考える</a>
+<a class="lv2" href="#s3" title="§3 提案と誘導の境目、提案の強さ — 3rdステージ">§3 提案と誘導の境目、提案の強さ</a>
+<a class="lv2" href="#s4" title="§4 事前指示書の7条件と理想のACP — 書類より価値観の共有">§4 事前指示書の7条件と理想のACP</a>
+<a class="lv3" href="#s4-1" title="事前指示書が効くまでに必要な7条件">事前指示書が効くまでに必要な7条件</a>
+<a class="lv3" href="#s4-2" title="理想のACP">理想のACP</a>
+<a class="lv2" href="#s5" title="§5 ACPで尋ねる4つの質問 — 上限と下限を探る">§5 ACPで尋ねる4つの質問</a>
+<a class="lv2" href="#s6" title="§6 予後を伝える — 「死ぬんですか？」に答える">§6 予後を伝える</a>
+<a class="lv2" href="#s7" title="§7 「本人には言わないで」と言われたら">§7 本人には言わないでと言われたら</a>
+<a class="lv2" href="#s8" title="§8 「時間がない」への答え — 2ndを飛ばすと遠回りになる">§8 時間がないへの答え</a>
+<a class="lv2" href="#s9" title="§9 反復とスキル — オウム返しをやめ、磨き方を決める">§9 反復とスキル</a>
+<a class="lv3" href="#s9-1" title="反復ではなく、理由を聞く">反復ではなく、理由を聞く</a>
+<a class="lv3" href="#s9-2" title="スキルの磨き方">スキルの磨き方</a>
+<a class="lv2" href="#s10" title="§10 ICUでの使いどころ">§10 ICUでの使いどころ</a>
+<a class="lv2" href="#refs" title="出典と関連資料">出典と関連資料</a>
+</nav></aside>
+<div id="rs-scrim"></div>
+<main>
+
+<h1 id="top">なぜACPはうまくいかないのか — 3ステージ・4つの質問・予後の伝え方</h1>
+<p class="slide-btn-wrap"><a class="slide-btn" href="なぜACPはうまくいかないのか 講義スライド.html" target="_blank" rel="noopener">🎞 スライドで見る</a></p><script>(function(){if(/^https?:$/.test(location.protocol)){var a=document.querySelector(".slide-btn");if(a)a.href="https://hiro-oka.github.io/icu-masterclass/acp-three-stage-lecture/";}})();</script>
+<p class="sub">中川俊一（コロンビア大学 成人緩和ケア部門）の m3.com 臨床ニュース連載（全10回・2024年12月〜2025年2月）を、ICUの家族面談とACPで使える形に整理した要約。原典は書籍『あなたのACPはなぜうまくいかないのか？』（メジカルビュー社、2024）。原文の引き写しではなく、連載の論点を横断してまとめ直したもの。</p>
+<div class="meta"><span>緩和ケア</span><span>ACP</span><span>Goals of Care</span><span>意思決定支援</span><span>家族面談</span></div>
+
+<section class="rd">
+<h2 id="s0"><span class="no">§0</span>要点 — 3行まとめと、この連載の肝</h2>
+<p>重い会話がこじれる原因の多くは、話す順番と聞き方にあります。先に全体像を3行で、続けて面談でいちばん効く「肝」を示します。</p>
+
+<div class="rd-points">
+<p class="rd-points-h">3行まとめ</p>
+<ol>
+<li>重い会話は「病状 → ゴール → 治療の選択肢」の順に進める。最も多い失敗は、ゴールを飛ばしていきなり心肺蘇生の希望を聞くこと</li>
+<li>ACPは事前指示書を作るイベントではない。本人の価値観をできるだけ多くの家族と共有し続けるプロセスで、書類のことは忘れてよい</li>
+<li>ゴールが決まったら、医療者は推奨つきで提案する。中立に「どうしますか」と聞くのは、尊重に見えて決断の丸投げになる</li>
+</ol>
+</div>
+
+<div class="kimo">
+<p class="kimo-h">肝</p>
+<p class="big">相手に選ばせず、医師から<em>提案</em>する。ただし状況によって<em>提案の強さ</em>を変える。</p>
+<p class="foot" style="margin:0 0 .5rem">提案と誘導を分けるのは、土台に本人の価値観があるかどうか。強さを決める要素は3つです。</p>
+<ol>
+<li><b>医学的な確かさ</b><br>無益なことがどこまで明らかか</li>
+<li><b>価値観の明確さ</b><br>本人が何を大切にするかが聴けているか</li>
+<li><b>委ねたい気持ち</b><br>家族が決定を医療者に委ねたいか</li>
+</ol>
+<p class="foot">「しません」と言い切る informed assent と、方針を示して反対があれば言ってもらう informed nondissent は、どちらも同じ線の強い側にあります（§3）。<span class="src ext">Curtis JAMA2020</span><span class="src ext">AHA 2025</span></p>
+</div>
+</section>
+
+<section class="rd">
+<h2 id="s1"><span class="no">§1</span>連載10回の構成</h2>
+<p>10回は「順番（3ステージ）」「ACPの考え方」「難しい場面の言い方」「スキルの磨き方」の4つの塊に分かれます。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表1｜連載の構成</caption>
+<thead><tr><th>回</th><th>テーマ</th><th>一言で</th></tr></thead>
+<tbody>
+<tr><td class="num">01</td><td>はじめに</td><td>緩和ケア医はコミュニケーションの専門家。日本の医師は体系的に教わっていない</td></tr>
+<tr><td class="num">02</td><td>2nd：治療ゴールの設定</td><td>治療の話にいきなり入らない。SDMは段階で主従が入れ替わる</td></tr>
+<tr><td class="num">03</td><td>3rd：治療オプションの相談</td><td>中立の はい／いいえ の質問は、どちらにも良さがあると示唆してしまう</td></tr>
+<tr><td class="num">04</td><td>理想的なACPの形</td><td>事前指示書が効くには7条件がすべて要る。価値観の共有に集中する</td></tr>
+<tr><td class="num">05</td><td>ACPで尋ねる4つの質問</td><td>楽しみ → 生きがい → 気がかり → 許容できない状態の順に、上限と下限を探る</td></tr>
+<tr><td class="num">06</td><td>「私は死ぬんですか？」</td><td>予後ははぐらかさない。時間の単位で、許可を得て、沈黙を置いて伝える</td></tr>
+<tr><td class="num">07</td><td>「本人には言わないで」</td><td>家族の不安に対応したうえで、どこまで知りたいかを本人に聞く</td></tr>
+<tr><td class="num">08</td><td>「時間がない」への答え</td><td>ゴールの段を飛ばすと、かえって遠回りになる（ERで5分の実例）</td></tr>
+<tr><td class="num">09</td><td>反復という名のオウム返し</td><td>語尾を繰り返すだけの反復は思考停止。理由を聞いて掘る</td></tr>
+<tr><td class="num">10</td><td>コミュニケーションはスキル</td><td>手術手技と同じ。面談ごとに学びを1つ書き留める</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="rd">
+<h2 id="s2"><span class="no">§2</span>3ステージ — 順番を守ることがすべて</h2>
+<p>病状、ゴール、治療の選択肢の順に話し、段ごとに主導する側が入れ替わります。いちばん多い失敗は、2つ目のゴールの段を飛ばすことです。</p>
+
+<figure class="fig">
+<div class="nf">
+<div class="nf-panels"><div class="nf-panel">
+<svg class="nf-svg" viewBox="0 0 460 290" role="img" aria-label="3ステージで主導する側が入れ替わる模式図">
+  <rect class="nf-zone-d" x="162" y="14" width="136" height="268" rx="10"/>
+  <line class="nf-axis" x1="30" y1="200" x2="440" y2="200"/>
+  <rect class="nf-fa" x="55" y="50" width="34" height="150" rx="4"/>
+  <rect class="nf-fm" x="101" y="160" width="34" height="40" rx="4"/>
+  <rect class="nf-fa" x="190" y="160" width="34" height="40" rx="4"/>
+  <rect class="nf-fm" x="236" y="50" width="34" height="150" rx="4"/>
+  <rect class="nf-fa" x="325" y="50" width="34" height="150" rx="4"/>
+  <rect class="nf-fm" x="371" y="140" width="34" height="60" rx="4"/>
+  <text class="nf-ts" x="95" y="38" text-anchor="middle">医療者が主</text>
+  <text class="nf-ts nf-td" x="230" y="38" text-anchor="middle">患者・家族が主</text>
+  <text class="nf-ts" x="365" y="38" text-anchor="middle">医療者が主</text>
+  <text class="nf-t nf-tb" x="95" y="226" text-anchor="middle">1st 病状</text>
+  <text class="nf-t nf-tb nf-td" x="230" y="226" text-anchor="middle">2nd ゴール</text>
+  <text class="nf-t nf-tb" x="365" y="226" text-anchor="middle">3rd 選択肢</text>
+  <text class="nf-ts" x="95" y="250" text-anchor="middle">医療者が伝える</text>
+  <text class="nf-ts nf-td" x="230" y="250" text-anchor="middle">価値観を聴く</text>
+  <text class="nf-ts" x="365" y="250" text-anchor="middle">医療者が推奨</text>
+  <text class="nf-ts nf-td nf-tb" x="230" y="273" text-anchor="middle">飛ばしやすい段</text>
+  <text class="nf-ts" x="18" y="125" text-anchor="middle" transform="rotate(-90 18 125)">主導の大きさ</text>
+</svg>
+<div class="nf-legend"><span><span class="legend-sw" style="background:var(--accent-soft);border:2px solid var(--accent)"></span>医療者</span>　<span><span class="legend-sw" style="background:var(--code);border:2px solid var(--muted)"></span>患者・家族</span></div>
+<p class="nf-foot">模式図。棒の高さは主導の度合いを示す説明用で、数値ではない。</p>
+</div></div>
+</div>
+<figcaption><b>図1. 3ステージで主従が入れ替わる。</b>病状と治療の選択肢は医療者が主導し、間にあるゴールの段だけは患者・家族が主になる。</figcaption>
+</figure>
+<p class="figread">真ん中の段で主役が入れ替わるのが要点です。ここを飛ばすと、治療の判断材料が医学情報だけになり、<strong>「生きるか死ぬか」</strong>の二択になります。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表2｜3ステージの中身</caption>
+<thead><tr><th>ステージ</th><th>やること</th><th>主導</th></tr></thead>
+<tbody>
+<tr><td>1st 病状の説明</td><td>2分程度のサマリーで現状と見通しを伝える。予後がはっきりしていれば曖昧にしない</td><td>医療者</td></tr>
+<tr><td>2nd 治療ゴールの設定</td><td>本人が何を大切にし、何を恐れ、どう生きたいかを聴く</td><td><strong>患者・家族が主</strong>、医療者は従</td></tr>
+<tr><td>3rd 治療オプションの相談</td><td>聴いたゴールを医療行為に「翻訳」して推奨する</td><td><strong>医療者が主</strong>、患者・家族は従</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="s2-1">よくある失敗と、ゴールが要る理由</h3>
+<ul>
+<li><strong>2ndの省略</strong>：心停止時の心臓マッサージの希望をいきなり尋ねる、透析の可否を家族の話し合いに預ける。1stはこなせても、2ndを飛ばしてしまう。</li>
+<li><strong>はい／いいえで始めると泥沼になる</strong>：心肺蘇生に「いいえ」と答えても、抗菌薬・昇圧薬・人工栄養・透析・採血・画像と質問が延々と続き、患者側には答えようがない。</li>
+<li><strong>「どう生きるか」で決める</strong>：救命できても、長期人工呼吸のあと1年後に自立して暮らせるのは12%未満という報告がある<span class="src ext">Nelson AJRCCM2010</span>。元の機能に戻れないなら治療を望まない人が多い<span class="src ext">Fried NEJM2002</span>。</li>
+</ul>
+
+<h3 id="s2-2">SDMをパソコン選びで考える</h3>
+<div class="tablewrap">
+<table class="wide">
+<caption>表3｜3人の店員と、医療の意思決定の型</caption>
+<thead><tr><th>店員の対応</th><th>型</th><th>医療に置き換えると</th></tr></thead>
+<tbody>
+<tr><td>「これが間違いありません」と1台を勧める</td><td>パターナリズム</td><td>価値観を聴かずに決める</td></tr>
+<tr><td>性能の数字を並べて「どちらにしますか」</td><td>情報を浴びせて委ねる</td><td>ICUで心臓マッサージの希望を尋ねるのと同じ。素人には判断材料にならない</td></tr>
+<tr><td>使い道と予算を聞き、それに合う1台を勧める</td><td>ゴールを聞いてから推奨</td><td>前半が2nd、後半が3rd</td></tr>
+</tbody>
+</table>
+</div>
+<p class="rd-note">SDMは、双方が同じ情報を同じ重みで扱うことではなく、段階ごとに主導する側が入れ替わる<span class="src ext">Elwyn BMJ2010</span>。</p>
+</section>
+
+<section class="rd">
+<h2 id="s3"><span class="no">§3</span>提案と誘導の境目、提案の強さ — 3rdステージ</h2>
+<p>中立の「どうしますか」をやめ、推奨を先に述べてから相手の意見を尋ねます。提案か誘導かを分けるのは、言い方ではなく<strong>土台に価値観があるかどうか</strong>です。</p>
+
+<ul>
+<li><strong>居酒屋のたとえ</strong>：ひどい店の話をした後で「そこに行きたい？」と聞くのは不自然。中立に尋ねると、その選択肢にも検討の価値があるように聞こえる。</li>
+<li><strong>同じ言葉でも、順番で意味が変わる</strong>：2ndを飛ばして「心肺蘇生はしないほうがよい」と言えば、判断が正しくても誘導になる。「もう苦しみたくない」という価値観を聴いた後なら、同じ言葉が価値観を医療行為に翻訳した提案になる。</li>
+<li><strong>決断の重さは医療者が引き受ける</strong>：「しない」と決めることは、医療の素人には大きな心理的負担になる。はい／いいえで聞くのは医療者にとっては楽だが、責任を相手に預けている。</li>
+</ul>
+
+<figure class="fig">
+<div class="nf">
+<div class="nf-steps strength">
+<div class="nf-step" style="--lv:0"><span class="nf-q">informed assent</span><span class="say">「○○はしません。ご質問は？」</span><span class="nf-when">無益が明らかで、価値観もはっきりしている。ICU入室や透析にも使える</span></div>
+<div class="nf-step" style="--lv:1"><span class="nf-q">推奨して意見を聞く</span><span class="say">「しない方がよいと思います」＋意見を聞く</span><span class="nf-when">推奨ははっきり伝え、決定は一緒に行う</span></div>
+<div class="nf-step" style="--lv:2"><span class="nf-q">やや弱い推奨</span><span class="say">「○○はおすすめしません」</span><span class="nf-when">医学的な見込みに幅があるとき</span></div>
+<div class="nf-step is-ng" style="--lv:3"><span class="nf-q">中立に尋ねる</span><span class="say">「○○はどうしますか」</span><span class="nf-when">ゴールに寄与しないと分かっているなら使わない</span></div>
+</div>
+<div class="nf-scale"><span>← 強い（医療者が重さを引き受ける）</span><span>弱い（決断を相手に預ける）→</span></div>
+</div>
+<figcaption><b>図2. 提案の強さの段階。</b>左ほど強く、右端の中立な問いはゴールに寄与しないと分かっているときには使わない。言い方は要旨。</figcaption>
+</figure>
+<p class="figread">どの段を選ぶかは§0の3要素で決めます。<strong>医学的な確かさ・価値観の明確さ・委ねたい気持ち</strong>がそろうほど左に寄せ、そろわなければ右に下げます。価値観が聴けていなければ、提案の前に2ndに戻ります。</p>
+
+<div class="box">
+<span class="label">強い側のもう一つの言い方</span>
+<p>informed nondissent は、方針を示したうえで反対なら言ってほしいと伝えて拒否の余地を明示する言い方です<span class="src ext">AHA 2025</span>。informed assent と同じく、決定の重荷を医療者が引き受ける側にあります<span class="src ext">Curtis JAMA2020</span>。</p>
+</div>
+</section>
+
+<section class="rd">
+<h2 id="s4"><span class="no">§4</span>事前指示書の7条件と理想のACP — 書類より価値観の共有</h2>
+<p>事前指示書が実際の場面で効くには7つの条件がすべて要り、そろう確率は思ったより低くなります。ACPで力を注ぐべきなのは書類ではなく、価値観を家族と共有し続けることです。</p>
+
+<h3 id="s4-1">事前指示書が効くまでに必要な7条件</h3>
+<div class="tablewrap">
+<table class="narrow">
+<caption>表4｜7条件（A〜G）</caption>
+<thead><tr><th>記号</th><th>条件</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>本人が自分の価値観をわかっている</td></tr>
+<tr><td>B</td><td>代理人を決めている</td></tr>
+<tr><td>C</td><td>代理人が本人の価値観を知っている</td></tr>
+<tr><td>D</td><td>書類にしている</td></tr>
+<tr><td>E</td><td>その場に書類がある</td></tr>
+<tr><td>F</td><td>代理人がその場にいる</td></tr>
+<tr><td>G</td><td>医師が適切に話し合いを進める</td></tr>
+</tbody>
+</table>
+</div>
+<div class="rd-stats">
+<div class="rd-stat"><span class="rd-stat-v">48<small>%</small></span><span class="rd-stat-k">各条件が90%で満たされても、7つそろう確率（0.9の7乗）</span></div>
+<div class="rd-stat"><span class="rd-stat-v">0.8<small>%</small></span><span class="rd-stat-k">各条件が50%なら、7つそろう確率</span></div>
+</div>
+<ul>
+<li><strong>よくある失敗</strong>：Aを経ずにDだけ作る。勧められて書いたが内容を覚えていない。</li>
+<li><strong>逆効果のことも</strong>：書類を作ったことで「もう話さなくていい」となり、家族が本人の思いを知る機会を失う<span class="src ext">Auriemma JAMA Intern Med2022</span>。</li>
+<li><strong>AからFまでそろっても、Gで崩れる</strong>：挿管しなければ亡くなると告げられて同意を迫られたとき、書類どおりに答えられる家族は少ない。法的効力があっても、家族が納得しなければ機能しない。</li>
+</ul>
+
+<h3 id="s4-2">理想のACP</h3>
+<div class="box good">
+<span class="label">理想のACPの3点</span>
+<ul>
+<li><strong>本人が自分の価値観を言えること</strong>が根幹で、ここは譲れない。</li>
+<li>代理人を1人決めるより、<strong>価値観ができるだけ多くの家族に共有されている</strong>ことのほうが大事。遠くにいた家族ほど「全部やってくれ」と介入してくる（いわゆる Daughter from California）。原因は、その家族が本人の思いを聞いていないこと。</li>
+<li><strong>事前指示書のことは忘れてよい</strong>。元気なうちに3rdの治療選択まで決めるのはハードルが高すぎる。その時が来たら、積み重ねた会話で共有された価値観をもとに、家族と医療者が話し合って選ぶ。</li>
+</ul>
+</div>
+<p class="rd-note">ACPも Goals of Care の会話も、1回きりのイベントではなく続けるプロセスです。</p>
+</section>
+
+<section class="rd">
+<h2 id="s5"><span class="no">§5</span>ACPで尋ねる4つの質問 — 上限と下限を探る</h2>
+<p>人生の状態は白か黒かではなくグラデーションです。ACPは、その人が上はどこまで望み、下はどこまで許容するかの幅を、明るい質問から順に探る作業です。</p>
+
+<figure class="fig">
+<div class="nf">
+<div class="nf-panels"><div class="nf-panel">
+<svg class="nf-svg" viewBox="0 0 460 330" role="img" aria-label="人生の状態のグラデーションと4つの質問で探る上限と下限">
+  <defs>
+    <linearGradient id="acp-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--accent);stop-opacity:.85"/>
+      <stop offset="1" style="stop-color:var(--muted);stop-opacity:.18"/>
+    </linearGradient>
+    <marker id="acp-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--accent)"/></marker>
+    <marker id="acp-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--danger)"/></marker>
+  </defs>
+  <rect x="150" y="20" width="44" height="290" rx="8" fill="url(#acp-g)"/>
+  <!-- 許容できる幅 -->
+  <rect class="nf-zone-a" x="140" y="60" width="64" height="160" rx="6"/>
+  <line class="nf-guide" x1="134" y1="60" x2="214" y2="60"/>
+  <line class="nf-guide" x1="134" y1="220" x2="214" y2="220"/>
+  <!-- 状態のラベル（左） -->
+  <text class="nf-ts" x="140" y="34" text-anchor="end">マラソン・趣味</text>
+  <text class="nf-ts" x="140" y="110" text-anchor="end">自立した生活</text>
+  <text class="nf-ts" x="140" y="190" text-anchor="end">寝たきりでも話せる</text>
+  <text class="nf-ts" x="140" y="300" text-anchor="end">心臓が動いていれば</text>
+  <!-- 上限側の質問 -->
+  <line class="nf-sa" x1="300" y1="45" x2="214" y2="60" stroke-width="2" marker-end="url(#acp-a)"/>
+  <text class="nf-t nf-tb nf-ta" x="306" y="40">① 楽しみ</text>
+  <line class="nf-sa" x1="300" y1="95" x2="214" y2="72" stroke-width="2" marker-end="url(#acp-a)"/>
+  <text class="nf-t nf-tb nf-ta" x="306" y="100">② 生きがい</text>
+  <text class="nf-ts" x="306" y="122">上限を探る（明るい質問）</text>
+  <!-- 下限側の質問 -->
+  <line class="nf-sd" x1="300" y1="200" x2="214" y2="212" stroke-width="2" marker-end="url(#acp-d)"/>
+  <text class="nf-t nf-tb nf-td" x="306" y="205">③ 悪化時の気がかり</text>
+  <line class="nf-sd" x1="300" y1="250" x2="214" y2="222" stroke-width="2" marker-end="url(#acp-d)"/>
+  <text class="nf-t nf-tb nf-td" x="306" y="255">④ 許容できない状態</text>
+  <text class="nf-ts" x="306" y="277">下限を探る（慎重に）</text>
+  <text class="nf-ts nf-ta" x="172" y="144" text-anchor="middle" transform="rotate(-90 172 140)">この人の許容幅</text>
+</svg>
+<p class="nf-foot">模式図。上限・下限の位置は人によって違う。</p>
+</div></div>
+</div>
+<figcaption><b>図3. 4つの質問で、人生の状態のグラデーションに上限と下限を引く。</b>①②は答えやすい明るい質問で上限を、③④は慎重に下限を探る。</figcaption>
+</figure>
+<p class="figread">質問の順番そのものに意味があります。<strong>答えやすい楽しみから入り</strong>、関係ができてから下限の質問に進みます。</p>
+
+<div class="tablewrap">
+<table class="wide">
+<caption>表5｜4つの質問と、聞き方のコツ</caption>
+<thead><tr><th>順</th><th>尋ねること（要旨）</th><th>狙いとコツ</th></tr></thead>
+<tbody>
+<tr><td>1 楽しみ</td><td>いま楽しみにしていること</td><td>上限を探る。答えられない人はまずいない。「価値観は」「大切なことは」は抽象的で答えにくい</td></tr>
+<tr><td>2 生きがい</td><td>人生を意味あるものにしていること</td><td>前向きな面をさらに深く聞く。詰まったら「大切なこと」に言い換える。小児なら将来なりたいもの</td></tr>
+<tr><td>3 気がかり</td><td>今後状態が悪くなったときに一番気がかりなこと</td><td>下限に向かう。「今」ではなく<strong>「悪くなったとき」</strong>という前置きを意識して添える。無造作に聞かない</td></tr>
+<tr><td>4 許容できない状態</td><td>こうなったら生きていたくない、という状態はあるか</td><td>ACPの鍵。伝わらなければ具体例を挙げる（食べることが生きがいなので胃ろうは嫌、意思疎通できないなら嫌、など）</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>「死んだほうがまし」という言い方は強すぎるので、患者に尋ねるときはほとんど使わない。</li>
+<li><strong>死が迫った状況では4番目は文脈に合わない</strong>。ICUの Goals of Care では使わず、2ndの他の質問で下限を探る。</li>
+</ul>
+<div class="box plain">
+<span class="label">ICUの2ndステージで使える問いの例（要旨）</span>
+<ul>
+<li>今の話を聞いて、一番気がかりなことは何か</li>
+<li>ご本人はどんなことを大切にする方か／元気だったころの楽しみは何だったか</li>
+<li>以前、悪くなったときの話をしたことがあるか</li>
+<li>ご本人がいまの状況を理解したら、何と言うと思うか</li>
+</ul>
+</div>
+</section>
+
+<section class="rd">
+<h2 id="s6"><span class="no">§6</span>予後を伝える — 「死ぬんですか？」に答える</h2>
+<p>予後ははぐらかさず、シンプルに答えてから沈黙します。「どれくらい？」には、許可を得てから時間の単位で答えます。</p>
+
+<ul>
+<li>2分サマリーの骨格は、手を尽くしても改善の兆しがないこと、続けても助けるのはきわめて難しいこと、の2点。</li>
+<li>「死ぬんですか？」と聞かれたら、別れの時が近づいていると率直に答え、<strong>その後は沈黙する</strong>。沈黙が気まずくて、要らない情報を話し足すのが典型的な失敗。</li>
+<li>説明の後に聞かれて「どうしてそう思うのですか」と返し、答えないのはずるい。何の文脈もなく聞かれたときだけ、理由を尋ねて真意を探る。</li>
+</ul>
+
+<div class="talk">
+<p class="talk-h">「どれくらいですか？」に5段階で答える（伊藤・大内『緊急ACP』の型・言い方は要旨）</p>
+<div class="bub fam"><span class="who">家族</span>あとどれくらいなのでしょうか。</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">1 許可</span>お伝えしてもよろしいですか。<br><small>聞きたくない家族がいれば、面談後に希望する人にだけ伝える。</small></div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">2 前置き</span>正確ではないが、目安なら示せると前置きする。</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">3 単位</span>数時間〜数日／数日〜数週／数週〜数か月／数か月〜数年、の単位で答えると伝える。</div>
+<div class="pause">— 沈黙 —</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">4 答え</span>この方は……数日〜数週と考えます。<br><small>ゆっくり話し、前後に沈黙を置く。</small></div>
+<div class="pause">— 沈黙 —</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">5 感情</span>驚かれましたか。<br><small>感情に名前をつける（NURSE の Name）。驚いていれば感情に対応し、「わかっていた」なら2ndステージへ。</small></div>
+</div>
+<p class="rd-note">「わかりません」で済ませるのは不誠実です。どの時間単位かすら見当がつかないことは、実際にはほとんどありません。特定の数字ではなく、時間の単位で伝えます。</p>
+</section>
+
+<section class="rd">
+<h2 id="s7"><span class="no">§7</span>「本人には言わないで」と言われたら</h2>
+<p>まず家族の心配に対応し、そのうえで、どこまで知りたいかを本人に聞きます。隠すことは本人を守るとは限りません。</p>
+<ol>
+<li><strong>家族の心配を聴く</strong>：希望を失う、落ち込む、などの心配を聴き、NURSE で感情に対応する（Name＝心配になりますよね、Respect＝本当に大切に思っておられるのですね、など）。</li>
+<li><strong>話さないほうが不安を強める</strong>：何が起きているかわからないことは、悪いことを知っているより辛い<span class="src ext">Wright JAMA2008</span>。本人が知りたがっているときに、それを無視することはできない。</li>
+<li><strong>家族と一緒に本人に尋ねる</strong>：「皆さんに伺っているのですが」と一般化（normalize）してから、病状をどこまで知りたいかを聞く。</li>
+<li><strong>家族がその質問自体を拒むとき</strong>はケースバイケース。一番の気がかりを中立に聞き、本人が病状を尋ねてきたらもう逃げられない。「特にない」なら、病状は家族と相談して進めてよいか了承を得る。</li>
+</ol>
+<p class="rd-note">医療の実践は場所や文化で変わってよい。予後が数日のときは、伝えて得られる利点（人生を締めくくれる）と負担を比べて決めます。</p>
+</section>
+
+<section class="rd">
+<h2 id="s8"><span class="no">§8</span>「時間がない」への答え — 2ndを飛ばすと遠回りになる</h2>
+<p>時間がないときほど、ゴールの段は削れません。2ndは慣れれば2〜3分、5〜10分あれば深く話せます。</p>
+
+<div class="talk">
+<p class="talk-h">COVID-19流行期・ニューヨークのERの実例（90歳、転移性肺がん。言い方は要旨）</p>
+<div class="bub ng"><span class="who">それまで</span><span class="stg">はい／いいえ</span>レジデントが1時間電話で話しても、息子さんは「全部やってほしい」と言い続けていた。</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">1st</span>どうやっても助けられないことを、はっきり伝えた。</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">2nd</span>一番の気がかりは何ですか。</div>
+<div class="bub fam"><span class="who">息子さん</span>母は苦しいのですか。</div>
+<div class="bub dr"><span class="who">医師</span><span class="stg">3rd</span>苦痛をとる薬を使い、機械やチューブにはつながない方針を推奨した。</div>
+<div class="pause">— 5分で合意 —</div>
+</div>
+
+<ul>
+<li>はい／いいえで聞けば、決断が家族の重荷になる。2ndを飛ばして「やらないほうがいい」と言えば誘導になる（北風のアプローチ）。</li>
+<li>2ndを飛ばすと判断材料が医学情報だけになり、「生きるか死ぬか」の判断になる。その結果、挿管・透析・中心静脈カテーテル・昇圧薬・心肺蘇生まで、本人が望まないかもしれない治療が全部行われる。</li>
+</ul>
+</section>
+
+<section class="rd">
+<h2 id="s9"><span class="no">§9</span>反復とスキル — オウム返しをやめ、磨き方を決める</h2>
+<p>語尾を繰り返すだけの反復は思考停止です。理由を聞いて掘り下げます。コミュニケーションはセンスではなく、手術手技と同じく練習で上達するスキルです。</p>
+
+<h3 id="s9-1">反復ではなく、理由を聞く</h3>
+<ul>
+<li>「もう良くならない」という言葉を語尾だけ変えて繰り返すと、相手は苛立つ。「どうしてそう思うのですか」と理由を聞けば、症状がとれていないのか、病状を誤解しているのかで打つ手が変わる。</li>
+<li>掘り下げる質問は <strong>Tell me more／Why?／What else?</strong> の3つ。否定（そんなことないですよ）も励まし（頑張りましょう）も、価値観の押しつけになる。</li>
+<li>反復が役立つ場面もある：聞き取った内容の確認、ほかの参加者への中継、要約しての確認。</li>
+</ul>
+
+<h3 id="s9-2">スキルの磨き方</h3>
+<div class="rd-check">
+<p class="rd-check-h">上達の手順</p>
+<ol>
+<li>指導医のフレーズを一言一句書き留めて真似る</li>
+<li>自分の言葉に直す</li>
+<li>意地悪なフィードバックを頼む</li>
+<li>面談のたびに学びを1つ書き留める（5分で済む）</li>
+</ol>
+</div>
+<p class="rd-note">「センスで決まる」「教えられない」「経験を積めば自然にうまくなる」はどれも誤り。面談を終わらせられることは、質の保証にはなりません。</p>
+</section>
+
+<section class="rd">
+<h2 id="s10"><span class="no">§10</span>ICUでの使いどころ</h2>
+<p>ICUの家族面談では、2分サマリー、一番の気がかり、ゴールに沿った推奨、の3つを1セットで使います。</p>
+<div class="box">
+<span class="label">ICUでの3つの場面</span>
+<ul>
+<li><strong>家族面談の型</strong>：2分サマリー → 一番の気がかりを聞く → ゴールに沿った推奨（informed assent を含む）。終末期を定義せずプロセスで決める、という4学会合同ガイドラインの考え方とも合う。</li>
+<li><strong>DNARの聞き方</strong>：コードステータスを はい／いいえ で聞かない。DNARの対象は心停止時の心肺蘇生だけで、他の治療を控える意味ではない。</li>
+<li><strong>予後の数字</strong>：特定の数字は使わず、時間の単位で伝える（§6）。</li>
+</ul>
+</div>
+</section>
+
+<section class="rd">
+<h2 id="refs">出典と関連資料</h2>
+<ul class="refs">
+<li>中川俊一『あなたのACPはなぜうまくいかないのか？』メジカルビュー社、2024年</li>
+<li>中川俊一、m3.com 臨床ニュース連載（全10回、2024年12月12日〜2025年2月13日。上記書籍からの転載）</li>
+<li>本文で触れた文献：Nelson, AJRCCM 2010／Fried, NEJM 2002／Elwyn, BMJ 2010／Curtis, JAMA 2020／Auriemma, JAMA Intern Med 2022／Wright, JAMA 2008／AHA 2025（倫理）／伊藤・大内『緊急ACP』</li>
+</ul>
+<p class="refs">このページは上記連載・書籍の論点を整理した要約で、原文の転載ではありません。</p>
+<p>関連資料：<a href="https://hiro-oka.github.io/icu-masterclass/resident-clinical-ethics/">ICUで知っておくべき臨床倫理</a></p>
+</section>
+
+</main>
+<button id="rs-top" aria-label="先頭へ">↑</button>
+<script id="rs-js">
+(function(){
+  var side=document.getElementById('rs-side'), scrim=document.getElementById('rs-scrim'),
+      burger=document.getElementById('rs-burger'), nav=document.getElementById('rs-nav'),
+      inp=document.getElementById('rs-search'), hits=document.getElementById('rs-hits'),
+      bar=document.getElementById('rs-progress'), top=document.getElementById('rs-top'),
+      cur=document.getElementById('rs-cur');
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));})
+                 .filter(Boolean);
+
+  function close(){ side.classList.remove('open'); }
+  burger && burger.addEventListener('click',function(){ side.classList.toggle('open'); });
+  scrim && scrim.addEventListener('click',close);
+  nav.addEventListener('click',function(e){ if(e.target.tagName==='A' && window.innerWidth<=1000) close(); });
+
+  // scroll-spy ＋ 進捗 ＋ 現在地表示
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+      bar.style.width=(h>0?(y/h*100):0)+'%';
+      top.style.display = y>500 ? 'block' : 'none';
+      var idx=0;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=90) idx=i; }
+      links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+      if(cur && heads[idx]) cur.textContent=heads[idx].textContent.trim();
+      var on=nav.querySelector('a.on');
+      if(on && on.offsetTop < nav.scrollTop) nav.scrollTop = on.offsetTop-60;
+      if(on && on.offsetTop > nav.scrollTop+nav.clientHeight-40) nav.scrollTop = on.offsetTop-nav.clientHeight+80;
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // インクリメンタル検索（本文をハイライトし、目次も絞る）
+  var main=document.querySelector('main'), timer=null;
+  function clearMarks(){
+    main.querySelectorAll('mark.rs-mk').forEach(function(m){
+      var p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+    });
+  }
+  function search(q){
+    clearMarks();
+    links.forEach(function(a){ a.classList.remove('hit'); a.style.display=''; });
+    if(!q){ hits.textContent=''; return; }
+    var lc=q.toLowerCase(), n=0, first=null;
+    var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,{acceptNode:function(nd){
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var t=nd.parentNode.tagName;
+      if(t==='SCRIPT'||t==='STYLE') return NodeFilter.FILTER_REJECT;
+      return nd.nodeValue.toLowerCase().indexOf(lc)>=0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }});
+    var targets=[],nd;
+    while((nd=w.nextNode())) targets.push(nd);
+    targets.forEach(function(node){
+      var s=node.nodeValue, low=s.toLowerCase(), frag=document.createDocumentFragment(), i=0, j;
+      while((j=low.indexOf(lc,i))>=0){
+        if(j>i) frag.appendChild(document.createTextNode(s.slice(i,j)));
+        var mk=document.createElement('mark'); mk.className='rs-mk'; mk.textContent=s.substr(j,q.length);
+        frag.appendChild(mk); if(!first) first=mk; n++; i=j+q.length;
+      }
+      if(i<s.length) frag.appendChild(document.createTextNode(s.slice(i)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    // 目次側: 該当セクションだけ残す
+    links.forEach(function(a,i){
+      var el=heads[i]; if(!el) return;
+      var stop=heads[i+1], has=false, cur2=el;
+      while(cur2 && cur2!==stop && !(stop && cur2.contains && cur2.contains(stop))){
+        if(cur2.querySelector && cur2.querySelector('mark.rs-mk')) { has=true; break; }
+        if(cur2.textContent && cur2.textContent.toLowerCase().indexOf(lc)>=0){ has=true; break; }
+        cur2=cur2.nextElementSibling;
+      }
+      a.classList.toggle('hit',has); a.style.display = has ? '' : 'none';
+    });
+    hits.textContent = n ? (n+' 件 — Enterで先頭へ') : '該当なし';
+    inp._first=first;
+  }
+  inp.addEventListener('input',function(){
+    clearTimeout(timer); var q=inp.value.trim();
+    timer=setTimeout(function(){ search(q); },160);
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && inp._first){ inp._first.scrollIntoView({block:'center'}); }
+    if(e.key==='Escape'){ inp.value=''; search(''); }
+  });
+  // "/" で検索にフォーカス
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/' && document.activeElement!==inp){ e.preventDefault(); side.classList.add('open'); inp.focus(); }
+  });
+  top.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // 表を横スクロール容器で包む
+  [].slice.call(main.querySelectorAll('table')).forEach(function(t){
+    if(t.parentNode.classList && t.parentNode.classList.contains('rs-tw')) return;
+    var d=document.createElement('div'); d.className='rs-tw';
+    t.parentNode.insertBefore(d,t); d.appendChild(t);
+  });
+})();
+</script>
+</body>
+</html>

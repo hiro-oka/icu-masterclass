@@ -1193,8 +1193,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <a class="lv2" href="#s3" title="§3 輸液の判断でエコーの数字は補助 — IVCは式を書き、VExUSはうっ血だけを見る">§3 輸液の判断でエコーの数字は補助</a>
 <a class="lv3" href="#rs-s3-1" title="3-1. IVCの式は2つある — 分母を書かない値は比べられない">3-1. IVCの式は2つある</a>
 <a class="lv3" href="#rs-s3-2" title="3-2. エコーで輸液を考える順番は5段 — 明らかな脱水なら待たずに入れる">3-2. エコーで輸液を考える順番は5段</a>
-<a class="lv3" href="#rs-s3-3" title="3-3. VExUSは撮り方と設定を固定する — 判定の前に、ばらつきを消す">3-3. VExUSは撮り方と設定を固定する</a>
-<a class="lv3" href="#rs-s3-4" title="3-4. 高VExUSでも除水しない3つの型 — VExUSは反応性の指標ではない">3-4. 高VExUSでも除水しない3つの型</a>
+<a class="lv3" href="#rs-s3-3" title="3-3. VExUSは静脈うっ血の重さを4段階で見る — 撮り方と読み方は専用の資料で">3-3. VExUSは静脈うっ血の重さを4…</a>
+<a class="lv3" href="#rs-s3-4" title="3-4. 高VExUSでも除水しない型がある — VExUSは反応性の指標ではない">3-4. 高VExUSでも除水しない型がある</a>
 <a class="lv2" href="#s4" title="§4 肺エコーはアーチファクトを読む — 見えないはずのものが見えたら病気">§4 肺エコーはアーチファクトを読む</a>
 <a class="lv3" href="#rs-s4-1" title="4-1. 水平は空気、垂直は水 — 含気が消えると肝臓のように見える">4-1. 水平は空気、垂直は水</a>
 <a class="lv3" href="#rs-s4-2" title="4-2. スコアは推移を追う道具 — 12領域0〜36点、閾値と診断には使わない">4-2. スコアは推移を追う道具</a>
@@ -1231,7 +1231,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">POCUS・重症エコー</h1>
 <p class="sub">問いを1つ決めて早く当て、数値で残し、撮り直して読む — 届いているか・RUSHと心臓の窓・IVCとVExUS・肺・横隔膜・血管アクセス・心停止とVA-ECMOと脳・落とし穴と習熟</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-11</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-14</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1489,49 +1489,14 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-note">肺が不均一なBラインで胸膜にも異常があれば透過性肺水腫を示唆し、輸液でさらに浮腫が増える危険を示します。中〜大量の両側胸水はLVEFが低い例で充満圧が高いことと関連します<span class="src vault">ICM2025 5ステップ</span>。</p>
 <p class="rd-note">PPVを使える前提条件をすべて満たすICU患者は約2%で、心房細動・一回換気量6 mL/kg・自発呼吸・肥満のどれか1つでPPVもIVCの呼吸性変動も使えません。残るのはPLR＋LVOT VTI（心房細動では10拍以上の平均）で、SV増加10%超を反応あり、8〜13%はグレーゾーンとします<span class="src vault">FrontMed2026</span>。</p>
 
-<h3 id="rs-s3-3">3-3. VExUSは撮り方と設定を固定する — 判定の前に、ばらつきを消す</h3>
-<p class="rd-lead">VExUSはIVC径を入口に、肝静脈・門脈・腎内静脈のパルスドプラでうっ血の重さをgrade 0〜3に分けるもので、IVC 2 cm以下ならgrade 0、2 cmを超えれば3本の波形で決めます（表6）<span class="src ext">UltrasoundJ2024</span>。</p>
-<div class="tablewrap">
-<table class="wide">
-<caption>表6｜VExUSの判定 — <span class="ok">IVC 2 cm超から先の3波形で決まる</span></caption>
-<thead><tr><th>血管</th><th>正常</th><th>軽度〜中等度の異常</th><th>重度の異常</th></tr></thead>
-<tbody>
-<tr><td>肝静脈</td><td>S波がD波より大きい（ともに基線の下）</td><td>S波がD波より小さい</td><td>S波が逆転して基線の上に出る</td></tr>
-<tr><td>門脈（拍動率）</td><td class="num">30%未満</td><td class="num">30〜50%</td><td class="num">50%以上</td></tr>
-<tr><td>腎内静脈</td><td>連続し拍動が少ない</td><td>拍動してS波とD波が分かれる</td><td>D波だけの単相</td></tr>
-</tbody>
-</table>
-</div>
-<p class="rd-note">gradeは、重度0＋軽度1つ以上でgrade 1、重度1つでgrade 2、重度2つ以上でgrade 3。門脈拍動率＝（Vmax−Vmin）÷Vmax×100<span class="src ext">UltrasoundJ2024</span>。</p>
-<details class="rd-ev" open><summary>根拠を見る（設定と走査の手がかり）</summary>
-<ul>
-<li>IVC・肝静脈・門脈は心臓・腹部・FASTいずれかのプリセットで、ドプラのスケールを約40 cm/秒まで下げる。腎内静脈はナイキスト限界を20 cm/秒未満に。掃引速度は50か66.7 mm/秒。心電図を同時に記録すると波形と心周期を対応づけられる</li>
-<li>肝静脈は冠状断のアプローチで、サンプルを合流部から1〜2 cm離す。門脈はやや尾側へずらし、肝動脈の混入を避ける</li>
-<li>腎内静脈は剣状突起から後腋窩線への線の交点で、主腎静脈ではなく小葉間・弓状静脈を狙う。最も難しいので、教えるときは門脈→肝静脈→腎内静脈の順に</li>
-<li>IVCと大動脈は拍動だけで見分けない。高心拍出や三尖弁逆流ではIVCのほうが拍動することがある</li>
-</ul>
-<p>出典は UltrasoundJ2024。原著は「2 cm」を西欧以外の集団にそのまま当てることに注意を促し、短軸で円形に張って見えるかで判断するほうがよいかもしれないとしています<span class="src ext">UltrasoundJ2024</span>。</p>
-</details>
+<h3 id="rs-s3-3">3-3. VExUSは静脈うっ血の重さを4段階で見る — 撮り方と読み方は専用の資料で</h3>
+<p class="rd-lead">VExUSはIVC径を入口に、肝静脈・門脈・腎内静脈のパルスドプラでうっ血の重さをグレード0〜3に分けるもので、IVC 2 cm未満ならグレード0、それ以上は3つの静脈の重度異常の数で決まります<span class="src ext">UltrasoundJ2024</span>。</p>
+<p>プローブの当て方・画面に映るもの・波形の読み方・機器の設定・よくある失敗・練習問題は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vexus/">VExUS</a>の資料（<a href="https://hiro-oka.github.io/icu-masterclass/resident-vexus/#s2">§2</a>〜<a href="https://hiro-oka.github.io/icu-masterclass/resident-vexus/#s9">§9</a>）にまとめています。</p>
 
-<h3 id="rs-s3-4">3-4. 高VExUSでも除水しない3つの型 — VExUSは反応性の指標ではない</h3>
-<p class="rd-lead">VExUSは容量によるうっ血と圧によるうっ血を区別しないので、長期の肺高血圧・心嚢液・器質的な高度三尖弁逆流では、高gradeでも除水すると悪化しえます（表7）<span class="src ext">UltrasoundJ2024</span>。</p>
-<div class="tablewrap">
-<table class="wide">
-<caption>表7｜除水してはいけない高VExUS — <span class="ok">数字より先に病態を見る</span></caption>
-<thead><tr><th>状況</th><th>何が起きるか</th></tr></thead>
-<tbody>
-<tr><td>長期の肺高血圧</td><td>心拍出量が高い前負荷に依存しており、除水で拍出が落ちる。右室不全では肺血管拡張薬でVExUSが改善することがある</td></tr>
-<tr><td>心嚢液</td><td>除水で心内圧が心膜圧に対して下がり、タンポナーデを誘発しうる</td></tr>
-<tr><td>器質的な高度三尖弁逆流</td><td>S波の逆転が除水しても残る。門脈の流れのほうが容量を追える（5 L超の負のバランス達成を予測した唯一の指標、AUC 0.83）<span class="src vault">JCM2025</span></td></tr>
-<tr><td>肝硬変・脂肪肝</td><td>肝静脈波形が鈍り、門脈は低速の連続波形や逆流になり、読めない</td></tr>
-</tbody>
-</table>
-</div>
-<p>心腎症候群・急性非代償性心不全ではVExUSは右房圧の代わりになり（RAP 12 mmHg以上の予測AUC 0.99、IVC径単独は0.79）、VExUSを指標にした利尿で除うっ血が2倍以上速くなりましたが、腎機能の回復は改善しませんでした<span class="src vault">JCM2025</span>。人工呼吸中の一般ICU患者ではAKIとの関係が研究ごとに食い違うので、参考所見にとどめ、VExUSだけで除水を決めません。除水の手段と速さは<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#rs-s9-3">輸液の判断の9-3</a>で扱います。</p>
-<div class="box warn">
-<span class="label">VExUSは輸液反応性を見る道具ではない</span>
-<p>原著は「VExUSは輸液反応性を評価する道具ではない」と一文で断じています<span class="src ext">UltrasoundJ2024</span>。反応性はPLRやVTIの変化で、うっ血の重さはVExUSで、と役割を分け、病歴と頸静脈の診察の代わりにもしません。腎・脾の抵抗係数など臓器灌流のドプラは、閾値がすべて単施設研究に由来するので、同じ患者の経過を見る視点だけを取り入れます。</p>
-</div>
+<h3 id="rs-s3-4">3-4. 高VExUSでも除水しない型がある — VExUSは反応性の指標ではない</h3>
+<p class="rd-lead">VExUSは容量によるうっ血と圧によるうっ血を区別しないので反応性の指標には使わず、長期の肺高血圧・心嚢液・器質的な高度三尖弁逆流では、高グレードでも除水すると悪化しえます<span class="src ext">UltrasoundJ2024</span>。</p>
+<p>一般ICUでは予後との関連が不明瞭なことを含め、使いどころとエビデンスと限界は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vexus/#s10">VExUSの§10〜§12</a>、除水の手段と速さは<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#rs-s9-3">輸液の判断の9-3</a>で扱います。</p>
+<p class="rd-note">腎・脾の抵抗係数など臓器灌流のドプラは、閾値がすべて単施設研究に由来するので、同じ患者の経過を見る視点だけを取り入れます。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
 </section>
@@ -1558,7 +1523,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="figread"><strong>図の読み方</strong> — Aラインは正常肺でも気胸でも出るので、区別は肺スライディングの有無で行います。含気が完全に失われると肺は肝臓のようなconsolidationになり、そこで初めて肺そのものが見えます。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表8｜肺エコーのパターン — <span class="ok">分布と胸膜で読み分ける</span></caption>
+<caption>表6｜肺エコーのパターン — <span class="ok">分布と胸膜で読み分ける</span></caption>
 <thead><tr><th>パターン</th><th>読み方</th></tr></thead>
 <tbody>
 <tr><td>両側A-profile（Bライン3本未満／視野）</td><td>左室充満圧は低い可能性が高く、輸液しても肺うっ血の危険は低い<span class="src vault">ICM2025 5ステップ</span></td></tr>
@@ -1586,10 +1551,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>推奨は条件付きでエビデンスの質は低く、臨床転帰を比べた研究はありません。仰臥位のICU患者では背側にconsolidationができやすくX線の感度が落ちるので、その場面ほど価値が上がります。訓練・標準化した手順・画像保存・記載がそろわないうちは、代わりではなく補助にとどめます。重症市中肺炎の治療は<a href="https://hiro-oka.github.io/icu-masterclass/resident-scap/">重症市中肺炎（sCAP）</a>の資料で扱います。</p>
 
 <h3 id="rs-s4-4">4-4. 胸水はVIPサインで探す — 右の前方から。無エコー腔を探すだけでは半数を見落とす</h3>
-<p class="rd-lead">右の鎖骨中線・肋骨弓下から長軸で当て、横隔膜より頭側にも後胸壁が見え続ける「VIPサイン」は、エコーをほぼ使ったことのない医師でも感度0.85・特異度0.86で、後腋窩線から無エコー腔を探す従来法（感度0.54）と胸部X線（0.42）を上回りました（表9）<span class="src ext">AmJEmergMed2018</span>。</p>
+<p class="rd-lead">右の鎖骨中線・肋骨弓下から長軸で当て、横隔膜より頭側にも後胸壁が見え続ける「VIPサイン」は、エコーをほぼ使ったことのない医師でも感度0.85・特異度0.86で、後腋窩線から無エコー腔を探す従来法（感度0.54）と胸部X線（0.42）を上回りました（表7）<span class="src ext">AmJEmergMed2018</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表9｜右胸水の検出 — <span class="ok">除外に効くのは陰性尤度比</span></caption>
+<caption>表7｜右胸水の検出 — <span class="ok">除外に効くのは陰性尤度比</span></caption>
 <thead><tr><th>方法</th><th>感度</th><th>特異度</th><th>陰性尤度比</th></tr></thead>
 <tbody>
 <tr><td>VIPサイン</td><td class="num">0.85</td><td class="num">0.86</td><td class="num">0.18</td></tr>
@@ -1630,10 +1595,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s5-1">5-1. 2方向で撮る — 移動距離は補助を切って測る</h3>
-<p class="rd-lead">中腋窩の肋間（apposition zone）からリニアで厚みと厚み分画を、肋骨弓下からコンベックスで移動距離を測り、移動距離は人工呼吸器の補助を切った状態（Tピースか最小のCPAP）で測ります（表10）<span class="src vault">ICM2020横隔膜</span>。</p>
+<p class="rd-lead">中腋窩の肋間（apposition zone）からリニアで厚みと厚み分画を、肋骨弓下からコンベックスで移動距離を測り、移動距離は人工呼吸器の補助を切った状態（Tピースか最小のCPAP）で測ります（表8）<span class="src vault">ICM2020横隔膜</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表10｜横隔膜エコーの2つのアプローチ — <span class="ok">厚みは肋間、移動距離は肋骨弓下</span></caption>
+<caption>表8｜横隔膜エコーの2つのアプローチ — <span class="ok">厚みは肋間、移動距離は肋骨弓下</span></caption>
 <thead><tr><th>アプローチ</th><th>プローブ</th><th>測るもの</th><th>注意</th></tr></thead>
 <tbody>
 <tr><td>肋間（中腋窩〜前腋窩線、第8〜11肋間）</td><td>リニア10〜15 MHz</td><td>厚み、厚み分画（TFdi）</td><td>胸膜線と腹膜線の間を測り、両膜は厚みに含めない</td></tr>
@@ -1648,7 +1613,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>数値が収束しないのは手技のばらつきだけが理由ではありません。厚み・厚み分画・移動距離が映しているのは筋力そのものではなく、呼吸ドライブ・収縮性・肺容量・負荷の釣り合いです。同じ厚み分画20%が、十分な自発呼吸とも高い負荷のもとでの過剰な努力とも読め、低い値は補助のかけすぎや非同調でも出ます<span class="src vault">UltrasoundMedBiol2026</span>。ウィーニング予測の成績は19研究1,071例のメタ解析で中等度にとどまり、提案される閾値は20〜30%に散らばります<span class="src vault">UltrasoundMedBiol2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表11｜人工呼吸の設定が測定値を動かす — <span class="ok">記録にはPEEP・モード・補助量を添える</span></caption>
+<caption>表9｜人工呼吸の設定が測定値を動かす — <span class="ok">記録にはPEEP・モード・補助量を添える</span></caption>
 <thead><tr><th>設定</th><th>移動距離</th><th>厚み分画</th></tr></thead>
 <tbody>
 <tr><td>陽圧換気</td><td>肺が膨らみ、振幅が増える</td><td>患者の努力が減り、低下する</td></tr>
@@ -1720,10 +1685,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s6-3">6-3. 短軸か長軸かは部位で変わる — 全部位に共通する優劣はない</h3>
-<p class="rd-lead">内頸静脈では短軸で後壁穿刺が多く（短軸15%・長軸4%）、橈骨動脈では長軸が時間・血腫・後壁穿通のすべてで優れ、末梢静脈の困難例では短軸の成功率が高い、と部位で答えが変わります（表12）<span class="src ext">SHM JHospMed2019</span>。</p>
+<p class="rd-lead">内頸静脈では短軸で後壁穿刺が多く（短軸15%・長軸4%）、橈骨動脈では長軸が時間・血腫・後壁穿通のすべてで優れ、末梢静脈の困難例では短軸の成功率が高い、と部位で答えが変わります（表10）<span class="src ext">SHM JHospMed2019</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表12｜短軸と長軸 — <span class="ok">どちらでも針先を追い続けることが必須</span></caption>
+<caption>表10｜短軸と長軸 — <span class="ok">どちらでも針先を追い続けることが必須</span></caption>
 <thead><tr><th>部位</th><th>結果</th></tr></thead>
 <tbody>
 <tr><td>内頸静脈（短軸・長軸・斜軸）</td><td>初回成功70%／52%／74%。後壁穿刺は短軸15%・長軸4%</td></tr>
@@ -1778,10 +1743,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s7-2">7-2. VA-ECMOは毎日9項目を同じ順で — 大動脈弁が開いているかを最初に共有する</h3>
-<p class="rd-lead">VA-ECMOでは経胸壁心エコーを毎日同じ9項目の順で当て、とくに大動脈弁が開いているかと、チャタリングではまず回転数を下げることをその日のうちに全員で共有します（表13）<span class="src vault">ICM2024ECMO9項目</span>。</p>
+<p class="rd-lead">VA-ECMOでは経胸壁心エコーを毎日同じ9項目の順で当て、とくに大動脈弁が開いているかと、チャタリングではまず回転数を下げることをその日のうちに全員で共有します（表11）<span class="src vault">ICM2024ECMO9項目</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表13｜VA-ECMOの毎日のエコー9項目 — <span class="ok">数値は単施設の実践に基づく提案</span></caption>
+<caption>表11｜VA-ECMOの毎日のエコー9項目 — <span class="ok">数値は単施設の実践に基づく提案</span></caption>
 <thead><tr><th>#</th><th>確かめること</th><th>要点</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>脱血カニューレの位置</td><td>先端は右房内が最適。IVC内だと壁を吸って脱血不良になる</td></tr>
@@ -1814,10 +1779,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>撮るのは気道・換気・循環・出血の制御を損なわずに撮れるときだけで、合計2〜3分以内に収めます。CT室やカテ室へ出る前の停止中に、心窩部の1断面と前胸部の左右を当てるのが実務上いちばん撮れます。陰性や判定不能は重症度を下げる根拠にせず、上の段階に相談する合図にします<span class="src vault">FrontPublicHealth2026</span>。</p>
 
 <h3 id="rs-s7-5">7-5. 腹部・胃・気道は周辺の道具 — どれもX線やカプノグラフィの代わりにはならない</h3>
-<p class="rd-lead">胃・経鼻胃管・気道・消化管のエコーは使いどころがはっきりしている一方、いずれも既存の標準検査を置き換える根拠はまだありません（表14）。</p>
+<p class="rd-lead">胃・経鼻胃管・気道・消化管のエコーは使いどころがはっきりしている一方、いずれも既存の標準検査を置き換える根拠はまだありません（表12）。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表14｜周辺領域のエコー — <span class="ok">補助として使い、標準の確認は省かない</span></caption>
+<caption>表12｜周辺領域のエコー — <span class="ok">補助として使い、標準の確認は省かない</span></caption>
 <thead><tr><th>用途</th><th>分かっていること</th><th>使い方</th></tr></thead>
 <tbody>
 <tr><td>胃の内容（前庭部の4段階）</td><td>Grade 3は栄養不耐を陽性尤度比10.3で予測。Grade 0で「入る」と判定する感度は0.57<span class="src vault">CCM2016胃エコー</span></td><td>満杯の判定に使い、空の判定は過信しない</td></tr>
@@ -1845,10 +1810,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 
 <h3 id="rs-s8-1">8-1. 落とし穴は2つの型 — 数字の独り歩きと画面の印象の過信</h3>
-<p class="rd-lead">誤りの多くは、論文ごとに条件の違う閾値をそのまま持ち込むか、1枚の画面の印象で重い判断を下すかのどちらかから生まれます（表15）。</p>
+<p class="rd-lead">誤りの多くは、論文ごとに条件の違う閾値をそのまま持ち込むか、1枚の画面の印象で重い判断を下すかのどちらかから生まれます（表13）。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表15｜POCUSの落とし穴 — <span class="ok">なぜ起きて、どう防ぐか</span></caption>
+<caption>表13｜POCUSの落とし穴 — <span class="ok">なぜ起きて、どう防ぐか</span></caption>
 <thead><tr><th>誤り</th><th>防ぎ方</th></tr></thead>
 <tbody>
 <tr><td>IVCの式を混用する</td><td>分母と換気条件が論文ごとに違う。記録に式と換気条件を書く（§3）</td></tr>
@@ -1869,7 +1834,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-lead">CCUSの能力は画像の取得・画像の解釈・所見を臨床に統合する認知的基盤の3つからなり、基本心エコーの最小件数として25〜50例が挙がるものの、件数と期間は能力を保証せず、推奨される確かめ方は指導者が独立して撮ったスキャンの質と解釈を評価することです<span class="src vault">ICM2022機械</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表16｜習熟の目安 — <span class="ok">参考値であって独り立ちの基準ではない</span></caption>
+<caption>表14｜習熟の目安 — <span class="ok">参考値であって独り立ちの基準ではない</span></caption>
 <thead><tr><th>技術</th><th>目安</th></tr></thead>
 <tbody>
 <tr><td>基本心エコー</td><td>25〜50例<span class="src vault">ICM2022機械</span></td></tr>

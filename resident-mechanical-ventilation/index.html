@@ -1199,40 +1199,85 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .frac > span + span{border-top:2px solid currentColor; padding:0 .35em}
 .vdot{position:relative; display:inline-block}
 .vdot::after{content:""; position:absolute; left:50%; top:-.12em; width:.2em; height:.2em; border-radius:50%; background:currentColor; transform:translateX(-50%)}
-/* tt:start */
-.ttfig .tt-svg{display:block; width:100%; height:auto; font-family:inherit}
-.ttfig .tt-v{display:none}
-@media (max-width:600px){ .ttfig .tt-h{display:none} .ttfig .tt-v{display:block} }
-.ttfig .tt-ht{font-size:15px; font-weight:800; fill:var(--accent-ink,var(--accent))}
-.ttfig .tt-n{font-size:16px; font-weight:800; fill:var(--fg)}
-.ttfig .tt-s{font-size:12px; font-weight:500; fill:var(--muted)}
-.ttfig .tt-halo, .ttfig .tt-halo tspan{paint-order:stroke; stroke:var(--bg); stroke-width:6px; stroke-linejoin:round}
-.ttfig .tt-box rect{fill:var(--bg); stroke:var(--line); stroke-width:1.5}
-.ttfig .tt-mode rect{stroke:none}
-.ttfig .tt-mode.m-vcv rect{fill:var(--accent)} .ttfig .tt-mode.m-pcv rect{fill:var(--warn)} .ttfig .tt-mode.m-psv rect{fill:var(--good)}
-.ttfig .tt-mode text{fill:#fff} .ttfig .tt-mode{cursor:pointer}
-.ttfig .tt-l, .tt-legend .tt-l{fill:none; stroke-width:3.2; stroke-linecap:round; transition:opacity .2s}
-.tt-l.m-vcv{stroke:var(--accent)}
-.tt-l.m-pcv{stroke:var(--warn); stroke-dasharray:9 5; stroke-linecap:butt}
-.tt-l.m-psv{stroke:var(--good); stroke-dasharray:1 6; stroke-width:4}
-.ttfig .tt-mode, .ttfig .tt-box{transition:opacity .2s}
-.ttfig[data-hl="vcv"] .tt-l:not(.m-vcv), .ttfig[data-hl="pcv"] .tt-l:not(.m-pcv), .ttfig[data-hl="psv"] .tt-l:not(.m-psv){opacity:.1}
-.ttfig[data-hl="vcv"] .tt-mode:not(.m-vcv), .ttfig[data-hl="pcv"] .tt-mode:not(.m-pcv), .ttfig[data-hl="psv"] .tt-mode:not(.m-psv){opacity:.3}
-@media (hover:hover){
-  .ttfig:not([data-hl]):has([data-mode="vcv"]:hover) .tt-l:not(.m-vcv), .ttfig[data-hl=""]:has([data-mode="vcv"]:hover) .tt-l:not(.m-vcv),
-  .ttfig:not([data-hl]):has([data-mode="pcv"]:hover) .tt-l:not(.m-pcv), .ttfig[data-hl=""]:has([data-mode="pcv"]:hover) .tt-l:not(.m-pcv),
-  .ttfig:not([data-hl]):has([data-mode="psv"]:hover) .tt-l:not(.m-psv), .ttfig[data-hl=""]:has([data-mode="psv"]:hover) .tt-l:not(.m-psv){opacity:.1}
+/* mm:start */
+.mm{--mm-vcv:#267E90;--mm-pcv:#9A6244;--mm-psv:#89618F;
+  --mm-vcv-s:#E5F5FA;--mm-pcv-s:#FFEEE5;--mm-psv-s:#F9EDF9;
+  --mm-node:#FAF7F2;--mm-edge:#DCD2C4;--mm-ink:#203D4A;--mm-sub:#5E6B70;--mm-on:#FFFFFF;--mm-paper:#FFFFFF}
+.mm .mm-l{fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;transition:opacity .25s}
+.mm .mm-l.m-vcv{stroke:var(--mm-vcv)}
+.mm .mm-l.m-pcv{stroke:var(--mm-pcv);stroke-dasharray:9 5;stroke-linecap:butt}
+.mm .mm-l.m-psv{stroke:var(--mm-psv);stroke-dasharray:.5 6.5;stroke-width:4.4}
+.mm svg[data-k="2"] .mm-l{stroke-width:6.5}
+.mm svg[data-k="2"] .mm-l.m-pcv{stroke-dasharray:18 10}
+.mm svg[data-k="2"] .mm-l.m-psv{stroke-dasharray:1 13;stroke-width:8.5}
+.mm .mm-node rect{fill:var(--mm-node);stroke:var(--mm-edge);stroke-width:1.4}
+.mm .mm-node{transform-box:fill-box;transform-origin:center;transition:opacity .25s}
+.mm .mm-mode rect{stroke:none}
+.mm .mm-mode.m-vcv rect{fill:var(--mm-vcv)}.mm .mm-mode.m-pcv rect{fill:var(--mm-pcv)}.mm .mm-mode.m-psv rect{fill:var(--mm-psv)}
+.mm .mm-mode text{fill:var(--mm-on)!important}
+.mm .mm-mode{cursor:pointer}
+.mm .mm-n{font-weight:800;fill:var(--mm-ink)}
+.mm .mm-s{font-weight:500;fill:var(--mm-sub)}
+.mm .mm-ht{font-weight:800;fill:var(--mm-ink);letter-spacing:.02em}
+.mm .mm-hs{font-weight:500;fill:var(--mm-sub)}
+.mm .mm-halo,.mm .mm-halo tspan{paint-order:stroke;stroke:var(--mm-paper);stroke-width:6px;stroke-linejoin:round}
+/* 線が通る瞬間に項目がふわっと光る */
+.mm .mm-node.hit-vcv{--hc:var(--mm-vcv);--hs:var(--mm-vcv-s)}
+.mm .mm-node.hit-pcv{--hc:var(--mm-pcv);--hs:var(--mm-pcv-s)}
+.mm .mm-node.hit-psv{--hc:var(--mm-psv);--hs:var(--mm-psv-s)}
+.mm .mm-node[class*="hit-"]{animation:mm-pop .75s ease-out}
+.mm .mm-node:not(.mm-mode)[class*="hit-"] rect{animation:mm-glow .9s ease-out}
+.mm .mm-mode[class*="hit-"] rect{animation:mm-glowm .9s ease-out}
+@keyframes mm-pop{0%{transform:scale(1)}35%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes mm-glow{0%{fill:var(--mm-node);stroke:var(--mm-edge)}30%{fill:var(--hs);stroke:var(--hc);stroke-width:2.6}100%{fill:var(--mm-node);stroke:var(--mm-edge)}}
+@keyframes mm-glowm{0%{filter:none}30%{filter:drop-shadow(0 0 6px var(--hc))}100%{filter:none}}
+/* モードを選ぶと、ほかは薄く */
+.mm[data-hl="vcv"] .mm-l:not(.m-vcv),.mm[data-hl="pcv"] .mm-l:not(.m-pcv),.mm[data-hl="psv"] .mm-l:not(.m-psv){opacity:.09}
+.mm[data-hl="vcv"] .mm-mode:not(.m-vcv),.mm[data-hl="pcv"] .mm-mode:not(.m-pcv),.mm[data-hl="psv"] .mm-mode:not(.m-psv){opacity:.28}
+.mm .mm-sw{width:34px;height:10px;flex:none;display:inline-block;overflow:visible}
+.mm .mm-sw .mm-l{stroke-width:3.4}
+.mm .mm-sw .mm-l.m-psv{stroke-width:4.4}
+@media (prefers-reduced-motion: reduce){.mm .mm-node[class*="hit-"],.mm .mm-node[class*="hit-"] rect{animation:none!important}}
+@media print{
+  .mm .mm-l{opacity:1!important}.mm .mm-mode{opacity:1!important}
+  .mm .mm-l.m-vcv{stroke-dasharray:none!important}
+  .mm .mm-l.m-pcv{stroke-dasharray:9 5!important}.mm .mm-l.m-psv{stroke-dasharray:.5 6.5!important}
+  .mm svg[data-k="2"] .mm-l.m-pcv{stroke-dasharray:18 10!important}.mm svg[data-k="2"] .mm-l.m-psv{stroke-dasharray:1 13!important}
+  .mm .mm-node{animation:none!important}
 }
-.tt-legend{display:flex; flex-wrap:wrap; gap:.45em .6em; justify-content:center; margin:.7em 0 .2em}
-.tt-legend button{font:inherit; font-size:.86em; display:inline-flex; align-items:center; gap:.4em; padding:.3em .8em;
-  border:1px solid var(--line); border-radius:999px; background:var(--bg); color:var(--fg); cursor:pointer;
-  white-space:nowrap; width:auto; min-width:0; flex:none; line-height:1.4}
-.tt-legend button svg{width:34px !important; height:10px !important; flex:none; max-width:none}
-.tt-legend button:hover{border-color:var(--accent)}
-.ttfig[data-hl="vcv"] .tt-legend [data-mode="vcv"], .ttfig[data-hl="pcv"] .tt-legend [data-mode="pcv"], .ttfig[data-hl="psv"] .tt-legend [data-mode="psv"]{border-color:var(--fg); font-weight:700}
-@media print{ .ttfig .tt-h{display:block !important} .ttfig .tt-v{display:none !important}
-  .ttfig .tt-l, .ttfig .tt-mode{opacity:1 !important} .tt-legend button{border-color:#999} }
-/* tt:end */
+
+@media (prefers-color-scheme: dark){
+  .mm{--mm-vcv:#83C3D5;--mm-pcv:#DDAB90;--mm-psv:#CFA8D0;
+    --mm-vcv-s:#163038;--mm-pcv-s:#3A2A20;--mm-psv-s:#33263A;
+    --mm-node:#1E2328;--mm-edge:#3A424B;--mm-ink:#E6E9ED;--mm-sub:#A2ACB8;--mm-on:#15181C;--mm-paper:#15181C}
+}
+@media print{
+  .mm{--mm-vcv:#267E90;--mm-pcv:#9A6244;--mm-psv:#89618F;--mm-vcv-s:#E5F5FA;--mm-pcv-s:#FFEEE5;--mm-psv-s:#F9EDF9;
+    --mm-node:#FAF7F2;--mm-edge:#DCD2C4;--mm-ink:#203D4A;--mm-sub:#5E6B70;--mm-on:#FFFFFF;--mm-paper:#FFFFFF}
+}
+
+.mmfig .mm-svg{display:block;width:100%;height:auto;font-family:inherit}
+.mmfig .mm-v{display:none}
+@media (max-width:600px){.mmfig .mm-h{display:none}.mmfig .mm-v{display:block}}
+.mmfig .mm-ht{font-size:15px}.mmfig .mm-hs{font-size:12px}
+.mmfig .mm-n{font-size:16px}.mmfig .mm-s{font-size:12px}
+.mmfig{position:relative}
+.mm-legend{display:flex;flex-wrap:wrap;gap:.45em .6em;justify-content:center;margin:.75em 0 .2em}
+.mm-legend button{font:inherit;font-size:.86em;display:inline-flex;align-items:center;gap:.45em;padding:.32em .85em;
+  border:1px solid var(--mm-edge);border-radius:999px;background:var(--mm-paper);color:var(--mm-ink);cursor:pointer;
+  white-space:nowrap;width:auto;min-width:0;flex:none;line-height:1.4;transition:border-color .2s,box-shadow .2s}
+.mm-legend button:hover{border-color:var(--mm-ink)}
+.mm-legend button:focus-visible{outline:2px solid var(--mm-vcv);outline-offset:2px}
+.mm[data-hl="vcv"] .mm-legend [data-mode="vcv"]{border-color:var(--mm-vcv);box-shadow:inset 0 0 0 1px var(--mm-vcv);font-weight:700}
+.mm[data-hl="pcv"] .mm-legend [data-mode="pcv"]{border-color:var(--mm-pcv);box-shadow:inset 0 0 0 1px var(--mm-pcv);font-weight:700}
+.mm[data-hl="psv"] .mm-legend [data-mode="psv"]{border-color:var(--mm-psv);box-shadow:inset 0 0 0 1px var(--mm-psv);font-weight:700}
+.mmfig figure.fig .nf svg.mm-sw,.mmfig .mm-sw{width:34px!important;height:10px!important;margin:0!important}
+.mm-replay2{position:absolute;top:-.95em;right:.9em;z-index:3;font:inherit;font-size:12px;font-weight:700;line-height:1;
+  padding:.45em .8em;border:1px solid var(--mm-edge);border-radius:999px;background:var(--mm-paper);color:var(--mm-ink);cursor:pointer}
+.mm-replay2:hover{border-color:var(--mm-ink)}
+@media print{.mmfig .mm-h{display:block!important}.mmfig .mm-v{display:none!important}.mm-replay2{display:none!important}
+  .mm-legend button{border-color:#999}}
+/* mm:end */
 @media (max-width:640px){ .eqn{font-size:1.02em; padding:.6em .7em} }
 @media print{ .eqn{border:1.5pt solid var(--accent); break-inside:avoid} }
 .nf-svg .vw-out{fill:var(--code); stroke:var(--muted); stroke-width:2; stroke-dasharray:7 5}
@@ -1445,25 +1490,80 @@ a.mo-ip-in{position:relative; z-index:2; color:#ffd59a; text-decoration:underlin
 <h3 id="rs-s3-1">3-1. 定義 — 3T'sは呼吸の始まり・送気中・終わり</h3>
 <p class="rd-lead">Trigger は吸気を始める合図（時間か患者の努力）、Target は送気中に人工呼吸器が守る量（流量か圧）、Termination は吸気を終える条件（設定量・設定時間・流量の低下）で、この組み合わせがVCV・PCV・PSVを決めます（図2-2・表1）<span class="src vault">JICS2026</span>。</p>
 <!-- tt:start -->
-<figure class="fig ttfig">
+<figure class="fig mmfig mm" data-mo="none">
+<button type="button" class="mm-replay2" aria-label="この図の動きをもう一度再生">↻ もう一度</button>
 <div class="nf">
-<svg class="tt-svg tt-h" viewBox="0 0 760 312" role="img" aria-label="3T'sからモードへの道筋。VCVは時間・圧・流量のどれかで始まり、流量を守り、設定量で終わる。PCVは同じく始まり、圧を守り、設定時間で終わる。PSVは圧か流量の患者トリガーで始まり、圧を守り、ピーク流量の25%で終わる"><text class="tt-ht" x="90" y="24" text-anchor="middle">Trigger</text><text class="tt-s" x="90" y="44" text-anchor="middle">始まり</text><text class="tt-ht" x="290" y="24" text-anchor="middle">Target</text><text class="tt-s" x="290" y="44" text-anchor="middle">送気中に守る</text><text class="tt-ht" x="490" y="24" text-anchor="middle">Termination</text><text class="tt-s" x="490" y="44" text-anchor="middle">終わり</text><text class="tt-ht" x="680" y="24" text-anchor="middle">Mode</text><text class="tt-s" x="680" y="44" text-anchor="middle">モード</text><path class="tt-l m-vcv" d="M360 107 C394 107 386 87 420 87"/><path class="tt-l m-vcv" d="M560 87 C594 87 586 87 620 87"/><path class="tt-l m-vcv" d="M160 247 C194 247 186 107 220 107"/><path class="tt-l m-vcv" d="M160 167 C194 167 186 107 220 107"/><path class="tt-l m-vcv" d="M160 87 C194 87 186 107 220 107"/><path class="tt-l m-pcv" d="M360 236 C394 236 386 176 420 176"/><path class="tt-l m-pcv" d="M560 176 C594 176 586 176 620 176"/><path class="tt-l m-pcv" d="M160 256 C194 256 186 236 220 236"/><path class="tt-l m-pcv" d="M160 176 C194 176 186 236 220 236"/><path class="tt-l m-pcv" d="M160 96 C194 96 186 236 220 236"/><path class="tt-l m-psv" d="M360 245 C394 245 386 265 420 265"/><path class="tt-l m-psv" d="M560 265 C594 265 586 265 620 265"/><path class="tt-l m-psv" d="M160 265 C194 265 186 245 220 245"/><path class="tt-l m-psv" d="M160 185 C194 185 186 245 220 245"/><g class="tt-box"><rect x="20" y="69" width="140" height="54" rx="9"/><text class="tt-n" x="90" y="92" text-anchor="middle">時間</text><text class="tt-s" x="90" y="111" text-anchor="middle">器械：設定間隔</text></g><g class="tt-box"><rect x="20" y="149" width="140" height="54" rx="9"/><text class="tt-n" x="90" y="172" text-anchor="middle">圧</text><text class="tt-s" x="90" y="191" text-anchor="middle">患者：圧の低下</text></g><g class="tt-box"><rect x="20" y="229" width="140" height="54" rx="9"/><text class="tt-n" x="90" y="252" text-anchor="middle">流量</text><text class="tt-s" x="90" y="271" text-anchor="middle">患者：流量の変化</text></g><g class="tt-box"><rect x="220" y="89" width="140" height="54" rx="9"/><text class="tt-n" x="290" y="112" text-anchor="middle">流量</text><text class="tt-s" x="290" y="131" text-anchor="middle">流量を守る（量）</text></g><g class="tt-box"><rect x="220" y="209" width="140" height="54" rx="9"/><text class="tt-n" x="290" y="232" text-anchor="middle">圧</text><text class="tt-s" x="290" y="251" text-anchor="middle">設定圧を守る</text></g><g class="tt-box"><rect x="420" y="69" width="140" height="54" rx="9"/><text class="tt-n" x="490" y="92" text-anchor="middle">量</text><text class="tt-s" x="490" y="111" text-anchor="middle">設定量を送ったら</text></g><g class="tt-box"><rect x="420" y="149" width="140" height="54" rx="9"/><text class="tt-n" x="490" y="172" text-anchor="middle">時間</text><text class="tt-s" x="490" y="191" text-anchor="middle">設定時間で</text></g><g class="tt-box"><rect x="420" y="229" width="140" height="54" rx="9"/><text class="tt-n" x="490" y="252" text-anchor="middle">流量</text><text class="tt-s" x="490" y="271" text-anchor="middle">ピーク流量の25%</text></g><g class="tt-mode m-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを表示"><rect x="620" y="69" width="120" height="54" rx="9"/><text class="tt-n" x="680" y="92" text-anchor="middle">VCV</text><text class="tt-s" x="680" y="111" text-anchor="middle">量制御</text></g><g class="tt-mode m-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを表示"><rect x="620" y="149" width="120" height="54" rx="9"/><text class="tt-n" x="680" y="172" text-anchor="middle">PCV</text><text class="tt-s" x="680" y="191" text-anchor="middle">圧制御</text></g><g class="tt-mode m-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを表示"><rect x="620" y="229" width="120" height="54" rx="9"/><text class="tt-n" x="680" y="252" text-anchor="middle">PSV</text><text class="tt-s" x="680" y="271" text-anchor="middle">圧支持</text></g></svg>
-<svg class="tt-svg tt-v" viewBox="0 0 360 560" role="img" aria-label="3T'sからモードへの道筋（縦）。VCVは時間・圧・流量のどれかで始まり、流量を守り、設定量で終わる。PCVは同じく始まり、圧を守り、設定時間で終わる。PSVは圧か流量の患者トリガーで始まり、圧を守り、ピーク流量の25%で終わる"><path class="tt-l m-vcv" d="M80 240 C80 280 50 284 50 324"/><path class="tt-l m-vcv" d="M50 376 C50 416 50 420 50 460"/><path class="tt-l m-vcv" d="M292 104 C292 144 80 148 80 188"/><path class="tt-l m-vcv" d="M171 104 C171 144 80 148 80 188"/><path class="tt-l m-vcv" d="M50 104 C50 144 80 148 80 188"/><path class="tt-l m-pcv" d="M271 240 C271 280 180 284 180 324"/><path class="tt-l m-pcv" d="M180 376 C180 416 180 420 180 460"/><path class="tt-l m-pcv" d="M301 104 C301 144 271 148 271 188"/><path class="tt-l m-pcv" d="M180 104 C180 144 271 148 271 188"/><path class="tt-l m-pcv" d="M59 104 C59 144 271 148 271 188"/><path class="tt-l m-psv" d="M280 240 C280 280 310 284 310 324"/><path class="tt-l m-psv" d="M310 376 C310 416 310 420 310 460"/><path class="tt-l m-psv" d="M310 104 C310 144 280 148 280 188"/><path class="tt-l m-psv" d="M189 104 C189 144 280 148 280 188"/><text class="tt-ht tt-halo" x="4" y="38">Trigger<tspan class="tt-s" dx="8">始まり</tspan></text><text class="tt-ht tt-halo" x="4" y="174">Target<tspan class="tt-s" dx="8">送気中に守る</tspan></text><text class="tt-ht tt-halo" x="4" y="310">Termination<tspan class="tt-s" dx="8">終わり</tspan></text><text class="tt-ht tt-halo" x="4" y="446">Mode<tspan class="tt-s" dx="8">モード</tspan></text><g class="tt-box"><rect x="6" y="52" width="106" height="52" rx="9"/><text class="tt-n" x="59" y="75" text-anchor="middle">時間</text><text class="tt-s" x="59" y="94" text-anchor="middle">器械：設定間隔</text></g><g class="tt-box"><rect x="127" y="52" width="106" height="52" rx="9"/><text class="tt-n" x="180" y="75" text-anchor="middle">圧</text><text class="tt-s" x="180" y="94" text-anchor="middle">患者：圧の低下</text></g><g class="tt-box"><rect x="248" y="52" width="106" height="52" rx="9"/><text class="tt-n" x="301" y="75" text-anchor="middle">流量</text><text class="tt-s" x="301" y="94" text-anchor="middle">患者：流量の変化</text></g><g class="tt-box"><rect x="36" y="188" width="106" height="52" rx="9"/><text class="tt-n" x="89" y="211" text-anchor="middle">流量</text><text class="tt-s" x="89" y="230" text-anchor="middle">流量を守る（量）</text></g><g class="tt-box"><rect x="218" y="188" width="106" height="52" rx="9"/><text class="tt-n" x="271" y="211" text-anchor="middle">圧</text><text class="tt-s" x="271" y="230" text-anchor="middle">設定圧を守る</text></g><g class="tt-box"><rect x="6" y="324" width="106" height="52" rx="9"/><text class="tt-n" x="59" y="347" text-anchor="middle">量</text><text class="tt-s" x="59" y="366" text-anchor="middle">設定量を送ったら</text></g><g class="tt-box"><rect x="127" y="324" width="106" height="52" rx="9"/><text class="tt-n" x="180" y="347" text-anchor="middle">時間</text><text class="tt-s" x="180" y="366" text-anchor="middle">設定時間で</text></g><g class="tt-box"><rect x="248" y="324" width="106" height="52" rx="9"/><text class="tt-n" x="301" y="347" text-anchor="middle">流量</text><text class="tt-s" x="301" y="366" text-anchor="middle">ピーク流量の25%</text></g><g class="tt-mode m-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを表示"><rect x="6" y="460" width="106" height="52" rx="9"/><text class="tt-n" x="59" y="483" text-anchor="middle">VCV</text><text class="tt-s" x="59" y="502" text-anchor="middle">量制御</text></g><g class="tt-mode m-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを表示"><rect x="127" y="460" width="106" height="52" rx="9"/><text class="tt-n" x="180" y="483" text-anchor="middle">PCV</text><text class="tt-s" x="180" y="502" text-anchor="middle">圧制御</text></g><g class="tt-mode m-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを表示"><rect x="248" y="460" width="106" height="52" rx="9"/><text class="tt-n" x="301" y="483" text-anchor="middle">PSV</text><text class="tt-s" x="301" y="502" text-anchor="middle">圧支持</text></g></svg>
-<div class="tt-legend" role="group" aria-label="モードを選ぶと、その線だけが残る"><button type="button" data-mode="vcv"><svg width="34" height="10" aria-hidden="true"><path class="tt-l m-vcv" d="M2 5 H32"/></svg>VCV（量制御）</button><button type="button" data-mode="pcv"><svg width="34" height="10" aria-hidden="true"><path class="tt-l m-pcv" d="M2 5 H32"/></svg>PCV（圧制御）</button><button type="button" data-mode="psv"><svg width="34" height="10" aria-hidden="true"><path class="tt-l m-psv" d="M2 5 H32"/></svg>PSV（圧支持）</button><button type="button" data-mode="all">全部</button></div>
-<p class="nf-foot">VCV の終わりの「量」は、流量×吸気時間で決まる設定量。PSV の終わりのピーク流量の25%は既定値で、ETSで変えられる（§3-4）。モード名を押すと、そのモードの線だけが残る（印刷では全部）。出典：JICS2026（Wattley）、Mojoli ICM2016</p>
+<svg class="mm-svg mm-h" data-k="1" viewBox="0 0 760 312" role="img" aria-label="3T'sからモードへの道筋。VCVは時間・圧・流量のどれかで始まり、流量を守り、設定量で終わる。PCVは同じく始まり、圧を守り、設定時間で終わる。PSVは圧か流量の患者トリガーで始まり、圧を守り、ピーク流量の25%で終わる"><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-time" data-b="targ-flow" d="M160 87 C194 87 186 107 220 107"/><path class="mm-l m-vcv" data-m="vcv" data-s="1" data-a="targ-flow" data-b="term-vol" d="M360 107 C394 107 386 87 420 87"/><path class="mm-l m-vcv" data-m="vcv" data-s="2" data-a="term-vol" data-b="mode-vcv" d="M560 87 C594 87 586 87 620 87"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-pres" data-b="targ-flow" d="M160 167 C194 167 186 107 220 107"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-flow" data-b="targ-flow" d="M160 247 C194 247 186 107 220 107"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-time" data-b="targ-pres" d="M160 96 C194 96 186 236 220 236"/><path class="mm-l m-pcv" data-m="pcv" data-s="1" data-a="targ-pres" data-b="term-time" d="M360 236 C394 236 386 176 420 176"/><path class="mm-l m-pcv" data-m="pcv" data-s="2" data-a="term-time" data-b="mode-pcv" d="M560 176 C594 176 586 176 620 176"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-pres" data-b="targ-pres" d="M160 176 C194 176 186 236 220 236"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-flow" data-b="targ-pres" d="M160 256 C194 256 186 236 220 236"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="trig-pres" data-b="targ-pres" d="M160 185 C194 185 186 245 220 245"/><path class="mm-l m-psv" data-m="psv" data-s="1" data-a="targ-pres" data-b="term-flow" d="M360 245 C394 245 386 265 420 265"/><path class="mm-l m-psv" data-m="psv" data-s="2" data-a="term-flow" data-b="mode-psv" d="M560 265 C594 265 586 265 620 265"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="trig-flow" data-b="targ-pres" d="M160 265 C194 265 186 245 220 245"/><g class="mm-node" data-n="trig-time"><rect x="20" y="69" width="140" height="54" rx="9"/><text class="mm-n" x="90" y="92" text-anchor="middle">時間</text><text class="mm-s" x="90" y="111" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="20" y="149" width="140" height="54" rx="9"/><text class="mm-n" x="90" y="172" text-anchor="middle">圧</text><text class="mm-s" x="90" y="191" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="20" y="229" width="140" height="54" rx="9"/><text class="mm-n" x="90" y="252" text-anchor="middle">流量</text><text class="mm-s" x="90" y="271" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="220" y="89" width="140" height="54" rx="9"/><text class="mm-n" x="290" y="112" text-anchor="middle">流量</text><text class="mm-s" x="290" y="131" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="220" y="209" width="140" height="54" rx="9"/><text class="mm-n" x="290" y="232" text-anchor="middle">圧</text><text class="mm-s" x="290" y="251" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="420" y="69" width="140" height="54" rx="9"/><text class="mm-n" x="490" y="92" text-anchor="middle">量</text><text class="mm-s" x="490" y="111" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="420" y="149" width="140" height="54" rx="9"/><text class="mm-n" x="490" y="172" text-anchor="middle">時間</text><text class="mm-s" x="490" y="191" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="420" y="229" width="140" height="54" rx="9"/><text class="mm-n" x="490" y="252" text-anchor="middle">流量</text><text class="mm-s" x="490" y="271" text-anchor="middle">ピーク流量の25%</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="620" y="69" width="120" height="54" rx="9"/><text class="mm-n" x="680" y="92" text-anchor="middle">VCV</text><text class="mm-s" x="680" y="111" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="620" y="149" width="120" height="54" rx="9"/><text class="mm-n" x="680" y="172" text-anchor="middle">PCV</text><text class="mm-s" x="680" y="191" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="620" y="229" width="120" height="54" rx="9"/><text class="mm-n" x="680" y="252" text-anchor="middle">PSV</text><text class="mm-s" x="680" y="271" text-anchor="middle">圧支持</text></g><text class="mm-ht" x="90" y="24" text-anchor="middle">Trigger</text><text class="mm-hs" x="90" y="44" text-anchor="middle">始まり</text><text class="mm-ht" x="290" y="24" text-anchor="middle">Target</text><text class="mm-hs" x="290" y="44" text-anchor="middle">送気中に守る</text><text class="mm-ht" x="490" y="24" text-anchor="middle">Termination</text><text class="mm-hs" x="490" y="44" text-anchor="middle">終わり</text><text class="mm-ht" x="680" y="24" text-anchor="middle">Mode</text><text class="mm-hs" x="680" y="44" text-anchor="middle">モード</text></svg>
+<svg class="mm-svg mm-v" data-k="1" viewBox="0 0 360 560" role="img" aria-label="3T'sからモードへの道筋。VCVは時間・圧・流量のどれかで始まり、流量を守り、設定量で終わる。PCVは同じく始まり、圧を守り、設定時間で終わる。PSVは圧か流量の患者トリガーで始まり、圧を守り、ピーク流量の25%で終わる"><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-time" data-b="targ-flow" d="M50 104 C50 144 80 148 80 188"/><path class="mm-l m-vcv" data-m="vcv" data-s="1" data-a="targ-flow" data-b="term-vol" d="M80 240 C80 280 50 284 50 324"/><path class="mm-l m-vcv" data-m="vcv" data-s="2" data-a="term-vol" data-b="mode-vcv" d="M50 376 C50 416 50 420 50 460"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-pres" data-b="targ-flow" d="M171 104 C171 144 80 148 80 188"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="trig-flow" data-b="targ-flow" d="M292 104 C292 144 80 148 80 188"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-time" data-b="targ-pres" d="M59 104 C59 144 271 148 271 188"/><path class="mm-l m-pcv" data-m="pcv" data-s="1" data-a="targ-pres" data-b="term-time" d="M271 240 C271 280 180 284 180 324"/><path class="mm-l m-pcv" data-m="pcv" data-s="2" data-a="term-time" data-b="mode-pcv" d="M180 376 C180 416 180 420 180 460"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-pres" data-b="targ-pres" d="M180 104 C180 144 271 148 271 188"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="trig-flow" data-b="targ-pres" d="M301 104 C301 144 271 148 271 188"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="trig-pres" data-b="targ-pres" d="M189 104 C189 144 280 148 280 188"/><path class="mm-l m-psv" data-m="psv" data-s="1" data-a="targ-pres" data-b="term-flow" d="M280 240 C280 280 310 284 310 324"/><path class="mm-l m-psv" data-m="psv" data-s="2" data-a="term-flow" data-b="mode-psv" d="M310 376 C310 416 310 420 310 460"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="trig-flow" data-b="targ-pres" d="M310 104 C310 144 280 148 280 188"/><g class="mm-node" data-n="trig-time"><rect x="6" y="52" width="106" height="52" rx="9"/><text class="mm-n" x="59" y="75" text-anchor="middle">時間</text><text class="mm-s" x="59" y="94" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="127" y="52" width="106" height="52" rx="9"/><text class="mm-n" x="180" y="75" text-anchor="middle">圧</text><text class="mm-s" x="180" y="94" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="248" y="52" width="106" height="52" rx="9"/><text class="mm-n" x="301" y="75" text-anchor="middle">流量</text><text class="mm-s" x="301" y="94" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="36" y="188" width="106" height="52" rx="9"/><text class="mm-n" x="89" y="211" text-anchor="middle">流量</text><text class="mm-s" x="89" y="230" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="218" y="188" width="106" height="52" rx="9"/><text class="mm-n" x="271" y="211" text-anchor="middle">圧</text><text class="mm-s" x="271" y="230" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="6" y="324" width="106" height="52" rx="9"/><text class="mm-n" x="59" y="347" text-anchor="middle">量</text><text class="mm-s" x="59" y="366" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="127" y="324" width="106" height="52" rx="9"/><text class="mm-n" x="180" y="347" text-anchor="middle">時間</text><text class="mm-s" x="180" y="366" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="248" y="324" width="106" height="52" rx="9"/><text class="mm-n" x="301" y="347" text-anchor="middle">流量</text><text class="mm-s" x="301" y="366" text-anchor="middle">ピーク流量の25%</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="6" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="59" y="483" text-anchor="middle">VCV</text><text class="mm-s" x="59" y="502" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="127" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="180" y="483" text-anchor="middle">PCV</text><text class="mm-s" x="180" y="502" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="248" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="301" y="483" text-anchor="middle">PSV</text><text class="mm-s" x="301" y="502" text-anchor="middle">圧支持</text></g><text class="mm-ht mm-halo" x="4" y="38">Trigger<tspan class="mm-hs" dx="8">始まり</tspan></text><text class="mm-ht mm-halo" x="4" y="174">Target<tspan class="mm-hs" dx="8">送気中に守る</tspan></text><text class="mm-ht mm-halo" x="4" y="310">Termination<tspan class="mm-hs" dx="8">終わり</tspan></text><text class="mm-ht mm-halo" x="4" y="446">Mode<tspan class="mm-hs" dx="8">モード</tspan></text></svg>
+<div class="mm-legend" role="group" aria-label="モードを選ぶと、その線だけが描き直される"><button type="button" data-mode="vcv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-vcv" d="M3 5 H31"/></svg>VCV（量制御）</button><button type="button" data-mode="pcv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-pcv" d="M3 5 H31"/></svg>PCV（圧制御）</button><button type="button" data-mode="psv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-psv" d="M3 5 H31"/></svg>PSV（圧支持）</button><button type="button" data-mode="all">全部</button></div>
+<p class="nf-foot">VCV の終わりの「量」は、流量×吸気時間で決まる設定量。PSV の終わりのピーク流量の25%は既定値で、ETSで変えられる（§3-4）。モード名を押すと、そのモードの線だけが描き直される（もう一度押すと全部に戻る。印刷では全部）。出典：JICS2026（Wattley）、Mojoli ICM2016</p>
 </div>
 <figcaption>図2-2. 3T'sの組み合わせがモードになる — Trigger・Target・Terminationの選択肢を、VCV・PCV・PSVの色と線種でたどる。</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — 左から右へたどります。VCV（青の実線）は時間・圧・流量のどれで始まっても流量を守って送り、設定量を送ったら終わります。PCV（橙の破線）も同じ3通りで始まり、圧を守って設定時間で終わります。PSV（緑の点線）は患者のトリガー（圧か流量）だけで始まり、圧を守って、流量がピークの25%に落ちたら終わります。PCVとPSVは Target まで同じ道を通り、違いは時間トリガーの有無と Termination だけです。</p>
+<p class="figread"><strong>図の読み方</strong> — 左から右へたどります。VCV（青緑の実線）は時間・圧・流量のどれで始まっても流量を守って送り、設定量を送ったら終わります。PCV（銅色の破線）も同じ3通りで始まり、圧を守って設定時間で終わります。PSV（葡萄色の点線）は患者のトリガー（圧か流量）だけで始まり、圧を守って、流量がピークの25%に落ちたら終わります。PCVとPSVは Target まで同じ道を通り、違いは時間トリガーの有無と Termination だけです。</p>
 <script>
 (function(){
+if(window.MM) return;
+var PAT={vcv:null,pcv:[9,5],psv:[.5,6.5]}, ORDER={vcv:0,pcv:1,psv:2}, MD=420, SD=620;
+function L(p){return p._len||(p._len=p.getTotalLength());}
+function pat(p){var k=parseFloat(p.ownerSVGElement.getAttribute('data-k')||'1'), b=PAT[p.getAttribute('data-m')];
+  if(!b) return null; if(k===2&&p.getAttribute('data-m')==='pcv') return [18,10]; if(k===2) return [1,13]; return b;}
+function dash(p,d){var len=L(p), pt=pat(p);
+  if(d>=len){p.style.strokeDasharray='';return;}
+  if(d<=0){p.style.strokeDasharray='0 '+(len*2+20);return;}
+  if(!pt){p.style.strokeDasharray=d.toFixed(2)+' '+(len*2+20);return;}
+  var a=[],acc=0,i=0; while(acc<d-1e-6){var t=Math.min(pt[i%2],d-acc); a.push(+t.toFixed(2)); acc+=t; i++;}
+  if(a.length%2===1) a.push(len*2+20); else a[a.length-1]+=len*2+20;
+  p.style.strokeDasharray=a.join(' ');}
+function hit(svg,id,m){var g=svg.querySelector('[data-n="'+id+'"]'); if(!g) return;
+  g.classList.remove('hit-vcv','hit-pcv','hit-psv'); void g.getBoundingClientRect(); g.classList.add('hit-'+m);}
+function cancel(svg){if(svg._raf){cancelAnimationFrame(svg._raf); svg._raf=0;}}
+function finish(svg){cancel(svg); [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){p.style.strokeDasharray='';});
+  [].forEach.call(svg.querySelectorAll('.mm-node'),function(g){g.classList.remove('hit-vcv','hit-pcv','hit-psv');});}
+function visible(svg){var r=svg.getBoundingClientRect(); return r.width>0&&r.height>0;}
+function hide(svg){if(!visible(svg)) return; [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){dash(p,0);});}
+function play(svg,modes){
+  cancel(svg); if(!visible(svg)){finish(svg);return;}
+  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0;});
+  ps.forEach(function(p){dash(p,0);});
+  var one=modes.length===1, t0=performance.now(), fired={};
+  function fire(key,id,m){if(fired[key]) return; fired[key]=1; hit(svg,id,m);}
+  function frame(now){var t=now-t0, alive=false;
+    ps.forEach(function(p){var m=p.getAttribute('data-m'), s=+p.getAttribute('data-s');
+      var st=(one?0:ORDER[m]*MD)+s*SD, pr=(t-st)/SD;
+      if(pr<1) alive=true;
+      var e=pr<=0?0:pr>=1?1:1-Math.pow(1-pr,2.4); dash(p,e*L(p));
+      if(pr>0&&s===0) fire(p.getAttribute('data-a')+m,p.getAttribute('data-a'),m);
+      if(pr>=1) fire(p.getAttribute('data-b')+m,p.getAttribute('data-b'),m);});
+    svg._raf=alive?requestAnimationFrame(frame):0;}
+  svg._raf=requestAnimationFrame(frame);}
+window.MM={play:play,finish:finish,hide:hide,visible:visible};
+})();
+
+(function(){
   var f=document.currentScript.previousElementSibling.previousElementSibling;
-  if(!f||!f.classList.contains('ttfig')) return;
+  if(!f||!f.classList.contains('mm')||!window.MM) return;
+  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'];
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rp=f.querySelector('.mm-replay');
+  function run(modes){if(reduce){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes);});}
+  function setHL(m){f.setAttribute('data-hl',m||'');}
+  if(!reduce){
+    svgs.forEach(MM.hide);
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&(e.intersectionRatio>=.35||e.intersectionRect.height>=window.innerHeight*.45)){io.disconnect(); run(ALL);}});},{threshold:[0,.2,.35,.6]});
+    io.observe(f);
+  }
   f.querySelectorAll('[data-mode]').forEach(function(b){
-    function go(){var m=b.getAttribute('data-mode'); f.setAttribute('data-hl', (m==='all'||f.getAttribute('data-hl')===m)?'':m);}
+    function go(){var m=b.getAttribute('data-mode');
+      if(m==='all'||f.getAttribute('data-hl')===m){setHL(''); svgs.forEach(MM.finish);}
+      else{setHL(m); run([m]);}}
     b.addEventListener('click',go);
     b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
   });
+  if(rp) rp.addEventListener('click',function(){setHL(''); run(ALL);});
+  window.addEventListener('beforeprint',function(){svgs.forEach(MM.finish);});
+  window.addEventListener('resize',function(){svgs.forEach(function(s){if(!s._raf) MM.finish(s);});});
 })();
 </script>
 <!-- tt:end -->

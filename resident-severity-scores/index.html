@@ -1232,7 +1232,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">重症度スコアと予後予測</h1>
 <p class="sub">スコアは群に使う道具。目的で道具を選び、SMRはモデル名・欠測・症例構成と一緒に読む — スコアの家系・識別能と較正・SOFAとSOFA-2・SMRとベンチマーク・データ基盤と個別化・特殊な集団・家族と記録・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-09</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-22</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1299,9 +1299,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s1-3">1-3. 拾い上げの道具は精度で比べない — qSOFAは入口、乳酸アルブミン比は除外に強い</h3>
 <p class="rd-lead">③の家系は感度を優先して「拾う」道具で、入院を要する市中肺炎1,045例の院内死亡（6.1%）でqSOFAのC統計量は0.69（CURB-65 0.75・PSI 0.74と有意差なし、P=0.11・0.18）、qSOFA≥2は感度39.1%・特異度87.8%なので、予後予測のスコア（AUROC 0.9前後）とは比べず、個人の死亡確率を語る道具にもしません<span class="src vault">JIntensiveCare2018</span>。</p>
 <p>qSOFAは意識・呼吸数・収縮期血圧の3項目で、検査を待たずに計算できるのが強みです。院内の急変の拾い上げには、感染症に限らず7項目（呼吸数・SpO₂・酸素投与・体温・収縮期血圧・心拍数・意識）を各0〜3点で合計するNEWS・NEWS2が向いており、qSOFA単独のスクリーニングはSSC2021以降の推奨から外れています。院内の拾い上げの推奨は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-antibiotics/#rs-s2-1">敗血症の診断・抗菌薬・感染源管理</a>が正本です。</p>
-<details class="rd-ev" open><summary>根拠を見る（市中肺炎のqSOFA・2時点のqSOFA・乳酸アルブミン比）</summary>
+<details class="rd-ev" open><summary>根拠を見る（市中肺炎のqSOFA・2時点のqSOFA・乳酸アルブミン比・VExUS）</summary>
 <p>救急外来の肺炎1,641例（28日死亡33%）では、qSOFAのAUC 0.655（0.626–0.683）はCRB-65 0.661・CRB 0.651と差がありませんでしたが、点数別の28日死亡は0／1／2／3点で16.3%／24.4%／48.2%／68.4%と明快な階段を作り、2〜3点では同じ点数のCRB-65より死亡とICU入室が多く拾えました<span class="src vault">CritCare2016</span>。AUCで差がないことと、実務で使えないことは別です。病院前と救急外来の2時点のqSOFAを足す試み（2,407例）では、単独のC統計量は0.55〜0.57でしたが、合計6点中3点をカットオフにすると救急外来のqSOFA単独より感度が上がりました<span class="src vault">PLoSOne2023</span>。</p>
 <p>乳酸アルブミン比（LAR＝乳酸 mmol/L÷アルブミン g/dL）はJIPAD 234,774例（院内死亡8.8%）でAUC 0.761で、SOFA 0.848には及ばないものの、乳酸単独0.717・アルブミン単独0.683・年齢単独0.583を上回りました。カットオフ0.4で感度92.7%・陰性尤度比0.283と除外に強い一方、中央値自体が0.66（IQR 0.44–1.10）で4分の3以上の患者が0.4を超えるので、特異度は高くありません<span class="src vault">BMJOpen2024</span>。下回れば低リスクの材料になりますが、上回っても重症と決めつけません。</p>
+<p>ベッドサイドの静脈うっ血評価VExUSも予後の目印として使われがちですが、32研究3,142例のメタ解析では、関連は患者集団で分かれました。心疾患ではVExUS 2以上がAKIのOR 4.44（2.34–8.43）でしたが、一般ICUではAKIのOR 1.45（0.70–2.99）・死亡OR 1.25でいずれも有意でなく、個別患者データで死亡と関連したのはグレード3だけ（OR 2.42、1.13–5.17）でした<span class="src vault">CCM2026</span>。著者ら自身が予後マーカーとして使うべきではないと述べており、VExUSは輸液耐容性を考える材料で、予後スコアの代わりにしません。詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-vexus/#s11">VExUS</a>が正本です。</p>
 </details>
 
 <h3 id="rs-s1-4">1-4. 40年の教訓 — 個人の死亡リスクを出す道具として作られ、群を比べる道具として役に立った</h3>
@@ -1848,6 +1849,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>入院を要する市中肺炎でqSOFAはCURB-65・PSIと差がない — 1,045例、院内死亡のC統計量0.69対0.75対0.74（前向き観察の二次解析）. <em>J Intensive Care</em>. 2018（JIntensiveCare2018）</li>
 <li>救急外来の肺炎でqSOFAはCRB-65と同等 — 1,641例、qSOFA 0〜3点で28日死亡16.3・24.4・48.2・68.4%. <em>Crit Care</em>. 2016（CritCare2016）</li>
 <li>病院前qSOFAを救急外来qSOFAに足すと感度が上がる（2,407例）. <em>PLoS One</em>. 2023（PLoSOne2023）</li>
+<li>VExUSの診断能と予後予測 — 心疾患ではAKI OR 4.44・死亡 OR 3.17、一般ICUでは関連が不明瞭（32研究3,142例・SRメタ解析）. <em>Crit Care Med</em>. 2026（CCM2026）</li>
 <li>乳酸アルブミン比（LAR）は院内死亡のスクリーニングに使える — カットオフ0.4で感度92.7%（JIPAD 234,774例）. <em>BMJ Open</em>. 2024（BMJOpen2024）</li>
 <li>Moons KGM, et al. PROBAST: Explanation and Elaboration. <em>Ann Intern Med</em>. 2019（PROBAST AnnInternMed2019）</li>
 <li>Collins GS, et al. TRIPOD+AI statement. <em>BMJ</em>. 2024（TRIPOD+AI BMJ2024）</li>

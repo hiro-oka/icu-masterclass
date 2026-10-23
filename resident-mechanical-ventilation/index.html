@@ -1777,11 +1777,11 @@ figure.vffig .nf-foot,figure.wvfig .nf-foot,figure.mmfig .nf-foot{font-size:.9em
 <h1 id="top">人工呼吸の基礎</h1>
 <p class="sub">1人の症例で、挿管の判断から人工呼吸器の設定・血液ガスでの見直し・アラーム対応までをたどる — 挿管の適応（ABCDE）・圧の差と時定数τ・3T's・初期設定とRとC・酸素化とCO₂・高圧と低圧のアラーム・ARDSとCOPD</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-23</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-24</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>
-  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-lecture/">🎞 スライド</a> で全体をつかんでください。スライドは→キーかスワイプで1枚ずつ送れます。2ページの <a href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-summary/">📝 サマリー</a> もあります。この資料は、§1の患者が挿管されてから、人工呼吸器を設定し、血液ガスで直し、アラームに対応するまでを順に追います。知りたいところへは、目次から進んでください。</p>
+  <p class="start-t">全文は長いので、まず <a href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-lecture/">🎞 スライド</a> で全体をつかんでください。スライドは→キーかスワイプで1枚ずつ送れます。2ページの <a href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-summary/">📝 サマリー</a> もあります。知りたいところへは、目次から進んでください。</p>
 </div>
 
 <div class="tools">
@@ -1807,15 +1807,9 @@ figure.vffig .nf-foot,figure.wvfig .nf-foot,figure.mmfig .nf-foot{font-size:.9em
 <p class="mo-ip-n">押すと本文の該当箇所へ移動します</p>
 </section>
 
-<p>人工呼吸器の画面に並ぶ数字と波形は、患者の肺と呼吸筋で起きていることを映しています。この資料の目標は、人工呼吸器を初めて任された研修医が、設定し、波形を読み、血液ガスで直し、アラームに対応できるようになることです。向精神薬の過量服薬で意識が下がった1人の患者を、同じ数値のまま最後まで追います。</p>
-<p>流れは「しくみ → 設定 → 調整 → トラブル → 病態」です。挿管の判断（§2）は短く確かめ、人工呼吸器のしくみ（§3）、この患者の初期設定（§4）、血液ガスでの見直し（§5）、アラーム対応（§6）、ARDSとCOPDの要点（§7）の順に進みます。</p>
-<p>持ち帰ってほしいのは次の3点です。</p>
-<ol class="rs-take">
-<li>画面の圧は、流す分（抵抗R×流量）・膨らませる分（量÷コンプライアンスC）・PEEPの和です。回路の圧と肺胞の圧の差が流量を生み、差が埋まる速さが時定数τ（R×C）です。</li>
-<li>モードは名前ではなく、Trigger・Target・Termination（3T's）の組み合わせで読みます。挿管直後はA/Cで始め、一回換気量は予測体重で決め、吸気ポーズで測ったPIPとPplatからRとCを数字にします。</li>
-<li>血液ガスは、酸素化（FiO₂と平均気道内圧）と換気（肺胞換気量）を別々のつまみで直します。高圧アラームは、PIPとPplatの動き方で原因を分けます。</li>
-</ol>
-<p>扱うモードはVCV・PCV・PSVの3つだけです。肺保護換気の根拠、合併症（VAP・ARDSでない肺のVILI・横隔膜）、離脱と抜管の詳細は下の関連資料に任せます。波形を読む手順・非同調・離脱と抜管の要点は、末尾の付録（§8）にまとめました。</p>
+<p>本稿の目的は、人工呼吸管理を担当する医師や医療従事者が、初期設定、波形判読、血液ガス値に基づく設定修正、およびアラーム対応を体系的に実践できるようになることです。</p>
+<p>全体の構成は「機構 → 設定 → 調整 → トラブル対応 → 病態別管理」の順で展開します。挿管適応の確認を経て、人工呼吸器の作動原理、初期設定値の決定、血液ガスによる設定最適化、高圧・低圧アラームへの介入、ARDSおよびCOPDにおける管理要点を順次解説します。</p>
+<p>なお、本稿で詳述するモードはVCV、PCV、PSVの3種に限定します。</p>
 
 <a class="xl-card is-small" href="https://hiro-oka.github.io/icu-masterclass/resident-airway/"><span class="xl-b"><span class="xl-k">関連資料</span><span class="xl-t">重症患者の気道管理・挿管</span><span class="xl-s">挿管の準備と手順、生理学的な挿管困難、挿管直後の循環の崩れへの備え</span></span><span class="xl-go">開く</span></a>
 <a class="xl-card is-small" href="https://hiro-oka.github.io/icu-masterclass/resident-ards/"><span class="xl-b"><span class="xl-k">関連資料</span><span class="xl-t">ARDSの換気設定と自発呼吸 — 小さな肺を伸ばしすぎない</span><span class="xl-s">肺保護換気の数値（VT・Pplat・ΔP・PEEP）の根拠、baby lung・メカニカルパワー、自発呼吸とP-SILI、腹臥位・筋弛緩・ECMO</span></span><span class="xl-go">開く</span></a>

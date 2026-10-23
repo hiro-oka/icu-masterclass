@@ -110,7 +110,7 @@ td .x{color:var(--danger); font-weight:700}
 <a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/">解説の本編を開く →</a>
 <div class="three">
 <div><b>圧の差が流量を生む</b><span>画面の圧＝流す分（R×流量）＋膨らませる分（量÷C）＋PEEP。差が埋まる速さがτ＝R×C</span></div>
-<div><b>設定は3T'sで読み、ポーズで測る</b><span>挿管直後はA/C。VTは予測体重。PIPとPplatを分けてRとCstを出す</span></div>
+<div><b>設定は3T'sで読み、ポーズで測る</b><span>挿管直後はA/C。VTは予測体重（PBW）。PIPとPplatを分けてRとCstを出す</span></div>
 <div><b>血液ガスは2つのつまみ、アラームは圧の動き方</b><span>O₂はFiO₂と平均気道内圧、CO₂は肺胞換気量。高圧はPIPとPplatで分ける</span></div>
 </div>
 <h2><span class="n">1</span>症例 — 40代男性、GCS 7、舌根沈下と吐物<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s1">詳しく</a></h2>
@@ -144,19 +144,19 @@ td .x{color:var(--danger); font-weight:700}
 <thead><tr><th>項目</th><th>この患者</th><th>目安と考え方</th></tr></thead>
 <tbody>
 <tr><td>モード</td><td>A/C・VCV</td><td>挿管直後はA/C（VCVかPCV、慣れたほう）。PSVは自発呼吸が安定してから</td></tr>
-<tr><td>一回換気量</td><td>400 mL</td><td>予測体重で正常肺6〜8 mL/kg。PBW 男 50＋0.91×（身長cm − 152.4）、女は45.5から</td></tr>
+<tr><td>一回換気量</td><td>400 mL</td><td>予測体重で正常肺6〜8 mL/kg（実体重は肥満で過大）。PBW 男 50＋0.91×（身長cm − 152.4）、女は45.5から</td></tr>
 <tr><td>呼吸数・PEEP</td><td>14回/分・5</td><td>呼吸数は推奨なし。PEEPは5〜6から。FiO₂はSpO₂ 92〜95%に収まる最小へ</td></tr>
 <tr><td>カフ圧</td><td>26 cmH₂O</td><td>当院の既定。文献の推奨域は20〜30。カフ圧計で実測する</td></tr>
 <tr><td>守る上限</td><td>Pplat 18・ΔP 13</td><td>どのモードでも<b>Pplat 30未満・ΔP 15未満</b></td></tr>
 </tbody></table></div>
 <ul>
-<li><b>吸気ポーズ（VCV・矩形波・60 L/分で0.5〜1秒）</b>：PIP 24・Pplat 18・PEEP 5 → <b>R＝（24 − 18）÷ 1 L/s＝6</b>、<b>Cst＝400 ÷ 13＝31</b>（目安50〜80より低い）。60 L/分ならPIP − Pplatがそのまま R</li>
+<li><b>吸気ポーズ（VCV・矩形波・60 L/分で0.5〜1秒）</b>：PIP 24・Pplat 18・PEEP 5 → <b>R＝（24 − 18）÷ 1 L/s＝6</b>、<b>Cst＝400 ÷ 13＝31</b>（目安50〜80より低い）。60 L/分ならPIP − Pplatがそのまま R。Pplatはポーズで測り、PIPと取り違えない</li>
 </ul>
 <h2><span class="n">5</span>血液ガスで直す — 酸素化はFiO₂とPEEP、CO₂は肺胞換気量<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s5">詳しく</a></h2>
 <ul>
-<li><b>2つのつまみ</b>：酸素化はFiO₂と平均気道内圧（主にPEEP）、CO₂は肺胞換気量＝（VT − 死腔）× 呼吸数。PEEPは静脈還流を下げ右室後負荷を増やす（益と害は同じ機序の裏表）。目標は正常値ではなく、PaO₂ 60〜90・PaCO₂ 60未満を最小限の害で</li>
+<li><b>2つのつまみ</b>：酸素化はFiO₂と平均気道内圧（主にPEEP）、CO₂は肺胞換気量＝（VT − 死腔）× 呼吸数（浅く速いほど死腔の割合が増え、CO₂が出にくい）。PEEPは静脈還流を下げ右室後負荷を増やす（益と害は同じ機序の裏表）。目標は正常値ではなく、PaO₂ 60〜90・PaCO₂ 60未満を最小限の害で</li>
 <li><b>この患者</b>：挿管30分後、FiO₂ 0.6でpH 7.24・PaCO₂ 60・PaO₂ 63（<b>P/F 105</b>）。分時換気量5.6 L/分でも肺胞換気量は3.5 L/分 → <b>PEEP 5 → 10、呼吸数14 → 18</b>。1時間後はpH 7.35・PaCO₂ 46・P/F 160。VTを480 mLに上げるとΔP約15.5で目安を超える</li>
-<li><b>比べ方</b>：酸素化はP/F比で（PaO₂ 150・FiO₂ 1.0は、PaO₂ 100・FiO₂ 0.3より悪い）。<b>呼吸数を上げたら</b>呼気フローが0に戻るかを見る（戻らなければauto-PEEP）</li>
+<li><b>比べ方</b>：酸素化はP/F比（PaO₂ ÷ FiO₂）で（PaO₂ 150・FiO₂ 1.0は、PaO₂ 100・FiO₂ 0.3より悪い）。<b>呼吸数を上げたら</b>呼気が短くなるので、呼気フローが0に戻ってから次の吸気かを見る（戻る前ならauto-PEEP）</li>
 </ul>
 <h2><span class="n">6</span>アラーム対応 — 高圧はPIPとPplatで分け、低圧は回路をたどる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s6">詳しく</a></h2>
 <ul>
@@ -168,7 +168,7 @@ td .x{color:var(--danger); font-weight:700}
 <tr><td>PIPだけ上がる</td><td>気道抵抗の上昇（翌日 PIP 41・Pplat 22 → 噛みつきと痰）</td></tr>
 <tr><td>PIPとPplatが上がる</td><td>コンプライアンスの低下（3日目 PIP 37・Pplat 31 → 片肺挿管）</td></tr>
 <tr><td>PCVで換気量が増減</td><td>圧は変わらず、流量と換気量に出る（換気量の下限アラームで気づく）</td></tr>
-<tr><td>低圧・換気量の低下</td><td>回路の外れ・カフ漏れ・計画外抜管を患者側からたどる（人工鼻とYピースの外れ）</td></tr>
+<tr><td>低圧・換気量の低下</td><td>回路の外れ・カフ漏れ・計画外抜管を、チューブ・カフから本体へ順にたどる</td></tr>
 </tbody></table></div>
 <h2><span class="n">7</span>ARDSとCOPD — ARDSは伸ばしすぎない、COPDは吐かせる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s7">詳しく</a></h2>
 <ul>

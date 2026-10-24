@@ -1048,9 +1048,11 @@ svg .mo-growy{transform-box:fill-box}
 /* ---------- 2. 本文の動き（スクロールで1回） ---------- */
 .mo-on .mo-rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
-/* 章見出し：色帯が左から拭き出され、下に線が引かれる */
-.mo-on .rd > h2.mo-h{position:relative; clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.2,.7,.2,1)}
-.mo-on .rd > h2.mo-h.mo-in{clip-path:inset(0 0 0 0)}
+/* 章見出し：左から滑り込み、下に線が引かれる。
+   2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
+   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+.mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
+.mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
   transform:scaleX(0); transform-origin:left center; transition:transform .9s .3s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in::after{transform:scaleX(1)}
@@ -2868,14 +2870,16 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
   // 波形（.nf-wave を含む SVG）：軸 → 閾値 → 波形を時間軸に沿って描く → 注記
   RECIPES.wave = function (fig) {
-    var F = new Fig(fig, .55), last = null;
+    // data-mo-dur＝掃引の秒数（人工呼吸器の画面のように数呼吸ぶん流すときに長くする）／data-mo-sync＝横に並ぶパネルを同時に
+    var dur = parseFloat(fig.getAttribute('data-mo-dur')) || 1.4;
+    var F = new Fig(fig, fig.hasAttribute('data-mo-sync') ? .001 : .55), last = null;
     Q('.nf-panel', fig).filter(function (p) { return q('.nf-wave', p); }).forEach(function (pn) {
       var s = last = new Scene(F, pn), svg = q('svg', pn);
       s.el(q('.nf-pt', pn), 'rise', 0, .45).el(q('.nf-ps', pn), 'fade', .08, .45);
       s.el(Q('.nf-axis, .nf-tick, .nf-grid, .nf-zero', svg), 'fade', .1, .4);
       s.el(Q('text.nf-ts, text.nf-t:not(.nf-tb)', svg), 'fade', .14, .4);
       s.el(Q('.nf-thr', svg), 'fade', .35, .45);
-      var T0 = .45, TD = 1.4;
+      var T0 = .45, TD = dur;
       sweep(s, svg, Q('.nf-wave', svg), T0, TD);
       var ann = Q('.nf-guide, .nf-dim, .nf-sa, .nf-sd, text.nf-tb', svg).filter(function (e) { return e.getAttribute('opacity') !== '0'; });
       ann.forEach(function (e, k) { s.el(e, e.tagName === 'text' ? 'pop' : 'fade', T0 + TD + .02 + k * .1, .42); });

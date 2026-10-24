@@ -70,6 +70,8 @@ td .x{color:var(--danger); font-weight:700}
 .row th,.row td{text-align:center}
 .row th:first-child,.row td:first-child{text-align:left}
 .hb th:nth-child(2),.hb td:nth-child(2){white-space:nowrap}
+/* §5 の色分け：酸素化＝ベリー、換気（CO₂）＝オリーブ（本編と同じ色） */
+.o2{color:#A92D68; font-weight:700; font-style:normal} .co2{color:#4E7010; font-weight:700; font-style:normal}
 /* チェックリスト */
 .chk{list-style:none; padding:0; margin:.3rem 0 .6rem; display:grid; grid-template-columns:1fr 1fr; gap:.25rem .9rem}
 .chk li{position:relative; padding-left:1.5em; font-size:.88rem; line-height:1.6}
@@ -82,7 +84,7 @@ td .x{color:var(--danger); font-weight:700}
   td:first-child{white-space:normal}
 }
 @media print{
-  @page{size:A4; margin:11mm 12mm}
+  @page{size:A4; margin:9mm 11mm}
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   :root, :root:not([data-theme="light"]){--bg:#ffffff; --fg:#1f2328; --muted:#5c6570; --line:#e3e7ec; --accent:#0084b5; --accent-soft:#e8f4fa;
     --good:#0f7a52; --good-soft:#e7f5ef; --danger:#b3261e; --danger-soft:#fdecea; --warn:#b45309; --warn-soft:#fdf3e3}
@@ -94,7 +96,7 @@ td .x{color:var(--danger); font-weight:700}
   .flow,.tw,.three{break-inside:avoid} .tw.brk{break-inside:auto} tr{break-inside:avoid}
   p{margin:.2rem 0 .4rem} ul,ol{margin:.1rem 0 .4rem} .chk li{line-height:1.5}
   .go{display:none}
-  body{font-size:9.2pt; line-height:1.5} .chk{grid-template-columns:repeat(3,1fr)} .three span{font-size:8.4pt}
+  body{font-size:9pt; line-height:1.45} .chk{grid-template-columns:repeat(3,1fr)} .three span{font-size:8.4pt}
   .flow{padding:.45rem} .f-bot{margin-top:.3rem; padding:.3rem .6rem} .f-top{padding:.25rem .6rem} .f-arr{display:none} .f-cols{margin-top:.3rem}
   .f-col{padding:.25rem .6rem} .f-col ul{line-height:1.45} th,td{padding:.16rem .45rem} table{line-height:1.45}
   h2{margin:.55rem 0 .3rem} .three{margin:.2rem 0} .three div{padding:.3rem .6rem} .chk{gap:.1rem .7rem} .cap,.note{line-height:1.5} .note{margin-top:.6rem}
@@ -105,93 +107,89 @@ td .x{color:var(--danger); font-weight:700}
 <main>
 <p class="kicker">ST. LUKE'S ICU ／ EXECUTIVE SUMMARY</p>
 <h1>人工呼吸の基礎 — 要約</h1>
-<p class="sub">解説「人工呼吸の基礎」を、本編と同じ7章＋付録の順に2ページへ絞った版。1人の患者（40代男性・向精神薬の過量服薬）を最後まで追う。各章の「詳しく」から本編へ。</p>
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-23</span></p>
+<p class="sub">解説「人工呼吸の基礎」を、本編と同じ8章（症例 → 挿管の適応 → モードと波形 → 初期設定 → 血液ガス → アラーム → ARDS・COPD → 付録）の順に2ページへ絞った版。1人の患者を最後まで追う。扱うモードはVCV・PCV・PSVの3つ。各章の「詳しく」から本編へ。</p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-24</span></p>
 <a class="go" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/">解説の本編を開く →</a>
 <div class="three">
-<div><b>圧の差が流量を生む</b><span>画面の圧＝流す分（R×流量）＋膨らませる分（量÷C）＋PEEP。差が埋まる速さがτ＝R×C</span></div>
-<div><b>設定は3T'sで読み、ポーズで測る</b><span>挿管直後はA/C。VTは予測体重（PBW）。PIPとPplatを分けてRとCstを出す</span></div>
-<div><b>血液ガスは2つのつまみ、アラームは圧の動き方</b><span>O₂はFiO₂と平均気道内圧、CO₂は肺胞換気量。高圧はPIPとPplatで分ける</span></div>
+<div><b>挿管はABCDE、モードは自発呼吸の有無</b><span>自発呼吸がなければVCVかPCV。挿管直後は自発呼吸が不確かなのでVCVかPCVで始める</span></div>
+<div><b>3T'sで読み、ポーズでRとCstを測る</b><span>Trigger・Target・Terminationでモードが決まる。PIPとPplatを分けて肺の状態を数字にする</span></div>
+<div><b>血液ガスは2つの調整、急変はDOPE</b><span><em class="o2">酸素化</em>はFiO₂と平均気道内圧、<em class="co2">換気</em>は肺胞換気量。高圧はPIPとPplatで分ける</span></div>
 </div>
-<h2><span class="n">1</span>症例 — 40代男性、GCS 7、舌根沈下と吐物<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s1">詳しく</a></h2>
+<h2><span class="n">1</span>症例<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s1">詳しく</a></h2>
 <ul>
-<li>向精神薬の過量服薬。GCS 7・舌根沈下・吐物を出せない・PaCO₂ 56・予測体重66 kg。<b>判断の順番が章の順番</b>：挿管するか（§2）→ 初期設定（§4）→ 血液ガス（§5）→ アラーム（§6）。§3は設定の前にしくみを確かめる章</li>
+<li>40代男性、向精神薬の過量服薬による意識障害。身長170 cm（予測体重66 kg）。<b>A</b>：舌根沈下、口腔内の吐物を自力で喀出できない。<b>B</b>：リザーバーマスク10 L/分でpH 7.13・<b>PaCO₂ 90</b>・PaO₂ 80・HCO₃⁻ 29（急性の呼吸性アシドーシス）。<b>D</b>：GCS 7（E1V2M4）。循環はショックの徴候なし。右下肺野の浸潤影は誤嚥を疑う</li>
 </ul>
-<h2><span class="n">2</span>挿管の適応は「ABCDE」 — この患者はAとDで挿管<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s2">詳しく</a></h2>
+<h2><span class="n">2</span>挿管の適応 — ABCDE<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s2">詳しく</a></h2>
 <ul>
-<li><b>A</b>irway（気道閉塞・舌根沈下・喀痰を出せない）・<b>B</b>reathing（低酸素・高CO₂・呼吸仕事量の増大）・<b>C</b>irculation（ショック）・<b>D</b>isability（意識障害による気道閉塞・クリアランスの低下）・<b>E</b>verything else（今後挿管が必要になりそう・検査・緊急手術）を、気道から順に見る</li>
-<li><b>この患者</b>：A（吐物を出せない）とD（GCS 7で気道を開けておけない）で挿管。GCSの値だけでは決めない。Bで挿管を避ける手段を試すなら、失敗の基準（HFNCはROX、NIVはHACOR）を先に決める</li>
-<li class="sm">補足：同じ原稿はMOVES・3質問法でも挙げているが、見ている項目はほぼ同じ。抜管前の「ABC-Drs.」（付録）と対で覚える</li>
+<li>単一の数値で決める基準はない。<b>A</b>irway（気道閉塞・舌根沈下・喀痰の喀出困難）・<b>B</b>reathing（低酸素・高CO₂・呼吸仕事量の増大）・<b>C</b>irculation（ショック）・<b>D</b>isability（意識障害による気道閉塞・気道のクリアランスの低下）・<b>E</b>verything else（今後の挿管の必要性・検査・緊急手術）を、気道から順に評価する</li>
+<li><b>この患者</b>：AとDだけで挿管の適応があり、Bにも該当（C・Eはなし）。意識障害と嘔吐があるのでNIVは使えない</li>
 </ul>
-<h2><span class="n">3</span>人工呼吸器のしくみ — 圧の差が流量を生み、3T'sでモードが決まる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s3">詳しく</a></h2>
+<h2><span class="n">3</span>モードと波形<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s3">詳しく</a></h2>
 <ul>
-<li><b>運動方程式</b>：気道内圧＝<b>R×流量</b>（流す分）＋<b>量÷C</b>（膨らませる分）＋<b>PEEP</b></li>
-<li><b>1呼吸の5つの場面</b>（①呼気終末 → ②吸気の始まり → ③吸気の途中 → ④呼気の始まり → ⑤呼気）：流量＝（回路の圧 − 肺胞の圧）÷ R。差が埋まる速さτ＝R×Cは、正常0.5秒・ARDS 0.2秒（すぐ埋まる）・COPD 1.8秒（埋まりきらず吐き残しが積み上がる＝auto-PEEP）</li>
+<li><b>モードの選び方</b>：自発呼吸がなければVCV（量制御）かPCV（圧制御）だけ、あればPSV（圧支持）を含めどれも選べる。挿管直後は自発呼吸が不確かなのでVCVかPCV（転帰の差はなく、慣れたほう）。この患者はVCV。PSVへは、呼吸ドライブが安定・同調・過剰な吸気努力なし・換気量を自力で保てるときに移る（無呼吸アラームとバックアップ換気を確認）</li>
 </ul>
 <div class="tw"><table class="row">
-<thead><tr><th></th><th>VCV</th><th>PCV</th><th>PSV</th></tr></thead>
+<thead><tr><th>3T's</th><th>VCV</th><th>PCV</th><th>PSV</th></tr></thead>
 <tbody>
-<tr><td>Trigger（始まり）</td><td>時間か患者</td><td>時間か患者</td><td>患者だけ</td></tr>
-<tr><td>Target（送気中）</td><td>流量を守る</td><td>圧を守る</td><td>圧を守る</td></tr>
-<tr><td>Termination（終了）</td><td>設定量を送ったら</td><td>設定時間で</td><td>流量がピークの一定％まで落ちたら</td></tr>
-<tr><td>結果になるもの</td><td><b>気道内圧</b>（圧を監視）</td><td>一回換気量（量を監視）</td><td>量・回数・吸気時間</td></tr>
+<tr><td>Trigger（始まり）</td><td>時間または患者</td><td>時間または患者</td><td>患者だけ</td></tr>
+<tr><td>Target（保つもの）</td><td>流量（一定）</td><td>圧（吸気圧）</td><td>圧（支持圧）</td></tr>
+<tr><td>Termination（終わり）</td><td>量（設定VT）</td><td>時間（設定吸気時間）</td><td>流量（ピークの設定％）</td></tr>
+<tr><td>監視するもの</td><td>気道内圧</td><td>一回換気量・分時換気量</td><td>一回換気量・呼吸数</td></tr>
 </tbody></table></div>
 <ul>
-<li><b>見分け方</b>：圧の立ち上がり直前のへこみ＝患者トリガー。<b>PSVの終了の％は、当院のHamilton C6ではETS、PB840ではEsens</b>（既定はどちらも25%）。％を上げると吸気が短く呼気が長くなり（COPDで呼気を確保）、下げると吸気が長くなる（早すぎる終了・二度吸いを防ぐ）</li>
+<li><b>ETS／Esens</b>（PSVの終了の％。当院のHamilton C6はETS、PB840はEsens、既定はどちらも25%）：数値を<b>大きくすると吸気は短く</b>、小さくすると長くなる。COPDや遅すぎる終了には上げ、早すぎる終了（二度吸い）には下げる</li>
+<li><b>気道内圧</b>＝抵抗×流量（抵抗成分）＋換気量÷C（弾性成分）＋PEEP − Pmus。吸気ポーズで流れを止めたときだけ回路の圧＝肺胞の圧（Pplat）。この患者のPIP 24＝6＋13＋5</li>
+<li><b>Flow</b>＝（回路の圧 − 肺胞の圧）÷ R。差が縮まる速さはτ＝R×C（1τで約63%、3τで約95%）。正常0.5秒・ARDS 0.2秒・COPD 1.8秒（呼気が終わる前に次の吸気 → auto-PEEP）</li>
 </ul>
-<h2><span class="n">4</span>初期設定 — A/C・VCVで始め、ポーズでRとCstを測る<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s4">詳しく</a></h2>
+<h2><span class="n">4</span>初期設定<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s4">詳しく</a></h2>
 <div class="tw brk"><table class="hb">
 <thead><tr><th>項目</th><th>この患者</th><th>目安と考え方</th></tr></thead>
 <tbody>
-<tr><td>モード</td><td>A/C・VCV</td><td>挿管直後はA/C（VCVかPCV、慣れたほう）。PSVは自発呼吸が安定してから</td></tr>
-<tr><td>一回換気量</td><td>400 mL</td><td>予測体重で正常肺6〜8 mL/kg（実体重は肥満で過大）。PBW 男 50＋0.91×（身長cm − 152.4）、女は45.5から</td></tr>
-<tr><td>呼吸数・PEEP</td><td>14回/分・5</td><td>呼吸数は推奨なし。PEEPは5〜6から。FiO₂はSpO₂ 92〜95%に収まる最小へ</td></tr>
-<tr><td>カフ圧</td><td>26 cmH₂O</td><td>当院の既定。文献の推奨域は20〜30。カフ圧計で実測する</td></tr>
-<tr><td>守る上限</td><td>Pplat 18・ΔP 13</td><td>どのモードでも<b>Pplat 30未満・ΔP 15未満</b></td></tr>
+<tr><td>モード</td><td>A/C・VCV</td><td>VCVまたはPCV（A/C）、患者トリガー（流量トリガー）</td></tr>
+<tr><td>一回換気量</td><td>400 mL</td><td>予測体重（PBW）で正常肺6〜8 mL/kg。男 50＋0.91×（身長cm − 152.4）、女 45.5＋0.91×（身長cm − 152.4）</td></tr>
+<tr><td>吸気流量・時間</td><td>60 L/分・0.9秒</td><td>VCVはVTを決め、次に流量か吸気時間の一方を決める（矩形波・吸気ポーズ0.5秒、I:E 約1:4）</td></tr>
+<tr><td>呼吸数・PEEP</td><td>14回/分・5</td><td>呼吸数は推奨なし（PaCO₂と時定数で調整）。PEEPは5〜6から血圧を見て段階的に</td></tr>
+<tr><td>FiO₂・カフ圧</td><td>1.0で開始・26</td><td>FiO₂はSpO₂ 92〜95%に収まる最小量へ速やかに。カフ圧は既定26 cmH₂O、カフ圧計で実測</td></tr>
+<tr><td>守る範囲</td><td>Pplat 18・ΔP 13</td><td>どのモードでも<b>Pplat 30未満・ΔP 15未満</b>（過伸展はPIPではなくPplatで判断）</td></tr>
 </tbody></table></div>
 <ul>
-<li><b>吸気ポーズ（VCV・矩形波・60 L/分で0.5〜1秒）</b>：PIP 24・Pplat 18・PEEP 5 → <b>R＝（24 − 18）÷ 1 L/s＝6</b>、<b>Cst＝400 ÷ 13＝31</b>（目安50〜80より低い）。60 L/分ならPIP − Pplatがそのまま R。Pplatはポーズで測り、PIPと取り違えない</li>
+<li><b>肺メカニクスを評価しよう</b>：吸気ポーズで <b>R＝（PIP − Pplat）÷ 流量＝（24 − 18）÷ 1 L/s＝6</b>（目安5〜10）、<b>Cst＝VT ÷ ΔP＝400 ÷ 13≈31</b>（目安50〜80より低い。誤嚥した右下肺で換気に使える肺が小さい）。流量60 L/分ならPIP − PplatがそのままR（条件：矩形波・吸気終末ポーズ・自発吸気なし・auto-PEEPは総PEEPで）</li>
 </ul>
-<h2><span class="n">5</span>血液ガスで直す — 酸素化はFiO₂とPEEP、CO₂は肺胞換気量<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s5">詳しく</a></h2>
+<h2><span class="n">5</span>血液ガスに基づく設定修正<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s5">詳しく</a></h2>
 <ul>
-<li><b>2つのつまみ</b>：酸素化はFiO₂と平均気道内圧（主にPEEP）、CO₂は肺胞換気量＝（VT − 死腔）× 呼吸数（浅く速いほど死腔の割合が増え、CO₂が出にくい）。PEEPは静脈還流を下げ右室後負荷を増やす（益と害は同じ機序の裏表）。目標は正常値ではなく、PaO₂ 60〜90・PaCO₂ 60未満を最小限の害で</li>
-<li><b>この患者</b>：挿管30分後、FiO₂ 0.6でpH 7.24・PaCO₂ 60・PaO₂ 63（<b>P/F 105</b>）。分時換気量5.6 L/分でも肺胞換気量は3.5 L/分 → <b>PEEP 5 → 10、呼吸数14 → 18</b>。1時間後はpH 7.35・PaCO₂ 46・P/F 160。VTを480 mLに上げるとΔP約15.5で目安を超える</li>
-<li><b>比べ方</b>：酸素化はP/F比（PaO₂ ÷ FiO₂）で（PaO₂ 150・FiO₂ 1.0は、PaO₂ 100・FiO₂ 0.3より悪い）。<b>呼吸数を上げたら</b>呼気が短くなるので、呼気フローが0に戻ってから次の吸気かを見る（戻る前ならauto-PEEP）</li>
+<li><b>2つの調整</b>：<span class="o2">酸素化</span>はFiO₂と平均気道内圧（主にPEEP。PEEPは静脈還流の低下と右室後負荷の増大を伴う）、<span class="co2">換気（CO₂）</span>は肺胞換気量＝（VT − 死腔）× 呼吸数（浅く速いほどCO₂が出にくい）。目標は正常化ではなく、PaO₂ 60〜90・PaCO₂ 60未満を最小限の害で</li>
+<li><b>この患者</b>：挿管30分後、FiO₂ 0.6でpH 7.26・PaCO₂ 60・PaO₂ 63（<b>P/F 105</b>）。分時換気量5.6 L/分でも肺胞換気量は3.5 L/分。酸素化はP/F比（正常400〜500）で比べる → <span class="o2">PEEP 5 → 10</span>、<span class="co2">呼吸数14 → 18</span>（VTは400のまま。480 mLではΔP≈15.5）。1時間後 pH 7.35・PaCO₂ 46・P/F 160、PIP 28・Pplat 22・Cst 33、平均気道内圧 約8 → 約13</li>
 </ul>
-<h2><span class="n">6</span>アラーム対応 — 高圧はPIPとPplatで分け、低圧は回路をたどる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s6">詳しく</a></h2>
+<h2><span class="n">6</span>アラーム対応<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s6">詳しく</a></h2>
 <ul>
-<li><b>鳴ったら波形より先に患者</b>：0分 ベッドサイド（胸郭・SpO₂・血圧・チューブと回路）→ 〜2分 波形 → 〜5分 ポーズとホールド → 〜10分 設定を1つだけ → 〜30分 上級医へ。急変はまず<b>DOPE</b>（位置異常・閉塞・緊張性気胸・器械）</li>
+<li><b>まずベッドサイドで患者を診る</b>。SpO₂や血圧が急に落ちていれば、波形を読む前に<b>DOPE</b>（Displacement 位置異常・Obstruction 閉塞・Pneumothorax 緊張性気胸・Equipment 器械）。迷ったら回路を外して用手換気</li>
 </ul>
 <div class="tw"><table>
-<thead><tr><th>波形の動き</th><th>意味（この患者）</th></tr></thead>
+<thead><tr><th>波形の動き（基準：PIP 28・Pplat 22）</th><th>意味（この患者）</th></tr></thead>
 <tbody>
-<tr><td>PIPだけ上がる</td><td>気道抵抗の上昇（翌日 PIP 41・Pplat 22 → 噛みつきと痰）</td></tr>
-<tr><td>PIPとPplatが上がる</td><td>コンプライアンスの低下（3日目 PIP 37・Pplat 31 → 片肺挿管）</td></tr>
-<tr><td>PCVで換気量が増減</td><td>圧は変わらず、流量と換気量に出る（換気量の下限アラームで気づく）</td></tr>
-<tr><td>低圧・換気量の低下</td><td>回路の外れ・カフ漏れ・計画外抜管を、チューブ・カフから本体へ順にたどる</td></tr>
+<tr><td>PIPだけ上がる</td><td>気道抵抗の上昇（翌日 PIP 41・Pplat 22 → R 19。噛みつきと痰）</td></tr>
+<tr><td>PIPとPplatが上がる</td><td>コンプライアンスの低下（3日目 PIP 37・Pplat 31 → Cst 19。片肺挿管）</td></tr>
+<tr><td>PCVで換気量が減る</td><td>圧は台形のまま、流量と換気量に出る（一回換気量・分時換気量の下限アラームで気づく）</td></tr>
+<tr><td>低圧・換気量の低下</td><td>回路の外れ・カフ漏れ・計画外抜管。チューブとカフ → 人工鼻・Yピース → 回路 → 本体の順（この患者は人工鼻とYピースの外れ）</td></tr>
 </tbody></table></div>
-<h2><span class="n">7</span>ARDSとCOPD — ARDSは伸ばしすぎない、COPDは吐かせる<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s7">詳しく</a></h2>
+<h2><span class="n">7</span>ARDSと閉塞性肺疾患<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s7">詳しく</a></h2>
 <ul>
-<li><b>ARDS</b>：換気される肺（baby lung）が小さいので、<b>VT 6（4〜8）mL/kg PBW・Pplat 30未満・ΔP 15未満</b>。PEEPの選び方・腹臥位などはARDSの資料で</li>
-<li><b>COPD・喘息</b>：呼吸数10〜12・I:E 1:2〜1:4・吸気流量60〜100 L/分で呼気時間を取り、pH 7.25〜7.30まで許容。PEEPは初期5、auto-PEEPが分かればその50〜80%まで、Pplatが上がったら止める。auto-PEEPは呼気ポーズで測る</li>
+<li><b>ARDS</b>：換気される肺（baby lung）が小さいので、<b>VT 6（4〜8）mL/kg PBW・Pplat 30未満・ΔP 15未満</b>。PEEPの選び方・腹臥位・筋弛緩・ECMOはARDSの資料で</li>
+<li><b>COPD・喘息</b>：呼吸数10〜12・I:E 1:2〜1:4・吸気流量60〜100 L/分で呼気時間を確保し、pH 7.25〜7.30まで許容。総PEEP＝設定PEEP＋auto-PEEPで、呼気終末ホールドで測る。PEEPは初期5、auto-PEEPが分かればその50〜80%まで</li>
 </ul>
-<h2><span class="n">付録</span>波形を読む順番・非同調・離脱と抜管<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s8">詳しく</a></h2>
+<h2><span class="n">8</span>付録<a class="more" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation/#s8">詳しく</a></h2>
 <ul>
-<li><b>読む順番</b>：呼気フロー → 吸気フロー → 吸気圧 → トリガー → サイクル。<b>滑らかな減衰は患者が休んでいる手がかり</b>。調節換気から補助換気へは早めに（P/F 150超で検討、PEEP 8以上なら200程度）</li>
-</ul>
-<ul>
-<li><b>非同調</b>：ダブルトリガー（2回分が入る）は<b>鎮静の前に呼気終末ホールド</b>。無呼吸ならリバーストリガー（鎮静を浅く）、努力が見えれば吸気時間・サポートを延ばす。無効努力は総PEEPを測ってから、フロー不足（吸気中に圧がへこむ）は流量を上げる</li>
-<li><b>離脱は毎日SATからSBTへ</b>：SATで鎮静薬を止めて覚醒を確かめ（鎮痛薬は続ける）、<b>SBTはPSV 5〜8・PEEP 5 cmH₂Oで30分</b>（回路は外さない。文献ではPEEP 0やTピースも）。通らなければすぐ元に戻し、原因を直して原則翌日また試す</li>
+<li><b>波形判読の手順</b>：呼気フロー → 吸気フロー → 吸気圧 → トリガー → サイクル。<b>非同調</b>：ARDSで最も警戒するのはダブルトリガー。<b>鎮静を追加する前に呼気終末ホールド</b>（振れがなければリバーストリガーが濃厚 → 鎮静を浅くし設定を見直す）。ホールドだけで型を確定しない</li>
 </ul>
 <ul class="chk">
-<li><b>A</b>irway：上気道の狭窄が少ない</li>
-<li><b>B</b>reathing：努力呼吸がない</li>
-<li><b>C</b>irculation：循環が安定</li>
-<li><b>D</b>ys CNS：指示に応じる</li>
+<li><b>A</b>irway：上気道の狭窄の心配が少ない</li>
+<li><b>B</b>reathing：SBT中に努力呼吸がない</li>
+<li><b>C</b>irculation：循環動態が安定</li>
+<li><b>D</b>ys CNS：指示に応じられる</li>
 <li><b>R</b>eflex：咳が十分に出る</li>
 <li><b>S</b>putum：痰を自分で出せる</li>
 </ul>
-<p class="cap">抜管前の「ABC-Drs.」：A・D・R・Sは主に気道、B・Cは離脱の失敗を見る。FiO₂≦0.4・RSBI＜105は参考</p>
+<p class="cap">抜管前の確認「ABC-Drs.」：単独の合否基準ではない。A・D・R・Sは気道の失敗、B・Cは離脱の失敗を見る。FiO₂≦0.4程度・RSBI＜105は参考</p>
 
 <p class="note">出典：本編の主要文献（BeyondER 2023・JICS 2026・Flynn 2022・S3 2025 ほか）。数値は本編と原著で確認を。</p>
 </main>

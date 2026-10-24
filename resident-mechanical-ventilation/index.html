@@ -1272,6 +1272,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .mmfig .mm-gh.m-pcv{stroke:var(--mm-pcv);stroke-dasharray:9 5;stroke-linecap:butt}
 .mmfig .mm-gh.m-psv{stroke:var(--mm-psv);stroke-dasharray:.5 6.5;stroke-width:3.6}
 .mm[data-hl="vcv"] .mm-gh:not(.m-vcv),.mm[data-hl="pcv"] .mm-gh:not(.m-pcv),.mm[data-hl="psv"] .mm-gh:not(.m-psv){opacity:.04}
+/* 段4（VCV）・段5（PCV）では、まだ結んでいないモードの薄い道筋も出さない */
+.mm[data-st="4"] .mm-gh.m-pcv,.mm[data-st="4"] .mm-gh.m-psv,.mm[data-st="5"] .mm-gh.m-psv{opacity:0}
 @media print{.mmfig .mm-ghosts{display:none}}
 .mm-legend{display:flex;flex-wrap:wrap;gap:.45em .6em;justify-content:center;margin:.75em 0 .2em}
 .mm-legend button{font:inherit;font-size:.86em;display:inline-flex;align-items:center;gap:.45em;padding:.32em .85em;
@@ -1982,26 +1984,33 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   var f=document.currentScript.previousElementSibling;
   while(f&&!(f.classList&&f.classList.contains('mmfig'))) f=f.previousElementSibling;
   if(!f||!window.MM) return;
-  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LAST=4;
+  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LINE=4, LAST=6;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var check=/[?&]check=1/.test(location.search);
-  var LAB=["Trigger <span>吸気の始まり</span>","Target <span>送気中に一定に保つもの</span>","Termination <span>吸気の終わり</span>","Mode <span>組み合わせの名前</span>","線で結ぶ <span>3T&#39;sの組み合わせがモードになる</span>"];
+  var LAB=["Trigger <span>吸気の始まり</span>","Target <span>送気中に一定に保つもの</span>","Termination <span>吸気の終わり</span>","Mode <span>組み合わせの名前</span>","VCV <span>時間か患者で始まり、流量を保ち、量で終わる</span>","PCV <span>時間か患者で始まり、圧を保ち、時間で終わる</span>","PSV <span>患者で始まり、圧を保ち、流量で終わる</span>"];
   var lab=f.querySelector('.mm-stage'), prev=f.querySelector('[data-mm="prev"]'), next=f.querySelector('[data-mm="next"]');
   function setHL(m){f.setAttribute('data-hl',m||'');}
   function draw(modes){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes);}); }
+  function setLines(m,full){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l[data-m="'+m+'"]'),function(p){
+    p.style.strokeDasharray=full?'':'0 99999'; }); }); }
   function go(n,modes){
     n=Math.max(0,Math.min(LAST,n)); f.setAttribute('data-st',n);
     if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
     if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
-    if(n<LAST){ setHL(''); svgs.forEach(MM.finish); }
-    else{ setHL(modes&&modes.length===1?modes[0]:''); draw(modes||ALL); }
+    if(n<LINE){ setHL(''); svgs.forEach(MM.finish); return; }
+    if(modes){ setHL(modes.length===1?modes[0]:''); draw(modes); return; }
+    /* 段4〜6：前のモードは描き終えた線、今のモードだけ描き、後のモードはまだ出さない */
+    setHL(''); var k=n-LINE;
+    if(reduce||check){ svgs.forEach(MM.finish); return; }
+    ALL.forEach(function(m,i){ if(i!==k) setLines(m,i<k); });
+    svgs.forEach(function(s){ MM.play(s,[ALL[k]]); });
   }
   function cur(){ return +f.getAttribute('data-st'); }
   go((reduce||check)?LAST:0);
   if(prev) prev.addEventListener('click',function(){go(cur()-1);});
   if(next) next.addEventListener('click',function(){go(cur()+1);});
   var rp=f.querySelector('[data-mm="replay"]'); if(rp) rp.addEventListener('click',function(){go(0);});
-  var al=f.querySelector('[data-mm="all"]'); if(al) al.addEventListener('click',function(){f.setAttribute('data-st',LAST); go(LAST); svgs.forEach(MM.finish);});
+  var al=f.querySelector('[data-mm="all"]'); if(al) al.addEventListener('click',function(){go(LAST,ALL); svgs.forEach(MM.finish);});
   f.querySelectorAll('[data-mode]').forEach(function(b){
     function pick(){ var m=b.getAttribute('data-mode');
       if(cur()===LAST&&f.getAttribute('data-hl')===m){ setHL(''); svgs.forEach(MM.finish); return; }
@@ -2081,12 +2090,14 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 </figure>
 <div class="tablewrap">
 <table class="wide rs-cards rs-fold">
-<caption>表1｜VCV・PCV・PSVで決めるものと結果になるもの</caption>
+<caption>表1｜3T'sで見るVCV・PCV・PSV</caption>
 <thead><tr><th></th><th class="rs-nw">VCV（量制御）</th><th class="rs-nw">PCV（圧制御）</th><th class="rs-nw">PSV（圧支持）</th></tr></thead>
 <tbody>
-<tr><td class="rs-nw" data-label="">決めるもの</td><td data-label="VCV（量制御）">一回換気量・流量・呼吸数</td><td data-label="PCV（圧制御）">吸気圧・吸気時間・呼吸数</td><td data-label="PSV（圧支持）">支持圧（rise time・ETS）</td></tr>
+<tr><td class="rs-nw" data-label="">Trigger（始まり）</td><td data-label="VCV（量制御）">時間（設定した呼吸数）または患者</td><td data-label="PCV（圧制御）">時間（設定した呼吸数）または患者</td><td data-label="PSV（圧支持）">患者だけ</td></tr>
+<tr><td class="rs-nw" data-label="">Target（保つもの）</td><td data-label="VCV（量制御）">流量（一定）</td><td data-label="PCV（圧制御）">圧（吸気圧）</td><td data-label="PSV（圧支持）">圧（支持圧）</td></tr>
+<tr><td class="rs-nw" data-label="">Termination（終わり）</td><td data-label="VCV（量制御）">量（設定した一回換気量）</td><td data-label="PCV（圧制御）">時間（設定した吸気時間）</td><td data-label="PSV（圧支持）">流量（ピーク流量の設定％。ETS／Esens）</td></tr>
 <tr><td class="rs-nw" data-label="">結果になるもの</td><td class="rs-nw" data-label="VCV（量制御）"><strong>気道内圧</strong></td><td class="rs-nw" data-label="PCV（圧制御）">一回換気量・流量</td><td data-label="PSV（圧支持）">一回換気量・呼吸数・吸気時間</td></tr>
-<tr><td class="rs-nw" data-label="">監視するもの</td><td class="rs-nw" data-label="VCV（量制御）">圧</td><td data-label="PCV（圧制御）">一回換気量・分時換気量</td><td data-label="PSV（圧支持）">一回換気量・呼吸数</td></tr>
+<tr><td class="rs-nw" data-label="">監視するもの</td><td class="rs-nw" data-label="VCV（量制御）">気道内圧</td><td data-label="PCV（圧制御）">一回換気量・分時換気量</td><td data-label="PSV（圧支持）">一回換気量・呼吸数</td></tr>
 </tbody>
 </table>
 </div>

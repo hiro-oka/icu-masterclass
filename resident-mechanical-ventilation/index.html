@@ -1272,9 +1272,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .mmfig .mm-gh.m-pcv{stroke:var(--mm-pcv);stroke-dasharray:9 5;stroke-linecap:butt}
 .mmfig .mm-gh.m-psv{stroke:var(--mm-psv);stroke-dasharray:.5 6.5;stroke-width:3.6}
 .mm[data-hl="vcv"] .mm-gh:not(.m-vcv),.mm[data-hl="pcv"] .mm-gh:not(.m-pcv),.mm[data-hl="psv"] .mm-gh:not(.m-psv){opacity:.04}
-/* 線の段では、まだ結んでいない組の薄い道筋も出さない（3T's＝段4でPCV・PSV、段5でPSV／モード選択＝段4でPSV） */
+/* 線の段では、まだ結んでいない組の薄い道筋も出さない（3T's＝段4でPCV・PSV、段5でPSV。モード選択の図は薄い道筋を敷かない） */
 .mm[data-fig="tt"][data-st="4"] .mm-gh.m-pcv,.mm[data-fig="tt"][data-st="4"] .mm-gh.m-psv,.mm[data-fig="tt"][data-st="5"] .mm-gh.m-psv{opacity:0}
-.mm[data-fig="ms"][data-st="4"] .mm-gh.m-psv{opacity:0}
 @media print{.mmfig .mm-ghosts{display:none}}
 .mm-legend{display:flex;flex-wrap:wrap;gap:.45em .6em;justify-content:center;margin:.75em 0 .2em}
 .mm-legend button{font:inherit;font-size:.86em;display:inline-flex;align-items:center;gap:.45em;padding:.32em .85em;
@@ -1292,14 +1291,17 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   .mm-legend button{border-color:#999}}
 /* 段送り（教育用HTML）：列は1つずつ現れ、線は最後に結ぶ */
 .mmfig .mm-node,.mmfig text[data-c]{transition:opacity .35s ease,fill .25s}
-.mm[data-st="0"] [data-n^="targ-"],.mm[data-st="0"] text[data-c="targ"],.mm[data-st="0"] [data-n^="term-"],.mm[data-st="0"] text[data-c="term"],.mm[data-st="0"] [data-n^="mode-"],.mm[data-st="0"] text[data-c="mode"],.mm[data-st="1"] [data-n^="term-"],.mm[data-st="1"] text[data-c="term"],.mm[data-st="1"] [data-n^="mode-"],.mm[data-st="1"] text[data-c="mode"],.mm[data-st="2"] [data-n^="mode-"],.mm[data-st="2"] text[data-c="mode"]{opacity:0!important;pointer-events:none}
-.mm[data-st="0"] svg.mm-svg .mm-l,.mm[data-st="0"] .mm-gh,.mm[data-st="1"] svg.mm-svg .mm-l,.mm[data-st="1"] .mm-gh,.mm[data-st="2"] svg.mm-svg .mm-l,.mm[data-st="2"] .mm-gh,.mm[data-st="3"] svg.mm-svg .mm-l,.mm[data-st="3"] .mm-gh{opacity:0!important}
-.mm[data-st="0"] text[data-c="trig"],.mm[data-st="1"] text[data-c="targ"],.mm[data-st="2"] text[data-c="term"],.mm[data-st="3"] text[data-c="mode"]{fill:#00739E}
-@media (prefers-color-scheme: dark){.mm[data-st="0"] text[data-c="trig"],.mm[data-st="1"] text[data-c="targ"],.mm[data-st="2"] text[data-c="term"],.mm[data-st="3"] text[data-c="mode"]{fill:#4BB8E0}}
-.mm[data-st="0"] [data-n^="vent-"],.mm[data-st="0"] text[data-c="vent"],.mm[data-st="0"] [data-n^="set-"],.mm[data-st="0"] text[data-c="set"],.mm[data-st="0"] [data-n^="mode-"],.mm[data-st="0"] text[data-c="mode"],.mm[data-st="1"] [data-n^="set-"],.mm[data-st="1"] text[data-c="set"],.mm[data-st="1"] [data-n^="mode-"],.mm[data-st="1"] text[data-c="mode"],.mm[data-st="2"] [data-n^="mode-"],.mm[data-st="2"] text[data-c="mode"]{opacity:0!important;pointer-events:none}
-.mm[data-st="0"] svg.mm-svg .mm-l,.mm[data-st="0"] .mm-gh,.mm[data-st="1"] svg.mm-svg .mm-l,.mm[data-st="1"] .mm-gh,.mm[data-st="2"] svg.mm-svg .mm-l,.mm[data-st="2"] .mm-gh,.mm[data-st="3"] svg.mm-svg .mm-l,.mm[data-st="3"] .mm-gh{opacity:0!important}
-.mm[data-st="0"] text[data-c="st"],.mm[data-st="1"] text[data-c="vent"],.mm[data-st="2"] text[data-c="set"],.mm[data-st="3"] text[data-c="mode"]{fill:#00739E}
-@media (prefers-color-scheme: dark){.mm[data-st="0"] text[data-c="st"],.mm[data-st="1"] text[data-c="vent"],.mm[data-st="2"] text[data-c="set"],.mm[data-st="3"] text[data-c="mode"]{fill:#4BB8E0}}
+.mm[data-fig="tt"][data-st="0"] [data-n^="targ-"],.mm[data-fig="tt"][data-st="0"] text[data-c="targ"],.mm[data-fig="tt"][data-st="0"] [data-n^="term-"],.mm[data-fig="tt"][data-st="0"] text[data-c="term"],.mm[data-fig="tt"][data-st="0"] [data-n^="mode-"],.mm[data-fig="tt"][data-st="0"] text[data-c="mode"],.mm[data-fig="tt"][data-st="1"] [data-n^="term-"],.mm[data-fig="tt"][data-st="1"] text[data-c="term"],.mm[data-fig="tt"][data-st="1"] [data-n^="mode-"],.mm[data-fig="tt"][data-st="1"] text[data-c="mode"],.mm[data-fig="tt"][data-st="2"] [data-n^="mode-"],.mm[data-fig="tt"][data-st="2"] text[data-c="mode"]{opacity:0!important;pointer-events:none}
+.mm[data-fig="tt"][data-st="0"] svg.mm-svg .mm-l,.mm[data-fig="tt"][data-st="0"] .mm-gh,.mm[data-fig="tt"][data-st="1"] svg.mm-svg .mm-l,.mm[data-fig="tt"][data-st="1"] .mm-gh,.mm[data-fig="tt"][data-st="2"] svg.mm-svg .mm-l,.mm[data-fig="tt"][data-st="2"] .mm-gh,.mm[data-fig="tt"][data-st="3"] svg.mm-svg .mm-l,.mm[data-fig="tt"][data-st="3"] .mm-gh{opacity:0!important}
+.mm[data-fig="tt"][data-st="0"] text[data-c="trig"],.mm[data-fig="tt"][data-st="1"] text[data-c="targ"],.mm[data-fig="tt"][data-st="2"] text[data-c="term"],.mm[data-fig="tt"][data-st="3"] text[data-c="mode"]{fill:#00739E}
+@media (prefers-color-scheme: dark){.mm[data-fig="tt"][data-st="0"] text[data-c="trig"],.mm[data-fig="tt"][data-st="1"] text[data-c="targ"],.mm[data-fig="tt"][data-st="2"] text[data-c="term"],.mm[data-fig="tt"][data-st="3"] text[data-c="mode"]{fill:#4BB8E0}}
+.mm[data-fig="ms"][data-st="0"] [data-n^="mode-"],.mm[data-fig="ms"][data-st="0"] text[data-c="mode"],.mm[data-fig="ms"][data-st="1"] [data-n="mode-psv"]{opacity:0!important;pointer-events:none}
+.mm[data-fig="ms"][data-st="0"] svg.mm-svg .mm-l{opacity:0!important}
+.mm[data-fig="ms"][data-st="1"] [data-n="mode-vcv"],.mm[data-fig="ms"][data-st="1"] [data-n="mode-pcv"],.mm[data-fig="ms"][data-st="1"] text[data-c="mode"],.mm[data-fig="ms"][data-st="2"] [data-n="mode-psv"]{transition-delay:.3s}
+@media (prefers-reduced-motion: reduce){.mm[data-fig="ms"][data-st="1"] [data-n="mode-vcv"],.mm[data-fig="ms"][data-st="1"] [data-n="mode-pcv"],.mm[data-fig="ms"][data-st="1"] text[data-c="mode"],.mm[data-fig="ms"][data-st="2"] [data-n="mode-psv"]{transition-delay:0s}}
+.mm[data-fig="ms"][data-st="3"] .mm-l[data-g="1"]{opacity:.09}.mm[data-fig="ms"][data-st="3"] [data-n="sp-yes"]{opacity:.35}
+.mm[data-fig="ms"][data-st="0"] text[data-c="sp"]{fill:#00739E}@media (prefers-color-scheme: dark){.mm[data-fig="ms"][data-st="0"] text[data-c="sp"]{fill:#4BB8E0}}
+.mm[data-fig="ms"] .mm-l[data-s="0"]{stroke-width:3.4}.mm[data-fig="ms"] .mm-l.m-psv[data-s="0"]{stroke-width:4.4}
 .mm-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:.45em .55em;justify-content:center;margin:.2em 0 .7em}
 .mm-ctl button{font:inherit;font-size:.86em;padding:.32em .95em;border:1px solid var(--mm-edge);border-radius:999px;background:var(--mm-paper);
   color:var(--mm-ink);cursor:pointer;white-space:nowrap;width:auto;min-width:0;flex:none;line-height:1.4}
@@ -1309,7 +1311,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .mm-stage{flex:1 1 14em;min-width:12em;text-align:center;font-size:.95em;color:var(--mm-ink)}
 .mm-stage b{color:#00739E;margin-right:.2em}.mm-stage span{color:var(--mm-sub);font-size:.92em;margin-left:.3em}
 @media (prefers-color-scheme: dark){.mm-ctl button[data-mm="next"]{background:#4BB8E0;border-color:#4BB8E0;color:#0B1A20}.mm-stage b{color:#4BB8E0}}
-@media print{.mm[data-st] .mm-node,.mm[data-st] text[data-c],.mm[data-st] svg.mm-svg .mm-l{opacity:1!important}.mm-ctl{display:none!important}
+@media print{.mm[data-fig][data-st] .mm-node,.mm[data-fig][data-st] text[data-c],.mm[data-fig][data-st] svg.mm-svg .mm-l{opacity:1!important}.mm-ctl{display:none!important}
   .mm[data-st] text.mm-ht[data-c]{fill:var(--mm-ink)!important}.mm[data-st] text.mm-hs[data-c]{fill:var(--mm-sub)!important}}
 /* mm:end */
 @media (max-width:640px){ .eqn{font-size:1.02em; padding:.6em .7em} }
@@ -2159,15 +2161,15 @@ figure[data-gx="co2"] .nf-legend .vw-box:not(.is-muted){background:var(--gx-co2-
 <p class="rd-open1">人工呼吸を始めます。まずモードを選びます。</p>
 
 <h3 id="rs-s3-1">3-1. モードの選び方</h3>
-<p class="rd-lead">挿管直後は鎮静薬や筋弛緩薬の作用で自発呼吸が不確かなため、A/C（補助／調節換気）で、VCV（量制御）かPCV（圧制御）を選択します（図2）<span class="src vault">BeyondER2023</span><span class="src vault">S3 2025</span><span class="src vault">JICS2026</span>。</p>
+<p class="rd-lead">自発呼吸がなければ、VCV（量制御）かPCV（圧制御）しか選べません。自発呼吸があれば、PSV（圧支持）を含めどのモードも選べます（図2）。挿管直後は鎮静薬や筋弛緩薬の作用で自発呼吸が不確かなため、VCVかPCVで始めます<span class="src vault">BeyondER2023</span><span class="src vault">S3 2025</span><span class="src vault">JICS2026</span>。</p>
 <!-- ms:start -->
 <figure class="fig mmfig mm" data-fig="ms" data-mo="none">
 <div class="nf">
 <div class="mm-ctl" role="group" aria-label="図の段送り"><button type="button" data-mm="prev">◀ 前へ</button><span class="mm-stage" aria-live="polite"></span><button type="button" data-mm="next">次へ ▶</button><button type="button" data-mm="replay">↻ もう一度</button><button type="button" data-mm="all">全部</button></div>
-<svg class="mm-svg mm-h" data-k="1" viewBox="0 0 760 312" role="img" aria-label="挿管後のモードの選び方。自発呼吸が不確かならA/Cで、一回換気量を決めればVCV、吸気圧を決めればPCV。自発呼吸が安定していればSPONTで、支持圧を決めてPSV。この患者は自発呼吸が不確かなためA/C・VCVで開始する"><g class="mm-ghosts" aria-hidden="true"><path class="mm-gh m-vcv" d="M168 107 C178.56 107 182.4 107 216 107"/><path class="mm-gh m-vcv" d="M356 107 C367.88 107 372.2 107 410 107"/><path class="mm-gh m-vcv" d="M550 107 C566.72 107 572.8 87 626 87"/><path class="mm-gh m-pcv" d="M168 116 C178.56 116 182.4 116 216 116"/><path class="mm-gh m-pcv" d="M356 116 C367.88 116 372.2 236 410 236"/><path class="mm-gh m-pcv" d="M550 236 C566.72 236 572.8 176 626 176"/><path class="mm-gh m-psv" d="M168 245 C178.56 245 182.4 245 216 245"/><path class="mm-gh m-psv" d="M356 245 C367.88 245 372.2 245 410 245"/><path class="mm-gh m-psv" d="M550 245 C566.72 245 572.8 265 626 265"/></g><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="st-unc" data-b="vent-ac" d="M168 107 C178.56 107 182.4 107 216 107"/><path class="mm-l m-vcv" data-m="vcv" data-s="1" data-a="vent-ac" data-b="set-vol" d="M356 107 C367.88 107 372.2 107 410 107"/><path class="mm-l m-vcv" data-m="vcv" data-s="2" data-a="set-vol" data-b="mode-vcv" d="M550 107 C566.72 107 572.8 87 626 87"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="st-unc" data-b="vent-ac" d="M168 116 C178.56 116 182.4 116 216 116"/><path class="mm-l m-pcv" data-m="pcv" data-s="1" data-a="vent-ac" data-b="set-pres" d="M356 116 C367.88 116 372.2 236 410 236"/><path class="mm-l m-pcv" data-m="pcv" data-s="2" data-a="set-pres" data-b="mode-pcv" d="M550 236 C566.72 236 572.8 176 626 176"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="st-stb" data-b="vent-sp" d="M168 245 C178.56 245 182.4 245 216 245"/><path class="mm-l m-psv" data-m="psv" data-s="1" data-a="vent-sp" data-b="set-pres" d="M356 245 C367.88 245 372.2 245 410 245"/><path class="mm-l m-psv" data-m="psv" data-s="2" data-a="set-pres" data-b="mode-psv" d="M550 245 C566.72 245 572.8 265 626 265"/><g class="mm-node" data-n="st-unc"><rect x="8" y="89" width="160" height="54" rx="9"/><text class="mm-n" x="88" y="112" text-anchor="middle">不確か</text><text class="mm-s" x="88" y="131" text-anchor="middle">鎮静・筋弛緩の後</text></g><g class="mm-node" data-n="st-stb"><rect x="8" y="209" width="160" height="54" rx="9"/><text class="mm-n" x="88" y="232" text-anchor="middle">安定</text><text class="mm-s" x="88" y="251" text-anchor="middle">同調・過剰な努力なし</text></g><g class="mm-node" data-n="vent-ac"><rect x="216" y="89" width="140" height="54" rx="9"/><text class="mm-n" x="286" y="112" text-anchor="middle">A/C</text><text class="mm-s" x="286" y="131" text-anchor="middle">回数を必ず送る</text></g><g class="mm-node" data-n="vent-sp"><rect x="216" y="209" width="140" height="54" rx="9"/><text class="mm-n" x="286" y="232" text-anchor="middle">SPONT</text><text class="mm-s" x="286" y="251" text-anchor="middle">患者に任せる</text></g><g class="mm-node" data-n="set-vol"><rect x="410" y="89" width="140" height="54" rx="9"/><text class="mm-n" x="480" y="112" text-anchor="middle">量</text><text class="mm-s" x="480" y="131" text-anchor="middle">一回換気量</text></g><g class="mm-node" data-n="set-pres"><rect x="410" y="209" width="140" height="54" rx="9"/><text class="mm-n" x="480" y="232" text-anchor="middle">圧</text><text class="mm-s" x="480" y="251" text-anchor="middle">吸気圧・支持圧</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="626" y="69" width="112" height="54" rx="9"/><text class="mm-n" x="682" y="92" text-anchor="middle">VCV</text><text class="mm-s" x="682" y="111" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="626" y="149" width="112" height="54" rx="9"/><text class="mm-n" x="682" y="172" text-anchor="middle">PCV</text><text class="mm-s" x="682" y="191" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="626" y="229" width="112" height="54" rx="9"/><text class="mm-n" x="682" y="252" text-anchor="middle">PSV</text><text class="mm-s" x="682" y="271" text-anchor="middle">圧支持</text></g><text class="mm-ht" data-c="st" x="88" y="24" text-anchor="middle">挿管直後</text><text class="mm-hs" data-c="st" x="88" y="44" text-anchor="middle">自発呼吸の状態</text><text class="mm-ht" data-c="vent" x="286" y="24" text-anchor="middle">換気の形</text><text class="mm-hs" data-c="vent" x="286" y="44" text-anchor="middle">回数を誰が決めるか</text><text class="mm-ht" data-c="set" x="480" y="24" text-anchor="middle">設定</text><text class="mm-hs" data-c="set" x="480" y="44" text-anchor="middle">決めるもの</text><text class="mm-ht" data-c="mode" x="682" y="24" text-anchor="middle">Mode</text><text class="mm-hs" data-c="mode" x="682" y="44" text-anchor="middle">モード</text></svg>
-<svg class="mm-svg mm-v" data-k="1" viewBox="0 0 360 560" role="img" aria-label="挿管後のモードの選び方。自発呼吸が不確かならA/Cで、一回換気量を決めればVCV、吸気圧を決めればPCV。自発呼吸が安定していればSPONTで、支持圧を決めてPSV。この患者は自発呼吸が不確かなためA/C・VCVで開始する"><g class="mm-ghosts" aria-hidden="true"><path class="mm-gh m-vcv" d="M85 104 C85 122.48 85 129.2 85 188"/><path class="mm-gh m-vcv" d="M85 240 C85 258.48 85 265.2 85 324"/><path class="mm-gh m-vcv" d="M85 376 C85 394.48 50 401.2 50 460"/><path class="mm-gh m-pcv" d="M94 104 C94 122.48 94 129.2 94 188"/><path class="mm-gh m-pcv" d="M94 240 C94 258.48 266 265.2 266 324"/><path class="mm-gh m-pcv" d="M266 376 C266 394.48 180 401.2 180 460"/><path class="mm-gh m-psv" d="M275 104 C275 122.48 275 129.2 275 188"/><path class="mm-gh m-psv" d="M275 240 C275 258.48 275 265.2 275 324"/><path class="mm-gh m-psv" d="M275 376 C275 394.48 310 401.2 310 460"/></g><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="st-unc" data-b="vent-ac" d="M85 104 C85 122.48 85 129.2 85 188"/><path class="mm-l m-vcv" data-m="vcv" data-s="1" data-a="vent-ac" data-b="set-vol" d="M85 240 C85 258.48 85 265.2 85 324"/><path class="mm-l m-vcv" data-m="vcv" data-s="2" data-a="set-vol" data-b="mode-vcv" d="M85 376 C85 394.48 50 401.2 50 460"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="st-unc" data-b="vent-ac" d="M94 104 C94 122.48 94 129.2 94 188"/><path class="mm-l m-pcv" data-m="pcv" data-s="1" data-a="vent-ac" data-b="set-pres" d="M94 240 C94 258.48 266 265.2 266 324"/><path class="mm-l m-pcv" data-m="pcv" data-s="2" data-a="set-pres" data-b="mode-pcv" d="M266 376 C266 394.48 180 401.2 180 460"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="st-stb" data-b="vent-sp" d="M275 104 C275 122.48 275 129.2 275 188"/><path class="mm-l m-psv" data-m="psv" data-s="1" data-a="vent-sp" data-b="set-pres" d="M275 240 C275 258.48 275 265.2 275 324"/><path class="mm-l m-psv" data-m="psv" data-s="2" data-a="set-pres" data-b="mode-psv" d="M275 376 C275 394.48 310 401.2 310 460"/><g class="mm-node" data-n="st-unc"><rect x="14" y="52" width="160" height="52" rx="9"/><text class="mm-n" x="94" y="75" text-anchor="middle">不確か</text><text class="mm-s" x="94" y="94" text-anchor="middle">鎮静・筋弛緩の後</text></g><g class="mm-node" data-n="st-stb"><rect x="186" y="52" width="160" height="52" rx="9"/><text class="mm-n" x="266" y="75" text-anchor="middle">安定</text><text class="mm-s" x="266" y="94" text-anchor="middle">同調・過剰な努力なし</text></g><g class="mm-node" data-n="vent-ac"><rect x="14" y="188" width="160" height="52" rx="9"/><text class="mm-n" x="94" y="211" text-anchor="middle">A/C</text><text class="mm-s" x="94" y="230" text-anchor="middle">回数を必ず送る</text></g><g class="mm-node" data-n="vent-sp"><rect x="186" y="188" width="160" height="52" rx="9"/><text class="mm-n" x="266" y="211" text-anchor="middle">SPONT</text><text class="mm-s" x="266" y="230" text-anchor="middle">患者に任せる</text></g><g class="mm-node" data-n="set-vol"><rect x="14" y="324" width="160" height="52" rx="9"/><text class="mm-n" x="94" y="347" text-anchor="middle">量</text><text class="mm-s" x="94" y="366" text-anchor="middle">一回換気量</text></g><g class="mm-node" data-n="set-pres"><rect x="186" y="324" width="160" height="52" rx="9"/><text class="mm-n" x="266" y="347" text-anchor="middle">圧</text><text class="mm-s" x="266" y="366" text-anchor="middle">吸気圧・支持圧</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="6" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="59" y="483" text-anchor="middle">VCV</text><text class="mm-s" x="59" y="502" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="127" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="180" y="483" text-anchor="middle">PCV</text><text class="mm-s" x="180" y="502" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="248" y="460" width="106" height="52" rx="9"/><text class="mm-n" x="301" y="483" text-anchor="middle">PSV</text><text class="mm-s" x="301" y="502" text-anchor="middle">圧支持</text></g><text class="mm-ht mm-halo" data-c="st" x="4" y="38">挿管直後<tspan class="mm-hs" dx="8">自発呼吸の状態</tspan></text><text class="mm-ht mm-halo" data-c="vent" x="4" y="174">換気の形<tspan class="mm-hs" dx="8">回数を誰が決めるか</tspan></text><text class="mm-ht mm-halo" data-c="set" x="4" y="310">設定<tspan class="mm-hs" dx="8">決めるもの</tspan></text><text class="mm-ht mm-halo" data-c="mode" x="4" y="446">Mode<tspan class="mm-hs" dx="8">モード</tspan></text></svg>
+<svg class="mm-svg mm-h" data-k="1" viewBox="0 0 760 330" role="img" aria-label="挿管後のモードの選び方。自発呼吸がなければVCVかPCVしか選べない。自発呼吸があればPSV・VCV・PCVのどれも選べる。この患者は挿管直後で自発呼吸が不確かなため、自発呼吸なしとして扱いVCVで開始する"><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="sp-no" data-b="mode-vcv" data-g="0" d="M224 122 C410 122 410 94 596 94"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="sp-yes" data-b="mode-vcv" data-g="1" d="M224 250 C410 250 410 106 596 106"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="sp-no" data-b="mode-pcv" data-g="0" d="M224 134 C410 134 410 184 596 184"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="sp-yes" data-b="mode-pcv" data-g="1" d="M224 262 C410 262 410 196 596 196"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="sp-yes" data-b="mode-psv" data-g="1" d="M224 274 C410 274 410 280 596 280"/><g class="mm-node" data-n="sp-no"><rect x="24" y="99" width="200" height="58" rx="9"/><text class="mm-n" x="124" y="124" text-anchor="middle">自発呼吸なし</text><text class="mm-s" x="124" y="145" text-anchor="middle">鎮静・筋弛緩の後</text></g><g class="mm-node" data-n="sp-yes"><rect x="24" y="233" width="200" height="58" rx="9"/><text class="mm-n" x="124" y="258" text-anchor="middle">自発呼吸あり</text><text class="mm-s" x="124" y="279" text-anchor="middle">患者が吸気を始める</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="596" y="71" width="140" height="58" rx="9"/><text class="mm-n" x="666" y="96" text-anchor="middle">VCV</text><text class="mm-s" x="666" y="117" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="596" y="161" width="140" height="58" rx="9"/><text class="mm-n" x="666" y="186" text-anchor="middle">PCV</text><text class="mm-s" x="666" y="207" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="596" y="251" width="140" height="58" rx="9"/><text class="mm-n" x="666" y="276" text-anchor="middle">PSV</text><text class="mm-s" x="666" y="297" text-anchor="middle">圧支持</text></g><text class="mm-ht" data-c="sp" x="124" y="24" text-anchor="middle">自発呼吸</text><text class="mm-hs" data-c="sp" x="124" y="44" text-anchor="middle">挿管後にまず確かめる</text><text class="mm-ht" data-c="mode" x="666" y="24" text-anchor="middle">Mode</text><text class="mm-hs" data-c="mode" x="666" y="44" text-anchor="middle">モード</text></svg>
+<svg class="mm-svg mm-v" data-k="1" viewBox="0 0 360 400" role="img" aria-label="挿管後のモードの選び方。自発呼吸がなければVCVかPCVしか選べない。自発呼吸があればPSV・VCV・PCVのどれも選べる。この患者は挿管直後で自発呼吸が不確かなため、自発呼吸なしとして扱いVCVで開始する"><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="sp-no" data-b="mode-vcv" data-g="0" d="M86 110 C86 212 53 212 53 314"/><path class="mm-l m-vcv" data-m="vcv" data-s="0" data-a="sp-yes" data-b="mode-vcv" data-g="1" d="M256 110 C256 212 65 212 65 314"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="sp-no" data-b="mode-pcv" data-g="0" d="M98 110 C98 212 174 212 174 314"/><path class="mm-l m-pcv" data-m="pcv" data-s="0" data-a="sp-yes" data-b="mode-pcv" data-g="1" d="M268 110 C268 212 186 212 186 314"/><path class="mm-l m-psv" data-m="psv" data-s="0" data-a="sp-yes" data-b="mode-psv" data-g="1" d="M280 110 C280 212 301 212 301 314"/><g class="mm-node" data-n="sp-no"><rect x="14" y="58" width="156" height="52" rx="9"/><text class="mm-n" x="92" y="81" text-anchor="middle">自発呼吸なし</text><text class="mm-s" x="92" y="100" text-anchor="middle">鎮静・筋弛緩の後</text></g><g class="mm-node" data-n="sp-yes"><rect x="190" y="58" width="156" height="52" rx="9"/><text class="mm-n" x="268" y="81" text-anchor="middle">自発呼吸あり</text><text class="mm-s" x="268" y="100" text-anchor="middle">患者が吸気を始める</text></g><g class="mm-node mm-mode m-vcv" data-n="mode-vcv" data-mode="vcv" tabindex="0" role="button" aria-label="VCVの線だけを描き直す"><rect x="6" y="314" width="106" height="52" rx="9"/><text class="mm-n" x="59" y="337" text-anchor="middle">VCV</text><text class="mm-s" x="59" y="356" text-anchor="middle">量制御</text></g><g class="mm-node mm-mode m-pcv" data-n="mode-pcv" data-mode="pcv" tabindex="0" role="button" aria-label="PCVの線だけを描き直す"><rect x="127" y="314" width="106" height="52" rx="9"/><text class="mm-n" x="180" y="337" text-anchor="middle">PCV</text><text class="mm-s" x="180" y="356" text-anchor="middle">圧制御</text></g><g class="mm-node mm-mode m-psv" data-n="mode-psv" data-mode="psv" tabindex="0" role="button" aria-label="PSVの線だけを描き直す"><rect x="248" y="314" width="106" height="52" rx="9"/><text class="mm-n" x="301" y="337" text-anchor="middle">PSV</text><text class="mm-s" x="301" y="356" text-anchor="middle">圧支持</text></g><text class="mm-ht mm-halo" data-c="sp" x="4" y="44">自発呼吸<tspan class="mm-hs" dx="8">挿管後にまず確かめる</tspan></text><text class="mm-ht mm-halo" data-c="mode" x="4" y="300">Mode<tspan class="mm-hs" dx="8">モード</tspan></text></svg>
 <div class="mm-legend" role="group" aria-label="モードを選ぶと、そのモードの道筋だけが表示される"><button type="button" data-mode="vcv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-vcv" d="M3 5 H31"/></svg>VCV（量制御）</button><button type="button" data-mode="pcv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-pcv" d="M3 5 H31"/></svg>PCV（圧制御）</button><button type="button" data-mode="psv"><svg class="mm-sw" data-k="1" viewBox="0 0 34 10" aria-hidden="true"><path class="mm-l m-psv" d="M3 5 H31"/></svg>PSV（圧支持）</button></div>
-<p class="nf-foot">「次へ」で列が順に現れ、自発呼吸が不確かな場合（VCV・PCV）、安定している場合（PSV）の順に線を結び、最後にこの患者の道筋を強調します。モード名を押すと、そのモードの道筋だけが表示されます。A/C＝補助／調節換気、SPONT＝自発モード。出典：S3 2025、JICS2026、Telias ICM2022</p>
+<p class="nf-foot">「次へ」で、自発呼吸なし → VCV・PCV、自発呼吸あり → PSV・VCV・PCV の順に線を結び、最後にこの患者の道筋を強調します。モード名を押すと、そのモードの道筋だけが表示されます。出典：S3 2025、JICS2026、Telias ICM2022</p>
 </div>
 <figcaption>図2. <b>モードの選び方</b></figcaption>
 </figure>
@@ -2192,15 +2194,16 @@ function finish(svg){cancel(svg); [].forEach.call(svg.querySelectorAll('.mm-l'),
   [].forEach.call(svg.querySelectorAll('.mm-node'),function(g){g.classList.remove('hit-vcv','hit-pcv','hit-psv');});}
 function visible(svg){var r=svg.getBoundingClientRect(); return r.width>0&&r.height>0;}
 function hide(svg){if(!visible(svg)) return; [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){dash(p,0);});}
-function play(svg,modes,sync){
+function play(svg,modes,sync,o){
+  o=o||{}; var sd=o.dur||SD;
   cancel(svg); if(!visible(svg)){finish(svg);return;}
-  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0;});
+  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0&&(!o.sel||p.matches(o.sel));});
   ps.forEach(function(p){dash(p,0);});
   var one=modes.length===1||!!sync, t0=performance.now(), fired={};
   function fire(key,id,m){if(fired[key]) return; fired[key]=1; hit(svg,id,m);}
   function frame(now){var t=now-t0, alive=false;
     ps.forEach(function(p){var m=p.getAttribute('data-m'), s=+p.getAttribute('data-s');
-      var st=(one?0:ORDER[m]*MD)+s*SD, pr=(t-st)/SD;
+      var st=(one?0:ORDER[m]*MD)+s*sd, pr=(t-st)/sd;
       if(pr<1) alive=true;
       var e=pr<=0?0:pr>=1?1:1-Math.pow(1-pr,2.4); dash(p,e*L(p));
       if(pr>0&&s===0) fire(p.getAttribute('data-a')+m,p.getAttribute('data-a'),m);
@@ -2214,31 +2217,35 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   var f=document.currentScript.previousElementSibling;
   while(f&&!(f.classList&&f.classList.contains('mmfig'))) f=f.previousElementSibling;
   if(!f||!window.MM) return;
-  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LINE=4, LAST=6, PAT=6, PATM='vcv';
-  var GR=[['vcv','pcv'],['psv']], FULL=LINE+GR.length-1;
-  function gi(m){ for(var i=0;i<GR.length;i++) if(GR[i].indexOf(m)>=0) return i; return GR.length-1; }
+  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LINE=1, LAST=3, PAT=3, PATM='vcv';
+  var PSEL='[data-a="sp-no"]', DUR=1100, GA=!!f.querySelector('.mm-l[data-g]');
+  var GR=[['vcv','pcv'],['vcv','pcv','psv']], FULL=LINE+GR.length-1;
+  function gi(m){ for(var i=GR.length-1;i>=0;i--) if(GR[i].indexOf(m)>=0) return i; return GR.length-1; }
+  /* 線の組：data-g があればそれ（モード選択＝自発呼吸なし／あり）、なければモードの組（3T's） */
+  function lg(p){ return p.hasAttribute('data-g')?+p.getAttribute('data-g'):gi(p.getAttribute('data-m')); }
+  function opt(sel){ var o={}; if(DUR) o.dur=DUR; if(sel) o.sel=sel; return o; }
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches||/HeadlessChrome/.test(navigator.userAgent)||navigator.webdriver;
   var check=/[?&]check=1/.test(location.search);
-  var LAB=["挿管直後 <span>自発呼吸は確かか</span>","換気の形 <span>回数を器械が保証するか、患者に任せるか</span>","設定 <span>量を決めるか、圧を決めるか</span>","Mode <span>組み合わせの名前</span>","自発呼吸が不確かなら <span>A/C → 量を決めればVCV、圧を決めればPCV</span>","自発呼吸が安定していれば <span>SPONT → 支持圧を決めてPSV</span>","この患者 <span>自発呼吸が不確か → A/C・VCVで開始</span>"];
+  var LAB=["自発呼吸の有無 <span>まず、自発呼吸があるかないか</span>","自発呼吸なし：VCVかPCV <span>選べるのはこの2つだけ</span>","自発呼吸あり：どのモードも選べる <span>PSVのほか、VCV・PCVも選べる</span>","この患者 <span>挿管直後で自発呼吸が不確か → なしとして扱い、VCVで開始</span>"];
   var lab=f.querySelector('.mm-stage'), prev=f.querySelector('[data-mm="prev"]'), next=f.querySelector('[data-mm="next"]');
   function setHL(m){f.setAttribute('data-hl',m||'');}
-  function draw(modes){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes);}); }
-  /* まだ結ばない線は visibility で隠す（2026-10-24：stroke-dasharray「0 99999」では Chrome で隠れず、VCV の段で PCV・PSV の線が見えていた） */
-  function setLines(m,full){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l[data-m="'+m+'"]'),function(p){
-    p.style.strokeDasharray=''; p.style.visibility=full?'':'hidden'; }); }); }
-  function showAll(){ ALL.forEach(function(m){ setLines(m,true); }); }
+  function draw(modes,sel){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes,!!sel,opt(sel));}); }
+  /* まだ結ばない線は visibility で隠す（2026-10-24：stroke-dasharray「0 99999」では Chrome で隠れず、VCV の段で PCV・PSV の線が見えていた）。k＝null で全部出す */
+  function setVis(k){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l'),function(p){
+    p.style.strokeDasharray=''; p.style.visibility=(k===null||lg(p)<=k)?'':'hidden'; }); }); }
+  function showAll(){ setVis(null); }
   function go(n,modes){
     n=Math.max(0,Math.min(LAST,n)); f.setAttribute('data-st',n);
     if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
     if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
     if(n<LINE){ setHL(''); showAll(); svgs.forEach(MM.finish); return; }
     if(modes){ setHL(modes.length===1?modes[0]:''); showAll(); draw(modes); return; }
-    if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM]); return; }
+    if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM],PSEL); return; }
     /* 線の段：前の組は描き終えた線、今の組だけ描き（組の中は同時に左から右へ）、後の組はまだ出さない */
     setHL(''); var k=n-LINE;
     if(reduce||check){ showAll(); svgs.forEach(MM.finish); return; }
-    ALL.forEach(function(m){ setLines(m,gi(m)<=k); });
-    svgs.forEach(function(s){ MM.play(s,GR[k],true); });
+    setVis(k);
+    svgs.forEach(function(s){ MM.play(s,GR[k],true,opt(GA?'[data-g="'+k+'"]':'')); });
   }
   function cur(){ return +f.getAttribute('data-st'); }
   /* 動きを減らす設定・点検では完成形（すべての線がそろった段。強調なし） */
@@ -2261,7 +2268,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 </script>
 <!-- ms:end -->
 <p>VCVとPCVで転帰の差は示されておらず、使い慣れたほうを選びます<span class="src vault">S3 2025</span>。この患者は、圧の変化で肺の状態を追いやすいVCVで始めます。</p>
-<p>PSV（圧支持：患者が始めた吸気を設定した圧で支える）へ移るのは、呼吸ドライブが安定し、人工呼吸器と同調し、過剰な吸気努力がなく、必要な換気量を自力で保てるときです<span class="src vault">Telias ICM2022</span><span class="src vault">JICS2026</span>。A/Cでも患者は自分で吸気できるため、自発呼吸があることだけではPSVを選ぶ理由になりません。SPONTでは無呼吸になると換気が止まるため、無呼吸アラームとバックアップ換気の設定を必ず確認します。</p>
+<p>PSVは患者が始めた吸気を設定した圧で支えるモードで、自発呼吸が前提です。移るのは、呼吸ドライブが安定し、人工呼吸器と同調し、過剰な吸気努力がなく、必要な換気量を自力で保てるときです<span class="src vault">Telias ICM2022</span><span class="src vault">JICS2026</span>。PSVでは無呼吸になると換気が止まるため、無呼吸アラームとバックアップ換気の設定を必ず確認します。</p>
 
 <h3 id="rs-s3-2">3-2. 人工呼吸の3要素（3T's）</h3>
 <p class="rd-lead">人工呼吸器は、これから説明する3つの要素を設定すれば動きます。これを人工呼吸の3要素と呼びます。具体的には、Trigger（吸気の始まり）・Target（送気中に一定に保つもの）・Termination（吸気の終わり）の3つで、その組み合わせでVCV・PCV・PSVが決まります（図3）<span class="src vault">JICS2026</span>。</p>
@@ -2297,15 +2304,16 @@ function finish(svg){cancel(svg); [].forEach.call(svg.querySelectorAll('.mm-l'),
   [].forEach.call(svg.querySelectorAll('.mm-node'),function(g){g.classList.remove('hit-vcv','hit-pcv','hit-psv');});}
 function visible(svg){var r=svg.getBoundingClientRect(); return r.width>0&&r.height>0;}
 function hide(svg){if(!visible(svg)) return; [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){dash(p,0);});}
-function play(svg,modes,sync){
+function play(svg,modes,sync,o){
+  o=o||{}; var sd=o.dur||SD;
   cancel(svg); if(!visible(svg)){finish(svg);return;}
-  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0;});
+  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0&&(!o.sel||p.matches(o.sel));});
   ps.forEach(function(p){dash(p,0);});
   var one=modes.length===1||!!sync, t0=performance.now(), fired={};
   function fire(key,id,m){if(fired[key]) return; fired[key]=1; hit(svg,id,m);}
   function frame(now){var t=now-t0, alive=false;
     ps.forEach(function(p){var m=p.getAttribute('data-m'), s=+p.getAttribute('data-s');
-      var st=(one?0:ORDER[m]*MD)+s*SD, pr=(t-st)/SD;
+      var st=(one?0:ORDER[m]*MD)+s*sd, pr=(t-st)/sd;
       if(pr<1) alive=true;
       var e=pr<=0?0:pr>=1?1:1-Math.pow(1-pr,2.4); dash(p,e*L(p));
       if(pr>0&&s===0) fire(p.getAttribute('data-a')+m,p.getAttribute('data-a'),m);
@@ -2320,30 +2328,34 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   while(f&&!(f.classList&&f.classList.contains('mmfig'))) f=f.previousElementSibling;
   if(!f||!window.MM) return;
   var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LINE=4, LAST=6, PAT=-1, PATM='';
+  var PSEL='', DUR=0, GA=!!f.querySelector('.mm-l[data-g]');
   var GR=[['vcv'],['pcv'],['psv']], FULL=LINE+GR.length-1;
-  function gi(m){ for(var i=0;i<GR.length;i++) if(GR[i].indexOf(m)>=0) return i; return GR.length-1; }
+  function gi(m){ for(var i=GR.length-1;i>=0;i--) if(GR[i].indexOf(m)>=0) return i; return GR.length-1; }
+  /* 線の組：data-g があればそれ（モード選択＝自発呼吸なし／あり）、なければモードの組（3T's） */
+  function lg(p){ return p.hasAttribute('data-g')?+p.getAttribute('data-g'):gi(p.getAttribute('data-m')); }
+  function opt(sel){ var o={}; if(DUR) o.dur=DUR; if(sel) o.sel=sel; return o; }
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches||/HeadlessChrome/.test(navigator.userAgent)||navigator.webdriver;
   var check=/[?&]check=1/.test(location.search);
   var LAB=["Trigger <span>吸気の始まり</span>","Target <span>送気中に一定に保つもの</span>","Termination <span>吸気の終わり</span>","Mode <span>組み合わせの名前</span>","VCV <span>時間か患者で始まり、流量を保ち、量で終わる</span>","PCV <span>時間か患者で始まり、圧を保ち、時間で終わる</span>","PSV <span>患者で始まり、圧を保ち、流量で終わる</span>"];
   var lab=f.querySelector('.mm-stage'), prev=f.querySelector('[data-mm="prev"]'), next=f.querySelector('[data-mm="next"]');
   function setHL(m){f.setAttribute('data-hl',m||'');}
-  function draw(modes){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes);}); }
-  /* まだ結ばない線は visibility で隠す（2026-10-24：stroke-dasharray「0 99999」では Chrome で隠れず、VCV の段で PCV・PSV の線が見えていた） */
-  function setLines(m,full){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l[data-m="'+m+'"]'),function(p){
-    p.style.strokeDasharray=''; p.style.visibility=full?'':'hidden'; }); }); }
-  function showAll(){ ALL.forEach(function(m){ setLines(m,true); }); }
+  function draw(modes,sel){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes,!!sel,opt(sel));}); }
+  /* まだ結ばない線は visibility で隠す（2026-10-24：stroke-dasharray「0 99999」では Chrome で隠れず、VCV の段で PCV・PSV の線が見えていた）。k＝null で全部出す */
+  function setVis(k){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l'),function(p){
+    p.style.strokeDasharray=''; p.style.visibility=(k===null||lg(p)<=k)?'':'hidden'; }); }); }
+  function showAll(){ setVis(null); }
   function go(n,modes){
     n=Math.max(0,Math.min(LAST,n)); f.setAttribute('data-st',n);
     if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
     if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
     if(n<LINE){ setHL(''); showAll(); svgs.forEach(MM.finish); return; }
     if(modes){ setHL(modes.length===1?modes[0]:''); showAll(); draw(modes); return; }
-    if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM]); return; }
+    if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM],PSEL); return; }
     /* 線の段：前の組は描き終えた線、今の組だけ描き（組の中は同時に左から右へ）、後の組はまだ出さない */
     setHL(''); var k=n-LINE;
     if(reduce||check){ showAll(); svgs.forEach(MM.finish); return; }
-    ALL.forEach(function(m){ setLines(m,gi(m)<=k); });
-    svgs.forEach(function(s){ MM.play(s,GR[k],true); });
+    setVis(k);
+    svgs.forEach(function(s){ MM.play(s,GR[k],true,opt(GA?'[data-g="'+k+'"]':'')); });
   }
   function cur(){ return +f.getAttribute('data-st'); }
   /* 動きを減らす設定・点検では完成形（すべての線がそろった段。強調なし） */
@@ -2368,7 +2380,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p class="tt-intro">図の3つの列を、左から順に説明します。図4〜6の波形は、上が圧、下が流量（0の線より上が吸気）です。</p>
 <div class="tt-part" id="tt-trig">
 <p class="tt-ph"><b>Trigger</b><span>吸気の始まり — 時間・圧・流量</span></p>
-<p>器械が設定した呼吸数の間隔で始める（時間）か、患者の吸気努力を検出して始めます。患者トリガーには、回路内圧の低下を検出する圧トリガーと、ベースフローの変化を検出する流量トリガーがあり、現在の機種では小さな努力で作動する流量トリガーが標準です。3-1のA/CとSPONTの違いは、Triggerに「時間」を含むかどうかです<span class="src vault">JICS2026</span>。</p>
+<p>器械が設定した呼吸数の間隔で始める（時間）か、患者の吸気努力を検出して始めます。患者トリガーには、回路内圧の低下を検出する圧トリガーと、ベースフローの変化を検出する流量トリガーがあり、現在の機種では小さな努力で作動する流量トリガーが標準です。A/C（補助／調節換気）とSPONT（自発モード）の違いは、Triggerに「時間」を含むかどうかです<span class="src vault">JICS2026</span>。</p>
 <p>感度が低すぎると努力を検出できず（無効努力）、高すぎるとリーク・心拍動・回路の結露で送気が始まります（オートトリガー）。患者トリガーでは圧の立ち上がり直前にへこみが出ますが、流量トリガーでは目立たないことがあるため、トリガー表示と流量波形も確認します。</p>
 <details class="vf-acc" open><summary><span class="vf-acc-h">Trigger を波形で見る（図4）</span></summary>
 <div class="vf-acc-b">

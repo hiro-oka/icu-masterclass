@@ -1516,7 +1516,7 @@ html.vf-lb-on{overflow:hidden}
 @media (max-width:600px){.rdt-tabs{padding-right:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.35em}.rdt-tab{font-size:.98em;padding:.4em .55em;min-width:0}.rdt-tab small{font-size:.64em;line-height:1.3}}
 @media print{.rdt-tabs{display:none!important}.rdt-pane{display:block!important;break-inside:avoid;page-break-inside:avoid;margin:0 0 .8em}.rdt-ph{display:block}}
 .vf-lb .rdt-tabs{padding-right:0}
-/* §3-5 運動方程式：Codex の生成画像（文字なし）＋色の凡例。色は抵抗＝琥珀・弾性＝紫・PEEP＝灰・Pmus＝赤 */
+/* §3-5 運動方程式：生成画像（文字なし）＋色の凡例。色は抵抗＝琥珀・弾性＝紫・PEEP＝灰・Pmus＝赤 */
 .eqm{--eqm-r:#F2A93B;--eqm-rt:#A85F00;--eqm-e:#7E63B5;--eqm-p:#9AA0A8;--eqm-pt:#5A6178;--eqm-m:#C00000}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eqm{--eqm-rt:#F6B95C;--eqm-e:#B49BE8;--eqm-pt:#C3C8D4;--eqm-m:#FF7A7A}}
 :root[data-theme="dark"] .eqm{--eqm-rt:#F6B95C;--eqm-e:#B49BE8;--eqm-pt:#C3C8D4;--eqm-m:#FF7A7A}
@@ -2553,6 +2553,27 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <div class="box"><span class="label">有意差を認めなかった研究</span><p>成人1,383例（PTU 656例、チアマゾール727例）の比較で、死亡と有害事象に有意差を認めませんでした。日本の全国調査（356例）でもチアマゾールに不利な点はなく、優劣は決着していないとされます<span class="src vault">JCEM2026</span><span class="src vault">JAMA2023</span>。根拠は観察研究です。</p></div>
 </div>
 <p>どちらもRCTではありません。JCEM 2026 は、肝障害（ビリルビンと肝酵素が基準上限の3倍）があればPTUよりチアマゾールを選ぶとしています<span class="src vault">JCEM2026</span>。PTUは肝障害が2.7%（チアマゾール0.4%）で、まれに劇症肝不全を起こします<span class="src vault">JAMA2023</span>。静注のPTUはもう市販されておらず、静注のチアマゾールは日本と欧州の一部でしか使えません<span class="src vault">JCEM2026</span>。破壊性甲状腺炎や甲状腺ホルモン錠の過量が原因なら、チオナミドは効きません（表1）。</p>
+<p>クリーゼ以外も含めると、若年女性でも原則はチアマゾールです。PTUを選ぶのは、妊娠第1三半期（とその直前）と、チアマゾールの軽い副作用で続けられないときの2つに絞られます<span class="src vault">JAMA2023</span><span class="src vault">LancetDE2023</span>。</p>
+<div class="tablewrap">
+<table class="wide">
+<caption>表7｜PTUとチアマゾール（メチマゾール、MMI）の使い分け — クリーゼ以外も含めて</caption>
+<thead><tr><th class="rs-nw">場面</th><th>選ぶ薬</th><th>理由・注意</th></tr></thead>
+<tbody>
+<tr><td class="rs-nw">ふつうのバセドウ病（若年女性を含む）</td><td>チアマゾール</td><td>第1選択。肝障害はPTU 2.7%・チアマゾール0.4%で、PTUはまれに劇症肝不全。ANCA血管炎もPTU 3%・チアマゾール1%未満<span class="src vault">JAMA2023</span></td></tr>
+<tr><td class="rs-nw">妊娠可能年齢の女性にチアマゾールを始めるとき</td><td>チアマゾール＋説明</td><td>妊娠反応を確かめ、避妊と「妊娠が分かったらすぐ連絡」を伝える。妊娠の予定があれば、下の行の3つの選択肢を先に話しておく<span class="src vault">LancetDE2023</span></td></tr>
+<tr><td class="rs-nw">妊娠を計画している</td><td>①妊娠前にPTUへ替える<br>②妊娠が分かったら中止を検討（チアマゾール5〜10 mgかPTU 100〜200 mgの安定した低用量・6か月超の治療・TSH正常・TRAb陰性・甲状腺腫なし）<br>③妊娠初期にチアマゾールからヨウ化カリウム10〜30 mgへ（主に日本のデータ）</td><td>根治（手術・放射性ヨウ素治療）を妊娠前に済ませる道もある。放射性ヨウ素治療の後は少なくとも6か月、手術や薬で正常化してから2か月超あけて妊娠<span class="src vault">LancetDE2023</span></td></tr>
+<tr><td class="rs-nw">妊娠第1三半期</td><td>PTU</td><td>チアマゾールの奇形（頭皮欠損・後鼻孔閉鎖・食道閉鎖・腹壁欠損）のほうが重い。調整相対リスクはチアマゾール1.28・PTU 1.16。FT4を基準上限付近に保つ最小量で<span class="src vault">JAMA2023</span><span class="src vault">LancetDE2023</span></td></tr>
+<tr><td class="rs-nw">妊娠第2三半期以降</td><td>チアマゾールへ戻すか、低用量のPTUを続ける</td><td>戻す推奨はPTUの肝障害を避けるためだが、確かな根拠は乏しい<span class="src vault">LancetDE2023</span></td></tr>
+<tr><td class="rs-nw">授乳中</td><td>どちらも可</td><td>チアマゾールは1日20 mgまで、PTUは1日250 mg<span class="src vault">LancetDE2023</span>〜450 mg<span class="src vault">JAMA2023</span>まで安全とされる。授乳の後に内服</td></tr>
+<tr><td class="rs-nw">肝障害がある</td><td>チアマゾール</td><td>ビリルビン・肝酵素が基準上限の3倍ならPTUを避ける<span class="src vault">JCEM2026</span>。国内の添付文書でも「本剤使用後に肝機能が悪化した患者」はPTUの禁忌<span class="src jp">添付文書</span></td></tr>
+<tr><td class="rs-nw">甲状腺クリーゼ</td><td>文献で割れている</td><td>PTU優先の根拠はT4からT3への変換を抑える機序、差なしの根拠は観察研究。経口できなければ、国内はチアマゾール注<span class="src vault">JCEM2026</span><span class="src jp">添付文書</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="box warn">
+<span class="label">「妊娠初期はPTUへ切り替える」にも異論がある</span>
+<p>2022年のメタ解析では、妊娠初期に両方の薬に曝露した群の先天異常の超過が1,000出生あたり31.4と最も多く、LancetDE 2023 は切り替えの推奨を支持しないと書いています<span class="src vault">LancetDE2023</span>。ただし、重症例ほど両方に曝露されやすいという適応による交絡と区別できません。妊娠の予定がある若年女性では、切り替えよりも「妊娠前に低用量で安定させて中止を狙う」「根治を先に済ませる」選択肢も含めて相談します。</p>
+</div>
 
 <h3 id="rs-s5-4">5-4. 無機ヨウ素の時期</h3>
 <p class="rd-lead">ATA 2016 に沿う総説は、ヨウ素をチオナミドの少なくとも1時間後に始めるよう勧めます。合成を止めていない自律性結節にヨウ素を先に入れると、ホルモンの材料を配ることになるからです<span class="src vault">JCEM2026</span>。</p>
@@ -2614,7 +2635,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <p class="rd-lead">解熱は冷却とアセトアミノフェンで行い、アスピリンは使いません。アスピリンは結合蛋白から甲状腺ホルモンを追い出し、遊離ホルモンを上げます<span class="src vault">JCEM2026</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表7｜支持療法の要点</caption>
+<caption>表8｜支持療法の要点</caption>
 <thead><tr><th class="rs-nw">項目</th><th>何が起きているか</th><th>すること</th></tr></thead>
 <tbody>
 <tr><td class="rs-nw">体温</td><td>産熱が放熱を上回る高体温</td><td>物理的な冷却を主に、アセトアミノフェンは補助。興奮と発熱にはクロルプロマジンも挙げられている<span class="src vault">JCEM2026</span>が、低血圧・QT延長・意識の抑制に注意する</td></tr>
@@ -2633,7 +2654,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <p class="rd-lead">嘔吐と意識障害で経口はできません。ここまでの順番を、この患者の指示に置き換えます。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表8｜この患者の最初の指示</caption>
+<caption>表9｜この患者の最初の指示</caption>
 <thead><tr><th class="rs-nw">時点</th><th>指示</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td class="rs-nw">時刻0</td><td>ICUへ入室。チアマゾール注を静注。ヒドロコルチゾン静注。冷却とアセトアミノフェン。等張液の補液とKの補正。血液培養・喀痰培養の後に抗菌薬</td><td>経口できないので注射薬。肝障害は軽く、経路の都合でチアマゾール注を選ぶ</td></tr>
@@ -2668,7 +2689,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <p class="rd-lead">片方を見たら、もう片方を探します。DKAで説明のつかない発熱と頻脈ならTSH・FT4を、クリーゼで高血糖ならケトンとpHを測ります<span class="src vault">BMCEndocrDisord2019</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表9｜DKA合併の要点</caption>
+<caption>表10｜DKA合併の要点</caption>
 <thead><tr><th class="rs-nw">論点</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td class="rs-nw">報告された像</td><td>世界で26例。女性88%、全例で心拍数100回/分超、BWPS平均62.3点。DKAは重症が58%。4例（15%）が死亡し、死因は肺炎・敗血症・ARDS・多臓器不全だった<span class="src vault">BMCEndocrDisord2019</span></td></tr>
@@ -2686,7 +2707,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <p class="rd-lead">国内の添付文書では、β遮断薬はどれも甲状腺クリーゼそのものの効能を持たず、DKA・代謝性アシドーシスと心原性ショックを禁忌にしています<span class="src jp">添付文書</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表10｜クリーゼのICUで当たりやすいβ遮断薬の禁忌</caption>
+<caption>表11｜クリーゼのICUで当たりやすいβ遮断薬の禁忌</caption>
 <thead><tr><th class="rs-nw">禁忌</th><th class="rs-nw">プロプラノロール</th><th class="rs-nw">エスモロール</th><th class="rs-nw">ランジオロール</th><th class="rs-nw">ビソプロロール（貼付）</th></tr></thead>
 <tbody>
 <tr><td class="rs-nw">DKA・代謝性アシドーシス</td><td>禁忌</td><td>禁忌</td><td>禁忌（敗血症による代謝性アシドーシスを除く）</td><td>禁忌</td></tr>
@@ -2717,7 +2738,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <p>日本のガイドラインは、抗甲状腺薬・無機ヨウ素・ステロイド・β遮断薬と誘因の治療を適切に行っても24〜48時間で改善しなければ、血漿交換を考慮するよう推奨しています（弱い推奨）<span class="src jp">JTA/JES2016</span>。</p>
 <div class="tablewrap">
 <table class="wide">
-<caption>表11｜甲状腺クリーゼの血漿交換の処方</caption>
+<caption>表12｜甲状腺クリーゼの血漿交換の処方</caption>
 <thead><tr><th class="rs-nw">項目</th><th>内容</th></tr></thead>
 <tbody>
 <tr><td class="rs-nw">狙い</td><td>結合蛋白ごと甲状腺ホルモンを除く。自己抗体・カテコラミン・サイトカインの除去</td></tr>

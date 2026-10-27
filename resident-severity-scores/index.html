@@ -1179,6 +1179,70 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 }
 /* /resident motion (resident-motion.css) */
 </style>
+<style id="rs-fluid">
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
+   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+   正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
+   ・倍率 k = 1 + (画面幅 − 1200px) ÷ 3800px（1〜1.5）。1280px で 1.02、1920px で 1.19、2560px で 1.36。
+     本文 17px が 1280px で 17.4px、1920px で 20.2px、2560px で 23.1px になる（論文の共有ページ share-html.py の 20.5px と同じ帯）。
+   ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
+     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+   ・本文の列は --rs-measure（48em＝1行47字前後。47em では5列の表が 13px はみ出した）。本文・表・図・囲みは同じ幅にそろえる（2026-09-26 の決定を守る）。
+   ・サイドバーは zoom を使わず、幅と文字を「X + X×(k−1)」の calc で伸ばす（目次の印の JS が offsetTop を使うため）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
+@media screen and (min-width:1001px){
+  /* k − 1 を px で持つ（2560px で .358px）。X×k は calc(Xpx + X * var(--rk)) と書ける */
+  :root{--rk:clamp(0px, (100vw - 1200px) / 3800, .5px); --sidebar-w:calc(300px + 300 * var(--rk)); --rs-measure:48em}
+
+  /* 本文の列：--rs-measure ＋ 左右の余白 40px（zoom の中の寸法なので、画面では k 倍になる）。
+     広い画面の左右の余白をもっと詰めたいときは --rs-measure を広げる（1行の字数が増える）か、倍率 k を上げる */
+  main{max-width:calc(var(--rs-measure) + 80px) !important}
+
+  /* 本文の倍率。下敷きは 80px 刻み（型付き calc の無いブラウザ用）、最後の1行が連続の値 */
+  @media (min-width:1240px){main{zoom:1.0105}}
+  @media (min-width:1320px){main{zoom:1.0316}}
+  @media (min-width:1400px){main{zoom:1.0526}}
+  @media (min-width:1480px){main{zoom:1.0737}}
+  @media (min-width:1560px){main{zoom:1.0947}}
+  @media (min-width:1640px){main{zoom:1.1158}}
+  @media (min-width:1720px){main{zoom:1.1368}}
+  @media (min-width:1800px){main{zoom:1.1579}}
+  @media (min-width:1880px){main{zoom:1.1789}}
+  @media (min-width:1960px){main{zoom:1.2000}}
+  @media (min-width:2040px){main{zoom:1.2211}}
+  @media (min-width:2120px){main{zoom:1.2421}}
+  @media (min-width:2200px){main{zoom:1.2632}}
+  @media (min-width:2280px){main{zoom:1.2842}}
+  @media (min-width:2360px){main{zoom:1.3053}}
+  @media (min-width:2440px){main{zoom:1.3263}}
+  @media (min-width:2520px){main{zoom:1.3474}}
+  @media (min-width:2600px){main{zoom:1.3684}}
+  @media (min-width:2680px){main{zoom:1.3895}}
+  @media (min-width:2760px){main{zoom:1.4105}}
+  @media (min-width:2840px){main{zoom:1.4316}}
+  @media (min-width:2920px){main{zoom:1.4526}}
+  @media (min-width:3000px){main{zoom:1.4737}}
+  @media (min-width:3080px){main{zoom:1.4947}}
+  main{zoom:clamp(1, calc(1 + (100vw - 1200px) / 3800px), 1.5)}
+
+  /* サイドバー：幅は --sidebar-w（body の左の空きも同じ値）。文字と余白も k 倍 */
+  #rs-side .hd{padding:calc(14px + 14 * var(--rk)) calc(16px + 16 * var(--rk)) calc(10px + 10 * var(--rk))}
+  #rs-side .hd .ttl{font-size:calc(15px + 15 * var(--rk))}
+  #rs-side .hd .sb{font-size:calc(11.5px + 11.5 * var(--rk))}
+  #rs-search{font-size:calc(13.5px + 13.5 * var(--rk)); padding:calc(8px + 8 * var(--rk)) calc(10px + 10 * var(--rk)); margin-top:calc(10px + 10 * var(--rk))}
+  #rs-hits{font-size:calc(11.5px + 11.5 * var(--rk))}
+  #rs-nav{padding:calc(10px + 10 * var(--rk)) calc(8px + 8 * var(--rk)) calc(24px + 24 * var(--rk))}
+  #rs-nav a{font-size:calc(14px + 14 * var(--rk)); padding:calc(6px + 6 * var(--rk)) calc(10px + 10 * var(--rk))}
+  #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
+  .mo-navind{left:calc(8px + 8 * var(--rk))}
+
+  /* 先頭へ戻る丸ボタン */
+  #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
+    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+}
+/* /resident fluid (resident-fluid.css) */
+</style>
 </head>
 <body data-refstyle="1">
 <div id="rs-progress"></div>
@@ -1234,7 +1298,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">重症度スコアと予後予測</h1>
 <p class="sub">スコアは群に使う道具。目的で道具を選び、SMRはモデル名・欠測・症例構成と一緒に読む — スコアの家系・識別能と較正・SOFAとSOFA-2・SMRとベンチマーク・データ基盤と個別化・特殊な集団・家族と記録・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-22</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -2226,7 +2290,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     var C = counter(el); if (!C) return;
     var inl = W.getComputedStyle(el).display === 'inline';
     s.track(t0, dur || .9, function (p) { C.set(p); }, function () {
-      if (inl) { el.classList.add('mo-cnt'); el.style.minWidth = el.getBoundingClientRect().width + 'px'; }
+      if (inl) { el.classList.add('mo-cnt'); el.style.minWidth = (el.getBoundingClientRect().width / (el.currentCSSZoom || 1)) + 'px'; }
     }, function () { C.done(); el.style.minWidth = ''; el.classList.remove('mo-cnt'); });
   }
 
@@ -2559,9 +2623,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   function gas(s, box, t0, dur) {
     var N = 10, TRAVEL = 1.15, lay = null, dots = [], path = null;
     function measure() {
-      var b = box.getBoundingClientRect(), p = [];
+      // 本文は画面幅に応じて zoom で拡大される（resident-fluid.css）。測った値は拡大後なので、倍率で割って box の中の px に戻す
+      var b = box.getBoundingClientRect(), p = [], z = box.currentCSSZoom || 1;
       Q('svg.nf-ico', box).forEach(function (ic, k) {
-        var r = ic.getBoundingClientRect(), c = { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+        var r0 = ic.getBoundingClientRect(), r = { left: r0.left / z, top: r0.top / z, width: r0.width / z, height: r0.height / z };
+        var c = { x: r.left - b.left / z + r.width / 2, y: r.top - b.top / z + r.height / 2 };
         if (k === 0) p.push({ x: c.x - r.width / 2, y: c.y });
         p.push(c);
       });

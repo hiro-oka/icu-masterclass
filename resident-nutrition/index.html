@@ -1190,17 +1190,21 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
    本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
-   ・倍率 k = 1 + (画面幅 − 1200px) ÷ 3800px（1〜1.5）。1280px で 1.02、1920px で 1.19、2560px で 1.36。
-     本文 17px が 1280px で 17.4px、1920px で 20.2px、2560px で 23.1px になる（論文の共有ページ share-html.py の 20.5px と同じ帯）。
+   ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
      本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
-   ・本文の列は --rs-measure（48em＝1行47字前後。47em では5列の表が 13px はみ出した）。本文・表・図・囲みは同じ幅にそろえる（2026-09-26 の決定を守る）。
-   ・サイドバーは zoom を使わず、幅と文字を「X + X×(k−1)」の calc で伸ばす（目次の印の JS が offsetTop を使うため）。
+   ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
+     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
+   ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
+     そこから本文と同じ傾き（2560px で 1.41 倍）。
    ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
-  /* k − 1 を px で持つ（2560px で .358px）。X×k は calc(Xpx + X * var(--rk)) と書ける */
-  :root{--rk:clamp(0px, (100vw - 1200px) / 3800, .5px); --sidebar-w:calc(300px + 300 * var(--rk)); --rs-measure:48em}
+  /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
+  :root{--rk:clamp(0px, (100vw - 1440px) / 2752, .6px); --sidebar-w:calc(300px + 300 * var(--rk)); --rs-measure:58em}
 
   /* 本文の列：--rs-measure ＋ 左右の余白 40px（zoom の中の寸法なので、画面では k 倍になる）。
      広い画面の左右の余白をもっと詰めたいときは --rs-measure を広げる（1行の字数が増える）か、倍率 k を上げる */
@@ -1210,28 +1214,26 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   @media (min-width:1240px){main{zoom:1.0105}}
   @media (min-width:1320px){main{zoom:1.0316}}
   @media (min-width:1400px){main{zoom:1.0526}}
-  @media (min-width:1480px){main{zoom:1.0737}}
-  @media (min-width:1560px){main{zoom:1.0947}}
-  @media (min-width:1640px){main{zoom:1.1158}}
-  @media (min-width:1720px){main{zoom:1.1368}}
-  @media (min-width:1800px){main{zoom:1.1579}}
-  @media (min-width:1880px){main{zoom:1.1789}}
-  @media (min-width:1960px){main{zoom:1.2000}}
-  @media (min-width:2040px){main{zoom:1.2211}}
-  @media (min-width:2120px){main{zoom:1.2421}}
-  @media (min-width:2200px){main{zoom:1.2632}}
-  @media (min-width:2280px){main{zoom:1.2842}}
-  @media (min-width:2360px){main{zoom:1.3053}}
-  @media (min-width:2440px){main{zoom:1.3263}}
-  @media (min-width:2520px){main{zoom:1.3474}}
-  @media (min-width:2600px){main{zoom:1.3684}}
-  @media (min-width:2680px){main{zoom:1.3895}}
-  @media (min-width:2760px){main{zoom:1.4105}}
-  @media (min-width:2840px){main{zoom:1.4316}}
-  @media (min-width:2920px){main{zoom:1.4526}}
-  @media (min-width:3000px){main{zoom:1.4737}}
-  @media (min-width:3080px){main{zoom:1.4947}}
-  main{zoom:clamp(1, calc(1 + (100vw - 1200px) / 3800px), 1.5)}
+  @media (min-width:1480px){main{zoom:1.0777}}
+  @media (min-width:1560px){main{zoom:1.1068}}
+  @media (min-width:1640px){main{zoom:1.1359}}
+  @media (min-width:1720px){main{zoom:1.1649}}
+  @media (min-width:1800px){main{zoom:1.1940}}
+  @media (min-width:1880px){main{zoom:1.2231}}
+  @media (min-width:1960px){main{zoom:1.2522}}
+  @media (min-width:2040px){main{zoom:1.2812}}
+  @media (min-width:2120px){main{zoom:1.3103}}
+  @media (min-width:2200px){main{zoom:1.3394}}
+  @media (min-width:2280px){main{zoom:1.3684}}
+  @media (min-width:2360px){main{zoom:1.3975}}
+  @media (min-width:2440px){main{zoom:1.4266}}
+  @media (min-width:2520px){main{zoom:1.4556}}
+  @media (min-width:2600px){main{zoom:1.4847}}
+  @media (min-width:2680px){main{zoom:1.5138}}
+  @media (min-width:2760px){main{zoom:1.5429}}
+  @media (min-width:2840px){main{zoom:1.5719}}
+  @media (min-width:2920px){main{zoom:1.6000}}
+  main{zoom:clamp(1, max(calc(1 + (100vw - 1200px) / 3800px), calc(1.0632 + (100vw - 1440px) / 2752px)), 1.6)}
 
   /* サイドバー：幅は --sidebar-w（body の左の空きも同じ値）。文字と余白も k 倍 */
   #rs-side .hd{padding:calc(14px + 14 * var(--rk)) calc(16px + 16 * var(--rk)) calc(10px + 10 * var(--rk))}

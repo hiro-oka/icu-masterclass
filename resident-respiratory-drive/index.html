@@ -1075,6 +1075,8 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
 .mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 1列（640px以下）では左右に寄せると画面の端から出る（右の箱が18px出て横スクロールが出た。2026-11-01）ので下から入れる */
+@media (max-width:640px){ .mo-on .rd-dodont.is-choice > .mo-cl, .mo-on .rd-dodont.is-choice > .mo-cr{transform:translateY(12px)} }
 /* 数値チップ：カウントアップ中は幅を固定して揺れない */
 .mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
 .mo-on .rd-stat{transition:box-shadow .5s ease}
@@ -2827,7 +2829,7 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 <h1 id="top">呼吸ドライブと吸気努力の測り方</h1>
 <p class="sub">P0.1・ΔPocc・PMI・食道内圧・横隔膜エコー — 指令から圧までの生理と、測る・読む・動かす</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-31</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-01</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -3865,7 +3867,7 @@ var SEL='.box,.tablewrap,details.rd-ev,.rd-check,.rd-dodont,.rd-stats,.figread';
 })();
 // 拡大表示（ライトボックス）：動きが終わった図を押すと画面いっぱいに。拡大中も前へ／次へ／もう一度・病態やモードの切り替えが効く
 (function(){
-var figs=[].slice.call(document.querySelectorAll('figure.vffig,figure.wvfig,figure.mmfig,figure.pcfig')).filter(function(f){ return !f.querySelector('.vf[data-scroll]'); });   // スクロール形の図は拡大しない（PC幅では既に大きく、画面に貼り付いている）
+var figs=[].slice.call(document.querySelectorAll('figure.vffig,figure.wvfig,figure.mmfig,figure.pcfig')).filter(function(f){ return !f.querySelector('.vf[data-scroll]')&&!f.hasAttribute('data-scroll'); });   // スクロール形の図は拡大しない（PC幅では既に大きく、画面に貼り付いている。modemap の図2・図3は figure に data-scroll。2026-10-31）
 // 軸のある波形・グラフ（nf の図：静止図も描画アニメの図も）にも付ける。動きのある図は resident-motion の描画中（state 1）が終わるまで待つ
 [].forEach.call(document.querySelectorAll('figure.fig'),function(f){ if(figs.indexOf(f)<0&&f.querySelector('svg.nf-svg .nf-axis')){ f.classList.add('zmfig'); figs.push(f); } });
 if(!figs.length) return;

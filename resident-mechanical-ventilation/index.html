@@ -1075,6 +1075,8 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
 .mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 1列（640px以下）では左右に寄せると画面の端から出る（右の箱が18px出て横スクロールが出た。2026-11-01）ので下から入れる */
+@media (max-width:640px){ .mo-on .rd-dodont.is-choice > .mo-cl, .mo-on .rd-dodont.is-choice > .mo-cr{transform:translateY(12px)} }
 /* 数値チップ：カウントアップ中は幅を固定して揺れない */
 .mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
 .mo-on .rd-stat{transition:box-shadow .5s ease}
@@ -2274,7 +2276,7 @@ button,input,select,textarea{font-family:inherit}
 <h1 id="top">人工呼吸の基礎</h1>
 <p class="sub">1人の患者で、挿管の適応からアラーム対応まで</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-31</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-01</span></p>
 
 <div class="tools">
   <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-lecture/">🎞 スライド</a>

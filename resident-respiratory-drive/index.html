@@ -3646,8 +3646,10 @@ window.VFD={run:run, STATIC:!!((window.matchMedia&&window.matchMedia('(prefers-r
 
 (function(){
 // 段送りの波形図（2026-10-24）
-// ・段（一覧・切り替え・前へ／次へ）を押すと、その段の波形が左から描かれる（VFD）。自動で次の段へは進まない
-// ・画面に入ったときは、選んである段（最初は段1）を1回だけ描く。「もう一度」は今の段を描き直す
+// ・段（一覧・切り替え・前へ／次へ）を押すと、その段の波形が左から描かれる（VFD）
+// ・2026-10-31 本人「次へを押さないと見られないのは不自由」：画面に入ったら段1から最後まで自動で1段ずつ進む
+//   （各段は描き終えてから説明文を読む時間だけ止まる）。前へ／次へ・段の一覧・もう一度を押すと自動送りは止まり、「▶ 自動で見る」で再開
+// ・スライダーの図（mode=slider）は読者が動かすので自動送りしない。講義スライド（#deck）の中では発表者が送るので自動送りしない
 // 動きを減らす設定・PDF 化（HeadlessChrome）・自動操作では動かさず完成図（resident-motion と同じ判定）
 var reduce=window.VFD?VFD.STATIC:(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 window.VF={}; window.VFP=[];
@@ -3667,6 +3669,7 @@ window.VFseen=seen;
   var gos=[].slice.call(vf.querySelectorAll('[data-vf-go]'));
   var pv=vf.querySelector('[data-vf="prev"]'), nx=vf.querySelector('[data-vf="next"]'), rp=vf.querySelector('[data-vf="replay"]');
   var cur=mode==='slider'?fin:0, run=null;
+  var AUTO=mode!=='slider'&&N>1&&!vf.closest('#deck'), ab=null, timer=null, playing=false;
   vf.setAttribute('data-live','');
   function stopRun(){ if(run){ var r=run; run=null; r.finish(); } }
   function draw(){
@@ -3688,14 +3691,24 @@ window.VFseen=seen;
     if(pv) pv.disabled=cur===0; if(nx) nx.disabled=cur===N-1;
     if(d) draw(); else stopRun();
   }
-  if(pv) pv.addEventListener('click',function(){go(cur-1,true);});
-  if(nx) nx.addEventListener('click',function(){go(cur+1,true);});
-  if(rp) rp.addEventListener('click',draw);
+  function stopAuto(){ playing=false; if(timer){clearTimeout(timer);timer=null;}
+    if(ab){ab.textContent='▶ 自動で見る'; ab.setAttribute('aria-pressed','false');} }
+  function tick(){ if(!playing) return;
+    var wait=DUR+Math.max(2500,Math.min(7000,String(data[cur][1]||'').length*80));   // 描く時間＋説明文を読む時間
+    timer=setTimeout(function(){ if(!playing) return; if(cur>=N-1){stopAuto();return;} go(cur+1,true); tick(); },wait); }
+  function startAuto(){ stopAuto(); if(cur>=N-1) go(0,true); else draw(); playing=true;
+    if(ab){ab.textContent='❚❚ 止める'; ab.setAttribute('aria-pressed','true');} tick(); }
+  if(AUTO){ var ref=rp||nx; if(ref){ ab=document.createElement('button'); ab.type='button'; ab.className=ref.className;
+    ab.setAttribute('data-vf','auto'); ab.setAttribute('aria-pressed','false'); ab.textContent='▶ 自動で見る';
+    ref.parentNode.insertBefore(ab,ref.nextSibling); ab.addEventListener('click',function(){ playing?stopAuto():startAuto(); }); } }
+  if(pv) pv.addEventListener('click',function(){stopAuto(); go(cur-1,true);});
+  if(nx) nx.addEventListener('click',function(){stopAuto(); go(cur+1,true);});
+  if(rp) rp.addEventListener('click',function(){stopAuto(); draw();});
   if(sl) sl.addEventListener('input',function(){go(+sl.value,false);});      // スライダーは読者が動かす：その％の完成図をすぐ出す
-  gos.forEach(function(j){j.addEventListener('click',function(){go(+j.getAttribute('data-vf-go'),true);});});
+  gos.forEach(function(j){j.addEventListener('click',function(){stopAuto(); go(+j.getAttribute('data-vf-go'),true);});});
   go(cur,false);
-  window.VF[fid]={go:function(k,d){go(k,d!==false);},draw:draw,stop:stopRun,busy:function(){return !!run;}};
-  seen(svg,function(){ if(!run) draw(); });
+  window.VF[fid]={go:function(k,d){stopAuto(); go(k,d!==false);},draw:draw,stop:function(){stopAuto(); stopRun();},busy:function(){return !!run;}};
+  seen(svg,function(){ if(AUTO) startAuto(); else if(!run) draw(); });
 });
 // 軸のある波形のパネル図（data-vfd="panels"。図7・アラーム・非同調など）：パネルの題か前へ／次へで選ぶと、そのパネルを描く。「全部」は全パネルを同時に
 [].forEach.call(document.querySelectorAll('figure[data-vfd="panels"]'),function(fig){

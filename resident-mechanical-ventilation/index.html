@@ -2500,7 +2500,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
       /* スクロール形のPC幅：そのモードの線の段のカードまでスクロールし、着いたらそのモードの道筋だけを描く（図とカードの段がずれないように） */
       if(live()){ var k=LINE+gi(m);
         if(cur()===k){ if(f.getAttribute('data-hl')===m){ setHL(''); go(k); } else go(k,[m]); return; }
-        pend=m; clearTimeout(pt); pt=setTimeout(function(){pend=null;},2500);
+        pend=m; clearTimeout(pt); pt=setTimeout(function(){pend=null;},6000);
         sts[k].scrollIntoView({behavior:'smooth',block:'center'}); return; }
       if(f.getAttribute('data-hl')===m&&cur()!==PAT){ setHL(''); svgs.forEach(MM.finish); return; }
       go(LINE+gi(m),[m]); }
@@ -2646,7 +2646,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
       /* スクロール形のPC幅：そのモードの線の段のカードまでスクロールし、着いたらそのモードの道筋だけを描く（図とカードの段がずれないように） */
       if(live()){ var k=LINE+gi(m);
         if(cur()===k){ if(f.getAttribute('data-hl')===m){ setHL(''); go(k); } else go(k,[m]); return; }
-        pend=m; clearTimeout(pt); pt=setTimeout(function(){pend=null;},2500);
+        pend=m; clearTimeout(pt); pt=setTimeout(function(){pend=null;},6000);
         sts[k].scrollIntoView({behavior:'smooth',block:'center'}); return; }
       if(f.getAttribute('data-hl')===m&&cur()!==PAT){ setHL(''); svgs.forEach(MM.finish); return; }
       go(LINE+gi(m),[m]); }

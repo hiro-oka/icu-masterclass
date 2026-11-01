@@ -1159,20 +1159,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 @media print{.start{display:none}}
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1218,9 +1218,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1288,7 +1299,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">HFNC（高流量鼻カニュラ）</h1>
 <p class="sub">流量は薬の用量 — 低酸素はHFNC・高CO₂はNIV、始めたら2・6・12時間のROXで判定する</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-02</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>

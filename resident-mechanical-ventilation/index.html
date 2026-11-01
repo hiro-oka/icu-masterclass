@@ -2027,6 +2027,38 @@ main td,main th{word-break:auto-phrase}
 @media print{main td.rs-nw,main th.rs-nw{white-space:nowrap}}
 /* vnw:end */
 
+
+/* enio:css:start §8-3 ENIO 簡易版の計算シート（既存の .calc の見た目に合わせる。2026-11-02） */
+.enio .crow>.cl{flex:0 0 12.5rem}
+.enio .opts button{min-height:40px;padding:.4rem .75rem;font-size:.85rem}
+.enio .opts button .pt{font-weight:800;margin-left:.25em;font-variant-numeric:tabular-nums}
+.enio .calc-out{align-items:flex-start}
+.enio-res{flex:1;min-width:15rem;display:flex;flex-direction:column;gap:.45rem}
+.enio-band{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem;margin:0}
+.enio-band span{display:block;padding:.35rem .4rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);
+  font-size:.76rem;line-height:1.35;text-align:center;color:var(--muted)}
+.enio-band span b{display:block;font-size:.86rem;color:var(--fg);font-variant-numeric:tabular-nums}
+.enio-band span.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.enio-band span.on b{color:#fff}
+.enio .calc-msg{min-width:0;margin:0}
+.enio .calc-msg p{margin:0 0 .3rem}
+.enio-n{margin:.55rem 0 0;font-size:.78rem;color:var(--muted);line-height:1.65}
+.enio-n li{margin:.1rem 0}
+.enio-tbl{display:none}
+.enio-tbl p{display:grid;grid-template-columns:7.5rem minmax(0,1fr) 9rem;gap:0 .6rem;margin:0;padding:2pt 0;border-bottom:.5pt solid #bbb}
+.enio-tbl p:first-child{font-weight:700}
+.enio-tbl p span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:640px){
+  .enio .crow{flex-direction:column;align-items:stretch;gap:.35rem}
+  .enio .crow>.cl{flex:none}
+  .enio .opts button{flex:1 1 auto;min-height:44px}
+  .enio .calc-score{font-size:1.9rem}
+}
+@media print{
+  .enio .calc-b,.enio .calc-out,.enio .reset{display:none!important}
+  .enio-tbl{display:block;font-size:8.5pt;margin:.3rem 0}
+}
+/* enio:css:end */
 </style>
 <style id="vent-fix-20261024">
 /* 2026-10-24：症例提示（内科の型）・問いのカード・生成写真・3T's の各要素の説明 */
@@ -3908,9 +3940,96 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p>脳卒中や頭部外傷などの脳損傷では、ほかの項目が整っても、D（意識）の異常がなかなか消えない患者がいます。そのときは意識の回復を待ち続けるのではなく、ENIOスコアで抜管失敗のリスクを見積もり、抜管するか（あるいは気管切開を考えるか）を検討します。ENIOは、18か国73のICUで、挿管前のGCSが12以下の脳損傷患者1,512人を前向きに追った研究で、抜管を試みた1,193人の19.4%が5日以内に再挿管されました<span class="src vault">Cinotti ICM2022</span>。</p>
 <div class="box plain">
 <span class="label">ENIOスコアの使い方と限界</span>
-<p>ENIOスコアは抜管成功を予測するスコアで、20項目の完全版と、7項目の簡易版があります。簡易版の7項目は、外傷性脳損傷であること・強い咳・咽頭反射・嚥下運動・気管吸引が1時間に2回以下・GCSの運動スコアが6・抜管日の体温です<span class="src vault">Cinotti ICM2022</span>。各項目の配点は原著の補足資料にあり、本資料には載せていません。</p>
+<p>ENIOスコアは抜管成功を予測するスコアで、20項目の完全版と、7項目の簡易版があります。簡易版の7項目は、外傷性脳損傷であること・強い咳・咽頭反射・嚥下運動・気管吸引が1時間に2回以下・GCSの運動スコアが6・抜管日の体温です<span class="src vault">Cinotti ICM2022</span>。各項目の配点は原著の補足資料（Online resource 表4）にあり、下の計算シートで点数をつけられます。</p>
 <p>予測の精度は検証コホートでAUC 0.71（完全版）・0.65（簡易版）と中程度で、独立した集団での検証はまだです。対象は原著と同じ脳損傷患者に限り、スコアは判断の補助として使い、点数だけで抜管を決めません<span class="src vault">Cinotti ICM2022</span>。</p>
 </div>
+<!-- enio:start -->
+<div class="calc enio" id="enio-calc">
+<div class="calc-h"><b>計算：ENIO 簡易版（7項目・100点満点）</b><span>脳損傷で人工呼吸中の患者で、SBTに通ったあと抜管日の所見をつけます。点数が高いほど抜管成功の見込みが高い側です。</span></div>
+<div class="calc-b">
+<div class="crow" data-k="tbi"><span class="cl">外傷性脳損傷（TBI）<small>脳損傷の原因が頭部外傷</small></span><span class="opts"><button type="button" data-v="8">はい<span class="pt">8</span></button><button type="button" data-v="0">いいえ<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="temp"><span class="cl">抜管日の体温</span><span class="opts"><button type="button" data-v="15">36.5℃未満<span class="pt">15</span></button><button type="button" data-v="13">36.5〜36.9℃<span class="pt">13</span></button><button type="button" data-v="9">37〜37.9℃<span class="pt">9</span></button><button type="button" data-v="0">38℃以上<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="gag"><span class="cl">咽頭反射（gag reflex）</span><span class="opts"><button type="button" data-v="19">あり<span class="pt">19</span></button><button type="button" data-v="0">なし<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="swl"><span class="cl">嚥下運動（swallowing attempts）<small>唾液を飲み込もうとする動き</small></span><span class="opts"><button type="button" data-v="8">あり<span class="pt">8</span></button><button type="button" data-v="0">なし<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="cough"><span class="cl">咳の強さ<small>吸引時などの咳を4段階で</small></span><span class="opts"><button type="button" data-v="27">強い<span class="pt">27</span></button><button type="button" data-v="mod">中等度<span class="pt">0か27</span></button><button type="button" data-v="0">弱い・なし<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="suc"><span class="cl">気管吸引の回数</span><span class="opts"><button type="button" data-v="19">1時間に2回以下<span class="pt">19</span></button><button type="button" data-v="0">2回を超える<span class="pt">0</span></button></span></div>
+<div class="crow" data-k="gcsm"><span class="cl">GCS 運動スコア</span><span class="opts"><button type="button" data-v="4">M6（命令に従う）<span class="pt">4</span></button><button type="button" data-v="0">M5以下<span class="pt">0</span></button></span></div>
+</div>
+<div class="calc-out">
+<div class="calc-score" id="enio-score">—<small>/ 100点</small></div>
+<div class="enio-res">
+<p class="enio-band" aria-hidden="true"><span data-b="0"><b>0〜29点</b>LR 0.11</span><span data-b="1"><b>30〜69点</b>LR 0.97</span><span data-b="2"><b>70〜100点</b>LR 1.52</span></p>
+<div class="calc-msg" id="enio-msg" aria-live="polite"><p>7項目を選ぶと、合計点・点数帯・その帯の区間尤度比（LR）を表示します。</p></div>
+</div>
+<button type="button" class="reset" id="enio-reset">やり直す</button>
+</div>
+</div>
+<div class="enio-tbl" aria-hidden="true">
+<p><span>項目（抜管日の所見）</span><span>区分</span><span>点</span></p>
+<p><span>外傷性脳損傷</span><span>はい／いいえ</span><span>8／0</span></p>
+<p><span>抜管日の体温</span><span>36.5℃未満／36.5〜36.9℃／37〜37.9℃／38℃以上</span><span>15／13／9／0</span></p>
+<p><span>咽頭反射</span><span>あり／なし</span><span>19／0</span></p>
+<p><span>嚥下運動</span><span>あり／なし</span><span>8／0</span></p>
+<p><span>咳の強さ</span><span>強い／弱い・なし（中等度は表に記載なし）</span><span>27／0</span></p>
+<p><span>気管吸引の回数</span><span>1時間に2回以下／それより多い</span><span>19／0</span></p>
+<p><span>GCS 運動スコア</span><span>M6／M5以下</span><span>4／0</span></p>
+<p><span>点数帯（検証コホートの区間尤度比。抜管成功を陽性とする）</span><span></span><span>0〜29：0.11／30〜69：0.97／70〜100：1.52</span></p>
+</div>
+<ul class="enio-n">
+<li>配点は原著の Online resource 表4、点数帯と区間尤度比は表7（検証コホート166人：成功135人・失敗31人）によります<span class="src vault">Cinotti ICM2022</span>。区間尤度比は「抜管成功の患者がその帯に入る割合 ÷ 失敗の患者がその帯に入る割合」です。</li>
+<li>成功の見込み（目安）は、原著で抜管を試みた1,193人の5日以内の失敗率19.4%を事前確率にし、事後オッズ＝事前オッズ（80.6 ÷ 19.4 ≒ 4.2）× 区間尤度比で計算しました。自施設や目の前の患者の事前確率が違えば、この値も変わります。</li>
+<li>咳は原著では4段階（強い・中等度・弱い・なし）で評価しますが、簡易版の表は「強い」と「弱い・なし」の比較だけを示し、中等度の扱いは書かれていません。中等度を選ぶと、0点と27点の両方で計算して幅を示します。</li>
+<li>判別能は中等度未満です（検証コホートの AUC 0.65、95%CI 0.53〜0.76）。検証コホートは開発に使った集団から分けたもので、独立した集団での検証はまだです。点数だけで抜管を決めず、ABC-Drs.の各項目や挿管の原因と合わせて判断します。</li>
+<li>対象は原著と同じ患者に限ります：18歳以上、挿管前の GCS 12以下の脳損傷（外傷・くも膜下出血・脳出血・脳梗塞・中枢神経感染症・脳腫瘍）で24時間以上人工呼吸を受けた患者。妊娠、心停止後、高位脊髄損傷、神経筋疾患、重い慢性呼吸器疾患、重い胸部外傷は除外されています。</li>
+<li>点数が低く抜管失敗の危険が高いときは、抜管を試みずに気管切開する方針も選択肢になります。ただし原著は、どの患者が早い気管切開の恩恵を受けるかを見分ける根拠はまだ乏しいとしています<span class="src vault">Cinotti ICM2022</span>。</li>
+</ul>
+<script>
+(function(){
+  var root=document.getElementById('enio-calc'); if(!root) return;
+  var rows=[].slice.call(root.querySelectorAll('.crow'));
+  var scoreEl=document.getElementById('enio-score'), msg=document.getElementById('enio-msg');
+  var bands=[].slice.call(root.querySelectorAll('.enio-band span'));
+  var LR=[0.11,0.97,1.52], PRIOR=0.194;
+  var TXT=['成功しにくい側です。ただしこの帯に入った患者は検証コホートで6人だけで、値は不安定です。抜管を急がず、原因の改善を待つか、気管切開も含めて検討します。',
+           'この帯では点数で見込みはほとんど変わりません（尤度比がほぼ1）。検証コホートの約6割がこの帯に入ります。ABC-Drs.の各項目や経過で判断します。',
+           '成功しやすい側です。ただし尤度比は1.52で、点数が高くても見込みは大きくは上がりません。点数だけで抜管を決めません。'];
+  function band(t){return t<30?0:(t<70?1:2);}
+  function post(b){var o=(1-PRIOR)/PRIOR*LR[b];return Math.round(o/(1+o)*100);}
+  function render(){
+    var base=0, mod=false, left=0;
+    rows.forEach(function(r){var on=r.querySelector('button[aria-pressed="true"]');
+      if(!on){left++;return;} var v=on.getAttribute('data-v'); if(v==='mod'){mod=true;} else {base+=parseInt(v,10);} });
+    var totals=mod?[base,base+27]:[base];
+    bands.forEach(function(e){e.classList.remove('on');});
+    if(left>0){
+      scoreEl.innerHTML=(mod?base+'〜'+(base+27):base)+'<small>/ 100点</small>';
+      msg.innerHTML='<p>あと'+left+'項目を選ぶと、点数帯と見込みを表示します。</p>'; return;
+    }
+    scoreEl.innerHTML=(mod?totals[0]+'〜'+totals[1]:totals[0])+'<small>/ 100点</small>';
+    var bs=[]; totals.forEach(function(t){var b=band(t); if(bs.indexOf(b)<0) bs.push(b);});
+    bs.forEach(function(b){bands[b].classList.add('on');});
+    var h='';
+    bs.forEach(function(b){
+      var lab=['0〜29点','30〜69点','70〜100点'][b];
+      h+='<p><b>'+lab+'（区間尤度比 '+LR[b].toFixed(2)+'）</b>：'+TXT[b]+'</p>';
+      h+='<p>抜管成功の見込み（目安）：約'+post(b)+'%（事前確率 80.6%から計算）</p>';
+    });
+    if(mod) h='<p>咳が中等度のため、0点と27点の両方で計算しています。</p>'+h;
+    msg.innerHTML=h;
+  }
+  rows.forEach(function(r){
+    var bt=[].slice.call(r.querySelectorAll('button'));
+    bt.forEach(function(b){b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){bt.forEach(function(x){x.setAttribute('aria-pressed','false');}); b.setAttribute('aria-pressed','true'); render();});});
+  });
+  document.getElementById('enio-reset').addEventListener('click',function(){
+    root.querySelectorAll('button[aria-pressed]').forEach(function(b){b.setAttribute('aria-pressed','false');});
+    scoreEl.innerHTML='—<small>/ 100点</small>'; bands.forEach(function(e){e.classList.remove('on');});
+    msg.innerHTML='<p>7項目を選ぶと、合計点・点数帯・その帯の区間尤度比（LR）を表示します。</p>';
+  });
+})();
+</script>
+<!-- enio:end -->
 <p>SAT（自発覚醒トライアル）からSBTへの進め方、抜管後のHFNC・NIVの使い分けは、資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-weaning/">人工呼吸からの離脱・抜管・気管切開</a>」で扱います。</p>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
@@ -3940,7 +4059,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <li>Bellani G, Grassi A, Sosio S, Foti G. Plateau and driving pressure in the presence of spontaneous breathing. <em>Intensive Care Med.</em> 2019;45(1):97-98. doi:10.1007/s00134-018-5311-9（自発呼吸があるときの吸気ポーズ・Pplatの読み方）</li>
 <li>Vaporidi K, Akoumianaki E, Telias I, Goligher EC, Brochard L, Georgopoulos D. Respiratory Drive in Critically Ill Patients. Pathophysiology and Clinical Implications. <em>Am J Respir Crit Care Med.</em> 2020;201(1):20-32. doi:10.1164/rccm.201903-0596SO（Pvent＋Pmus の運動方程式）</li>
 <li>Bertoni M, Spadaro S, Goligher EC. Monitoring Patient Respiratory Effort During Mechanical Ventilation: Lung and Diaphragm-Protective Ventilation. <em>Crit Care.</em> 2020;24:106. doi:10.1186/s13054-020-2777-y（画面の圧と一回換気量に患者の分は示されない）</li>
-<li>Cinotti R, Mijangos JC, Pelosi P, et al. Extubation in neurocritical care patients: the ENIO international prospective study. <em>Intensive Care Med.</em> 2022;48(11):1539-1550. doi:10.1007/s00134-022-06825-8（脳損傷患者の抜管・ENIOスコア）</li>
+<li>Cinotti R, Mijangos JC, Pelosi P, et al. Extubation in neurocritical care patients: the ENIO international prospective study. <em>Intensive Care Med.</em> 2022;48(11):1539-1550. doi:10.1007/s00134-022-06825-8（脳損傷患者の抜管・ENIOスコア。簡易版の配点は Online resource 表4、点数帯の区間尤度比は表7）</li>
 <li>Boyle AJ, De Jong A, Capdevila M. Reconsidering the use of predicted body weight when setting tidal volumes in female patients. <em>Intensive Care Med.</em> 2026;52:1746-1748. doi:10.1007/s00134-026-08513-3</li>
 <li>Mein SA, Ferrera MC. Management of Asthma and COPD Exacerbations in Adults in the ICU. <em>CHEST Crit Care.</em> 2025;3(1):100107. doi:10.1016/j.chstcc.2024.100107</li>
 <li>Jung B, Vaschetto R, Jaber S. Ten tips to optimize weaning and extubation success in the critically ill. <em>Intensive Care Med.</em> 2020;46(12):2461-2463. doi:10.1007/s00134-020-06300-2</li>

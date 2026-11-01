@@ -3835,8 +3835,8 @@ var MSG={
     var pm=0.75*oc,es=2/3*oc,pl=(pk-pe)+2/3*oc;
     put('pmus',f0(pm)+' cmH₂O');put('pes',f0(es)+' cmH₂O');put('pl',f0(pl)+' cmH₂O');
     var mo=box.querySelector('[data-g="occ"]'),ml=box.querySelector('[data-g="pl"]'),mp=box.querySelector('[data-g="pmus"]'),me=box.querySelector('[data-g="pes"]');
-    if(mp){mp.style.left=pos(pm);mp.classList.toggle('is-out',pm<3||pm>15);}
-    if(me){me.style.left=pos(es);me.classList.toggle('is-out',es<3||es>12);}
+    if(mp){mp.style.left=pos(pm);mp.classList.toggle('is-out',Math.round(pm)<3||Math.round(pm)>15);}
+    if(me){me.style.left=pos(es);me.classList.toggle('is-out',Math.round(es)<3||Math.round(es)>12);}
     if(mo){mo.style.left=pos(oc);mo.classList.toggle('is-out',oc<7||oc>15);}
     if(ml){ml.style.left=pos(pl);ml.classList.toggle('is-out',pl>=22);}
     var e=oc<7?'lo':(oc>15?'hi':'mid'),l=pl>=22?'hi':'ok';

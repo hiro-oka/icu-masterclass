@@ -1303,6 +1303,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 @media (prefers-reduced-motion: reduce){.mm[data-fig="ms"][data-st="1"] [data-n="mode-vcv"],.mm[data-fig="ms"][data-st="1"] [data-n="mode-pcv"],.mm[data-fig="ms"][data-st="1"] text[data-c="mode"],.mm[data-fig="ms"][data-st="2"] [data-n="mode-psv"]{transition-delay:0s}}
 .mm[data-fig="ms"][data-st="0"] text[data-c="sp"]{fill:#00739E}@media (prefers-color-scheme: dark){.mm[data-fig="ms"][data-st="0"] text[data-c="sp"]{fill:#4BB8E0}}
 .mm[data-fig="ms"] .mm-l[data-s="0"]{stroke-width:3.4}.mm[data-fig="ms"] .mm-l.m-psv[data-s="0"]{stroke-width:4.4}
+.mm[data-fig="t3"][data-st="0"] [data-n^="trig-"],.mm[data-fig="t3"][data-st="0"] [data-n^="targ-"],.mm[data-fig="t3"][data-st="0"] [data-n^="term-"],.mm[data-fig="t3"][data-st="1"] [data-n^="targ-"],.mm[data-fig="t3"][data-st="1"] [data-n^="term-"],.mm[data-fig="t3"][data-st="2"] [data-n^="term-"]{opacity:0!important;pointer-events:none}
+.mm[data-fig="t3"][data-st="1"] text[data-c="trig"],.mm[data-fig="t3"][data-st="2"] text[data-c="targ"],.mm[data-fig="t3"][data-st="3"] text[data-c="term"]{fill:#00739E}
+@media (prefers-color-scheme: dark){.mm[data-fig="t3"][data-st="1"] text[data-c="trig"],.mm[data-fig="t3"][data-st="2"] text[data-c="targ"],.mm[data-fig="t3"][data-st="3"] text[data-c="term"]{fill:#4BB8E0}}
+.mmfig .mm-ph rect{fill:none;stroke:var(--mm-edge);stroke-width:1.5;stroke-dasharray:5 4}.mmfig .mm-ph text{fill:var(--mm-edge);font-size:20px;font-weight:700}
 .mm-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:.45em .55em;justify-content:center;margin:.2em 0 .7em}
 .mm-ctl button{font:inherit;font-size:.86em;padding:.32em .95em;border:1px solid var(--mm-edge);border-radius:999px;background:var(--mm-paper);
   color:var(--mm-ink);cursor:pointer;white-space:nowrap;width:auto;min-width:0;flex:none;line-height:1.4}
@@ -2618,16 +2622,196 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p>PSVは患者が始めた吸気を設定した圧で支えるモードで、自発呼吸が前提です。移るのは、呼吸ドライブが安定し、人工呼吸器と同調し、過剰な吸気努力がなく、必要な換気量を自力で保てるときです<span class="src vault">Telias ICM2022</span><span class="src vault">JICS2026</span>。PSVでは無呼吸になると換気が止まるため、無呼吸アラームとバックアップ換気の設定を必ず確認します。</p>
 
 <h3 id="rs-s3-2">3-2. 人工呼吸の3要素（3T's）</h3>
-<p class="rd-lead">人工呼吸器は、3つの要素で決まります。これを人工呼吸の3要素（3T's）と呼びます。Trigger（吸気の始まり）・Target（送気中に一定に保つもの）・Termination（吸気の終わり）の3つで、それぞれに図3の選択肢があります<span class="src vault">JICS2026</span>。</p>
+<p class="rd-lead">人工呼吸器は、3つの要素で決まります。これを人工呼吸の3要素（3T's）と呼びます。Trigger（吸気の始まり）・Target（送気中に一定に保つもの）・Termination（吸気の終わり）の3つです。それぞれにどんな選択肢があるかを考えてから、図3をスクロールして1つずつ確かめます<span class="src vault">JICS2026</span>。</p>
 <!-- t3:start -->
-<figure class="fig mmfig mm" data-fig="t3" data-mo="none">
+<figure class="fig mmfig mm" data-fig="t3" data-mo="none" data-scroll>
 <div class="nf">
-<svg class="mm-svg mm-h" data-k="1" viewBox="0 0 760 312" role="img" aria-label="人工呼吸の3要素。Trigger（吸気の始まり）は時間・圧・流量、Target（送気中に一定に保つもの）は流量・圧、Termination（吸気の終わり）は量・時間・流量のどれか"><g class="mm-node" data-n="trig-time"><rect x="20" y="69" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="92" text-anchor="middle">時間</text><text class="mm-s" x="108" y="111" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="20" y="149" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="172" text-anchor="middle">圧</text><text class="mm-s" x="108" y="191" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="20" y="229" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="252" text-anchor="middle">流量</text><text class="mm-s" x="108" y="271" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="292" y="89" width="176" height="54" rx="9"/><text class="mm-n" x="380" y="112" text-anchor="middle">流量</text><text class="mm-s" x="380" y="131" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="292" y="209" width="176" height="54" rx="9"/><text class="mm-n" x="380" y="232" text-anchor="middle">圧</text><text class="mm-s" x="380" y="251" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="564" y="69" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="92" text-anchor="middle">量</text><text class="mm-s" x="652" y="111" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="564" y="149" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="172" text-anchor="middle">時間</text><text class="mm-s" x="652" y="191" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="564" y="229" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="252" text-anchor="middle">流量</text><text class="mm-s" x="652" y="271" text-anchor="middle">ピーク流量の25%</text></g><text class="mm-ht" data-c="trig" x="108" y="24" text-anchor="middle">Trigger</text><text class="mm-hs" data-c="trig" x="108" y="44" text-anchor="middle">始まり</text><text class="mm-ht" data-c="targ" x="380" y="24" text-anchor="middle">Target</text><text class="mm-hs" data-c="targ" x="380" y="44" text-anchor="middle">送気中に守る</text><text class="mm-ht" data-c="term" x="652" y="24" text-anchor="middle">Termination</text><text class="mm-hs" data-c="term" x="652" y="44" text-anchor="middle">終わり</text></svg>
-<svg class="mm-svg mm-v" data-k="1" viewBox="0 0 380 392" role="img" aria-label="人工呼吸の3要素。Trigger（吸気の始まり）は時間・圧・流量、Target（送気中に一定に保つもの）は流量・圧、Termination（吸気の終わり）は量・時間・流量のどれか"><g class="mm-node" data-n="trig-time"><rect x="2" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="63" y="75" text-anchor="middle">時間</text><text class="mm-s" x="63" y="94" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="129" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="190" y="75" text-anchor="middle">圧</text><text class="mm-s" x="190" y="94" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="256" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="317" y="75" text-anchor="middle">流量</text><text class="mm-s" x="317" y="94" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="38" y="188" width="122" height="52" rx="9"/><text class="mm-n" x="99" y="211" text-anchor="middle">流量</text><text class="mm-s" x="99" y="230" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="220" y="188" width="122" height="52" rx="9"/><text class="mm-n" x="281" y="211" text-anchor="middle">圧</text><text class="mm-s" x="281" y="230" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="2" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="63" y="347" text-anchor="middle">量</text><text class="mm-s" x="63" y="366" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="129" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="190" y="347" text-anchor="middle">時間</text><text class="mm-s" x="190" y="366" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="256" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="317" y="347" text-anchor="middle">流量</text><text class="mm-s" x="317" y="366" text-anchor="middle">ピーク流量の25%</text></g><text class="mm-ht mm-halo" data-c="trig" x="4" y="38">Trigger<tspan class="mm-hs" dx="8">始まり</tspan></text><text class="mm-ht mm-halo" data-c="targ" x="4" y="174">Target<tspan class="mm-hs" dx="8">送気中に守る</tspan></text><text class="mm-ht mm-halo" data-c="term" x="4" y="310">Termination<tspan class="mm-hs" dx="8">終わり</tspan></text></svg>
-<p class="nf-foot">出典：JICS2026（Wattley）、Mojoli ICM2016</p>
+<div class="mm-ctl" role="group" aria-label="図の段送り"><button type="button" data-mm="prev">◀ 前へ</button><span class="mm-stage" aria-live="polite"></span><button type="button" data-mm="next">次へ ▶</button><button type="button" data-mm="replay">↻ もう一度</button><button type="button" data-mm="all">全部</button></div>
+<div class="mm-scw"><div class="mm-main">
+<svg class="mm-svg mm-h" data-k="1" viewBox="0 0 760 312" role="img" aria-label="人工呼吸の3要素。Trigger（吸気の始まり）は時間・圧・流量、Target（送気中に一定に保つもの）は流量・圧、Termination（吸気の終わり）は量・時間・流量のどれか"><g class="mm-ph" aria-hidden="true"><rect x="21" y="70" width="174" height="52" rx="9"/><text x="108" y="96" text-anchor="middle" dy=".35em">？</text><rect x="21" y="150" width="174" height="52" rx="9"/><text x="108" y="176" text-anchor="middle" dy=".35em">？</text><rect x="21" y="230" width="174" height="52" rx="9"/><text x="108" y="256" text-anchor="middle" dy=".35em">？</text><rect x="293" y="90" width="174" height="52" rx="9"/><text x="380" y="116" text-anchor="middle" dy=".35em">？</text><rect x="293" y="210" width="174" height="52" rx="9"/><text x="380" y="236" text-anchor="middle" dy=".35em">？</text><rect x="565" y="70" width="174" height="52" rx="9"/><text x="652" y="96" text-anchor="middle" dy=".35em">？</text><rect x="565" y="150" width="174" height="52" rx="9"/><text x="652" y="176" text-anchor="middle" dy=".35em">？</text><rect x="565" y="230" width="174" height="52" rx="9"/><text x="652" y="256" text-anchor="middle" dy=".35em">？</text></g><g class="mm-node" data-n="trig-time"><rect x="20" y="69" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="92" text-anchor="middle">時間</text><text class="mm-s" x="108" y="111" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="20" y="149" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="172" text-anchor="middle">圧</text><text class="mm-s" x="108" y="191" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="20" y="229" width="176" height="54" rx="9"/><text class="mm-n" x="108" y="252" text-anchor="middle">流量</text><text class="mm-s" x="108" y="271" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="292" y="89" width="176" height="54" rx="9"/><text class="mm-n" x="380" y="112" text-anchor="middle">流量</text><text class="mm-s" x="380" y="131" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="292" y="209" width="176" height="54" rx="9"/><text class="mm-n" x="380" y="232" text-anchor="middle">圧</text><text class="mm-s" x="380" y="251" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="564" y="69" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="92" text-anchor="middle">量</text><text class="mm-s" x="652" y="111" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="564" y="149" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="172" text-anchor="middle">時間</text><text class="mm-s" x="652" y="191" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="564" y="229" width="176" height="54" rx="9"/><text class="mm-n" x="652" y="252" text-anchor="middle">流量</text><text class="mm-s" x="652" y="271" text-anchor="middle">ピーク流量の25%</text></g><text class="mm-ht" data-c="trig" x="108" y="24" text-anchor="middle">Trigger</text><text class="mm-hs" data-c="trig" x="108" y="44" text-anchor="middle">始まり</text><text class="mm-ht" data-c="targ" x="380" y="24" text-anchor="middle">Target</text><text class="mm-hs" data-c="targ" x="380" y="44" text-anchor="middle">送気中に守る</text><text class="mm-ht" data-c="term" x="652" y="24" text-anchor="middle">Termination</text><text class="mm-hs" data-c="term" x="652" y="44" text-anchor="middle">終わり</text></svg>
+<svg class="mm-svg mm-v" data-k="1" viewBox="0 0 380 392" role="img" aria-label="人工呼吸の3要素。Trigger（吸気の始まり）は時間・圧・流量、Target（送気中に一定に保つもの）は流量・圧、Termination（吸気の終わり）は量・時間・流量のどれか"><g class="mm-ph" aria-hidden="true"><rect x="3" y="53" width="120" height="50" rx="9"/><text x="63" y="78" text-anchor="middle" dy=".35em">？</text><rect x="130" y="53" width="120" height="50" rx="9"/><text x="190" y="78" text-anchor="middle" dy=".35em">？</text><rect x="257" y="53" width="120" height="50" rx="9"/><text x="317" y="78" text-anchor="middle" dy=".35em">？</text><rect x="39" y="189" width="120" height="50" rx="9"/><text x="99" y="214" text-anchor="middle" dy=".35em">？</text><rect x="221" y="189" width="120" height="50" rx="9"/><text x="281" y="214" text-anchor="middle" dy=".35em">？</text><rect x="3" y="325" width="120" height="50" rx="9"/><text x="63" y="350" text-anchor="middle" dy=".35em">？</text><rect x="130" y="325" width="120" height="50" rx="9"/><text x="190" y="350" text-anchor="middle" dy=".35em">？</text><rect x="257" y="325" width="120" height="50" rx="9"/><text x="317" y="350" text-anchor="middle" dy=".35em">？</text></g><g class="mm-node" data-n="trig-time"><rect x="2" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="63" y="75" text-anchor="middle">時間</text><text class="mm-s" x="63" y="94" text-anchor="middle">器械：設定間隔</text></g><g class="mm-node" data-n="trig-pres"><rect x="129" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="190" y="75" text-anchor="middle">圧</text><text class="mm-s" x="190" y="94" text-anchor="middle">患者：圧の低下</text></g><g class="mm-node" data-n="trig-flow"><rect x="256" y="52" width="122" height="52" rx="9"/><text class="mm-n" x="317" y="75" text-anchor="middle">流量</text><text class="mm-s" x="317" y="94" text-anchor="middle">患者：流量の変化</text></g><g class="mm-node" data-n="targ-flow"><rect x="38" y="188" width="122" height="52" rx="9"/><text class="mm-n" x="99" y="211" text-anchor="middle">流量</text><text class="mm-s" x="99" y="230" text-anchor="middle">流量を守る（量）</text></g><g class="mm-node" data-n="targ-pres"><rect x="220" y="188" width="122" height="52" rx="9"/><text class="mm-n" x="281" y="211" text-anchor="middle">圧</text><text class="mm-s" x="281" y="230" text-anchor="middle">設定圧を守る</text></g><g class="mm-node" data-n="term-vol"><rect x="2" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="63" y="347" text-anchor="middle">量</text><text class="mm-s" x="63" y="366" text-anchor="middle">設定量を送ったら</text></g><g class="mm-node" data-n="term-time"><rect x="129" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="190" y="347" text-anchor="middle">時間</text><text class="mm-s" x="190" y="366" text-anchor="middle">設定時間で</text></g><g class="mm-node" data-n="term-flow"><rect x="256" y="324" width="122" height="52" rx="9"/><text class="mm-n" x="317" y="347" text-anchor="middle">流量</text><text class="mm-s" x="317" y="366" text-anchor="middle">ピーク流量の25%</text></g><text class="mm-ht mm-halo" data-c="trig" x="4" y="38">Trigger<tspan class="mm-hs" dx="8">始まり</tspan></text><text class="mm-ht mm-halo" data-c="targ" x="4" y="174">Target<tspan class="mm-hs" dx="8">送気中に守る</tspan></text><text class="mm-ht mm-halo" data-c="term" x="4" y="310">Termination<tspan class="mm-hs" dx="8">終わり</tspan></text></svg>
+</div>
+<ol class="mm-scr" aria-label="図の段（スクロールで進む）"><li class="mm-scr-st" data-k="0"><div class="mm-scr-card"><div class="mm-scr-k">段 1 / 4</div><div class="mm-scr-t">人工呼吸の3要素</div><p class="mm-scr-p">人工呼吸器は3つの要素で決まります。Trigger・Target・Terminationのそれぞれに、どんな選択肢があるでしょうか。</p></div></li><li class="mm-scr-st" data-k="1"><div class="mm-scr-card"><div class="mm-scr-k">段 2 / 4</div><div class="mm-scr-t">Trigger</div><p class="mm-scr-p">吸気の始まり。器械が設定した間隔で始める「時間」と、患者の吸気努力を検出する「圧」「流量」があります。</p></div></li><li class="mm-scr-st" data-k="2"><div class="mm-scr-card"><div class="mm-scr-k">段 3 / 4</div><div class="mm-scr-t">Target</div><p class="mm-scr-p">送気中に一定に保つもの。VCVは「流量」を、PCVとPSVは「圧」を一定に保って送ります。</p></div></li><li class="mm-scr-st" data-k="3"><div class="mm-scr-card"><div class="mm-scr-k">段 4 / 4</div><div class="mm-scr-t">Termination</div><p class="mm-scr-p">吸気の終わり。設定した一回換気量を送ったら（量）、設定した吸気時間で（時間）、吸気流量がピークの一定の割合まで下がったら（流量）終わります。</p></div></li></ol></div>
+<p class="nf-foot">スクロールすると Trigger・Target・Termination の選択肢が順に現れます。出典：JICS2026（Wattley）、Mojoli ICM2016</p>
 </div>
 <figcaption>図3. <b>人工呼吸の3要素（3T's）</b></figcaption>
 </figure>
+<script>
+(function(){ if(window.SCRNOW) return;
+// スクロール形の図（2026-11-01。scrnow.py）：PC幅では貼り付くブロックの下に今の段のカードを1枚だけ出し、図を残りの高さいっぱいに広げる
+window.SCRNOW=function(o){
+  var main=o.main, svg=o.svg, sts=o.sts, grid=o.grid, fig=grid.closest('figure'), wide=window.matchMedia('screen and (min-width:761px)');
+  var box=document.createElement('div'); box.className='scr-now';
+  var cs=document.createElement('div'); cs.className='scr-now-cards'; cs.setAttribute('aria-live','polite');
+  var ds=document.createElement('div'); ds.className='scr-now-dots'; ds.setAttribute('role','group'); ds.setAttribute('aria-label','段の位置（押すとその段へ）');
+  var cards=[], dots=[];
+  sts.forEach(function(s,i){
+    var c=s.querySelector(o.card); c=c?c.cloneNode(true):document.createElement('div'); cs.appendChild(c); cards.push(c);
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','段 '+(i+1)+' / '+sts.length+' へ');
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth',block:'center'}); });
+    ds.appendChild(b); dots.push(b); });
+  box.appendChild(cs); if(sts.length>1){ box.appendChild(ds); box.style.setProperty('--scr-dw',(sts.length*1.11+.3).toFixed(2)+'em'); }
+  main.appendChild(box);
+  var vb=(svg.getAttribute('viewBox')||'0 0 4 3').split(/[\s,]+/).map(Number), AR=vb[2]/vb[3], MAXW=vb[2]*(o.scale||1.5), CAP=1280;
+  function vis(e){ return e.getClientRects().length>0; }
+  function fit(){
+    var z=grid.currentCSSZoom||1, vh=window.innerHeight/z;
+    grid.style.setProperty(o.vh,vh+'px');
+    if(fig){ fig.removeAttribute('data-scr-bo'); fig.style.removeProperty('--scr-bo'); }
+    svg.style.removeProperty('--scr-w'); main.style.removeProperty('height'); main.style.removeProperty('top');
+    if(!wide.matches||!vis(main)) return;
+    var mr=main.getBoundingClientRect(); if(!mr.height) return;
+    var k=vh/mr.height;   // 見た目の px → CSS の px（本文の zoom を割り戻す）
+    var st=getComputedStyle(main), pad=parseFloat(st.paddingTop)+parseFloat(st.paddingBottom), gap=parseFloat(st.rowGap)||0, oth=0, n=0;
+    [].forEach.call(main.children,function(c){ if(!vis(c)) return; n++; if(c!==svg) oth+=c.getBoundingClientRect().height*k; });
+    var H=vh-pad-oth-gap*Math.max(0,n-1)-2, want=Math.min(H*AR,MAXW), W=mr.width*k;
+    if(want>W+8&&fig){   // 列が足りない：目次と重ならない範囲で左右へはみ出す
+      var fr=fig.getBoundingClientRect(), lim=16, rr=document.documentElement.clientWidth-16;
+      [].forEach.call(document.querySelectorAll('nav,aside'),function(e){ var r=e.getBoundingClientRect(); if(r.width&&r.height&&r.right<=fr.left+1) lim=Math.max(lim,r.right+16); });
+      var e=Math.max(0,Math.min((Math.min(want,CAP)-W)/2,(fr.left-lim)*k,(rr-fr.right)*k));
+      if(e>=4){ fig.setAttribute('data-scr-bo',''); fig.style.setProperty('--scr-bo',e.toFixed(1)+'px'); W+=2*e; } }
+    var sw=Math.floor(Math.min(W,want)); svg.style.setProperty('--scr-w',sw+'px');
+    // 貼り付くブロックを中身の高さにし、貼り付く位置を画面の中央にする（2026-11-01：高さが画面いっぱいのままだと、中身が上下中央に寄り、
+    // 図が画面に入ってきたときに図の上に「画面の高さ − 中身」の半分の空白が出ていた。図3〔3T'sとモード〕で約300px）
+    var hh=pad+sw/AR+oth+gap*Math.max(0,n-1)+2;
+    if(hh<vh-4){ main.style.height=Math.ceil(hh)+'px'; main.style.top=Math.floor((vh-hh)/2)+'px'; }
+  }
+  function set(k){
+    cards.forEach(function(c,i){ c.classList.toggle('is-on',i===k); c.setAttribute('aria-hidden',i===k?'false':'true'); });
+    dots.forEach(function(d,i){ d.classList.toggle('is-on',i===k); if(i===k) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current'); }); }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if(wide.addEventListener) wide.addEventListener('change',fit);
+  return {set:set, fit:fit};
+};
+})();
+
+(function(){
+if(window.MM) return;
+var PAT={vcv:null,pcv:[9,5],psv:[.5,6.5]}, ORDER={vcv:0,pcv:1,psv:2}, MD=420, SD=620;
+function L(p){return p._len||(p._len=p.getTotalLength());}
+function pat(p){var k=parseFloat(p.ownerSVGElement.getAttribute('data-k')||'1'), b=PAT[p.getAttribute('data-m')];
+  if(!b) return null; if(k===2&&p.getAttribute('data-m')==='pcv') return [18,10]; if(k===2) return [1,13]; return b;}
+function dash(p,d){var len=L(p), pt=pat(p);
+  if(d>=len){p.style.strokeDasharray='';return;}
+  if(d<=0){p.style.strokeDasharray='0 '+(len*2+20);return;}
+  if(!pt){p.style.strokeDasharray=d.toFixed(2)+' '+(len*2+20);return;}
+  var a=[],acc=0,i=0; while(acc<d-1e-6){var t=Math.min(pt[i%2],d-acc); a.push(+t.toFixed(2)); acc+=t; i++;}
+  if(a.length%2===1) a.push(len*2+20); else a[a.length-1]+=len*2+20;
+  p.style.strokeDasharray=a.join(' ');}
+function hit(svg,id,m){var g=svg.querySelector('[data-n="'+id+'"]'); if(!g) return;
+  g.classList.remove('hit-vcv','hit-pcv','hit-psv'); void g.getBoundingClientRect(); g.classList.add('hit-'+m);}
+function cancel(svg){if(svg._raf){cancelAnimationFrame(svg._raf); svg._raf=0;}}
+function finish(svg){cancel(svg); [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){p.style.strokeDasharray='';});
+  [].forEach.call(svg.querySelectorAll('.mm-node'),function(g){g.classList.remove('hit-vcv','hit-pcv','hit-psv');});}
+function visible(svg){var r=svg.getBoundingClientRect(); return r.width>0&&r.height>0;}
+function hide(svg){if(!visible(svg)) return; [].forEach.call(svg.querySelectorAll('.mm-l'),function(p){dash(p,0);});}
+function play(svg,modes,sync,o){
+  o=o||{}; var sd=o.dur||SD;
+  cancel(svg); if(!visible(svg)){finish(svg);return;}
+  var ps=[].filter.call(svg.querySelectorAll('.mm-l'),function(p){return modes.indexOf(p.getAttribute('data-m'))>=0&&(!o.sel||p.matches(o.sel));});
+  ps.forEach(function(p){dash(p,0);});
+  var one=modes.length===1||!!sync, t0=performance.now(), fired={};
+  function fire(key,id,m){if(fired[key]) return; fired[key]=1; hit(svg,id,m);}
+  function frame(now){var t=now-t0, alive=false;
+    ps.forEach(function(p){var m=p.getAttribute('data-m'), s=+p.getAttribute('data-s');
+      var st=(one?0:ORDER[m]*MD)+s*sd, pr=(t-st)/sd;
+      if(pr<1) alive=true;
+      var e=pr<=0?0:pr>=1?1:1-Math.pow(1-pr,2.4); dash(p,e*L(p));
+      if(pr>0&&s===0) fire(p.getAttribute('data-a')+m,p.getAttribute('data-a'),m);
+      if(pr>=1) fire(p.getAttribute('data-b')+m,p.getAttribute('data-b'),m);});
+    svg._raf=alive?requestAnimationFrame(frame):0;}
+  svg._raf=requestAnimationFrame(frame);}
+window.MM={play:play,finish:finish,hide:hide,visible:visible};
+})();
+
+(function(){
+  var f=document.currentScript.previousElementSibling;
+  while(f&&!(f.classList&&f.classList.contains('mmfig'))) f=f.previousElementSibling;
+  if(!f||!window.MM) return;
+  var svgs=[].slice.call(f.querySelectorAll('svg.mm-svg')), ALL=['vcv','pcv','psv'], LINE=4, LAST=3, PAT=-1, PATM='';
+  var PSEL='', DUR=0, GA=!!f.querySelector('.mm-l[data-g]');
+  var GR=[], FULL=LINE+GR.length-1;
+  function gi(m){ for(var i=GR.length-1;i>=0;i--) if(GR[i].indexOf(m)>=0) return i; return GR.length-1; }
+  /* 線の組：data-g があればそれ（モード選択＝自発呼吸なし／あり）、なければモードの組（3T's） */
+  function lg(p){ return p.hasAttribute('data-g')?+p.getAttribute('data-g'):gi(p.getAttribute('data-m')); }
+  function opt(sel){ var o={}; if(DUR) o.dur=DUR; if(sel) o.sel=sel; return o; }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches||/HeadlessChrome/.test(navigator.userAgent)||navigator.webdriver;
+  var check=/[?&]check=1/.test(location.search);
+  var LAB=["人工呼吸の3要素 <span>人工呼吸器は3つの要素で決まります。Trigger・Target・Terminationのそれぞれに、どんな選択肢があるでしょうか。</span>","Trigger <span>吸気の始まり。器械が設定した間隔で始める「時間」と、患者の吸気努力を検出する「圧」「流量」があります。</span>","Target <span>送気中に一定に保つもの。VCVは「流量」を、PCVとPSVは「圧」を一定に保って送ります。</span>","Termination <span>吸気の終わり。設定した一回換気量を送ったら（量）、設定した吸気時間で（時間）、吸気流量がピークの一定の割合まで下がったら（流量）終わります。</span>"];
+  var lab=f.querySelector('.mm-stage'), prev=f.querySelector('[data-mm="prev"]'), next=f.querySelector('[data-mm="next"]');
+  /* スクロール形（data-scroll。2026-10-31）：PC幅では段の説明カードが画面の中央に来るとその段へ。講義スライド（#deck）の中ではボタン送りに戻す */
+  var SCR=f.hasAttribute('data-scroll')&&!f.closest('#deck');
+  if(f.hasAttribute('data-scroll')&&!SCR) f.removeAttribute('data-scroll');
+  var sts=SCR?[].slice.call(f.querySelectorAll('.mm-scr-st')):[], wide=window.matchMedia('screen and (min-width:761px)'), pend=null, pt=0, sn=null;
+  function live(){ return SCR&&!reduce&&!check&&wide.matches; }
+  function setHL(m){f.setAttribute('data-hl',m||'');}
+  function draw(modes,sel){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes,!!sel,opt(sel));}); }
+  /* まだ結ばない線は visibility で隠す（2026-10-24：stroke-dasharray「0 99999」では Chrome で隠れず、VCV の段で PCV・PSV の線が見えていた）。k＝null で全部出す */
+  function setVis(k){ svgs.forEach(function(s){ [].forEach.call(s.querySelectorAll('.mm-l'),function(p){
+    p.style.strokeDasharray=''; p.style.visibility=(k===null||lg(p)<=k)?'':'hidden'; }); }); }
+  function showAll(){ setVis(null); }
+  function go(n,modes){
+    n=Math.max(0,Math.min(LAST,n)); f.setAttribute('data-st',n);
+    if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
+    if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
+    sts.forEach(function(s,i){ s.classList.toggle('is-on',i===n); if(i===n) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current'); });
+    if(sn) sn.set(n);
+    if(n<LINE){ setHL(''); showAll(); svgs.forEach(MM.finish); return; }
+    if(modes){ setHL(modes.length===1?modes[0]:''); showAll(); draw(modes); return; }
+    if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM],PSEL); return; }
+    /* 線の段：前の組は描き終えた線、今の組だけ描き（組の中は同時に左から右へ）、後の組はまだ出さない */
+    setHL(''); var k=n-LINE;
+    if(reduce||check){ showAll(); svgs.forEach(MM.finish); return; }
+    setVis(k);
+    svgs.forEach(function(s){ MM.play(s,GR[k],true,opt(GA?'[data-g="'+k+'"]':'')); });
+  }
+  function cur(){ return +f.getAttribute('data-st'); }
+  /* 動きを減らす設定・点検では完成形（すべての線がそろった段。強調なし） */
+  /* スクロール形のスマホ幅・動きを減らす設定・点検：完成形を描き終えた状態で止めて置く（カードは図の下に並ぶ） */
+  function full(){ go(FULL); setHL(''); showAll(); svgs.forEach(MM.finish); }
+  if(reduce||check) go(FULL,ALL); else if(SCR&&!wide.matches) full(); else go(0);
+  if(prev) prev.addEventListener('click',function(){go(cur()-1);});
+  if(next) next.addEventListener('click',function(){go(cur()+1);});
+  var rp=f.querySelector('[data-mm="replay"]'); if(rp) rp.addEventListener('click',function(){go(0);});
+  var al=f.querySelector('[data-mm="all"]'); if(al) al.addEventListener('click',function(){go(FULL,ALL); svgs.forEach(MM.finish);});
+  f.querySelectorAll('[data-mode]').forEach(function(b){
+    function pick(){ var m=b.getAttribute('data-mode');
+      /* スクロール形のPC幅：そのモードの線の段のカードまでスクロールし、着いたらそのモードの道筋だけを描く（図とカードの段がずれないように） */
+      if(live()){ var k=LINE+gi(m);
+        if(cur()===k){ if(f.getAttribute('data-hl')===m){ setHL(''); go(k); } else go(k,[m]); return; }
+        pend=m; clearTimeout(pt); pt=setTimeout(function(){pend=null;},6000);
+        sts[k].scrollIntoView({behavior:'smooth',block:'center'}); return; }
+      if(f.getAttribute('data-hl')===m&&cur()!==PAT){ setHL(''); svgs.forEach(MM.finish); return; }
+      go(LINE+gi(m),[m]); }
+    b.addEventListener('click',pick);
+    b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+  });
+  window.addEventListener('beforeprint',function(){showAll(); svgs.forEach(MM.finish);});
+  window.addEventListener('afterprint',function(){go(cur());});
+  window.addEventListener('resize',function(){svgs.forEach(function(s){if(!s._raf) MM.finish(s);});});
+  if(SCR&&!reduce&&!check){
+    f.setAttribute('data-live','');
+    /* PC幅の下のカード・段の点・図の寸法・画面の高さ（本文の zoom を割り戻す）は scrnow（2026-11-01。ventfigs と同じ） */
+    var mn=f.querySelector('.mm-main');
+    if(window.SCRNOW){ sn=SCRNOW({grid:f.querySelector('.mm-scw'),main:mn,svg:mn.querySelector('svg.mm-h')||svgs[0],sts:sts,card:'.mm-scr-card',vh:'--mm-vh',scale:1.3}); sn.set(cur()); }
+    function near(){ var c=window.innerHeight/2, best=0, d=1e9;
+      sts.forEach(function(s,i){ var r=s.getBoundingClientRect(), x=Math.abs((r.top+r.bottom)/2-c); if(x<d){d=x; best=i;} }); return best; }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        if(!e.isIntersecting||!wide.matches) return;
+        var k=+e.target.getAttribute('data-k');
+        if(pend&&k===LINE+gi(pend)){ var m=pend; pend=null; go(k,[m]); return; }
+        if(k===cur()&&!f.getAttribute('data-hl')) return;
+        go(k); }); },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+      sts.forEach(function(s){ io.observe(s); });
+    }
+    sts.forEach(function(s){ s.addEventListener('click',function(){ if(!wide.matches) return; if(+s.getAttribute('data-k')!==cur()) s.scrollIntoView({behavior:'smooth',block:'center'}); }); });
+    function onw(){ if(wide.matches) go(near()); else full(); }
+    if(wide.addEventListener) wide.addEventListener('change',onw); else if(wide.addListener) wide.addListener(onw);
+  }
+})();
+</script>
 <!-- t3:end -->
 <p class="tt-intro">図の3つの列を、左から順に説明します。</p>
 <div class="tt-part" id="tt-trig">

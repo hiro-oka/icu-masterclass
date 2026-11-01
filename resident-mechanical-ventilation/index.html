@@ -6713,5 +6713,101 @@ window.addEventListener('beforeprint',function(){[].forEach.call(document.queryS
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })(typeof window !== 'undefined' ? window : this);
 </script>
+<!-- mobile-fit:start -->
+<style id="mobile-fit-css">
+/* スマホ幅：図を画面幅いっぱいに（JS が html に .mfit を付け、figure ごとに左右の負の余白を入れる） */
+@media (max-width:600px){
+  html.mfit main figure.fig.mf-on{max-width:none;border-left-width:0;border-right-width:0;border-radius:0;
+    padding-left:12px;padding-right:12px;box-sizing:border-box}
+  html.mfit main figure.fig.mf-on > .vf-zoom{right:12px}
+  /* 入れ子の囲みの中の図（3T's の開閉の中など）も同じ幅になるので、囲み側の余白は変えない */
+  /* 文字の級：幅 351px（=375−左右12px）で SVG の文字が基準に届くように */
+  html.mfit .vf-svg .vf-tt{font-size:22px}
+  html.mfit .vf-svg .vf-eq{font-size:22px}
+  html.mfit .vf-svg .vf-eq.is-sub{font-size:22px}
+  html.mfit .vf-svg .vf-eq.is-big{font-size:23px}
+  html.mfit .fs-svg .fs-ts{font-size:21px}
+  html.mfit .fs-svg .fs-tt,html.mfit .fs-svg .fs-tty{font-size:22px}
+  html.mfit .fs-svg .fs-nm,html.mfit .fs-svg .fs-vol{font-size:22px}
+  /* 段の番号（丸数字）：④と⑤の中心は27単位しか離れていないので、丸は r13.5 まで。番号は約10px（説明カードにも「段n／6」がある） */
+  html.mfit .fs-svg .fs-mk text{font-size:18px}
+  html.mfit .fs-svg .fs-mk circle{r:13.5px}
+  /* 縦軸の題は JS が「量」と「単位」の2行に分ける（1行では隣の段の題と重なる） */
+  html.mfit .fs-svg .fs-tty tspan.mf-u{font-weight:600}
+  /* 図の下の注記：右寄せのまま複数行になると読みにくい */
+  html.mfit main figure .nf-foot{text-align:left}
+  html.mfit .fs-svg .fc-ax,html.mfit .fs-svg .fc-lab{font-size:22px}
+  /* 図15：「流量」が目盛りの0に触れないよう、左へ寄せて字間を詰める */
+  html.mfit .fs-svg .fc-ax{font-size:20px;letter-spacing:-.06em;transform:translateX(-3px)}
+  html.mfit .rcm-pan{padding-left:4px;padding-right:4px}
+  html.mfit .rcm-svg .rcm-ts{font-size:17px}
+  html.mfit .rcm-svg .rcm-tt,html.mfit .rcm-svg .rcm-sm{font-size:18px}
+  html.mfit .mx-bar .b-s,html.mfit .mx-bar .b-in,html.mfit .mx-bar .b-t{font-size:18px}
+  /* 図中の注記：広げた図では線や波形をまたぐことがあるので、縁取りを太くして読み分けやすくする（図4・図5など） */
+  html.mfit .vs-svg .vs-lab,html.mfit .vs-svg .vs-sm,html.mfit .vf-svg .vf-lab{stroke-width:8px}
+  /* 操作ボタン：指で押せる高さ */
+  html.mfit main figure button:not(.dp-h):not(.vf-zoom):not(.mo-replay),
+  html.mfit main .calc .reset{min-height:44px}
+  html.mfit main figure button.vf-zoom::after,html.mfit main figure button.mo-replay::after{
+    content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
+}
+@media print{html.mfit main figure.fig.mf-on{margin-left:0!important;margin-right:0!important}}
+</style>
+<script id="mobile-fit-js">
+(function(){
+  var MAXW=600, busy=false, t=0;
+  function figs(){
+    return [].slice.call(document.querySelectorAll('main figure.fig')).filter(function(f){
+      return !f.closest('.vf-lb') && !(f.parentElement && f.parentElement.closest('figure'));
+    });
+  }
+  function fit(){
+    if(busy) return; busy=true;
+    var root=document.documentElement, vw=root.clientWidth, on=window.innerWidth<=MAXW && !window.matchMedia('print').matches;
+    var list=figs();
+    list.forEach(function(f){f.style.marginLeft='';f.style.marginRight='';f.classList.remove('mf-on');});
+    root.classList.toggle('mfit', on);
+    axes(on);
+    if(on){
+      list.forEach(function(f){
+        if(!f.getClientRects().length) return;
+        var r=f.getBoundingClientRect(), cs=getComputedStyle(f);
+        var ml=parseFloat(cs.marginLeft)||0, mr=parseFloat(cs.marginRight)||0;
+        f.style.marginLeft=(ml-r.left)+'px';
+        f.style.marginRight=(mr-(vw-r.right))+'px';
+        f.classList.add('mf-on');
+      });
+    }
+    busy=false;
+  }
+  function axes(on){
+    [].slice.call(document.querySelectorAll('main .fs-svg text.fs-tty')).forEach(function(t){
+      var o=t.getAttribute('data-mf-orig');
+      if(!on){ if(o!==null){ t.textContent=o; t.removeAttribute('data-mf-orig'); } return; }
+      if(o===null){ o=t.textContent; t.setAttribute('data-mf-orig', o); }
+      var m=o.match(/^(.*?)（(.*)）$/); if(!m) return;
+      var ns='http://www.w3.org/2000/svg';
+      t.textContent='';
+      var a=document.createElementNS(ns,'tspan'); a.setAttribute('x','0'); a.setAttribute('dy','0'); a.textContent=m[1];
+      var b=document.createElementNS(ns,'tspan'); b.setAttribute('x','0'); b.setAttribute('dy','0.95em'); b.setAttribute('class','mf-u'); b.textContent=m[2];
+      t.appendChild(a); t.appendChild(b);
+    });
+  }
+  function later(){clearTimeout(t); t=setTimeout(function(){fit(); try{window.dispatchEvent(new Event('mfit'));}catch(e){}},120);}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', fit); else fit();
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', later);
+  window.addEventListener('orientationchange', later);
+  document.addEventListener('toggle', later, true);
+  document.addEventListener('click', function(e){ if(e.target.closest && e.target.closest('main button, main summary')) later(); }, true);
+  window.addEventListener('beforeprint', function(){
+    figs().forEach(function(f){f.style.marginLeft='';f.style.marginRight='';f.classList.remove('mf-on');});
+    document.documentElement.classList.remove('mfit');
+    axes(false);
+  });
+  window.addEventListener('afterprint', fit);
+})();
+</script>
+<!-- mobile-fit:end -->
 </body>
 </html>

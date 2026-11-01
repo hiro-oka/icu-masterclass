@@ -1315,8 +1315,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 @media print{.mm[data-fig][data-st] .mm-node,.mm[data-fig][data-st] text[data-c],.mm[data-fig][data-st] svg.mm-svg .mm-l{opacity:1!important}.mm-ctl{display:none!important}
   .mm[data-st] text.mm-ht[data-c]{fill:var(--mm-ink)!important}.mm[data-st] text.mm-hs[data-c]{fill:var(--mm-sub)!important}}
 /* スクロール形（.mm[data-scroll]。2026-10-31。ventfigs の .vf[data-scroll] と同じ見た目・挙動。--mm-vh は本文の拡大を割り戻した画面の高さで、JS が入れる）：
-   既定（スマホ幅・印刷・JSなし・動きを減らす設定）は完成形の図1枚と段の説明カードの一覧。PC幅で JS が動くと（data-live）図は画面に貼り付き、
-   右のカードが画面の中央に来るとその段へ進む。今の段のカードだけ濃く出す。ボタン送りの図（data-scroll なし）には効かない */
+   既定（スマホ幅・印刷・JSなし・動きを減らす設定）は完成形の図1枚と段の説明カードの一覧。PC幅で JS が動くと（data-live）図と凡例と今の段のカードが
+   画面に貼り付き（2026-11-01 から scrnow の縦積み）、見えない段の区間が画面の中央に来るとその段へ進む。ボタン送りの図（data-scroll なし）には効かない */
 .mm[data-scroll] .mm-ctl{display:none}
 .mm:not([data-scroll]) .mm-scr{display:none}
 .mm-scr{list-style:none;margin:1em 0 .2em;padding:0;display:flex;flex-direction:column;gap:.8em}
@@ -1326,17 +1326,43 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 .mm-scr-t{font-weight:800;margin:.1em 0 .15em}
 .mm-scr-p{margin:0;color:var(--mm-sub);font-size:.93em;line-height:1.6}
 @media (prefers-color-scheme: dark){.mm-scr-card{border-left-color:#4BB8E0}.mm-scr-k{color:#4BB8E0}}
+/* スクロール形のPC幅（scrnow.py が書く。2026-11-01）：上＝図／下＝今の段のカード。一覧は見えないスペーサー、最初の段の前と最後の段の後に遊び */
 @media screen and (min-width:761px){
-  .mm[data-scroll][data-live] .mm-scw{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:0 1.4em;align-items:start}
-  .mm[data-scroll][data-live] .mm-main{display:flex;flex-direction:column;justify-content:center;position:sticky;top:0;height:var(--mm-vh,100vh);grid-column:1;grid-row:1}
-  .mm[data-scroll][data-live] .mm-main .mm-h{max-height:calc(var(--mm-vh,100vh) - 7em)}
-  .mm[data-scroll][data-live] .mm-scr{grid-column:2;grid-row:1;margin:0;padding:calc(var(--mm-vh,100vh) * .5 - 6em) 0;gap:calc(var(--mm-vh,100vh) * .3)}
-  .mm[data-scroll][data-live] .mm-scr-st{opacity:.38;transition:opacity .3s ease;cursor:pointer}
-  .mm[data-scroll][data-live] .mm-scr-st.is-on{opacity:1;cursor:default}
-  .mm[data-scroll][data-live] .mm-scr-st.is-on .mm-scr-card{background:#E3F2F9;border-color:#00739E;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  .mm[data-scroll][data-live] .mm-scw{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+  .mm[data-scroll][data-live] .mm-scw > .mm-main{grid-area:1/1;position:sticky;top:0;z-index:1;height:var(--mm-vh,100vh);box-sizing:border-box;padding:.5em 0 .6em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55em}
+  .mm[data-scroll][data-live] .mm-scw > .mm-main > svg{flex:none;width:var(--scr-w,100%);max-width:none;max-height:none;height:auto;margin:0}
+  .mm[data-scroll][data-live] .mm-scw > .mm-scr{grid-area:1/1;margin:0;padding:calc(var(--mm-vh,100vh) * 0.65) 0 calc(var(--mm-vh,100vh) * 1.0);gap:0;visibility:hidden;pointer-events:none}
+  .mm[data-scroll][data-live] .mm-scw > .mm-scr > .mm-scr-st{height:calc(var(--mm-vh,100vh) * 0.6);margin:0;opacity:1}
+  .mm[data-scroll][data-live] .mm-scw > .mm-scr > .mm-scr-st > *{display:none}
 }
-@media screen and (min-width:761px) and (prefers-color-scheme: dark){.mm[data-scroll][data-live] .mm-scr-st.is-on .mm-scr-card{background:#10303C;border-color:#4BB8E0}}
-@media screen and (min-width:761px) and (prefers-reduced-motion:reduce){.mm[data-scroll][data-live] .mm-scr-st{transition:none}}
+.scr-now{display:none}
+@media screen and (min-width:761px){
+  [data-live] .scr-now{display:block;position:relative;flex:none;width:100%;max-width:60em}
+  .scr-now-cards{display:grid}
+  /* 入れ替えは「前の段が消えてから次の段が出る」（同時に重ねると、途中で2枚の文字が重なって読めない） */
+  .scr-now .scr-now-cards > *{grid-area:1/1;margin:0;padding-top:.6em;padding-bottom:.65em;opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s linear .12s}
+  .scr-now .scr-now-cards > .is-on{opacity:1;visibility:visible;transition:opacity .26s ease .1s}
+  /* 段の番号と題は1行に（カードを低くして、図に高さを回す）。右上の段の点のぶんは1行目だけ空ける（--scr-dw は JS が段の数から入れる） */
+  .scr-now-cards > *::before{content:"";float:right;width:var(--scr-dw,0);height:1.2em}
+  .scr-now .vf-now-k,.scr-now .mm-scr-k{display:inline;margin:0 .9em 0 0}
+  .scr-now .vf-now-t,.scr-now .mm-scr-t{display:inline;margin:0}
+  .scr-now .vf-now-p,.scr-now .mm-scr-p{margin:.2em 0 0;line-height:1.65}
+  .scr-now-dots{position:absolute;top:.85em;right:1em;display:flex;gap:.45em;align-items:center}
+  .scr-now-dots button{font:inherit;display:block;flex:none;width:.66em;height:.66em;min-width:0;min-height:0;margin:0;padding:0;border:0;border-radius:50%;
+    background:#C5CCD6;box-shadow:none;cursor:pointer;transition:transform .2s ease,background .2s ease}
+  .scr-now-dots button:hover{background:#8C96A6}
+  .scr-now-dots button.is-on{background:#00739E;transform:scale(1.3)}
+  .scr-now-dots button:focus-visible{outline:2px solid #00739E;outline-offset:2px}
+  figure[data-scr-bo]{margin-left:calc(0px - var(--scr-bo));margin-right:calc(0px - var(--scr-bo))}
+}
+@media screen and (min-width:761px) and (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .scr-now-dots button{background:#4A5263}
+  :root:not([data-theme="light"]) .scr-now-dots button.is-on{background:#4BB8E0}}
+@media screen and (min-width:761px){:root[data-theme="dark"] .scr-now-dots button{background:#4A5263}:root[data-theme="dark"] .scr-now-dots button.is-on{background:#4BB8E0}}
+@media screen and (min-width:761px) and (prefers-reduced-motion:reduce){.scr-now-cards > *,.scr-now-dots button{transition:none}}
+/* 下のカード（scrnow）は今の段の強調色で出す */
+@media screen and (min-width:761px){.mm .scr-now .mm-scr-card{background:#E3F2F9;border-color:#00739E;box-shadow:0 2px 12px rgba(0,0,0,.08)}}
+@media screen and (min-width:761px) and (prefers-color-scheme: dark){.mm .scr-now .mm-scr-card{background:#10303C;border-color:#4BB8E0}}
 @media print{figure.mmfig[data-scroll],figure.mmfig[data-scroll] .nf{break-inside:auto;page-break-inside:auto}.mm-scr-card{background:none!important}}
 /* mm:end */
 @media (max-width:640px){ .eqn{font-size:1.02em; padding:.6em .7em} }
@@ -1447,17 +1473,42 @@ figure.fig[data-vmode="psv"] .nf-wave:not(.is-danger),figure.fig svg[aria-label=
 .vf-scr-st{margin:0;padding:0;break-inside:avoid;page-break-inside:avoid}
 .vf-scr-fig{margin:0 0 .55em}
 .vf-scr-card{border:1px solid var(--line,#e3e7ec);border-left:5px solid var(--vf-hi);border-radius:10px;padding:.8em 1em;background:var(--vf-paper)}
+/* スクロール形のPC幅（scrnow.py が書く。2026-11-01）：上＝図／下＝今の段のカード。一覧は見えないスペーサー、最初の段の前と最後の段の後に遊び */
 @media screen and (min-width:761px){
-  .vf[data-scroll][data-live]{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:0 1.4em;align-items:start}
-  .vf[data-scroll][data-live] .vf-main{display:flex;align-items:center;justify-content:center;position:sticky;top:0;height:var(--vf-vh,100vh);grid-column:1;grid-row:1}
-  .vf[data-scroll][data-live] .vf-main svg{max-height:calc(var(--vf-vh,100vh) - 2.5rem);width:auto;max-width:100%}
-  .vf[data-scroll][data-live] .vf-scr{grid-column:2;grid-row:1;padding:calc(var(--vf-vh,100vh) * .5 - 6em) 0;gap:calc(var(--vf-vh,100vh) * .3)}
-  .vf[data-scroll][data-live] .vf-scr-fig{display:none}
-  .vf[data-scroll][data-live] .vf-scr-st{opacity:.38;transition:opacity .3s ease;cursor:pointer}
-  .vf[data-scroll][data-live] .vf-scr-st.is-on{opacity:1;cursor:default}
-  .vf[data-scroll][data-live] .vf-scr-st.is-on .vf-scr-card{background:var(--vf-hi-s);border-color:var(--vf-hi);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  .vf[data-scroll][data-live]{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+  .vf[data-scroll][data-live] > .vf-main{grid-area:1/1;position:sticky;top:0;z-index:1;height:var(--vf-vh,100vh);box-sizing:border-box;padding:.5em 0 .6em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55em}
+  .vf[data-scroll][data-live] > .vf-main > svg{flex:none;width:var(--scr-w,100%);max-width:none;max-height:none;height:auto;margin:0}
+  .vf[data-scroll][data-live] > .vf-scr{grid-area:1/1;margin:0;padding:calc(var(--vf-vh,100vh) * 0.65) 0 calc(var(--vf-vh,100vh) * 1.0);gap:0;visibility:hidden;pointer-events:none}
+  .vf[data-scroll][data-live] > .vf-scr > .vf-scr-st{height:calc(var(--vf-vh,100vh) * 0.6);margin:0;opacity:1}
+  .vf[data-scroll][data-live] > .vf-scr > .vf-scr-st > *{display:none}
 }
-@media screen and (min-width:761px) and (prefers-reduced-motion:reduce){.vf[data-scroll][data-live] .vf-scr-st{transition:none}}
+.scr-now{display:none}
+@media screen and (min-width:761px){
+  [data-live] .scr-now{display:block;position:relative;flex:none;width:100%;max-width:60em}
+  .scr-now-cards{display:grid}
+  /* 入れ替えは「前の段が消えてから次の段が出る」（同時に重ねると、途中で2枚の文字が重なって読めない） */
+  .scr-now .scr-now-cards > *{grid-area:1/1;margin:0;padding-top:.6em;padding-bottom:.65em;opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s linear .12s}
+  .scr-now .scr-now-cards > .is-on{opacity:1;visibility:visible;transition:opacity .26s ease .1s}
+  /* 段の番号と題は1行に（カードを低くして、図に高さを回す）。右上の段の点のぶんは1行目だけ空ける（--scr-dw は JS が段の数から入れる） */
+  .scr-now-cards > *::before{content:"";float:right;width:var(--scr-dw,0);height:1.2em}
+  .scr-now .vf-now-k,.scr-now .mm-scr-k{display:inline;margin:0 .9em 0 0}
+  .scr-now .vf-now-t,.scr-now .mm-scr-t{display:inline;margin:0}
+  .scr-now .vf-now-p,.scr-now .mm-scr-p{margin:.2em 0 0;line-height:1.65}
+  .scr-now-dots{position:absolute;top:.85em;right:1em;display:flex;gap:.45em;align-items:center}
+  .scr-now-dots button{font:inherit;display:block;flex:none;width:.66em;height:.66em;min-width:0;min-height:0;margin:0;padding:0;border:0;border-radius:50%;
+    background:#C5CCD6;box-shadow:none;cursor:pointer;transition:transform .2s ease,background .2s ease}
+  .scr-now-dots button:hover{background:#8C96A6}
+  .scr-now-dots button.is-on{background:#00739E;transform:scale(1.3)}
+  .scr-now-dots button:focus-visible{outline:2px solid #00739E;outline-offset:2px}
+  figure[data-scr-bo]{margin-left:calc(0px - var(--scr-bo));margin-right:calc(0px - var(--scr-bo))}
+}
+@media screen and (min-width:761px) and (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .scr-now-dots button{background:#4A5263}
+  :root:not([data-theme="light"]) .scr-now-dots button.is-on{background:#4BB8E0}}
+@media screen and (min-width:761px){:root[data-theme="dark"] .scr-now-dots button{background:#4A5263}:root[data-theme="dark"] .scr-now-dots button.is-on{background:#4BB8E0}}
+@media screen and (min-width:761px) and (prefers-reduced-motion:reduce){.scr-now-cards > *,.scr-now-dots button{transition:none}}
+/* 下のカード（scrnow）は今の段の強調色で出す。図12（ventflow の .fs）も同じ */
+@media screen and (min-width:761px){.vf .scr-now .vf-scr-card,.fs .scr-now .vf-scr-card{background:var(--vf-hi-s);border-color:var(--vf-hi);box-shadow:0 2px 12px rgba(0,0,0,.08)}}
 figure.vffig .nf:has(> .vf[data-scroll]){padding-top:0}
 @media print{figure.vffig:has(.vf[data-scroll]),figure.vffig:has(.vf[data-scroll]) .nf{break-inside:auto;page-break-inside:auto}
   .vf[data-scroll] .vf-scr{display:block!important}.vf[data-scroll] .vf-scr-st{margin:0 0 1em}.vf-scr-fig svg.vf-svg{width:auto!important;height:8cm!important;max-width:60%;margin:0 auto}.vf-scr-card{background:none!important}}
@@ -1829,22 +1880,20 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 .fs-svg .fc-lab.is-r{fill:var(--vf-warn-t)}.fs-svg .fc-lab.is-e{fill:var(--vf-el)}.fs-svg .fc-lab.is-f{fill:var(--vf-hi)}
 .fs-q{margin:0 0 .6em;font-size:.95em;font-weight:700;color:inherit}
 .fs-q b{display:inline-block;margin-right:.6em;padding:.05em .55em;border-radius:6px;background:#00739E;color:#fff;font-size:.85em;font-weight:800}
-/* 図12：スクロール形（ventphase の .tk[data-scroll] と同じ）。既定（スマホ幅・印刷・JSなし・動きを減らす設定）は段ごとの図とカードを縦に並べ、
-   PC幅で JS が動くと（data-live）図は画面に貼り付き、中央に来たカードの段へ時刻が動く */
+/* 図12：スクロール形。既定（スマホ幅・印刷・JSなし・動きを減らす設定）は段ごとの図とカードを縦に並べ、
+   PC幅で JS が動くと（data-live）図と今の段のカードが画面に貼り付き、見えない段の区間が中央に来るとその段へ時刻が動く（2026-11-01 から scrnow の縦積み） */
 .fs{display:block}
 .fs .fs-main{display:none}
 .fs .vf-scr-fig .fs-svg{max-width:600px;margin:0 auto}
+/* スクロール形のPC幅（scrnow.py が書く。2026-11-01）：上＝図／下＝今の段のカード。一覧は見えないスペーサー、最初の段の前と最後の段の後に遊び */
 @media screen and (min-width:761px){
-  .fs[data-live]{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:0 1.4em;align-items:start}
-  .fs[data-live] .fs-main{display:flex;align-items:center;justify-content:center;position:sticky;top:0;height:var(--vf-vh,100vh);grid-column:1;grid-row:1}
-  .fs[data-live] .fs-main svg{max-height:calc(var(--vf-vh,100vh) - 2.5rem);width:auto;max-width:100%}
-  .fs[data-live] .vf-scr{grid-column:2;grid-row:1;padding:calc(var(--vf-vh,100vh) * .5 - 6em) 0;gap:calc(var(--vf-vh,100vh) * .3)}
-  .fs[data-live] .vf-scr-fig{display:none}
-  .fs[data-live] .vf-scr-st{opacity:.38;transition:opacity .3s ease;cursor:pointer}
-  .fs[data-live] .vf-scr-st.is-on{opacity:1;cursor:default}
-  .fs[data-live] .vf-scr-st.is-on .vf-scr-card{background:var(--vf-hi-s);border-color:var(--vf-hi);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  .fs[data-live]{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+  .fs[data-live] > .fs-main{grid-area:1/1;position:sticky;top:0;z-index:1;height:var(--vf-vh,100vh);box-sizing:border-box;padding:.5em 0 .6em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55em}
+  .fs[data-live] > .fs-main > svg{flex:none;width:var(--scr-w,100%);max-width:none;max-height:none;height:auto;margin:0}
+  .fs[data-live] > .vf-scr{grid-area:1/1;margin:0;padding:calc(var(--vf-vh,100vh) * 0.65) 0 calc(var(--vf-vh,100vh) * 1.0);gap:0;visibility:hidden;pointer-events:none}
+  .fs[data-live] > .vf-scr > .vf-scr-st{height:calc(var(--vf-vh,100vh) * 0.6);margin:0;opacity:1}
+  .fs[data-live] > .vf-scr > .vf-scr-st > *{display:none}
 }
-@media screen and (min-width:761px) and (prefers-reduced-motion:reduce){.fs[data-live] .vf-scr-st{transition:none}}
 /* 図13：3つの肺の比較（動かない図）＋カード */
 .fc-leg{display:flex;flex-wrap:wrap;gap:.3em 1.2em;margin:0 0 .5em;font-size:.86em;font-weight:700;color:var(--vf-sub)}
 .fc-k{display:inline-flex;align-items:center;gap:.4em}
@@ -2374,6 +2423,51 @@ button,input,select,textarea{font-family:inherit}
 <figcaption>図2. <b>モードの選び方</b></figcaption>
 </figure>
 <script>
+(function(){ if(window.SCRNOW) return;
+// スクロール形の図（2026-11-01。scrnow.py）：PC幅では貼り付くブロックの下に今の段のカードを1枚だけ出し、図を残りの高さいっぱいに広げる
+window.SCRNOW=function(o){
+  var main=o.main, svg=o.svg, sts=o.sts, grid=o.grid, fig=grid.closest('figure'), wide=window.matchMedia('screen and (min-width:761px)');
+  var box=document.createElement('div'); box.className='scr-now';
+  var cs=document.createElement('div'); cs.className='scr-now-cards'; cs.setAttribute('aria-live','polite');
+  var ds=document.createElement('div'); ds.className='scr-now-dots'; ds.setAttribute('role','group'); ds.setAttribute('aria-label','段の位置（押すとその段へ）');
+  var cards=[], dots=[];
+  sts.forEach(function(s,i){
+    var c=s.querySelector(o.card); c=c?c.cloneNode(true):document.createElement('div'); cs.appendChild(c); cards.push(c);
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','段 '+(i+1)+' / '+sts.length+' へ');
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth',block:'center'}); });
+    ds.appendChild(b); dots.push(b); });
+  box.appendChild(cs); if(sts.length>1){ box.appendChild(ds); box.style.setProperty('--scr-dw',(sts.length*1.11+.3).toFixed(2)+'em'); }
+  main.appendChild(box);
+  var vb=(svg.getAttribute('viewBox')||'0 0 4 3').split(/[\s,]+/).map(Number), AR=vb[2]/vb[3], MAXW=vb[2]*(o.scale||1.5), CAP=1280;
+  function vis(e){ return e.getClientRects().length>0; }
+  function fit(){
+    var z=grid.currentCSSZoom||1, vh=window.innerHeight/z;
+    grid.style.setProperty(o.vh,vh+'px');
+    if(fig){ fig.removeAttribute('data-scr-bo'); fig.style.removeProperty('--scr-bo'); }
+    svg.style.removeProperty('--scr-w');
+    if(!wide.matches||!vis(main)) return;
+    var mr=main.getBoundingClientRect(); if(!mr.height) return;
+    var k=vh/mr.height;   // 見た目の px → CSS の px（本文の zoom を割り戻す）
+    var st=getComputedStyle(main), pad=parseFloat(st.paddingTop)+parseFloat(st.paddingBottom), gap=parseFloat(st.rowGap)||0, oth=0, n=0;
+    [].forEach.call(main.children,function(c){ if(!vis(c)) return; n++; if(c!==svg) oth+=c.getBoundingClientRect().height*k; });
+    var H=vh-pad-oth-gap*Math.max(0,n-1)-2, want=Math.min(H*AR,MAXW), W=mr.width*k;
+    if(want>W+8&&fig){   // 列が足りない：目次と重ならない範囲で左右へはみ出す
+      var fr=fig.getBoundingClientRect(), lim=16, rr=document.documentElement.clientWidth-16;
+      [].forEach.call(document.querySelectorAll('nav,aside'),function(e){ var r=e.getBoundingClientRect(); if(r.width&&r.height&&r.right<=fr.left+1) lim=Math.max(lim,r.right+16); });
+      var e=Math.max(0,Math.min((Math.min(want,CAP)-W)/2,(fr.left-lim)*k,(rr-fr.right)*k));
+      if(e>=4){ fig.setAttribute('data-scr-bo',''); fig.style.setProperty('--scr-bo',e.toFixed(1)+'px'); W+=2*e; } }
+    svg.style.setProperty('--scr-w',Math.floor(Math.min(W,want))+'px');
+  }
+  function set(k){
+    cards.forEach(function(c,i){ c.classList.toggle('is-on',i===k); c.setAttribute('aria-hidden',i===k?'false':'true'); });
+    dots.forEach(function(d,i){ d.classList.toggle('is-on',i===k); if(i===k) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current'); }); }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if(wide.addEventListener) wide.addEventListener('change',fit);
+  return {set:set, fit:fit};
+};
+})();
+
 (function(){
 if(window.MM) return;
 var PAT={vcv:null,pcv:[9,5],psv:[.5,6.5]}, ORDER={vcv:0,pcv:1,psv:2}, MD=420, SD=620;
@@ -2431,7 +2525,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   /* スクロール形（data-scroll。2026-10-31）：PC幅では段の説明カードが画面の中央に来るとその段へ。講義スライド（#deck）の中ではボタン送りに戻す */
   var SCR=f.hasAttribute('data-scroll')&&!f.closest('#deck');
   if(f.hasAttribute('data-scroll')&&!SCR) f.removeAttribute('data-scroll');
-  var sts=SCR?[].slice.call(f.querySelectorAll('.mm-scr-st')):[], wide=window.matchMedia('screen and (min-width:761px)'), pend=null, pt=0;
+  var sts=SCR?[].slice.call(f.querySelectorAll('.mm-scr-st')):[], wide=window.matchMedia('screen and (min-width:761px)'), pend=null, pt=0, sn=null;
   function live(){ return SCR&&!reduce&&!check&&wide.matches; }
   function setHL(m){f.setAttribute('data-hl',m||'');}
   function draw(modes,sel){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes,!!sel,opt(sel));}); }
@@ -2444,6 +2538,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
     if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
     if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
     sts.forEach(function(s,i){ s.classList.toggle('is-on',i===n); if(i===n) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current'); });
+    if(sn) sn.set(n);
     if(n<LINE){ setHL(''); showAll(); svgs.forEach(MM.finish); return; }
     if(modes){ setHL(modes.length===1?modes[0]:''); showAll(); draw(modes); return; }
     if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM],PSEL); return; }
@@ -2479,9 +2574,9 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   window.addEventListener('resize',function(){svgs.forEach(function(s){if(!s._raf) MM.finish(s);});});
   if(SCR&&!reduce&&!check){
     f.setAttribute('data-live','');
-    /* 本文は画面幅に応じて zoom で拡大されるので、図を貼り付ける高さ（画面の高さ）を zoom で割り戻して渡す（ventfigs と同じ） */
-    function fit(){ f.style.setProperty('--mm-vh',(window.innerHeight/(f.currentCSSZoom||1))+'px'); }
-    fit(); window.addEventListener('resize',fit);
+    /* PC幅の下のカード・段の点・図の寸法・画面の高さ（本文の zoom を割り戻す）は scrnow（2026-11-01。ventfigs と同じ） */
+    var mn=f.querySelector('.mm-main');
+    if(window.SCRNOW){ sn=SCRNOW({grid:f.querySelector('.mm-scw'),main:mn,svg:mn.querySelector('svg.mm-h')||svgs[0],sts:sts,card:'.mm-scr-card',vh:'--mm-vh',scale:1.3}); sn.set(cur()); }
     function near(){ var c=window.innerHeight/2, best=0, d=1e9;
       sts.forEach(function(s,i){ var r=s.getBoundingClientRect(), x=Math.abs((r.top+r.bottom)/2-c); if(x<d){d=x; best=i;} }); return best; }
     if('IntersectionObserver' in window){
@@ -2520,6 +2615,51 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <figcaption>図3. <b>3T'sとモード</b></figcaption>
 </figure>
 <script>
+(function(){ if(window.SCRNOW) return;
+// スクロール形の図（2026-11-01。scrnow.py）：PC幅では貼り付くブロックの下に今の段のカードを1枚だけ出し、図を残りの高さいっぱいに広げる
+window.SCRNOW=function(o){
+  var main=o.main, svg=o.svg, sts=o.sts, grid=o.grid, fig=grid.closest('figure'), wide=window.matchMedia('screen and (min-width:761px)');
+  var box=document.createElement('div'); box.className='scr-now';
+  var cs=document.createElement('div'); cs.className='scr-now-cards'; cs.setAttribute('aria-live','polite');
+  var ds=document.createElement('div'); ds.className='scr-now-dots'; ds.setAttribute('role','group'); ds.setAttribute('aria-label','段の位置（押すとその段へ）');
+  var cards=[], dots=[];
+  sts.forEach(function(s,i){
+    var c=s.querySelector(o.card); c=c?c.cloneNode(true):document.createElement('div'); cs.appendChild(c); cards.push(c);
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','段 '+(i+1)+' / '+sts.length+' へ');
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth',block:'center'}); });
+    ds.appendChild(b); dots.push(b); });
+  box.appendChild(cs); if(sts.length>1){ box.appendChild(ds); box.style.setProperty('--scr-dw',(sts.length*1.11+.3).toFixed(2)+'em'); }
+  main.appendChild(box);
+  var vb=(svg.getAttribute('viewBox')||'0 0 4 3').split(/[\s,]+/).map(Number), AR=vb[2]/vb[3], MAXW=vb[2]*(o.scale||1.5), CAP=1280;
+  function vis(e){ return e.getClientRects().length>0; }
+  function fit(){
+    var z=grid.currentCSSZoom||1, vh=window.innerHeight/z;
+    grid.style.setProperty(o.vh,vh+'px');
+    if(fig){ fig.removeAttribute('data-scr-bo'); fig.style.removeProperty('--scr-bo'); }
+    svg.style.removeProperty('--scr-w');
+    if(!wide.matches||!vis(main)) return;
+    var mr=main.getBoundingClientRect(); if(!mr.height) return;
+    var k=vh/mr.height;   // 見た目の px → CSS の px（本文の zoom を割り戻す）
+    var st=getComputedStyle(main), pad=parseFloat(st.paddingTop)+parseFloat(st.paddingBottom), gap=parseFloat(st.rowGap)||0, oth=0, n=0;
+    [].forEach.call(main.children,function(c){ if(!vis(c)) return; n++; if(c!==svg) oth+=c.getBoundingClientRect().height*k; });
+    var H=vh-pad-oth-gap*Math.max(0,n-1)-2, want=Math.min(H*AR,MAXW), W=mr.width*k;
+    if(want>W+8&&fig){   // 列が足りない：目次と重ならない範囲で左右へはみ出す
+      var fr=fig.getBoundingClientRect(), lim=16, rr=document.documentElement.clientWidth-16;
+      [].forEach.call(document.querySelectorAll('nav,aside'),function(e){ var r=e.getBoundingClientRect(); if(r.width&&r.height&&r.right<=fr.left+1) lim=Math.max(lim,r.right+16); });
+      var e=Math.max(0,Math.min((Math.min(want,CAP)-W)/2,(fr.left-lim)*k,(rr-fr.right)*k));
+      if(e>=4){ fig.setAttribute('data-scr-bo',''); fig.style.setProperty('--scr-bo',e.toFixed(1)+'px'); W+=2*e; } }
+    svg.style.setProperty('--scr-w',Math.floor(Math.min(W,want))+'px');
+  }
+  function set(k){
+    cards.forEach(function(c,i){ c.classList.toggle('is-on',i===k); c.setAttribute('aria-hidden',i===k?'false':'true'); });
+    dots.forEach(function(d,i){ d.classList.toggle('is-on',i===k); if(i===k) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current'); }); }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if(wide.addEventListener) wide.addEventListener('change',fit);
+  return {set:set, fit:fit};
+};
+})();
+
 (function(){
 if(window.MM) return;
 var PAT={vcv:null,pcv:[9,5],psv:[.5,6.5]}, ORDER={vcv:0,pcv:1,psv:2}, MD=420, SD=620;
@@ -2577,7 +2717,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   /* スクロール形（data-scroll。2026-10-31）：PC幅では段の説明カードが画面の中央に来るとその段へ。講義スライド（#deck）の中ではボタン送りに戻す */
   var SCR=f.hasAttribute('data-scroll')&&!f.closest('#deck');
   if(f.hasAttribute('data-scroll')&&!SCR) f.removeAttribute('data-scroll');
-  var sts=SCR?[].slice.call(f.querySelectorAll('.mm-scr-st')):[], wide=window.matchMedia('screen and (min-width:761px)'), pend=null, pt=0;
+  var sts=SCR?[].slice.call(f.querySelectorAll('.mm-scr-st')):[], wide=window.matchMedia('screen and (min-width:761px)'), pend=null, pt=0, sn=null;
   function live(){ return SCR&&!reduce&&!check&&wide.matches; }
   function setHL(m){f.setAttribute('data-hl',m||'');}
   function draw(modes,sel){ if(reduce||check){svgs.forEach(MM.finish);return;} svgs.forEach(function(s){MM.play(s,modes,!!sel,opt(sel));}); }
@@ -2590,6 +2730,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
     if(lab) lab.innerHTML='<b>'+(n+1)+'/'+(LAST+1)+'</b>　'+LAB[n];
     if(prev) prev.disabled=(n===0); if(next) next.disabled=(n===LAST);
     sts.forEach(function(s,i){ s.classList.toggle('is-on',i===n); if(i===n) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current'); });
+    if(sn) sn.set(n);
     if(n<LINE){ setHL(''); showAll(); svgs.forEach(MM.finish); return; }
     if(modes){ setHL(modes.length===1?modes[0]:''); showAll(); draw(modes); return; }
     if(n===PAT){ setHL(PATM); showAll(); svgs.forEach(MM.finish); draw([PATM],PSEL); return; }
@@ -2625,9 +2766,9 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
   window.addEventListener('resize',function(){svgs.forEach(function(s){if(!s._raf) MM.finish(s);});});
   if(SCR&&!reduce&&!check){
     f.setAttribute('data-live','');
-    /* 本文は画面幅に応じて zoom で拡大されるので、図を貼り付ける高さ（画面の高さ）を zoom で割り戻して渡す（ventfigs と同じ） */
-    function fit(){ f.style.setProperty('--mm-vh',(window.innerHeight/(f.currentCSSZoom||1))+'px'); }
-    fit(); window.addEventListener('resize',fit);
+    /* PC幅の下のカード・段の点・図の寸法・画面の高さ（本文の zoom を割り戻す）は scrnow（2026-11-01。ventfigs と同じ） */
+    var mn=f.querySelector('.mm-main');
+    if(window.SCRNOW){ sn=SCRNOW({grid:f.querySelector('.mm-scw'),main:mn,svg:mn.querySelector('svg.mm-h')||svgs[0],sts:sts,card:'.mm-scr-card',vh:'--mm-vh',scale:1.3}); sn.set(cur()); }
     function near(){ var c=window.innerHeight/2, best=0, d=1e9;
       sts.forEach(function(s,i){ var r=s.getBoundingClientRect(), x=Math.abs((r.top+r.bottom)/2-c); if(x<d){d=x; best=i;} }); return best; }
     if('IntersectionObserver' in window){
@@ -4429,6 +4570,51 @@ function lerp(a,b,u){ var na=(String(a).match(NUM)||[]).map(Number), i=0;
 })();
 
 
+(function(){ if(window.SCRNOW) return;
+// スクロール形の図（2026-11-01。scrnow.py）：PC幅では貼り付くブロックの下に今の段のカードを1枚だけ出し、図を残りの高さいっぱいに広げる
+window.SCRNOW=function(o){
+  var main=o.main, svg=o.svg, sts=o.sts, grid=o.grid, fig=grid.closest('figure'), wide=window.matchMedia('screen and (min-width:761px)');
+  var box=document.createElement('div'); box.className='scr-now';
+  var cs=document.createElement('div'); cs.className='scr-now-cards'; cs.setAttribute('aria-live','polite');
+  var ds=document.createElement('div'); ds.className='scr-now-dots'; ds.setAttribute('role','group'); ds.setAttribute('aria-label','段の位置（押すとその段へ）');
+  var cards=[], dots=[];
+  sts.forEach(function(s,i){
+    var c=s.querySelector(o.card); c=c?c.cloneNode(true):document.createElement('div'); cs.appendChild(c); cards.push(c);
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','段 '+(i+1)+' / '+sts.length+' へ');
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth',block:'center'}); });
+    ds.appendChild(b); dots.push(b); });
+  box.appendChild(cs); if(sts.length>1){ box.appendChild(ds); box.style.setProperty('--scr-dw',(sts.length*1.11+.3).toFixed(2)+'em'); }
+  main.appendChild(box);
+  var vb=(svg.getAttribute('viewBox')||'0 0 4 3').split(/[\s,]+/).map(Number), AR=vb[2]/vb[3], MAXW=vb[2]*(o.scale||1.5), CAP=1280;
+  function vis(e){ return e.getClientRects().length>0; }
+  function fit(){
+    var z=grid.currentCSSZoom||1, vh=window.innerHeight/z;
+    grid.style.setProperty(o.vh,vh+'px');
+    if(fig){ fig.removeAttribute('data-scr-bo'); fig.style.removeProperty('--scr-bo'); }
+    svg.style.removeProperty('--scr-w');
+    if(!wide.matches||!vis(main)) return;
+    var mr=main.getBoundingClientRect(); if(!mr.height) return;
+    var k=vh/mr.height;   // 見た目の px → CSS の px（本文の zoom を割り戻す）
+    var st=getComputedStyle(main), pad=parseFloat(st.paddingTop)+parseFloat(st.paddingBottom), gap=parseFloat(st.rowGap)||0, oth=0, n=0;
+    [].forEach.call(main.children,function(c){ if(!vis(c)) return; n++; if(c!==svg) oth+=c.getBoundingClientRect().height*k; });
+    var H=vh-pad-oth-gap*Math.max(0,n-1)-2, want=Math.min(H*AR,MAXW), W=mr.width*k;
+    if(want>W+8&&fig){   // 列が足りない：目次と重ならない範囲で左右へはみ出す
+      var fr=fig.getBoundingClientRect(), lim=16, rr=document.documentElement.clientWidth-16;
+      [].forEach.call(document.querySelectorAll('nav,aside'),function(e){ var r=e.getBoundingClientRect(); if(r.width&&r.height&&r.right<=fr.left+1) lim=Math.max(lim,r.right+16); });
+      var e=Math.max(0,Math.min((Math.min(want,CAP)-W)/2,(fr.left-lim)*k,(rr-fr.right)*k));
+      if(e>=4){ fig.setAttribute('data-scr-bo',''); fig.style.setProperty('--scr-bo',e.toFixed(1)+'px'); W+=2*e; } }
+    svg.style.setProperty('--scr-w',Math.floor(Math.min(W,want))+'px');
+  }
+  function set(k){
+    cards.forEach(function(c,i){ c.classList.toggle('is-on',i===k); c.setAttribute('aria-hidden',i===k?'false':'true'); });
+    dots.forEach(function(d,i){ d.classList.toggle('is-on',i===k); if(i===k) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current'); }); }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if(wide.addEventListener) wide.addEventListener('change',fit);
+  return {set:set, fit:fit};
+};
+})();
+
 (function(){
 // §3-6 図12（ventflow.py）：PC幅では、説明カードが画面の中央に来るとその段の時刻へ、前の段の時刻から連続的に動く。
 // 回路の圧・肺胞の圧・差・流れ・肺胞の大きさ・波形の印は、埋め込んだ計算値（0.02秒ごと）を時刻で補間して描く。
@@ -4472,21 +4658,21 @@ function lerp(a,b,u){ var na=(String(a).match(NUM)||[]).map(Number), i=0;
     var cx=wx(t).toFixed(1);
     A(q('cur'),{x1:cx,x2:cx}); A(q('da'),{cx:cx,cy:wyp(alv).toFixed(1)}); A(q('dp'),{cx:cx,cy:wyp(paw).toFixed(1)}); A(q('df'),{cx:cx,cy:wyf(smp(D.f,t)).toFixed(1)});
   }
-  var cur=+fs.getAttribute('data-k')||0, now=D.ts[cur], raf=0;
+  var cur=+fs.getAttribute('data-k')||0, now=D.ts[cur], raf=0, sn=null;
   function go(k){
     k=Math.max(0,Math.min(D.ts.length-1,k)); cur=k;
     sts.forEach(function(s,i){ s.classList.toggle('is-on',i===k); if(i===k) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current'); });
+    if(sn) sn.set(k);
     [].forEach.call(svg.querySelectorAll('.fs-mk'),function(g){ g.classList.toggle('is-on',+g.getAttribute('data-mk')===k); });
     var a=now, b=D.ts[k], t0=performance.now(), dur=Math.min(1500,600+Math.abs(b-a)*550);
     cancelAnimationFrame(raf);
     (function fr(tm){ var u=Math.min(1,(tm-t0)/dur), e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2; now=a+(b-a)*e; render(now); if(u<1) raf=requestAnimationFrame(fr); })(t0);
   }
   fs.setAttribute('data-live','');
+  // PC幅の下のカード・段の点・図の寸法・画面の高さ（本文の zoom を割り戻す）は scrnow（2026-11-01）
+  sn=window.SCRNOW?SCRNOW({grid:fs,main:fs.querySelector('.fs-main'),svg:svg,sts:sts,card:'.vf-scr-card',vh:'--vf-vh'}):null;
   render(now); go(cur);
-  // 本文は画面幅に応じて zoom で拡大されるので、図を貼り付ける高さ（画面の高さ）を zoom で割り戻して渡す（ventfigs・水槽と同じ）
-  var fit=function(){ fs.style.setProperty('--vf-vh',(window.innerHeight/(fs.currentCSSZoom||1))+'px'); };
-  fit(); window.addEventListener('resize',fit);
-  // 段は「画面の中央より上に上端があるカードのうち最後のもの（無ければ段1）」。中央の細い帯だけで判定すると、
+  // 段は「画面の中央より上に上端がある段の区間のうち最後のもの（無ければ段1）」。中央の細い帯だけで判定すると、
   // 図の先頭へ飛んだときなどにどのカードも帯に入らず、前の段のまま残った（Codex の指摘。2026-10-31）
   var tick=0;
   function sync(){ tick=0; if(!wide.matches) return; var fr=fs.getBoundingClientRect(); if(fr.bottom<0||fr.top>innerHeight) return;
@@ -4499,13 +4685,58 @@ function lerp(a,b,u){ var na=(String(a).match(NUM)||[]).map(Number), i=0;
 });
 })();
 
+(function(){ if(window.SCRNOW) return;
+// スクロール形の図（2026-11-01。scrnow.py）：PC幅では貼り付くブロックの下に今の段のカードを1枚だけ出し、図を残りの高さいっぱいに広げる
+window.SCRNOW=function(o){
+  var main=o.main, svg=o.svg, sts=o.sts, grid=o.grid, fig=grid.closest('figure'), wide=window.matchMedia('screen and (min-width:761px)');
+  var box=document.createElement('div'); box.className='scr-now';
+  var cs=document.createElement('div'); cs.className='scr-now-cards'; cs.setAttribute('aria-live','polite');
+  var ds=document.createElement('div'); ds.className='scr-now-dots'; ds.setAttribute('role','group'); ds.setAttribute('aria-label','段の位置（押すとその段へ）');
+  var cards=[], dots=[];
+  sts.forEach(function(s,i){
+    var c=s.querySelector(o.card); c=c?c.cloneNode(true):document.createElement('div'); cs.appendChild(c); cards.push(c);
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','段 '+(i+1)+' / '+sts.length+' へ');
+    b.addEventListener('click',function(){ s.scrollIntoView({behavior:'smooth',block:'center'}); });
+    ds.appendChild(b); dots.push(b); });
+  box.appendChild(cs); if(sts.length>1){ box.appendChild(ds); box.style.setProperty('--scr-dw',(sts.length*1.11+.3).toFixed(2)+'em'); }
+  main.appendChild(box);
+  var vb=(svg.getAttribute('viewBox')||'0 0 4 3').split(/[\s,]+/).map(Number), AR=vb[2]/vb[3], MAXW=vb[2]*(o.scale||1.5), CAP=1280;
+  function vis(e){ return e.getClientRects().length>0; }
+  function fit(){
+    var z=grid.currentCSSZoom||1, vh=window.innerHeight/z;
+    grid.style.setProperty(o.vh,vh+'px');
+    if(fig){ fig.removeAttribute('data-scr-bo'); fig.style.removeProperty('--scr-bo'); }
+    svg.style.removeProperty('--scr-w');
+    if(!wide.matches||!vis(main)) return;
+    var mr=main.getBoundingClientRect(); if(!mr.height) return;
+    var k=vh/mr.height;   // 見た目の px → CSS の px（本文の zoom を割り戻す）
+    var st=getComputedStyle(main), pad=parseFloat(st.paddingTop)+parseFloat(st.paddingBottom), gap=parseFloat(st.rowGap)||0, oth=0, n=0;
+    [].forEach.call(main.children,function(c){ if(!vis(c)) return; n++; if(c!==svg) oth+=c.getBoundingClientRect().height*k; });
+    var H=vh-pad-oth-gap*Math.max(0,n-1)-2, want=Math.min(H*AR,MAXW), W=mr.width*k;
+    if(want>W+8&&fig){   // 列が足りない：目次と重ならない範囲で左右へはみ出す
+      var fr=fig.getBoundingClientRect(), lim=16, rr=document.documentElement.clientWidth-16;
+      [].forEach.call(document.querySelectorAll('nav,aside'),function(e){ var r=e.getBoundingClientRect(); if(r.width&&r.height&&r.right<=fr.left+1) lim=Math.max(lim,r.right+16); });
+      var e=Math.max(0,Math.min((Math.min(want,CAP)-W)/2,(fr.left-lim)*k,(rr-fr.right)*k));
+      if(e>=4){ fig.setAttribute('data-scr-bo',''); fig.style.setProperty('--scr-bo',e.toFixed(1)+'px'); W+=2*e; } }
+    svg.style.setProperty('--scr-w',Math.floor(Math.min(W,want))+'px');
+  }
+  function set(k){
+    cards.forEach(function(c,i){ c.classList.toggle('is-on',i===k); c.setAttribute('aria-hidden',i===k?'false':'true'); });
+    dots.forEach(function(d,i){ d.classList.toggle('is-on',i===k); if(i===k) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current'); }); }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if(wide.addEventListener) wide.addEventListener('change',fit);
+  return {set:set, fit:fit};
+};
+})();
 (function(){
 // 段送りの波形図（2026-10-24）
 // ・段（一覧・切り替え・前へ／次へ）を押すと、その段の波形が左から描かれる（VFD）
 // ・2026-10-31 本人「次へを押さないと見られないのは不自由」：画面に入ったら段1から最後まで自動で1段ずつ進む
 //   （各段は描き終えてから説明文を読む時間だけ止まる）。前へ／次へ・段の一覧・もう一度を押すと自動送りは止まり、「▶ 自動で見る」で再開
 // ・スライダーの図（mode=slider）は読者が動かすので自動送りしない。講義スライド（#deck）の中では発表者が送るので自動送りしない
-// ・スクロール形（data-scroll。2026-10-31）：PC幅では、説明カードが画面の中央に来るとその段へ切り替わり、前の段に無かった物だけを左から描く
+// ・スクロール形（data-scroll。2026-10-31）：PC幅では、見えない段の区間が画面の中央に来るとその段へ切り替わり、前の段に無かった物だけを左から描く
+//   2026-11-01：図を上・今の段のカードを下に縦に積んで貼り付ける（scrnow）。最初の段の前と最後の段の後に、図が留まる遊びの区間
 //   （前の段と同じ線・文字はそのまま残すので、違いが目で追える）。ボタン・自動送りは使わない。スマホ幅は段ごとの完成図を縦に並べるだけ。
 //   講義スライド（#deck）の中では data-scroll を外して、今までどおりのボタン送りにする
 // 動きを減らす設定・PDF 化（HeadlessChrome）・自動操作では動かさず完成図（resident-motion と同じ判定）
@@ -4546,10 +4777,13 @@ window.VFseen=seen;
     run=r;
   }
   var sts=SCR?[].slice.call(vf.querySelectorAll('.vf-scr-st')):[];
+  // PC幅の下のカード・段の点・図の寸法（scrnow。2026-11-01）
+  var sn=SCR&&window.SCRNOW?SCRNOW({grid:vf,main:vf.querySelector('.vf-main'),svg:svg,sts:sts,card:'.vf-scr-card',vh:'--vf-vh'}):null;
   function go(k,d,from){
     var was=from!==undefined?from:cur;
     cur=Math.max(0,Math.min(N-1,k));
     sts.forEach(function(s,i){ s.classList.toggle('is-on',i===cur); if(i===cur) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current'); });
+    if(sn) sn.set(cur);
     frs.forEach(function(f,i){f.classList.toggle('is-on',i===cur);});
     kEl.textContent=(mode==='slider'?(vf.getAttribute('data-slk')||'ETS／Esens')+' '+data[cur][2]:'段 '+(cur+1)+' / '+N);
     tEl.textContent=data[cur][0]; pEl.textContent=data[cur][1];
@@ -4578,9 +4812,7 @@ window.VFseen=seen;
   if(SCR){
     // 画面の中央（上下45%を除いた帯）に入ったカードの段へ。最初の1回は全部を描き、その後は前の段との違いだけを描く
     var wide=window.matchMedia('screen and (min-width:761px)'), started=false;
-    // 本文は画面幅に応じて zoom で拡大されるので、図を貼り付ける高さ（画面の高さ）を zoom で割り戻して渡す
-    function fit(){ vf.style.setProperty('--vf-vh',(window.innerHeight/(vf.currentCSSZoom||1))+'px'); }
-    fit(); window.addEventListener('resize',fit);
+    // 図を貼り付ける高さ（画面の高さを本文の zoom で割り戻したもの）は scrnow が入れる
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){ es.forEach(function(e){
         if(!e.isIntersecting||!wide.matches) return;

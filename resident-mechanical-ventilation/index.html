@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1709,7 +1766,7 @@ html.vf-lb-on{overflow:hidden}
 .vti .vf-sl>span{white-space:nowrap}
 @media (max-width:600px){.vti .rdt-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media print{.vti .rdt-pane[data-tab="vtt"]{display:none!important}}
-/* §6-1 急変時のDOPES：大きな頭文字・色の帯・文字ごとの「見る／する」。押すとその1枚を開いて強調（2026-10-24） */
+/* §6-1 急変時のDOPE：左に大きな D・O・P・E を縦一列（上から読むと DOPE）、右に名前と「見る／する」。押すとその行を強調（2026-10-24・11-03 縦並びに） */
 .dp{--dp-d:#00739E;--dp-o:#C77A00;--dp-p:#C00000;--dp-e:#4A5068;--dp-s:#6B3FA0;--dp-bg:#FFF5F3;--dp-bd:#E7B2A8}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dp{--dp-d:#4BB8E0;--dp-o:#F6B95C;--dp-p:#FF7A7A;--dp-e:#A7ACC4;--dp-s:#C3A3F0;--dp-bg:#2A1715;--dp-bd:#6B3A33}}
 :root[data-theme="dark"] .dp{--dp-d:#4BB8E0;--dp-o:#F6B95C;--dp-p:#FF7A7A;--dp-e:#A7ACC4;--dp-s:#C3A3F0;--dp-bg:#2A1715;--dp-bd:#6B3A33}
@@ -1718,40 +1775,43 @@ html.vf-lb-on{overflow:hidden}
 .dp-title b{font-size:1.5em;letter-spacing:.12em;color:var(--dp-p)}
 .dp-ctl{display:none;gap:.4em;flex-wrap:wrap}
 .dp[data-live] .dp-ctl{display:flex}
-.dp-ctl button{font:inherit;font-size:.86em;font-weight:700;padding:.38em .9em;border-radius:999px;border:1px solid var(--vf-grid);background:var(--vf-paper);color:var(--vf-ink);cursor:pointer;width:auto;min-width:0;flex:none;line-height:1.4}
+.dp-ctl button{font:inherit;font-size:max(12px,.86em);font-weight:700;padding:.38em .9em;border-radius:999px;border:1px solid var(--vf-grid);background:var(--vf-paper);color:var(--vf-ink);cursor:pointer;width:auto;min-width:0;flex:none;line-height:1.4}
 .dp-ctl button:hover{border-color:var(--vf-hi)}
 .dp-ctl button:focus-visible,.dp-h:focus-visible{outline:2px solid var(--vf-hi);outline-offset:2px}
 .dp-ctl button.is-on{background:var(--vf-hi-s);border-color:var(--vf-hi);box-shadow:inset 0 0 0 1px var(--vf-hi);font-weight:800}
-/* 2026-11-01 DOPES の5枚：広い画面は3枚＋2枚（2段目は中央寄せ）。980px以下は2列、520px以下は1列 */
-.dp-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.8em;align-items:start}
-.dp-card{grid-column:span 2}
-.dp-card:nth-child(4):nth-last-child(2){grid-column:2/span 2}
-.dp-card{--c:var(--dp-d);border:1.5px solid var(--line,#e3e7ec);border-top:9px solid var(--c);border-radius:12px;background:var(--bg,#fff);overflow:hidden;transition:opacity .25s,transform .25s,box-shadow .25s}
-.dp-card.is-o{--c:var(--dp-o)}.dp-card.is-p{--c:var(--dp-p)}.dp-card.is-e{--c:var(--dp-e)}.dp-card.is-s{--c:var(--dp-s)}
-.dp-h{font:inherit;width:100%;min-width:0;display:flex;align-items:center;gap:.7em;padding:.75em .8em;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;line-height:1.35}
-.dp-lt{flex:none;display:grid;place-items:center;width:1.55em;height:1.55em;border-radius:12px;background:var(--c);color:#fff;font-size:2.7em;font-weight:900;line-height:1;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.dp-nm{display:flex;flex-direction:column;min-width:0}
-.dp-en{font-size:.82em;font-weight:800;letter-spacing:.04em;color:var(--c)}
+/* 1行＝1文字。行は縦に積み、左端の色の列に大きな頭文字（上から D・O・P・E と読める）。広い画面は［頭文字］｜［名前］｜［見る／する］の3列 */
+.dp-list{display:flex;flex-direction:column;gap:.4em}
+.dp-card{--c:var(--dp-d);display:grid;grid-template-columns:3.9em minmax(12em,16em) minmax(0,1fr);align-items:stretch;border:1.5px solid var(--line,#e3e7ec);border-radius:12px;background:var(--bg,#fff);overflow:hidden;cursor:pointer;transition:opacity .25s,transform .25s,box-shadow .25s}
+.dp-card.is-o{--c:var(--dp-o)}.dp-card.is-p{--c:var(--dp-p)}.dp-card.is-e{--c:var(--dp-e)}.dp-card.dp-add{--c:var(--dp-s)}
+.dp-lt,.dp-tag{grid-column:1;grid-row:1;display:grid;place-items:center;background:var(--c);color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.dp-lt{font-size:2.9em;font-weight:900;line-height:1;letter-spacing:0;min-height:1.35em}
+.dp-tag{font-size:max(12px,.8em);font-weight:800;line-height:1.35;text-align:center;padding:.4em .2em}
+.dp-h{grid-column:2;grid-row:1;font:inherit;width:100%;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.05em;padding:.5em .85em;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;line-height:1.35}
+.dp-en{font-size:max(12px,.86em);font-weight:700;letter-spacing:.03em;color:var(--c)}
+.dp-en b{font-size:1.3em;font-weight:900}
 .dp-ja{font-size:1.08em;font-weight:800}
-.dp-ex{font-size:.82em;color:var(--muted,#5A6178)}
-.dp-b{padding:0 .9em .85em;border-top:1px dashed var(--line,#e3e7ec)}
-.dp-row{margin:.6em 0 0;line-height:1.7;font-size:.95em}
-.dp-k{display:inline-block;margin-right:.45em;padding:.05em .55em;border-radius:6px;font-size:.82em;font-weight:800;background:var(--vf-hi-s);color:var(--vf-hi)}
+.dp-ex{font-size:max(12px,.82em);color:var(--muted,#5A6178)}
+.dp-b{grid-column:3;grid-row:1;padding:.45em .95em .55em;border-left:1px dashed var(--line,#e3e7ec);display:flex;flex-direction:column;justify-content:center}
+.dp-row{margin:.2em 0;line-height:1.65;font-size:.95em}
+.dp-k{display:inline-block;margin-right:.45em;padding:.05em .55em;border-radius:6px;font-size:max(12px,.82em);font-weight:800;background:var(--vf-hi-s);color:var(--vf-hi)}
 .dp-k.is-do{background:var(--c);color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.dp[data-live] .dp-card:not(.is-open) .dp-b{display:none}
+/* DOPE の枠の外：あわせて確認（auto-PEEP）。破線の枠で、DOPE の4行とは別物と分かるように */
+.dp-add{margin-top:.8em;border-style:dashed;border-color:var(--c);background:transparent}
 .dp[data-focus] .dp-card:not(.is-open){opacity:.38}
-.dp[data-focus] .dp-card.is-open{box-shadow:0 6px 22px rgba(0,0,0,.14);transform:translateY(-2px)}
-.dp[data-live] .dp-h::after{content:"＋";margin-left:auto;flex:none;font-weight:800;color:var(--c)}
-.dp[data-live] .dp-card.is-open .dp-h::after{content:"−"}
+.dp[data-focus] .dp-card.is-open{box-shadow:0 6px 22px rgba(0,0,0,.14);transform:translateX(4px)}
 .dp-bag{display:flex;gap:.9em;align-items:center;margin:1em 0 .3em;padding:.9em 1.1em;border:2px solid var(--dp-bd);border-left:9px solid var(--dp-p);border-radius:12px;background:var(--dp-bg);
   -webkit-print-color-adjust:exact;print-color-adjust:exact}
 .dp-bag-i{flex:none;display:grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:var(--dp-p);color:#fff;font-size:1.3em;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .dp-bag-t{margin:0;font-size:1.12em;font-weight:800;color:var(--dp-p);line-height:1.45}
 .dp-bag-p{margin:.25em 0 0;line-height:1.7;font-size:.95em}
-@media (max-width:980px){.dp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.dp-card,.dp-card:nth-child(4):nth-last-child(2){grid-column:auto}}
-@media (max-width:520px){.dp-cards{grid-template-columns:minmax(0,1fr)}.dp-lt{font-size:2.3em}.dp-title{font-size:1.1em}}
-@media print{.dp-ctl{display:none!important}.dp-card .dp-b{display:block!important}.dp-card{opacity:1!important;transform:none!important;box-shadow:none!important;break-inside:avoid}
-  .dp-h::after{content:""!important}.dp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.dp-card,.dp-card:nth-child(4):nth-last-child(2){grid-column:auto}}
+/* 狭い画面：頭文字は左の縦一列のまま（2行ぶんの高さ）。名前の下に「見る／する」 */
+@media (max-width:760px){.dp-card{grid-template-columns:3.3em minmax(0,1fr)}
+  .dp-lt,.dp-tag{grid-row:1/span 2}.dp-lt{font-size:2.5em}
+  .dp-tag{writing-mode:vertical-rl;letter-spacing:.12em;padding:.5em 0}.dp-tag br{display:none}
+  .dp-h{padding:.5em .8em .15em}
+  .dp-b{grid-column:2;grid-row:2;border-left:0;padding:0 .8em .6em;justify-content:flex-start}}
+@media (max-width:520px){.dp-title{font-size:1.1em}.dp-card{grid-template-columns:2.9em minmax(0,1fr)}.dp-lt{font-size:2.2em}.dp-row{font-size:.93em}}
+@media print{.dp-ctl{display:none!important}.dp-card{opacity:1!important;transform:none!important;box-shadow:none!important;break-inside:avoid}}
 /* §5 酸素化（o2）・換気（co2）の色分け（2026-10-24）。色の値は本文の --gx-*（vent-gas の style）。無いときは明るい画面の値 */
 figure[data-gx="o2"] .vf-svg{--vf-gx:var(--gx-o2,#A92D68);--vf-gx-m:var(--gx-o2-m,#E4538B)}
 figure[data-gx="co2"] .vf-svg{--vf-gx:var(--gx-co2,#4E7010);--vf-gx-m:var(--gx-co2-m,#6E9A1E)}
@@ -2516,7 +2576,7 @@ button,input,select,textarea{font-family:inherit}
 <a class="lv3" href="#rs-s5-4" title="5-4. CO₂が貯留するとき">5-4. CO₂が貯留するとき</a>
 <a class="lv3" href="#rs-s5-5" title="5-5. この患者の設定変更">5-5. この患者の設定変更</a>
 <a class="lv2" href="#s6" title="§6 アラーム対応">§6 アラーム対応</a>
-<a class="lv3" href="#rs-s6-1" title="6-1. 急変時のDOPES">6-1. 急変時のDOPES</a>
+<a class="lv3" href="#rs-s6-1" title="6-1. 急変時のDOPE">6-1. 急変時のDOPE</a>
 <a class="lv3" href="#rs-s6-2" title="6-2. 気道抵抗の上昇">6-2. 気道抵抗の上昇</a>
 <a class="lv3" href="#rs-s6-3" title="6-3. コンプライアンスの低下">6-3. コンプライアンスの低下</a>
 <a class="lv3" href="#rs-s6-4" title="6-4. PCVでの変化">6-4. PCVでの変化</a>
@@ -2538,7 +2598,7 @@ button,input,select,textarea{font-family:inherit}
 <h1 id="top">人工呼吸の基礎</h1>
 <p class="sub">1人の患者で、挿管の適応からアラーム対応まで</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-02</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-03</span></p>
 
 <div class="tools">
   <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-lecture/">🎞 スライド</a>
@@ -3707,16 +3767,17 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <section class="rd">
 <h2 id="s6"><span class="no">§6</span>アラーム対応</h2>
 
-<h3 id="rs-s6-1">6-1. 急変時のDOPES</h3>
-<p class="rd-lead">アラームが鳴ったら、まずベッドサイドで患者を診ます。SpO₂や血圧が急に落ちていれば、波形を読む前にDOPES（チューブの位置異常・閉塞・緊張性気胸・器械の異常・auto-PEEP）を除きます（図25）<span class="src vault">JICS2026</span><span class="src vault">CHESTCC2025</span>。喘息・COPDで呼気が終わらないうちに次の送気が重なるauto-PEEP（S）は、ほかの4つと違い、回路を外して吐ききらせるのが最初の対応です（§7-2）。</p>
+<h3 id="rs-s6-1">6-1. 急変時のDOPE</h3>
+<p class="rd-lead">アラームが鳴ったら、まずベッドサイドで患者を診ます。SpO₂や血圧が急に落ちていれば、波形を読む前にDOPE（チューブの位置異常・閉塞・緊張性気胸・器械の異常）を除きます（図25）<span class="src vault">JICS2026</span>。あわせて、喘息・COPDで呼気が終わらないうちに次の送気が重なるauto-PEEPも確かめます。DOPEの4つと違い、回路を外して吐ききらせるのが最初の対応です（§7-2）<span class="src vault">CHESTCC2025</span>。</p>
 <!-- vf:dope:start -->
 <figure class="fig dpfig" data-mo="none" id="vf-dope">
 <div class="nf dp">
-<div class="dp-top"><p class="dp-title">SpO₂や血圧が急に落ちたら、波形を読む前に <b>DOPES</b></p><div class="dp-ctl" role="group" aria-label="カードの操作"><button type="button" data-dp="prev">◀ 前へ</button><button type="button" data-dp="next">次へ ▶</button><button type="button" data-dp="all">全部開く</button></div></div>
-<div class="dp-cards"><section class="dp-card is-d"><button type="button" class="dp-h" aria-expanded="true"><span class="dp-lt" aria-hidden="true">D</span><span class="dp-nm"><span class="dp-en">Displacement</span><span class="dp-ja">チューブの位置異常</span><span class="dp-ex">片肺挿管・事故抜管</span></span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>チューブの深さ（口角の目盛り）、胸郭の上がりと呼吸音の左右差、呼気終末CO₂の波形</p><p class="dp-row"><span class="dp-k is-do">する</span>抜けていれば用手換気で酸素化して再挿管する。深ければ引き戻す（§6-3）</p></div></section><section class="dp-card is-o"><button type="button" class="dp-h" aria-expanded="true"><span class="dp-lt" aria-hidden="true">O</span><span class="dp-nm"><span class="dp-en">Obstruction</span><span class="dp-ja">チューブの閉塞</span><span class="dp-ex">痰・屈曲・噛みつき</span></span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>吸引カテーテルが通るか、チューブの屈曲と噛みつき。PIPだけが上がる（§6-2）</p><p class="dp-row"><span class="dp-k is-do">する</span>吸引し、屈曲と噛みつきを解く。カテーテルが通らなければチューブを入れ替える</p></div></section><section class="dp-card is-p"><button type="button" class="dp-h" aria-expanded="true"><span class="dp-lt" aria-hidden="true">P</span><span class="dp-nm"><span class="dp-en">Pneumothorax</span><span class="dp-ja">緊張性気胸</span></span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>片側の呼吸音の減弱、胸郭の動きの左右差、皮下気腫、気管の偏位、血圧の低下、エコーでlung slidingの消失</p><p class="dp-row"><span class="dp-k is-do">する</span>緊張性気胸を疑えば、画像を待たずに脱気する（穿刺または胸腔ドレナージ）</p></div></section><section class="dp-card is-e"><button type="button" class="dp-h" aria-expanded="true"><span class="dp-lt" aria-hidden="true">E</span><span class="dp-nm"><span class="dp-en">Equipment</span><span class="dp-ja">人工呼吸器・回路の異常</span><span class="dp-ex">外れ・リーク・故障</span></span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>回路の外れとリーク、人工鼻・加温加湿器の詰まり、ガスの供給と電源</p><p class="dp-row"><span class="dp-k is-do">する</span>回路を外して用手換気に切り替え、器械を点検する</p></div></section><section class="dp-card is-s"><button type="button" class="dp-h" aria-expanded="true"><span class="dp-lt" aria-hidden="true">S</span><span class="dp-nm"><span class="dp-en">Stacked breaths</span><span class="dp-ja">吐ききれない（auto-PEEP）</span><span class="dp-ex">喘息・COPD・呼吸数が多い</span></span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>呼気の流量が次の送気の前に0に戻らない。呼気終末ホールドで総PEEPが設定したPEEPより高い（§7-2）</p><p class="dp-row"><span class="dp-k is-do">する</span>回路を外して吐ききらせる。戻ったら呼吸数を下げ、呼気時間を延ばす（§7-2）</p></div></section></div>
-<div class="dp-bag" role="note"><span class="dp-bag-i" aria-hidden="true">!</span><div><p class="dp-bag-t">判断に迷う場合は、回路を外して用手換気に切り替える</p><p class="dp-bag-p">回路を外して吐ききらせただけで血圧やSpO₂が戻れば、auto-PEEP（S）を考えます。バッグで楽に換気できて改善すれば、人工呼吸器・回路（E）の問題を疑います。バッグでも換気しにくければ、患者側（D・O・P）の問題を疑います。</p></div></div>
-<p class="nf-foot">カードを押すと、その1枚を開いて強調する。出典：JICS2026・CHESTCC2025（S）</p></div>
-<figcaption>図25. <b>急変時のDOPES</b></figcaption>
+<div class="dp-top"><p class="dp-title">SpO₂や血圧が急に落ちたら、波形を読む前に <b>DOPE</b></p><div class="dp-ctl" role="group" aria-label="行の操作"><button type="button" data-dp="prev">◀ 前へ</button><button type="button" data-dp="next">次へ ▶</button><button type="button" data-dp="all">全部を見る</button></div></div>
+<div class="dp-list" aria-label="DOPE：D・O・P・E の順に確かめる"><section class="dp-card is-d"><span class="dp-lt" aria-hidden="true">D</span><button type="button" class="dp-h" aria-pressed="false"><span class="dp-en"><b>D</b>isplacement</span><span class="dp-ja">チューブの位置異常</span><span class="dp-ex">片肺挿管・事故抜管</span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>チューブの深さ（口角の目盛り）、胸郭の上がりと呼吸音の左右差、呼気終末CO₂の波形</p><p class="dp-row"><span class="dp-k is-do">する</span>抜けていれば用手換気で酸素化して再挿管する。深ければ引き戻す（§6-3）</p></div></section><section class="dp-card is-o"><span class="dp-lt" aria-hidden="true">O</span><button type="button" class="dp-h" aria-pressed="false"><span class="dp-en"><b>O</b>bstruction</span><span class="dp-ja">チューブの閉塞</span><span class="dp-ex">痰・屈曲・噛みつき</span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>吸引カテーテルが通るか、チューブの屈曲と噛みつき。PIPだけが上がる（§6-2）</p><p class="dp-row"><span class="dp-k is-do">する</span>吸引し、屈曲と噛みつきを解く。カテーテルが通らなければチューブを入れ替える</p></div></section><section class="dp-card is-p"><span class="dp-lt" aria-hidden="true">P</span><button type="button" class="dp-h" aria-pressed="false"><span class="dp-en"><b>P</b>neumothorax</span><span class="dp-ja">緊張性気胸</span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>片側の呼吸音の減弱、胸郭の動きの左右差、皮下気腫、気管の偏位、血圧の低下、エコーでlung slidingの消失</p><p class="dp-row"><span class="dp-k is-do">する</span>緊張性気胸を疑えば、画像を待たずに脱気する（穿刺または胸腔ドレナージ）</p></div></section><section class="dp-card is-e"><span class="dp-lt" aria-hidden="true">E</span><button type="button" class="dp-h" aria-pressed="false"><span class="dp-en"><b>E</b>quipment failure</span><span class="dp-ja">人工呼吸器・回路の異常</span><span class="dp-ex">外れ・リーク・故障</span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>回路の外れとリーク、人工鼻・加温加湿器の詰まり、ガスの供給と電源</p><p class="dp-row"><span class="dp-k is-do">する</span>回路を外して用手換気に切り替え、器械を点検する</p></div></section></div>
+<section class="dp-card dp-add"><span class="dp-tag">あわせて<br>確認</span><button type="button" class="dp-h" aria-pressed="false"><span class="dp-ja">吐ききれない（auto-PEEP）</span><span class="dp-ex">喘息・COPD・呼吸数が多い</span></button><div class="dp-b"><p class="dp-row"><span class="dp-k">見る</span>呼気の流量が次の送気の前に0に戻らない。呼気終末ホールドで総PEEPが設定したPEEPより高い（§7-2）</p><p class="dp-row"><span class="dp-k is-do">する</span>回路を外して吐ききらせる。戻ったら呼吸数を下げ、呼気時間を延ばす（§7-2）</p></div></section>
+<div class="dp-bag" role="note"><span class="dp-bag-i" aria-hidden="true">!</span><div><p class="dp-bag-t">判断に迷う場合は、回路を外して用手換気に切り替える</p><p class="dp-bag-p">回路を外して吐ききらせただけで血圧やSpO₂が戻れば、auto-PEEPを考えます。バッグで楽に換気できて改善すれば、人工呼吸器・回路（E）の問題を疑います。バッグでも換気しにくければ、患者側（D・O・P）の問題を疑います。</p></div></div>
+<p class="nf-foot">行を押すと、その行を強調する。出典：JICS2026・CHESTCC2025（auto-PEEP）</p></div>
+<figcaption>図25. <b>急変時のDOPE</b></figcaption>
 </figure>
 <!-- vf:dope:end -->
 
@@ -3732,7 +3793,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <figcaption>図26. <b>気道抵抗の上昇</b></figcaption>
 </figure>
 <!-- vf:almr:end -->
-<p>呼気の流量はピークが低く、ゆっくり減ります。原因は痰・チューブの屈曲や噛みつき・気管支攣縮で、DOPESのO（閉塞）に当たります。まず吸引、チューブの確認、聴診を行います。気管支攣縮では喘鳴と呼気延長を伴うため、気管支拡張薬を検討します。</p>
+<p>呼気の流量はピークが低く、ゆっくり減ります。原因は痰・チューブの屈曲や噛みつき・気管支攣縮で、DOPEのO（閉塞）に当たります。まず吸引、チューブの確認、聴診を行います。気管支攣縮では喘鳴と呼気延長を伴うため、気管支拡張薬を検討します。</p>
 <p>原因は、チューブ・回路・患者の気道のどこで流れが狭くなっているかで分けると、見落としが減ります（表10）<span class="src vault">Flynn Anesthesiology2022</span>。</p>
 <div class="tablewrap">
 <table class="wide rs-cards">
@@ -3751,7 +3812,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <div class="box">
 <span class="label">この患者では（3日目）</span>
 <p>体位変換の後に高圧アラームが鳴り、SpO₂が96%から89%に低下しました。吸気ポーズでPIPは28から37、Pplatは22から31に上昇し、総PEEPは10でした。R＝(37 − 31)÷1＝6で不変です。ΔP＝31 − 10＝21 cmH₂O、Cst＝400 ÷ 21≈19 mL/cmH₂Oで、それまでの33から大きく低下していました。</p>
-<p>左の呼吸音が減弱し、チューブの固定位置が3 cm深くなっていました（DOPESのD：右主気管支への片肺挿管）。エコーでは右肺のlung sliding（胸膜のすべり）があり、右の気胸は否定的でした。左はlung slidingを認めませんでしたが、換気されていない肺でも消失するため、それだけでは気胸と判断できません。チューブを元の深さに戻すと、左の呼吸音とlung slidingが回復し、Pplat 22・SpO₂ 95%に戻りました。</p>
+<p>左の呼吸音が減弱し、チューブの固定位置が3 cm深くなっていました（DOPEのD：右主気管支への片肺挿管）。エコーでは右肺のlung sliding（胸膜のすべり）があり、右の気胸は否定的でした。左はlung slidingを認めませんでしたが、換気されていない肺でも消失するため、それだけでは気胸と判断できません。チューブを元の深さに戻すと、左の呼吸音とlung slidingが回復し、Pplat 22・SpO₂ 95%に戻りました。</p>
 </div>
 <!-- vf:almc:start -->
 <figure class="fig" data-mo="none" data-vfd="panels" data-mo-dur="6" data-mo-sync data-vmode="vcv">
@@ -5581,27 +5642,26 @@ window.VFseen=seen;
   });
   show(ms.getAttribute('data-tab')||tabs[0].getAttribute('data-tab'));
 });
-// §6-1 急変時のDOPES：カードを押すとその1枚を開いて強調（ほかは薄く）。もう一度押すと閉じる。前へ／次へで D→O→P→E→S、「全部開く」で全カード
+// §6-1 急変時のDOPE：行を押すとその行を強調（ほかは薄く）。もう一度押すと戻す。前へ／次へで D→O→P→E→あわせて確認、「全部を見る」で強調を外す
 [].forEach.call(document.querySelectorAll('.dp'),function(dp){
   var cards=[].slice.call(dp.querySelectorAll('.dp-card')), cur=-1, all=dp.querySelector('[data-dp="all"]');
   dp.setAttribute('data-live','');
-  function set(k,open_all){
+  function set(k){
     cur=k;
-    cards.forEach(function(c,i){ var on=open_all||i===k; c.classList.toggle('is-open',on); c.querySelector('.dp-h').setAttribute('aria-expanded',on?'true':'false'); });
-    if(k>=0&&!open_all) dp.setAttribute('data-focus',''); else dp.removeAttribute('data-focus');
-    if(all) all.classList.toggle('is-on',!!open_all);
+    cards.forEach(function(c,i){ var on=i===k; c.classList.toggle('is-open',on); c.querySelector('.dp-h').setAttribute('aria-pressed',on?'true':'false'); });
+    if(k>=0) dp.setAttribute('data-focus',''); else dp.removeAttribute('data-focus');
+    if(all) all.classList.toggle('is-on',k<0);
     var pv=dp.querySelector('[data-dp="prev"]'), nx=dp.querySelector('[data-dp="next"]');
     if(pv) pv.disabled=k<=0; if(nx) nx.disabled=k>=cards.length-1;
   }
-  cards.forEach(function(c,i){ c.querySelector('.dp-h').addEventListener('click',function(){ set(cur===i&&!dp.hasAttribute('data-all')?-1:i,false); dp.removeAttribute('data-all'); }); });
+  cards.forEach(function(c,i){ c.addEventListener('click',function(){ set(cur===i?-1:i); }); });
   dp.addEventListener('click',function(e){ var b=e.target.closest('[data-dp]'); if(!b) return; var a=b.getAttribute('data-dp');
-    if(a==='all'){ dp.setAttribute('data-all',''); set(-1,true); return; }
-    dp.removeAttribute('data-all');
-    if(a==='next') set(Math.min(cards.length-1,cur+1),false); else if(a==='prev') set(Math.max(0,cur-1),false); });
-  set(-1,false);
-  window.DOPE={set:function(k){ dp.removeAttribute('data-all'); set(k,false); },all:function(){ dp.setAttribute('data-all',''); set(-1,true); }};
-  window.addEventListener('beforeprint',function(){ cards.forEach(function(c){ c.classList.add('is-open'); }); dp.removeAttribute('data-focus'); });
-  window.addEventListener('afterprint',function(){ if(dp.hasAttribute('data-all')) set(-1,true); else set(cur,false); });
+    if(a==='all'){ set(-1); return; }
+    if(a==='next') set(Math.min(cards.length-1,cur+1)); else if(a==='prev') set(Math.max(0,cur-1)); });
+  set(-1);
+  window.DOPE={set:function(k){ set(k); },all:function(){ set(-1); }};
+  window.addEventListener('beforeprint',function(){ dp.removeAttribute('data-focus'); });
+  window.addEventListener('afterprint',function(){ set(cur); });
 });
 window.addEventListener('beforeprint',function(){[].forEach.call(document.querySelectorAll('details.vf-acc'),function(d){d.setAttribute('open','');});
   for(var k in window.VF) window.VF[k].stop(); window.VFP.forEach(function(p){p.stop();}); if(window.WV&&WV.stop) WV.stop();});

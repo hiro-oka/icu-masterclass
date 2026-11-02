@@ -2061,6 +2061,16 @@ main td,main th{word-break:auto-phrase}
   .enio .calc-b,.enio .calc-out,.enio .reset{display:none!important}
   .enio-tbl{display:block;font-size:8.5pt;margin:.3rem 0}
 }
+/* 見込みを大きく（2026-11-02） */
+.enio-hero{display:grid;grid-template-columns:auto auto;align-items:center;justify-content:start;gap:.15rem 1rem;
+  margin:0 0 .55rem;padding:.6rem .9rem;border-radius:10px;border:2px solid var(--accent);background:var(--bg)}
+.enio-hero .eh-k{font-size:.9rem;font-weight:700;line-height:1.35;color:var(--fg)}
+.enio-hero .eh-v{font-size:1.1rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.enio-hero .eh-v b{font-size:2.6rem;line-height:1;margin:0 .1rem}
+.enio-hero .eh-s{grid-column:1/-1;font-size:.76rem;color:var(--muted);line-height:1.5}
+.enio-hero.b0{border-color:#c2410c}
+.enio-hero.b0 .eh-v{color:#c2410c}
+@media (max-width:640px){.enio-hero .eh-v b{font-size:2.2rem}}
 /* enio:css:end */
 </style>
 <style id="vent-fix-20261024">
@@ -4019,8 +4029,11 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
     }
     var b=band(t); bands[b].classList.add('on');
     var lab=['0〜29点','30〜69点','70〜100点'][b];
-    msg.innerHTML='<p><b>'+lab+'（区間尤度比 '+LR[b].toFixed(2)+'）</b>：'+TXT[b]+'</p>'+
-      '<p>抜管成功の見込み（目安）：約'+post(b)+'%（事前確率 80.6%から計算）</p>';
+    var ps=post(b);
+    msg.innerHTML='<div class="enio-hero b'+b+'"><span class="eh-k">ENIOスコア '+t+'点から見た<br>抜管成功の見込み</span>'+
+      '<span class="eh-v">約<b>'+ps+'</b>%</span>'+
+      '<span class="eh-s">再挿管（5日以内）の見込みは約'+(100-ps)+'%。事前確率 80.6%と区間尤度比から計算した目安</span></div>'+
+      '<p><b>'+lab+'（区間尤度比 '+LR[b].toFixed(2)+'）</b>：'+TXT[b]+'</p>';
   }
   rows.forEach(function(r){
     var bt=[].slice.call(r.querySelectorAll('button'));

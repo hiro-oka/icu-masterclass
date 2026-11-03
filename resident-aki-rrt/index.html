@@ -2369,11 +2369,14 @@ td.ak-sym{text-align:center;font-size:1.15em;font-weight:800;color:var(--ts-ink)
 .nj-ov .mk-ring{fill:none;stroke:var(--ts-orange);stroke-width:6}
 /* CHF・CHD・CHDF の3つ並び */
 .ak-m3w .ak-svg{max-width:300px}
+@media screen and (max-width:760px){.ak-m3w .ak-svg{max-width:210px}.ak-m3w>div{padding-bottom:.4rem;border-bottom:1px solid var(--ts-line)}}
 .ak-m3 .cm{fill:none;stroke:#cfd5db;stroke-width:6;stroke-linejoin:round;stroke-linecap:round}.ak-m3 .cmh{fill:#cfd5db}
 .ak-m3 .pm{fill:#fff;stroke:#cfd5db;stroke-width:4}
 .ak-m3 .fb{fill:#f6eef1}.ak-m3 .fdd{fill:#eef3f5}.ak-m3 .fo{fill:none;stroke:#b9c0c7;stroke-width:2}.ak-m3 .mb{stroke:#9aa3ad;stroke-width:2;stroke-dasharray:5 5}
 .ak-m3 .rp{fill:none;stroke:var(--ts-orange);stroke-width:5;stroke-dasharray:9 6}.ak-m3 .rph,.ak-m3 .fxh{fill:var(--ts-orange)}
 .ak-m3 .fx{fill:none;stroke:var(--ts-orange);stroke-width:3.5}
+.ak-m3 .bf{fill:none;stroke:#C98B9B;stroke-width:3}.ak-m3 .bfh{fill:#C98B9B}
+.ak-m3 .rp2{fill:none;stroke:var(--ts-orange);stroke-width:4;stroke-dasharray:6 7;opacity:.5}.ak-m3 .rph2{fill:var(--ts-orange);opacity:.5}.ak-m3 .o-55{opacity:.75}
 .ak-m3 .dl{fill:none;stroke:var(--ts-teal);stroke-width:5}.ak-m3 .dlh{fill:var(--ts-teal)}
 .ak-m3-t{display:grid;grid-template-columns:auto 1fr;gap:.15rem .6rem;margin:.4rem auto 0;max-width:300px;font-size:.86rem;line-height:1.5}
 .ak-m3-t span{color:var(--ts-sub);font-weight:700}.ak-m3-t b{color:var(--ts-ink)}
@@ -3016,7 +3019,7 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 <a class="lv3" href="#rs-s4-3" title="4-3. 回路の部品">4-3. 回路の部品</a>
 <a class="lv2" href="#s5" title="§5 モードの選び方">§5 モードの選び方</a>
 <a class="lv3" href="#rs-s5-1" title="5-1. IHD・PIKRT・CKRT">5-1. IHD・PIKRT・CKRT</a>
-<a class="lv3" href="#rs-s5-2" title="5-2. CHF・CHD・CHDF">5-2. CHF・CHD・CHDF</a>
+<a class="lv3" href="#rs-s5-2" title="5-2. CHD・CHF・CHDF">5-2. CHD・CHF・CHDF</a>
 <a class="lv3" href="#rs-s5-3" title="5-3. 初回のモード">5-3. 初回のモード</a>
 <a class="lv2" href="#s6" title="§6 処方">§6 処方</a>
 <a class="lv3" href="#rs-s6-1" title="6-1. クリアランスを決めるもの">6-1. クリアランスを決めるもの</a>
@@ -3594,61 +3597,69 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 <p>KDIGOは、持続と間欠を補い合う治療として使い分け（グレードなし）、循環が不安定な患者（2B）と、急性脳損傷や頭蓋内圧の上昇・脳浮腫のある患者（2B）では持続的KRTを提案しています<span class="src ext">KDIGO2012</span>。PIKRTには用量の試験がなく、処方は専門家の実践に基づきます<span class="src vault">Clark CritCare2023</span>。</p>
 <p>CKRTを特に選ぶ場面は、循環が不安定なとき（上の表）のほかに、重い低Na・高Na血症（Na 120未満・165超）をゆっくり直したいとき、頭蓋内圧が上がっているか上がりやすいとき（急性肝不全・急性脳損傷）、ECMOなどの体外循環中、心・肝の進んだ病気で間欠の透析に耐えられないとき、細胞の崩壊が続くとき（横紋筋融解・腫瘍崩壊症候群）です。体液の管理もCKRTのほうがしやすく、観察研究（PICARD）では、間欠の透析で体液の蓄積が日ごとに増え、CKRTでは減っていました<span class="src vault">Teixeira CJASN2023</span>。</p>
 
-<h3 id="rs-s5-2">5-2. CHF・CHD・CHDF</h3>
-<p class="rd-lead">CKRTの3つの方式は、拡散と濾過のどちらを使うかの違いです。CHFは濾過だけで補充液を使い、CHDは拡散だけで透析液を使い、CHDFは両方を使います（図12・表8）<span class="src vault">Passi JICS2026</span>。</p>
+<h3 id="rs-s5-2">5-2. CHD・CHF・CHDF</h3>
+<p class="rd-lead">CKRTの3つの方式は、フィルターに「何を入れて、何が起き、何が出ていくか」で見分けます。CHDは透析液を流して拡散で、CHFは圧で水を押し出す濾過で、CHDFはその両方で除きます（図12・表8）<span class="src vault">Passi JICS2026</span><span class="src vault">Teixeira CJASN2023</span>。</p>
 <figure class="fig ts-fig" data-mo="none">
 <div class="ak-three ak-m3w">
-<div><p class="ak-p-h">CHF（CVVH）</p>
-<svg class="ak-svg ak-m3" viewBox="0 0 260 290" role="img" aria-label="CHFの回路。血液の回路とフィルターと排液は薄い色。補充液のラインがフィルターの手前（前希釈）と後ろ（後希釈）に強い色で入り、膜を横切る濾過の矢印がある">
-<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V255 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
-<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="282">返血</text>
-<rect class="fb" x="90" y="80" width="30" height="140"/><rect class="fdd" x="120" y="80" width="30" height="140"/><rect class="fo" x="90" y="80" width="60" height="140" rx="12"/><line class="mb" x1="120" y1="86" x2="120" y2="214"/>
-<path class="cm" d="M150 96 H250"/><polygon class="cmh" points="252,96 240,89 240,103"/><text class="sm" x="198" y="84" text-anchor="middle">排液</text>
-<path class="rp" d="M105 10 V44"/><polygon class="rph" points="105,48 98,36 112,36"/><text class="b k-orange" x="114" y="24">補充液</text>
-<path class="rp" d="M250 255 H111"/><polygon class="rph" points="107,255 119,248 119,262"/><text class="b k-orange" x="250" y="282" text-anchor="end">補充液</text>
-<path class="fx" d="M100 120 H136"/><polygon class="fxh" points="142,120 132,114 132,126"/>
-<path class="fx" d="M100 150 H136"/><polygon class="fxh" points="142,150 132,144 132,156"/>
-<path class="fx" d="M100 180 H136"/><polygon class="fxh" points="142,180 132,174 132,186"/>
-</svg>
-<p class="ak-m3-t"><span>使う液</span><b>補充液</b><span>仕組み</span><b>濾過</b><span>得意な分子</span><b>小分子と中分子</b></p></div>
 <div><p class="ak-p-h">CHD（CVVHD）</p>
-<svg class="ak-svg ak-m3" viewBox="0 0 260 290" role="img" aria-label="CHDの回路。血液の回路とフィルターと排液は薄い色。透析液のラインがフィルターの下から入り、血液と逆向きに上へ流れて排液になる">
-<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V255 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
-<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="282">返血</text>
+<svg class="ak-svg ak-m3" viewBox="0 0 260 300" role="img" aria-label="CHDの回路。血液はフィルターの中を上から下へ流れ、透析液はフィルターの下から入って血液と逆向きに上へ流れ、排液として出ていく">
+<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V262 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
+<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="290">返血</text>
 <rect class="fb" x="90" y="80" width="30" height="140"/><rect class="fdd" x="120" y="80" width="30" height="140"/><rect class="fo" x="90" y="80" width="60" height="140" rx="12"/><line class="mb" x1="120" y1="86" x2="120" y2="214"/>
+<path class="bf" d="M104 96 V196"/><polygon class="bfh" points="104,208 97,194 111,194"/>
 <path class="cm" d="M150 96 H250"/><polygon class="cmh" points="252,96 240,89 240,103"/><text class="sm" x="198" y="84" text-anchor="middle">排液</text>
 <path class="dl" d="M250 205 H156"/><polygon class="dlh" points="152,205 164,198 164,212"/><text class="b k-teal" x="250" y="232" text-anchor="end">透析液</text>
-<path class="dl" d="M144 196 V112"/><polygon class="dlh" points="144,104 137,116 151,116"/>
+<path class="dl" d="M141 196 V112"/><polygon class="dlh" points="141,104 134,116 148,116"/>
 </svg>
-<p class="ak-m3-t"><span>使う液</span><b>透析液</b><span>仕組み</span><b>拡散</b><span>得意な分子</span><b>小分子</b></p></div>
-<div><p class="ak-p-h">CHDF（CVVHDF）</p>
-<svg class="ak-svg ak-m3" viewBox="0 0 260 290" role="img" aria-label="CHDFの回路。補充液と透析液の両方のラインが強い色で入る">
-<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V255 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
-<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="282">返血</text>
+<p class="ak-m3-t"><span>入れる</span><b>透析液</b><span>フィルターで</span><b>濃さの差で小分子が透析液へ（拡散）</b><span>排液に出る</span><b>使った透析液＋除水</b><span>除ける分子</span><b>小分子</b><span>使いどころ</span><b>回路が長持ちしやすい</b></p></div>
+<div><p class="ak-p-h">CHF（CVVH）</p>
+<svg class="ak-svg ak-m3" viewBox="0 0 260 300" role="img" aria-label="CHFの回路。フィルターの中で血液から水を押し出し（濾過）、押し出した水は排液へ。補充液をフィルターの手前（前希釈）か後ろ（後希釈）で戻す">
+<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V262 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
+<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="290">返血</text>
 <rect class="fb" x="90" y="80" width="30" height="140"/><rect class="fdd" x="120" y="80" width="30" height="140"/><rect class="fo" x="90" y="80" width="60" height="140" rx="12"/><line class="mb" x1="120" y1="86" x2="120" y2="214"/>
+<path class="bf" d="M104 96 V196"/><polygon class="bfh" points="104,208 97,194 111,194"/>
 <path class="cm" d="M150 96 H250"/><polygon class="cmh" points="252,96 240,89 240,103"/><text class="sm" x="198" y="84" text-anchor="middle">排液</text>
-<path class="rp" d="M105 10 V44"/><polygon class="rph" points="105,48 98,36 112,36"/><text class="b k-orange" x="114" y="24">補充液</text>
-<path class="rp" d="M250 255 H111"/><polygon class="rph" points="107,255 119,248 119,262"/><text class="b k-orange" x="250" y="282" text-anchor="end">補充液</text>
-<path class="fx" d="M100 120 H136"/><polygon class="fxh" points="142,120 132,114 132,126"/>
-<path class="fx" d="M100 150 H136"/><polygon class="fxh" points="142,150 132,144 132,156"/>
-<path class="fx" d="M100 180 H136"/><polygon class="fxh" points="142,180 132,174 132,186"/>
-<path class="dl" d="M250 205 H156"/><polygon class="dlh" points="152,205 164,198 164,212"/><text class="b k-teal" x="250" y="194" text-anchor="end">透析液</text>
-<path class="dl" d="M144 196 V112"/><polygon class="dlh" points="144,104 137,116 151,116"/>
+<path class="rp" d="M105 6 V44"/><polygon class="rph" points="105,48 98,36 112,36"/><text class="b k-orange" x="114" y="22">補充液（前希釈）</text>
+<path class="rp2" d="M250 262 H111"/><polygon class="rph2" points="107,262 119,255 119,269"/><text class="sm k-orange o-55" x="250" y="290" text-anchor="end">または後希釈</text>
+<path class="fx" d="M100 126 H136"/><polygon class="fxh" points="142,126 132,120 132,132"/>
+<path class="fx" d="M100 156 H136"/><polygon class="fxh" points="142,156 132,150 132,162"/>
+<path class="fx" d="M100 186 H136"/><polygon class="fxh" points="142,186 132,180 132,192"/>
 </svg>
-<p class="ak-m3-t"><span>使う液</span><b>補充液と透析液</b><span>仕組み</span><b>拡散と濾過</b><span>得意な分子</span><b>小分子と中分子</b></p></div>
+<p class="ak-m3-t"><span>入れる</span><b>補充液</b><span>フィルターで</span><b>圧で水ごと押し出す（濾過）</b><span>排液に出る</span><b>押し出した水と、一緒に出た分子（水は補充液の分＋除水）</b><span>除ける分子</span><b>小分子・中分子</b><span>使いどころ</span><b>中分子も除きたいとき</b></p></div>
+<div><p class="ak-p-h">CHDF（CVVHDF）</p>
+<svg class="ak-svg ak-m3" viewBox="0 0 260 300" role="img" aria-label="CHDFの回路。透析液と補充液の両方を使う">
+<path class="cm" d="M8 50 H105 V80"/><path class="cm" d="M105 220 V262 H8"/><circle class="pm" cx="52" cy="50" r="14"/>
+<text class="sm" x="8" y="34">脱血</text><text class="sm" x="8" y="290">返血</text>
+<rect class="fb" x="90" y="80" width="30" height="140"/><rect class="fdd" x="120" y="80" width="30" height="140"/><rect class="fo" x="90" y="80" width="60" height="140" rx="12"/><line class="mb" x1="120" y1="86" x2="120" y2="214"/>
+<path class="bf" d="M104 96 V196"/><polygon class="bfh" points="104,208 97,194 111,194"/>
+<path class="cm" d="M150 96 H250"/><polygon class="cmh" points="252,96 240,89 240,103"/><text class="sm" x="198" y="84" text-anchor="middle">排液</text>
+<path class="rp" d="M105 6 V44"/><polygon class="rph" points="105,48 98,36 112,36"/><text class="b k-orange" x="114" y="22">補充液（前希釈）</text>
+<path class="rp2" d="M250 262 H111"/><polygon class="rph2" points="107,262 119,255 119,269"/><text class="sm k-orange o-55" x="250" y="290" text-anchor="end">または後希釈</text>
+<path class="fx" d="M100 126 H136"/><polygon class="fxh" points="142,126 132,120 132,132"/>
+<path class="fx" d="M100 156 H136"/><polygon class="fxh" points="142,156 132,150 132,162"/>
+<path class="fx" d="M100 186 H136"/><polygon class="fxh" points="142,186 132,180 132,192"/>
+<path class="dl" d="M250 205 H156"/><polygon class="dlh" points="152,205 164,198 164,212"/><text class="b k-teal" x="250" y="194" text-anchor="end">透析液</text>
+<path class="dl" d="M141 196 V112"/><polygon class="dlh" points="141,104 134,116 148,116"/>
+</svg>
+<p class="ak-m3-t"><span>入れる</span><b>透析液と補充液</b><span>フィルターで</span><b>拡散と濾過の両方</b><span>排液に出る</span><b>使った透析液＋押し出した水と分子（水は補充液の分＋除水）</b><span>除ける分子</span><b>小分子・中分子</b><span>使いどころ</span><b>日本で最もよく使われる</b></p></div>
 </div>
-<p class="ak-key"><span style="color:#9aa3ad"><i style="background:#cfd5db"></i>3つで共通（血液の回路・フィルター・排液）</span><span style="color:var(--ts-orange)"><i class="dash"></i>補充液・濾過</span><span style="color:var(--ts-teal)"><i style="background:var(--ts-teal)"></i>透析液・拡散（血液と逆向き）</span></p>
+<p class="ak-key"><span style="color:#9aa3ad"><i style="background:#cfd5db"></i>3つで共通（血液の回路・フィルター・排液。血液はフィルターの中を上から下へ）</span><span style="color:var(--ts-teal)"><i style="background:var(--ts-teal)"></i>透析液・拡散（血液と逆向き）</span><span style="color:var(--ts-orange)"><i class="dash"></i>補充液・濾過（前希釈か後希釈のどちらか）</span></p>
 <p class="nf-foot">模式図。補充液は、フィルターの手前で入れると前希釈、後ろで入れると後希釈。出典：Passi JICS 2026、Teixeira CJASN 2023</p>
-<figcaption>図12. <b>CHF・CHD・CHDF の違い</b></figcaption>
+<figcaption>図12. <b>CHD・CHF・CHDF の違い</b></figcaption>
 </figure>
+<ul class="ak-m3-ex">
+<li><b>CHD（CVVHD）</b>：フィルターの外側に透析液を、血液と逆向きに流します。濃さの差で尿素・Kなどの小分子が透析液へ移り（拡散。ティーバッグと同じ、図6）、使い終わった透析液が排液になります。水はほとんど動かないので、除水は別に設定します。</li>
+<li><b>CHF（CVVH）</b>：フィルターで圧をかけ、血液から水を押し出します。膜を通れる小分子と中分子が水と一緒に出ていき（濾過。コーヒーフィルターと同じ、図6）、押し出した分の水は補充液で体に戻します。戻さない分が除水です。中分子がどれだけ除けるかは、膜と濾過の量にも左右されます。</li>
+<li><b>CHDF（CVVHDF）</b>：CHDとCHFを同時に行い、透析液と補充液の両方を使います。日本のICUでは、ほとんどの施設がこの方式を選んでいます<span class="src ext">Sadahiro ContribNephrol2018</span>。</li>
+</ul>
 <p class="figread">どの方式でも、患者から実際に引く水（除水）は「排液 −（透析液＋補充液）」で、浄化の量（§6-3）とは別の設定です<span class="src vault">See CritCare2021</span>。</p>
 <div class="tablewrap">
 <table class="wide">
 <caption>表8｜CKRTの3つの方式</caption>
 <thead><tr><th class="rs-nw">日本の呼称</th><th class="rs-nw">文献の表記</th><th>原理</th><th>回路に要る液</th><th>特徴</th></tr></thead>
 <tbody>
-<tr><td class="rs-nw"><b>CHF</b></td><td class="rs-nw">CVVH（持続的血液濾過）</td><td>濾過だけ</td><td>補充液（前希釈か後希釈）</td><td>中分子まで除ける。フィルターの中で血液が濃くなりやすい</td></tr>
 <tr><td class="rs-nw"><b>CHD</b></td><td class="rs-nw">CVVHD（持続的血液透析）</td><td>拡散だけ</td><td>透析液</td><td>フィルターの寿命が最も長い</td></tr>
+<tr><td class="rs-nw"><b>CHF</b></td><td class="rs-nw">CVVH（持続的血液濾過）</td><td>濾過だけ</td><td>補充液（前希釈か後希釈）</td><td>中分子まで除ける。フィルターの中で血液が濃くなりやすい</td></tr>
 <tr><td class="rs-nw"><b>CHDF</b></td><td class="rs-nw">CVVHDF（持続的血液濾過透析）</td><td>拡散＋濾過</td><td>透析液＋補充液</td><td>両方の性質を持つ。透析液と補充液を半分ずつにすることが多い</td></tr>
 </tbody>
 </table>

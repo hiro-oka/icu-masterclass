@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1051,7 +1108,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1076,6 +1133,8 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
 .mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 1列（640px以下）では左右に寄せると画面の端から出る（右の箱が18px出て横スクロールが出た。2026-11-01）ので下から入れる */
+@media (max-width:640px){ .mo-on .rd-dodont.is-choice > .mo-cl, .mo-on .rd-dodont.is-choice > .mo-cr{transform:translateY(12px)} }
 /* 数値チップ：カウントアップ中は幅を固定して揺れない */
 .mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
 .mo-on .rd-stat{transition:box-shadow .5s ease}
@@ -1093,7 +1152,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
   transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
 
-/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある数字だけを並べる ---------- */
 .mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
   background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
 .mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
@@ -1179,20 +1238,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1238,9 +1297,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1302,7 +1372,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">抗凝固・VTE予防・HIT</h1>
 <p class="sub">予防は入室24時間以内にLMWHで始めて途切れさせず、治療用量は薬を背景で選び期間は型で決め、ヘパリン中の血小板減少は30分で4Tスコアを採点する — ICUの血栓・VTE予防・治療用量の抗凝固・HIT・中和と周術期・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-06</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1662,7 +1732,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <tbody>
 <tr><td>ICUの新規発症AF</td><td>傾向スコアマッチ後に院内の虚血性脳卒中は差がなく、臨床的に有意な出血だけが増えた（8.6%対7.2%）。除細動の予定がない敗血症中の新規AFに急性期のルーチン抗凝固はしない。ICU患者に限った初の学会ガイドライン（フランス集中治療学会2026）も同じ向きで、48時間未満で除細動しないなら抗凝固を始めず、48時間以上でもルーチンにはせず、抗凝固するならLMWHよりUFH、洞調律に戻れば早期に止める。既存AFの内服抗凝固も急性期は続けない（機械弁・僧帽弁狭窄・心内血栓・複数回の脳卒中既往を除く）。ESC（CHA₂DS₂-VA 2点以上で抗凝固）より保守的だが、18推奨中16は専門家意見で、根拠は観察データにとどまる<span class="src vault">AnnIntensiveCare2026</span>。止めた抗凝固の再開を誰が判断するかは退室時の引き継ぎに入れる。ただし敗血症入院を生き延びた新規AFの55%が5年以内にAFを起こす（AFがなかった患者は16%）ので、退室サマリーに外来の心電図フォローを1行残す。詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-arrhythmia/#rs-s4-3">ICUの不整脈と一時的ペーシング</a></td></tr>
 <tr><td>CKD・血液透析中のAF</td><td>抗凝固なしの血栓塞栓も抗凝固ありの出血も一般人口より大幅に多く、利益とリスクの比が非CKDほど明確でない。2026年のESC・ERA合同ガイドラインはeGFRで分けた：30以上はDOACをVKAより優先（I A）、15〜29は経口Xa阻害薬をVKAより優先（IIa B1）、15未満・透析は抗凝固するか自体を利益と害を天秤にかけて個別判断（IIa C）。透析患者で入れるなら低用量Xa阻害薬をVKAより優先してよい（IIb C：アピキサバン 5 mg 1日2回、目標体重60 kg以下か80歳以上は 2.5 mg 1日2回）が、根拠は小規模RCT 2本（RENAL-AF・AXADIA-AFNET 8）で脳卒中・大出血の効果は判定できない<span class="src vault">EHJ2026</span>。eGFR 30未満ではCHA₂DS₂-VAScもHAS-BLEDも識別能が低く使わない（III）。VKAはTTRの管理が難しく血管石灰化を助長する懸念からルーチンにしない<span class="src vault">CKJ2024</span>。日本では透析患者へのDOACは適応外・禁忌の扱いが多く、ICUで新たに始めるかは腎臓内科・循環器と本人・家族で決める</td></tr>
-<tr><td>脳梗塞後のAFの抗凝固開始</td><td>「1-3-6-12ルール」は2013年の専門家合意で試験の結果ではない。AHA/ASA 2018は4〜14日、ESO-KSUは4-7-14日と揃わず、ELAN・TIMINGで早期開始の非劣性が示されたが、48時間以内の開始を支持するエビデンスは2024年のESCガイドライン時点でもない。OPTIMAS（3,572例の画像サブ解析）では発症4日以内の早期開始の効果は梗塞体積で変わらず、25 mL超の梗塞でも症候性頭蓋内出血は早期1.3%対遅延2.1%で、「梗塞が大きいから遅らせる」根拠は薄れた。ただし100 mL超は46例しかない<span class="src ext">IntJStroke2026</span>。神経内科と決め、再開日を指示簿に書く<span class="src ext">LancetNeurol2019</span>。詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-stroke-sah/#rs-s2-4">脳卒中・SAHのICU管理</a></td></tr>
+<tr><td>脳梗塞後のAFの抗凝固開始</td><td>「1-3-6-12ルール」は2013年の専門家合意で試験の結果ではない。AHA/ASA 2018は4〜14日、ESO-KSUは4-7-14日と揃わず、ELAN・TIMINGで早期開始の非劣性が示されたが、48時間以内の開始を支持するエビデンスは2024年のESCガイドライン時点でもない。OPTIMAS（3,572例の画像サブ解析）では発症4日以内の早期開始の効果は梗塞体積で変わらず、25 mL超の梗塞でも症候性頭蓋内出血は早期1.3%対遅延2.1%で、「梗塞が大きいから遅らせる」根拠は薄れた。ただし100 mL超は46例しかない<span class="src ext">IntJStroke2026</span>。神経内科と決め、再開日を指示簿に書く<span class="src ext">LancetNeurol2019</span>。詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-ischemic-stroke/#rs-s5-5">脳梗塞のICU管理 5-5</a></td></tr>
 <tr><td>末梢静脈カテーテル・PICC留置中の表在静脈血栓（SuVT）</td><td>年間64〜131／10万人年で、約10%がDVT・PEへ進む。上肢のSuVTは主に留置カテーテルが原因。治療は弾性ストッキング・NSAIDs・全身抗凝固（フォンダパリヌクス2.5 mgまたはリバーロキサバン10 mg）から選び、深部静脈から3 cm以内は治療用量の抗凝固。疑ったらエコーで深部静脈との距離を見る<span class="src ext">JAMA2025</span></td></tr>
 <tr><td>抗凝固で悪化する血栓症</td><td>Hughes-Stovin症候群のように、DVTを見て抗凝固を出すと悪化する病態（肺動脈瘤）がある。DVTの背後を一度は疑う</td></tr>
 <tr><td>肝硬変</td><td>止血は「出血しやすい」のではなく「再バランスしているが脆い」。INRで出血傾向を推定せず、静脈瘤出血にFFPとトラネキサム酸は使わない。詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-liver-failure/#s7">ICUの肝障害と肝不全</a><span class="src vault">IntJLabHematol2022</span></td></tr>
@@ -2588,7 +2658,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     return t + .25;
   }
 
-  // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
+  // 画像の並び（.nf-gallery）：1枚ずつ。無いものは札が押される
   RECIPES.gallery = function (fig) {
     var F = new Fig(fig), s = new Scene(F), items = Q('.nf-item', fig);
     items.forEach(function (it, k) {

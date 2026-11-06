@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1050,7 +1107,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1075,6 +1132,8 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .rd-dodont.is-choice > .mo-cl{opacity:0; transform:translateX(-18px); transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd-dodont.is-choice > .mo-cr{opacity:0; transform:translateX(18px); transition:opacity .5s ease .12s, transform .55s cubic-bezier(.2,.7,.2,1) .12s}
 .mo-on .rd-dodont.is-choice.mo-in > .mo-cl, .mo-on .rd-dodont.is-choice.mo-in > .mo-cr{opacity:1; transform:none}
+/* 1列（640px以下）では左右に寄せると画面の端から出る（右の箱が18px出て横スクロールが出た。2026-11-01）ので下から入れる */
+@media (max-width:640px){ .mo-on .rd-dodont.is-choice > .mo-cl, .mo-on .rd-dodont.is-choice > .mo-cr{transform:translateY(12px)} }
 /* 数値チップ：カウントアップ中は幅を固定して揺れない */
 .mo-cnt{display:inline-block; font-variant-numeric:tabular-nums}
 .mo-on .rd-stat{transition:box-shadow .5s ease}
@@ -1092,7 +1151,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-navind{position:absolute; left:8px; top:0; width:3px; border-radius:2px; background:var(--accent); opacity:0; pointer-events:none;
   transition:transform .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), opacity .2s}
 
-/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある当院の数字だけを並べる ---------- */
+/* ---------- 4. 冒頭の導入パネル（.mo-ip）：本文にある数字だけを並べる ---------- */
 .mo-ip{position:relative; overflow:hidden; margin:1.4rem 0 2.6rem; padding:3.2rem 1.4rem 1.3rem; border-radius:18px; color:#eaf3f8;
   background:radial-gradient(120% 120% at 12% 0%, #24496a 0%, #16283a 58%, #0e1b28 100%); box-shadow:0 18px 40px rgba(14,27,40,.22)}
 .mo-ip-wave{position:absolute; left:0; right:0; top:.55rem; width:100%; height:2.2rem; pointer-events:none; opacity:.55}
@@ -1178,20 +1237,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1237,9 +1296,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1291,7 +1361,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">てんかん重積のICU管理</h1>
 <p class="sub">5分で宣言し、体重で計算し、ルートを待たず、次の段を並走させる — 時間の病気である理由・最初の60分（BZD・第2選択・麻酔薬・SRSE）・ミミックと原因検索とNORSE・脳波・ICUの抗てんかん薬の用量設計・特殊な状況・予後と落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-31</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-06</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1321,7 +1391,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>5分で宣言して血糖を測り、ロラゼパム0.1 mg/kg（ルートがなければミダゾラム10 mg筋注）、止まらなければ第2選択を10分で負荷しつつ挿管・麻酔薬・脳波を手配し、それでも止まらなければ挿管して脳波下で麻酔薬に進み、原因検索は最初から並走させます<span class="src vault">Teran EMP2015</span><span class="src vault">ESETT 2019</span><span class="src vault">J-NCCG 2024</span>。</p>
 </div>
 
-<p class="rd-note">頭部外傷後のけいれん予防は<a href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#rs-s4-7">頭蓋内圧管理と重症頭部外傷 §4-7</a>、SAHの予防的抗てんかん薬は<a href="https://hiro-oka.github.io/icu-masterclass/resident-stroke-sah/#rs-s4-6">脳卒中・SAHのICU管理 §4-6</a>、心停止後のミオクローヌスと神経予後は<a href="https://hiro-oka.github.io/icu-masterclass/resident-post-arrest/">心停止後ケア</a>が正本です。</p>
+<p class="rd-note">頭部外傷後のけいれん予防は<a href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/#rs-s4-7">頭蓋内圧管理と重症頭部外傷 §4-7</a>、SAHの予防的抗てんかん薬は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sah/#s7">重症くも膜下出血のICU管理 §7</a>、心停止後のミオクローヌスと神経予後は<a href="https://hiro-oka.github.io/icu-masterclass/resident-post-arrest/">心停止後ケア</a>が正本です。</p>
 
 
 <section class="rd">
@@ -1682,7 +1752,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s6-3">6-3. 頭部外傷・SAH・脳卒中後 — 予防投与は「早期の発作が減る」だけ</h3>
 <p class="rd-lead">頭部外傷後のフェニトインの早期投与は1週間以内の発作を4%未満に減らしますが、1週間以降の発作と転帰は変えないので、予防は早期に限ります<span class="src vault">Teran EMP2015</span>。</p>
-<p>外傷後の発作リスクは重症度と相関し、軽症（GCS 12超）で1.5%、重症（GCS 9未満）で17%です<span class="src vault">Teran EMP2015</span>。SAHの予防投与はルーチンにせず、使うならレベチラセタムで、続ける理由がなければ3日で止めます（<a href="https://hiro-oka.github.io/icu-masterclass/resident-stroke-sah/#rs-s4-6">脳卒中・SAHのICU管理 §4-6</a>）。虚血性脳卒中後の遅発性発作は1年で4%、5年で8%で、SeLECTスコア（0点で1年0.7%、9点で63%）は高リスクでも予防投与の適応にはならず、説明とフォローの計画に使います<span class="src vault">SeLECT 2018</span>。</p>
+<p>外傷後の発作リスクは重症度と相関し、軽症（GCS 12超）で1.5%、重症（GCS 9未満）で17%です<span class="src vault">Teran EMP2015</span>。SAHの予防投与はルーチンにせず、使うならレベチラセタムで、続ける理由がなければ3日で止めます（<a href="https://hiro-oka.github.io/icu-masterclass/resident-sah/#s7">重症くも膜下出血のICU管理 §7</a>）。虚血性脳卒中後の遅発性発作は1年で4%、5年で8%で、SeLECTスコア（0点で1年0.7%、9点で63%）は高リスクでも予防投与の適応にはならず、説明とフォローの計画に使います<span class="src vault">SeLECT 2018</span>。</p>
 
 <h3 id="rs-s6-4">6-4. 心停止後の重積は、一律に予後不良とは言えない</h3>
 <p class="rd-lead">60分を超えてBZDと追加の抗てんかん薬に反応せず、ほかに不良の予測因子がない心停止後の重積を積極的に治療した前向きコホートでは54%が生存し、そのうち44%が6か月時点で復職できる神経学的転帰でした<span class="src vault">Alkhachroum ICM2022</span>。</p>
@@ -2303,7 +2373,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
     return t + .25;
   }
 
-  // 画像の並び（.nf-gallery）：1枚ずつ。当院に無いものは札が押される
+  // 画像の並び（.nf-gallery）：1枚ずつ。無いものは札が押される
   RECIPES.gallery = function (fig) {
     var F = new Fig(fig), s = new Scene(F), items = Q('.nf-item', fig);
     items.forEach(function (it, k) {

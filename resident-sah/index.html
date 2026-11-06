@@ -2472,6 +2472,12 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 /* ===== /ARDSの図の部品 ===== */
 
 /* ===== 重症くも膜下出血の部品（2026-11-03） ===== */
+/* 冒頭の全体の地図（2026-11-06）：時期の列と章の列は折り返さない。スマホでは時期を見出しにし、決めることと章を横に並べる */
+table.mp-map td{line-height:1.6;padding-top:.5rem;padding-bottom:.5rem}
+table.mp-map td:first-child, table.mp-map td:last-child{white-space:nowrap}
+table.mp-map caption, table.rs-cards.mp-map caption{position:absolute!important;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media screen and (max-width:640px){table.rs-cards.st-one tr{grid-template-columns:1fr}table.rs-cards.st-one td:nth-child(2n+1):not(:first-child){border-left:0}
+table.rs-cards.mp-map tr{grid-template-columns:minmax(0,1fr) auto}table.rs-cards.mp-map td:last-child{border-left:1px solid var(--line);align-self:stretch}}
 :root{--sh-green:#2f8f5b;--sh-yellow:#d9a400;--sh-green-s:#e3f3ea;--sh-yellow-s:#fbf1cf}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sh-green:#5cc48b;--sh-yellow:#e8c24a;--sh-green-s:#17362a;--sh-yellow-s:#3a3214}}
 :root[data-theme="dark"]{--sh-green:#5cc48b;--sh-yellow:#e8c24a;--sh-green-s:#17362a;--sh-yellow-s:#3a3214}
@@ -3653,6 +3659,7 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 <div id="rs-progress"></div>
 <div id="rs-topbar"><button id="rs-burger" aria-label="目次">☰</button><span class="t" id="rs-cur">重症くも膜下出血のICU管理</span></div>
 <aside id="rs-side"><div class="hd"><div class="ttl">重症くも膜下出血のICU管理</div><div class="sb">目次・検索（<kbd>/</kbd> でフォーカス）</div><input id="rs-search" type="search" placeholder="語句で絞り込む" autocomplete="off"><div id="rs-hits"></div></div><nav id="rs-nav">
+<a class="lv2" href="#map" title="全体の地図：いつ・何を決めるか">全体の地図</a>
 <a class="lv2" href="#s1" title="§1 用語と重症度">§1 用語と重症度</a>
 <a class="lv3" href="#rs-s1-1" title="1-1. 用語">1-1. 用語</a>
 <a class="lv3" href="#rs-s1-2" title="1-2. 臨床の重症度：WFNS と Hunt and Hess">1-2. 臨床の重症度</a>
@@ -3740,7 +3747,34 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 
 <p>本稿の目的は、ICUで重症の動脈瘤性くも膜下出血（aSAH）を受け持つ医療者が、発症からの日ごとに起きる合併症を先回りして見張り、根拠に基づいて手を打てるようになることです。</p>
 <p>持ち帰ってほしいことは3つです。1つ目は、動脈瘤を処置するまでの最大の敵は再出血で、発症から第3〜14病日の最大の敵は遅発性脳虚血（DCI）だということです。2つ目は、DCI と血管攣縮は別のものだということです。DCI を見つける土台は神経診察の変化です。患者の重症度や所見の変化、診察でどこまで分かるかに応じて、経頭蓋ドプラ（TCD）・CT 灌流画像（CTP）・持続脳波・自動瞳孔計の NPi を組み合わせます。3つ目は、予防のための容量負荷（かつての triple-H 療法）はせず、体液を正常に保つことです。症候性の DCI になったら、ほかの原因を除いてから昇圧を考えます。</p>
-<p>章は臨床の時間の流れに沿って並べています（用語と重症度 → 最初の24時間（再出血）→ 水頭症と頭蓋内圧 → 神経モニタリング → NPi → DCI と血管攣縮 → けいれん → 全身合併症 → 体温管理 → 鎮静と人工呼吸 → 予後・家族への説明・回復期）。日本で使える薬と海外のガイドラインが食い違う所は、日本の実際を主に書き、海外の標準を併記します。</p>
+
+<section class="rd">
+<h2 id="map">全体の地図：いつ・何を決めるか</h2>
+<div class="tablewrap">
+<table class="wide rs-cards st-one mp-map">
+<caption>全体の地図：発症からの時期と決めること</caption>
+<thead><tr><th class="rs-nw">時期</th><th>決めること</th><th class="rs-nw">詳しくは</th></tr></thead>
+<tbody>
+<tr><td class="rs-nw"><b>来院〜数時間</b></td><td data-label="">できれば挿管・鎮静の前に WFNS を、CT で修正 Fisher を記録する。意識の落ちた急性水頭症には、すぐ EVD</td><td class="rs-nw" data-label=""><a href="#s1">§1</a>・<a href="#s3">§3</a></td></tr>
+<tr><td class="rs-nw"><b>動脈瘤の処置まで</b></td><td data-label="">望ましくは発症から24時間以内に処置する。それまでは急な血圧の上下を避ける（軽症・中等症は収縮期160 mmHg 未満が目安。重症で頭蓋内圧が高ければ不用意に下げない）</td><td class="rs-nw" data-label=""><a href="#s2">§2</a></td></tr>
+<tr><td class="rs-nw"><b>処置の後</b></td><td data-label="">低血圧と大きな変動を避ける（血圧に決まった数値はない）。止血したら DCI の予防薬を始める。腰椎ドレナージの適応を確かめる</td><td class="rs-nw" data-label=""><a href="#s2">§2</a>・<a href="#s3">§3</a>・<a href="#s6">§6</a></td></tr>
+<tr><td class="rs-nw"><b>第3〜14病日：DCI</b></td><td data-label="">決まった間隔の神経診察で、GCS 2点以上の低下や新しい局所症状を拾う。悪化したら、ほかの原因を除き、心臓と肺の余力を確かめてから昇圧を考える</td><td class="rs-nw" data-label=""><a href="#s4">§4</a>〜<a href="#s6">§6</a></td></tr>
+<tr><td class="rs-nw"><b>入院中ずっと</b></td><td data-label="">発熱を早く見つけて下げ、Na を毎日測る。予防の抗てんかん薬はルーチンには使わない</td><td class="rs-nw" data-label=""><a href="#s7">§7</a>〜<a href="#s10">§10</a></td></tr>
+<tr><td class="rs-nw"><b>家族への説明（初日から）</b></td><td data-label="">早い時期の重症度だけで予後を言い切らない。DCI の山、長く残りうる認知や疲れの問題、年単位の回復を初めから伝える</td><td class="rs-nw" data-label=""><a href="#s11">§11</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="box danger">
+<span class="label">やってはいけない3つ</span>
+<ol>
+<li><b>予防のための容量負荷・昇圧と、水制限</b>：体液は正常に保つ（<a href="#s6">§6</a>・<a href="#s8">§8</a>）</li>
+<li><b>1つの検査の結果だけで治療を決める</b>：土台は神経診察の変化（<a href="#s4">§4</a>）</li>
+<li><b>過換気を続ける</b>：脳ヘルニアへの一時しのぎにとどめる（<a href="#s10">§10</a>）</li>
+</ol>
+</div>
+</section>
+
+<p>日本で使える薬と海外のガイドラインが食い違う所は、日本の実際を主に書き、海外の標準を併記します。</p>
 <p>関連する話題は別の資料で扱います。脳卒中全体（脳梗塞・脳出血を含む）のICU管理は<a href="https://hiro-oka.github.io/icu-masterclass/resident-stroke-sah/">脳卒中・SAHのICU管理</a>、頭蓋内圧の生理と段階的な治療の詳細は<a href="https://hiro-oka.github.io/icu-masterclass/resident-icp-tbi/">頭蓋内圧管理と重症頭部外傷</a>です。けいれん重積の薬の選び方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/">てんかん重積のICU管理</a>、低Na血症の補正の速さは<a href="https://hiro-oka.github.io/icu-masterclass/resident-hyponatremia/">低ナトリウム血症</a>を参照してください。</p>
 
 <section class="rd">

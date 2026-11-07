@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1050,7 +1107,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1187,20 +1244,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 @media print{.start{display:none}}
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1246,9 +1303,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1298,7 +1366,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">心停止後ケア</h1>
 <p class="sub">ROSCは終わりではない。体温は37.5℃以下で発熱を作らせず、循環と酸素は正常域に置き、神経予後は72時間以降に2つ以上の所見で判断する — 心停止後症候群・最初の1時間・体温・循環と呼吸・神経予後予測・特殊な集団・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-28</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>
@@ -1455,6 +1523,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s3-2">3-2. 非ショック波形の33℃を支えるのはHYPERION 1本 — fragility indexは1</h3>
 <p class="rd-lead">HYPERIONは非ショック波形で33℃が90日CPC 1〜2を10.2%対5.7%に増やした唯一の陽性試験ですが、死亡は動かず、fragility indexは1、対照群は搬入時35.4℃から37℃へ能動的に温められていました<span class="src vault">NEJM2019a</span>。</p>
 <p>減ったのは死亡ではなく高度障害（CPC 3）で、動いたのは生存者に占める良好転帰の割合でした。「33℃が良い」のか「温めた37℃が悪い」のかを、この試験は区別できません。TTM2とは対象（非ショック波形か一般の集団か）も比較対象（37℃か発熱の治療か）も違い、同じ問いに答えていません。既定は発熱予防に置き、非ショック波形で33℃を選ぶなら根拠の弱さをチームで共有したうえで選びます。</p>
+<p>「重症に見えるから、せめて33℃」にも裏づけはありません。TTM・TTM2の院外心停止2789例を3種類の機械学習で解析しても、入院時の瞳孔・角膜反射やROSCまでの時間で33℃が効く患者は見つからず、個別の効果の幅は6か月死亡で−1.2〜2.1%、33℃が有益である事後確率は42〜53%と誰にとっても五分五分でした<span class="src vault">CritCare2026f</span>。院内心停止・非心原性・ECPRはこの解析の対象外です。</p>
 
 <h3 id="rs-s3-3">3-3. 冷やすなら時間を延ばさない — ICECAPで6〜48時間の差はほぼなかった</h3>
 <p class="rd-lead">全員を33℃に冷やして冷却時間だけを割り付けたICECAP（米国71施設）で用量反応曲線は平坦で、最短6時間が最適の事後確率は約0.51、12時間以内が最適の確率は約0.81でした<span class="src vault">JAMA2026</span>。</p>
@@ -1581,6 +1650,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <p>出典：<span class="src vault">ICM2020a</span>。「反応性なし」は刺激の種類と強さが標準化されておらず、単独では使えません。NSEは溶血で偽高値になります。</p>
 </details>
+<p>精度が時点で変わるので、検査は「いつ測るか」まで決めて出します。NSEは24・48・72時間の3点で推移を見ます（24時間単独の値は頼りにならず、上昇は不良、下降は良好の側）。CTは早期には感度が低く、昏睡が続いて初回に所見がなければ72〜96時間で撮り直します。MRIの拡散強調像は2〜7日が適し、7日を過ぎると偽正常化します<span class="src vault">AnnIntensiveCare2026</span>。</p>
 
 <h3 id="rs-s5-3">5-3. 「偽陽性ゼロ」は95%信頼区間の上限で語る — 0/nの上限はおよそ3/n</h3>
 <p class="rd-lead">1件も観察されなかったとき（0/n）、真の発生率の95%信頼区間の上限はおよそ3/nなので、良好転帰33例で偽陽性ゼロでも、真の偽陽性率は「10.6%以下」までしか言えません（表6）<span class="src vault">CritCare2026b</span>。</p>
@@ -1609,6 +1679,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s5-5">5-5. EEGは24時間以降に、他の所見と組み合わせて使う — 波形を止めても脳は救えなかった</h3>
 <p class="rd-lead">ROSC後12〜24時間は良好に回復する患者でも抑制のパターンが出るので、highly malignant EEGは24時間より後に、他の不良所見と組み合わせて使い、1つだけでWLSTを決めません<span class="src vault">ICM2022a</span>。</p>
+<p>不良の判定を24時間以降にすることと、記録を24時間まで待つことは別です。不良パターンの感度は12・24・36時間で47%・30%・22%と時間とともに消えていき、良好な背景の特異度も12〜24時間（86〜95%）のほうが72時間（65〜78%）より高いので、初回の脳波は12〜24時間にとり、改善がなければ48〜72時間で再検します。鎮静はプロポフォールの軽〜中等量にとどめ、2剤併用の深い鎮静で良好な背景を隠さないようにします<span class="src vault">AnnIntensiveCare2026</span>。</p>
 <p>TELSTARでは、律動性・周期性のパターンを積極的な抗発作療法で56%（対照2%）完全に抑えても、3か月の神経学的転帰は変わらず、不良転帰は92%でした<span class="src ext">NEJM2022</span>。波形を止めることと脳を救うことは別です。ただし他に決定的な不良所見がない患者での利益は決まっていません。心停止後のてんかん重積の扱いは「<a href="https://hiro-oka.github.io/icu-masterclass/resident-status-epilepticus/#rs-s6-4">てんかん重積のICU管理</a>」の資料が正本です。</p>
 
 <h3 id="rs-s5-6">5-6. 良い材料も並べ、反応が取れなくても「意識がない」と言わない</h3>
@@ -1659,6 +1730,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s6-3">6-3. ミオクローヌスはLance-Adams症候群を外してから — 難治性VFの薬は手元にあるほうを</h3>
 <p class="rd-lead">Lance-Adams症候群272例のレビューで38%は昏睡中に発症し、その79%は全般性で「悪い所見」に見えるので、WLSTを議論する前にFz・Czを含むフルモンタージュの脳波を1回とります<span class="src vault">BrainCommun2025</span>。</p>
+<p>ミオクローヌスそのものも、それだけで予後を決めません。臨床の定義だけで分けた良好転帰は5.7〜9.8%ですが、脳波の背景で層別すると、連続〜不連続の背景でてんかん重積がなければ22.2%、抑制・バーストサプレッションの背景では1.6%に分かれます<span class="src vault">JClinNeurophysiol2026</span>。見たら持続（動画）脳波で背景と重積の有無を確かめ、鎮静・シバリング・薬剤の影響を除いてから判断します。</p>
 <p>治療はクロナゼパム・レベチラセタム・バルプロ酸で、Naチャネル遮断薬は選びません<span class="src vault">BrainCommun2025</span>。除細動3回以上の難治性VFでは、リドカインとアミオダロンの生存退院は26.2%対23.5%で差がなく、手元にあるほうを速やかに使います<span class="src vault">CCM2026</span>。</p>
 
 <h3 id="rs-s6-4">6-4. 亡くなる患者と生き延びた患者の両方に、次の手続きを用意する</h3>
@@ -1733,6 +1805,9 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>日本救急医学会. 高齢者救急に関する用語の統一概念. <em>日本救急医学会雑誌.</em> 2025</li>
 <li>Jiang S, Wei J, Rao T, et al. Unlocking survival in traumatic cardiac arrest: global insights, innovations, and unmet needs. <em>Crit Care.</em> 2025;29:449</li>
 <li>Oppenheim IM, Bakhru RN, Maciel CB, Busl KM; DONOR Group. When End-of-Life Becomes the Beginning of New Life: Application of the SCCM Guidelines on Adult End-of-Life Care in the ICU to Donation After Circulatory Death. <em>Crit Care Explor.</em> 2026;8:e1458</li>
+<li>Lileikyte G, Marinho LL, Lu Y, et al. Differentiated effect of hypothermia versus normothermia after cardiac arrest by neurological status and clinical correlates of ischemic burden. <em>Crit Care.</em> 2026;30:561</li>
+<li>Benghanem S, Pruvost-Robieux E, Hmeydia G, et al. Neuroprognostication in unconscious patients after cardiac arrest: considering the time course of prognostic markers. <em>Ann Intensive Care.</em> 2026</li>
+<li>Leitinger M, Beretta S. Pathophysiology and Prognostic Significance of Myoclonus in Hypoxic-Ischemic Encephalopathy. <em>J Clin Neurophysiol.</em> 2026;43:403-409</li>
 </ol>
 
 

@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1050,7 +1107,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1249,20 +1306,20 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
 }
 </style>
 <style id="eth-add-css">.slide-btn-wrap{margin:.4rem 0 .8rem}.slide-btn{display:inline-block;padding:.45rem 1.1rem;border-radius:999px;background:linear-gradient(120deg,#0d2b3e,#0b4a68);color:#fff!important;text-decoration:none;font-weight:600;font-size:.95rem;letter-spacing:.04em}.slide-btn:hover{opacity:.9}figure.eth-photo{margin:1.2rem 0 1.4rem}figure.eth-photo img{display:block;width:100%;aspect-ratio:21/9;object-fit:cover;border-radius:10px}figure.eth-photo.hero img{aspect-ratio:3/1}figure.eth-photo figcaption{font-size:.88rem;color:var(--muted);margin-top:.5rem;line-height:1.6}p.eth-more{margin:.6rem 0;font-weight:600}.eth-rel ul{margin:.2rem 0 .7rem;padding-left:1.2rem}.eth-rel li{margin:.3rem 0}.eth-rel p.eth-grp{margin:.7rem 0 .1rem;font-weight:700;font-size:.92em;color:var(--navy,var(--fg))}.eth-rel p.eth-grp:first-of-type{margin-top:.2rem}.eth-sub{display:inline-block;margin-left:.5em;font-size:.82em;font-weight:400;color:var(--muted)}a.eth-kind{display:inline-block;margin-left:.4em;padding:.02em .55em;border:1px solid var(--accent);border-radius:999px;font-size:.76em;font-weight:600;text-decoration:none;color:var(--accent-ink,var(--accent))}a.eth-kind:hover{background:var(--accent);color:#fff}@media print{.eth-rel a[href]::after,p.eth-more a[href]::after{content:" (" attr(href) ")";font-size:.72em;font-weight:400;color:var(--muted);word-break:break-all}a.eth-kind{border:0;padding:0}}.box.good.eth-rel .label::before{content:none}@media print{.slide-btn-wrap{display:none!important}figure.eth-photo{break-inside:avoid}figure.eth-photo img{max-height:9cm}.tpl{break-inside:avoid;page-break-inside:avoid}}</style><style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1308,9 +1365,20 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1414,7 +1482,7 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
 
 <p class="sub">価値観を聴き、医師が提案し、手順で決める — なぜ大事か・言葉と原則・枠組みと意思決定能力・誰がどう決めるか・ACP・どう話すか・DNARと蘇生・差し控えと終了・緩和的抜管・看取りと死の判定・チームと公正・落とし穴・カルテの文例</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-31</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="tools">
   
@@ -1462,6 +1530,7 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
 <tr><td class="num">2026-06</td><td>Critical Care Medicine（34論文の系統的レビュー＋エディトリアル）</td><td>スローコードは82.4%が「欺瞞」と判断。蘇生を強制する法や方針も同じく非倫理的（§8）</td></tr>
 <tr><td class="num">2026-06</td><td>Critical Care Medicine（PICNL-ICU、オランダ47 ICU）</td><td>医療者の26%が「不適切な治療をしている」と感じていた。複数人が一致した患者は6か月死亡 aOR 3.86（§5）</td></tr>
 <tr><td class="num">2026-06</td><td>Intensive Care Medicine（SCCM2026・ESICM2025 高齢ICU患者のエディトリアル）</td><td>強い推奨はゼロ。一致したのは「老年医学的ケアモデルをICUに組み込む」だけ（§13）</td></tr>
+<tr><td class="num">2026-03</td><td>Critical Care Medicine（ETHICUS-2 年齢解析、36か国199 ICU）</td><td>80歳以上は治療制限が多い（調整OR 1.47）が、年齢が主な理由とされたのは3.9%。高齢者は差し控え、若年者は終了に寄り、アジアでは年齢差がなかった（§13）</td></tr>
 <tr><td class="num">2026-02</td><td>Journal of Intensive Care（豪州の終末期ケア）</td><td>豪州では差し控えと終了は法的に同等で、家族は無益な治療を要求できない。ただし無益の判断は担当専門医の合意が条件（§13）</td></tr>
 <tr><td class="num">2025-10</td><td>AHA 2025 心肺蘇生ガイドライン 倫理編（Circulation）</td><td>4原則を均衡の枠組みとし、年齢を生命維持治療を制限する唯一の決定因子にしない。informed nondissent（反対がなければ医療者の方針で進める）を示し、スローコードを否定した（§3・§8）</td></tr>
 <tr><td class="num">2025-06</td><td>JAMA Network Open（4学術病院122人の面接）</td><td>モラルディストレスを生むのは病院文化・階層・「治療を減らす手続き」の不在。デブリーフィングは緩和であって予防ではない（§12）</td></tr>
@@ -2546,6 +2615,8 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
 <h3 id="rs-s13-3">13-3. 高齢者 — エビデンスの薄さを直視する</h3>
 <p class="rd-lead">高齢ICU患者についてSCCM（2026）とESICM（2025）はいずれも強い推奨を出せず、一致したのは老年医学的ケアモデルをICUに組み込むという条件付き推奨だけでした<span class="src ext">Beil ICM2026</span>。</p>
 <p>益と負担を語るとき、根拠は年齢ではなく老年症候群の束で、目標は多くの場合、生存期間より生活の質です<span class="src ext">Beil ICM2026</span>。日本のJIPADでは、80歳以上への生命維持治療の使用が施設間で case mix 調整後も約10倍（STR 0.24〜2.34）違い、治療強度の高い施設で生存が良いわけではありませんでした<span class="src ext">JIPAD JAMAHealthForum2026</span>。フレイルの測り方と判断表は<a href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/">「フレイルと高齢重症患者」</a>へ。</p>
+<p>世界36か国199 ICUで亡くなったか治療制限を受けた12,200例を年齢で比べたETHICUS-2の解析では、80歳以上は65歳未満より治療制限が多い（88.2% vs 82.5%、調整OR 1.47）ものの、<strong>年齢が主な理由とされたのは80歳以上でも3.9%</strong>で、首位はどの年齢でも「最大限の治療への不応」でした<span class="src ext">ETHICUS-2 年齢解析 CCM2026</span>。中身は年齢で違い、差し控えは高齢ほど多く（56.1% vs 40.9%）、終了は若いほど多く（31.7% vs 41.1%）、挿管の差し控えは2倍超（35.7% vs 16.9%）でした。入室から最初の制限までは中央値18.7時間と59.7時間で、高齢者ほど早く「始めない」に寄ります。年齢差が有意だったのは中欧と南欧で、アジアではほぼ差がありません（OR 1.06）<span class="src ext">ETHICUS-2 年齢解析 CCM2026</span>。制限の理由は年齢ではなく治療への反応・慢性疾患・本人の価値観で記録し、高齢者でも入室早期の面談で「始めない」以外にTLT（§9-3）を選択肢として示します。</p>
+<p class="rd-note">母集団は死亡または制限を受けた患者だけで、重症度もフレイルも調整されておらず、理由は医師の自己申告による単一回答です。「高齢だから制限が多い」という因果としては読めません<span class="src ext">ETHICUS-2 年齢解析 CCM2026</span>。</p>
 
 <h3 id="rs-s13-4">13-4. 法で線を引く国、手続きで線を引く国</h3>
 <p class="rd-lead">豪州では差し控えと終了は法的に同等で、家族は無益な治療を要求できず、事前指示書は家族も覆せませんが、無益の判断は担当専門医の合意が条件です<span class="src ext">Ueno JIntensiveCare2026</span>。</p>
@@ -2728,6 +2799,7 @@ figure.fig figcaption, figure.eth-photo figcaption{font-size:.86rem; line-height
 <li>日本集中治療医学会 倫理委員会. 委員会報告（2016年12月16日公開）. https://www.jsicm.org/pdf/DNAR20161216_kangae_05.pdf</li>
 <li>Secunda K, Wirpsa MJ, Neely KJ, et al. Use and Meaning of "Goals of Care" in the Healthcare Literature. J Gen Intern Med. 2020;35(5):1559-1566.</li>
 <li>Sprung CL, Ricou B, Hartog CS, et al. Changes in End-of-Life Practices in European Intensive Care Units From 1999 to 2016（Ethicus-2）. JAMA. 2019.</li>
+<li>Nagata I, Sprung CL, Lautrette A, et al; ETHICUS-2 Study Group. Influence of Age in End-of-Life Practices in Worldwide ICUs (ETHICUS-2): A Prospective Observational Study. Crit Care Med. 2026;54(4):701-714.</li>
 <li>伊藤香. 緩和的抜管. 人工呼吸（Jpn J Respir Care）. 2023;40(2):120-125.</li>
 <li>Jonsen AR, Siegler M, Winslade WJ. Clinical Ethics: A Practical Approach to Ethical Decisions in Clinical Medicine.（4分割表）</li>
 <li>Society of Critical Care Medicine. Fundamental Critical Care Support（FCCS）. 倫理の章.</li>

@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1050,7 +1107,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1178,20 +1235,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1237,9 +1294,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1302,7 +1370,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">ICUの輸血戦略</h1>
 <p class="sub">最初に出血の有無を問い、非出血はHb 7〜8で1単位ずつ、例外は3つの集団だけ、血小板とFFPは場面で使い、貧血は作らない — 最初の問い・赤血球輸血・輸血の害・血小板とFFPとDIC・大量出血とTIC・PBM・特殊な場面・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1700,7 +1768,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 
 <h3 id="rs-s4-5">4-5. DICへの抗凝固薬は、層別化なしでは効かない — マーカーが良くなっても死亡は変わらなかった</h3>
 <p class="rd-lead">SCARLET試験（800例）で遺伝子組換え可溶性トロンボモジュリンはD-ダイマー・F1.2・TATを有意に改善したのに28日死亡は26.8%（106/395）対29.4%（119/405）（P=.32）と変わらなかったので、DICへの抗凝固薬を死亡の改善を期待してルーチンに使わず、診断は敗血症の初日にISTH-SICスコアで拾います<span class="src vault">SCARLET JAMA2019</span><span class="src vault">AnesthAnalg2024</span>。</p>
-<p>SICは敗血症の24%・敗血症性ショックの66%に合併して死亡を約2倍にします。ISTH-SICスコアは血小板（150未満で1点）・PT-INR・SOFAの3項目、4点以上で、早期の敗血症は線溶抑制でフィブリノゲン正常・D-ダイマー上昇も目立たないので、あえてこれらを入れていません。感度74.3%と高い一方、SOFAを含むぶん特異度が低く、「SIC陽性」は重症度の言い換えに近く治療を始める根拠になりません。翌日以降は顕性DICスコアで追います<span class="src vault">AnesthAnalg2024</span>。</p>
+<p>SICは敗血症の24%・敗血症性ショックの66%に合併して死亡を約2倍にします。ISTH-SICスコアは血小板（150未満で1点）・PT-INR・SOFAの3項目、4点以上で、早期の敗血症は線溶抑制でフィブリノゲン正常・D-ダイマー上昇も目立たないので、あえてこれらを入れていません。感度74.3%と高い一方、SOFAを含むぶん特異度が低く、「SIC陽性」は重症度の言い換えに近く治療を始める根拠になりません。翌日以降は顕性DICスコアで追います<span class="src vault">AnesthAnalg2024</span>。この二段構えは救急外来から始められ、来院1時間以内に血小板とPT-INRでSICを疑い、SICならFDP・D-ダイマー・フィブリノゲンで顕性DICを確かめ、24〜48時間で再評価します。ICUへは「凝固障害を伴う敗血症（SIC疑い）」と病態名で引き継ぎ、抗凝固薬は救急外来では始めません<span class="src vault">JCM2026</span>。</p>
 <p>アンチトロンビン（KyberSept）は生存を改善せず出血を増やし、活性化プロテインCはPROWESS-SHOCK（26.4%対24.2%）で否定されて撤退しました<span class="src vault">ICM2023凝固</span><span class="src vault">AnesthAnalg2024</span>。利益が見えるのは事後解析とメタ解析だけで、DICを伴う敗血症に限れば抗凝固で死亡が少なかった（RR 0.72、95%CI 0.62〜0.85）一方、DICのない患者では差がありませんでした（RR 0.97）。最も重症度の低い患者（予測死亡率&lt;25%、APACHE II&lt;25、SAPS II&lt;40）はどの抗凝固治療からも利益を受けません<span class="src vault">ICM2023凝固</span><span class="src vault">AnesthAnalg2024</span>。</p>
 <p>敗血症性ショックのフィブリノゲンは発症24〜48時間以内に急性期反応で上がり、DIC群でも高値のままのことが多く、肺炎では血小板増多のほうが減少より多いという報告もあります。「フィブリノゲンが下がっていないからDICではない」とは読まず、病日つきのトレンドで読みます<span class="src vault">フィブリノゲン時相ICM2024</span>。</p>
 <details class="rd-ev" open><summary>根拠を見る（表16：効かなかった歴史）</summary>
@@ -1893,6 +1961,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s6-2">6-2. 静注鉄は効くが遅い — Hbの上昇は0.3〜0.7で、10日より前には出ない</h3>
 <p class="rd-lead">重症病期の静注鉄でHbは典型的に0.3〜0.7 g/dL上がりますが、4RCT・378例のメタ解析では10日後に＋0.31 g/dL（95%CI 0.04〜0.59）で10日より前には有意な上昇がないので、急性期の輸血回避ではなく回復期を見据えて使います<span class="src vault">ICM2026PBM</span>。</p>
 <p>鉄依存の赤芽球の成熟には健常者でも4〜6日かかり、ICUでは効果が測れるのは少なくとも7日後、はっきりするのは10〜30日後です。IRONMAN試験（フェリックカルボキシマルトース500 mg）ではHb 10.7対10.0 g/dL、輸血97対136単位でした。比べると赤血球1単位は溶血や捕捉がなければ24時間以内にHbを約1 g/dL上げます。経口鉄は炎症によるヘプシジン上昇で吸収が止まり、ICUではほとんど効きません<span class="src vault">ICM2026PBM</span>。</p>
+<p>そもそもICUの貧血は入室時に約2/3、3日目には約95%に及び、退院12か月後も45%に残ります。大半はヘプシジン高値・EPO低値による炎症性貧血で、鉄欠乏は少数ですが見逃されやすいものです。フェリチンは炎症で上がるので鉄欠乏の否定には使わず、TSAT・網状赤血球ヘモグロビン含量・sTfR（測れるならヘプシジン）で型を見分けます<span class="src vault">CCM2026貧血</span>。静注鉄が生きるのは急性期より退室のときで、退室時の鉄欠乏に絞ったINTACT（フェリックカルボキシマルトース1,000 mg）では90日再入院が減りましたが、主要評価項目での確証はINTACT-2待ちです。輸血はHb 7未満が既定のまま、退室時の貧血と鉄の状態を評価して申し送るところまでを仕事にします。国内のフェリックカルボキシマルトースは1回500 mg・週1回までです<span class="src vault">CCM2026貧血</span>。</p>
 <p class="rd-note">レジメンは研究ごとに用量もカットオフ（フェリチン・トランスフェリン飽和度・ヘプシジン）もばらばらで、著者自身が用量とタイミングの推奨は策定できないと明記しています。重大な有害事象の一貫した増加はありませんが、心肺バイパス下の心臓手術では触媒鉄の高値が院内死亡・RRT・AKIの増加と関連しました<span class="src vault">ICM2026PBM</span>。</p>
 <details class="rd-ev" open><summary>根拠を見る（輸血を拒否する患者 — Bloodless Medicine）</summary>
 <p>同種血輸血を拒否する重症患者では、PBMの3本柱を組み直して、①静注鉄・葉酸・ビタミンB12とESAで造血を最適化し、②採血制限（医原性失血を少なくとも25%削減）・術中cell salvage・急性等容性血液希釈で失血を最小にし、③心拍出量・酸素飽和度・有効循環血液量・微小循環を整えて貧血に耐えられるようにします<span class="src vault">FrontMed2026</span>。慢性の炎症性貧血は輸血に頼らず原疾患の治療を優先するのが基本です<span class="src vault">FrontMed2026</span>。</p>
@@ -1990,6 +2059,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Yang H, Li F, Zhu Z, et al. Current perspectives and updates on transfusion strategies in critically ill anemic patients. <em>Front Med</em>. 2026;13:1762664. doi:10.3389/fmed.2026.1762664</li>
 <li>Taccone FS, et al.（TRAIN）Restrictive vs liberal transfusion strategy in patients with acute brain injury. <em>JAMA</em> 2024;332:1623-1633. doi:10.1001/jama.2024.20424</li>
 <li>Early liberal transfusion in cancer patients with septic shock（TRANSPORT）. <em>Intensive Care Med</em> 2026.</li>
+<li>Corwin HL, Napolitano LM. Anemia of Critical Illness: A Concise Definitive Review in Critical Care. <em>Crit Care Med</em>. 2026;54(2):343-353. doi:10.1097/CCM.0000000000006947（CCM2026貧血）</li>
+<li>Iba T, Tanigawa T, Wada H, Kondo K, Ferrer R, Levy JH. Recognizing Coagulation Disorders in Sepsis in the Emergency Room: A Narrative Review. <em>J Clin Med</em>. 2026;15(2):488. doi:10.3390/jcm15020488（JCM2026）</li>
 <li>Meybohm P, Baron DM, Fries D, et al. Patient blood management in general intensive care patients. <em>Intensive Care Med</em>. 2026;52:1290-1305. doi:10.1007/s00134-026-08491-6</li>
 <li>Tymen R, Cavalcante dos Santos E, Taccone FS, Aubron C. Physiological determinants and the red blood cells transfusion decision-making process in non-bleeding critically ill patients. <em>Intensive Care Med</em>. 2026;52(2):309-323. doi:10.1007/s00134-026-08304-w</li>
 <li>Red blood cell transfusion volume and healthcare-associated infection — dose-response meta-analysis. <em>J Intensive Care</em> 2025.</li>

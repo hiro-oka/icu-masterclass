@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1205,7 +1262,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1251,9 +1308,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1298,7 +1366,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">敗血症の初期蘇生</h1>
 <p class="sub">灌流で決め、相で切り替える — 病態・最初の数時間・灌流の読み方・毎日の見直し・脱蘇生・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-01</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>
@@ -1438,7 +1506,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </table>
 </div>
 </details>
-<p>何を入れるかの既定は緩衝晶質液（乳酸リンゲル・酢酸リンゲル）で、生理食塩水を選ぶのは頭蓋内圧亢進（外傷性脳損傷を含む）と致死的高K血症などに限ります。アルブミンは第一選択にせず、大量の晶質液を入れた後か肝硬変に限って検討し、HESは使いません<span class="src vault">SSC2026</span><span class="src vault">Zampieri JAMA2023</span>。根拠の試験と例外の閾値は<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s5">輸液の判断の§5</a>（製剤）と<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s6">§6（アルブミン）</a>で扱います。</p>
+<p>何を入れるかの既定は緩衝晶質液（乳酸リンゲル・酢酸リンゲル）で、生理食塩水を選ぶのは頭蓋内圧亢進（外傷性脳損傷を含む）と致死的高K血症などに限ります。アルブミンは第一選択にせず、大量の晶質液を入れた後か肝硬変に限って検討し、HESは使いません<span class="src vault">SSC2026</span><span class="src vault">Zampieri JAMA2023</span>。「腎を守るため」もアルブミンの理由になりません。重症患者9RCT・11,778例のメタ解析でAKIはRR 1.00（0.91–1.11）と動かず、20%製剤の4試験では腎代替療法がRR 1.26（1.07–1.48）と増える信号がありました（GRADE低・仮説生成）<span class="src vault">Jeanmougi CritCare2026</span>。根拠の試験と例外の閾値は<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s5">輸液の判断の§5</a>（製剤）と<a href="https://hiro-oka.github.io/icu-masterclass/resident-fluids/#s6">§6（アルブミン）</a>で扱います。</p>
 
 <h3 id="rs-s2-4">2-4. 反応性がなければ輸液で粘らず、末梢からノルアドレナリンを始める</h3>
 <p class="rd-lead">輸液反応性がなければ輸液を止め、中心静脈路を待たずに末梢からノルアドレナリンを始め（SSC推奨12）、MAP 65 mmHgを目標にします（65歳以上は60〜65 mmHgも可）<span class="src vault">SSC2026</span>。</p>
@@ -1786,6 +1854,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Ward M, Acharya R, Loschner A. Evidence-based fluid resuscitation of the septic HFpEF patient. <em>J Crit Care Med</em>. 2026;12(1):20-27.</li>
 <li>Effect of intra-abdominal hypertension on passive leg raising and mini fluid challenge. <em>Crit Care</em>. 2026;30. doi:10.1186/s13054-026-06191-7</li>
 <li>Ohbe H, Yamakawa K, Kudo D, et al. Impact of J-SSCG 2020 on real-world adherence and interhospital variation. <em>Crit Care</em>. 2025;29:225.</li>
+<li>Jeanmougi T, James A, Collet L, et al. Association between human serum albumin for fluid resuscitation and acute kidney injury in intensive care: a systematic review and meta-analysis. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06423-w</li>
 <li>Focus on acute circulatory failure. <em>Intensive Care Med</em>. 2016.</li>
 </ol>
 

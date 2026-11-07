@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1051,7 +1108,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1179,20 +1236,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1238,9 +1295,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1306,7 +1374,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">PICSとICU退室後のフォロー</h1>
 <p class="sub">退室後に残る障害は在室中から育つ。上流で減らし、退室のときに測って渡し、退室後は足すより継ぐ — 傘と頻度・何が起きているか・ICUで防ぐ・退室時に測って渡す・2段階の評価・足すより継ぐ・家族・一般化できない集団・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1398,6 +1466,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s1-3">1-3. 長期の予後を最も決めるのは入室前の状態 — 発症前の生活を家族から聞いておく</h3>
 <p class="rd-lead">65歳以上の敗血症性ショック生存者で90日後のフレイルを最も強く予測したのは重症度ではなく発症前のCFS（調整オッズ比2.03）なので、入室0〜24時間に家族から発症前の生活を聞いて記録します<span class="src vault">Yamamoto CCM2026</span>。</p>
 <p>OPTPRESS事後解析（339例）で90日後の中等度以上のフレイル（CFS 5以上）を独立して予測したのは、発症前CFS（aOR 2.03）・SOFAスコア（aOR 1.16）・ステロイド使用（aOR 1.72）でした<span class="src vault">Yamamoto CCM2026</span>。聞き取りがあって初めて、退室時の筋力低下が新規の障害か元からの障害かを分けられます。ただし緊急入室の患者から入室前の認知・心理・社会機能を正確に取ることは難しく、家族の代理報告（家族自身がPICS-Fで歪みうる）に頼るという限界は残ります<span class="src vault">Rousseau CritCare2026</span>。</p>
+<p>退院後の死亡でも同じ構図が見えます。インドの敗血症生存退院608例を最長39か月追うと41.9%が死亡・33.2%が再入院し、長期死亡を独立に予測したのはCharlson併存症指数だけ（1点ごとOR 1.40）で、SOFAなど院内死亡を決めた急性期の因子は効きませんでした<span class="src vault">Todi CritCare2026</span>。生存者だけを見た解析で年齢も調整されておらず、日本のICUで同じかは確かめられていません。</p>
 <p>年齢そのものより「どれだけ取り戻せる余地があるか」で見ます。ドイツ公的保険326万人の全数データでは、一般人口との差が最も大きく開くのは入室前に元気だった60〜79歳で、90代では差が消えます<span class="src vault">Jung ICM2025</span>。高齢者の評価と治療の上限の決め方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-frailty/#s4">フレイルと高齢重症患者</a>の資料が正本です。</p>
 <details class="rd-ev" open><summary>根拠を見る（表3：年齢層で違う「取り戻せる余地」）</summary>
 <div class="tablewrap">
@@ -1585,6 +1654,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <p>栄養の応答性（feeding responsiveness）を見積もる候補として、尿素のトレンド（RE-EFFORTで尿素が2倍になるごとにHR 1.34）・ICU入室2日でのリンの0.16 mmol/L超の低下・インスリン抵抗性指数が挙がっていますが、いずれも研究段階です<span class="src vault">Pierre AnnIntensiveCare2026</span>。急性期の許容的低栄養（6〜8 kcal/kg・0.2〜0.4 g/kg）から始めて、後期回復期に強化（30〜35 kcal/kg・1.2〜1.5 g/kg）と在宅での適応身体活動に移る4フェーズの戦略も、著者自身が前向きに検証されていない概念枠組みと明記しています。</p>
 </details>
+<p>一方、回復期の筋は応答を取り戻しています。ICU退室3〜6か月の生存者20例は筋厚−14%・握力−17%でも、疲労困憊までの抵抗運動＋乳清蛋白24 gの後の筋蛋白合成が年齢・性をそろえた対照と同等でした（0.071対0.070%/時）<span class="src vault">Fischer-Hammerschmied CritCare2026</span>。基礎値が高く上昇幅は小さかったので、反応の閾値は上がっている可能性があります。急性期は量を上限で抑え、退室後のリハ指導では負荷の高い抵抗運動と運動直後の蛋白摂取を組にして勧めます。ただし20対20の機序研究で、機能の転帰は測っていません。</p>
 <div class="box danger"><span class="label">危険 — 同化を薬で押し上げる</span><p>筋合成を増やす薬理学的介入で最も明確な害を示したのは成長ホルモンで、院内死亡を約2倍にしました<span class="src vault">Pierre AnnIntensiveCare2026</span>。</p></div>
 </section>
 
@@ -1647,6 +1717,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </div>
 <p>海外の緊急ICU再入室率は4〜14%で、日本の単施設報告（4.1%）やJIPADの値（総再入室4.3%、緊急2.9%）は低めです。再入室までの日数も、米国の報告（約50%が3日以内・90%が12日以内）より日本のほうが長い傾向があります<span class="src vault">日集中医誌2025</span>。退室基準・後方病床・在院日数の文化差が絡むので、「日本の診療の質が高いから」とは解釈しません。</p>
 </details>
+<p>在室が短い患者でも退室後に目を離しません。JIPADの成人アナフィラキシーショック643入室はICU在室中央値1日・ICU死亡1.6%・院内死亡3.3%で、院内死亡21例のうち11例はICU退室後に起きていました<span class="src vault">Nakashima JAnesthAnalgCritCare2026</span>。死因の記録がないのでアナフィラキシーによる死亡とは言えませんが、ICU死亡だけを見ると死亡を半分に見積もります。</p>
 
 <h3 id="rs-s4-4">4-4. ICUで始めた向精神薬は、退院時に適応と中止計画を1行書く</h3>
 <p class="rd-lead">ICU入室前に向精神薬の処方がなかった人工呼吸患者7,898例のうち、退院後30日で新規に処方されたのは5.3%（416例）で、その42.8%に裏づけ診断の記録がなかったので、退院時に「せん妄でday8から開始、退院後2週で漸減中止予定」のように1行書きます<span class="src vault">Wu CCM2026</span>。</p>
@@ -1780,6 +1851,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s5-5">5-5. 精神は1回の陰性で終えない — 4人に1人は退院時に症状が乏しく、後から発症する</h3>
 <p class="rd-lead">敗血症生存者のPTSDは2年の追跡で3つの軌跡に分かれ、26%は退院時には症状が乏しく後から発症する群だったので、精神領域のスクリーニングは3・6・12か月に繰り返します<span class="src vault">Ackermann JICM2026</span>。</p>
 <p>敗血症のICU生存者の44.2%（1年）・40.9%（3年）が新規の心理的障害を自覚し、自殺のリスクは1.51倍です<span class="src vault">Ackermann JICM2026</span>。RECOVERでもIES-R（PTSD症状）の性差は3か月時点だけで消え、抑うつの差は1年を通して続いたので、PTSD症状への手当ての窓は退室後早期、抑うつは1年を通して、と時間軸が違います<span class="src vault">Burns ICM2026</span>。尊厳の障害（PDI&gt;48）は1か月33%→12か月29%とほとんど下がらないので、心理尺度が正常範囲でも「ICUでの体験をどう振り返っているか」を開いた質問で一言聞きます<span class="src vault">AJRCCM2025</span>。</p>
+<p>HADS・IES-Rでは拾えない苦痛もあります。ICMのWhat's Newは、PICSの心理的苦痛の一部が意味・希望・自分らしさの揺らぎ（スピリチュアル・実存的苦痛）に根ざすとし、入室・退室・病棟リハ・退院後の各局面で短く拾い（スピリチュアルな痛みの単一項目0〜10など）、陽性ならまずそばにいて承認し、チャプレン・心理職へつないで記録する4段階を提案しました。引用されたPICS外来初診196人の横断研究では、回答者の53%が「この先への備えがない・先が怖い」と答えています<span class="src vault">Byrne-Martelli ICM2026</span>。上の一言は「この経験で、ご自分の人生の見え方はどう変わりましたか」と聞く形にできます。効果は検証されていない提案です。</p>
 </section>
 
 <section class="rd">
@@ -1901,6 +1973,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </table>
 <p style="font-size:.85rem;color:var(--muted);margin:.3rem 0 0">§5-1のESICMの経路は最初のスクリーニングを退院後3か月に置くのに対し、AASTは退院2〜4週を勧めます。どちらも専門家合意で、時点を比べた研究はありません<span class="src vault">Schaller ICM2026</span><span class="src vault">Nohra TSACO2026</span>。</p>
 </div>
+<p>スウェーデンの国のコンセンサス推奨も対象を在室48時間以上の全成人とし、退室1週以内に病棟で最初に接触し、2〜3か月に患者と家族の多職種外来（必要なら6か月にもう1回）を置き、PTSS-14・HADS・MoCA・RAND-36などで拾って紹介につなぐ経路を示しました<span class="src vault">Åkerman ActaAnaesthesiolScand2026</span>。根拠は系統的レビュー4本で確実性は低く、著者自身がGRADEに基づくガイドラインではないと明言しています。48時間という基準も長期障害の予測因子としては弱く、より良い選び方は検証されていません。</p>
 <p>同じガイドラインは、専用のPICS外来は追跡の形の一つにすぎず他の形より優れるという根拠はないとし、外科チーム・かかりつけ医・回復プログラムのどれが担ってもよいとしています。精神科コンサルトも全員には勧めず、ICU体験から予想される程度を超える症状や、疼痛・鎮静・せん妄などの可逆的要因を整えても続く症状に限ります<span class="src vault">Nohra TSACO2026</span>。英国の多職種フォローアップ外来の質的研究も、外来の役割を「PICSに対処する」ことから「PICSを評価し、適切な支援へ紹介または提供する」ことへ置き直しています<span class="src vault">Clarke JICS2026</span>。</p>
 <p>その外来は、ICU在室3日超の患者に質問票を送って希望者だけが参加し（オプトイン）、ICU専門医・専門看護師・臨床心理士の3面談を対面・オンライン・電話から選べる形で行っていました。参加者27例への聞き取りで区切りになったと語られたのは、ICU滞在の時系列を知ること、画像を見せてもらうこと、せん妄の記憶や悪夢を「自分がおかしくなったのではなく症状だ」と言ってもらうことで、27例中8例が追加の心理療法につながりました。改善点としては、後日の郵送だけでなくその場で持ち帰れる書面が欲しいという声があり、家族の同席は望む人と一人で来たい人に分かれました<span class="src vault">Clarke JICS2026</span>。退室後の面談で時系列とせん妄の記憶を説明し、要点を1枚で渡し、家族の同席は患者に選んでもらう、という形にそのまま使えます。</p>
 <div class="box warn"><span class="label">注意 — 根拠は専門家合意と、効果を測っていない質的研究</span><p>AASTの推奨はすべて専門家合意で、系統的レビューではなく、引用研究の大半は外科・外傷ではない混合ICUのデータです。Financial Fiveは米国の医療費の仕組みが前提で、日本では高額療養費制度があるので、医療費そのものより収入減・休職・介護による離職を聞く形に置き換える必要があります<span class="src vault">Nohra TSACO2026</span>。英国の研究はオプトインで外来に来た人のうち、さらに聞き取りに応じた64%だけの語りで、外来の効果（PICS・QOL・PTSD）は測っていません。患者が価値を感じたことは、外来が予後を変えることを意味しません<span class="src vault">Clarke JICS2026</span>。</p></div>
@@ -2135,6 +2208,11 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Fuentes AL, et al.（ICU生存者の認知転帰と言語）. <em>Crit Care</em>. 2026;30:322.</li>
 <li>American Thoracic Society. Long COVID (Post-COVID Conditions). Patient Education | Information Series. <em>Am J Respir Crit Care Med</em>. 2022;206(4):P17-P18.</li>
 <li>PIICSはPICSの上流にある免疫・代謝の病態 — 診断基準は未確立、症候群から測れるエンドタイプへ（Understanding the Disease）. <em>Intensive Care Med</em>. 2026.</li>
+<li>Todi S, Mehta Y, Zirpe K, et al. Long-term outcomes of sepsis survivors in Indian sepsis registry: the LOSS study. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06427-6</li>
+<li>Fischer-Hammerschmied A, Tardif N, Mandić M, et al. Preserved anabolic skeletal muscle capacity in response to exercise and protein intake after critical illness. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06418-7</li>
+<li>Nakashima T, Sekino M, Araki H, et al. Clinical characteristics, management, and outcomes of adults admitted to participating Japanese intensive care units with registry-identified anaphylactic shock: a multicenter retrospective descriptive study. <em>J Anesth Analg Crit Care</em>. 2026. doi:10.1186/s44158-026-00464-x</li>
+<li>Byrne-Martelli SE, Varner-Perez SE, D'Andria Ursoleo J. Addressing spiritual, religious, and existential distress in post-intensive care syndrome: practical tools across the ICU survivorship care continuum. <em>Intensive Care Med</em>. 2026. doi:10.1007/s00134-026-08611-2</li>
+<li>Åkerman E, Schandl A, Ringdal M, Dahl O, Orwelius L. Swedish Consensus Recommendation for Follow-Up After ICU Stay. <em>Acta Anaesthesiol Scand</em>. 2027;71(1):e70361. doi:10.1111/aas.70361</li>
 </ul>
 
 </main><script id="rs-tools-js">

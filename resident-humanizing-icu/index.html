@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1051,7 +1108,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1196,20 +1253,20 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 .practice{margin:2rem 0 1rem;padding:.8rem 1rem;border:1px dashed var(--accent);border-radius:12px;font-size:.95rem}
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1255,9 +1312,20 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1325,7 +1393,7 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <h1 id="top">ICUの人間的ケア（Humanization）</h1>
 <p class="sub">Human care を積み重ねて、ICUを Humanization する — 定義と歩み・深鎮静からの転換・苦痛を聞いて測る・時刻表で届ける・つながりと名前・夜の環境・家族・ICUのあと・医療者へのケア・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>
@@ -1595,6 +1663,7 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <li>患者を飛び越して頭の上で話さない。処置の前に、何をするかを本人に伝える</li>
 </ol>
 </div>
+<p>2026年のESICMの合意声明は、発声できない患者への文字盤などの低技術の意思伝達具を should とし、同じ時期のScientific Letterは手段を足す順番を「自分の声の回復（カフ脱気・カフ上発声・スピーチバルブ）→低技術（はい／いいえの合図・文字盤・絵カード・筆談）→高技術（タブレット・視線入力）→組み合わせて再評価」という経路にまとめました<span class="src vault">Latour ICM2026</span><span class="src vault">van Mol ICM2026</span>。最低限の標準として求めているのは、意思伝達能力（意識・認知・聴覚と視覚・運動・人工気道）を評価し、その患者の「伝え方」を記録してチームで共有し、病状に合わせて見直すことです。浅い鎮静とせん妄の予防は、話せる状態をつくる介入でもあります。転帰を改善したデータはまだなく、根拠は尊厳と自律という価値に置かれています。</p>
 <p class="rd-note">気管切開患者の発声と嚥下への手当て（スピーチバルブ・上声門下からの送気）は総説と小規模の研究の段階で、手順は各施設の手順と<a href="https://hiro-oka.github.io/icu-masterclass/resident-dysphagia/">ICUの嚥下障害</a>の資料に従います。</p>
 </section>
 
@@ -1893,6 +1962,7 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <p>HU-CIは面会制限を「主として慣習的なもの」と書き、家族を訓練と見守りのもとで清潔ケア・食事・離床・リハビリに加わる「ケアのパートナー」に位置づけています<span class="src vault">Nin Vaeza CCM2020</span>。ICUせん妄に患者と家族がどう対処しているかを統合した研究でも、患者にとって最も一貫した支えは家族でした<span class="src vault">Oh CritCare2026</span>。面会は家族の権利であると同時に、ABCDEFの「F」として、せん妄ケアの一部に位置づけられます。</p>
 
 <p>日本の現状は、この推奨からまだ距離があります。全国151施設への質問紙調査では、三次救急ICUの79.5%が面会を午後の数時間（中央値180分）に制限し、家族控室でプライバシーを確保できるのは32.6%でした<span class="src vault">Shirasaki CritCare2025</span>。ドイツには、12時間以上の柔軟な面会と家族専用の待合スペースを必須とし、35項目から30点以上で認証する「家族にやさしいICU」の制度があり、300を超えるICUが取得しています。日本に無い制度で、アウトカムの改善も示されていませんが、自施設の家族ケアを自己採点する外部の物差しに使えます<span class="src vault">Scheer NursCritCare2025</span>。</p>
+<p>2026年にはESICMが、患者・家族・医療者の関係を扱う人間中心のパートナーシップの合意声明（6領域43項目：must 1・should 15・may 27）を出しました。面会では「柔軟（8時間超）または制限なし」「明文化した方針で恣意的な判断を減らす」「臨床医の抵抗を含む障壁に対処する」がすべて should で、SCCMの強い推奨と同じ方向です。家族のケアへの参加と、定期面談・多職種カンファレンス・回診への家族の同席も should とされ、AI・VR・ウェアラブル・音楽療法などは合意に至りませんでした<span class="src vault">Latour ICM2026</span>。GRADEの推奨ではなく専門家の合意で、根拠の大半は満足度・不安などの代理指標であり、家族支援と退室後フォローアップは may にとどまります。</p>
 
 <h3 id="rs-s7-3">7-3. 柔軟な面会が改善するのは家族の心理で、患者のせん妄ではない</h3>
 <p class="rd-lead">36 ICU・1,685例のクラスター交差RCTで、柔軟な面会は患者のせん妄を減らしませんでした（18.9% 対 20.1%）が、家族の不安と抑うつを改善し、12か月後の家族のPTSD症状も少なくなりました（図11）<span class="src vault">Rosa JAMA2019</span><span class="src vault">de Souza ICM2024</span>。</p>
@@ -1952,6 +2022,7 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <p>効いたのは、面会を開くことと、接点を複数置くことでした。担い手を1つの職種に閉じず、要素を増やすより「誰が・いつまで」を絞ります。死別した家族には、生存した家族と同じ介入を当てず、別建ての支援を用意します<span class="src vault">Watland ICM2025</span>。配偶者・パートナーは生活満足度とQOLが低く不安・抑うつが高かったので、層別して目を向けます<span class="src vault">Riguzzi ICM2026</span>。</p>
 <p>陰性試験の列は「家族支援は無効」の証明ではありません。割付単位が16施設しかないFICUSのような設計では、シミュレーションで20の予後因子のうち中央値約45%が群間で偏りうるため、陰性の結果だけで効果なしとは言えません<span class="src vault">Martín Delgado ICM2026</span>。20年分の試験を総括したエディトリアルでも、家族の長期の不安・抑うつはほぼ一貫して動かず、わずかに動いたのは医療チームとの関係性と、患者の希望に沿った医療の一致度でした。次の照準は、全家族に一律に担い手を足すことではなく、負担の大きい家族（家族間の対立や代理意思決定者の不在など）に絞り、短期の当事者中心のアウトカムで測ることです<span class="src vault">Aslakson CCM2026</span>。</p>
 <p>何から始めるかについては、元患者・家族とICU医療者による修正デルファイが、35の家族中心ケア介入のうち31を「重要かつ実行可能」とし、最も重要としたのは在室が長引く患者で週1回以上、患者・家族・看護師・集中治療医がそろう予定面談でした。このデルファイでは、家族の回診参加やケアへの参加は「不確実」と判定されています。効果を測った研究ではなく、当事者の合意です<span class="src vault">Tilburgs ICCN2026</span>。</p>
+<p>面談の前に、家族がどう見ているかを推測で済ませないことも要ります。遷延人工呼吸（10日以上）の家族239組では、医師・看護師が家族の1年生存の見通しを正しく推し量れたのは63.2%で、過小評価（家族は医療者の想定より楽観的）24.3%と過大評価（悲観的）12.6%の両方向に外れていました。過小評価は配偶者・希望の強い家族、若い患者、外科系ICUに多く、医療者側の属性は関係しませんでした<span class="src vault">You CCM2026</span>。面談の冒頭で家族の見通しを家族自身の言葉で聞き、それに合わせて話し方を選びます。著者が勧めているのは見通しを「正す」ことではなく、信頼の構築と傾聴です。探索的な二次解析で、実際の転帰との関係は分かっていません。</p>
 </section>
 
 
@@ -1988,6 +2059,7 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <p>英国25施設の調査では、退室後の患者の98%が理学療法の継続を、70%が栄養の手当てを要していました。求められているのは退室時の包括的な評価そのものではなく、その所見が受け手のチームに届くことです。証拠の強さは low ですが、費用はかかりません<span class="src vault">Schaller ICM2026</span>。ICUで始めた鎮静薬・抗精神病薬・オピオイドが地域まで続いていないか、痛み・眠り・むせはどうかを退院時に確かめ、陽性なら誰に渡すかを決めておきます。詳しい手順は<a href="https://hiro-oka.github.io/icu-masterclass/resident-pics/#s4">PICSとICU退室後のフォロー</a>にあります。</p>
 <p class="rd-note">Suivi-Reaの害は「多職種のフォローは有害」という概念の否定ではなく、治療の変更が起きたのが8%未満・3か月の受診率58%という実装の不全として読み直されています。持ち帰るのは「単一の外来中心のモデルを全員に当てない」ことです<span class="src vault">Schaller ICM2026</span>。</p>
 <p>退室後に患者と会う場を持つなら、話す中身は患者の言葉が示しています。英国の多職種フォローアップ外来（在室3日を超えた患者に案内し、医師・看護師・心理士の3つの面談を対面・オンライン・電話から選ぶ）に参加した27例の質的研究では、価値を感じたのはICUで何が起きたかの時系列を知ること、せん妄の記憶や悪夢は症状だと説明してもらうことで、8例が心理療法につながりました。改善の要望は、説明を持ち帰れる書面の要約でした。効果を測った研究ではなく、外来は「PICSを治す場」ではなく「評価して必要な支援へつなぐ場」と捉え直されています<span class="src vault">Clarke JICS2026</span>。</p>
+<p>退室後に会う場では、心の不調の一部が意味・希望・自分らしさの揺らぎに根ざすことも念頭に置きます。HADSやIES-Rでは「なぜ自分は助かったのか」という苦しみは拾えないため、入室時と移行点で短く尋ね（単一項目0〜10）、傾聴して承認し、チャプレン・心理職へつなぎ、記録して引き継ぐ4段階が提案されています。実存的な苦痛は「この経験で、ご自分の人生の見え方はどう変わりましたか」という開かれた問いで聴きます<span class="src vault">Byrne-Martelli ICM2026</span>。効果は未検証の提言で、PICSを減らす介入ではなく Human care の中身として位置づけます。</p>
 </section>
 
 <section class="rd">
@@ -2175,6 +2247,10 @@ blockquote.voice cite{display:block;font-style:normal;font-size:.82rem;color:var
 <li>Clarke R, Day M, Drew M, Budd L, Bromberg M, Martinez J. “I got a bit of closure”: A thematic analysis of experiences of attending a post intensive care multidisciplinary follow up clinic. <em>J Intensive Care Soc</em>. 2026. doi:10.1177/17511437261493291</li>
 <li>Papazian L, Hraiech S, Loundou A, Herridge MS, Boyer L. High-level burnout in physicians and nurses working in adult ICUs: a systematic review and meta-analysis. <em>Intensive Care Med</em>. 2023;49:387-400.</li>
 <li>Hesselink G, Ramakers B, van Dijk D, Benoit DD, Zegers M; PICNL-ICU study group. Perceived inappropriateness of care among ICU clinicians is associated with burnout and intention to leave the job. <em>Intensive Care Med</em>. 2026. doi:10.1007/s00134-026-08608-x</li>
+<li>Latour JM, Rodriguez-Ruiz E, Arabi YM, et al; Human-Centred Partnership in ICU Collaborators. European Society of Intensive Care Medicine consensus statement on human-centred partnership in the intensive care unit. <em>Intensive Care Med</em>. 2026. doi:10.1007/s00134-026-08626-9</li>
+<li>van Mol M, Martin Delgado MC, Greco M. Restoring patients’ voice in intensive care: augmentative and alternative communication for human-centred care. <em>Intensive Care Med</em>. 2026. doi:10.1007/s00134-026-08654-5</li>
+<li>You H, Pan W, Ashana DC, Docherty SL, Cox CE, Oyesanya TO. Are We on the Same Page? Clinician Perceptions of Family Prognostic Expectations for Critically Ill Patients. <em>Crit Care Med</em>. 2026;54(3):453-463.</li>
+<li>Byrne-Martelli SE, Varner-Perez SE, D'Andria Ursoleo J. Addressing spiritual, religious, and existential distress in post-intensive care syndrome: practical tools across the ICU survivorship care continuum. <em>Intensive Care Med</em>. 2026. doi:10.1007/s00134-026-08611-2</li>
 </ul>
 
 </main><script id="rs-tools-js">

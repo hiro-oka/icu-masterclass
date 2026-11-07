@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1052,7 +1109,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1180,20 +1237,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1239,9 +1296,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1298,7 +1366,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">ICUの判断はなぜ外れるか</h1>
 <p class="sub">誤りをバイアスとノイズに分け、個人の注意ではなく仕組みで減らす — 誤りの2つの型・診断エラーの実測・見逃しの構造・ノイズを減らす・予測が結果を作る領域・AIを3層で読む・エビデンスのノイズ・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1357,6 +1425,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </tbody>
 </table>
 </div>
+<p>見立ての割れが転帰と結びついた観察データもあります。米国8病院の敗血症性ショック2,233例で、最初の48時間のカルテ記載からショックの原因を自然言語処理で抜き出すと、臨床医の間で見立てが食い違っていたのは9.5%でした。全体では死亡との関連はなかった（調整OR 1.13）一方、血液培養陽性例に限るとICU死亡が多い傾向で（調整OR 1.99［95%CI 0.98–4.01］、リスク差+13.3ポイント、血培陽性との交互作用 p=0.042）、抗菌薬・輸液・昇圧薬までの時間はこの差を媒介していませんでした。後ろ向きの観察研究で、層別の区間は1をまたぎます。見立ての割れは死亡の原因ではなく危険の目印として読み、回診で「このショックの原因を全員が同じ言葉で言えるか」を確かめるきっかけにします<span class="src vault">見立て不一致CC2026</span>。</p>
 <div class="box warn"><span class="label">注意 — ノイズは相殺されない</span><p>ノイズは患者をまたいで打ち消し合うのではなく、蓄積します（compounding）<span class="src vault">ノイズCC2025</span>。「平均すれば正しい」は成り立ちません。患者にとって重要なのは、自分が受けたその1回の判断だからです。</p></div>
 
 <h3 id="rs-s1-3">1-3. 経験は一貫性を保証しない — 熟達の3条件が、ICUではそろいにくい</h3>
@@ -1680,6 +1749,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p>JIPADで学習した深層学習モデルはICU死亡AUC 0.94・院内死亡0.91で、ICU退室からの日数によらず1年を通じて0.91〜0.95を保ち、ゲーム理論に基づくSHAPで寄与の大きい順に選んだ上位20変数だけのモデルでも従来のスコアより高いAUCでした<span class="src vault">DNN-SHAP ACPM2022</span>。一方で、導入で外部検証と較正の不足を問題にしながら報告の中心はAUCで、上位20変数の外部検証のコホートも明示されていません。§4-4の3点は、予測AIの論文そのものにも向けます。</p>
 <p>もう1つ、AI論文は「どの段階の証拠まで来ているか」で読みます。VILIの検出・予防AI 52研究を「技術性能→外部検証→プロセス→代理指標→VILIの直接証拠→患者アウトカム」の段階に並べると、大半は技術開発と後ろ向き検証にとどまり、唯一のRCTもシミュレーション上で非同調の検出を見たものでした。VILIには正解ラベルがなく、ΔP・メカニカルパワー・非同調を「AIの正解」にする研究は、その代理指標の妥当性も同時に問われます（表14の#2）。「精度が高い」と「患者が良くなる」は別物です<span class="src vault">VILI-AI CC2026</span>。</p>
 <p>対象を人工呼吸AI全体（挿管31・設定30・非同調16・離脱24・NIV失敗3の104研究）に広げても構図は同じで、AUC 0.80超の報告が並ぶ一方、大半は後ろ向き・単施設で、外部検証と前向き評価が乏しく、RCTはほぼありません。最も現場に近い非同調の自動検出（F1 0.96超の報告あり）も、使う機種と患者での検証は別に要ります。導入を考えるときはAUCではなく「外部検証（較正曲線まで）・閾値と行動ルール・アウトカムの測定」を確かめ、まず表示しないサイレント運用で実測します（表14の#12）。デザインの書かれていない単独の効果の数字（「AIで挿管期間が21時間短縮」など）は効果の証拠として読みません。ナラティブレビューで新しいデータはありません<span class="src vault">人工呼吸AI JTD2026</span>。</p>
+<p>予測が当たることと、予測を使って転帰が良くなることは別の問いです。「正確な予測→早期介入→転帰改善」という前提は未証明なだけでなく構造的に欠陥があり、モデルの検証と前向きの効果検証試験のあいだを既存データの因果分析（§6-2の層）で埋めるべきだ、という意見論文があります（ECMO中の抗凝固を例に論じる）<span class="src vault">予測と意思決定npjAI2026</span>。「何を当てているか」も確かめます。病院到着前の情報で外傷の輸血量を予測するベイズネットワークは、外的検証で大量輸血のAUROC 0.87と識別は良好でしたが、24時間の輸血量が実測の±3単位以内に収まったのは39%で、外的検証は米軍のデータだけでした。二値のAUROCが高くても量の予測は粗いことがあり、転帰への効果はまだ示されていません<span class="src vault">外傷輸血BN CC2026</span>。</p>
 
 <h3 id="rs-s6-2">6-2. 行動可能なAI — 因果を言うには時間依存性の交絡を越える必要があり、観察データは「直せる」こともある</h3>
 <p class="rd-lead">ICUの治療は逐次的な意思決定の連鎖なので、治療の選択肢を比べるAIは単純な回帰や傾向スコアマッチングでは足りない時間依存性の交絡に向き合う必要があり、強化学習で導いたバソプレシン開始ルール（ルールに近い開始で院内死亡の調整OR 0.81、0.73–0.91）も、プロトコルの根拠ではなく仮説として扱います<span class="src vault">AI未来ICM2023</span><span class="src vault">バソプレシンRL JAMA2025</span>。</p>
@@ -1794,6 +1864,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s7-3">7-3. 「差がない」の下には異質性が隠れうる — 効く群と害になる群が打ち消し合う</h3>
 <p class="rd-lead">RCTの主要アウトカムは群全体の平均なので、効く群と害になる群が打ち消し合って隠れることがあり、強化早期離床のTEAM試験の二次解析では治療×予測の交互作用がp=0.006で、死亡が34.0%下がる患者から39.3%上がる患者までの幅があり、三分位の平均治療効果は−8.35%→−2.59%→+14.63%と分かれました<span class="src vault">TEAM異質性ICM2025</span>。</p>
 <p>害の側を決めていたのは昇圧薬・深い鎮静（RASS低値）・糖尿病という「不安定さ」の組み合わせでした。ランダム化データなので交絡の心配はありませんが、各三分位の効果はどれも95%CIが0をまたぎ、無効だった試験の二次解析として著者らも仮説の生成と位置づけています<span class="src vault">TEAM異質性ICM2025</span>。JIPADのRRTでも機械学習で効く群と害になる群が逆向きに分かれましたが、観察データからの異質性の推定は交絡に弱く、前向きの検証なしに適応の判断には持ち込めません<span class="src vault">RRT異質性CCM2026</span>。RRTの始めどきは<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s3">AKIと腎代替療法</a>、早期離床は<a href="https://hiro-oka.github.io/icu-masterclass/resident-early-mobilization/#rs-s3-2">早期離床</a>が正本です。</p>
+<p>逆に、同じ手法で異質性が見つからないこともあります。TTM・TTM2の院外心停止2,789例にcausal forest・BARTなどを当て、虚血負荷と入院時の神経所見から33℃対平温の個別効果を推定しましたが、個別の6か月死亡リスク差の幅は統合で−1.2〜2.1%と小さく、どの手法でも異質性は見つかりませんでした（事後解析）。異質性の解析は「隠れた効く群」を探す道具であると同時に、「重症だから33℃」という直観を確かめる道具にもなります<span class="src vault">TTM異質性CC2026</span>。体温管理は<a href="https://hiro-oka.github.io/icu-masterclass/resident-post-arrest/">心停止後のケア</a>が正本です。</p>
 <div class="box warn"><span class="label">注意 — その治療方針をとった人だけで性能を測らない</span><p>介入下の予測モデルを検証するときは、戦略から外れた時点で人工的に打ち切り、逆確率重み付けで「全員が従った世界」を再現して較正・c-index・Brierを測る必要があり、シミュレーションではこの手当てをしないと判別能の過大評価とscaled Brierの符号の反転が起きました。方法論の達成とモデルの臨床的価値は別で、応用例のモデル自体はc-index 0.561とほぼ情報がありませんでした<span class="src vault">介入下予測Epi2024</span>。</p></div>
 
 <h3 id="rs-s7-4">7-4. 研究データを作る工程にもノイズがある — カルテレビューも測定であり、データベースは偏る</h3>
@@ -1920,6 +1991,10 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>AIは臨床の働き手を減らすとは限らない（Perspective）. <em>N Engl J Med</em>. 2026（AI雇用NEJM2026）</li>
 <li>VILIの早期検出・予防のためのAI（スコーピングレビュー・52研究）. <em>Crit Care</em>. 2026（VILI-AI CC2026）</li>
 <li>人工呼吸管理のAI — 5領域104研究のナラティブレビュー. <em>J Thorac Dis</em>. 2026（人工呼吸AI JTD2026）</li>
+<li>Rao SA, et al. 臨床医間のショック原因の見立ての不一致と敗血症性ショックの死亡（後ろ向きコホート・2,233例）. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06384-0（見立て不一致CC2026）</li>
+<li>Celi LA, et al. 予測の精度と意思決定の評価は別物（Perspective）. <em>npj Artif Intell</em>. 2026. doi:10.1038/s44387-026-00171-6（予測と意思決定npjAI2026）</li>
+<li>Pisirir E, et al. 外傷の輸血量を時間帯別に予測するベイズネットワーク（開発・外的検証）. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06389-9（外傷輸血BN CC2026）</li>
+<li>Lileikyte G, et al. 心停止後の33℃対平温の治療効果の異質性（TTM・TTM2二次解析・2,789例）. <em>Crit Care</em>. 2026;30:561. doi:10.1186/s13054-026-06414-x（TTM異質性CC2026）</li>
 <li>ICUのイノベーションを価値に変える枠組み（ナラティブレビュー）. <em>Intensive Care Med</em>. 2026（ICUイノベーションICM2026）</li>
 <li>PEEP設定にAIとデジタルツインを使う準備はできているか（Correspondence）. <em>Intensive Care Med</em>. 2024（PEEP-AI ICM2024）</li>
 <li>メタ解析が食い違うとき（Editorial）. <em>Crit Care</em>. 2026（メタ解析Editorial CC2026）</li>

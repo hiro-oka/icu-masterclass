@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1051,7 +1108,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -1179,20 +1236,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 /* /resident motion (resident-motion.css) */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1238,9 +1295,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1291,7 +1359,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">フレイルと高齢重症患者</h1>
 <p class="sub">年齢ではなく予備能で語る。入室前の生活でCFSをつけ、何点で切ったかを添え、SOFAと掛けて判断し、治療の上限を項目単位で決める — フレイルとは・測る・何が予後を決めるか・判断と上限・病態ごとに・家族と退院・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="tools">
   <button class="btn pri" type="button" id="rs-pdf">🖨 PDFを作成</button>
@@ -1624,6 +1692,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s4-4">4-4. 治療の上限と期限付きの試み — 「何をいつまで行い、その後どうするか」を約束として伝える</h3>
 <p class="rd-lead">不確実なときは期限を決めた治療の試みで、害になりうる治療への曝露を減らしつつ予測の精度を上げられるので、①今できること、②いつまで、③その後どうするか、④心停止時の扱い、の4つを分けて家族に伝えます<span class="src vault">ICM2024</span>。</p>
 <div class="box plain"><span class="label">家族への伝え方の例</span><p>「人工呼吸器や透析まですべて行うことも技術的にはできますが、それがご本人の望む生活に戻る助けになるかはわかりません。まず72時間、人工呼吸と昇圧薬を全力で行い、その時点でどれだけ反応しているかをもう一度ご相談させてください。人工呼吸のあいだに心臓が止まった場合、胸骨圧迫は行わない方針でよいか、今のうちに確かめさせてください」。72時間後を「続けるかやめるかを迫る日」ではなく「何を根拠に決めるかを一緒に確かめる日」として約束すると、その日の面談が対立の場になりにくくなります。</p></div>
+<p>制限を決めるとき、理由を年齢で書かないことも大切です。36か国199 ICU・12,200例の終末期の判断を年齢別に見た解析では、80歳以上は65歳未満より治療制限が多い（調整OR 1.47）ものの、年齢が主な理由とされたのは80歳以上でも3.9%で、主な理由は最大限の治療への不応でした。高齢者は「始めない（差し控え56.1%）」、65歳未満は「始めてからやめる（中止41.1%）」に偏り、年齢の効果は中欧・南欧に限られて<b>アジアでは年齢差がありません</b>（OR 1.06）。一方、80歳以上で決定時に本人と話し合えたのは17.9%です。差し控えに傾きそうな場面こそ上の期限付きの試みを選択肢として示し、入室前に本人の意向を聞いておきます。重症の高齢者がそもそも入室していない選択バイアスがある点は割り引いて読みます<span class="src vault">ETHICUS-2 CCM2026</span>。</p>
 <p>「Goals of Care」という言葉は文献での使われ方に一貫性がないと指摘されているので、「本人にとって意味のある生活の何を守るか」という具体的な問いに翻訳して使います<span class="src ext">Secunda JGIM2020</span>。差し控え・終了・期限付きの試みの選び方と記録、面談の進め方は<a href="https://hiro-oka.github.io/icu-masterclass/resident-end-of-life/#rs-s5-3">ICUの終末期と意思決定 §5-3</a>が正本です。</p>
 <p class="rd-note">ESICMの終末期・緩和ケアガイドラインは構造化された意思決定・家族面談・コミュニケーション訓練を推奨していますが、8推奨のうち高いエビデンスレベルは2つです<span class="src ext">Kesecioglu ICM2024</span>。終末期の重症患者の疼痛管理の指針は一貫性を欠くという系統的レビュー<span class="src ext">Durán-Crane CCM2019</span>や、韓国の法制度（well-dying法）の前後で医療者が感じる死の質が変わったという報告<span class="src ext">Lee ICM2021</span>もあり、終末期ケアの質は制度設計にも左右されます。</p>
 
@@ -1856,6 +1925,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Jung C, Marschall U, Hennig B, et al. Five-year mortality and functional trajectories in older survivors of intensive care compared to the general population. <em>Intensive Care Med</em>. 2025;51:2329-2340. doi:10.1007/s00134-025-08163-x</li>
 <li>Shiotsuka J, Uchino S, Sasabuchi Y, et al. Institutional Variation in Life-Sustaining Treatments and Mortality Among Older Patients. <em>JAMA Health Forum</em>. 2026;7(6):e261451. doi:10.1001/jamahealthforum.2026.1451</li>
 <li>Sprung CL, Ricou B, Hartog CS, et al. Changes in End-of-Life Practices in European Intensive Care Units From 1999 to 2016 (Ethicus-2). <em>JAMA</em>. 2019. doi:10.1001/jama.2019.14608</li>
+<li>Nagata I, Sprung CL, Lautrette A, et al; ETHICUS-2 Study Group. Influence of Age in End-of-Life Practices in Worldwide ICUs (ETHICUS-2): A Prospective Observational Study. <em>Crit Care Med</em>. 2026;54(4):701-714. doi:10.1097/CCM.0000000000007091</li>
 <li>Secunda K, Wirpsa MJ, Neely KJ, et al. Use and Meaning of "Goals of Care" in the Healthcare Literature: a Systematic Review and Qualitative Discourse Analysis. <em>J Gen Intern Med</em>. 2020;35(5):1559-1566. doi:10.1007/s11606-019-05446-0</li>
 <li>Kesecioglu J, Rusinova K, Alampi D, et al. European Society of Intensive Care Medicine guidelines on end of life and palliative care in the intensive care unit. <em>Intensive Care Med</em>. 2024;50:1740-1766. doi:10.1007/s00134-024-07579-1</li>
 <li>Durán-Crane A, Laserna A, López-Olivo MA, et al. Clinical practice guidelines and consensus statements about pain management in critically ill end-of-life patients: a systematic review. <em>Crit Care Med</em>. 2019;47(11):1619-1626. doi:10.1097/CCM.0000000000003975</li>

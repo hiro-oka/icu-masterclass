@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -1203,7 +1260,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -1249,9 +1306,20 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -1317,7 +1385,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h1 id="top">輸液の判断</h1>
 <p class="sub">反応性の評価と製剤の選択 — 輸液は薬・入れるかの3つの問い・壊れる測り方・効果の持続・製剤・アルブミン・輸液チャレンジ・輸液過剰・除水・落とし穴</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-02</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-08</span></p>
 
 <div class="start">
   <p class="start-k">はじめての方へ</p>
@@ -1520,6 +1588,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <p class="rd-lead">IVCは虚脱率に限って使い、僧帽弁E/e'は「入れてよい側」を絞る補助にとどめます。どちらも単独で「入れない」根拠にはなりません<span class="src vault">Ono ICM2024</span><span class="src vault">Tongyoo CritCare2026</span>。</p>
 <p>呼気終末のIVC径への乗り換えは、根拠にされた研究で71%が評価困難となり感度・特異度を出せていません<span class="src vault">Ono ICM2024</span>。陽圧換気下のIVCVI（分母＝最小径）と虚脱率（分母＝最大径）は別の式なので、他施設の閾値をそのまま持ち込まないでください。閾値の原典は同じ号の2本で、拡張率（分母＝最小径）18%超が感度・特異度90%（20例）<span class="src vault">Barbier ICM2004</span>、変動率（分母＝最大径と最小径の平均）12%以上が陽性的中率93%・陰性的中率92%（39例）でした<span class="src vault">Feissel ICM2004</span>。どちらも深鎮静・自発呼吸なし・洞調律・Vt 8〜10 mL/kgの敗血症性ショックが前提で、低Vt・自発呼吸・腹腔内圧上昇では「変動が小さい＝入れない」と読めません。人工呼吸中ショック80例の直接比較では、AUROCはIVCVI 0.788＞CVP 0.724＞E/e' 0.682＞PPV 0.652で、E/e' 10未満は特異度75.9%・陽性的中率81.1%ですが感度58.7%で、単独で「入れない」根拠にはなりません<span class="src vault">Tongyoo CritCare2026</span>。</p>
 <p>エコーの使い方は「入れない／入れる／任意」の3状況に分けると実践的で、明らかな血液量減少（LV拡張末期面積10 cm²未満＋kissing walls、呼気末IVC径10 mm以下）なら待たずに入れます<span class="src vault">Vieillard-Baron ICM2024</span><span class="src vault">Hunsicker ICM2025</span>。</p>
+<p>そもそもIVCが映すのは容量ではなく右房圧（RAP）です。ASEの目安は径2.1 cm以下かつ虚脱50%超で3 mmHg、2.1 cm超かつ虚脱50%未満で15 mmHg、その間は8 mmHgで、人工呼吸中はRAPの推定に使いません。細いIVCが言えるのは「RAPは高くない」までで、循環血液量減少・正常・高拍出の区別はできません。腹腔内圧が高いとIVCはつぶれて見えるので内頸静脈と見比べます。また、低血圧に左室肥大と循環血液量減少が重なったら動的な左室流出路狭窄（連続波ドプラで遅いピークの短剣状波形、圧較差30 mmHg以上）を疑い、β作用の強い昇圧薬を避けます<span class="src vault">Koratala Diagnostics2026</span>。</p>
 
 <h3 id="rs-s2-6">2-6. VExUS — 静脈うっ血を測って輸液の上限を決める</h3>
 <p class="rd-lead">VExUSは容量負荷と圧負荷を区別しないうっ血の評価法で、反応性の指標ではなく、「これ以上入れてよいか」という上限の側（耐容性）を測る道具です<span class="src vault">Assavapokee UltrasoundJ2024</span>。</p>
@@ -1649,6 +1718,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <h3 id="rs-s4-4">4-4. 「目標に届いたら止める」ではなく「害のサインが出たら止める」</h3>
 <p class="rd-lead">止める基準は臓器の文脈で変わり、ARDSでは肺動脈楔入圧・肺水分量・P/F比・右室拡大、腹部病態では腹腔内圧、どの場合も累積輸液バランスとCVPを見て、「これ以上入れると害が上回るサイン」で止める非対称な設計にします<span class="src vault">Monnet CritCare2023</span>。</p>
 <p>個別化の立場では、ICU外ではMAP 65〜70 mmHg以上（高血圧の既往があれば80〜85）、ICU内ではMAP 75〜80 mmHgに加えてCOの増加・ScvO₂ 60〜70%以上・CO₂較差6 mmHg未満を目標に挙げ、どの場面でも網状皮斑・CRT・尿量・乳酸を見ます<span class="src vault">Monnet CritCare2023</span>。敗血症性ショックのMAP目標の標準と根拠は<a href="https://hiro-oka.github.io/icu-masterclass/resident-sepsis-resuscitation/#rs-s2-4">敗血症の初期蘇生の§2-4</a>で扱います。</p>
+<p>CRTが戻らないときは、原因を1軸ずつ動かして確かめます。PLR／輸液反応性 → 心拍出量（脈圧40 mmHg未満なら心エコー）→ MAP → うっ血の順に介入し、CRTの反応を見ます。昇圧薬でMAPは上がったのにCRTが悪化したら、後負荷過剰で1回拍出量が落ちていないかを心エコーで確かめます。輸液でCVPやうっ血所見だけが悪化してCRTが変わらなければ、それ以上は入れません。高熱では体温調節性の血管拡張が交感神経性の収縮を隠し、低灌流でもCRTが正常に見えることがあります。機序の整理に基づく提案で、この手順で転帰が改善するかは未検証です<span class="src vault">Castro CritCare2026</span>。</p>
 
 <h3 id="rs-s4-5">4-5. 輸液を指示するときに、次に何をいつ測るかも書く</h3>
 <p class="rd-lead">唯一の主要RCTであるFRESHは、PLR＋バイオリアクタンスで測ってから入れる戦略で72時間の輸液バランスを1.37 L減らしましたが、ITT解析では有意差が消え死亡も変わらず、言えるのは「輸液量を減らせる」までなので、再評価は転帰のためではなく過剰投与を防ぐ仕組みとして指示に組み込みます（表10）<span class="src ext">FRESH2020</span>。</p>
@@ -2059,6 +2129,7 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 </table>
 </div>
 <p>手段は利尿薬とRRTの2系統です。ループ利尿薬（Na再吸収の25〜30%を担うNKCC2）が主役で、サイアザイド・MRA・アセタゾラミド・SGLT2阻害薬の併用が利尿薬抵抗性を越えうるとされます。無尿性AKIで既にRRT中、利尿薬に反応しない、遷延・重度の輸液過剰の高リスク例は機械的除水の適応で、ICUでは血行動態への負担の小さいCRRTが好まれます<span class="src vault">Bircher AIC2026</span>。RRTの始めどきと回し方は「<a href="https://hiro-oka.github.io/icu-masterclass/resident-aki-rrt/#s3">AKIと腎代替療法の§3・§4</a>」で扱います。</p>
+<p>RRTで引いている最中の低血圧では、IVCが細くなったことを「引きすぎ」の証拠にしません。頻脈と血管収縮で血圧が保たれていても1回拍出量は先に落ちうるので、除水中はLVOT VTIを繰り返し測って前方流量の低下を早く拾い、Bラインが増えたら除水を強める前に僧帽弁逆流と左室充満圧を見ます（教育的総説で、転帰の改善は示されていません）<span class="src vault">Koratala Diagnostics2026</span>。</p>
 
 <h3 id="rs-s9-4">9-4. 絞っても死亡は動かない — 効果はフェノタイプで逆転しうる</h3>
 <p class="rd-lead">敗血症性ショックで輸液を絞ったCLASSIC・CLOVERSはいずれも死亡を動かさず、差がないことは「絞ってよい」の根拠にはなっても「絞るべき」の根拠にはなりません<span class="src vault">McMullan BJAEd2026</span>。</p>
@@ -2222,6 +2293,8 @@ a.mo-ip-t:hover{background:rgba(255,255,255,.13); border-color:rgba(127,211,242,
 <li>Malbrain MLNG, Martin G, Ostermann M. Everything you need to know about deresuscitation. <em>Intensive Care Med</em>. 2022.</li>
 <li>Ostermann M, Alshamsi F, Artigas Raventos A, et al. ESICM guideline on fluid therapy part 3: fluid removal at de-escalation phase. <em>Intensive Care Med</em>. 2025;51:1749-1763.</li>
 <li>Bircher RE, Ostini A, Pfortmueller CA, Messmer AS. How to perform fluid de-escalation in critical care. <em>Ann Intensive Care</em>. 2026;16:100075.</li>
+<li>Koratala A, Reisinger N, Jaberi A, Torres Rodriguez S, Kazory A. Focused cardiac ultrasound and Doppler hemodynamics in nephrology practice. <em>Diagnostics</em>. 2026;16:3543.</li>
+<li>Castro R, Kattan E, Urbina T, et al.; COPERNICUS Study Group. Capillary refill time prolongation in sepsis and septic shock: supported and potential mechanisms from a pathophysiological perspective. <em>Crit Care</em>. 2026. doi:10.1186/s13054-026-06409-8</li>
 <li>Pfortmueller CA, Dabrowski W, Wise R, van Regenmortel N, Malbrain MLNG. Fluid accumulation syndrome in sepsis and septic shock: pathophysiology, relevance and treatment—a comprehensive review. <em>Ann Intensive Care</em>. 2024;14:115.</li>
 <li>Vincent JL, Pinsky MR. We should avoid the term "fluid overload". <em>Crit Care</em>. 2018;22:214.</li>
 <li>CODEFIRE合意（輸液反応性研究の報告基準52項目・デルファイ法）. <em>Intensive Care Med</em>. 2024.</li>

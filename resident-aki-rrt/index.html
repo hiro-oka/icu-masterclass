@@ -2633,8 +2633,14 @@ html.ak-tr-on .ak-tr-p[hidden]{display:none}
 .rx-tb .lim{stroke:var(--ts-teal);stroke-width:4}
 .rx-tb .wide{opacity:.55}
 .rx-tb text.lim-t{fill:var(--ts-teal);font-weight:800}
+.rx-scr{display:flex;flex-wrap:wrap;gap:.3rem;margin:.2rem 0 .4rem;padding:.4rem;border-radius:8px;background:#1d2a30}
+.rx-scr span{display:flex;align-items:baseline;gap:.3em;padding:.2rem .5rem;border-radius:6px;background:#0f191d;color:#b9d7e2;font-size:.78rem;font-weight:700}
+.rx-scr b{font-size:1.15rem;color:#7CF0C8;font-variant-numeric:tabular-nums}
+.rx-warn{margin:.3rem 0;padding:.3rem .55rem;border-radius:6px;background:color-mix(in srgb,var(--ts-orange) 16%,var(--ts-paper));border-left:4px solid var(--ts-orange);font-size:.8rem!important;font-weight:800!important}
+.rx-conv{font-size:.84rem!important}.rx-conv b{color:var(--ts-teal);font-size:1.05em}
+.rx-sl output{white-space:nowrap}
 .rx-live{margin-top:.9rem;padding:.7rem .8rem;border:1.5px solid var(--ts-teal);border-radius:12px;background:var(--ts-teal-s)}
-.rx-sl{display:grid;grid-template-columns:8.5em 1fr 4.6em;gap:.5rem;align-items:center;margin:.35rem 0;font-size:.86rem;font-weight:700;color:var(--ts-ink)}
+.rx-sl{display:grid;grid-template-columns:10em 1fr 11em;gap:.5rem;align-items:center;margin:.35rem 0;font-size:.86rem;font-weight:700;color:var(--ts-ink)}
 .rx-sl input{width:100%;accent-color:var(--ts-teal)}
 .rx-sl output{text-align:right;font-variant-numeric:tabular-nums;font-weight:800}
 .rx-out{margin:.5rem 0 0;padding:.5rem .7rem;border-radius:8px;background:var(--ts-paper);border-left:4px solid var(--ts-teal);font-size:.92rem;font-weight:700;line-height:1.6}
@@ -2671,7 +2677,7 @@ html.ak-tr-on .ak-tr-p[hidden]{display:none}
 .rx-big p.is-key{border:2px solid var(--ts-teal)}.rx-big p.is-key b{font-size:1.5rem;color:var(--ts-teal)}
 @media screen and (max-width:760px){.rx-in{grid-template-columns:repeat(2,minmax(0,1fr))}.rx-row{grid-template-columns:1fr 7.5em}.rx-row .rx-bar{grid-column:1/-1}
   .rx-wf p{grid-template-columns:7.5em 1fr 4.5em}}
-@media screen and (max-width:600px){.rx-two{grid-template-columns:1fr}.rx-sl{grid-template-columns:6.5em 1fr 4.2em}.rx-big{grid-template-columns:1fr}
+@media screen and (max-width:600px){.rx-two{grid-template-columns:1fr}.rx-sl{grid-template-columns:1fr;gap:.15rem}.rx-sl output{text-align:left}.rx-big{grid-template-columns:1fr}
   .rx-tb text{font-size:17px}.rx-row>span small,.rx-in label{font-size:12px}}
 @media print{.rx-live input[type=range]{display:none}.rx-uf,.rx-calc{break-inside:avoid}}
 </style>
@@ -3508,13 +3514,13 @@ figure[data-gx] .vf-svg .vf-lab.is-hi{fill:var(--vf-gx)}
 <h3 id="rs-s6-1">6-1. クリアランスを決めるもの</h3>
 <p class="rd-lead">CKRTでは、透析液流量と濾過流量の和（QD＋QF＝排液流量）が血液流量（QB）よりずっと少ないので、小分子のクリアランスを主に決めるのは排液流量です。IHDでは透析液流量（QD）がQBより多いので、主にQBがクリアランスを決めます。どちらで決まるかは設定で変わり、CKRTで排液流量をQBに近づければQBも効き、IHDでQBを上げればQDも効いてきます（図7）<span class="src vault">Teixeira CJASN2023</span><span class="src ext">Gaudry NEJM2022</span>。</p>
 <figure class="fig ts-fig" data-mo="none">
-<div class="rx-two"><div class="rx-pn"><h5>CKRT</h5><svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16">QB 100〜300 mL/分</text><rect class="qb wide" x="12" y="41.0" width="276" height="18.0" rx="4"/><text x="12" y="94" class="lim-t">QD＋QF 30〜50 mL/分＝少ないほう</text><rect class="qd lim" x="12" y="124.6" width="276" height="6.8" rx="4"/></svg><p>排液流量（30〜50 mL/分 ≒ 1.8〜3 L/時）が少ないほう → こちらで決まる（クリアランス ≈ 排液流量）</p></div><div class="rx-pn"><h5>IHD</h5><svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16" class="lim-t">QB 200〜500 mL/分＝少ないほう</text><rect class="qb lim" x="12" y="35.8" width="276" height="28.5" rx="4"/><text x="12" y="94">QD 300〜800 mL/分</text><rect class="qd wide" x="12" y="106.8" width="276" height="42.5" rx="4"/></svg><p>QB が少ないほう → こちらで決まる（クリアランス ≈ QB）</p></div></div>
+<div class="rx-two"><div class="rx-pn"><h5>CKRT（機械の画面の例）</h5><div class="rx-scr"><span>QB<b>100</b>mL/分</span><span>透析液<b>600</b>mL/時</span><span>補充液<b>600</b>mL/時</span></div><p class="rx-warn">数字は透析液・補充液のほうが大きく見えても、QB は mL/分、透析液・補充液は mL/時。そろえて比べる</p><p class="rx-conv">透析液＋補充液 1,200 mL/時 ÷ 60 ＝ <b>20 mL/分</b>。QB 100 mL/分と同じ単位にすると、こちらがずっと少ない</p><svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16">QB 100 mL/分</text><rect class="qb wide" x="12" y="44.5" width="276" height="11.0" rx="4"/><text x="12" y="94" class="lim-t">透析液＋補充液 20 mL/分（少ない）</text><rect class="qd lim" x="12" y="125.3" width="276" height="5.4" rx="4"/></svg><p>少ないほう（透析液＋補充液）→ こちらで決まる（クリアランス ≈ 排液流量）</p></div><div class="rx-pn"><h5>IHD（どちらも mL/分）</h5><svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16" class="lim-t">QB 200〜500 mL/分（少ない）</text><rect class="qb lim" x="12" y="35.8" width="276" height="28.5" rx="4"/><text x="12" y="94">QD 300〜800 mL/分</text><rect class="qd wide" x="12" y="106.8" width="276" height="42.5" rx="4"/></svg><p>QB が少ないほう → こちらで決まる（クリアランス ≈ QB）</p></div></div>
 <div class="rx-live">
-<p class="rx-how">つまみを動かすと、少ないほう（＝クリアランスを決める側。枠で強調）が入れ替わります。</p>
-<svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16" data-t="b">QB 100 mL/分</text><rect class="qb wide" x="12" y="44.5" width="276" height="11.0" rx="4"/><text x="12" y="94" data-t="d" class="lim-t">QD＋QF 20 mL/分＝少ないほう</text><rect class="qd lim" x="12" y="125.3" width="276" height="5.4" rx="4"/></svg>
-<p class="rx-sl"><span>QB（血液）</span><input type="range" min="0" max="500" step="10" value="100" data-k="qb" aria-label="QB（mL/分）"><output data-o="qb">100</output></p>
-<p class="rx-sl"><span>QD＋QF</span><input type="range" min="0" max="800" step="5" value="20" data-k="qd" aria-label="QD＋QF（mL/分）"><output data-o="qd">20</output></p>
-<p class="rx-out">クリアランスの目安：最大で約 <b>20 mL/分</b>（少ないほうの流量が上限。小分子を除く働きはGFR 20 mL/分ほどに相当）。QD＋QF（排液流量）で頭打ちです。CKRTの形で、増やすなら排液流量を上げます。</p>
+<p class="rx-how">つまみを動かすと、少ないほう（＝クリアランスを決める側。枠で強調）が入れ替わります。透析液＋補充液は機械と同じ mL/時で動かし、横に mL/分を出します。</p>
+<svg class="rx-tb" viewBox="0 0 300 160" aria-hidden="true"><text x="12" y="16" data-t="b">QB 100 mL/分</text><rect class="qb wide" x="12" y="44.5" width="276" height="11.0" rx="4"/><text x="12" y="94" data-t="d" class="lim-t">透析液＋補充液 20 mL/分（少ない）</text><rect class="qd lim" x="12" y="125.3" width="276" height="5.4" rx="4"/></svg>
+<p class="rx-sl"><span>QB（mL/分）</span><input type="range" min="0" max="500" step="10" value="100" data-k="qb" aria-label="QB（mL/分）"><output data-o="qb">100 mL/分</output></p>
+<p class="rx-sl"><span>透析液＋補充液（mL/時）</span><input type="range" min="0" max="1000" step="1" value="273" data-k="qd" aria-label="透析液＋補充液（mL/時）"><output data-o="qd">1,200 mL/時 ＝ 20 mL/分</output></p>
+<p class="rx-out">クリアランスの目安：最大で約 <b>20 mL/分</b>（少ないほうの流量が上限。小分子を除く働きはGFR 20 mL/分ほどに相当）。透析液＋補充液（排液流量）で頭打ちです。CKRTの形で、増やすなら排液流量を上げます。</p>
 </div>
 <p class="nf-foot">QB＝血液流量、QD＝透析液流量、QF＝濾過流量（補充液流量＋除水速度）、排液流量＝QD＋QF。管の太さは流量に比例。小分子のクリアランスは少ないほうの流量に近づく（上限）という模式で、実際は膜の性能・時間・中断で減る。出典：Teixeira CJASN 2023、Gaudry NEJM 2022</p>
 <figcaption>図7. <b>クリアランスは少ないほうの流れで決まる</b></figcaption>
@@ -4398,15 +4404,17 @@ function tube(sv,qb,qd){
   var limB=qb<qd*0.8,limD=qd<qb*0.8;
   b.setAttribute('class','qb'+(limB?' lim':(limD?' wide':'')));d.setAttribute('class','qd'+(limD?' lim':(limB?' wide':'')));
   var tb=sv.querySelector('[data-t="b"]'),td=sv.querySelector('[data-t="d"]');
-  if(tb){tb.textContent='QB '+qb+' mL/分'+(limB?'＝少ないほう':'');tb.setAttribute('class',limB?'lim-t':'');}
-  if(td){td.textContent='QD＋QF '+qd+' mL/分'+(limD?'＝少ないほう':'');td.setAttribute('class',limD?'lim-t':'');}
+  if(tb){tb.textContent='QB '+qb+' mL/分'+(limB?'（少ない）':'');tb.setAttribute('class',limB?'lim-t':'');}
+  if(td){td.textContent='透析液＋補充液 '+qd+' mL/分'+(limD?'（少ない）':'');td.setAttribute('class',limD?'lim-t':'');}
 }
 [].forEach.call(document.querySelectorAll('.rx-live'),function(w){
   var sb=w.querySelector('[data-k="qb"]'),sd=w.querySelector('[data-k="qd"]'),sv=w.querySelector('svg'),o=w.querySelector('.rx-out');
-  function calc(){var qb=+sb.value,qd=+sd.value,k=Math.min(qb,qd);
-    w.querySelector('[data-o="qb"]').textContent=qb;w.querySelector('[data-o="qd"]').textContent=qd;tube(sv,qb,qd);
+  /* 透析液＋補充液は mL/時（対数のつまみ：300〜48,000 mL/時）。比べるときは ÷60 で mL/分 */
+  function qh(){var v=300*Math.pow(160,+sd.value/1000);return Math.round(v/60)*60;}
+  function calc(){var qb=+sb.value,h=qh(),qd=h/60,k=Math.min(qb,qd);
+    w.querySelector('[data-o="qb"]').textContent=qb+' mL/分';w.querySelector('[data-o="qd"]').textContent=h.toLocaleString('ja-JP')+' mL/時 ＝ '+qd+' mL/分';tube(sv,qb,qd);
     var msg;
-    if(qd<qb*0.8)msg='QD＋QF（排液流量）で頭打ちです。CKRTの形で、増やすなら排液流量を上げます。';
+    if(qd<qb*0.8)msg='透析液＋補充液（排液流量）で頭打ちです。CKRTの形で、増やすなら排液流量を上げます。';
     else if(qb<qd*0.8)msg='QB（血流）で頭打ちです。IHDの形で、増やすなら血流を上げます。';
     else msg='2つが近く、両方が効きます。どちらを上げても少しずつ増えます。';
     o.innerHTML='クリアランスの目安：最大で約 <b>'+k+' mL/分</b>（少ないほうの流量が上限。小分子を除く働きはGFR '+k+' mL/分ほどに相当）。'+msg;}

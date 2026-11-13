@@ -2485,6 +2485,37 @@ button,input,select,textarea{font-family:inherit}
 .ab-pre .n{font-size:1.9em;font-weight:900;color:var(--accent);line-height:1}
 .ab-pre .t{margin:0;font-weight:800;line-height:1.5}
 .ab-pre .d{grid-column:1 / -1;margin:0;line-height:1.7}
+
+/* 2026-11-14 図20 右パネル（吸気ポーズとPMI） */
+.mx-fig{--mx-psv:#08805F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mx-fig{--mx-psv:#3DD6A3}}
+:root[data-theme="dark"] .mx-fig{--mx-psv:#3DD6A3}
+@media print{.mx-fig{--mx-psv:#08805F}}
+.mx-fig .mx-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1em 1.4em;align-items:end}
+@media (max-width:640px){.mx-fig .mx-pair{grid-template-columns:minmax(0,1fr)}}
+.mx-fig .mx-pane{min-width:0}
+.mx-fig .mx-pt{margin:0 0 .3em;text-align:center;font-weight:800;color:var(--mx-psv)}
+.mx-fig .mx-pn{margin:.3em 0 0;text-align:center;font-size:.92em;font-weight:700;line-height:1.6;text-wrap:balance}
+.box.mx-modes > .tablewrap:first-child{margin-top:0}
+.box.mx-modes > .tablewrap + p{margin-top:.8rem}
+.mx-fig svg.mx-pmi{max-width:30rem;margin:0 auto}
+.mx-fig .mx-pmi .b-ax{stroke:var(--muted);stroke-width:1.4}
+.mx-fig .mx-pmi .b-grid{stroke:var(--line);stroke-width:1}
+.mx-fig .mx-pmi .b-s{font-size:16px;fill:var(--muted)}
+.mx-fig .mx-pmi .p-zone{fill:var(--mx-hi-s)}
+.mx-fig .mx-pmi .p-hold{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:3 4}
+.mx-fig .mx-pmi .p-ref{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:5 4}
+.mx-fig .mx-pmi .p-w{stroke:var(--mx-psv);stroke-width:3.2;fill:none;stroke-linejoin:round}
+.mx-fig .mx-pmi .p-pm{stroke:var(--mx-pm);stroke-width:2.2}
+.mx-fig .mx-pmi .p-pm-h{fill:var(--mx-pm)}
+.mx-fig .mx-pmi .p-dp{stroke:var(--mx-e);stroke-width:2.2}
+.mx-fig .mx-pmi .p-dp-h{fill:var(--mx-e)}
+.mx-fig .mx-pmi .p-s{font-size:16px;fill:var(--muted)}
+.mx-fig .mx-pmi .p-l{font-size:18px;font-weight:800}
+.mx-fig .mx-pmi .p-ps{font-size:19px;font-weight:800;fill:var(--mx-psv)}
+.mx-fig .mx-pmi .p-pmt{font-size:19px;font-weight:800;fill:var(--mx-pm)}
+.mx-fig .mx-pmi .p-dpt{font-size:19px;font-weight:800;fill:var(--mx-e)}
+.mx-fig .mx-pmi, .mx-fig .mx-pmi *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 </style>
 <!-- wx:css:start -->
 <style id="wex-20261102">
@@ -2686,7 +2717,7 @@ button,input,select,textarea{font-family:inherit}
 <h1 id="top">人工呼吸の基礎</h1>
 <p class="sub">1人の患者で、挿管の適応からアラーム対応まで</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-13</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-14</span></p>
 
 <div class="tools">
   <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-mechanical-ventilation-lecture/">🎞 スライド</a>
@@ -2961,7 +2992,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 </script>
 <!-- ms:end -->
 <p>VCVとPCVで転帰の差は示されておらず、使い慣れたほうを選びます<span class="src vault">S3 2025</span>。この患者は、圧の変化で肺の状態を追いやすいVCVで始めます。</p>
-<p>PSVは患者が始めた吸気を設定した圧で支えるモードで、自発呼吸が前提です。移るのは、呼吸ドライブが安定し、人工呼吸器と同調し、過剰な吸気努力がなく、必要な換気量を自力で保てるときです<span class="src vault">Telias ICM2022</span><span class="src vault">JICS2026</span>。PSVでは無呼吸になると換気が止まるため、無呼吸アラームとバックアップ換気の設定を必ず確認します。</p>
+<p>PSVは患者が始めた吸気を設定した圧で支えるモードで、自発呼吸が前提です。移るのは、呼吸ドライブが安定し、人工呼吸器と同調し、過剰な吸気努力がなく、必要な換気量を自力で保てるときです<span class="src vault">Telias ICM2022</span><span class="src vault">JICS2026</span>。呼吸ドライブは脳幹から出る「吸え」という指令の強さ、吸気努力はその指令で呼吸筋が実際に出した力です。指令が強くても筋力が弱ければ努力は小さいので、2つは分けて評価します（測り方は資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-respiratory-drive/">呼吸ドライブと吸気努力の測り方</a>」）<span class="src vault">Vaporidi AJRCCM2020</span>。PSVでは無呼吸になると換気が止まるため、無呼吸アラームとバックアップ換気の設定を必ず確認します。</p>
 
 <h3 id="rs-s3-2">3-2. 人工呼吸の3要素（3T's）</h3>
 <p class="rd-lead">人工呼吸器は、3つの要素で決まります。これを人工呼吸の3要素（3T's）と呼びます。Trigger（吸気の始まり）・Target（送気中に一定に保つもの）・Termination（吸気の終わり）の3つです。それぞれにどんな選択肢があるかを考えてから、図3をスクロールして1つずつ確かめます<span class="src vault">JICS2026</span>。</p>
@@ -3605,7 +3636,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <tr><td class="rs-nw" data-label="項目">PEEP</td><td data-label="初期値の目安">5〜6 cmH₂Oから<span class="src vault">SOCCA2024</span></td><td data-label="調整の考え方">陽圧換気の開始直後に静脈還流が最も落ちるので、低めから血圧を見ながら段階的に上げる</td></tr>
 <tr><td class="rs-nw" data-label="項目">FiO₂</td><td data-label="初期値の目安">SpO₂ 91〜96%の帯に収まる最小量<span class="src vault">ICU-ROX NEJM2020</span></td><td data-label="調整の考え方">挿管直後の100%のまま固定しない（§5-3）</td></tr>
 <tr><td class="rs-nw" data-label="項目">吸気流量</td><td data-label="初期値の目安">機種の既定値</td><td data-label="調整の考え方">VCVで60 L/分・矩形波・吸気ポーズにすると、PIP − PplatがそのままRになる（§4-2）</td></tr>
-<tr><td class="rs-nw" data-label="項目">I:E比</td><td data-label="初期値の目安">1:2程度から</td><td data-label="調整の考え方">VCVでは流量・一回換気量・呼吸数で決まる（設定する値ではない）。時定数の長い病態（COPD）では呼気を長めに取る（§7-2）</td></tr>
+<tr><td class="rs-nw" data-label="項目">I:E比</td><td data-label="初期値の目安">1:2程度から</td><td data-label="調整の考え方">VCVでは流量・一回換気量・呼吸数で決まる（設定する値ではない）。この患者は約1:4で、呼気が長い側にずれる分には差し支えない。時定数の長い病態（COPD）では呼気を長めに取る（§7-2）</td></tr>
 <tr><td class="rs-nw" data-label="項目">トリガー</td><td data-label="初期値の目安">流量トリガーを基本にする</td><td data-label="調整の考え方">努力のない送気（自動トリガー）や、吸っても始まらない送気（無効トリガー）が続くときに設定値を見直す（§3-2）</td></tr>
 <tr><td class="rs-nw" data-label="項目">カフ圧</td><td data-label="初期値の目安">26 cmH₂O（既定）</td><td data-label="調整の考え方">カフ圧計で実測する。文献の推奨域は20〜30 cmH₂O</td></tr>
 </tbody>
@@ -3698,14 +3729,33 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <span class="label">自発呼吸があるときの値は参考値</span>
 <p>ここまでの計算は「回路の圧＝呼吸器系（肺と胸郭）にかかっている圧」という前提に立っています。§3-5の運動方程式（図13）は、画面の気道内圧（人工呼吸器の圧 Pvent）＝抵抗×流量＋換気量÷C＋PEEP − Pmus でした。Pmus を左辺へ移すと、Pvent＋Pmus＝抵抗×流量＋換気量÷C＋PEEP になります<span class="src vault">Vaporidi AJRCCM2020</span>。肺を膨らませ、ガスを流しているのは、人工呼吸器の圧と患者の吸う力（Pmus）の合計です（図20）。</p>
 <p>ところが画面に出る圧と一回換気量には、患者の分が分けて示されません<span class="src vault">Bertoni CritCare2020</span>。そのため画面の圧だけで割ると、Pmus の分だけ C は大きく出ます。たとえば PS 5 cmH₂O で500 mL入ったとき、患者が5 cmH₂O分吸っていれば（説明用の仮定）、肺にかかった圧は10で、真の C は 500÷10＝50 です。「PS 5で500 mL→100」は、この Pmus を含んだ値です。R も同じで、吸気中に患者が吸うと流量に Pmus の分が乗るため、（PIP − Pplat）÷ 流量 は正しい値になりません。</p>
-<p>正確に測れるのは、Pmus がほぼ0、つまり患者が力を抜いているときです。鎮静・筋弛緩下が確実ですが、PSVでも吸気ポーズをかけてプラトーが平らになれば、その間は力を抜いていると考えて読めます。ポーズ中に患者が吸えば圧は下がり、力めば上がって、プラトーが平らになりません。そのときは値を読まずに測り直します<span class="src ext">Bellani ICM2019</span>。必要なら食道内圧で肺と胸郭の分を分けますが、Pmus の測り方は資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-respiratory-drive/#rs-s1-3">呼吸ドライブと吸気努力の測り方</a>」の1-3で扱います。</p>
+<p>正確に測れるのは、Pmus がほぼ0、つまり患者が力を抜いているときです。鎮静・筋弛緩下が確実ですが、PSVでも吸気ポーズをかけてプラトーが平らになれば、その間は力を抜いていると考えて読めます。ポーズ中に患者が吸えば圧は下がり、力めば上がって、プラトーが平らになりません。そのときは値を読まずに測り直します<span class="src ext">Bellani ICM2019</span>。</p>
+<p>自発呼吸のあるPCV・PSVで吸気ポーズをかけると、患者が力を抜いた分だけ圧が上がってからプラトーになります。この上がり幅をPMI（pressure muscle index）と呼び、吸気の終わりに患者が出していた力の目安になります<span class="src ext">Foti AJRCCM1997</span>。Pplatは、ポーズ前の圧（PEEP＋支持圧）ではなく、上がった後のプラトーで読みます。図20の例では、画面の圧はPEEPの上5でも、ポーズでさらに5上がり、ΔPは10です。流量が0に見えても、ポーズをかけずにPIPをPplatの代わりにはしません<span class="src ext">Bellani ICM2019</span>。</p>
+<p>必要なら食道内圧で肺と胸郭の分を分けますが、Pmus の測り方は資料「<a href="https://hiro-oka.github.io/icu-masterclass/resident-respiratory-drive/#rs-s1-3">呼吸ドライブと吸気努力の測り方</a>」の1-3で扱います。</p>
 </div>
 <figure class="fig mx-fig" data-mo="none" id="mx-pmus">
 <p class="mx-eqline"><span class="v">Pvent（画面の圧）</span> ＋ <span class="m">Pmus（患者の吸う力）</span> ＝ 抵抗 × 流量 ＋ 換気量 ÷ C ＋ PEEP</p>
-<svg class="mx-bar" viewBox="0 0 520 268" role="img" aria-label="PS 5でVT 500 mLのとき、画面の圧5だけで割るとコンプライアンスは100、患者の吸う力5を足した10で割ると50"><line class="b-grid" x1="70" x2="500" y1="232" y2="232"/><text class="b-s" x="62" y="232" text-anchor="end" dy=".35em">0</text><line class="b-grid" x1="70" x2="500" y1="152" y2="152"/><text class="b-s" x="62" y="152" text-anchor="end" dy=".35em">5</text><line class="b-grid" x1="70" x2="500" y1="72" y2="72"/><text class="b-s" x="62" y="72" text-anchor="end" dy=".35em">10</text><line class="b-ax" x1="70" x2="70" y1="30" y2="232"/><text class="b-s" transform="translate(20 142) rotate(-90)" text-anchor="middle">圧（cmH₂O）</text><rect class="b-vent" x="120" y="152" width="90" height="80" rx="4"/><text class="b-in" x="165" y="198" text-anchor="middle">PS 5</text><text class="b-t" x="165" y="258" text-anchor="middle">画面の圧だけで計算</text><text class="b-res is-gh" x="165" y="138" text-anchor="middle">500 ÷ 5 ＝ 100</text><rect class="b-vent" x="330" y="152" width="90" height="80" rx="4"/><rect class="b-pm" x="330" y="72" width="90" height="78" rx="4"/><text class="b-in" x="375" y="198" text-anchor="middle">PS 5</text><text class="b-in" x="375" y="118" text-anchor="middle">Pmus 5</text><text class="b-t" x="375" y="258" text-anchor="middle">肺にかかった圧</text><text class="b-res is-hi" x="375" y="58" text-anchor="middle">500 ÷ 10 ＝ 50</text><text class="b-s" x="270" y="156" text-anchor="middle">VT 500 mL</text></svg>
-<p class="nf-foot">PSV・PS 5 cmH₂O・PEEP（ここでは0とみなす）で一回換気量500 mLのとき。Pmus 5 cmH₂O は説明用の仮定で、画面には Pvent だけが出る。肺を膨らませた圧は両者の合計なので、画面の圧だけで割ると C は大きく出る。この計算が成り立つのは、吸気の終わりで流量が0になっているときだけ</p>
+<div class="mx-pair">
+<div class="mx-pane"><svg class="mx-bar" viewBox="0 0 520 268" role="img" aria-label="PS 5でVT 500 mLのとき、画面の圧5だけで割るとコンプライアンスは100、患者の吸う力5を足した10で割ると50"><line class="b-grid" x1="70" x2="500" y1="232" y2="232"/><text class="b-s" x="62" y="232" text-anchor="end" dy=".35em">0</text><line class="b-grid" x1="70" x2="500" y1="152" y2="152"/><text class="b-s" x="62" y="152" text-anchor="end" dy=".35em">5</text><line class="b-grid" x1="70" x2="500" y1="72" y2="72"/><text class="b-s" x="62" y="72" text-anchor="end" dy=".35em">10</text><line class="b-ax" x1="70" x2="70" y1="30" y2="232"/><text class="b-s" transform="translate(20 142) rotate(-90)" text-anchor="middle">圧（cmH₂O）</text><rect class="b-vent" x="120" y="152" width="90" height="80" rx="4"/><text class="b-in" x="165" y="198" text-anchor="middle">PS 5</text><text class="b-t" x="165" y="258" text-anchor="middle">画面の圧だけで計算</text><text class="b-res is-gh" x="165" y="138" text-anchor="middle">500 ÷ 5 ＝ 100</text><rect class="b-vent" x="330" y="152" width="90" height="80" rx="4"/><rect class="b-pm" x="330" y="72" width="90" height="78" rx="4"/><text class="b-in" x="375" y="198" text-anchor="middle">PS 5</text><text class="b-in" x="375" y="118" text-anchor="middle">Pmus 5</text><text class="b-t" x="375" y="258" text-anchor="middle">肺にかかった圧</text><text class="b-res is-hi" x="375" y="58" text-anchor="middle">500 ÷ 10 ＝ 50</text><text class="b-s" x="270" y="156" text-anchor="middle">VT 500 mL</text></svg></div>
+<div class="mx-pane"><p class="mx-pt">吸気ポーズをかけると</p><svg class="mx-pmi" viewBox="0 0 520 330" role="img" aria-label="PSV・PEEP 5・PS 5で吸気ポーズをかけると、圧がポーズ前の10から15へ上がってプラトーになる。上がった5がPMI、PEEPからプラトーまでの10がΔP"><rect class="p-zone" x="238.0" y="70.0" width="126.0" height="200.0"/><line class="b-grid" x1="70" x2="490" y1="203.3" y2="203.3"/><line class="b-grid" x1="70" x2="490" y1="136.7" y2="136.7"/><line class="b-grid" x1="70" x2="490" y1="70.0" y2="70.0"/><text class="b-s" x="62" y="270.0" text-anchor="end" dy=".35em">0</text><text class="b-s" x="62" y="203.3" text-anchor="end" dy=".35em">5</text><text class="b-s" x="62" y="136.7" text-anchor="end" dy=".35em">10</text><text class="b-s" x="62" y="70.0" text-anchor="end" dy=".35em">15</text><line class="b-ax" x1="70" x2="70" y1="40" y2="270.0"/><line class="b-ax" x1="70" x2="490" y1="270.0" y2="270.0"/><text class="b-s" x="70" y="290.0" text-anchor="middle">0</text><text class="b-s" x="175" y="290.0" text-anchor="middle">1</text><text class="b-s" x="280" y="290.0" text-anchor="middle">2</text><text class="b-s" x="385" y="290.0" text-anchor="middle">3</text><text class="b-s" x="490" y="290.0" text-anchor="middle">4</text><text class="b-s" x="280" y="314.0" text-anchor="middle">時間（秒）</text><text class="b-s" transform="translate(20 155) rotate(-90)" text-anchor="middle">圧（cmH₂O）</text><line class="p-hold" x1="238.0" x2="238.0" y1="70.0" y2="270.0"/><line class="p-hold" x1="364.0" x2="364.0" y1="70.0" y2="270.0"/><text class="p-s" x="301.0" y="260.0" text-anchor="middle">吸気ポーズ</text><line class="p-ref" x1="238.0" x2="364.0" y1="136.7" y2="136.7"/><line class="p-ref" x1="364.0" x2="440" y1="70.0" y2="70.0"/><path class="p-w" d="M70 203.3 H91.0 L106.8 136.7 H238.0 L259.0 70.0 H364.0 L379.8 203.3 H490"/><line class="p-pm" x1="280" x2="280" y1="77.0" y2="129.7"/><polygon class="p-pm-h" points="280,70.0 275,80.0 285,80.0"/><polygon class="p-pm-h" points="280,136.7 275,126.69999999999999 285,126.69999999999999"/><text class="p-pmt" x="289" y="103" dy=".35em">PMI 5</text><line class="p-dp" x1="425" x2="425" y1="77.0" y2="196.3"/><polygon class="p-dp-h" points="425,70.0 420,80.0 430,80.0"/><polygon class="p-dp-h" points="425,203.3 420,193.3 430,193.3"/><text class="p-dpt" x="434" y="137" dy=".35em">ΔP 10</text><text class="p-l" x="172.4" y="126.69999999999999" text-anchor="middle">ポーズ前 10</text><text class="p-s" x="172.4" y="170" text-anchor="middle" dy=".35em">（PEEP 5＋PS 5）</text><text class="p-ps" x="311.5" y="58.0" text-anchor="middle">Pplat 15</text><text class="p-s" x="486" y="225.3" text-anchor="end">PEEP 5</text></svg><p class="mx-pn">上がった分（PMI）が、吸気の終わりに患者が出していた力</p></div>
+</div>
+<p class="nf-foot">PSV・PS 5 cmH₂O・PEEP（ここでは0とみなす）で一回換気量500 mLのとき。Pmus 5 cmH₂O は説明用の仮定で、画面には Pvent だけが出る。肺を膨らませた圧は両者の合計なので、画面の圧だけで割ると C は大きく出る。この計算が成り立つのは、吸気の終わりで流量が0になっているときだけ。右は吸気ポーズをかけたときの圧（模式図）。左の棒と同じ PS 5・Pmus 5 の例で、ここでは PEEP 5 として描いている</p>
 <figcaption>図20. <b>自発呼吸があるときのコンプライアンス</b></figcaption>
 </figure>
+<div class="box mx-modes">
+<div class="tablewrap">
+<table class="wide rs-cards">
+<caption>モード別：PplatとΔPの読み方</caption>
+<thead><tr><th class="rs-nw">モード</th><th>どう測るか</th><th>気をつけること</th></tr></thead>
+<tbody>
+<tr><td class="rs-nw" data-label="モード">VCV</td><td data-label="どう測るか">吸気ポーズ（0.5〜1秒）で Pplat を読み、総PEEP を引く</td><td data-label="気をつけること">矩形波なら同時に R も出せる</td></tr>
+<tr><td class="rs-nw" data-label="モード">PCV</td><td data-label="どう測るか">吸気ポーズ（ホールド）で Pplat を読むのが原則。患者が吸っておらず（筋弛緩・深い鎮静）、吸気の終わりに流量が0まで戻っているときだけ、吸気圧（PEEPの上の値）をそのまま ΔP と読める</td><td data-label="気をつけること">自発呼吸があると、流量が0でも Pplat は画面の圧より高い（図20）。R は直接は出せない（§6-4）</td></tr>
+<tr><td class="rs-nw" data-label="モード">PSV</td><td data-label="どう測るか">吸気ポーズ（ホールド）をかけ、プラトーが平らなときだけ読む</td><td data-label="気をつけること">平らでなければ患者が吸っているか力んでいる。値を読まずに測り直す</td></tr>
+</tbody>
+</table>
+</div>
+<p>どのモードでも、患者が力を抜いていることと、auto-PEEP があれば総PEEP を引くことは同じです。</p>
+</div>
 <p>図21の「翌日」「3日目」は、§6のアラームで使います。</p>
 <!-- vs:rc:start -->
 <figure class="fig vsfig" data-mo="none" id="vf-rc">
@@ -3722,6 +3772,8 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 
 <section class="rd">
 <h2 id="s5"><span class="no">§5</span>血液ガスに基づく設定修正</h2>
+
+<p class="rd-open1">挿管から30分たちました。血液ガスを見て、初期設定を直します。</p>
 
 <h3 id="rs-s5-1">5-1. 酸素化と換気</h3>
 <p class="rd-lead">酸素化（O₂を血液に取り込む）はFiO₂と平均気道内圧で、換気（CO₂を排出する）は肺胞換気量で調整します<span class="src vault">JICS2026</span><span class="src vault">Telias ICM2022</span>。</p>
@@ -3807,7 +3859,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <figcaption>図23. <b>肺胞換気量</b></figcaption>
 </figure>
 <!-- vds:fig:end -->
-<p>死腔は、吸ったガスのうちガス交換に加わらない部分です。口・鼻・咽頭・喉頭・気管・気管支から終末細気管支までは空気の通り道（導管）で、ここにとどまったガスは肺胞に届かず、次の呼気でそのまま出ていきます。この導管の容量が解剖学的死腔で、成人で約150 mL（理想体重1 kgあたり約2 mL）です（図24）。</p>
+<p>死腔は、吸ったガスのうちガス交換に加わらない部分です。口・鼻・咽頭・喉頭・気管・気管支から終末細気管支までは空気の通り道（導管）で、ここにとどまったガスは肺胞に届かず、次の呼気でそのまま出ていきます。この導管の容量が解剖学的死腔で、成人で約150 mL（予測体重1 kgあたり約2 mL）です（図24）。</p>
 <p>挿管すると、口・咽頭・喉頭の部分は気管チューブに置き換わり、チューブより手前の人工鼻やYピースより患者側の回路が器械的死腔として加わります。気管切開ではチューブが短く、口・咽頭を通らないため、死腔は少し減ります。どの場合も死腔の量はほぼ一定なので、一回換気量が小さいほど、その中で死腔が占める割合が大きくなります。</p>
 <figure class="fig ds-fig" data-mo="none" id="ds-fig">
 <div class="ds-panels">
@@ -3817,17 +3869,20 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p class="ds-ps">④ 短いチューブが首の前から気管に入る。⑥ 口・咽頭・喉頭は通らない（点線）ので、死腔は少し減る。⑤ 人工鼻をつなげば器械的死腔は加わる</p></div>
 </div>
 <ul class="ds-keys">
-<li><span class="n">1</span><span>導管（気管・気管支〜終末細気管支。水色）：ガス交換をしない通り道＝<b>解剖学的死腔</b>。口・鼻・咽頭・喉頭も含め、成人で約150 mL（理想体重1 kgあたり約2 mL）</span></li>
+<li><span class="n">1</span><span>導管（気管・気管支〜終末細気管支。水色）：ガス交換をしない通り道＝<b>解剖学的死腔</b>。口・鼻・咽頭・喉頭も含め、成人で約150 mL（予測体重1 kgあたり約2 mL）</span></li>
 <li><span class="n is-a">2</span><span>肺胞（ピンク）：ここまで届いたガスだけがCO₂を受け取る</span></li>
 <li><span class="n">3</span><span>拡大：終末細気管支までが死腔、その先の肺胞の房がガス交換の場</span></li>
 </ul>
 <p class="nf-foot">模式図（正面から見た気道と肺に、管を重ねた。気管切開チューブは前から入るのを横から入るように描いている）。死腔の量は個人差があり、管や人工鼻の容量は製品で違う。血流のない肺胞（肺塞栓など）は肺胞死腔と呼び、解剖学的死腔と合わせて生理学的死腔になる</p>
 <figcaption>図24. <b>解剖学的死腔の範囲</b></figcaption>
 </figure>
+<p>PaCO₂は肺胞換気量に反比例するので、CO₂産生量と死腔が変わらなければ、目標のPaCO₂から必要な肺胞換気量を逆算できます。一回換気量を変えないなら、必要な肺胞換気量を（VT − 死腔）で割った値が呼吸数です。最初の見当をつけるための計算なので、変更後の血液ガスで確かめます。</p>
+<div class="eqn" data-gx="co2"><span>必要なVA［L/分］</span><span class="o">＝</span><span>今のVA × 今のPaCO₂ ÷ 目標のPaCO₂</span></div>
 <p>肺保護のために一回換気量を小さくすると死腔の割合が増えるため、呼吸数を上げて補います。PaCO₂が急に上がったら、分時換気量、死腔の変化（auto-PEEP・肺塞栓）、代謝の亢進（発熱・敗血症）を確かめます。</p>
 
 <h3 id="rs-s5-5">5-5. この患者の設定変更</h3>
 <p class="rd-lead">この患者では、酸素化に対してPEEPを5 → 10 cmH₂Oへ、換気に対して呼吸数を14 → 18回/分へ上げます（表8）。</p>
+<p>呼吸数の18は逆算で出しました。pHを7.35前後に戻すため、目標のPaCO₂を47 mmHgと置きます。必要な肺胞換気量は 3.5 × 60 ÷ 47 ≈ 4.5 L/分、呼吸数は 4.5 ÷（0.4 − 0.15）＝ 18回/分です（§5-4）。</p>
 <p>SpO₂ 91%は目標の帯の下端で、90%は割っていないため、FiO₂ 0.6のままPEEPを血圧を見ながら段階的に上げます。一回換気量は6 mL/kgのままです。</p>
 <div class="tablewrap">
 <table class="wide rs-cards rs-fold">
@@ -3865,6 +3920,8 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <section class="rd">
 <h2 id="s6"><span class="no">§6</span>アラーム対応</h2>
 
+<p class="rd-open1">設定が落ち着いても、アラームは鳴ります。この患者の翌日と3日目の出来事で、対応の順番を確かめます。</p>
+
 <h3 id="rs-s6-1">6-1. 急変時のDOPE</h3>
 <p class="rd-lead">アラームが鳴ったら、まずベッドサイドで患者を診ます。SpO₂や血圧が急に落ちていれば、波形を読む前にDOPE（チューブの位置異常・閉塞・緊張性気胸・器械の異常）を除きます（図25）<span class="src vault">JICS2026</span>。あわせて、喘息・COPDで呼気が終わらないうちに次の送気が重なるauto-PEEPも確かめます。DOPEの4つと違い、回路を外して吐ききらせるのが最初の対応です（§7-2）<span class="src vault">CHESTCC2025</span>。</p>
 <!-- vf:dope:start -->
@@ -3884,7 +3941,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p>高圧アラームの上限に達すると、PB840 など多くの機種では、人工呼吸器がその呼吸の送気を打ち切って呼気に切り替えます。VCV では設定した一回換気量が入りきっていないので、アラームを消すだけにせず、実際に入った換気量（呼気一回換気量）と SpO₂ を見ます<span class="src ext">PB840 Manual</span>。</p>
 <div class="box">
 <span class="label">この患者では（翌日）</span>
-<p>鎮静を浅くして覚醒してきたところで高圧アラーム（上限 45 cmH₂O）が断続的に鳴りました。SpO₂と血圧は保たれています。吸気ポーズでPIPは28から41に上昇し、Pplatは22のままでした（流量60 L/分）。R＝(41 − 22)÷1＝19 cmH₂O/(L/s)で、前日の6の約3倍です。患者はチューブを噛んでおり、吸引で粘稠な痰も認めました。バイトブロックを挿入して吸引すると、PIPは29に戻りました。</p>
+<p>鎮静を浅くして覚醒してきたところで、患者がチューブを強く噛んだ瞬間に上限を超え、高圧アラーム（上限 45 cmH₂O）が断続的に鳴りました。SpO₂と血圧は保たれています。噛んでいない間に吸気ポーズで測ると、PIPは28から41に上昇し、Pplatは22のままでした（流量60 L/分）。R＝(41 − 22)÷1＝19 cmH₂O/(L/s)で、前日の6の約3倍です。患者はチューブを噛んでおり、吸引で粘稠な痰も認めました。バイトブロックを挿入して吸引すると、PIPは29に戻りました。</p>
 </div>
 <!-- vf:almr:start -->
 <figure class="fig" data-mo="none" data-vfd="panels" data-mo-dur="6" data-mo-sync data-vmode="vcv">
@@ -3910,7 +3967,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <p class="rd-lead">Pplatは弾性成分＋PEEPなので、一回換気量と総PEEPが同じまま、PIPとPplatが同じ幅で上がれば、肺と胸郭が膨らみにくくなっています。総PEEPが上がったときもPIPとPplatはともに上がるため、呼気終末ホールドで確かめます（図27）<span class="src vault">Flynn Anesthesiology2022</span>。</p>
 <div class="box">
 <span class="label">この患者では（3日目）</span>
-<p>体位変換の後に高圧アラームが鳴り、SpO₂が96%から89%に低下しました。吸気ポーズでPIPは28から37、Pplatは22から31に上昇し、総PEEPは10でした。R＝(37 − 31)÷1＝6で不変です。ΔP＝31 − 10＝21 cmH₂O、Cst＝400 ÷ 21≈19 mL/cmH₂Oで、それまでの33から大きく低下していました。</p>
+<p>体位変換で咳き込んだときに高圧アラームが鳴り、落ち着いた後も SpO₂が96%から89%に低下していました。吸気ポーズでPIPは28から37、Pplatは22から31に上昇し、総PEEPは10でした。R＝(37 − 31)÷1＝6で不変です。ΔP＝31 − 10＝21 cmH₂O、Cst＝400 ÷ 21≈19 mL/cmH₂Oで、それまでの33から大きく低下していました。</p>
 <p>左の呼吸音が減弱し、チューブの固定位置が3 cm深くなっていました（DOPEのD：右主気管支への片肺挿管）。エコーでは右肺のlung sliding（胸膜のすべり）があり、右の気胸は否定的でした。左はlung slidingを認めませんでしたが、換気されていない肺でも消失するため、それだけでは気胸と判断できません。チューブを元の深さに戻すと、左の呼吸音とlung slidingが回復し、Pplat 22・SpO₂ 95%に戻りました。</p>
 </div>
 <!-- vf:almc:start -->
@@ -3997,6 +4054,8 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 
 <section class="rd">
 <h2 id="s7"><span class="no">§7</span>ARDSと閉塞性肺疾患</h2>
+
+<p class="rd-open1">最後に、考え方は同じまま、守る値が変わる2つの病態を見ます。肺が硬く小さいARDSと、気道が狭く吐ききれないCOPD・喘息です。</p>
 
 <h3 id="rs-s7-1">7-1. ARDS</h3>
 <p class="rd-lead">ARDSでは換気される肺（baby lung）が体格から予測される大きさよりはるかに小さいため、一回換気量6（4〜8）mL/kg PBW・Pplat 30 cmH₂O未満を守り、ΔPは15 cmH₂O未満を目安に低く保ちます<span class="src vault">Morris ICM2026</span><span class="src vault">S3 2025</span><span class="src ext">Amato NEJM2015</span>。</p>
@@ -4087,10 +4146,10 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <caption>表17｜非同調の7つの名前 — <span class="ok">波形で探せるのは5つ</span></caption>
 <thead><tr><th class="rs-nw">名前</th><th class="rs-nw">起きていること</th><th class="rs-nw">波形の手がかり</th><th class="rs-nw">最初の一手</th></tr></thead>
 <tbody>
-<tr id="asy-ineff"><td class="rs-nw" data-label="名前">無効トリガー<br><small>ineffective effort／missed triggering</small></td><td data-label="起きていること">Trigger：吸おうとしたのに、送気が始まらない（空振り）</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>呼気の途中で流量が一瞬0の方向へ持ち上がり、圧もわずかにへこむが、送気が続かない。機械の呼吸数が胸の動きより少ない</td><td data-label="最初の一手">補助が強すぎないか（PS・一回換気量が大きい）、auto-PEEP（呼気の流量が0に戻るか）、トリガーの感度が鈍すぎないか、鎮静が深すぎないかを見る。鎮静を深くする前に、PSを下げられないか考える<span class="src vault">Thille ICM2006</span></td></tr>
+<tr id="asy-ineff"><td class="rs-nw" data-label="名前">無効トリガー<br><small>ineffective effort／missed triggering</small></td><td data-label="起きていること">Trigger：吸おうとしたのに、送気が始まらない（空振り）</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>呼気の途中で流量が一瞬0の方向へ持ち上がり、圧もわずかにへこむが、送気が続かない。人工呼吸器の呼吸数が胸の動きより少ない</td><td data-label="最初の一手">補助が強すぎないか（PS・一回換気量が大きい）、auto-PEEP（呼気の流量が0に戻るか）、トリガーの感度が鈍すぎないか、鎮静が深すぎないかを見る。鎮静を深くする前に、PSを下げられないか考える<span class="src vault">Thille ICM2006</span></td></tr>
 <tr id="asy-auto"><td class="rs-nw" data-label="名前">自動トリガー<br><small>auto-triggering</small></td><td data-label="起きていること">Trigger：吸おうとしていないのに、送気が始まる</td><td data-label="波形の手がかり"><b>波形だけでは見分けにくい。</b>立ち上がり直前の圧のへこみがない送気が続き、呼吸数が設定より多い</td><td data-label="最初の一手">回路のリークと回路内の水、心拍に合わせた流量の揺れを探す。トリガーの感度を鈍くする</td></tr>
-<tr><td class="rs-nw" data-label="名前">逆トリガー<br><small>reverse triggering</small></td><td data-label="起きていること">Trigger：器械の送気が、患者の吸気努力を引き起こす。深い鎮静の調節換気で多い</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>時間トリガーの送気（へこみなし）の途中や直後に、流量と圧が乱れる。続くと次の送気につながる</td><td data-label="最初の一手">鎮静の必要性と深さを見直し、浅くできないかを検討する。設定した呼吸数も見直し、変えたあとに努力・一回換気量・2回続く送気がどう変わるかを見る<span class="src vault">Murray FrontPharmacol2022</span></td></tr>
-<tr><td class="rs-nw" data-label="名前">二重トリガー<br><small>double triggering</small></td><td data-label="起きていること">主にTermination：患者の吸気努力が機械の吸気の終了後も続き、2回目の送気が入る。逆トリガーに続いて起こることもある</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>呼気をほとんど挟まずに2回の送気が続く。VCVでは、合計の換気量が設定の約2倍になることがある</td><td data-label="最初の一手">1回目の送気の前に吸気努力（圧のへこみ・胸の動き）があるかを見る。あれば、患者の吸う時間に対して機械の吸気が短くないかを考え、モードに応じて吸気時間の延長を検討し、呼吸ドライブが強い理由（痛み・アシドーシス・不安）を探す。時間トリガーの送気のあとに努力が現れるなら、逆トリガーを疑う。へこみがないことだけでは決めない<span class="src vault">Salgado da Costa ICM2026</span></td></tr>
+<tr><td class="rs-nw" data-label="名前">逆トリガー<br><small>reverse triggering</small></td><td data-label="起きていること">Trigger：人工呼吸器の送気が、患者の吸気努力を引き起こす。深い鎮静の調節換気で多い</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>時間トリガーの送気（へこみなし）の途中や直後に、流量と圧が乱れる。続くと次の送気につながる</td><td data-label="最初の一手">鎮静の必要性と深さを見直し、浅くできないかを検討する。設定した呼吸数も見直し、変えたあとに努力・一回換気量・2回続く送気がどう変わるかを見る<span class="src vault">Murray FrontPharmacol2022</span></td></tr>
+<tr><td class="rs-nw" data-label="名前">二重トリガー<br><small>double triggering</small></td><td data-label="起きていること">主にTermination：患者の吸気努力が人工呼吸器の吸気の終了後も続き、2回目の送気が入る。逆トリガーに続いて起こることもある</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>呼気をほとんど挟まずに2回の送気が続く。VCVでは、合計の換気量が設定の約2倍になることがある</td><td data-label="最初の一手">1回目の送気の前に吸気努力（圧のへこみ・胸の動き）があるかを見る。あれば、患者の吸う時間に対して人工呼吸器の吸気が短くないかを考え、モードに応じて吸気時間の延長を検討し、呼吸ドライブが強い理由（痛み・アシドーシス・不安）を探す。時間トリガーの送気のあとに努力が現れるなら、逆トリガーを疑う。へこみがないことだけでは決めない<span class="src vault">Salgado da Costa ICM2026</span></td></tr>
 <tr id="asy-flow"><td class="rs-nw" data-label="名前">フロー不足<br><small>insufficient flow</small></td><td data-label="起きていること">Target：VCVで、患者の吸う力に対して送る流量が足りない</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>VCVの吸気中に、圧の波形が下へへこむ（図9の形が崩れる）</td><td data-label="最初の一手">VCVでは吸気流量を上げることを検討する。流量を上げると吸気時間が短くなるため、早期サイクリングや二重トリガーが増えないか確かめる。PCV・PSVへの変更も選択肢になる。ドライブが強い理由も探す</td></tr>
 <tr id="asy-early"><td class="rs-nw" data-label="名前">早期サイクリング<br><small>premature cycling</small></td><td data-label="起きていること">Termination：患者がまだ吸っているのに、送気が終わる</td><td data-label="波形の手がかり"><span class="ok">波形で探せる。</span>呼気の始まりで流量が速やかに0の方向へ戻り、続く努力で2回目の送気が入ることがある</td><td data-label="最初の一手">PSVではETSの％を下げて吸気を長くする（図7）。PCVでは吸気時間を延ばす<span class="src vault">Mojoli ICM2016</span></td></tr>
 <tr id="asy-late"><td class="rs-nw" data-label="名前">遅延サイクリング<br><small>delayed cycling</small></td><td data-label="起きていること">Termination：患者が吐き始めても、送気が続く。リークがあると起こりやすい</td><td data-label="波形の手がかり"><b>波形だけでは見分けにくい。</b>吸気の終わりに、呼気の努力で圧が急に上がる</td><td data-label="最初の一手">PSVではETSの％を上げて吸気を早めに終える（図7）。リークも確かめる<span class="src vault">Mojoli ICM2016</span></td></tr>
@@ -4103,7 +4162,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <figcaption>図32. <b>表17の波形の例</b></figcaption>
 </figure>
 <!-- wx:t14:end -->
-<p>対応は、まず患者の苦しさ、酸素化と換気、痛みなどの原因と、回路の異常を確かめます。そのうえで設定を患者に合わせます。補助が強すぎれば下げ、機械の吸気が患者より短ければ延ばし、長ければ縮めます。変えたあとは波形・吸気努力・一回換気量を見直し、ARDSでは肺保護を、COPDでは十分な呼気時間を保ちます。波形を消すために鎮静を深くすることから始めません<span class="src vault">Thille ICM2006</span><span class="src vault">Murray FrontPharmacol2022</span>。</p>
+<p>対応は、まず患者の苦しさ、酸素化と換気、痛みなどの原因と、回路の異常を確かめます。そのうえで設定を患者に合わせます。補助が強すぎれば下げ、人工呼吸器の吸気が患者より短ければ延ばし、長ければ縮めます。変えたあとは波形・吸気努力・一回換気量を見直し、ARDSでは肺保護を、COPDでは十分な呼気時間を保ちます。波形を消すために鎮静を深くすることから始めません<span class="src vault">Thille ICM2006</span><span class="src vault">Murray FrontPharmacol2022</span>。</p>
 <p>ARDSでは、人工呼吸の期間が延びることとの関連について、専門家が①二重トリガー ②無効トリガー ③逆トリガーの順に重く評価しました。これは11人の専門家の合意による順位で、因果関係や介入の効果を示すものではありません<span class="src vault">SYNAPsE ICM2026</span>。本資料ではこの順位にならい、ARDSではまず二重トリガーを探します。二重トリガーに見える波形の一部は逆トリガーから続いたもので、対応の向きが逆になるため、努力と送気の前後関係から見分けます<span class="src vault">Salgado da Costa ICM2026</span>。ARDSでの非同調と鎮静は、ARDSの資料の<a href="https://hiro-oka.github.io/icu-masterclass/resident-ards/#rs-s7-3">7-3</a>で扱います。</p>
 
 <h3 id="rs-s8-5">8-3. 抜管前の確認「ABC-Drs.」</h3>
@@ -4111,24 +4170,28 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <div class="ab-pre"><span class="n">0</span><p class="t">大前提：挿管の原因が解除されている</p>
 <p class="d">肺炎・心不全・ショック・意識障害・上気道の閉塞など、挿管が必要になった理由が改善していることを、ABC-Drs.より先に確かめます。原因が残ったままなら、各項目を満たしていても抜管は早すぎます。</p></div>
 <p>どの項目も単独の合否基準ではなく、患者ごとにリスクの所在を見るために使います。</p>
+<p>この患者では（4日目）、薬剤の作用が切れて意識が戻り、右下肺の浸潤影も改善しました。FiO₂ 0.3・PEEP 5 で SpO₂ 96%です。PSV（支持圧5・PEEP 5）で30分のSBTに通ったので、ABC-Drs. を確かめます（図33）。</p>
 <figure class="fig">
-<div class="nf"><div class="nf-acro">
-<div class="nf-ac"><span class="nf-lt">A</span><span class="nf-en">Airway</span><span class="nf-ja">上気道が狭くなる心配が少ない（危険が高い患者はカフリークテスト）</span></div>
-<div class="nf-ac"><span class="nf-lt">B</span><span class="nf-en">Breathing</span><span class="nf-ja">SBT中に努力呼吸がない。FiO₂≦0.4程度。RSBI＊＜105は参考値</span></div>
-<div class="nf-ac"><span class="nf-lt">C</span><span class="nf-en">Circulation</span><span class="nf-ja">循環動態が安定している</span></div>
-<div class="nf-ac"><span class="nf-lt">D</span><span class="nf-en">Dys CNS</span><span class="nf-ja">意識が保たれ、指示に応じられる</span></div>
-<div class="nf-ac"><span class="nf-lt">R</span><span class="nf-en">Reflex</span><span class="nf-ja">咳が十分に出る（咳嗽反射が良好）</span></div>
-<div class="nf-ac"><span class="nf-lt">S</span><span class="nf-en">Sputum</span><span class="nf-ja">痰が多すぎず、自分で出せる</span></div>
+<div class="nf"><div class="nf-abcdo">
+<div class="nf-ab-head" aria-hidden="true"><span></span><span>見ること</span><span>この患者</span></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">0</span><div class="nf-ab-what"><span class="nf-ab-en">大前提</span><span class="nf-ab-ja">挿管の原因が解除されている</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>薬剤の作用が切れ、意識が戻った。誤嚥による肺の影も改善</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">A</span><div class="nf-ab-what"><span class="nf-ab-en">Airway</span><span class="nf-ab-ja">上気道が狭くなる心配が少ない（危険が高い患者はカフリークテスト）</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>挿管は1回で入り、挿管期間は4日。上気道が狭くなる危険は高くない</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">B</span><div class="nf-ab-what"><span class="nf-ab-en">Breathing</span><span class="nf-ab-ja">SBT中に努力呼吸がない。FiO₂≦0.4程度。RSBI＊＜105は参考値</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>SBT中に努力呼吸なし。FiO₂ 0.3。呼吸数18回/分・一回換気量450 mLで RSBI 40</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">C</span><div class="nf-ab-what"><span class="nf-ab-en">Circulation</span><span class="nf-ab-ja">循環動態が安定している</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>昇圧薬なしで血圧・心拍数が安定</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">D</span><div class="nf-ab-what"><span class="nf-ab-en">Dys CNS</span><span class="nf-ab-ja">意識が保たれ、指示に応じられる</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>開眼し、指示に応じる</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">R</span><div class="nf-ab-what"><span class="nf-ab-en">Reflex</span><span class="nf-ab-ja">咳が十分に出る（咳嗽反射が良好）</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>吸引のときに強い咳が出る</div></div>
+<div class="nf-ab-row"><span class="nf-ab-lt">S</span><div class="nf-ab-what"><span class="nf-ab-en">Sputum</span><span class="nf-ab-ja">痰が多すぎず、自分で出せる</span></div><div class="nf-ab-do is-pt"><span class="nf-chip is-fill">よい</span>吸引は2〜3時間に1回。自分で口元まで出せる</div></div>
 </div>
 <p class="nf-foot">＊RSBI＝呼吸回数 ÷ 一回換気量（L）。単独で抜管を決めない</p></div>
 <figcaption>図33. <b>抜管前の確認「ABC-Drs.」</b></figcaption>
 </figure>
+<p>6項目と大前提を満たしたので、この患者は4日目に抜管しました。</p>
 <p>抜管の失敗には、人工気道なしで気道を保てない「気道の失敗」（喉頭浮腫・弱い咳・多い分泌物・意識の低下）と、補助なしで呼吸を続けられない「離脱の失敗」（呼吸筋・心臓・水分）があります<span class="src vault">Jung ICM2020</span><span class="src vault">De Jong ICM2023</span>。ABC-Drs.では、A・D・R・Sが主に気道の失敗を、B・Cが離脱の失敗を見ています。回診では「気道は○、離脱は△」と分けて述べます。</p>
 <p>脳卒中や頭部外傷などの脳損傷では、ほかの項目が整っても、D（意識）の異常がなかなか消えない患者がいます。そのときは意識の回復を待ち続けるのではなく、ENIOスコアで抜管失敗のリスクを見積もり、抜管するか（あるいは気管切開を考えるか）を検討します。ENIOは、18か国73のICUで、挿管前のGCSが12以下の脳損傷患者1,512人を前向きに追った研究で、抜管を試みた1,193人の19.4%が5日以内に再挿管されました<span class="src vault">Cinotti ICM2022</span>。</p>
 <div class="box plain">
 <span class="label">ENIOスコアの使い方と限界</span>
 <p>ENIOスコアは抜管成功を予測するスコアで、20項目の完全版と、7項目の簡易版があります。簡易版の7項目は、外傷性脳損傷であること・強い咳・咽頭反射・嚥下運動・気管吸引が1時間に2回以下・GCSの運動スコアが6・抜管日の体温です<span class="src vault">Cinotti ICM2022</span>。各項目の配点は原著の補足資料（Online resource 表4）にあり、下の計算シートで点数をつけられます。</p>
-<p>予測の精度は検証コホートでAUC 0.71（完全版）・0.65（簡易版）と中程度で、独立した集団での検証はまだです。対象は原著と同じ脳損傷患者に限り、スコアは判断の補助として使い、点数だけで抜管を決めません<span class="src vault">Cinotti ICM2022</span>。</p>
+<p>予測の精度は検証コホートでAUC 0.71（完全版）・0.65（簡易版）と高くなく、独立した集団での検証はまだです。対象は原著と同じ脳損傷患者に限り、スコアは判断の補助として使い、点数だけで抜管を決めません<span class="src vault">Cinotti ICM2022</span>。</p>
 </div>
 <!-- enio:start -->
 <div class="calc enio" id="enio-calc">
@@ -4238,6 +4301,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <li>Morris IS, Amato M, Baedorf Kassis E, et al. The medical management of acute respiratory distress syndrome. <em>Intensive Care Med.</em> 2026;52:104-117. doi:10.1007/s00134-025-08251-y</li>
 <li>Amato MBP, Meade MO, Slutsky AS, et al. Driving pressure and survival in ARDS. <em>N Engl J Med.</em> 2015;372:747-755.</li>
 <li>Bellani G, Grassi A, Sosio S, Foti G. Plateau and driving pressure in the presence of spontaneous breathing. <em>Intensive Care Med.</em> 2019;45(1):97-98. doi:10.1007/s00134-018-5311-9（自発呼吸があるときの吸気ポーズ・Pplatの読み方）</li>
+<li>Foti G, Cereda M, Banfi G, Pelosi P, Fumagalli R, Pesenti A. End-inspiratory airway occlusion: a method to assess the pressure developed by inspiratory muscles in patients with acute lung injury undergoing pressure support. <em>Am J Respir Crit Care Med.</em> 1997;156(4 Pt 1):1210-1216. doi:10.1164/ajrccm.156.4.96-02031（吸気ポーズで上がる圧＝PMI）</li>
 <li>Vaporidi K, Akoumianaki E, Telias I, Goligher EC, Brochard L, Georgopoulos D. Respiratory Drive in Critically Ill Patients. Pathophysiology and Clinical Implications. <em>Am J Respir Crit Care Med.</em> 2020;201(1):20-32. doi:10.1164/rccm.201903-0596SO（Pvent＋Pmus の運動方程式）</li>
 <li>Bertoni M, Spadaro S, Goligher EC. Monitoring Patient Respiratory Effort During Mechanical Ventilation: Lung and Diaphragm-Protective Ventilation. <em>Crit Care.</em> 2020;24:106. doi:10.1186/s13054-020-2777-y（画面の圧と一回換気量に患者の分は示されない）</li>
 <li>Cinotti R, Mijangos JC, Pelosi P, et al. Extubation in neurocritical care patients: the ENIO international prospective study. <em>Intensive Care Med.</em> 2022;48(11):1539-1550. doi:10.1007/s00134-022-06825-8（脳損傷患者の抜管・ENIOスコア。簡易版の配点は Online resource 表4、点数帯の区間尤度比は表7）</li>

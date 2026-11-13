@@ -3703,7 +3703,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <figure class="fig mx-fig" data-mo="none" id="mx-pmus">
 <p class="mx-eqline"><span class="v">Pvent（画面の圧）</span> ＋ <span class="m">Pmus（患者の吸う力）</span> ＝ 抵抗 × 流量 ＋ 換気量 ÷ C ＋ PEEP</p>
 <svg class="mx-bar" viewBox="0 0 520 268" role="img" aria-label="PS 5でVT 500 mLのとき、画面の圧5だけで割るとコンプライアンスは100、患者の吸う力5を足した10で割ると50"><line class="b-grid" x1="70" x2="500" y1="232" y2="232"/><text class="b-s" x="62" y="232" text-anchor="end" dy=".35em">0</text><line class="b-grid" x1="70" x2="500" y1="152" y2="152"/><text class="b-s" x="62" y="152" text-anchor="end" dy=".35em">5</text><line class="b-grid" x1="70" x2="500" y1="72" y2="72"/><text class="b-s" x="62" y="72" text-anchor="end" dy=".35em">10</text><line class="b-ax" x1="70" x2="70" y1="30" y2="232"/><text class="b-s" transform="translate(20 142) rotate(-90)" text-anchor="middle">圧（cmH₂O）</text><rect class="b-vent" x="120" y="152" width="90" height="80" rx="4"/><text class="b-in" x="165" y="198" text-anchor="middle">PS 5</text><text class="b-t" x="165" y="258" text-anchor="middle">画面の圧だけで計算</text><text class="b-res is-gh" x="165" y="138" text-anchor="middle">500 ÷ 5 ＝ 100</text><rect class="b-vent" x="330" y="152" width="90" height="80" rx="4"/><rect class="b-pm" x="330" y="72" width="90" height="78" rx="4"/><text class="b-in" x="375" y="198" text-anchor="middle">PS 5</text><text class="b-in" x="375" y="118" text-anchor="middle">Pmus 5</text><text class="b-t" x="375" y="258" text-anchor="middle">肺にかかった圧</text><text class="b-res is-hi" x="375" y="58" text-anchor="middle">500 ÷ 10 ＝ 50</text><text class="b-s" x="270" y="156" text-anchor="middle">VT 500 mL</text></svg>
-<p class="nf-foot">PSV・PS 5 cmH₂O・PEEP（ここでは0とみなす）で一回換気量500 mLのとき。Pmus 5 cmH₂O は説明用の仮定で、画面には Pvent だけが出る。肺を膨らませた圧は両者の合計なので、画面の圧だけで割ると C は大きく出る</p>
+<p class="nf-foot">PSV・PS 5 cmH₂O・PEEP（ここでは0とみなす）で一回換気量500 mLのとき。Pmus 5 cmH₂O は説明用の仮定で、画面には Pvent だけが出る。肺を膨らませた圧は両者の合計なので、画面の圧だけで割ると C は大きく出る。この計算が成り立つのは、吸気の終わりで流量が0になっているときだけ</p>
 <figcaption>図20. <b>自発呼吸があるときのコンプライアンス</b></figcaption>
 </figure>
 <p>図21の「翌日」「3日目」は、§6のアラームで使います。</p>
@@ -3881,6 +3881,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 
 <h3 id="rs-s6-2">6-2. 気道抵抗の上昇</h3>
 <p class="rd-lead">吸気ポーズで流量を止めると抵抗成分は消えるため、VCVで一回換気量・流量・総PEEPが同じ条件のまま、PIPだけが上がってPplatが変わらなければ、上昇分は気道抵抗によるものです（図26）<span class="src vault">Flynn Anesthesiology2022</span>。</p>
+<p>高圧アラームの上限に達すると、PB840 など多くの機種では、人工呼吸器がその呼吸の送気を打ち切って呼気に切り替えます。VCV では設定した一回換気量が入りきっていないので、アラームを消すだけにせず、実際に入った換気量（呼気一回換気量）と SpO₂ を見ます<span class="src ext">PB840 Manual</span>。</p>
 <div class="box">
 <span class="label">この患者では（翌日）</span>
 <p>鎮静を浅くして覚醒してきたところで高圧アラームが鳴りました。SpO₂と血圧は保たれています。吸気ポーズでPIPは28から41に上昇し、Pplatは22のままでした（流量60 L/分）。R＝(41 − 22)÷1＝19 cmH₂O/(L/s)で、前日の6の約3倍です。患者はチューブを噛んでおり、吸引で粘稠な痰も認めました。バイトブロックを挿入して吸引すると、PIPは29に戻りました。</p>
@@ -4252,6 +4253,7 @@ window.MM={play:play,finish:finish,hide:hide,visible:visible};
 <li>Goulet R, Hess D, Kacmarek RM. Pressure vs flow triggering during pressure support ventilation. <em>Chest.</em> 1997;111(6):1649-1653. PMID: 9187188（本文の［Goulet Chest1997］）</li>
 <li>Rittayamai N, Katsios CM, Beloncle F, Friedrich JO, Mancebo J, Brochard L. Pressure-controlled vs volume-controlled ventilation in acute respiratory failure: a physiology-based narrative and systematic review. <em>Chest.</em> 2015;148(2):340-355. doi:10.1378/chest.14-3169</li>
 <li>Blanch L, Villagra A, Sales B, et al. Asynchronies during mechanical ventilation are associated with mortality. <em>Intensive Care Med.</em> 2015;41:633-641. doi:10.1007/s00134-015-3692-6</li>
+<li>Covidien. Puritan Bennett 800 Series Ventilator System Operator's and Technical Reference Manual（840）. Part No. 10067720 Rev. D; 2014. TR 3.2.2 High circuit pressure limit, Table 5-1（本文の［PB840 Manual］。気道内圧が上限に達するとその吸気を終えて呼気に移る）</li>
 <li>Murray B, Sikora A, Mock JR, et al. Reverse triggering: an introduction to diagnosis, management, and pharmacologic implications. <em>Front Pharmacol.</em> 2022;13:879011. doi:10.3389/fphar.2022.879011</li>
 </ul>
 

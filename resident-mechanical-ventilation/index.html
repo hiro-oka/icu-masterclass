@@ -5667,7 +5667,7 @@ window.SCRNOW=function(o){
   sn=window.SCRNOW?SCRNOW({grid:fs,main:fs.querySelector('.fs-main'),svg:svg,sts:sts,card:'.vf-scr-card',vh:'--vf-vh'}):null;
   render(now); go(cur);
   // 段は「画面の中央より上に上端がある段の区間のうち最後のもの（無ければ段1）」。中央の細い帯だけで判定すると、
-  // 図の先頭へ飛んだときなどにどのカードも帯に入らず、前の段のまま残った（Codex の指摘。2026-10-31）
+  //
   var tick=0;
   function sync(){ tick=0; if(!wide.matches) return; var fr=fs.getBoundingClientRect(); if(fr.bottom<0||fr.top>innerHeight) return;
     var k=0, mid=innerHeight*0.5; sts.forEach(function(s,i){ if(s.getBoundingClientRect().top<mid) k=i; }); if(k!==cur) go(k); }

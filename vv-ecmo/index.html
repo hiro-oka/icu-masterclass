@@ -6309,13 +6309,15 @@ ECMO 中の蘇生：①人を呼ぶ・蘇生薬・ABC・簡易 ECMO 評価（本
 <h3 id="rs-b35">10-5. 心停止</h3>
 
 <div class="box danger">
-<p>VA-ECMO 中の心停止では、回路の流れが保たれていれば胸骨圧迫は原則不要ですが、VV-ECMO 中は必要です——VV は肺機能のみの補助で、循環は酸素化改善を介して間接的に支えられているにすぎません。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
-<p style="margin-bottom:0">要点は、ALS（advanced life support：二次救命処置）を回す前に ECMO 回路を確かめるという順です（手順は直前の <a href="#rs-b28">§10-4</a>）。</p>
+<p>胸骨圧迫を始める基準は、VV でも VA でも同じです。反応がない（または正常な呼吸がない）うえに平均動脈圧 30 mmHg 未満が確かめられたら、胸骨圧迫を始めます。「確かめられた」とは、トランスデューサーが動いていて高さが合っていることを見たうえで、という意味です。呼気終末 CO₂ の急な低下と回路の流量ゼロも判断を支えます。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
+<p>VV-ECMO は循環を支えません（<a href="#rs-s5-10">§5-10</a>）。心停止なら、ECMO が回っていても通常の心停止と同じく圧迫が要ります。VV で循環が足りないままなら、VVA-ECMO への切り替えを考えます。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
+<p>VA-ECMO では拍動のある流れがなく、脈が触れないことがよくあります。心室細動でも循環が保たれていることがあります。そのため脈や心電図ではなく、平均動脈圧と SpO₂ と回路の流量で循環を判断します。平均動脈圧が保たれていれば圧迫は要りません。流量をできるだけ上げても平均動脈圧が 30 mmHg 未満のままで、回路の流量も SpO₂ も出なければ、圧迫を始めます。循環が足りない ECMO 患者で、胸骨圧迫が害になるという根拠はありません。<span class="src vault">ECMO中の緊急事態への対応・英国合同ガイドライン ICM2025</span></p>
+<p style="margin-bottom:0">圧迫を始めたら、患者を見る係と ECMO を見る係に分かれます。ECMO に頼っている患者では、回路の不具合を直して流れを戻すことを最優先にします（手順は直前の <a href="#rs-b28">§10-4</a>）。ALS（advanced life support：二次救命処置）は通常どおり回します。</p>
 </div>
 
 <figure class="fig ts-fig cx-fig" data-mo="none">
 <div class="rbecmof18" role="group" aria-labelledby="rbecmof18-start">
-  <p class="rbecmof18-start" id="rbecmof18-start">心停止 → まず ECMO 回路を確かめる</p>
+  <p class="rbecmof18-start" id="rbecmof18-start">VV も VA も同じ：反応がなく<span style="white-space:nowrap">平均動脈圧 &lt; 30 mmHg</span> なら胸骨圧迫</p>
 
   <div class="rbecmof18-grid">
     <div class="rbecmof18-card rbecmof18-vv" role="group" aria-labelledby="rbecmof18-vv-title">
@@ -6337,7 +6339,7 @@ ECMO 中の蘇生：①人を呼ぶ・蘇生薬・ABC・簡易 ECMO 評価（本
           <span>循環は自分の心臓</span>
         </p>
       </div>
-      <p class="rbecmof18-result">胸骨圧迫が必要</p>
+      <p class="rbecmof18-result">心停止なら胸骨圧迫が必要</p>
       <p class="rbecmof18-detail">回路が回っていても、血を全身へ送るのは心臓</p>
     </div>
 
@@ -6355,14 +6357,14 @@ ECMO 中の蘇生：①人を呼ぶ・蘇生薬・ABC・簡易 ECMO 評価（本
         </svg>
         <p class="rbecmof18-support">回路が循環を支える</p>
       </div>
-      <p class="rbecmof18-result">流れが保たれていれば原則不要</p>
-      <p class="rbecmof18-detail">流れが保てなければ圧迫を始める</p>
+      <p class="rbecmof18-result">平均動脈圧が保たれていれば不要</p>
+      <p class="rbecmof18-detail">脈が触れなくてもよい。<br>流量を上げても <span style="white-space:nowrap">30 mmHg 未満</span>なら圧迫を始める</p>
     </div>
   </div>
 
   <p class="rbecmof18-note">VV＝静脈から脱血し静脈へ送血する方式、VA＝静脈から脱血し動脈へ送血する方式、ECMO＝体外式膜型人工肺</p>
 </div>
-<figcaption>図18. VV と VA で胸骨圧迫の要否が違う。左＝VV-ECMO 中の心停止では胸骨圧迫が必要。VV は肺機能のみの補助で、循環は「酸素化の改善を介して間接的に支えられている」にすぎないため。右＝VA-ECMO 中は回路自体が循環を支えているため、回路の流れが保たれていれば<b>原則不要</b>（保てなければ圧迫を始める）。この違いをチームで共有していないと、VV でも「ECMO が回っているから圧迫不要」と誤解される。 略語：ECMO＝体外式膜型人工肺、VA＝静脈から脱血し動脈へ送血する方式、VV＝静脈から脱血し静脈へ送血する方式。</figcaption>
+<figcaption>図18. ECMO 中に胸骨圧迫を始める基準。VV も VA も同じで、反応がなく平均動脈圧 30 mmHg 未満が確かめられたら圧迫を始める。左＝VV-ECMO は循環を支えないので、心停止なら ECMO が回っていても圧迫が必要。右＝VA-ECMO は脈が触れなくても回路が循環を支えていることがある。脈ではなく平均動脈圧と SpO₂ と回路の流量で見て、平均動脈圧が保たれていれば<b>圧迫は不要</b>。流量を上げても 30 mmHg 未満なら圧迫を始める（英国合同ガイドライン ICM2025）。VV でも「ECMO が回っているから圧迫は要らない」と思い込まないよう、チームで共有しておく。 略語：ECMO＝体外式膜型人工肺、SpO₂＝経皮的酸素飽和度、VA＝静脈から脱血し動脈へ送血する方式、VV＝静脈から脱血し静脈へ送血する方式。</figcaption>
 </figure>
 
 <p class="top"><a href="#top">▲ 先頭へ</a></p>
@@ -6675,11 +6677,11 @@ ECMO 中の蘇生：①人を呼ぶ・蘇生薬・ABC・簡易 ECMO 評価（本
   <div class="rbecmof19-route-two" aria-hidden="true"></div>
   <div class="rbecmof19-route-three" aria-hidden="true"></div>
   <div class="rbecmof19-route-warning" aria-hidden="true"></div>
-  <p class="rbecmof19-warning">途中で <span class="rbecmof19-measure">SpO₂ &lt; 90%</span> か脱血 <span class="rbecmof19-measure">SvO₂ &lt; 60%</span> になれば、<strong>4時間を待たずに中止</strong></p>
+  <p class="rbecmof19-warning">途中で <span class="rbecmof19-measure">SpO₂ &gt; 92%</span><span style="white-space:nowrap">（<span class="rbecmof19-measure">PaO₂ ≥ 70</span>）を</span>保てなければ、<strong>4時間を待たずに中止</strong></p>
 
-  <p class="rbecmof19-note">時間と中止の目安は一例</p>
+  <p class="rbecmof19-note">時間は一例。中止の目安は①の酸素化と同じ</p>
 </div>
-<figcaption>図19. VV-ECMO 離脱手順の一例。<b>血流量は下げずに保ったまま</b>、人工肺側のガスだけを段階的に切っていく。図中の時間（5分おき・15分・4時間）は一例で、ELSO は FDO₂ を約20%刻みで 0.21 まで、sweep を 0.5〜1 L/min 刻みで 1 L/min まで下げ、sweep off で2〜3時間以上観察するとしている（ELSO2021 Table 7）。図中の中止の目安（SpO₂ &lt; 90%・脱血 SvO₂ &lt; 60%）も一例。 略語：ECMO＝体外式膜型人工肺、ELSO＝体外式生命維持の国際学術団体、FDO₂＝人工肺に流すガスの酸素濃度、PaCO₂＝動脈血二酸化炭素分圧、PaO₂＝動脈血酸素分圧、PBW＝予測体重、Pplat＝プラトー圧、SpO₂＝経皮的酸素飽和度、SvO₂＝静脈血酸素飽和度、VT＝一回換気量、VV＝静脈から脱血し静脈へ送血する方式。</figcaption>
+<figcaption>図19. VV-ECMO 離脱手順の一例。<b>血流量は下げずに保ったまま</b>、人工肺側のガスだけを段階的に切っていく。図中の時間（5分おき・15分・4時間）は一例で、ELSO は FDO₂ を約20%刻みで 0.21 まで、sweep を 0.5〜1 L/min 刻みで 1 L/min まで下げ、sweep off で2〜3時間以上観察するとしている（ELSO2021 Table 7）。途中で中止する目安は、本文と同じく SpO₂ &gt; 92%（または PaO₂ ≥ 70 mmHg）を保てないとき（ELSO2021 Table 7）。 略語：ECMO＝体外式膜型人工肺、ELSO＝体外式生命維持の国際学術団体、FDO₂＝人工肺に流すガスの酸素濃度、PaCO₂＝動脈血二酸化炭素分圧、PaO₂＝動脈血酸素分圧、PBW＝予測体重、Pplat＝プラトー圧、SpO₂＝経皮的酸素飽和度、VT＝一回換気量、VV＝静脈から脱血し静脈へ送血する方式。</figcaption>
 </figure>
 <p class="figread"><strong>図の読み方</strong> — 血流量は最後まで下げません（下げると回路に血栓ができ、失敗して戻すときに血栓のできた回路で再開することになる）<span class="src ext">ELSO2021</span>。途中で SpO₂（percutaneous oxygen saturation：経皮的酸素飽和度） 92%超（または PaO₂ 70 mmHg 以上）を保てなくなったら、中止して sweep を戻します<span class="src ext">ELSO2021 Table 7</span>。</p>
 

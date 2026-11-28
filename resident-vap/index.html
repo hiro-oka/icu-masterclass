@@ -2176,6 +2176,269 @@ main a:not([class]):not(.btn):hover{text-decoration:underline}
 .rx-svg{display:block;width:100%;height:auto;margin:0 auto;font-family:inherit;overflow:visible}
 .rx-svg text{fill:var(--ts-ink);font-weight:700}
 /* ===== /図の共通 ===== */
+/* rbvap3 */
+.rbvap3 {
+  --rbvap3-gap: 2rem;
+  --rbvap3-axis: .38rem;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  color: var(--ts-ink);
+  background: var(--ts-paper);
+  font-size: .92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  line-break: strict;
+  text-align: start;
+}
+
+.rbvap3 *,
+.rbvap3 *::before,
+.rbvap3 *::after {
+  box-sizing: inherit;
+}
+
+.rbvap3 p {
+  margin: 0;
+}
+
+.rbvap3 .rbvap3-banner {
+  padding: .55rem .65rem;
+  border: 1px solid var(--ts-teal);
+  border-radius: .45rem;
+  background: var(--ts-teal-s);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.rbvap3 .rbvap3-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.25fr) minmax(0, 1fr);
+  gap: var(--rbvap3-gap);
+  margin: .9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rbvap3 .rbvap3-timeline::before,
+.rbvap3 .rbvap3-timeline::after {
+  position: absolute;
+  content: "";
+}
+
+.rbvap3 .rbvap3-timeline::before {
+  inset: var(--rbvap3-axis) 1px auto 0;
+  border-top: 1px solid var(--ts-sub);
+}
+
+.rbvap3 .rbvap3-timeline::after {
+  top: var(--rbvap3-axis);
+  right: 1px;
+  width: .4rem;
+  height: .4rem;
+  border-top: 1px solid var(--ts-sub);
+  border-right: 1px solid var(--ts-sub);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.rbvap3 .rbvap3-stage {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: .35rem;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.rbvap3 .rbvap3-time {
+  position: relative;
+  padding-top: .85rem;
+  font-size: .92rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.rbvap3 .rbvap3-time::before {
+  position: absolute;
+  top: var(--rbvap3-axis);
+  left: 50%;
+  width: .62rem;
+  height: .62rem;
+  border: .16rem solid var(--ts-teal);
+  border-radius: 50%;
+  background: var(--ts-paper);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.rbvap3 .rbvap3-stage:not(:last-child)::before,
+.rbvap3 .rbvap3-stage:not(:last-child)::after {
+  position: absolute;
+  top: calc(50% + .85rem);
+  left: calc(100% + (var(--rbvap3-gap) - 1.15rem) / 2);
+  pointer-events: none;
+  content: "";
+}
+
+.rbvap3 .rbvap3-stage:not(:last-child)::before {
+  width: .72rem;
+  border-top: .22rem solid var(--ts-teal);
+  transform: translateY(-50%);
+}
+
+.rbvap3 .rbvap3-stage:not(:last-child)::after {
+  margin-left: .65rem;
+  border-left: .5rem solid var(--ts-teal);
+  border-block: .39rem solid var(--ts-paper);
+  transform: translateY(-50%);
+}
+
+.rbvap3 .rbvap3-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: .55rem;
+  min-inline-size: 0;
+  padding: .7rem;
+  border: 1px solid var(--ts-line);
+  border-top: .22rem solid var(--ts-teal);
+  border-radius: .5rem;
+  background: var(--ts-paper);
+}
+
+.rbvap3 .rbvap3-heading {
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.rbvap3 .rbvap3-action {
+  font-weight: 600;
+}
+
+.rbvap3 .rbvap3-tag {
+  padding: .38rem .5rem;
+  border-inline-start: .18rem solid var(--ts-teal);
+  border-radius: .2rem;
+  background: var(--ts-teal-s);
+  font-size: .86rem;
+  font-weight: 700;
+}
+
+.rbvap3 .rbvap3-branches {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.55fr);
+  gap: .35rem;
+}
+
+.rbvap3 .rbvap3-branch {
+  min-inline-size: 0;
+  padding: .4rem;
+  border: 1px solid var(--ts-line);
+  border-radius: .3rem;
+  background: var(--ts-teal-s);
+  font-size: .82rem;
+}
+
+.rbvap3 .rbvap3-branch-stop {
+  background: var(--ts-paper);
+}
+
+.rbvap3 .rbvap3-examples {
+  display: grid;
+  gap: .2rem;
+  margin: .35rem 0 0;
+  padding: .35rem 0 0 .95rem;
+  border-top: 1px solid var(--ts-line);
+  list-style: disc outside;
+  font-size: .82rem;
+}
+
+.rbvap3 .rbvap3-examples > li {
+  margin: 0;
+  padding: 0;
+}
+
+.rbvap3 .rbvap3-detail {
+  margin-top: auto;
+  padding-top: .42rem;
+  border-top: 1px solid var(--ts-line);
+  color: var(--ts-sub);
+  font-size: .82rem;
+}
+
+.rbvap3 .rbvap3-note {
+  margin-top: .65rem;
+  padding-top: .45rem;
+  border-top: 1px solid var(--ts-line);
+  color: var(--ts-sub);
+  font-size: .82rem;
+}
+
+@media screen and (max-width:600px) {
+  .rbvap3 {
+    --rbvap3-gap: 1.55rem;
+  }
+
+  .rbvap3 .rbvap3-timeline {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 0 .35rem 1.15rem;
+  }
+
+  .rbvap3 .rbvap3-timeline::before {
+    inset: .7rem auto 1px var(--rbvap3-axis);
+    border-top: 0;
+    border-left: 1px solid var(--ts-sub);
+  }
+
+  .rbvap3 .rbvap3-timeline::after {
+    top: auto;
+    right: auto;
+    bottom: 1px;
+    left: var(--rbvap3-axis);
+    transform: translateX(-50%) rotate(135deg);
+  }
+
+  .rbvap3 .rbvap3-time {
+    padding-top: 0;
+    text-align: start;
+  }
+
+  .rbvap3 .rbvap3-time::before {
+    top: .77em;
+    left: calc(var(--rbvap3-axis) - 1.15rem);
+  }
+
+  .rbvap3 .rbvap3-card {
+    padding: .55rem;
+  }
+
+  .rbvap3 .rbvap3-stage:not(:last-child)::before,
+  .rbvap3 .rbvap3-stage:not(:last-child)::after {
+    top: calc(100% + (var(--rbvap3-gap) - 1.05rem) / 2);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .rbvap3 .rbvap3-stage:not(:last-child)::before {
+    width: 0;
+    height: .62rem;
+    border-top: 0;
+    border-left: .22rem solid var(--ts-teal);
+  }
+
+  .rbvap3 .rbvap3-stage:not(:last-child)::after {
+    margin-top: .55rem;
+    margin-left: 0;
+    border: 0;
+    border-top: .5rem solid var(--ts-teal);
+    border-inline: .39rem solid var(--ts-paper);
+  }
+}
+figure.fig.cx-fig svg{filter:none !important}
 </style>
 <style id="rs-fluid">
 /* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
@@ -2565,15 +2828,59 @@ main a:not([class]):not(.btn):hover{text-decoration:underline}
 
 <h3 id="rs-s5-1">5-1. 48〜72時間の見直し</h3>
 <p class="rd-lead">48〜72時間で培養と臨床経過を見直し、病原体が出なければ中止し、起因菌と感受性が分かれば、MRSAが陰性なら抗MRSA薬を止め、カルバペネムは「カルバペネムにだけ感受性」の菌に限り、緑膿菌でも経過が良ければ単剤に落とします（図3）<span class="src vault">ICM2020</span><span class="src ext">ERJ2017</span>。</p>
-<figure class="fig">
-<div class="nf"><div class="nf-steps is-time">
-<div class="nf-step"><span class="nf-when">開始前 ／ 採る</span><p class="nf-q">抗菌薬の前に下気道検体（ETAで可）。止める条件を指示に書く</p><p class="nf-note">見る：6所見・ショックの有無・MDRリスク</p></div>
-<div class="nf-step"><span class="nf-when">48〜72時間 ／ 狭める</span><p class="nf-q">培養が陰性なら中止。感受性が出たら単剤へ</p><p class="nf-note">見る：培養と感受性・臨床経過・PCT（補助）</p></div>
-<div class="nf-step"><span class="nf-when">7〜8日 ／ 止める</span><p class="nf-q">反応が良ければ終える。延ばすなら理由を書く</p><p class="nf-note">例外：免疫不全・膿胸・肺膿瘍・壊死性肺炎</p></div>
-</div><p class="nf-foot">時刻は目安。ショックが進んでいれば、検体を採ったらすぐ始める（3-4）</p></div>
-<figcaption>図3. VAPの抗菌薬は、始める時点で止め方まで決める。略語：ETA＝endotracheal aspirate（気管吸引痰）、MDR＝multidrug-resistant（多剤耐性）、PCT＝procalcitonin（プロカルシトニン）、VAP＝ventilator-associated pneumonia（人工呼吸器関連肺炎）</figcaption>
+<figure class="fig ts-fig cx-fig" data-mo="none">
+<div class="rbvap3">
+  <p class="rbvap3-banner">3つとも、最初の指示に書き込む</p>
+
+  <ol class="rbvap3-timeline" role="list">
+    <li class="rbvap3-stage">
+      <p class="rbvap3-time">開始前</p>
+      <div class="rbvap3-card">
+        <p class="rbvap3-heading" role="heading" aria-level="3">採る</p>
+        <p class="rbvap3-action">抗菌薬の前に下気道検体（ETA で可）</p>
+        <p class="rbvap3-tag">止める条件を指示に書く</p>
+        <p class="rbvap3-detail">見る：6所見・ショックの有無・MDRリスク</p>
+      </div>
+    </li>
+
+    <li class="rbvap3-stage">
+      <p class="rbvap3-time">48〜72時間</p>
+      <div class="rbvap3-card">
+        <p class="rbvap3-heading" role="heading" aria-level="3">狭める</p>
+        <p class="rbvap3-action">培養と臨床経過で見直す。記録に残るタイムアウト</p>
+        <div class="rbvap3-branches">
+          <div class="rbvap3-branch rbvap3-branch-stop">
+            <p>病原体が出ない → <strong>中止</strong></p>
+          </div>
+          <div class="rbvap3-branch">
+            <p>起因菌と感受性が分かった → <strong>狭める</strong></p>
+            <ul class="rbvap3-examples">
+              <li>MRSA 陰性なら抗MRSA薬を止める</li>
+              <li>カルバペネムは、カルバペネムにだけ感受性の菌に限る</li>
+              <li>緑膿菌でも経過が良ければ単剤</li>
+            </ul>
+          </div>
+        </div>
+        <p class="rbvap3-detail">見る：培養と感受性・臨床経過・PCT（補助）</p>
+      </div>
+    </li>
+
+    <li class="rbvap3-stage">
+      <p class="rbvap3-time">7〜8日</p>
+      <div class="rbvap3-card">
+        <p class="rbvap3-heading" role="heading" aria-level="3">止める</p>
+        <p class="rbvap3-action">反応が良ければ7〜8日で終える</p>
+        <p class="rbvap3-tag">延ばすなら理由を書く</p>
+        <p class="rbvap3-detail">例外：免疫不全・膿胸・肺膿瘍・壊死性肺炎</p>
+      </div>
+    </li>
+  </ol>
+
+  <p class="rbvap3-note">時刻は目安。ショックが進んでいれば、検体を採ったらすぐ始める（3-4）。効かないときに延ばす前の点検は §6</p>
+</div>
+<figcaption>図3. VAPの抗菌薬は、始める時点で止め方まで決める。略語：ETA＝endotracheal aspirate（気管吸引痰）、MDR＝multidrug-resistant（多剤耐性）、MRSA＝methicillin-resistant <i>Staphylococcus aureus</i>（メチシリン耐性黄色ブドウ球菌）、PCT＝procalcitonin（プロカルシトニン）、VAP＝ventilator-associated pneumonia（人工呼吸器関連肺炎）</figcaption>
 </figure>
-<p class="figread"><strong>図の読み方</strong> — 左から右へ時間が進みます。3つの関門を最初の指示に書き込み、48〜72時間のタイムアウトは口頭ではなく記録に残る形で行えば、経験的治療を広く始めても後で狭められます。効かないときに延ばす前の点検は§6です。</p>
+<p class="figread"><strong>図の読み方</strong> — 時間は左から右へ（スマホでは上から下へ）進みます。3つの関門を最初の指示に書き込み、48〜72時間のタイムアウトは口頭ではなく記録に残る形で行えば、経験的治療を広く始めても後で狭められます。効かないときに延ばす前の点検は§6です。</p>
 <div class="box warn">
 <span class="label">感受性が出ても併用を続けない</span>
 <p>併用の価値は治療が当たる確率を上げることにあり、予後を良くすることにはありません。緑膿菌でも経過が良ければ単剤で構いません<span class="src ext">ERJ2017</span><span class="src vault">ICM2020</span>。</p>

@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script id="rs-motion-optin">
+/* 動きを減らす設定の端末で、見る人が選んだときだけ図の動きを再生する（2026-11-03）。
+   Windows の「アニメーション効果」オフ・リモートデスクトップなどでは prefers-reduced-motion: reduce になり、
+   資料の図は止まった完成図になる。下の「▶ 動きを再生する」を押すと localStorage に記録して読み直し、
+   matchMedia の reduce 判定と CSS の reduce の規則を外す。何もしなければ従来どおり止まったまま。印刷は変えない。
+   <head> の先頭に置く（図の部品が matchMedia を見る前に差し替えるため）。 */
+(function () {
+  var K = 'rs-motion-optin', Q = /prefers-reduced-motion\s*:\s*reduce/;
+  if (!window.matchMedia) return;
+  var mm = window.matchMedia.bind(window);
+  if (!mm('(prefers-reduced-motion: reduce)').matches) return;
+  var on = false;
+  try { on = localStorage.getItem(K) === '1'; } catch (e) {}
+  if (on) {
+    window.matchMedia = function (q) { return Q.test(q) ? mm('not all') : mm(q); };
+  }
+  function strip() {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var sh = document.styleSheets[i], rs;
+      try { rs = sh.cssRules; } catch (e) { continue; }
+      for (var j = rs.length - 1; j >= 0; j--) {
+        var r = rs[j];
+        if (!r.media || !Q.test(r.media.mediaText)) continue;
+        try {
+          if (r.media.length > 1) {
+            for (var k = r.media.length - 1; k >= 0; k--) if (Q.test(r.media[k])) r.media.deleteMedium(r.media[k]);
+          } else sh.deleteRule(j);
+        } catch (e) {}
+      }
+    }
+  }
+  function bar() {
+    var st = document.createElement('style');
+    st.textContent = '#rs-mo-bar{position:fixed;left:12px;bottom:12px;z-index:60;display:flex;align-items:center;gap:.6rem;' +
+      'max-width:calc(100vw - 24px);padding:.45rem .55rem .45rem .8rem;border-radius:999px;font-size:.82rem;line-height:1.4;' +
+      'background:var(--bg,#fff);color:var(--fg,#1f2933);border:1px solid var(--line,#cbd5e1);box-shadow:0 4px 14px rgba(0,0,0,.12)}' +
+      '#rs-mo-bar button{flex:none;min-height:36px;padding:.3rem .85rem;border-radius:999px;border:0;cursor:pointer;' +
+      'font:inherit;font-weight:700;background:var(--accent,#0f6e8c);color:#fff}' +
+      '@media (max-width:600px){#rs-mo-bar{font-size:.76rem}#rs-mo-bar button{min-height:44px}}' +
+      '@media print{#rs-mo-bar{display:none}}';
+    document.head.appendChild(st);
+    var b = document.createElement('div');
+    b.id = 'rs-mo-bar';
+    b.setAttribute('role', 'region');
+    b.setAttribute('aria-label', '図の動き');
+    b.innerHTML = on
+      ? '<span>図の動きを再生しています</span><button type="button">■ 動きを止める</button>'
+      : '<span>この端末は「動きを減らす」設定のため、図の動きを止めています</span><button type="button">▶ 動きを再生する</button>';
+    b.querySelector('button').addEventListener('click', function () {
+      try { if (on) localStorage.removeItem(K); else localStorage.setItem(K, '1'); } catch (e) {}
+      location.reload();
+    });
+    document.body.appendChild(b);
+  }
+  document.addEventListener('DOMContentLoaded', function () { if (on) strip(); bar(); });
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -871,7 +928,7 @@ details.rd-ev .tablewrap p, details.rd-ev .rs-tw p{padding:.3rem .8rem .5rem}
 details.rd-ev .rs-tw, details.rd-ev .tablewrap{margin:.2rem .9rem .9rem; background:var(--bg)}
 details.rd-ev table{font-size:.8rem}
 
-/* ---- 3. 当院の数値チップ ---- */
+/* ---- 3. 数値チップ ---- */
 .rd-stats{display:flex; flex-wrap:wrap; gap:.8rem; margin:.3rem 0 1.6rem}
 .rd-stat{flex:0 1 15rem; border:1.5px solid var(--rule,var(--line)); border-top:4px solid var(--accent);
   border-radius:10px; padding:.55rem 1rem .65rem; background:var(--bg)}
@@ -939,7 +996,7 @@ details.rd-ev table{font-size:.8rem}
 @media screen and (max-width:640px){ .xl-card{flex-direction:column; align-items:flex-start} .xl-card .xl-go{margin-left:0} }
 @media print{ .xl-card{border:1.5pt solid var(--accent); break-inside:avoid} }
 /* /linked resource card */
-/* 冒頭パネルの注釈（大きな値＝2024国際コンセンサス、注釈＝当院の現行） */
+/* 冒頭パネルの注釈（大きな値と、その下の小さな注釈） */
 .mo-ip-sub{position:relative; margin:-.7rem 0 1rem !important; font-size:12.5px !important; line-height:1.6; color:#cfe0ea}
 .mo-ip-x{display:block; margin-top:auto; padding-top:.4rem; border-top:1px dashed rgba(169,199,216,.35); font-size:12px; line-height:1.55; color:#a9c7d8}
 a.mo-ip-t .mo-ip-s{margin-bottom:.35rem}
@@ -1050,7 +1107,7 @@ svg .mo-growy{transform-box:fill-box}
 .mo-on .mo-rv.mo-in{opacity:1; transform:none}
 /* 章見出し：左から滑り込み、下に線が引かれる。
    2026-10-24 clip-path で全面を隠す書き方をやめた（Chrome は clip-path で隠れた要素を「画面に入った」と判定せず、
-   章見出しが一度も現れなかった。本人指摘「章の見出しが本文に出ていない」）。見えない間も当たり判定が残る opacity にする */
+   章見出しが一度も現れなかった。章の見出しが本文に出ていなかった）。見えない間も当たり判定が残る opacity にする */
 .mo-on .rd > h2.mo-h{position:relative; opacity:0; transform:translateX(-18px); transition:opacity .6s ease, transform .75s cubic-bezier(.2,.7,.2,1)}
 .mo-on .rd > h2.mo-h.mo-in{opacity:1; transform:none}
 .mo-on .rd > h2.mo-h::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--accent);
@@ -2034,6 +2091,8 @@ body{font-family:'Noto Sans JP',"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu 
 button,input,select,textarea{font-family:inherit}
 </style>
 <style id="ts-css">
+/* 本文のリンク（クラスの無い a は既定の青でダークで読めなかった。2026-11-22） */main a:not([class]):not(.btn){color:var(--accent)}main a:not([class]):not(.btn):hover{text-decoration:underline}
+
 /* ===== 甲状腺クリーゼの図の部品（段送り・スコア計算・NEJM風ラベル・時間軸） ===== */
 :root{--ts-rose:#B4466A;--ts-rose-s:#FBEFF3;--ts-teal:#0B7C86;--ts-teal-s:#E6F4F5;--ts-violet:#6A4FA3;--ts-violet-s:#F1EDF9;
   --ts-orange:#C2661A;--ts-orange-s:#FDF2E7;--ts-red:#B3261E;--ts-red-s:#FDECEA;--ts-ink:#1f2328;--ts-sub:#5c6570;--ts-line:#d9dee4;--ts-paper:#fff}
@@ -2157,20 +2216,20 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 /* ===== /甲状腺クリーゼの図の部品 ===== */
 </style>
 <style id="rs-fluid">
-/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27 本人依頼）
-   本人「自宅のディスプレイ（25型 2560×1440）だと余白が大きいし、サイドバーのフォントが小さいし、フォントも小さい」。
+/* resident fluid (resident-fluid.css) — 画面の大きさに応じて、文字・本文の列・サイドバーを伸び縮みさせる（2026-10-27）
+   大きなディスプレイ（25型 2560×1440 など）で余白が大きく、本文とサイドバーの文字が小さく見える問題への対処。
    正本はこのファイル。resident_motion.py の apply / fluid が各HTMLの head の終わりに id=rs-fluid の style として写す。
    ・倍率 k は2本の直線の大きい方（1〜1.6）：1 + (画面幅 − 1200px) ÷ 3800px と 1.0632 + (画面幅 − 1440px) ÷ 2752px。
-     1440px で折れて広い画面ほど急に上がる（2026-10-27 本人判断「A」：大画面は拡大率をもう一段上げる）。
+     1440px で折れて広い画面ほど急に上がる（2026-10-27：大画面は拡大率をもう一段上げる）。
      本文 17px が 1280px で 17.4px、1440px で 18.1px、1680px で 19.6px、1920px で 21.0px、2560px で 25.0px。
    ・本文（main）は zoom:k で、文字・図（SVG・絵・段送り）・表・囲み・出典をまとめて同じ比率で大きくする。
-     本人が Chrome の拡大（125%）で読んでいたのと同じ効き方。図の部品の px 指定もそのまま比例する。
+     ブラウザの拡大（125% など）と同じ効き方。図の部品の px 指定もそのまま比例する。
    ・本文の列は --rs-measure（58em）が上限。ノートPC（〜1440px）では画面いっぱい（1280px で列 900px、1440px で 1050px 前後、
-     左右の余白 40px 前後＝以前の幅。本人判断）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
+     左右の余白 40px 前後＝以前の幅）、広い画面では 58em（1行57字前後）で止まり、2560px で左右の余白は片側 340px 前後。
      上限が一定なので 1440〜1680px のあいだで列の幅に段差が出ない。
    ・サイドバーは zoom を使わず、幅と文字を calc で伸ばす（目次の印の JS が offsetTop を使うため）。1440px までは以前の 300px のまま、
      そこから本文と同じ傾き（2560px で 1.41 倍）。
-   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。
+   ・1000px 以下（スマホ・タブレット）と印刷・PDF には効かせない（紙の大きさは今のまま）。例外は末尾の「先頭へ戻る丸ボタンの置き場所」。
    ・本文の中の JS で getBoundingClientRect の値を px に使うときは el.currentCSSZoom で割る（resident-motion.js のガスの粒を参照）。 */
 @media screen and (min-width:1001px){
   /* サイドバーの伸び（倍率 − 1）を px で持つ（1440px まで 0、2560px で .407px）。X×倍率 は calc(Xpx + X * var(--rk)) と書ける */
@@ -2216,9 +2275,20 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
   #rs-nav a.lv3{font-size:calc(13.5px + 13.5 * var(--rk)); padding-left:calc(22px + 22 * var(--rk))}
   .mo-navind{left:calc(8px + 8 * var(--rk))}
 
-  /* 先頭へ戻る丸ボタン */
+  /* 先頭へ戻る丸ボタン：サイドバーの見出しの右上（下の「先頭へ戻る丸ボタンの置き場所」を参照） */
   #rs-top{width:calc(44px + 44 * var(--rk)); height:calc(44px + 44 * var(--rk)); font-size:calc(17px + 17 * var(--rk));
-    right:calc(18px + 18 * var(--rk)); bottom:calc(18px + 18 * var(--rk))}
+    top:calc(10px + 10 * var(--rk)); left:calc(var(--sidebar-w) - 56px - 56 * var(--rk)); right:auto; bottom:auto;
+    z-index:56; box-shadow:none}
+  #rs-side .hd .ttl{padding-right:calc(48px + 48 * var(--rk))}
+}
+/* 先頭へ戻る丸ボタンの置き場所（2026-11-02）：右下に固定すると、本文の図・表・計算シートの右下に重なる
+   （1366px でも図の右端は 1318px まで来て、ボタン 1289〜1333px と重なっていた）。本文の外に置く。
+   ・1001px 以上：サイドバーの見出し（資料の題名の右）。題名はボタンの分だけ右を空ける（上の min-width の塊）
+   ・1000px 以下（スマホ・タブレット）：上部バー（#rs-topbar・高さ 52px）の右端。バーの題名はボタンの分だけ右を空ける
+   ボタンの出し入れ（下へ 500px 以上スクロールしたら出す）は各HTMLの rs-js のまま。印刷では出さない（apply-reference-style.py）。 */
+@media screen and (max-width:1000px){
+  #rs-topbar{padding-right:62px}
+  #rs-top{top:4px; right:10px; bottom:auto; left:auto; z-index:51; box-shadow:none}
 }
 /* /resident fluid (resident-fluid.css) */
 </style>
@@ -2273,7 +2343,7 @@ td.ts-src{color:var(--ts-sub);font-size:.8rem}
 <h1 id="top">甲状腺クリーゼ</h1>
 <p class="sub">1人の患者で、疑うところから回復後の治療まで</p>
 
-<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-10-27</span></p>
+<p class="meta"><span>聖路加国際病院 集中治療科</span><span>対象：研修医・専攻医・看護師</span><span>最終更新 2026-11-28</span></p>
 
 <div class="tools">
   <a class="btn pri" href="https://hiro-oka.github.io/icu-masterclass/resident-thyroid-storm-lecture/">🎞 スライド</a>
